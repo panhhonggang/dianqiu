@@ -1,0 +1,117 @@
+<!-- header part -->
+<include file="Public/header" />
+<!-- content part -->
+<div class="content">
+    <!-- nav part-->
+    <include file="Public/nav" />
+    <!-- from part-->
+    <div class="row-fluid fl" id="main">
+    <style type="text/css">
+        .textarea{width: 215px; min-height: 110px; border: 1px solid #ccc;}
+        .textarea p{
+            padding: 0 10px;
+            margin: 5px;
+        }
+        .control-group{position: relative;}
+        .control-group .elected{position: absolute; top: 0;left: 0;}
+        .control-group .textarea{margin-left: 190px;}
+        .btn-groups .btns{
+            margin: 50px 0 50px 90px;
+            padding: 8px 35px;
+            border-radius: 7px;
+        }
+    </style>
+        <div class="tableBox">
+            <div class="titleBar">工单管理/<span>新增工单</span></div>
+            <div class="formBox">
+                <form class="" action="__URL__/add" method="post">
+                    <div class="control-group">
+                        <span>工单号</span>
+                        <!-- 需加数字验证 -->
+                        <input type="text" class="control" name="number" placeholder="请输入工单号..." style="width:210px;">
+                    </div>
+                    <div class="control-group">
+                        <span>处理人</span>
+                        <input type="text" class="control" name="name" placeholder="请输入处理人姓名..." style="width:210px;">
+                    </div>
+                    <div class="control-group">
+                        <span>处理人电话</span>
+                        <input type="text" class="control" name="phone" placeholder="请输入处理人电话..." style="width:210px;">
+                    </div>
+                    <div class="control-group">
+                        <span>维护类型</span>
+                        <input type="radio" class="control" name="type" value="0" checked>安装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" class="control" name="type" value="1">维修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" class="control" name="type" value="2">维护&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="control-group">
+                        <span>工作内容</span>
+                        <textarea name="content" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="control-group">
+                        <span>地址</span>
+                        <div class="info">
+                            <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
+                            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+                            <select id="s_county" name="s_county"></select>
+                        </div>
+                        <input type="hidden" name="address" class="addressValue">
+                        <!-- 此处需要三级联动 -->
+                    </div>
+                    <div class="control-group">
+                        <span>处理结果</span>
+                        <input type="radio" class="control" name="result" value="0" checked>未处理&nbsp;&nbsp;&nbsp;
+                        <input type="radio" class="control" name="result" value="1">正在处理&nbsp;&nbsp;&nbsp;
+                        <input type="radio" class="control" name="result" value="2">已处理&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="control-group">
+                        <span>处理时间</span>
+                        <!-- 需要时间插件 -->
+                        <input type="text" id="addMaintenanceDate" name="" placeholder="输入处理时间" onclick="layui.laydate({elem: this,istime: 1, format: 'YYYY-MM-DD' })"/>
+                    </div>
+                    <div class="btn-groups">
+                        <button class="btns reset btn-primary" type="reset">重置</button>
+                        <button class="subbtn btns btn-primary" type="submit">提交</button>
+                    </div>
+                    
+
+                </form>
+            </div>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer"/>
+    </div>
+</div>
+<script>
+$(function(){
+    //处理日期
+    layui.use('laydate', function(){
+        var element =laydate = layui.laydate
+    })
+    //城市三级联动
+    _init_area();
+    var Gid  = document.getElementById ;
+    var showArea = function(){
+        Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + Gid('s_city').value + " - 县/区" + Gid('s_county').value + "</h3>"
+    }
+    $(".subbtn").click(function(ev){
+        if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('请把地址填写完整');
+            });    
+            ev.preventDefault();
+        }else{
+            $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
+        } 
+        if($("#addMaintenanceDate").val()==""){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('请输入处理时间');
+            });    
+            ev.preventDefault();
+        }
+    });
+})
+
+</script>

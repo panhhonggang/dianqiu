@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1" >
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+<script src="__PUBLIC__/Home/js/public.js"></script>
+<title>个人信息</title>
+</head>
+<body>
+<ul class="personalList">
+	<li>
+		<i class="i1"></i>用户姓名：<span>{{$user['name']}}</span>
+	</li>
+	<li>
+		<i class="i2"></i>用户电话：<span>{{$user['phone']}}</span>
+	</li>
+	<li>
+		<i class="i3"></i>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<span>{{$user['address']}}</span>
+	</li>
+</ul>
+<footer>
+    <a class="btn1" href="{{:U('Home/index/index')}}"><span class="logo1"></span>首页</a>
+    <a class="btn2" href="{{:U('Home/Consume/index')}}"><span class="logo2"></span>饮水记录</a>
+    <a class="btn3" href="{{:U('Home/Flow/recharge')}}"><span class="logo3"></span>充值</a>
+    <a><span class="logo4"></span>扫码取水</a>
+    <a class="btn5" href="{{:U('Home/Users/mine')}}"><span class="logo5"></span>我的</a>
+</footer>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+<script src="__PUBLIC__/Home/js/public.js"></script>
+<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js" ></script>
+<script>
+    $(".logo5").css("background-position","-7.6rem 0");
+    $(".btn5").css("color","#008C63");
+</script>
+</body>
+</html>

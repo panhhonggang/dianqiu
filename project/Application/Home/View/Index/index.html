@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1" >
+<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+<title>馨品共享水</title>
+<style>
+#text{
+    overflow:hidden;
+    width:100vw;
+    height:40vh;
+    top:42vh;
+    left:0;
+    right: 0;
+    margin:auto;
+    position:absolute;
+    z-index:15000000;
+    color: #000;
+}
+#textList{
+    width:200vw;
+    height:30vh;
+}
+#textList li{
+    float:left; 
+    width:100vw;
+}
+
+
+#textNav{
+    top:32vh;
+    height:10px;
+    width:100vw;
+    text-align: center;
+    position:absolute;
+    margin:auto; 
+    right:0;
+    left: 0;}
+#textNav span{
+    float:left;
+    width:10px; 
+    height:10px; 
+    border-radius:5px;
+    margin-left:15px;
+}
+#textNav span{
+    background:#008A63;
+    opacity:0.5;
+    display: block;
+    float: left;
+}
+
+#text span.spanActiveList{
+    opacity:1;
+}
+#textList table{
+    width: 90vw;
+    margin: 0 auto;
+}
+h4.addUp{
+    width: 85vw;
+    margin: 2vh auto;
+    color:#008A63;
+}
+h4{
+    padding-left: 2vw;
+}
+footer.footer{
+    margin-top: 40vh;
+}
+</style>
+</head>
+<body>
+    <!-- logo -->
+    <section class="showBalanceBox">
+        <section class="showBalance">
+            <img class="moneylogo" src="__PUBLIC__/Home/image/moneylogo.png" />
+            <p class="textBalance text-center">账号余额 (元)</p>
+            <p class="numBalance text-center">{{$money}}</p>
+        </section>
+    </section>
+    <section id="text">
+        <ul id="textList">
+            <li>
+                <h4>CiCi</h4>
+                    <h4 class="tableTitle">一周饮水统计表</h4>
+                    <table class="table table-data">
+                        <thead>
+                            <tr>
+                                <td>一</td>
+                                <td>二</td>
+                                <td>三</td>
+                                <td>四</td>
+                                <td>五</td>
+                                <td>六</td>
+                                <td>七</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>45</td>
+                                <td>43</td>
+                                <td>435</td>
+                                <td>42</td>
+                                <td>52</td>
+                                <td>57</td>
+                                <td>55</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 class="text-right addUp">累计：<span>4654</span>ML</h4>
+            </li>
+            <li>
+                <h4>CiCi</h4>
+                    <h4 class="tableTitle">一周饮水统计表</h4>
+                    <table class="table table-data">
+                        <thead>
+                            <tr>
+                                <td>一</td>
+                                <td>二</td>
+                                <td>三</td>
+                                <td>四</td>
+                                <td>五</td>
+                                <td>六</td>
+                                <td>七</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>45</td>
+                                <td>43</td>
+                                <td>435</td>
+                                <td>42</td>
+                                <td>52</td>
+                                <td>57</td>
+                                <td>55</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 class="text-right addUp">累计：<span>4654</span>ML</h4>
+            </li>
+        </ul>
+        <nav id="textNav">
+            <span class="spanActiveList"></span>
+            <span></span>
+        </nav>
+    </section>
+    <!-- footer -->
+    <footer class="footer">
+        <a class="btn1" href="{{:U('Home/index/index')}}"><span class="logo1"></span>首页</a>
+        <a class="btn2" href="{{:U('Home/Consume/index')}}"><span class="logo2"></span>饮水记录</a>
+        <a class="btn3" href="{{:U('Home/Flow/recharge')}}"><span class="logo3"></span>充值</a>
+        <a><span class="logo4"></span>扫码取水</a>
+        <a class="btn5" href="{{:U('Home/Users/mine')}}"><span class="logo5"></span>我的</a>
+    </footer>
+    <script src="__PUBLIC__/Home/js/public.js"></script>
+    <script>
+        $(".logo1").css("background-position","-11.6rem 0");
+        $(".btn1").css("color","#008C63");
+        // 剩余金额logo效果
+        $(".showBalanceBox").click(function(){
+            $(".moneylogo").animate({width:"26vw",height:"26vw",top:"1.5vw"},"fast");
+            $(".moneylogo").animate({width:"23vw",height:"23vw",top:"3vw"},"fast");
+            $(".moneylogo").animate({width:"25vw",height:"25vw",top:"2vw"},"fast");
+            $(".moneylogo").animate({width:"23vw",height:"23vw",top:"3vw"},"fast");
+            $(".moneylogo").animate({width:"24vw",height:"24vw",top:"2.5vw"},"fast");
+        });
+        //数据表滑动显示
+        if($("#textList").children().size()>1){
+            fnTab_txt(id("text"),id("textList"),id("textNav").children,$(window).width(),"spanActiveList");
+        }
+    </script>
+</body>
+</html>

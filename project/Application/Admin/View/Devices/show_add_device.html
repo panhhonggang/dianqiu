@@ -1,0 +1,69 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">设备管理/<span>设备添加</span></div>
+            <!-- 单个添加 -->
+            <div class="formBox">
+                <form class="form-horizontal " action="add_device" method="post">
+                    <div class="control-group">
+                        <span>设备编码：</span>
+                        <input type="text" name="device_code" placeholder="请输入设备编码"><a class="addBtn" href="javascript:;">批量添加</a>
+                    </div>
+                    <div class="control-group">
+                        <span>请选择经销商：</span>
+                        <select name="type_id" class="selectAgency">
+                            <foreach name="res" item="vo">
+                                <option value="{{$vo.id}}">{{$vo.typename}}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                    <div class="btn-groups">
+                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- <div class="span8 offset2">
+                
+                <form class="tabbable table-bordered" action="add_device" method="post">
+                    <div class="controls">设备编码：
+                        <input type="text" name="device_code" placeholder="请输入设备编码">
+                        <select name="type_id">
+                            <foreach name="res" item="vo">
+                                <option value="{{$vo.id}}">{{$vo.typename}}</option>
+                            </foreach>
+                        </select>
+                        <button style="vertical-align:top;" class="btn">确认</button>
+                    </div>
+                </form>
+            </div> -->
+            <!-- 批量添加弹框 -->
+            <div class="addBatch">
+                <form method="post" action="upload" enctype="multipart/form-data">
+                    <input type="file" name="batch" class="filename">
+                    <button class="btn add_device">添加</button>
+                </form>
+            </div>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/devices.js"></script>
+<script>
+    $(".addBtn").click(function(){
+        //显示充值弹框
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.open({
+                type: 1, 
+                title: ['批量添加', 'font-size:18px;'],
+                area: ['500px', '300px'],
+                content: $(".addBatch")
+            }); 
+        });
+    });
+</script>

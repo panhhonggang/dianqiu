@@ -1,0 +1,46 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">后台管理/<span>绑定机组</span></div>
+            <div class="formBox">
+                <form class="form-horizontal " action="__URL__/devices_add" method="post">
+                    <div class="control-group">
+                        <label class="control-label">请选择经销商：</label>
+                        <div class="controls">
+                            <select name="vid" id="">
+                                <notempty name="user">
+                                    <foreach name="user" item="vo" key="key">
+                                        <option value="{{$vo.id}}">{{$vo.name}}</option>
+                                    </foreach>
+                                    <else />
+                                    <option value="0">查无数据</option>
+                                </notempty>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">请选择设备：</label>
+                        <div class="controls">
+                            <select name="did" id="">
+                                <notempty name="devices">
+                                    <foreach name="devices" item="vv" key="key">
+                                        <option value="{{$vv.id}}">{{$vv.device_code}}</option>
+                                    </foreach>
+                                    <else />
+                                    <option value="0">查无数据</option>
+                                </notempty>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="btn-groups">
+                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <include file="Public/footer" />
+    </div>
+</div>
+

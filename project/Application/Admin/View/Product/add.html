@@ -1,0 +1,83 @@
+<!-- header part -->
+<include file="Public/header" />
+<!-- content part -->
+<div class="content">
+    <!-- nav part-->
+    <include file="Public/nav" />
+    <!-- from part-->
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">产品管理/<span>产品类型设置</span></div>
+            <div class="formBox">
+                <form class="form-horizontal " action="__URL__/add" method="post">
+                    <div class="groupBox control-group">
+                        <span>类型名称：</span>
+                        <input type="text" class="control" name="typename" placeholder="请输入类型名称" style="width:210px;">
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>请设置滤芯：</span>
+                        <input type="text" class="control selects" placeholder="设置滤芯" />
+                        <div class="selectList">
+                            <foreach name="list" item="vo">
+                                <p>{{$vo.filtername}}-{{$vo.alias}}</p>
+                            </foreach>
+                        </div>
+                    </div>
+                    <div class="groupBox control-group">
+                        <span class="elected" >已选择滤芯：</span>
+                        <div class="textareaBox textarea inline"></div>
+                    </div>
+
+                    <div class=" btn-groups">
+                        <button class="btns reset btn-primary" type="reset">重置</button>
+                        <button class="subbtn btns btn-primary" type="submit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer"/>
+    </div>
+</div>
+<script>
+    var filter="",textareaHtml1="";
+    var b=0; 
+    
+    //添加滤芯项
+    $(".selects").click(function(ev){
+        b++;
+        if(b>8){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('亲，设置滤芯不能超过8个！');
+            });    
+            ev.preventDefault();
+        }else{
+            $(".selectList").show();
+            var i=0,textareaHtml2="";
+            //设置显示已选择滤芯 
+            $(".selectList p").unbind('click').click(function(){
+                textareaHtml1+="<p class='inline form-control'>"+$(this).html()+"<input type='hidden' name='' value='"+$(this).html()+"' /></p>";
+                $(".selects").val($(this).html());
+                $(".textarea").html(textareaHtml1);
+                $(".selectList").hide();
+                for (;i<$(".textarea").children().length; i++) {
+                    filter='filter'+(i+1).toString();
+                    $(".textarea p").eq(i).children("input").attr("name",filter);
+                }
+                // 设置未选择滤芯
+                var lengths=8-$(".textarea").children().length;
+                if(lengths>0){
+                    for(var j=0;j<lengths;j++){
+                        textareaHtml2+="<p class='inline form-control' style='visibility:hidden;'>''<input type='hidden' name='filter"+(i+1+j).toString()+"' value='' /></p>"
+                    }
+                }
+                $(".textarea").append(textareaHtml2);
+            });
+        }
+    });
+    //重置
+    $(".reset").click(function(){
+        location.reload();
+    });    
+</script>

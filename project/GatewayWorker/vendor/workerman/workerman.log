@@ -1,0 +1,729 @@
+2017-11-05 15:12:12 pid:9275 Workerman[start.php] start in DEBUG mode
+2017-11-05 15:15:45 pid:9275 Workerman[start.php] stopping ...
+2017-11-05 15:15:46 pid:9275 Workerman[start.php] has been stopped
+2017-11-05 15:15:49 pid:9291 Workerman[start.php] start in DEBUG mode
+2017-11-05 15:15:54 pid:9291 Workerman[start.php] stopping ...
+2017-11-05 15:15:54 pid:9291 Workerman[start.php] has been stopped
+2017-11-05 19:36:38 pid:2804 Workerman[start.php] start in DEBUG mode
+2017-11-05 19:37:15 pid:2812 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:15 pid:2812 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:15 pid:2809 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:15 pid:2809 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:15 pid:2812 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:15 pid:2812 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:16 pid:2810 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:16 pid:2810 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:21 pid:2810 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:21 pid:2810 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:33 pid:2809 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:33 pid:2812 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:33 pid:2809 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:33 pid:2812 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:35 pid:2804 Workerman[start.php] stopping ...
+2017-11-05 19:37:35 pid:2804 Workerman[start.php] has been stopped
+2017-11-05 19:37:37 pid:2816 Workerman[start.php] start in DEBUG mode
+2017-11-05 19:37:56 pid:2821 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:56 pid:2822 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:56 pid:2822 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:56 pid:2821 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:56 pid:2824 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:56 pid:2824 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:57 pid:2824 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:37:57 pid:2824 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:38:02 pid:2824 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:38:02 pid:2824 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:38:31 pid:2822 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:38:31 pid:2822 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-11-05 19:40:40 pid:2816 Workerman[start.php] stopping ...
+2017-11-05 19:40:40 pid:2816 Workerman[start.php] has been stopped
+2017-11-05 19:40:42 pid:2854 Workerman[start.php] start in DEBUG mode
+2017-11-05 19:40:56 pid:2863 Bad request for Register service. Request info(IP:192.168.37.1, Request Buffer:GET / HTTP/1.1). See http://wiki.workerman.net/Error4 for detail
+2017-11-05 19:40:56 pid:2863 Bad request for Register service. Request info(IP:192.168.37.1, Request Buffer:GET / HTTP/1.1). See http://wiki.workerman.net/Error4 for detail
+2017-11-05 19:41:01 pid:2863 Bad request for Register service. Request info(IP:192.168.37.1, Request Buffer:GET / HTTP/1.1). See http://wiki.workerman.net/Error4 for detail
+2017-11-05 19:48:20 pid:2854 Workerman[start.php] stopping ...
+2017-11-05 19:48:20 pid:2854 Workerman[start.php] has been stopped
+2017-11-05 19:48:22 pid:2878 Workerman[start.php] start in DEBUG mode
+2017-11-05 20:11:41 pid:2878 Workerman[start.php] stopping ...
+2017-11-05 20:11:41 pid:2878 Workerman[start.php] has been stopped
+2017-11-05 20:11:43 pid:2962 Workerman[start.php] start in DEBUG mode
+2017-11-05 21:38:14 pid:2962 Workerman[start.php] stopping ...
+2017-11-05 21:38:15 pid:2962 Workerman[start.php] has been stopped
+2017-11-07 11:05:36 pid:14529 Workerman[start.php] start in DEBUG mode
+2017-11-07 11:05:41 pid:14529 Workerman[start.php] stopping ...
+2017-11-07 11:05:41 pid:14529 Workerman[start.php] has been stopped
+2017-11-07 11:05:43 pid:14539 Workerman[start.php] start in DEBUG mode
+2017-11-07 11:05:59 pid:14548 Register auth timeout (192.168.37.1). See http://wiki.workerman.net/Error4 for detail
+2017-11-07 11:06:46 pid:14548 Register auth timeout (192.168.37.1). See http://wiki.workerman.net/Error4 for detail
+2017-11-07 11:08:25 pid:14539 Workerman[start.php] stopping ...
+2017-11-07 11:08:25 pid:14539 Workerman[start.php] has been stopped
+2017-11-18 04:08:45 pid:17032 Workerman[start.php] start in DEBUG mode
+2017-11-18 04:16:42 pid:17032 Workerman[start.php] stopping ...
+2017-11-18 04:16:42 pid:17032 Workerman[start.php] has been stopped
+2017-11-18 04:17:18 pid:17059 Workerman[start.php] start in DEBUG mode
+2017-11-18 04:18:13 pid:17059 Workerman[start.php] stopping ...
+2017-11-18 04:18:13 pid:17059 Workerman[start.php] has been stopped
+2017-11-18 04:18:14 pid:17068 Workerman[start.php] start in DEBUG mode
+2017-11-18 05:04:44 pid:17068 Workerman[start.php] stopping ...
+2017-11-18 05:04:44 pid:17068 Workerman[start.php] has been stopped
+2017-11-18 20:25:52 pid:19364 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:34:48 pid:19364 Workerman[start.php] stopping ...
+2017-11-18 20:34:48 pid:19364 Workerman[start.php] has been stopped
+2017-11-18 20:34:49 pid:19386 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:34:49 pid:19391 exception 'Exception' with message 'Address already in use' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php:1746
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1867): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\Gateway->run()
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\Gateway))
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#8 {main}
+2017-11-18 20:34:50 pid:19391 Worker[19391] process terminated
+2017-11-18 20:34:51 pid:19386 worker[设备:19391] exit with status 64000
+2017-11-18 20:34:51 pid:19394 exception 'Exception' with message 'Address already in use' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php:1746
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1867): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\Gateway->run()
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\Gateway))
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#8 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#9 {main}
+2017-11-18 20:34:52 pid:19394 Worker[19394] process terminated
+2017-11-18 20:34:52 pid:19386 worker[设备:19394] exit with status 64000
+2017-11-18 20:34:52 pid:19395 exception 'Exception' with message 'Address already in use' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php:1746
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1867): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\Gateway->run()
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\Gateway))
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#8 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#9 {main}
+2017-11-18 20:34:53 pid:19395 Worker[19395] process terminated
+2017-11-18 20:34:53 pid:19386 worker[设备:19395] exit with status 64000
+2017-11-18 20:34:53 pid:19396 exception 'Exception' with message 'Address already in use' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php:1746
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1867): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\Gateway->run()
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\Gateway))
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#8 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#9 {main}
+2017-11-18 20:34:53 pid:19386 Workerman[start.php] stopping ...
+2017-11-18 20:34:53 pid:19396 Worker[19396] process terminated
+2017-11-18 20:34:53 pid:19386 worker[设备:19396] exit with status 64000
+2017-11-18 20:34:53 pid:19386 Workerman[start.php] has been stopped
+2017-11-18 20:35:15 pid:19398 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:39:52 pid:19398 Workerman[start.php] stopping ...
+2017-11-18 20:39:53 pid:19398 Workerman[start.php] has been stopped
+2017-11-18 20:39:54 pid:19413 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:41:28 pid:19413 Workerman[start.php] stopping ...
+2017-11-18 20:41:28 pid:19413 Workerman[start.php] has been stopped
+2017-11-18 20:41:29 pid:19425 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:42:07 pid:19425 Workerman[start.php] stopping ...
+2017-11-18 20:42:07 pid:19425 Workerman[start.php] has been stopped
+2017-11-18 20:42:08 pid:19436 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:43:20 pid:19436 Workerman[start.php] stopping ...
+2017-11-18 20:43:20 pid:19436 Workerman[start.php] has been stopped
+2017-11-18 20:43:22 pid:19446 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:44:58 pid:19446 Workerman[start.php] stopping ...
+2017-11-18 20:44:58 pid:19446 Workerman[start.php] has been stopped
+2017-11-18 20:44:59 pid:19456 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:46:38 pid:19456 Workerman[start.php] stopping ...
+2017-11-18 20:46:39 pid:19456 Workerman[start.php] has been stopped
+2017-11-18 20:46:40 pid:19468 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:57:54 pid:19468 Workerman[start.php] stopping ...
+2017-11-18 20:57:54 pid:19468 Workerman[start.php] has been stopped
+2017-11-18 20:57:55 pid:19495 Workerman[start.php] start in DEBUG mode
+2017-11-18 20:59:23 pid:19495 Workerman[start.php] stopping ...
+2017-11-18 20:59:23 pid:19495 Workerman[start.php] has been stopped
+2017-11-18 20:59:43 pid:19505 Workerman[start.php] start in DEBUG mode
+2017-11-18 21:02:31 pid:19505 Workerman[start.php] stopping ...
+2017-11-18 21:02:31 pid:19505 Workerman[start.php] has been stopped
+2017-11-18 21:02:33 pid:19551 Workerman[start.php] start in DEBUG mode
+2017-11-18 21:09:32 pid:19551 Workerman[start.php] stopping ...
+2017-11-18 21:09:33 pid:19551 Workerman[start.php] has been stopped
+2017-11-18 21:11:50 pid:2245 Workerman[start.php] start in DEBUG mode
+2017-11-18 21:25:40 pid:2245 Workerman[start.php] stopping ...
+2017-11-18 21:25:41 pid:2245 Workerman[start.php] has been stopped
+2017-11-18 21:44:29 pid:2429 Workerman[start.php] start in DEBUG mode
+2017-11-18 21:47:22 pid:2429 Workerman[start.php] stopping ...
+2017-11-18 21:47:22 pid:2429 Workerman[start.php] has been stopped
+2017-11-18 21:47:24 pid:2442 Workerman[start.php] start in DEBUG mode
+2017-11-18 21:49:54 pid:2442 Workerman[start.php] stopping ...
+2017-11-18 21:49:54 pid:2442 Workerman[start.php] has been stopped
+2017-11-18 21:49:55 pid:2454 Workerman[start.php] start in DEBUG mode
+2017-11-18 21:54:28 pid:2454 Workerman[start.php] stopping ...
+2017-11-18 21:54:28 pid:2454 Workerman[start.php] has been stopped
+2017-11-18 21:54:29 pid:2470 Workerman[start.php] start in DEBUG mode
+2017-11-18 22:03:56 pid:2470 Workerman[start.php] stopping ...
+2017-11-18 22:03:56 pid:2470 Workerman[start.php] has been stopped
+2017-11-18 22:04:15 pid:2528 Workerman[start.php] start in DEBUG mode
+2017-11-18 22:04:40 pid:2528 Workerman[start.php] stopping ...
+2017-11-18 22:04:40 pid:2528 Workerman[start.php] has been stopped
+2017-11-18 22:04:41 pid:2536 Workerman[start.php] start in DEBUG mode
+2017-11-18 22:36:32 pid:2536 Workerman[start.php] stopping ...
+2017-11-18 22:36:32 pid:2536 Workerman[start.php] has been stopped
+2017-11-24 08:44:09 pid:12503 Workerman[start.php] start in DEBUG mode
+2017-11-24 08:46:31 pid:12536 Workerman[start.php] reload 
+2017-11-24 08:46:31 pid:12503 Workerman[start.php] reloading
+2017-11-24 08:47:01 pid:12541 Workerman[start.php] reload 
+2017-11-24 08:47:01 pid:12503 Workerman[start.php] reloading
+2017-11-24 09:11:00 pid:12503 Workerman[start.php] stopping ...
+2017-11-24 09:11:01 pid:12503 Workerman[start.php] has been stopped
+2017-11-24 09:11:02 pid:12622 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:11:34 pid:12622 Workerman[start.php] stopping ...
+2017-11-24 09:11:34 pid:12622 Workerman[start.php] has been stopped
+2017-11-24 09:11:35 pid:12630 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:12:12 pid:12630 Workerman[start.php] stopping ...
+2017-11-24 09:12:13 pid:12630 Workerman[start.php] has been stopped
+2017-11-24 09:12:14 pid:12640 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:12:24 pid:12640 Workerman[start.php] stopping ...
+2017-11-24 09:12:24 pid:12640 Workerman[start.php] has been stopped
+2017-11-24 09:12:25 pid:12648 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:14:31 pid:12648 Workerman[start.php] stopping ...
+2017-11-24 09:14:31 pid:12648 Workerman[start.php] has been stopped
+2017-11-24 09:14:33 pid:12658 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:16:41 pid:12658 Workerman[start.php] stopping ...
+2017-11-24 09:16:41 pid:12658 Workerman[start.php] has been stopped
+2017-11-24 09:16:42 pid:12670 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:17:53 pid:12670 Workerman[start.php] stopping ...
+2017-11-24 09:17:53 pid:12670 Workerman[start.php] has been stopped
+2017-11-24 09:17:54 pid:12680 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:20:00 pid:12680 Workerman[start.php] stopping ...
+2017-11-24 09:20:00 pid:12680 Workerman[start.php] has been stopped
+2017-11-24 09:20:02 pid:12692 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:40:28 pid:12692 Workerman[start.php] stopping ...
+2017-11-24 09:40:28 pid:12692 Workerman[start.php] has been stopped
+2017-11-24 09:40:29 pid:12737 Workerman[start.php] start in DEBUG mode
+2017-11-24 09:42:45 pid:12749 Workerman[start.php] reload 
+2017-11-24 09:42:45 pid:12737 Workerman[start.php] reloading
+2017-11-24 10:55:29 pid:12737 Workerman[start.php] stopping ...
+2017-11-24 10:55:29 pid:12737 Workerman[start.php] has been stopped
+2017-11-24 13:40:40 pid:2718 Workerman[start.php] start in DEBUG mode
+2017-11-24 13:52:22 pid:2718 Workerman[start.php] stopping ...
+2017-11-24 13:52:22 pid:2718 Workerman[start.php] has been stopped
+2017-11-24 13:52:23 pid:3294 Workerman[start.php] start in DEBUG mode
+2017-11-24 13:53:22 pid:3294 Workerman[start.php] stopping ...
+2017-11-24 13:53:22 pid:3294 Workerman[start.php] has been stopped
+2017-11-24 13:53:24 pid:3304 Workerman[start.php] start in DEBUG mode
+2017-11-24 13:54:31 pid:3304 Workerman[start.php] stopping ...
+2017-11-24 13:54:31 pid:3304 Workerman[start.php] has been stopped
+2017-11-24 13:54:33 pid:3315 Workerman[start.php] start in DEBUG mode
+2017-11-24 13:55:11 pid:3315 Workerman[start.php] stopping ...
+2017-11-24 13:55:11 pid:3315 Workerman[start.php] has been stopped
+2017-11-24 13:55:13 pid:3326 Workerman[start.php] start in DEBUG mode
+2017-11-24 13:57:03 pid:3326 Workerman[start.php] stopping ...
+2017-11-24 13:57:03 pid:3326 Workerman[start.php] has been stopped
+2017-11-24 13:57:05 pid:3337 Workerman[start.php] start in DEBUG mode
+2017-11-24 13:59:40 pid:3352 Workerman[start.php] reload 
+2017-11-24 13:59:40 pid:3337 Workerman[start.php] reloading
+2017-11-24 14:00:41 pid:3337 Workerman[start.php] stopping ...
+2017-11-24 14:00:41 pid:3337 Workerman[start.php] has been stopped
+2017-11-24 14:00:42 pid:3359 Workerman[start.php] start in DEBUG mode
+2017-11-24 14:02:45 pid:3359 Workerman[start.php] stopping ...
+2017-11-24 14:02:45 pid:3359 Workerman[start.php] has been stopped
+2017-11-24 14:02:47 pid:3404 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:11:50 pid:3404 Workerman[start.php] stopping ...
+2017-11-24 15:11:50 pid:3404 Workerman[start.php] has been stopped
+2017-11-24 15:11:51 pid:3566 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:14:17 pid:3566 Workerman[start.php] stopping ...
+2017-11-24 15:14:17 pid:3566 Workerman[start.php] has been stopped
+2017-11-24 15:14:18 pid:3577 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:15:15 pid:3577 Workerman[start.php] stopping ...
+2017-11-24 15:15:16 pid:3577 Workerman[start.php] has been stopped
+2017-11-24 15:15:17 pid:3587 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:15:24 pid:3590 Worker[3590] process terminated with ERROR: E_ERROR "Cannot use object of type stdClass as array in /home/wwwroot/default/xinpin/preject/GatewayWorker/Applications/YourApp/Events.php on line 54"
+2017-11-24 15:15:24 pid:3587 worker[YourAppBusinessWorker:3590] exit with status 65280
+2017-11-24 15:15:49 pid:3587 Workerman[start.php] stopping ...
+2017-11-24 15:15:49 pid:3587 Workerman[start.php] has been stopped
+2017-11-24 15:15:50 pid:3597 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:16:28 pid:3597 Workerman[start.php] stopping ...
+2017-11-24 15:16:28 pid:3597 Workerman[start.php] has been stopped
+2017-11-24 15:16:29 pid:3606 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:17:26 pid:3606 Workerman[start.php] stopping ...
+2017-11-24 15:17:27 pid:3606 Workerman[start.php] has been stopped
+2017-11-24 15:17:28 pid:3615 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:19:27 pid:3615 Workerman[start.php] stopping ...
+2017-11-24 15:19:28 pid:3615 Workerman[start.php] has been stopped
+2017-11-24 15:19:29 pid:3627 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:20:00 pid:3627 Workerman[start.php] stopping ...
+2017-11-24 15:20:00 pid:3627 Workerman[start.php] has been stopped
+2017-11-24 15:20:02 pid:3635 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:21:41 pid:3635 Workerman[start.php] stopping ...
+2017-11-24 15:21:41 pid:3635 Workerman[start.php] has been stopped
+2017-11-24 15:21:42 pid:3646 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:23:12 pid:3646 Workerman[start.php] stopping ...
+2017-11-24 15:23:12 pid:3646 Workerman[start.php] has been stopped
+2017-11-24 15:23:14 pid:3658 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:32:32 pid:3658 Workerman[start.php] stopping ...
+2017-11-24 15:32:32 pid:3658 Workerman[start.php] has been stopped
+2017-11-24 15:32:33 pid:3680 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:40:05 pid:3680 Workerman[start.php] stopping ...
+2017-11-24 15:40:05 pid:3680 Workerman[start.php] has been stopped
+2017-11-24 15:40:06 pid:3702 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:44:10 pid:3702 Workerman[start.php] stopping ...
+2017-11-24 15:44:11 pid:3702 Workerman[start.php] has been stopped
+2017-11-24 15:44:12 pid:3716 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:44:25 pid:3716 Workerman[start.php] stopping ...
+2017-11-24 15:44:25 pid:3716 Workerman[start.php] has been stopped
+2017-11-24 15:44:26 pid:3725 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:46:27 pid:3725 Workerman[start.php] stopping ...
+2017-11-24 15:46:27 pid:3725 Workerman[start.php] has been stopped
+2017-11-24 15:46:28 pid:3736 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:47:43 pid:3736 Workerman[start.php] stopping ...
+2017-11-24 15:47:43 pid:3736 Workerman[start.php] has been stopped
+2017-11-24 15:47:44 pid:3746 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:51:55 pid:3746 Workerman[start.php] stopping ...
+2017-11-24 15:51:55 pid:3746 Workerman[start.php] has been stopped
+2017-11-24 15:51:56 pid:3762 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:52:07 pid:3762 Workerman[start.php] stopping ...
+2017-11-24 15:52:07 pid:3762 Workerman[start.php] has been stopped
+2017-11-24 15:53:13 pid:3772 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:54:56 pid:3772 Workerman[start.php] stopping ...
+2017-11-24 15:54:56 pid:3772 Workerman[start.php] has been stopped
+2017-11-24 15:54:57 pid:3782 Workerman[start.php] start in DEBUG mode
+2017-11-24 15:56:56 pid:3782 Workerman[start.php] stopping ...
+2017-11-24 15:56:56 pid:3782 Workerman[start.php] has been stopped
+2017-11-24 15:56:57 pid:3796 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:10:44 pid:3796 Workerman[start.php] stopping ...
+2017-11-24 16:10:44 pid:3796 Workerman[start.php] has been stopped
+2017-11-24 16:10:46 pid:3861 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:16:31 pid:3861 Workerman[start.php] stopping ...
+2017-11-24 16:16:31 pid:3861 Workerman[start.php] has been stopped
+2017-11-24 16:16:33 pid:3879 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:20:04 pid:3879 Workerman[start.php] stopping ...
+2017-11-24 16:20:04 pid:3879 Workerman[start.php] has been stopped
+2017-11-24 16:20:05 pid:3893 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:36:35 pid:3893 Workerman[start.php] stopping ...
+2017-11-24 16:36:35 pid:3893 Workerman[start.php] has been stopped
+2017-11-24 16:39:50 pid:3978 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:46:14 pid:3978 Workerman[start.php] stopping ...
+2017-11-24 16:46:15 pid:3978 Workerman[start.php] has been stopped
+2017-11-24 16:46:15 pid:3997 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:48:54 pid:3997 Workerman[start.php] stopping ...
+2017-11-24 16:48:54 pid:3997 Workerman[start.php] has been stopped
+2017-11-24 16:48:55 pid:4010 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:51:52 pid:4010 Workerman[start.php] stopping ...
+2017-11-24 16:51:52 pid:4010 Workerman[start.php] has been stopped
+2017-11-24 16:51:53 pid:4023 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:52:47 pid:4023 Workerman[start.php] stopping ...
+2017-11-24 16:52:47 pid:4023 Workerman[start.php] has been stopped
+2017-11-24 16:52:48 pid:4032 Workerman[start.php] start in DEBUG mode
+2017-11-24 16:59:56 pid:4032 Workerman[start.php] stopping ...
+2017-11-24 16:59:57 pid:4032 Workerman[start.php] has been stopped
+2017-11-24 16:59:59 pid:4054 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:00:55 pid:4054 Workerman[start.php] stopping ...
+2017-11-24 17:00:55 pid:4054 Workerman[start.php] has been stopped
+2017-11-24 17:00:57 pid:4064 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:01:43 pid:4064 Workerman[start.php] stopping ...
+2017-11-24 17:01:43 pid:4064 Workerman[start.php] has been stopped
+2017-11-24 17:01:45 pid:4107 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:02:49 pid:4107 Workerman[start.php] stopping ...
+2017-11-24 17:02:49 pid:4107 Workerman[start.php] has been stopped
+2017-11-24 17:02:50 pid:4117 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:03:40 pid:4117 Workerman[start.php] stopping ...
+2017-11-24 17:03:40 pid:4117 Workerman[start.php] has been stopped
+2017-11-24 17:03:49 pid:4128 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:04:50 pid:4128 Workerman[start.php] stopping ...
+2017-11-24 17:04:50 pid:4128 Workerman[start.php] has been stopped
+2017-11-24 17:04:51 pid:4137 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:08:37 pid:4137 Workerman[start.php] stopping ...
+2017-11-24 17:08:37 pid:4137 Workerman[start.php] has been stopped
+2017-11-24 17:08:38 pid:4152 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:09:29 pid:4152 Workerman[start.php] stopping ...
+2017-11-24 17:09:29 pid:4157 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-24 17:09:29 pid:4157 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-24 17:09:29 pid:4152 Workerman[start.php] has been stopped
+2017-11-24 17:09:31 pid:4162 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:09:52 pid:4162 Workerman[start.php] stopping ...
+2017-11-24 17:09:52 pid:4162 Workerman[start.php] has been stopped
+2017-11-24 17:09:53 pid:4170 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:10:18 pid:4170 Workerman[start.php] stopping ...
+2017-11-24 17:10:18 pid:4170 Workerman[start.php] has been stopped
+2017-11-24 17:10:19 pid:4179 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:12:58 pid:4179 Workerman[start.php] stopping ...
+2017-11-24 17:12:58 pid:4179 Workerman[start.php] has been stopped
+2017-11-24 17:12:59 pid:4191 Workerman[start.php] start in DEBUG mode
+2017-11-24 17:14:07 pid:4196 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-24 17:14:07 pid:4191 Workerman[start.php] stopping ...
+2017-11-24 17:14:07 pid:4191 Workerman[start.php] has been stopped
+2017-11-24 17:14:08 pid:4201 Workerman[start.php] start in DEBUG mode
+2017-11-25 08:48:52 pid:4201 Workerman[start.php] stopping ...
+2017-11-25 08:48:52 pid:4201 Workerman[start.php] has been stopped
+2017-11-25 08:48:54 pid:6590 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:08:28 pid:6590 Workerman[start.php] stopping ...
+2017-11-25 09:08:28 pid:6590 Workerman[start.php] has been stopped
+2017-11-25 09:08:31 pid:6666 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:11:31 pid:6666 Workerman[start.php] stopping ...
+2017-11-25 09:11:31 pid:6666 Workerman[start.php] has been stopped
+2017-11-25 09:11:32 pid:6680 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:15:47 pid:6680 Workerman[start.php] stopping ...
+2017-11-25 09:15:47 pid:6680 Workerman[start.php] has been stopped
+2017-11-25 09:15:48 pid:6696 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:26:04 pid:6696 Workerman[start.php] stopping ...
+2017-11-25 09:26:04 pid:6696 Workerman[start.php] has been stopped
+2017-11-25 09:26:10 pid:6721 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:30:09 pid:6721 Workerman[start.php] stopping ...
+2017-11-25 09:30:09 pid:6721 Workerman[start.php] has been stopped
+2017-11-25 09:30:10 pid:6736 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:32:47 pid:6736 Workerman[start.php] stopping ...
+2017-11-25 09:32:47 pid:6736 Workerman[start.php] has been stopped
+2017-11-25 09:32:49 pid:6748 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:33:55 pid:6748 Workerman[start.php] stopping ...
+2017-11-25 09:33:55 pid:6748 Workerman[start.php] has been stopped
+2017-11-25 09:33:58 pid:6758 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:36:43 pid:6758 Workerman[start.php] stopping ...
+2017-11-25 09:36:43 pid:6758 Workerman[start.php] has been stopped
+2017-11-25 09:36:45 pid:6771 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:44:03 pid:6771 Workerman[start.php] stopping ...
+2017-11-25 09:44:03 pid:6771 Workerman[start.php] has been stopped
+2017-11-25 09:44:05 pid:6791 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:48:21 pid:6791 Workerman[start.php] stopping ...
+2017-11-25 09:48:21 pid:6791 Workerman[start.php] has been stopped
+2017-11-25 09:48:22 pid:6806 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:54:28 pid:6806 Workerman[start.php] stopping ...
+2017-11-25 09:54:28 pid:6806 Workerman[start.php] has been stopped
+2017-11-25 09:54:30 pid:6825 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:56:50 pid:6825 Workerman[start.php] stopping ...
+2017-11-25 09:56:50 pid:6825 Workerman[start.php] has been stopped
+2017-11-25 09:56:52 pid:6839 Workerman[start.php] start in DEBUG mode
+2017-11-25 09:58:29 pid:6839 Workerman[start.php] stopping ...
+2017-11-25 09:58:29 pid:6839 Workerman[start.php] has been stopped
+2017-11-25 09:58:30 pid:6849 Workerman[start.php] start in DEBUG mode
+2017-11-25 10:00:53 pid:6849 Workerman[start.php] stopping ...
+2017-11-25 10:00:53 pid:6849 Workerman[start.php] has been stopped
+2017-11-25 10:00:55 pid:6861 Workerman[start.php] start in DEBUG mode
+2017-11-25 10:17:04 pid:6861 Workerman[start.php] stopping ...
+2017-11-25 10:17:04 pid:6861 Workerman[start.php] has been stopped
+2017-11-25 10:17:05 pid:6931 Workerman[start.php] start in DEBUG mode
+2017-11-25 10:47:54 pid:6931 Workerman[start.php] stopping ...
+2017-11-25 10:47:54 pid:6931 Workerman[start.php] has been stopped
+2017-11-25 10:47:56 pid:6991 Workerman[start.php] start in DEBUG mode
+2017-11-25 10:50:48 pid:6991 Workerman[start.php] stopping ...
+2017-11-25 10:50:48 pid:6991 Workerman[start.php] has been stopped
+2017-11-25 10:50:49 pid:7004 Workerman[start.php] start in DEBUG mode
+2017-11-25 10:54:36 pid:7004 Workerman[start.php] stopping ...
+2017-11-25 10:54:36 pid:7004 Workerman[start.php] has been stopped
+2017-11-25 10:54:37 pid:7020 Workerman[start.php] start in DEBUG mode
+2017-11-25 10:58:11 pid:7020 Workerman[start.php] stopping ...
+2017-11-25 10:58:11 pid:7020 Workerman[start.php] has been stopped
+2017-11-25 10:58:12 pid:7041 Workerman[start.php] start in DEBUG mode
+2017-11-25 17:42:58 pid:7041 Workerman[start.php] stopping ...
+2017-11-25 17:42:58 pid:7041 Workerman[start.php] has been stopped
+2017-11-25 19:44:40 pid:8417 Workerman[start.php] start in DEBUG mode
+2017-11-25 19:51:21 pid:8417 Workerman[start.php] stopping ...
+2017-11-25 19:51:21 pid:8417 Workerman[start.php] has been stopped
+2017-11-25 19:51:23 pid:8436 Workerman[start.php] start in DEBUG mode
+2017-11-25 19:51:41 pid:8436 Workerman[start.php] stopping ...
+2017-11-25 19:51:41 pid:8436 Workerman[start.php] has been stopped
+2017-11-27 10:48:03 pid:8451 Workerman[start.php] start in DEBUG mode
+2017-11-27 10:53:29 pid:8451 Workerman[start.php] stopping ...
+2017-11-27 10:53:29 pid:8451 Workerman[start.php] has been stopped
+2017-11-27 17:32:20 pid:10313 Workerman[start.php] start in DEBUG mode
+2017-11-28 08:48:01 pid:10393 Workerman[start.php] start in DEBUG mode
+2017-11-28 08:53:29 pid:10393 Workerman[start.php] stopping ...
+2017-11-28 08:53:29 pid:10393 Workerman[start.php] has been stopped
+2017-11-28 08:53:31 pid:10410 Workerman[start.php] start in DEBUG mode
+2017-11-28 08:55:55 pid:10410 Workerman[start.php] stopping ...
+2017-11-28 08:55:55 pid:10410 Workerman[start.php] has been stopped
+2017-11-28 08:55:56 pid:10422 Workerman[start.php] start in DEBUG mode
+2017-11-28 08:56:05 pid:10429 exception 'Exception' with message 'You can't send(array) to client, you need to convert it to a string. ' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Protocols/Websocket.php:225
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(338): Workerman\Protocols\Websocket::encode(Array, Object(Workerman\Connection\TcpConnection))
+#1 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(558): Workerman\Connection\TcpConnection->send(Array)
+#2 [internal function]: GatewayWorker\Gateway->onWorkerMessage(Object(Workerman\Connection\TcpConnection), Array)
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\TcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #77, 2, NULL)
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Events/Libevent.php(202): event_base_loop(Resource id #37)
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Libevent->loop()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#8 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\Gateway->run()
+#9 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\Gateway))
+#10 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2017-11-28 08:56:05 pid:10429 Worker[10429] process terminated
+2017-11-28 08:56:05 pid:10422 worker[客户:10429] exit with status 64000
+2017-11-28 09:05:40 pid:10422 Workerman[start.php] stopping ...
+2017-11-28 09:05:40 pid:10422 Workerman[start.php] has been stopped
+2017-11-28 09:05:41 pid:10489 Workerman[start.php] start in DEBUG mode
+2017-11-28 09:05:49 pid:10496 exception 'Exception' with message 'You can't send(array) to client, you need to convert it to a string. ' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Protocols/Websocket.php:225
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(338): Workerman\Protocols\Websocket::encode(Array, Object(Workerman\Connection\TcpConnection))
+#1 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(558): Workerman\Connection\TcpConnection->send(Array)
+#2 [internal function]: GatewayWorker\Gateway->onWorkerMessage(Object(Workerman\Connection\TcpConnection), Array)
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\TcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #77, 2, NULL)
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Events/Libevent.php(202): event_base_loop(Resource id #37)
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Libevent->loop()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#8 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\Gateway->run()
+#9 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\Gateway))
+#10 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2017-11-28 09:05:49 pid:10496 Worker[10496] process terminated
+2017-11-28 09:05:49 pid:10489 worker[客户:10496] exit with status 64000
+2017-11-28 09:06:21 pid:10489 Workerman[start.php] stopping ...
+2017-11-28 09:06:21 pid:10489 Workerman[start.php] has been stopped
+2017-11-28 09:06:22 pid:10500 Workerman[start.php] start in DEBUG mode
+2017-11-28 10:17:03 pid:10500 Workerman[start.php] stopping ...
+2017-11-28 10:17:03 pid:10500 Workerman[start.php] has been stopped
+2017-11-28 11:05:57 pid:11684 Workerman[start.php] start in DEBUG mode
+2017-11-28 11:19:00 pid:11684 Workerman[start.php] stopping ...
+2017-11-28 11:19:00 pid:11684 Workerman[start.php] has been stopped
+2017-11-28 11:19:01 pid:11715 Workerman[start.php] start in DEBUG mode
+2017-11-28 11:26:37 pid:11715 Workerman[start.php] stopping ...
+2017-11-28 11:26:37 pid:11715 Workerman[start.php] has been stopped
+2017-11-28 11:26:38 pid:11736 Workerman[start.php] start in DEBUG mode
+2017-11-28 11:27:58 pid:11736 Workerman[start.php] stopping ...
+2017-11-28 11:27:58 pid:11736 Workerman[start.php] has been stopped
+2017-11-28 11:27:59 pid:11746 Workerman[start.php] start in DEBUG mode
+2017-11-28 11:28:33 pid:11746 Workerman[start.php] stopping ...
+2017-11-28 11:28:33 pid:11746 Workerman[start.php] has been stopped
+2017-11-28 11:28:34 pid:11756 Workerman[start.php] start in DEBUG mode
+2017-11-28 11:58:19 pid:11756 Workerman[start.php] stopping ...
+2017-11-28 11:58:19 pid:11756 Workerman[start.php] has been stopped
+2017-11-28 11:58:21 pid:11812 Workerman[start.php] start in DEBUG mode
+2017-11-28 13:40:19 pid:11812 Workerman[start.php] stopping ...
+2017-11-28 13:40:20 pid:11812 Workerman[start.php] has been stopped
+2017-11-28 13:54:28 pid:12112 Workerman[start.php] start in DEBUG mode
+2017-11-28 14:19:43 pid:12112 Workerman[start.php] stopping ...
+2017-11-28 14:19:43 pid:12112 Workerman[start.php] has been stopped
+2017-11-28 14:19:44 pid:12198 Workerman[start.php] start in DEBUG mode
+2017-11-28 14:26:30 pid:12198 Workerman[start.php] stopping ...
+2017-11-28 14:26:30 pid:12198 Workerman[start.php] has been stopped
+2017-11-28 14:26:33 pid:12218 Workerman[start.php] start in DEBUG mode
+2017-11-28 14:28:11 pid:12218 Workerman[start.php] stopping ...
+2017-11-28 14:28:11 pid:12218 Workerman[start.php] has been stopped
+2017-11-28 14:28:12 pid:12229 Workerman[start.php] start in DEBUG mode
+2017-11-28 14:29:28 pid:12229 Workerman[start.php] stopping ...
+2017-11-28 14:29:28 pid:12229 Workerman[start.php] has been stopped
+2017-11-28 14:29:29 pid:12239 Workerman[start.php] start in DEBUG mode
+2017-11-28 14:30:28 pid:12239 Workerman[start.php] stopping ...
+2017-11-28 14:30:28 pid:12239 Workerman[start.php] has been stopped
+2017-11-28 14:30:31 pid:12249 Workerman[start.php] start in DEBUG mode
+2017-11-28 14:57:24 pid:12249 Workerman[start.php] stopping ...
+2017-11-28 14:57:24 pid:12249 Workerman[start.php] has been stopped
+2017-11-28 14:57:25 pid:12303 Workerman[start.php] start in DEBUG mode
+2017-11-28 15:29:21 pid:12303 Workerman[start.php] stopping ...
+2017-11-28 15:29:21 pid:12303 Workerman[start.php] has been stopped
+2017-11-28 15:29:22 pid:12401 Workerman[start.php] start in DEBUG mode
+2017-11-28 15:57:35 pid:12401 Workerman[start.php] stopping ...
+2017-11-28 15:57:35 pid:12401 Workerman[start.php] has been stopped
+2017-11-28 15:58:59 pid:12460 Workerman[start.php] start in DEBUG mode
+2017-11-28 15:59:00 pid:12460 Workerman[start.php] stopping ...
+2017-11-28 15:59:00 pid:12460 Workerman[start.php] has been stopped
+2017-11-28 15:59:01 pid:12468 Workerman[start.php] start in DEBUG mode
+2017-11-28 16:05:03 pid:12468 Workerman[start.php] stopping ...
+2017-11-28 16:05:03 pid:12468 Workerman[start.php] has been stopped
+2017-11-28 16:05:04 pid:12522 Workerman[start.php] start in DEBUG mode
+2017-11-28 16:13:08 pid:12524 Worker[12524] process terminated
+2017-11-28 16:13:22 pid:12522 Workerman[start.php] stopping ...
+2017-11-28 16:13:22 pid:12522 Workerman[start.php] has been stopped
+2017-11-28 16:13:23 pid:12544 Workerman[start.php] start in DEBUG mode
+2017-11-28 16:48:37 pid:12544 Workerman[start.php] stopping ...
+2017-11-28 16:48:37 pid:12544 Workerman[start.php] has been stopped
+2017-11-28 16:48:39 pid:12612 Workerman[start.php] start in DEBUG mode
+2017-11-28 16:54:34 pid:12612 Workerman[start.php] stopping ...
+2017-11-28 16:54:34 pid:12612 Workerman[start.php] has been stopped
+2017-11-28 16:54:35 pid:12629 Workerman[start.php] start in DEBUG mode
+2017-11-28 16:59:29 pid:12629 Workerman[start.php] stopping ...
+2017-11-28 16:59:29 pid:12629 Workerman[start.php] has been stopped
+2017-11-28 16:59:31 pid:12645 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:02:54 pid:12645 Workerman[start.php] stopping ...
+2017-11-28 17:02:54 pid:12645 Workerman[start.php] has been stopped
+2017-11-28 17:02:55 pid:12695 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:05:53 pid:12695 Workerman[start.php] stopping ...
+2017-11-28 17:05:53 pid:12695 Workerman[start.php] has been stopped
+2017-11-28 17:05:54 pid:12708 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:07:32 pid:12708 Workerman[start.php] stopping ...
+2017-11-28 17:07:32 pid:12708 Workerman[start.php] has been stopped
+2017-11-28 17:07:34 pid:12720 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:08:31 pid:12720 Workerman[start.php] stopping ...
+2017-11-28 17:08:31 pid:12720 Workerman[start.php] has been stopped
+2017-11-28 17:08:32 pid:12728 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:09:09 pid:12728 Workerman[start.php] stopping ...
+2017-11-28 17:09:09 pid:12728 Workerman[start.php] has been stopped
+2017-11-28 17:09:10 pid:12738 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:11:09 pid:12738 Workerman[start.php] stopping ...
+2017-11-28 17:11:09 pid:12738 Workerman[start.php] has been stopped
+2017-11-28 17:11:10 pid:12750 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:12:20 pid:12750 Workerman[start.php] stopping ...
+2017-11-28 17:12:20 pid:12750 Workerman[start.php] has been stopped
+2017-11-28 17:12:21 pid:12760 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:14:32 pid:12760 Workerman[start.php] stopping ...
+2017-11-28 17:14:32 pid:12760 Workerman[start.php] has been stopped
+2017-11-28 17:14:33 pid:12770 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:16:22 pid:12770 Workerman[start.php] stopping ...
+2017-11-28 17:16:22 pid:12770 Workerman[start.php] has been stopped
+2017-11-28 17:16:23 pid:12783 Workerman[start.php] start in DEBUG mode
+2017-11-28 17:36:50 pid:12783 Workerman[start.php] stopping ...
+2017-11-28 17:36:50 pid:12783 Workerman[start.php] has been stopped
+2017-11-29 08:37:35 pid:15269 Workerman[start.php] start in DEBUG mode
+2017-11-29 08:41:34 pid:15269 Workerman[start.php] stopping ...
+2017-11-29 08:41:34 pid:15269 Workerman[start.php] has been stopped
+2017-11-29 08:41:35 pid:15284 Workerman[start.php] start in DEBUG mode
+2017-11-29 08:46:53 pid:15284 Workerman[start.php] stopping ...
+2017-11-29 08:46:53 pid:15284 Workerman[start.php] has been stopped
+2017-11-29 08:46:54 pid:15300 Workerman[start.php] start in DEBUG mode
+2017-11-29 08:47:30 pid:15300 Workerman[start.php] stopping ...
+2017-11-29 08:47:30 pid:15300 Workerman[start.php] has been stopped
+2017-11-29 08:47:31 pid:15310 Workerman[start.php] start in DEBUG mode
+2017-11-29 08:53:16 pid:15310 Workerman[start.php] stopping ...
+2017-11-29 08:53:16 pid:15310 Workerman[start.php] has been stopped
+2017-11-29 08:53:17 pid:15327 Workerman[start.php] start in DEBUG mode
+2017-11-29 08:55:30 pid:15327 Workerman[start.php] stopping ...
+2017-11-29 08:55:30 pid:15327 Workerman[start.php] has been stopped
+2017-11-29 08:55:31 pid:15339 Workerman[start.php] start in DEBUG mode
+2017-11-29 09:01:05 pid:15339 Workerman[start.php] stopping ...
+2017-11-29 09:01:05 pid:15339 Workerman[start.php] has been stopped
+2017-11-29 09:01:06 pid:15393 Workerman[start.php] start in DEBUG mode
+2017-11-29 09:42:27 pid:15393 Workerman[start.php] stopping ...
+2017-11-29 09:42:27 pid:15393 Workerman[start.php] has been stopped
+2017-11-29 09:42:28 pid:15471 Workerman[start.php] start in DEBUG mode
+2017-11-29 09:43:47 pid:15471 Workerman[start.php] stopping ...
+2017-11-29 09:43:47 pid:15471 Workerman[start.php] has been stopped
+2017-11-29 09:43:48 pid:15481 Workerman[start.php] start in DEBUG mode
+2017-11-29 09:48:26 pid:15481 Workerman[start.php] stopping ...
+2017-11-29 09:48:26 pid:15481 Workerman[start.php] has been stopped
+2017-11-29 09:48:27 pid:15496 Workerman[start.php] start in DEBUG mode
+2017-11-29 09:53:19 pid:15496 Workerman[start.php] stopping ...
+2017-11-29 09:53:19 pid:15496 Workerman[start.php] has been stopped
+2017-11-29 09:53:21 pid:15512 Workerman[start.php] start in DEBUG mode
+2017-11-29 09:54:03 pid:15512 Workerman[start.php] stopping ...
+2017-11-29 09:54:03 pid:15512 Workerman[start.php] has been stopped
+2017-11-29 09:54:04 pid:15522 Workerman[start.php] start in DEBUG mode
+2017-11-29 10:04:26 pid:15522 Workerman[start.php] stopping ...
+2017-11-29 10:04:26 pid:15522 Workerman[start.php] has been stopped
+2017-11-29 10:04:28 pid:15583 Workerman[start.php] start in DEBUG mode
+2017-11-29 10:05:24 pid:15583 Workerman[start.php] stopping ...
+2017-11-29 10:05:24 pid:15583 Workerman[start.php] has been stopped
+2017-11-29 10:05:25 pid:15593 Workerman[start.php] start in DEBUG mode
+2017-11-29 10:18:02 pid:15593 Workerman[start.php] stopping ...
+2017-11-29 10:18:02 pid:15593 Workerman[start.php] has been stopped
+2017-11-29 10:18:03 pid:15623 Workerman[start.php] start in DEBUG mode
+2017-11-29 10:30:53 pid:15623 Workerman[start.php] stopping ...
+2017-11-29 10:30:53 pid:15623 Workerman[start.php] has been stopped
+2017-11-29 10:30:54 pid:15652 Workerman[start.php] start in DEBUG mode
+2017-11-29 11:22:57 pid:15652 Workerman[start.php] stopping ...
+2017-11-29 11:22:57 pid:15652 Workerman[start.php] has been stopped
+2017-11-29 11:22:58 pid:15784 Workerman[start.php] start in DEBUG mode
+2017-11-29 11:23:54 pid:15784 Workerman[start.php] stopping ...
+2017-11-29 11:23:54 pid:15784 Workerman[start.php] has been stopped
+2017-11-29 11:32:02 pid:15831 Workerman[start.php] start in DEBUG mode
+2017-11-29 11:39:30 pid:15831 Workerman[start.php] stopping ...
+2017-11-29 11:39:30 pid:15831 Workerman[start.php] has been stopped
+2017-11-29 11:39:31 pid:15851 Workerman[start.php] start in DEBUG mode
+2017-11-29 11:55:46 pid:15851 Workerman[start.php] stopping ...
+2017-11-29 11:55:46 pid:15851 Workerman[start.php] has been stopped
+2017-11-29 14:14:43 pid:16260 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:28:55 pid:16260 Workerman[start.php] stopping ...
+2017-11-29 14:28:55 pid:16260 Workerman[start.php] has been stopped
+2017-11-29 14:28:56 pid:16293 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:32:44 pid:16293 Workerman[start.php] stopping ...
+2017-11-29 14:32:44 pid:16293 Workerman[start.php] has been stopped
+2017-11-29 14:32:47 pid:16308 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:34:55 pid:16308 Workerman[start.php] stopping ...
+2017-11-29 14:34:56 pid:16308 Workerman[start.php] has been stopped
+2017-11-29 14:34:57 pid:16320 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:35:45 pid:16320 Workerman[start.php] stopping ...
+2017-11-29 14:35:45 pid:16320 Workerman[start.php] has been stopped
+2017-11-29 14:35:51 pid:16328 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:36:05 pid:16329 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:37:51 pid:16329 Workerman[start.php] stopping ...
+2017-11-29 14:37:51 pid:16329 Workerman[start.php] has been stopped
+2017-11-29 14:37:52 pid:16341 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:38:48 pid:16341 Workerman[start.php] stopping ...
+2017-11-29 14:38:48 pid:16341 Workerman[start.php] has been stopped
+2017-11-29 14:38:49 pid:16351 Workerman[start.php] start in DEBUG mode
+2017-11-29 14:46:10 pid:16351 Workerman[start.php] stopping ...
+2017-11-29 14:46:10 pid:16351 Workerman[start.php] has been stopped
+2017-11-29 14:46:11 pid:16372 Workerman[start.php] start in DEBUG mode
+2017-11-29 15:08:48 pid:16372 Workerman[start.php] stopping ...
+2017-11-29 15:08:48 pid:16372 Workerman[start.php] has been stopped
+2017-11-29 15:08:49 pid:16453 Workerman[start.php] start in DEBUG mode
+2017-11-29 15:20:29 pid:16453 Workerman[start.php] stopping ...
+2017-11-29 15:20:29 pid:16453 Workerman[start.php] has been stopped
+2017-11-29 15:20:31 pid:16480 Workerman[start.php] start in DEBUG mode
+2017-11-29 15:23:15 pid:16480 Workerman[start.php] stopping ...
+2017-11-29 15:23:15 pid:16480 Workerman[start.php] has been stopped
+2017-11-29 15:23:17 pid:16492 Workerman[start.php] start in DEBUG mode
+2017-11-29 15:35:53 pid:16492 Workerman[start.php] stopping ...
+2017-11-29 15:35:53 pid:16492 Workerman[start.php] has been stopped
+2017-11-29 15:35:56 pid:16521 Workerman[start.php] start in DEBUG mode
+2017-11-29 15:40:22 pid:16559 Workerman[start.php] status 
+2017-11-29 15:40:33 pid:16560 Workerman[start.php] status 
+2017-11-29 15:40:49 pid:16562 Workerman[start.php] status 
+2017-11-29 15:40:59 pid:16564 Workerman[start.php] status 
+2017-11-29 15:43:12 pid:16580 Workerman[start.php] status 
+2017-11-29 15:43:16 pid:16581 Workerman[start.php] status 
+2017-11-29 15:44:00 pid:16521 Workerman[start.php] stopping ...
+2017-11-29 15:44:00 pid:16528 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-29 15:44:00 pid:16526 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-29 15:44:00 pid:16528 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-29 15:44:00 pid:16526 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2017-11-29 15:44:00 pid:16525 exception 'Exception' with message 'can not connect to tcp://127.0.0.1:2900 Connection refused' in /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Lib/Gateway.php:725
+Stack trace:
+#0 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/Lib/Gateway.php(674): GatewayWorker\Lib\Gateway::sendAndRecv('127.0.0.1:2900', Array)
+#1 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(359): GatewayWorker\Lib\Gateway::getSession('7f0000010b54000...')
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #55, 2, NULL)
+#5 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Events/Libevent.php(202): event_base_loop(Resource id #37)
+#6 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Libevent->loop()
+#7 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /home/wwwroot/default/xinpin/preject/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /home/wwwroot/default/xinpin/preject/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2017-11-29 15:44:00 pid:16525 Worker[16525] process terminated
+2017-11-29 15:44:00 pid:16521 worker[YourAppBusinessWorker:16525] exit with status 64000
+2017-11-29 15:44:00 pid:16521 Workerman[start.php] has been stopped
+2017-11-29 15:44:50 pid:16587 Workerman[start.php] start in DEBUG mode
+2017-11-29 15:46:37 pid:16594 Workerman[start.php] status 
+2017-11-30 08:43:36 pid:16587 Workerman[start.php] stopping ...
+2017-11-30 08:43:36 pid:16587 Workerman[start.php] has been stopped
+2017-12-01 13:40:16 pid:25753 Workerman[start.php] start in DEBUG mode
+2017-12-01 13:40:19 pid:25753 Workerman[start.php] stopping ...
+2017-12-01 13:40:20 pid:25753 Workerman[start.php] has been stopped
+2017-12-01 13:40:24 pid:25758 Workerman[start.php] start in DEBUG mode
+2017-12-01 13:43:54 pid:25758 Workerman[start.php] stopping ...
+2017-12-01 13:43:54 pid:25758 Workerman[start.php] has been stopped
+2017-12-01 13:43:56 pid:25769 Workerman[start.php] start in DEBUG mode
+2017-12-01 13:45:59 pid:25769 Workerman[start.php] stopping ...
+2017-12-01 13:46:01 pid:25769 worker[YourAppBusinessWorker:25770] exit with status 9
+2017-12-01 13:46:01 pid:25769 Workerman[start.php] has been stopped
+2017-12-01 13:46:03 pid:25776 Workerman[start.php] start in DEBUG mode
+2017-12-01 14:00:04 pid:25776 Workerman[start.php] stopping ...
+2017-12-01 14:00:04 pid:25776 Workerman[start.php] has been stopped
+2017-12-01 14:00:06 pid:25806 Workerman[start.php] start in DEBUG mode
+2017-12-01 14:08:39 pid:25806 Workerman[start.php] stopping ...
+2017-12-01 14:08:39 pid:25806 Workerman[start.php] has been stopped
+2017-12-01 14:57:26 pid:25972 Workerman[start.php] start in DEBUG mode
+2017-12-01 14:57:57 pid:25972 Workerman[start.php] stopping ...
+2017-12-01 14:57:57 pid:25972 Workerman[start.php] has been stopped
+2017-12-01 14:57:58 pid:25977 Workerman[start.php] start in DEBUG mode
+2017-12-01 15:04:49 pid:25977 Workerman[start.php] stopping ...
+2017-12-01 15:04:49 pid:25977 Workerman[start.php] has been stopped
+2017-12-01 15:04:50 pid:26028 Workerman[start.php] start in DEBUG mode
+2017-12-01 15:06:40 pid:26028 Workerman[start.php] stopping ...
+2017-12-01 15:06:40 pid:26028 Workerman[start.php] has been stopped
+2017-12-01 15:06:41 pid:26038 Workerman[start.php] start in DEBUG mode
+2017-12-01 15:07:34 pid:26038 Workerman[start.php] stopping ...
+2017-12-01 15:07:35 pid:26038 Workerman[start.php] has been stopped

@@ -1,0 +1,31 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">用户管理/<span>用户喝水建议推送</span></div>
+            <div class="formBox">
+                <foreach name="list" item="vo" key="key">
+
+                <form class="form-horizontal " action="__URL__/message/id/{{$vo.id}}" method="post">
+                    <div class="control-group">
+                        <label class="control-label">请输入短信内容：</label>
+                        <div class="controls">
+                            <input type="hidden" name="phone" value="{{$vo.phone}}">
+                            <input type="hidden" name="name" value="{{$vo.name}}">
+                            <textarea name="content" cols="30" rows="5"></textarea>        
+                        </div>
+                    </div>
+                    
+                    <div class="btn-groups">
+                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                    </div>
+                </form>
+
+                </foreach>
+            </div>
+        </div>
+        <include file="Public/footer" />
+    </div>
+</div>
+

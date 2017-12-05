@@ -1,0 +1,56 @@
+<!-- header part -->
+<include file="Public/header" />
+<!-- content part -->
+<div class="content">
+    <!-- nav part-->
+    <include file="Public/nav" />
+    <!-- from part-->
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">产品管理/<span>滤芯设置</span></div>
+            <div class="formBox">
+
+                <foreach name="info" item="vo">
+
+                <form class="" action="__URL__/filter_edit" method="post">
+                    
+                    <input type="hidden" name="id" value="{{$vo.id}}">
+                    
+                    <div class="control-group">
+                        <span>滤芯名称</span>
+                        <input type="text" name="filtername" placeholder="请输入滤芯名称..." value="{{$vo.filtername}}">
+                    </div>
+                    <div class="control-group">
+                        <span>滤芯别名</span>
+                        <input type="text" name="alias" placeholder="请输入滤芯别名..." value="{{$vo.alias}}">
+                    </div>
+                    <div class="control-group">
+                        <span>时间寿命(小时)</span>
+                        <input type="text" name="timelife" placeholder="请输入数字..." value="{{$vo.timelife}}">
+                    </div>
+                    <div class="control-group">
+                        <span>流量寿命(升)</span>
+                        <input type="text" name="flowlife" placeholder="请输入数字..." value="{{$vo.flowlife}}">
+                    </div>
+                    <div class="control-group">
+                        <span>滤芯简介</span>
+                        <textarea name="introduce" id="" cols="30" rows="5">{{$vo.introduce}}</textarea>
+                    </div>
+                    <div class="control-group">
+                        <span>购买网址</span>
+                        <input type="url" name="url" placeholder="请加上http://..." value="{{$vo.url}}">
+                    </div>
+                    
+                    <div class="control-group">
+                        <button class="btn btn-primary " type="submit" style="display: block; padding: 2px 40px;margin:20px auto">确认</button>
+                    </div>
+                </form>
+                </foreach>
+            </div>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+    <!-- footer part -->
+    <!-- <include file="Public/footer" /> -->
+</div>

@@ -1,0 +1,212 @@
+/*public part css*/
+*{
+	padding: 0;
+	margin:0;
+	border: 0;
+}
+html, body {
+    font-family:'Open Sans',"微软雅黑","黑体";
+    height: 100%;
+}
+.fr{ 
+	float:right;
+}
+.fl{
+	float: left;
+}
+.bodyBg{
+	background: #fff;
+}
+ul li{
+	list-style: none;
+}
+/*nav part css*/
+.navBox{width: 15%; padding: 0;}
+.navBox ul li ul{
+	display: none;
+}
+.navBox ul li.active ul{
+	display: block;
+	background: #333;
+}
+
+/*content part css*/
+.content{
+	overflow: hidden;
+	width: 100%;
+	position: relative;
+}
+.content .welcomePage{
+	width: 400px;
+	height: 50px;
+	margin: 200px auto;
+	font-size: 40px;
+}
+/*header part css*/
+#header{ 
+	height: 70px;
+    line-height: 70px;
+    width: 100%;
+    background: #222;
+    font-size: 14px;
+    color: #fff;
+    z-index: 1000000;
+}
+#header .welcomeText .currentAccount{
+	font-size: 20px;
+}
+#header .headerLeft{
+	font-size: 25px;
+	margin-left: 70px;
+}
+#header .headerRight{
+	height: 70px;
+	line-height: 50px;
+}
+#header .headerRight div{
+	line-height: 48px;
+	float: left;
+	height: 70px;
+	line-height: 70px;
+}
+#header .headerRight .button{
+	width:100px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+
+/*form part css*/
+.content #main{width: 85%; }
+.content #main .titleBar{font-family: "黑体"; font-size: 20px; padding: 15px 0;}
+.form-search{padding: 15px 0;}
+.content #main .titleBar span{ font-size: 16px;}
+.content .formBox{
+	width:500px;
+	margin-left: 300px;
+	font-size: 16px;
+}
+.content .formBox form div span{
+	width: 150px;
+	height: 40px;
+	text-align: right;
+	margin-right: 30px;
+	display:inline-block;
+	
+	color: #585858;
+}
+.content .tableBox{
+	width: 95%;
+	margin:0 auto;
+}
+/*footer part css*/
+.content #footer{ 
+	width: 85%;
+	background:#F5F5F5; 
+	margin-top:30px; 
+	border-top:1px solid #E5E5E5; 
+	color:#999999; 
+	text-align:center; 
+	position: absolute;
+	bottom: 0 ;left: 15%;  }
+.content #footer p{ padding:10px 20px;}
+ 
+.btn{
+	border: 0px;
+	border-radius: 5px;
+}
+.form-group{
+    margin-top: 100px;
+}
+.btn-groups .btns{
+    margin: 150px 0 50px 90px;
+    border-radius: 7px;
+}
+.btn-groups .oddbtn{
+	width: 150px;
+	height: 40px;
+    margin: 50px auto;
+    display: block;
+
+}
+
+.btn-groups .btnL{
+	width: 120px;
+	height: 40px;
+    
+}
+.btn-groups .btnR{
+	width: 120px;
+	height: 40px;
+    margin: 50px auto;
+    display: block;
+}
+.form-horizontal {
+	margin-top: 100px;
+}
+/*login part css*/
+#login{ padding-top: 200px; }
+
+.textareaBox{width: 215px; min-height: 110px; border: 1px solid #ccc;}
+.textareaBox p{
+    padding: 0 10px;
+    margin: 5px;
+}
+.groupBox{position: relative;}
+.groupBox .elected{position: absolute; top: 0;left: 0;}
+.groupBox .textareaBox{margin-left: 185px; width: 219px;}
+.btn-groups .btns{
+    /*margin: 150px 0 50px 90px;*/
+    padding: 8px 35px;
+    border-radius: 7px;
+}
+.info{
+	display: inline-block;
+}
+.info select{
+	width: 63px;
+}
+.selects{
+    width: 210px;
+    position: relative;
+}
+.selectList{
+    width: 218px;
+    height: auto;
+    position: absolute;
+    top: 30px;
+    left: 185px;
+    border: 1px solid #ccc;
+    display: none;
+    z-index: 1000;
+    background: #fff;
+    cursor:pointer;
+}
+.selectList p:hover{
+	background: #007FCC;
+	cursor:pointer;
+	color: #fff;
+}
+.tableBox input[type="file"]{
+	line-height: 0;
+}
+.tableBox select.selectAgency{
+	padding: 5px 4px;
+	height: 32px;
+	width: 216px;
+	/*line-height: 35px;*/
+}
+.addBatch{
+	display: none;
+	margin: 100px 0 50px 100px;
+}
+a.addBtn{
+	display: inline-block;
+	background:#ccc;
+	border-radius: 5px;
+	padding: 0 5px;
+	margin-left: 20px;
+	text-decoration: none;
+	color: #585858;
+}

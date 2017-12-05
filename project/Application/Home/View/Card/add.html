@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1" >
+	<title>添加IC卡</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+	<script src="__PUBLIC__/Home/js/public.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script>
+	  // 通过config接口注入权限验证配置
+	  wx.config({
+	    debug: false,
+	    appId: '{{$signPackage["appId"]}}',
+	    timestamp: {{$signPackage["timestamp"]}},
+	    nonceStr: '{{$signPackage["nonceStr"]}}',
+	    signature: '{{$signPackage["signature"]}}',
+	    // 所有要调用的 API 都要加到这个列表中
+	    jsApiList: [
+	      'scanQRCode' //扫一扫
+	    ]
+	  });
+
+	  // 通过ready接口处理成功验证
+	  wx.ready(function () {
+	    // 在这里调用 API
+	  });
+
+	  function scanQRCode(){
+	    wx.scanQRCode({
+	      needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+	      scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+	      success: function (res) {
+	        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+	        if(result){
+	          document.getElementById("Ickahao").value = result;
+	        }else{
+	          console.dir('扫描失败：10000');
+	        }
+	      }
+	    }); 
+	  }
+
+	  // 通过error接口处理失败验证
+	  wx.error(function(res){
+	      // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+	      console.dir('接口失败：10001');
+	  });
+	</script>
+</head>
+<body>
+	<section class="addICtitle">请填写持卡人资料</section>
+	<form class="container addIC" action="__URL__/add" method="post" name="formUser">
+		<section class="row">
+			<section class="col-md-12">
+				<input class="form-control" type="text" value="" name="name" placeholder="持卡人姓名">
+			</section>
+		</section>
+		<section class="row">
+			<section class="col-md-12">
+				<input class="form-control" type="text" value="" name="school" placeholder="学校">
+			</section>
+		</section>
+		<section class="row">
+			<section class="col-md-12">
+				<input class="form-control" type="text" value="" name="studentcode" placeholder="学籍号">
+			</section>
+		</section>
+		<section class="row">
+		  <section class="col-xs-12">
+		    <section class="input-group">
+		      <input id="Ickahao" type="text" class="form-control" name="iccard" placeholder="IC卡账号">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="button" onclick="scanQRCode()"></button>
+		      </span>
+		    </section>
+		  </section><!-- /.col-lg-6 -->
+		</section><!-- /.row -->
+		<section class="row addIDBtn">
+			<section class="col-md-12 form-group">
+				<input class="form-control" type="submit" value="保存" class="button conserve"></td>
+			</section>
+		</section>
+	</form>
+</body>
+</html>

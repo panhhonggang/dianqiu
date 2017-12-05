@@ -1,0 +1,73 @@
+<!-- header part -->
+<include file="Public/header" />
+<!-- content part -->
+<div class="content">
+    <!-- nav part-->
+    <include file="Public/nav" />
+    <!-- from part-->
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">后台管理/<span>编辑经销商</span></div>
+            <div class="formBox">
+                <foreach name="info" item="vo" key="key">
+                <form class="" action="__URL__/edit" method="post">
+                    
+                    <input type="hidden" name="id" value="{{$vo.id}}">
+                    <input type="hidden" name="name" value="{{$vo.name}}">
+                    <input type="hidden" name="password" value="{{$vo.password}}">
+                    <div class="control-group">
+                        <span>您正在编辑的是</span>
+                        <span style="font-size:30px;color:red;">{{$vo.name}}</span>
+                    </div>
+                    <div class="control-group">
+                        <span>手机</span>
+                        <input type="text" name="phone" value="{{$vo.phone}}">
+                    </div>
+                    <div class="control-group">
+                        <span>邮箱</span>
+                        <input type="email" name="email" value="{{$vo.email}}">
+                    </div>
+                    <div class="control-group">
+                        <span>地址</span>
+                        <div class="info">
+                            <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
+                            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+                            <select id="s_county" name="s_county"></select>
+                            <!-- <input type="text" name="address" value="{{$vo.address}}"> -->
+                            <input class="addressValue" type="hidden" name="address" value="" />
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <span>身份证号</span>
+                        <input type="text" name="idcard" value="{{$vo.idcard}}">
+                    </div>
+                    
+                    <div class="btn-groups">
+                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                    </div>
+                </form>
+                </foreach>
+            </div>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+<script>
+$(function(){
+    //城市三级联动
+    _init_area();
+    $(".oddbtn").click(function(ev){
+        if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('亲，请把地址填写完整');
+            });    
+            ev.preventDefault();
+        }else{
+            $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
+        }
+    });
+})
+</script>

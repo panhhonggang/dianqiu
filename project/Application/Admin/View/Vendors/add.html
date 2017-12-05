@@ -1,0 +1,78 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">后台管理/<span>添加经销商</span></div>
+            <div class="formBox">
+                <form class="" action="__URL__/add" method="post">
+                    <div class="">
+                        <span>账号属性</span>
+                            一级经销商：<input type="radio" name="leavel" value="1" style="margin: 0" checked>
+                            二级经销商：<input type="radio" name="leavel" value="2" style="margin: 0">
+                    </div>
+                    <div class="control-group">
+                        <span>账户名</span>
+                        <input type="text" name="user" placeholder="请输入登录账号...">
+                    </div>
+                    <div class="control-group">
+                        <span>密码</span>
+                        <input type="password" name="password" placeholder="请输入登录密码...">
+                    </div>
+                    <div class="control-group">
+                        <span>确认密码</span>
+                        <input type="password" name="repassword" placeholder="请再次输入密码...">
+                    </div>
+                    <div class="control-group">
+                        <span>用户昵称</span>
+                        <input type="text" name="name" placeholder="请输入用户昵称...">
+                    </div>
+                    <div class="control-group">
+                        <span>手机号码</span>
+                        <input type="text" name="phone" placeholder="请输入手机号码...">
+                    </div>
+                    <div class="control-group">
+                        <span>邮箱</span>
+                        <input type="text" name="email" placeholder="请输入邮箱...">
+                    </div>
+                    <div class="control-group">
+                        <span>地址</span>
+                        <div class="info">
+                            <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
+                            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+                            <select id="s_county" name="s_county"></select>
+                            <input class="addressValue" type="hidden" name="address" value="" />
+                        </div>
+                        <!-- 此处需要三级联动 -->
+                    </div>
+                    <div class="control-group">
+                        <span>身份证号</span>
+                        <input type="text" name="idcard" placeholder="请输入身份证号...">
+                    </div>
+                    <div class="btn-groups">
+                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <include file="Public/footer" />
+    </div>
+</div>
+<script>
+$(function(){
+    //城市三级联动
+    _init_area();
+    $(".oddbtn").click(function(ev){
+        var addressValue="";
+        if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('亲，请把地址填写完整');
+            });    
+            ev.preventDefault();
+        }else{
+            addressValue=$('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val() + "";
+        }
+    });
+})
+</script>
