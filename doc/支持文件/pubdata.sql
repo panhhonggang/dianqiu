@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-12-05 16:58:19
+Date: 2017-12-06 14:12:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -73,13 +73,14 @@ CREATE TABLE `pub_binding` (
   `operator` varchar(255) NOT NULL COMMENT '操作人是谁',
   `addtime` int(11) NOT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_binding
 -- ----------------------------
 INSERT INTO `pub_binding` VALUES ('1', '2', '1', '炒鸡管理员', '12323123');
 INSERT INTO `pub_binding` VALUES ('12', '3', '2', '炒鸡管理员', '1512460340');
+INSERT INTO `pub_binding` VALUES ('13', '2', '3', '炒鸡管理员', '1512540689');
 
 -- ----------------------------
 -- Table structure for pub_charg
@@ -108,17 +109,17 @@ CREATE TABLE `pub_devices` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `device_code` int(20) unsigned NOT NULL COMMENT '设备编码',
   `device_statu` tinyint(1) unsigned NOT NULL COMMENT '设备状态：1已入库，2待激活，3已激活',
-  `created_at` datetime NOT NULL COMMENT '添加时间',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
   `binding_statu` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否绑定经销商 0：未绑定 1：已绑定',
+  `uid` int(11) DEFAULT NULL COMMENT '用户id',
   PRIMARY KEY (`id`),
   KEY `id` (`id`,`device_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_devices
 -- ----------------------------
-INSERT INTO `pub_devices` VALUES ('1', '123123', '1', '2017-10-31 11:23:08', '1');
-INSERT INTO `pub_devices` VALUES ('2', '312312', '1', '2017-10-25 17:12:04', '1');
+INSERT INTO `pub_devices` VALUES ('3', '2147483647', '1', '1512540680', '1', null);
 
 -- ----------------------------
 -- Table structure for pub_devices_statu
@@ -196,6 +197,7 @@ CREATE TABLE `pub_filters` (
   `introduce` varchar(255) DEFAULT '暂无简介' COMMENT '滤芯简介',
   `url` varchar(255) DEFAULT NULL COMMENT '滤芯购买网址',
   `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `price` decimal(15,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `device_id` (`filtername`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
@@ -203,13 +205,13 @@ CREATE TABLE `pub_filters` (
 -- ----------------------------
 -- Records of pub_filters
 -- ----------------------------
-INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '500', '2000', null, null, '我是滤芯简介', 'http://www.baidu.com', '1509673437');
-INSERT INTO `pub_filters` VALUES ('2', 'PP棉', null, '123', '321', null, null, '凄凄切切', 'http://www.baidu.com', '1509607569');
-INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '234', '432', null, null, '尺寸齐全', 'http://www.baidu.com', '1509607600');
-INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '5343', '3333', null, null, '望闻问切去', 'http://www.baidu.com', '1509673448');
-INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '500', '2000', null, null, '啊啊按时到', 'http://www.baidu.com', '1509607666');
-INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673463');
-INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287');
+INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '500', '2000', null, null, '我是滤芯简介', 'http://www.baidu.com', '1509673437', '0.00');
+INSERT INTO `pub_filters` VALUES ('2', 'PP棉', null, '123', '321', null, null, '凄凄切切', 'http://www.baidu.com', '1509607569', '0.00');
+INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '234', '432', null, null, '尺寸齐全', 'http://www.baidu.com', '1509607600', '0.00');
+INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '5343', '3333', null, null, '望闻问切去', 'http://www.baidu.com', '1509673448', '0.00');
+INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '500', '2000', null, null, '啊啊按时到', 'http://www.baidu.com', '1509607666', '0.00');
+INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673463', '0.00');
+INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '0.00');
 
 -- ----------------------------
 -- Table structure for pub_hire
@@ -280,6 +282,8 @@ CREATE TABLE `pub_orders` (
   `goods_total` decimal(15,2) unsigned NOT NULL COMMENT '商品总金额',
   `created_at` int(11) NOT NULL COMMENT '订单创建时间',
   `updated_at` int(11) NOT NULL COMMENT '订单修改时间',
+  `filter_id` int(11) NOT NULL COMMENT '滤芯ID',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '订单状态(0：未付款1：已付款2：未发货3：已发货4：已签收)',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`,`device_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -296,13 +300,13 @@ CREATE TABLE `pub_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `name` varchar(15) NOT NULL COMMENT '用户名字',
   `phone` varchar(11) NOT NULL COMMENT '手机号码',
-  `device_id` int(11) unsigned NOT NULL COMMENT '关联的设备ID号',
-  `user_status` tinyint(1) unsigned NOT NULL COMMENT '用户状态',
+  `user_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态',
   `login_time` int(11) DEFAULT NULL COMMENT '最后登陆的时间',
   `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登陆的IP地址',
   `created_at` int(11) NOT NULL COMMENT '添加时间',
+  `open_id` int(11) NOT NULL COMMENT '关联微信信息表',
   PRIMARY KEY (`id`),
-  KEY `name` (`name`,`phone`,`device_id`)
+  KEY `name` (`name`,`phone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -327,7 +331,7 @@ CREATE TABLE `pub_vendors` (
   `idcard` varchar(20) NOT NULL COMMENT '身份证号',
   PRIMARY KEY (`id`),
   KEY `user` (`user`,`name`,`password`,`email`,`phone`,`leavel`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_vendors
@@ -344,7 +348,6 @@ INSERT INTO `pub_vendors` VALUES ('5', 'qwe', '鞍山市', '202cb962ac59075b964b
 DROP TABLE IF EXISTS `pub_wechat`;
 CREATE TABLE `pub_wechat` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `user_id` int(11) unsigned NOT NULL COMMENT '关联的用户ID号',
   `open_id` varchar(50) NOT NULL COMMENT '微信的ID号',
   `nickname` varchar(50) NOT NULL COMMENT '微信昵称',
   `head` varchar(255) DEFAULT NULL COMMENT '头像',
@@ -352,7 +355,7 @@ CREATE TABLE `pub_wechat` (
   `area` varchar(255) DEFAULT NULL COMMENT '地区',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`,`open_id`)
+  KEY `user_id` (`open_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
