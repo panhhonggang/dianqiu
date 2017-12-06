@@ -22,20 +22,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <for start="1" end="2">
-                        <volist name="deviceInfo" id="data">
-                            <tr>
-                                <td>{{$i}}</td>
-                                <td><a class="btn-link detail">{{$data.device_code}}</a></td>
-                                <td>{{$data.cname}}</td>
-                                <td>{{$data.name}}</td>
-                                <td>{{$data.typename}}</td>
-                                <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
-                                <td>{{$data.device_status}}</td>
-                                <td><a class="btn-link">开机 OR 停机</a></td>
-                            </tr>
-                        </volist>
-                    </for>
+                    <volist name="deviceInfo" id="data">
+                        <tr>
+                            <td>{{$i}}</td>
+                            <td><a class="btn-link detail">{{$data.device_code}}</a></td>
+                            <td>{{$data.cname}}</td>
+                            <td>{{$data.name}}</td>
+                            <td>{{$data.typename}}</td>
+                            <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
+                            <td>{{$data.device_status}}</td>
+                            <td><a class="btn-link">开机 OR 停机</a></td>
+                        </tr>
+                    </volist>
                 </tbody>
             </table>
             <!-- 上下页，请加样式 -->

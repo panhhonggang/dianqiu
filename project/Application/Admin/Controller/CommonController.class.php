@@ -20,35 +20,23 @@ class CommonController extends Controller
     	// 登录检测
     	if(empty($_SESSION['adminuser'])) $this->redirect('Login/login');
 
-    	// 权限检测
-    	// $name = $_SESSION['adminuser']['name'];
-    	// $auth = $this->auth($name);
-     //  	if(!$auth) {
-    	//     $this->redirect('Index/index');
-    
+        $bool = $this->rule_check(session('adminuser.id'));
 
-    	// 获取用户配置
-   	// $user_config = D('Admin/Config');
-   	// $config = $user_config->getconfig();
-   	// $this->assign('config', $config); // 后台用户配置
+        if(!$bool){
+            $this->error('权限不足');
+        }
     }
 
-    /**
-     * 调用权限验证方法
-     * @param string $name 登录用户名
-     * @return ture/false
-     * @author 潘宏钢 <619328391@qq.com>
-     */
-//     public function auth($name)
-//     {
-//         $auth = new Auth();
-//         $res = $auth->check($name, 1,1, 'Index/index', 'and' );
-//      
-//     	if ( $res ) {
+    public function rule_check($uid)
+    {
+        $auth = new \Think\Auth();
 
-//     		return ture;
-//     	}
+        if( session('adminuser.user') == 'admin' ){
+            return true;
+        }
 
-//     	return false;
-//     }
+        $name = MODULE_NAME. '/' .CONTROLLER_NAME."/".ACTION_NAME;
+        dump($name);
+        return $auth->check($name, $uid);
+    }
 }
