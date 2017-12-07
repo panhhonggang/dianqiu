@@ -20,9 +20,9 @@ class WeixinJssdk
    * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
    * @var string
    */
-  public $APPID     = 'wxf98c8a4475ef7b8e';
-  public $APPSECRET = '301249afeb156728a86a88dc2258c213';
-  public $MCHID     = '1480327842';
+  public $APPID     = 'wxae48f3bbcda86ab1';  
+  public $APPSECRET = '1c39100b331713ae9e96a4e5eb470424';
+  public $MCHID     = '1394894802';
   public $KEY       = 'CAA5EAE2CE5AC44A3F8930E6F127B423';
   //=======【证书路径设置】=====================================
   /**
@@ -85,7 +85,7 @@ class WeixinJssdk
 
   // 辅助方法-----------------------------------------------------------------------------------------------------------------
   // access_token 是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用 
-  private function getAccessToken() 
+  public function getAccessToken() 
   {
     // access_token 全局存储7000与更新[文件形式缓存]
     $data = json_decode($this->get_php_file("access_token.php"));
@@ -141,7 +141,7 @@ class WeixinJssdk
   }
 
   // 专用于发HTTP GET请求 
-  private function httpGet($url) 
+  public function httpGet($url) 
   {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
