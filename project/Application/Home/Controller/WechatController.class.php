@@ -47,7 +47,14 @@ class WechatController //extends CommonController
         // 防止服务器回复不及时时微信服务器多次回调造成数据重复。
         if(empty($userId)){
             // 将用户信息写入数据库
-            $res = M('Wechat')->data($data)->add();
+            $insertId = M('Wechat')->data($data)->add();
+            if($insertId){
+                $userData['open_id'] = $insertId;
+                $userData['created_at'] = time();
+                $userData['login_time'] = $userData['created_at'];
+                $userData['login_ip'] = get_client_ip();
+                M('Users')->data($userData)->add();
+            }
         }
     }
 
@@ -60,10 +67,18 @@ class WechatController //extends CommonController
     {
         // 获取用户openid
         $openid = $openid;
-
-        // 删除微信用户信息
-        $res = M('Wechat')->where('`open_id`="'.$openid.'"')->delete();
-
+        // 根据微信openid查询数据库id字段1条数据
+        $userId = M('Wechat')->field('id')->where('`open_id`="'.$openid.'"')->find()['id'];
+        // 如果数据库有这条数据
+        if($userId){
+            // 删除微信用户信息
+            $res = M('Wechat')->where('`id`='.$userId)->delete();
+            // 如果微信信息表删除成功
+            if($res){
+                // 关联删除用户表中的数据
+                M('Users')->where('`open_id`='.$userId)->delete();
+            }
+        }
     }
 
 }
