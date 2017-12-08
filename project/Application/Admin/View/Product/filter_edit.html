@@ -12,9 +12,10 @@
 
                 <foreach name="info" item="vo">
 
-                <form class="" action="__URL__/filter_edit" method="post">
+                <form class="" action="__URL__/filter_edit" method="post" enctype="multipart/form-data">
                     
                     <input type="hidden" name="id" value="{{$vo.id}}">
+                    <input type="hidden" name="oldpicpath" value="{{$vo.picpath}}">
                     
                     <div class="control-group">
                         <span>滤芯名称</span>
@@ -23,6 +24,15 @@
                     <div class="control-group">
                         <span>滤芯别名</span>
                         <input type="text" name="alias" placeholder="请输入滤芯别名..." value="{{$vo.alias}}">
+                    </div>
+                    <div class="control-group">
+                        <span>滤芯价格</span>
+                        <input type="text" name="price" placeholder="请输入滤芯价格..." value="{{$vo.price}}">
+                    </div>
+                    <div class="control-group">
+                        <span>滤芯图片</span>
+                        <img src="__PUBLIC__{{$vo.picpath}}" alt="" width="180"> <br>
+                        上传新图片 <input type="file" name="myfile">
                     </div>
                     <div class="control-group">
                         <span>时间寿命(小时)</span>

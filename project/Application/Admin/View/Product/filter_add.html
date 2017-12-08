@@ -9,7 +9,7 @@
         <div class="tableBox">
             <div class="titleBar">产品管理/<span>滤芯设置</span></div>
             <div class="formBox">
-                <form class="form-horizontal" action="__URL__/filter_add" method="post">
+                <form class="form-horizontal" action="__URL__/filter_add" method="post" enctype="multipart/form-data">
                 
                     <div class="control-group">
                         <span>滤芯名称</span>
@@ -18,6 +18,14 @@
                     <div class="control-group">
                         <span>滤芯别名</span>
                         <input type="text" name="alias" placeholder="请输入滤芯别名...">
+                    </div>
+                    <div class="control-group">
+                        <span>滤芯图片</span>
+                        <input type="file" name="myfile">
+                    </div>
+                    <div class="control-group">
+                        <span>滤芯价格</span>
+                        <input type="text" name="price" placeholder="请输入滤芯价格...">
                     </div>
                     <div class="control-group">
                         <span>时间寿命(小时)</span>

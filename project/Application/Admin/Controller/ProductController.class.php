@@ -83,22 +83,33 @@ class ProductController extends CommonController
     public function filter_add()
     {
         if (IS_POST) {
-            $filter = D('filters');
-            $info = $filter->create();
+            // 先处理图片
+            $picpath = $this->upload();
             
-            if($info){
+            if ($picpath) {
+                $_POST['picpath'] = $picpath[0];
 
-                $res = $filter->add();
-                if ($res) {
-                    $this->success('添加滤芯成功啦！！！',U('Product/filterlist'));
+                $filter = D('filters');
+                $info = $filter->create();
+                
+                if($info){
+
+                    $res = $filter->add();
+                    if ($res) {
+                        $this->success('添加滤芯成功啦！！！',U('Product/filterlist'));
+                    } else {
+                        $this->error('添加滤芯失败啦！');
+                    }
+                
                 } else {
-                    $this->error('添加滤芯失败啦！');
+                    // getError是在数据创建验证时调用，提示的是验证失败的错误信息
+                    $this->error($filter->getError());
                 }
-            
-            } else {
-                // getError是在数据创建验证时调用，提示的是验证失败的错误信息
-                $this->error($filter->getError());
+
+            }else{
+                $this->error('请上传滤芯图片');
             }
+            
         }else{
             $this->display();
         }
@@ -137,6 +148,15 @@ class ProductController extends CommonController
     public function filter_edit($id)
     {
         if(IS_POST){
+
+            $picpath = $this->upload();
+            if (!$picpath) {
+                // 如果没有上传新的图片，那么就取原来的老图片，也就是隐藏域的值
+                $picpath = $_POST['oldpicpath'];
+            }
+            
+            $_POST['picpath'] = $picpath[0];
+
             $mod = D('filters');
             $info = $mod->create();
             
@@ -144,16 +164,17 @@ class ProductController extends CommonController
                 $res = $mod->where("id=".$_POST['id'])->save();
 
                 if ($res) {
+                    // 删除原图片
+                    unlink("./Public".$_POST['oldpicpath']); 
                     $this->success('修改成功啦！',U('Product/filterlist'));
                 }else{
                     $this->error('修改失败！');
                 }
             }else{
                 // getError是在数据创建验证时调用，提示的是验证失败的错误信息
-                $this->error($filter->getError());
+                $this->error($mod->getError());
             }
            
-
         } else {
             $info = M('filters')->where("id=".$id)->select();
             $this->assign('info',$info);
@@ -170,6 +191,31 @@ class ProductController extends CommonController
     public function filterdel($id)
     {
         
+    }
+
+
+    // 图片上传
+    public function upload()
+    {
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   =     3145728 ;// 设置附件上传大小
+        $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+        $upload->rootPath  =     './Public/'; // 设置附件上传根目录
+        $upload->savePath  =     '/upload/'; // 设置附件上传（子）目录
+        // 上传文件 
+        $info   =   $upload->upload();
+        if(!$info) {// 上传错误提示错误信息
+            return false;
+            // $this->error($upload->getError());
+        }else{
+            // 上传成功
+            foreach ($info as $file) {
+                // dump($info);die;
+                $pic[] = $file['savepath'].$file['savename'];
+            }
+            // $this->success('上传成功！');
+            return $pic;
+        }
     }
 
 }

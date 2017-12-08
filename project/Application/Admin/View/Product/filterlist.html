@@ -15,6 +15,8 @@
                     <th>滤芯ID</th>
                     <th>滤芯名称</th>
                     <th>滤芯别名</th>
+                    <th>滤芯价格(元)</th>
+                    <th>滤芯图片</th>
                     <th>时间寿命(小时)</th>
                     <th>流量寿命(升)</th>
                     <th>滤芯简介</th>
@@ -30,6 +32,8 @@
                             <td>{{$vo.id}}</td>
                             <td>{{$vo.filtername}}</td>
                             <td>{{$vo.alias}}</td>
+                            <td>{{$vo.price}}</td>
+                            <td><img src="__PUBLIC__{{$vo.picpath}}" width="100"></td>
                             <td>{{$vo.timelife}}</td>
                             <td>{{$vo.flowlife}}</td>
                             <td>{{$vo.introduce}}</td>
