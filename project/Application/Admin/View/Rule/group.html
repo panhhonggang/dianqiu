@@ -9,7 +9,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="tabbable">
-                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab">
+                    <ul class="nav-tabs padding-12 tab-color-blue background-blue" id="myTab">
                         <li class="active">
                             <a href="#home" data-toggle="tab">
                                 用户组列表
@@ -49,8 +49,8 @@
                                             分配权限
                                         </a>
                                         |
-                                        <a href="{{:U('Admin/Rule/check_user',array('group_id'=>$v['id']))}}">
-                                            添加成员
+                                        <a href="{{:U('Admin/Rule/group_list',array('group_id'=>$v['id']))}}">
+                                            用户组详情
                                         </a>
                                     </td>
                                 </tr>

@@ -202,10 +202,26 @@ class RuleController extends CommonController{
         $map=I('get.');
         $result=D('AuthGroupAccess')->deleteData($map);
         if ($result) {
-            $this->success('操作成功',U('Admin/Rule/admin_user_list'));
+            $this->success('操作成功',U('Admin/Rule/group_list'));
         }else{
             $this->error('操作失败');
         }
+    }
+
+    /**
+     * 查看用户组成员
+     */
+    public function group_list(){
+        $map=I('get.');
+        $res = M('auth_group_access')->where($map)->select();
+        $res = array_column($res, 'uid');
+        $data = M('vendors')->where(['id' => array('in', $res)])->field('id, user')->select();
+        $assign = array(
+            'group_data'=>$map,
+            'data' => $data
+        );
+        $this->assign($assign);
+        $this->display();
     }
 
 }
