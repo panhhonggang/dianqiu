@@ -21,7 +21,6 @@ class CommonController extends Controller
     	if(empty($_SESSION['adminuser'])) $this->redirect('Login/login');
 
         $bool = $this->rule_check(session('adminuser.id'));
-
         if(!$bool){
             $this->error('权限不足');
         }
@@ -35,7 +34,7 @@ class CommonController extends Controller
             return true;
         }
 
-        $name = CONTROLLER_NAME."/".ACTION_NAME;
+        $name = MODULE_NAME."/".CONTROLLER_NAME."/".ACTION_NAME;
         dump($name);
         return $auth->check($name, $uid);
     }
