@@ -35,7 +35,7 @@ class CommonController extends Controller
             return true;
         }
 
-        $name = MODULE_NAME. '/' .CONTROLLER_NAME."/".ACTION_NAME;
+        $name = CONTROLLER_NAME."/".ACTION_NAME;
         dump($name);
         return $auth->check($name, $uid);
     }
