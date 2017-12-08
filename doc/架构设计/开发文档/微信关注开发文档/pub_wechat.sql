@@ -1,0 +1,1 @@
+INSERT INTO `pub_wechat` VALUES (24, 'oXwY4t2gearWoyg8z19ygjD34vDk', '馨品Mr\'feng', 'http://wx.qlogo.cn/mmopen/lbk4D8nFV3TBwoicSXcPoxia5iaIydTcZUBgibBvJUZBP67vsCUsWicmqK3EkDomcicB1A1o5rf4w7EP0QWDHMdLjA8snibHHxJOj5b/0', 2, '广东', '中国 广东 广州');

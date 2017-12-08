@@ -43,23 +43,27 @@ class WechatController //extends CommonController
         // 根据微信openid查询数据库id字段1条数据
         $userId = M('Wechat')->field('id')->where('`open_id`="'.$data['open_id'].'"')->find();
 
-        // 如果数据库并未存储，才将用户信息写入数据库
-        // 防止服务器回复不及时时微信服务器多次回调造成数据重复。
+        // 如果数据库并未存储，将用户信息写入数据库
         if(empty($userId)){
             // 将用户信息写入数据库
             $insertId = M('Wechat')->data($data)->add();
             if($insertId){
-                $userData['open_id'] = $insertId;
+                $userData['open_id'] = $data['open_id'];
                 $userData['created_at'] = time();
                 $userData['login_time'] = $userData['created_at'];
                 $userData['login_ip'] = get_client_ip();
                 M('Users')->data($userData)->add();
             }
+        // 微信用户信息已存在，说明用户是第二是关注微信公众号
+        }else{
+            // 修改用户状态为1（启用）
+            $userData['user_status'] = 1;
+            M('Users')->where('`open_id`="'.$data['open_id'].'"')->save($userData);
         }
     }
 
     /**
-     * [delete 取消关注事件 删除微信用户信息]
+     * [delete 取消关注事件 修改用户状态]
      * @param  [type] $openid [description]
      * @return [type]         [description]
      */
@@ -67,18 +71,10 @@ class WechatController //extends CommonController
     {
         // 获取用户openid
         $openid = $openid;
-        // 根据微信openid查询数据库id字段1条数据
-        $userId = M('Wechat')->field('id')->where('`open_id`="'.$openid.'"')->find()['id'];
-        // 如果数据库有这条数据
-        if($userId){
-            // 删除微信用户信息
-            $res = M('Wechat')->where('`id`='.$userId)->delete();
-            // 如果微信信息表删除成功
-            if($res){
-                // 关联删除用户表中的数据
-                M('Users')->where('`open_id`='.$userId)->delete();
-            }
-        }
+        // 修改用户状态为0（禁用）
+        $userData['user_status'] = 0;
+        M('Users')->where('`open_id`="'.$openid.'"')->save($userData);
     }
+
 
 }
