@@ -8,7 +8,7 @@ use Think\Model;
  * @package Admin\Model
  * @author 潘宏钢 <619328391@qq.com>
  */
-class VendorsModel extends Model
+class VendorsModel extends BaseModel
 {   
     // 自动验证
     protected $_validate = array(
@@ -42,7 +42,5 @@ class VendorsModel extends Model
         }
         return $list;
     }
-
-    
 
 }
