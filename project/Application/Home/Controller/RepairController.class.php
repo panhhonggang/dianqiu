@@ -43,6 +43,7 @@ class RepairController extends CommonController
             }
         }else{
             // 查出该用户昵称和地址等信息显示在页面
+
             
             $this->display();
         }
