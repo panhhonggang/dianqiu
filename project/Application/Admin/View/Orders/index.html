@@ -1,0 +1,75 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">订单管理/<span>订单列表</span></div>
+            <form class="form-search fr" action="__URL__/index" method="get">
+                <input type="text" name="typename" class="input-medium" placeholder="请输入产品类型名称...">
+                <button type="submit" class="btn">搜索</button>
+            </form>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>类型ID</th>
+                    <th>类型名称</th>
+                    <th>创建时间</th>
+                    <th>一级滤芯</th>
+                    <th>二级滤芯</th>
+                    <th>三级滤芯</th>
+                    <th>四级滤芯</th>
+                    <th>五级滤芯</th>
+                    <th>六级滤芯</th>
+                    <th>七级滤芯</th>
+                    <th>八级滤芯</th>
+                    <!-- <th>操作</th> -->
+                </tr>
+                </thead>
+                <tbody>
+                    <notempty name="list">
+                    <foreach name="list" item="vo" key="key">
+                    <tr>
+                        <td>{{$vo.id}}</td>
+                        <td>{{$vo.typename}}</td>
+                        <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
+                        <td>{{$vo.filter1}}</td>
+                        <td>{{$vo.filter2}}</td>
+                        <td>{{$vo.filter3}}</td>
+                        <td>{{$vo.filter4}}</td>
+                        <td>{{$vo.filter5}}</td>
+                        <td>{{$vo.filter6}}</td>
+                        <td>{{$vo.filter7}}</td>
+                        <td>{{$vo.filter8}}</td>
+                        <!-- <td>
+                            <if condition="$Think.session.adminuser.leavel eq 0">
+                                <a href="__URL__/edit/id/{{$vo.id}}">编辑</a>
+                                <a href="__URL__/del/id/{{$vo.id}}">删除</a>
+                            <else/>
+                                <span>您无操作权限</span>
+                            </if>
+                        </td> -->
+                    </tr>
+                    </foreach>
+                    <else />
+                    <tr>
+                        <td colspan="12">查无数据</td>
+                    </tr>
+                    </notempty>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <ul>
+                    {{$button}}
+                </ul>
+            </div>
+            <script>
+                $('.pagination ul a').unwrap('div').wrap('<li></li>');
+                $('.pagination ul span').wrap('<li class="active"></li>')
+            </script>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+

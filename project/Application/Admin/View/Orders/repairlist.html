@@ -1,0 +1,81 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">客户反馈及报修/<span>报修列表</span></div>
+            <form class="form-search fr" action="__URL__/bindinglist" method="get">
+                <input type="text" class="input-medium" name="name" placeholder="请输入真实姓名...">
+                <button type="submit" class="btn">搜索</button>
+            </form>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>报修编号</th>
+                    <th>用户ID</th>
+                    <th>设备编码</th>
+                    <th>用户昵称</th>
+                    <th>经销商手机</th>
+                    <th>报修内容</th>
+                    <th>图片</th>
+                    <th>报修地址</th>
+                    <th>报修时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <notempty name="list">
+                        <foreach name="list" item="vo" key="key">
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$vo.uid}}</td>
+                            <td>{{$vo.device_code}}</td>
+                            <td>{{$vo.name}}</td>
+                            <td>{{$vo.phone}}</td>
+                            <td>{{$vo.content}}</td>
+                            <td>{{$vo.picpath}}</td>
+                            <td>{{$vo.address}}</td>
+                            <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
+                            <td>
+                                <switch name="vo.status">
+                                    <case value="0">未处理</case>
+                                    <case value="1">已处理</case>
+                                    <default />
+                                </switch>
+                            </td>
+                            <td>
+                                <if condition="$Think.session.adminuser.leavel eq 0">
+                                    <switch name="vo.status">
+                                        <case value="0"><a href="__URL__/edit/id/{{$vo.id}}/status/1">派人处理</a></case>
+                                        <default />
+                                    </switch>
+                                <else />
+                                    <span>对不起，您无权操作！！！</span>
+                                </if>
+                            </td>
+                        </tr>
+                        </foreach>
+                    <else />
+                        <tr>
+                            <td colspan="10">查无数据</td>
+                        </tr>
+                    </notempty>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <ul>
+                    {{$button}}
+                </ul>
+            </div>
+            <script>
+                $('.pagination ul a').unwrap('div').wrap('<li></li>');
+                $('.pagination ul span').wrap('<li class="active"></li>')
+            </script>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+
+
