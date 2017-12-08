@@ -94,7 +94,7 @@ class FeedsController extends CommonController
         $data['status'] = $_GET['status'];
         $res = $work->where('id='.$id)->save($data); 
         if ($res) {
-             $this->redirect('Feeds/repairlist');
+            $this->success('修改成功',U('Feeds/repairlist'));
         } else {
             $this->error('修改失败啦！');
         }
