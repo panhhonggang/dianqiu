@@ -212,13 +212,22 @@ class RuleController extends CommonController{
      * 查看用户组成员
      */
     public function group_list(){
-        $map=I('get.');
+        $map =I('get.');
+        $name = M('auth_group')->where('id='.$map['group_id'])->find();
         $res = M('auth_group_access')->where($map)->select();
         $res = array_column($res, 'uid');
-        $data = M('vendors')->where(['id' => array('in', $res)])->field('id, user')->select();
+        if(!empty($res)){
+            $data = M('vendors')->where(['id' => array('in', $res)])->field('id, user')->select();
+            $empty = null;
+        } else {
+            $data = array();
+            $empty = "<tr><td clospan=3>还未添加分组成员</td></tr>";
+        }
         $assign = array(
+            'name' => $name,
             'group_data'=>$map,
-            'data' => $data
+            'data' => $data,
+            'empty' => $empty,
         );
         $this->assign($assign);
         $this->display();

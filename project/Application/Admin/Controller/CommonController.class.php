@@ -24,6 +24,13 @@ class CommonController extends Controller
         if(!$bool){
             $this->error('权限不足');
         }
+
+        // 分配菜单权限
+        $nav_data=D('AdminMenu')->getTreeData('level','order_number,id');
+        $assign=array(
+            'nav_data'=>$nav_data
+            );
+        $this->assign($assign);
     }
 
     public function rule_check($uid)
@@ -35,7 +42,6 @@ class CommonController extends Controller
         }
 
         $name = MODULE_NAME."/".CONTROLLER_NAME."/".ACTION_NAME;
-        dump($name);
         return $auth->check($name, $uid);
     }
 }

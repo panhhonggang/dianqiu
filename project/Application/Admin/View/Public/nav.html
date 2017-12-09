@@ -1,172 +1,34 @@
-
-        
 <div class="navBox sidebar-collapse fl" id="nav">
     <ul class="nav nav-list">
-        <li class="active">
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">首页</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">客户反馈及报修</span>
-            </a>
-            <ul class="submenu">
+        <!-- 遍历菜单   开始 -->
+        <foreach name="nav_data" item="v">
+            <empty name="v['_data']">
                 <li>
-                    <a href="{{:U('Feeds/feedslist')}}">
-                        <i class="icon-double-angle-right"></i>反馈列表
+                    <a href="{{:U($v['mca'])}}">
+                        <i class="icon-double-angle-right"></i>
+                        {{$v['name']}}
                     </a>
                 </li>
+            <else />
                 <li>
-                    <a href="{{:U('Feeds/repairlist')}}">
-                        <i class="icon-double-angle-right"></i>报修列表
+                    <a href="#" class="dropdown-toggle">
+                        <span class="menu-text">
+                            {{$v['name']}}
+                        </span>
                     </a>
+                    <ul class="submenu">
+                        <foreach name="v['_data']" item="n">
+                            <li>
+                                <a href="{{:U($n['mca'])}}">
+                                    <i class="icon-double-angle-right"></i>
+                                    {{$n['name']}}
+                                </a>
+                            </li>
+                        </foreach>
+                    </ul>
                 </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">后台管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Vendors/add')}}">
-                        <i class="icon-double-angle-right"></i>添加经销商
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Vendors/index')}}">
-                        <i class="icon-double-angle-right"></i>经销商列表
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Vendors/devices_add')}}">
-                        <i class="icon-double-angle-right"></i>设备归属
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Vendors/bindinglist')}}">
-                        <i class="icon-double-angle-right"></i>设备归属列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">产品管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Product/filter_add')}}">
-                        <i class="icon-double-angle-right"></i>滤芯设置
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Product/filterlist')}}">
-                        <i class="icon-double-angle-right"></i>滤芯列表
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Product/add')}}">
-                        <i class="icon-double-angle-right"></i>产品类型设置
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Product/index')}}">
-                        <i class="icon-double-angle-right"></i>产品类型列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-        
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">设备管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Devices/show_add_device')}}">
-                        <i class="icon-double-angle-right"></i>设备添加
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Devices/devicesList')}}">
-                        <i class="icon-double-angle-right"></i>设备列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">订单管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Orders/index')}}">
-                        <i class="icon-double-angle-right"></i>订单列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-       
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">工单管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Work/add')}}">
-                        <i class="icon-double-angle-right"></i>添加工单
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Work/index')}}">
-                        <i class="icon-double-angle-right"></i>工单列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">用户管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Users/index')}}">
-                        <i class="icon-double-angle-right"></i>用户列表
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Users/flow')}}">
-                        <i class="icon-double-angle-right"></i>充值记录
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Users/consume')}}">
-                        <i class="icon-double-angle-right"></i>消费记录
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <span class="menu-text">权限管理</span>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{:U('Rule/group')}}">
-                        <i class="icon-double-angle-right"></i>用户组
-                    </a>
-                </li>
-                <li>
-                    <a href="{{:U('Rule/index')}}">
-                        <i class="icon-double-angle-right"></i>权限列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-
+            </empty>
+        </foreach>
+        <!-- 遍历菜单   结束 -->
     </ul>
 </div>
-
