@@ -1,0 +1,66 @@
+#infor {
+	width: 10.0rem;
+	margin-bottom: 1.466667rem;
+}
+
+#container {
+	width: 8.933333rem;
+	height: 1.833333rem;
+	margin: 0.0rem 0.533333rem;
+	position: relative;
+}
+
+#container h3 {
+	margin-top: 0.266667rem;
+	font-size: 0.453333rem;
+}
+
+#char-list {
+	margin-bottom: 6.666667rem;
+}
+
+#char-list div {
+	width: 7.0rem;
+	letter-spacing: 0.33rem;
+	border-bottom: 1px dashed #ccc;
+	padding: 0.133333rem 0.0rem;
+	margin: 0.276667rem 0.0rem;
+	font-size: 0.373333rem;
+	display: inline-block;
+}
+
+#char-list .spac {
+	letter-spacing: 0.0rem;
+}
+
+#char-list i {
+	font-size: 0.64rem;
+	padding-right: 0.133333rem;
+}
+
+#char-list div p{
+	/*width: 0.933333rem;*/
+	margin-left: 0.166667rem;
+	
+	display: inline-block;
+
+}
+
+#char-list div input {
+
+	border: none;
+	height: 0.666667rem;
+}
+
+#save {
+	font-size: 0.426667rem;
+	color: #fff;
+	position: fixed;
+	width: 8.666667rem;
+	height: 1.333333rem;
+	/*bottom: 1.466667rem;*/
+	left: 0.666667rem;
+	border-radius: 7px;
+	background: #2B2B4D;
+	border: none;
+}

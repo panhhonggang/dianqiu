@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+		<title>滤芯 </title>
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/lvxin-chongzhi.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css">
+		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script>
+	</head>
+	<body>
+
+	<div id="contain">
+		<div id="btn">
+			<input type="button" value="充值">
+			<input type="button" value="滤芯">
+		</div>
+		<hr>
+		<div id="but1"></div>
+		<div id="but2"></div>
+
+		<div id="liuliang" style="display: block;">
+			<h3><b>选择套餐</b></h3>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量" style="background: #7D7FCE;"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量">
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量">
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量">
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量">
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量"><br>
+			<input type="button" value="100元套餐含1000l流量">
+		</div>
+
+		<!-- 滤芯开始 -->
+		<div id="mo" style="display: block;">
+			<foreach name="list" item="v" key="k">
+			<div id="ro1" class="ro1">
+				<div id="ro-left"><img src="{{$v['picpath']}}" alt=""></div>
+				<div id="ro-right">
+					<div class="top">
+						<h3>{{$v['filtername']}}</h3>
+						<p>{{$v['introduce']|msubstr=0,45,'utf-8',true}}</p>
+					</div>
+					<div class="bott">
+					 <b>￥{{$v['price']/100}}</b>
+					 <i>
+					 	<input type="button" value="-"><input type="text" value="0"><input type="button" value="+">
+					 </i>
+					</div>
+				</div>
+			</div>
+			<hr>
+			</foreach>
+		</div>
+			
+
+		<!-- 滤芯结束 -->
+        <div id="foot">
+			<i class="iconfont icon-gouwuche"></i>
+			<input type="button" value="加入购物车"><input type="button" value="立即购买">
+		</div>	
+	</div>
+	
+	</body>
+
+</html>

@@ -1,0 +1,169 @@
+#contain{
+	width:9.2rem; 
+	margin:0.4rem; 
+	
+}
+
+#btn{
+
+	width:3.546667rem; 
+	height:0.88rem; 
+	margin-left: 2.786667rem; 
+}
+
+#btn input:first-child{
+	width:1.333333rem;
+	height:0.88rem;
+	float:left;
+	border:none;
+	font-size: 0.426667rem;
+	color:#fff;
+}
+#btn input:last-child{
+	width:1.333333rem;
+	height:0.88rem;
+	float:right;
+	border:none;
+	font-size: 0.426667rem;
+	
+}
+hr{border: 2px solid #ccc;}
+#but1{
+	width:1.2rem;
+	height:0.07rem;
+	background:green;
+	border-radius: 5px;
+	position: relative;
+	top:-0.07rem;
+	left:2.821111rem;
+}
+#but2{
+	width:1.2rem;
+	height:0.07rem;
+	background:green;
+	border-radius: 5px;
+	position: relative;
+	top:-0.14rem;
+	left:5.100000rem;
+	display: none;
+}
+#liuliang{
+	/*display:none;*/
+	  /*=======显示=======*/
+	margin-bottom: 1.566667rem;
+}
+
+#liuliang h3{
+line-height:1.333333rem;
+font-size: 0.426667rem; 
+
+}
+#liuliang input{
+	width:7.52rem; /*564*/
+	height:1.2rem;  /*90*/
+	margin-top: 0.346667rem; /*26*/
+	margin-left: 0.84rem; /*126/2=63*/
+	border-radius: 0.133333rem; /* 10*/
+	border:none;
+}
+/*==========<!-- 滤芯开始 -->============*/
+#mo{
+	margin-bottom: 1.223333rem; 
+	display: none;   /*=======显示=======*/ 
+}
+#ro1{
+	margin-top: 0.853333rem;
+	width:9.2rem;
+	height:3.04rem;
+	margin-bottom: 0.573333rem;
+	/*background:pink;*/
+}
+#ro-left{
+	width: 2.88rem;
+	height:3.013333rem;
+	float: left;
+	margin-right:0.773333rem;
+}
+#ro-left img{
+	width: 2.88rem;
+	height: 3.013333rem;
+}
+#ro-right{
+	width:5.546667rem;
+	height:3.013333rem;
+	float: right;
+	/*background-color: red;*/
+}
+#ro-right .top{
+	height: 2.453333rem;	
+}
+#ro-right .top h3{
+	font-size: 0.426667rem;
+	margin-bottom:0.133333rem;
+}
+#ro-right .top p
+{
+	font-size: 0.346667rem;
+}
+#ro-right .bott{
+	width: 5.546667rem;
+	position: relative;
+	
+}
+#ro-right .bott i{
+	font-size: 0.426667rem;
+	color:red;
+	position: absolute;
+	right: 0.0rem;
+	bottom: 0.0rem;
+}
+#ro-right .bott i input{
+	width: 0.533333rem;
+	height: 0.533333rem;
+	text-align: center;
+	background: #fff;
+}
+#ro-right .bott i input:first-child,
+#ro-right .bott i input:last-child{
+	border:none;
+}
+
+.ro1 + hr,.ro2 + hr{border:1px solid #ccc;}
+/*================<!-- 滤芯结束 -->=================*/
+
+
+
+#foot{
+	position: fixed;
+	width: 9.2rem; 
+	height: 1.2rem; /*90*/
+	bottom: 0.0rem;
+	background: #FFF;
+}
+#foot i{
+	background: #FFF;
+	text-align: center;
+	line-height: 1.2rem;
+	font-size: 0.8rem; /*60*/
+	margin:0.266667rem; /*20*/
+	
+}
+
+#foot input{
+width:3.85333rem;
+height: 1.2rem;
+float:right;
+border:none;
+}
+
+#foot input:last-child{
+	background:#353659;
+	color:#fff;
+}
+
+
+
+
+
+
+

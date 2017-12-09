@@ -1,0 +1,54 @@
+#contain {
+	width: 10.0rem;
+	background: url(../images/bg_1_04.png);
+	background-size: cover;
+	
+	/*background: #00FF00 url(bgimage.gif) no-repeat fixed top;*/
+}
+
+#sec {
+	width: 9.2rem;
+	height: 13.586667rem;
+	margin: 0 0.4rem;
+}
+
+#sec h3 {
+	font-size: 0.506667rem;
+	margin-top: 0.733333rem;
+	margin-bottom: 0.4rem;
+}
+
+#sec p {
+	font-size: 0.453333rem;
+	line-height: 1.12rem;
+}
+
+#sec p i {
+	font-size: 0.453333rem;
+}
+
+#foot {
+	position: fixed;
+	bottom: 1.066667rem;
+	width: 6.373333rem;
+	margin-left: 1.813333rem;
+	margin-bottom: 0.24rem;
+}
+
+#wifi {
+	float: left;
+}
+
+#band {
+	float: right;
+}
+
+#foot .iconfont {
+	padding-left: 0.4rem;
+	font-size: 0.853333rem;
+}
+
+#foot p {
+	margin-top: 0.8rem;
+	font-size: 0.426667rem;
+}

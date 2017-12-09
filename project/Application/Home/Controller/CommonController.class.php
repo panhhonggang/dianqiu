@@ -17,7 +17,7 @@ class CommonController extends Controller
     public function _initialize()
     {	
     	// 登录检测
-    	if(empty($_SESSION['homeuser'])) $this->redirect('Login/login');
+    	// if(empty($_SESSION['homeuser'])) $this->redirect('Login/login');
 
     }
 
