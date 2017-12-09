@@ -13,9 +13,30 @@ class ShopController extends CommonController
         $this->display();
     }
 
-    // 商城滤芯产品
+    // 商城充值套餐和滤芯产品
     public function filterElement()
     {
+    	// 充值套餐
+    	$setmeal =  M('Setmeal');
+
+		// 查询滤芯产品总记录数
+		$setmealCount = $setmeal->count();
+		
+		// 实例化分页类 传入总记录数和每页显示的记录数(25)
+		$setmealPage = new \Think\Page($setmealCount,25);
+		// 分页显示输出
+		$setmealShow = $setmealPage->show();
+		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+		$setmealList = $setmeal->limit($setmealPage->firstRow.','.$setmealPage->listRows)->select();
+		// 赋值数据集
+		$this->assign('setmealList',$setmealList);
+		// 赋值分页输出
+		$this->assign('setmealPage',$setmealShow);
+		// dump($setmealList);
+		// dump($setmealShow);
+		// die;
+
+
     	// 实例化Filters对象
 		$User = M('Filters');
 		// 查询滤芯产品总记录数

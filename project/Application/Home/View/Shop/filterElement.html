@@ -22,26 +22,12 @@
 		<div id="but1"></div>
 		<div id="but2"></div>
 
-		<div id="liuliang" style="display: block;">
+		<div id="liuliang">
 			<h3><b>选择套餐</b></h3>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量" style="background: #7D7FCE;"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量">
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量">
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量">
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量">
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量"><br>
-			<input type="button" value="100元套餐含1000l流量">
+		<foreach name="setmealList" item="vo" key="ke">
+			<input type="button" value="{{$vo['describe']}}"><br>
+		</foreach>
+			<!-- <input type="button" value="100元套餐含1000l流量" style="background: #7D7FCE;"><br> -->
 		</div>
 
 		<!-- 滤芯开始 -->

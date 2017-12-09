@@ -1,0 +1,16 @@
+INSERT INTO `pub_setmeal` VALUES (4, 0, 1000, 100, '10元套餐含100l流量');
+INSERT INTO `pub_setmeal` VALUES (5, 0, 2000, 200, '20元套餐含200l流量');
+INSERT INTO `pub_setmeal` VALUES (6, 0, 3000, 300, '30元套餐含300l流量');
+INSERT INTO `pub_setmeal` VALUES (7, 0, 4000, 400, '40元套餐含400l流量');
+INSERT INTO `pub_setmeal` VALUES (8, 0, 5000, 500, '50元套餐含500l流量');
+INSERT INTO `pub_setmeal` VALUES (9, 0, 6000, 600, '60元套餐含600l流量');
+INSERT INTO `pub_setmeal` VALUES (10, 0, 7000, 700, '70元套餐含700l流量');
+INSERT INTO `pub_setmeal` VALUES (11, 0, 8000, 800, '80元套餐含800l流量');
+INSERT INTO `pub_setmeal` VALUES (12, 0, 9000, 900, '90元套餐含900l流量');
+INSERT INTO `pub_setmeal` VALUES (1, 0, 10000, 1000, '100元套餐含1000l流量');
+INSERT INTO `pub_setmeal` VALUES (2, 0, 20000, 2000, '200元套餐含2000l流量');
+INSERT INTO `pub_setmeal` VALUES (3, 0, 30000, 3000, '300元套餐含3000l流量');
+INSERT INTO `pub_setmeal` VALUES (16, 0, 40000, 4000, '400元套餐含4000l流量');
+INSERT INTO `pub_setmeal` VALUES (17, 0, 50000, 5000, '500元套餐含5000l流量');
+INSERT INTO `pub_setmeal` VALUES (18, 0, 60000, 6000, '600元套餐含6000l流量');
+INSERT INTO `pub_setmeal` VALUES (19, 0, 70000, 7000, '700元套餐含7000l流量');
