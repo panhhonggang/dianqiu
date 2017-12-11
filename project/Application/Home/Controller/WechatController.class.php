@@ -76,5 +76,16 @@ class WechatController //extends CommonController
         M('Users')->where('`open_id`="'.$openid.'"')->save($userData);
     }
 
+    public function location($data)
+    {
+        file_put_contents('./LOCATION.txt', 
+            '用户ID：'.$data['FromUserName']."\t\n".
+            '消息创建时间 （整型）:'.$data['CreateTime']."\t\n".
+            '地理位置纬度:'.$data['Latitude']."\t\n".
+            '地理位置经度:'.$data['Longitude']."\t\n".
+            '地理位置精度:'.$data['Precision']."\t\n"
+        );
+    }
+
 
 }

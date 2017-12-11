@@ -51,6 +51,16 @@ class WeixinEventController
                 $Wechat->delete($data['FromUserName']);
                 exit;
             }
+
+            // 判断如果是上报地理位置事件
+            if($data['Event'] == 'LOCATION'){
+                //file_put_contents('./del.txt', $xml);
+                // 实例化微信信息类型
+                $Wechat = new WechatController;
+                // 调用上报用户地理位置的方法
+                $Wechat->location($data);
+                exit;
+            }
 		}
 	}
 
