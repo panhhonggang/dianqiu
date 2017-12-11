@@ -41,7 +41,7 @@ class ProductController extends CommonController
             // dump($_POST);die;
             $device_type = D('type');
             $info = $device_type->create();
-           
+            
             if($info){
 
                 $res = $device_type->add();
