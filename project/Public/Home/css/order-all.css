@@ -1,0 +1,118 @@
+.container{
+
+    margin: 0.4rem 0.4rem 0.5rem 0.4rem !important;
+}
+}
+#order-all-header{
+	position: relative;
+
+}
+/*<!-- order-all的头部开始 -->*/
+#order-all-header>ul
+{
+	width: 9.2rem;
+	height:0.98rem;
+	/*background: pink;*/
+}
+#order-all-header>ul>li
+{
+   float: left;
+	display: inline-block;
+	width: 2.293333rem;
+	height:0.88rem;
+	font-size: 0.426667rem;
+	text-align: center;
+	line-height: 0.88rem;
+	border-bottom: 4px solid #ccc;
+}
+#order-all-header>.slip
+{
+	width:1.3rem;
+	height:4px;
+	background: #2E2F55;
+	position: absolute;
+	top:1.278rem;
+	left:0.880911rem;
+	border-radius: 0.053333rem;
+
+}
+
+/*<!-- order-all的头部结束 -->
+*/
+#all-sure-head
+{
+	/*height:5.16rem;*/
+	width:9.2rem;
+	margin:0.6rem 0.0rem;
+	border-bottom: 1px solid #ccc;
+	
+}
+#all-sure-head>input{
+
+	width:2.533333rem; 
+}
+#all-information>b
+{
+	line-height: 0.666667rem;
+	margin-bottom: 0.266667rem;
+}
+
+#order-all-foot{
+	margin-top:1.2rem; 
+	width: 9.2rem; 
+	padding-bottom: 1.2rem; /*90*/
+	position: relative;
+	bottom:-1.2rem;
+	/*background: pink;*/
+}
+
+#order-all-foot>input{
+width:2.85333rem;
+height:0.70rem;
+float:right;
+border:none;
+background: #FFF;
+border:1px solid #000;
+}
+#order-all-foot>#ord-btn1{
+	position: absolute;
+	left: 0.0rem;
+}
+
+#order-all-foot>#ord-btn2{
+	position: absolute;
+	right: 0.0rem;
+	/*float: right;*/
+	background:#FFF;
+	color: #000;
+}
+
+#mo-left{
+	display: inline-block;
+	/*background: green;*/
+}
+#mo2{
+	position: relative;
+}
+#mo-right2>p,#mo-right>b{
+
+	display: inline-block;
+    font-size: 0.426667rem;
+	float: right!important;}
+#mo-right2>p{
+	display: inline-block;
+	 font-size: 0.426667rem;
+	margin:0.0rem 0.066667rem;
+	color: #FF0000;
+	float: right !important;
+}
+
+/*============未支付============*/
+.no-pay{
+	clear: both;
+	margin-top: 0.573333rem;
+	padding-top: 0.533333rem;
+	border-top: 4px solid #CCC;
+
+}
+

@@ -4,7 +4,7 @@
 	
 }
 
-#btn{
+#contain #btn{
 
 	width:3.546667rem; 
 	height:0.88rem; 
@@ -48,9 +48,9 @@ hr{border: 2px solid #ccc;}
 	display: none;
 }
 #liuliang{
-	/*display:none;*/
+	display:none;
 	  /*=======显示=======*/
-	margin-bottom: 1.566667rem;
+	margin-bottom: 4.5rem;
 }
 
 #liuliang h3{
@@ -68,8 +68,8 @@ font-size: 0.426667rem;
 }
 /*==========<!-- 滤芯开始 -->============*/
 #mo{
-	margin-bottom: 1.223333rem; 
-	display: none;   /*=======显示=======*/ 
+	margin-bottom: 4.5rem; 
+	/*display: none;*/   /*=======显示=======*/ 
 }
 #ro1{
 	margin-top: 0.853333rem;

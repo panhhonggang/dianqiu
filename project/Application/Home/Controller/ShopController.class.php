@@ -28,11 +28,34 @@ class ShopController extends CommonController
 
 	    	// 判断用户是否有权限
 	    	if($user['user_status']==1){
-	    		// 查询用户绑定设备ID号
-    			$devices = M('Devices')->field('id')->where('`uid`='.$user['id'])->select();
-    			// 选择设备
-    			$this->display();
-	    		//dump($devices);
+	    		// 查询用户当前设备ID号
+    			$did = M('currentDevices')->field('did')->where('`uid`='.$user['id'])->find()['did'];
+    			if($did){
+    				// 根据用户当前设备查找设备类型ID号
+    				$tid = M('deviceConfig')->field('dtid')->where('`did`='.$did)->find()['dtid'];
+    				if($tid){
+    					// 根据设备类型查找套餐setmeal
+				    	// 充值套餐
+						$setmeal = M('Setmeal'); // 实例化User对象
+						$count      = $setmeal->where('`tid`='.$tid)->count();// 查询满足要求的总记录数
+						$setmealPage       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+						$setmealshow       = $setmealPage->show();// 分页显示输出
+						// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+						$setmeallist = $setmeal->where('`tid`='.$tid)->limit($setmealPage->firstRow.','.$setmealPage->listRows)->select();
+						$this->assign('setmeallist',$setmeallist);// 赋值数据集
+						$this->assign('setmealpage',$setmealshow);// 赋值分页输出
+						$this->display(); // 输出模板
+
+
+    				}else{
+	    				// 设备未配置(跳转地址后续补充)
+	    				$this->success('设备未配置请联系管理员', '');	
+    				}
+    				
+    			}else{
+    				// 请先绑定设备(跳转地址后续补充)
+    				$this->success('请先绑定设备', '');
+    			}
 
 	    	}else{
 	    		$this->success('请先关注', 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MzkwMjE3NQ==#wechat_redirect');
@@ -58,28 +81,28 @@ class ShopController extends CommonController
 		// $this->assign('setmealList',$setmealList);
 		// // 赋值分页输出
 		// $this->assign('setmealPage',$setmealShow);
-		// // dump($setmealList);
-		// // dump($setmealShow);
-		// // die;
+		// dump($setmealList);
+		// dump($setmealShow);
+		// // // die;
 
 
-  //   	// 实例化Filters对象
-		// $User = M('Filters');
-		// // 查询滤芯产品总记录数
-		// $count = $User->count();
-		// // 实例化分页类 传入总记录数和每页显示的记录数(25)
-		// $Page = new \Think\Page($count,25);
-		// // 分页显示输出
-		// $show = $Page->show();
-		// // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-		// $list = $User->limit($Page->firstRow.','.$Page->listRows)->select();
-		// // 赋值数据集
-		// $this->assign('list',$list);
-		// // 赋值分页输出
-		// $this->assign('page',$show);
+    	// 实例化Filters对象
+		$User = M('Filters');
+		// 查询滤芯产品总记录数
+		$count = $User->count();
+		// 实例化分页类 传入总记录数和每页显示的记录数(25)
+		$Page = new \Think\Page($count,25);
+		// 分页显示输出
+		$show = $Page->show();
+		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+		$list = $User->limit($Page->firstRow.','.$Page->listRows)->select();
+		// 赋值数据集
+		$this->assign('list',$list);
+		// 赋值分页输出
+		$this->assign('page',$show);
 
-		// // dump($list);die;
-  //       // 显示模板
-  //       $this->display();
+		// dump($list);die;
+        // 显示模板
+        $this->display();
     }
 }

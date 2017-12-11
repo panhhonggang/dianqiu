@@ -1,0 +1,86 @@
+.sure-pay-top-hr
+{
+	border:2px solid #CCC;
+}
+#sure-pay{
+	
+	width: 9.2rem;
+	height:1.466667rem; 
+	position: relative;
+	border-bottom: 1px solid #CCC;
+	
+}
+#sure-pay>i{
+	position: absolute;
+	font-size:0.56rem;
+	
+
+}
+#sure-pay>b,#sure-pay>i{
+	height:1.466667rem;  
+	display: inline-block;
+	text-align: center;
+	line-height: 1.466667rem;
+}
+#sure-pay>b{
+	
+	width: 9.2rem;
+	font-size: 0.426667rem;
+}
+.sure-pay-mo2{
+	height: 2.666667rem;
+	line-height: 2.666667rem;
+	font-size: 0.8rem !important;
+	text-align: center;
+	
+}
+#pay-way{
+	height: 3.2rem;
+	width:9.2rem;
+	
+}
+
+#pay-way>p{
+	font-family: "微软雅黑";
+	line-height: 1.066667rem;
+	font-size: 0.533333rem;
+	font-weight: 0.04rem;
+}
+#pay-way label{
+
+	height: 1.066667rem;
+	display: block;
+	margin-bottom: 0.4rem;
+
+	font-size:0.426667rem;
+}
+#pay-way .pic-font
+{
+	width:9.0rem;
+	margin-left: 0.2rem;
+	font-size: 0.64rem!important;
+	color: #149E23;
+}
+.pic-font-color{
+	color: #22A8FF!important;
+}
+
+#pay-way input{
+
+	width:0.64rem;
+	height: 0.64rem;
+	float:right;
+}
+#pay-now{
+	width: 8.266667rem;
+	height: 1.2rem;
+	margin-top: 1.333333rem;
+	border-radius: 0.266667rem;
+	margin-left: 0.466667rem;
+	background:#353659; 
+	font-size: 0.64rem;
+	color: #FFF;
+}
+
+
+

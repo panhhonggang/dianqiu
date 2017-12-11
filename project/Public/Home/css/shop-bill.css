@@ -1,7 +1,6 @@
 #contain{
 	width:9.2rem; 
-	margin:0.4rem; 
-	
+	margin:0.4rem 0.4rem 4.5rem 0.4rem;
 }
 
 
@@ -138,10 +137,13 @@ hr{
 	font-size: 0.426667rem;
 }
 .franking{
+	/*position: absolute;*/
+
 	display: block;
 	margin-top: 0.853333rem;
 	float:right;
 	font-size: 0.24rem;
+	margin-bottom: 3.0rem;
 }
 
 /*================<!-- 滤芯结束 -->=================*/
