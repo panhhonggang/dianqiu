@@ -36,16 +36,20 @@ class ShopController extends CommonController
     				if($tid){
     					// 根据设备类型查找套餐setmeal
 				    	// 充值套餐
-						$setmeal = M('Setmeal'); // 实例化User对象
-						$count      = $setmeal->where('`tid`='.$tid)->count();// 查询满足要求的总记录数
-						$setmealPage       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
-						$setmealshow       = $setmealPage->show();// 分页显示输出
+				    	// 实例化User对象
+						$setmeal = M('Setmeal'); 
+						// 查询满足要求的总记录数
+						$count      = $setmeal->where('`tid`='.$tid)->count();
+						// 实例化分页类 传入总记录数和每页显示的记录数(5)
+						$setmealPage       = new \Think\Page($count,5);
+						// 分页显示输出
+						$setmealshow       = $setmealPage->show();
 						// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
 						$setmeallist = $setmeal->where('`tid`='.$tid)->limit($setmealPage->firstRow.','.$setmealPage->listRows)->select();
-						$this->assign('setmeallist',$setmeallist);// 赋值数据集
-						$this->assign('setmealpage',$setmealshow);// 赋值分页输出
-						$this->display(); // 输出模板
-
+						// 赋值数据集
+						$this->assign('setmeallist',$setmeallist);
+						// 赋值分页输出
+						$this->assign('setmealpage',$setmealshow);
 
     				}else{
 	    				// 设备未配置(跳转地址后续补充)
@@ -63,35 +67,12 @@ class ShopController extends CommonController
 	    	}
     	}
 
-
-
-  //   	// 充值套餐
-  //   	$setmeal =  M('Setmeal');
-
-		// // 查询滤芯产品总记录数
-		// $setmealCount = $setmeal->count();
-		
-		// // 实例化分页类 传入总记录数和每页显示的记录数(25)
-		// $setmealPage = new \Think\Page($setmealCount,25);
-		// // 分页显示输出
-		// $setmealShow = $setmealPage->show();
-		// // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-		// $setmealList = $setmeal->limit($setmealPage->firstRow.','.$setmealPage->listRows)->select();
-		// // 赋值数据集
-		// $this->assign('setmealList',$setmealList);
-		// // 赋值分页输出
-		// $this->assign('setmealPage',$setmealShow);
-		// dump($setmealList);
-		// dump($setmealShow);
-		// // // die;
-
-
     	// 实例化Filters对象
 		$User = M('Filters');
 		// 查询滤芯产品总记录数
 		$count = $User->count();
 		// 实例化分页类 传入总记录数和每页显示的记录数(25)
-		$Page = new \Think\Page($count,25);
+		$Page = new \Think\Page($count,5);
 		// 分页显示输出
 		$show = $Page->show();
 		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
@@ -100,8 +81,6 @@ class ShopController extends CommonController
 		$this->assign('list',$list);
 		// 赋值分页输出
 		$this->assign('page',$show);
-
-		// dump($list);die;
         // 显示模板
         $this->display();
     }
