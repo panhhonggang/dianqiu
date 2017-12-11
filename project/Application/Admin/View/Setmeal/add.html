@@ -64,36 +64,3 @@
         <include file="Public/footer"/>
     </div>
 </div>
-<script>
-$(function(){
-    //处理日期
-    layui.use('laydate', function(){
-        var element =laydate = layui.laydate
-    })
-    //城市三级联动
-    _init_area();
-    var Gid  = document.getElementById ;
-    var showArea = function(){
-        Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + Gid('s_city').value + " - 县/区" + Gid('s_county').value + "</h3>"
-    }
-    $(".subbtn").click(function(ev){
-        if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('请把地址填写完整');
-            });    
-            ev.preventDefault();
-        }else{
-            $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
-        } 
-        if($("#addMaintenanceDate").val()==""){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('请输入处理时间');
-            });    
-            ev.preventDefault();
-        }
-    });
-})
-
-</script>

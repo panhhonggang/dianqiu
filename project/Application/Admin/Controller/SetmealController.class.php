@@ -24,11 +24,18 @@ class SetmealController extends CommonController
 
         $type = M('setmeal');
         
-        $total =$type->where($map)->count();
+        $total =$type->where($map)
+                    ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
+                    ->field('pub_setmeal.*,pub_device_type.typename')
+                    ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->select();
+        $list = $type->where($map)
+                    ->limit($page->firstRow.','.$page->listRows)
+                    ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
+                    ->field('pub_setmeal.*,pub_device_type.typename')
+                    ->select();
         // dump($list);die;
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
@@ -61,18 +68,6 @@ class SetmealController extends CommonController
             $list = $type->select();
             $this->assign('list',$list);
             $this->display();
-        }
-    }
-
-    public function edit($id,$result)
-    {
-        $work = M("work");
-        $data['result'] = $_GET['result'];
-        $res = $work->where('id='.$id)->save($data); 
-        if ($res) {
-             $this->redirect('work/index');
-        } else {
-            $this->error('修改失败啦！');
         }
     }
 

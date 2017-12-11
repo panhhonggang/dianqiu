@@ -6,51 +6,65 @@
     <include file="Public/nav" />
     <!-- from part-->
     <div class="row-fluid fl" id="main">
+    <style type="text/css">
+        .textarea{width: 215px; min-height: 110px; border: 1px solid #ccc;}
+        .textarea p{
+            padding: 0 10px;
+            margin: 5px;
+        }
+        .control-group{position: relative;}
+        .control-group .elected{position: absolute; top: 0;left: 0;}
+        .control-group .textarea{margin-left: 190px;}
+        .btn-groups .btns{
+            margin: 50px 0 50px 90px;
+            padding: 8px 35px;
+            border-radius: 7px;
+        }
+    </style>
         <div class="tableBox">
-            <div class="titleBar">产品管理/<span>滤芯设置</span></div>
+            <div class="titleBar">套餐管理/<span>套餐编辑</span></div>
             <div class="formBox">
-
+                
                 <foreach name="info" item="vo">
 
-                <form class="" action="__URL__/filter_edit" method="post">
+                <form class="" action="__URL__/add" method="post">
+                    <div class="control-group">
+                        <span>产品类型</span>
+                        <select name="tid" id="">
+                            <foreach name="list" item="vo">
+                                <option value="{{$vo.id}}">{{$vo.typename}}</option>
+                            </foreach>
+                        </select>                        
+                    </div>
+                    <div class="control-group">
+                        <span>充值模式</span>
+                        <input type="radio" class="control" name="remodel" value="0" checked>流量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" class="control" name="remodel" value="1">时长
+                    </div>
+                    <div class="control-group">
+                        <span>套餐金额</span>
+                        <input type="text" class="control" name="money" placeholder="请输入套餐金额..." style="width:210px;">
+                    </div>
+                    <div class="control-group">
+                        <span>套餐量</span>
+                        <!-- 输入框太短 -->
+                        <input type="text" class="control" name="flow" placeholder="输入数字即可，如100升输入100，24小时输入24" style="width:210px;">
+                    </div>
+                    <div class="control-group">
+                        <span>套餐名称</span>
+                        <input type="text" class="control" name="describe" placeholder="请输入套餐名称..." style="width:210px;">
+                    </div>
+                    <div class="btn-groups">
+                        <button class="btns reset btn-primary" type="reset">重置</button>
+                        <button class="subbtn btns btn-primary" type="submit">提交</button>
+                    </div>
                     
-                    <input type="hidden" name="id" value="{{$vo.id}}">
-                    
-                    <div class="control-group">
-                        <span>滤芯名称</span>
-                        <input type="text" name="filtername" placeholder="请输入滤芯名称..." value="{{$vo.filtername}}">
-                    </div>
-                    <div class="control-group">
-                        <span>滤芯别名</span>
-                        <input type="text" name="alias" placeholder="请输入滤芯别名..." value="{{$vo.alias}}">
-                    </div>
-                    <div class="control-group">
-                        <span>时间寿命(小时)</span>
-                        <input type="text" name="timelife" placeholder="请输入数字..." value="{{$vo.timelife}}">
-                    </div>
-                    <div class="control-group">
-                        <span>流量寿命(升)</span>
-                        <input type="text" name="flowlife" placeholder="请输入数字..." value="{{$vo.flowlife}}">
-                    </div>
-                    <div class="control-group">
-                        <span>滤芯简介</span>
-                        <textarea name="introduce" id="" cols="30" rows="5">{{$vo.introduce}}</textarea>
-                    </div>
-                    <div class="control-group">
-                        <span>购买网址</span>
-                        <input type="url" name="url" placeholder="请加上http://..." value="{{$vo.url}}">
-                    </div>
-                    
-                    <div class="control-group">
-                        <button class="btn btn-primary " type="submit" style="display: block; padding: 2px 40px;margin:20px auto">确认</button>
-                    </div>
+
                 </form>
                 </foreach>
             </div>
         </div>
         <!-- footer part -->
-        <include file="Public/footer" />
+        <include file="Public/footer"/>
     </div>
-    <!-- footer part -->
-    <!-- <include file="Public/footer" /> -->
 </div>

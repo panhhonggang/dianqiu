@@ -3,45 +3,41 @@
     <include file="Public/nav" />
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
-            <div class="titleBar">工单管理/<span>工单列表</span></div>
+            <div class="titleBar">套餐管理/<span>套餐列表</span></div>
             <form class="form-search fr" action="__URL__/index" method="get">
-                <input type="text" name="cname" class="input-medium" placeholder="请输入机组名称...">
+                <input type="text" name="typename" class="input-medium" placeholder="请输入产品类型名称...">
                 <button type="submit" class="btn">搜索</button>
             </form>
 
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>工单编号</th>
-                    <th>处理人</th>
-                    <th>处理人电话</th>
-                    <th>维护类型</th>
-                    <th>工作内容</th>
-                    <th>地址</th>
-                    <th>处理结果</th>
-                    <th>处理时间</th>
-                    <th>操作</th>
+                    <th>套餐编号</th>
+                    <th>产品类型</th>
+                    <th>套餐模式</th>
+                    <th>套餐金额</th>
+                    <th>套餐量</th>
+                    <th>套餐名称</th>
+                    <th>创建时间</th>
                 </tr>
                 </thead>
                 <tbody>
                     <notempty name="list">
                     <foreach name="list" item="vo" key="key">
                     <tr>
-                        <td>{{$vo.number}}</td>
-                        <td>{{$vo.name}}</td>
-                        <td>{{$vo.phone}}</td>
-                        <td>{{$vo.type}}</td>
-                        <td>{{$vo.content}}</td>
-                        <td>{{$vo.address}}</td>
-                        <td>{{$vo.result}}</td>
-                        <td>{{$vo.time}}</td>
+                        <td>{{$vo.id}}</td>
+                        <td>{{$vo.typename}}</td>
                         <td>
-                            <switch name="vo.result">
-                                <case value="未处理"><a href="__URL__/edit/id/{{$vo.id}}/result/1">正在处理</a></case>
-                                <case value="正在处理"><a href="__URL__/edit/id/{{$vo.id}}/result/2">已处理</a></case>
+                            <switch name="vo.remodel">
+                                <case value="0">流量</case>
+                                <case value="1">时长</case>
                                 <default />
                             </switch>
                         </td>
+                        <td>{{$vo.money}}</td>
+                        <td>{{$vo.flow}}</td>
+                        <td>{{$vo.describe}}</td>
+                        <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                     </tr>
                     </foreach>
                     <else />
