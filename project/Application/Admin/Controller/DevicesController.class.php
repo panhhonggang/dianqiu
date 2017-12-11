@@ -17,43 +17,9 @@ class DevicesController extends CommonController
     {
         $map = '';
         if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
-        $devices = M('Devices');
-        $count = $devices
-            ->where($map)
-            ->join('LEFT JOIN pub_devices_statu ON pub_devices.device_code = pub_devices_statu.DeviceID')
-            ->join('LEFT JOIN pub_crew ON pub_devices.device_code = pub_crew.dcode')
-            ->join('LEFT JOIN pub_device_type ON pub_devices.type_id = pub_device_type.id')
-            ->join('LEFT JOIN pub_binding ON pub_crew.id = pub_binding.cid')
-            ->join('LEFT JOIN pub_vendors ON pub_binding.vid = pub_vendors.id')
-            ->field('pub_devices.*,pub_device_type.typename,pub_crew.dcode,pub_crew.cname,pub_vendors.name,pub_devices_statu.updatetime')
-            ->count();
-        $Page   = new \Think\Page($count,25);
-        $show   = $Page->show();
-
-        $vendor = $devices
-            ->where($map)
-            ->join('LEFT JOIN pub_devices_statu ON pub_devices.device_code = pub_devices_statu.DeviceID')
-            ->join('LEFT JOIN pub_crew ON pub_devices.device_code = pub_crew.dcode')
-            ->join('LEFT JOIN pub_device_type ON pub_devices.type_id = pub_device_type.id')
-            ->join('LEFT JOIN pub_binding ON pub_crew.id = pub_binding.cid')
-            ->join('LEFT JOIN pub_vendors ON pub_binding.vid = pub_vendors.id')
-            ->field('pub_devices.*,pub_device_type.typename,pub_crew.dcode,pub_crew.cname,pub_vendors.name,pub_devices_statu.updatetime')
-            ->limit($Page->firstRow.','.$Page->listRows)
-            ->select();
-
+        $devices = D('Devices')->getDevicesInfo($map);
         $this->assign('deviceInfo', $vendor);
-        $this->assign('page',$show);
         $this->display('devicesList');
-    }
-
-    // 查询设备详情
-    public function deviceDetail()
-    {
-        $code        = I('post.code');
-        $devices     = D('devices');
-        $res         = $devices->getInfoBydecode($code);
-        $res['flow'] = M('consume')->where('did='.$res['id'])->sum('flow');
-        $this->ajaxReturn($res, 'json');
     }
 
     /**

@@ -3,12 +3,6 @@
         <!-- 遍历菜单   开始 -->
         <foreach name="nav_data" item="v">
             <empty name="v['_data']">
-                <li>
-                    <a href="{{:U($v['mca'])}}">
-                        <i class="icon-double-angle-right"></i>
-                        {{$v['name']}}
-                    </a>
-                </li>
             <else />
                 <li>
                     <a href="#" class="dropdown-toggle">
