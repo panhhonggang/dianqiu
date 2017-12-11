@@ -40,13 +40,7 @@
                             <td>{{$vo.url}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                             <td>
-                                <if condition="$Think.session.adminuser.leavel eq 0">
-                                    <!-- <a href="">分配角色</a> -->
-                                    <a href="__URL__/filter_edit/id/{{$vo.id}}">编辑</a>&nbsp;&nbsp;
-                                    <!-- <a href="__URL__/filterdel/id/{{$vo.id}}">删除</a> -->
-                                <else />
-                                    <span>对不起，您无权操作！！！</span>
-                                </if>
+                                <a href="__URL__/filter_edit/id/{{$vo.id}}">编辑</a>&nbsp;&nbsp;
                             </td>
                         </tr>
                         </foreach>

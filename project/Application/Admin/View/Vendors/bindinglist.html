@@ -33,13 +33,7 @@
                             <td>{{$vo.phone}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                             <td>
-                                <if condition="$Think.session.adminuser.leavel eq 0">
-                                    <!-- <a href="">分配角色</a> -->
-                                    <!-- <a href="__URL__/edit/id/{$vo.id}">修改信息</a> -->
-                                    <a href="__URL__/bindingdel/id/{{$vo.id}}/did/{{$vo.did}}">解除绑定</a>
-                                <else />
-                                    <span>对不起，您无权操作！！！</span>
-                                </if>
+                                <a href="__URL__/bindingdel/id/{{$vo.id}}/did/{{$vo.did}}">解除绑定</a>
                             </td>
                         </tr>
                         </foreach>

@@ -38,16 +38,11 @@
                         <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                         <td>{{$vo.status}}</td>
                         <td>
-                            <if condition="$Think.session.adminuser.leavel eq 0">
-                                <switch name="vo.status">
-                                    <case value="禁用"><a href="__URL__/edit/id/{{$vo.id}}/status/1">启用&nbsp;&nbsp;</a></case>
-                                    <case value="启用"><a href="__URL__/edit/id/{{$vo.id}}/status/0">禁用&nbsp;&nbsp;</a></case>
-                                    <default />
-                                </switch>
-                                <a href="__URL__/message/id/{{$vo.id}}">喝水建议</a>
-                            <else/>
-                                <span>您无操作权限</span>
-                            </if>
+                            <switch name="vo.status">
+                                <case value="禁用"><a href="__URL__/edit/id/{{$vo.id}}/status/1">启用&nbsp;&nbsp;</a></case>
+                                <case value="启用"><a href="__URL__/edit/id/{{$vo.id}}/status/0">禁用&nbsp;&nbsp;</a></case>
+                                <default />
+                            </switch>
                         </td>
                     </tr>
                     </foreach>

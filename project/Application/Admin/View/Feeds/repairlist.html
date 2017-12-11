@@ -45,14 +45,10 @@
                                 </switch>
                             </td>
                             <td>
-                                <if condition="$Think.session.adminuser.leavel eq 0">
-                                    <switch name="vo.status">
-                                        <case value="0"><a href="__URL__/edit/id/{{$vo.id}}/status/1">派人处理</a></case>
-                                        <default />
-                                    </switch>
-                                <else />
-                                    <span>对不起，您无权操作！！！</span>
-                                </if>
+                                <switch name="vo.status">
+                                    <case value="0"><a href="__URL__/edit/id/{{$vo.id}}/status/1">派人处理</a></case>
+                                    <default />
+                                </switch>
                             </td>
                         </tr>
                         </foreach>
