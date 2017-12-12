@@ -29,7 +29,7 @@ class ProductController extends CommonController
         $pageButton =$page->show();
 
         $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->select();
-        
+        // dump($list);
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

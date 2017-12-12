@@ -10,7 +10,7 @@ use Think\Model;
  */
 class TypeModel extends Model
 {   
-    protected $trueTableName = 'xp_device_type';
+    protected $trueTableName = 'pub_device_type';
 
     // 自动验证
     protected $_validate = array(
