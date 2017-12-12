@@ -1,40 +1,36 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1" >
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
-<script src="__PUBLIC__/Home/js/public.js"></script>
-<title>个人信息</title>
-</head>
-<body>
-<ul class="personalList">
-	<li>
-		<i class="i1"></i>用户姓名：<span>{{$user['name']}}</span>
-	</li>
-	<li>
-		<i class="i2"></i>用户电话：<span>{{$user['phone']}}</span>
-	</li>
-	<li>
-		<i class="i3"></i>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<span>{{$user['address']}}</span>
-	</li>
-</ul>
-<footer>
-    <a class="btn1" href="{{:U('Home/index/index')}}"><span class="logo1"></span>首页</a>
-    <a class="btn2" href="{{:U('Home/Consume/index')}}"><span class="logo2"></span>饮水记录</a>
-    <a class="btn3" href="{{:U('Home/Flow/recharge')}}"><span class="logo3"></span>充值</a>
-    <a><span class="logo4"></span>扫码取水</a>
-    <a class="btn5" href="{{:U('Home/Users/mine')}}"><span class="logo5"></span>我的</a>
-</footer>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
-<script src="__PUBLIC__/Home/js/public.js"></script>
-<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js" ></script>
-<script>
-    $(".logo5").css("background-position","-7.6rem 0");
-    $(".btn5").css("color","#008C63");
-</script>
-</body>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+		<title>个人信息 </title>
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/information.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	</head>
+
+	<body>
+		<div id="infor">
+			<div id="container">
+				<h3>个人信息</h3>
+				<div id="char-list">
+					<i class="iconfont icon-iconzhenghe31"></i>
+					<div id="name"><p>姓名:</p><input type="text"></div><br>
+					<i class="iconfont icon-baobaoxingbie"></i>
+					<div id="name"><p>性别:</p><input type="text"></div><br>
+					<i class="iconfont icon-dianhuahaoma"></i>
+					<div id="name" class="spac"><p>电话号码：</p><input type="text"></div><br>
+					<i class="iconfont iconfont icon-dizhi"></i>
+					<div id="name" class="spac"><p>安装地址：</p><input type="text"></div>
+				</div>
+				<input id="save" type="submit" value="保存">
+
+			</div>
+		</div>
+		
+
+	</body>
+
 </html>

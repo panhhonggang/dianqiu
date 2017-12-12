@@ -1,0 +1,57 @@
+/*===============支付成功===============*/
+#pay-succeed-all{
+	width:10.0rem;
+}
+#pay-succeed-container{
+	width: 7.333333rem;
+	margin-top: 3.12rem;
+	margin-left: 1.333333rem;
+}
+#pay-succeed-container>p{
+	display: block;
+	width:7.333333rem;
+	height:2.533333rem;
+	text-align: center;
+	line-height: 2.533333rem;
+}
+#pay-succeed-container>.pay-succeed-pic{
+	text-align: center;
+	line-height: 2.533333rem;
+
+	
+}
+#pay-succeed-container>.pay-succeed-pic>i{
+	font-size: 2.533333rem;
+	color: #32C97C;
+}
+#pay-succeed-container>.pay-succeed-font{
+	font-size: 0.426667rem;
+}
+
+#pay-succeed-btn{
+	width: 7.333333rem;
+	margin-top: 3.12rem;
+	background: #fc1;
+}
+#pay-succeed-btn>input{
+	width: 2.666667rem
+	height:0.933333rem;
+	background: #FFF;
+	border:1px solid #000; 
+	font-size: 0.32rem;
+
+}
+#pay-succeed-btn>input:first-child{
+	float: left;
+}
+#pay-succeed-btn>input:last-child{
+	float: right;
+}
+/*===============支付成功结束===============*/
+
+
+
+/*===============支付失败开始===============*/
+#pay-succeed-container .change-font{
+	color:#F9586B!important;
+}
