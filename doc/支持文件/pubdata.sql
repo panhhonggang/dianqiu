@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : wuzhibin.cn
-Source Server Version : 50173
-Source Host           : sdm359768304.my3w.com:3306
-Source Database       : sdm359768304_db
+Source Server         : 本地数据库
+Source Server Version : 50714
+Source Host           : localhost:3306
+Source Database       : pubdata
 
 Target Server Type    : MYSQL
-Target Server Version : 50173
+Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-12-11 14:21:35
+Date: 2017-12-12 11:51:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `pub_admin_menu` (
   `ico` varchar(20) DEFAULT '' COMMENT 'font-awesome图标',
   `order_number` int(11) unsigned DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_admin_menu
@@ -63,6 +63,9 @@ INSERT INTO `pub_admin_menu` VALUES ('72', '70', '权限列表', 'Admin/Rule/ind
 INSERT INTO `pub_admin_menu` VALUES ('74', '0', '首页', 'Admin/Test/welcome', '', '1');
 INSERT INTO `pub_admin_menu` VALUES ('75', '0', '菜单管理', 'Admin/Menu', '', null);
 INSERT INTO `pub_admin_menu` VALUES ('76', '75', '菜单编辑', 'Admin/Menu/index', '', null);
+INSERT INTO `pub_admin_menu` VALUES ('77', '0', '套餐管理', 'Admin/Setmeal', '9', null);
+INSERT INTO `pub_admin_menu` VALUES ('78', '77', '套餐设置', 'Admin/Setmeal/add', '', null);
+INSERT INTO `pub_admin_menu` VALUES ('79', '77', '套餐列表', 'Admin/Setmeal/index', '', null);
 
 -- ----------------------------
 -- Table structure for pub_auth_group
@@ -79,7 +82,7 @@ CREATE TABLE `pub_auth_group` (
 -- ----------------------------
 -- Records of pub_auth_group
 -- ----------------------------
-INSERT INTO `pub_auth_group` VALUES ('1', ' 超级管理员', '1', '3,4,5,6,7,8,9,10,11,12,13,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31');
+INSERT INTO `pub_auth_group` VALUES ('1', ' 超级管理员', '1', '3,4,5,6,7,8,9,10,11,12,13,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34');
 INSERT INTO `pub_auth_group` VALUES ('2', ' 普通管理员', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,18,19,20,21,22,23,24,25,26');
 
 -- ----------------------------
@@ -114,7 +117,7 @@ CREATE TABLE `pub_auth_rule` (
   `condition` char(100) NOT NULL DEFAULT '' COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='规则表';
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='规则表';
 
 -- ----------------------------
 -- Records of pub_auth_rule
@@ -148,6 +151,9 @@ INSERT INTO `pub_auth_rule` VALUES ('28', '27', 'Admin/Rule/group', '权限组',
 INSERT INTO `pub_auth_rule` VALUES ('29', '27', 'Admin/Rule/index', '权限列表', '1', '1', '');
 INSERT INTO `pub_auth_rule` VALUES ('30', '0', 'Admin/Menu', '菜单管理', '1', '1', '');
 INSERT INTO `pub_auth_rule` VALUES ('31', '30', 'Admin/Menu/index', '菜单编辑', '1', '1', '');
+INSERT INTO `pub_auth_rule` VALUES ('32', '0', 'Admin/Setmeal', '套餐管理', '1', '1', '');
+INSERT INTO `pub_auth_rule` VALUES ('33', '32', 'Admin/Setmeal/add', '套餐设置', '1', '1', '');
+INSERT INTO `pub_auth_rule` VALUES ('34', '32', 'Admin/Setmeal/index', '套餐列表', '1', '1', '');
 
 -- ----------------------------
 -- Table structure for pub_binding
@@ -189,18 +195,42 @@ CREATE TABLE `pub_charg` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pub_current_devices
+-- Table structure for pub_devices
 -- ----------------------------
-DROP TABLE IF EXISTS `pub_current_devices`;
-CREATE TABLE `pub_current_devices` (
+DROP TABLE IF EXISTS `pub_devices`;
+CREATE TABLE `pub_devices` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `uid` int(11) unsigned NOT NULL COMMENT '用户',
-  `did` int(11) unsigned NOT NULL COMMENT '当前设备',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+  `device_code` int(20) unsigned NOT NULL COMMENT '设备编码',
+  `device_statu` tinyint(1) unsigned NOT NULL COMMENT '设备状态：1已入库，2待激活，3已激活',
+  `addtime` int(11) NOT NULL COMMENT '添加时间',
+  `binding_statu` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否绑定经销商 0：未绑定 1：已绑定',
+  `uid` int(11) DEFAULT NULL COMMENT '用户id',
+  `type_id` int(11) NOT NULL COMMENT '产品类型ID',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`,`device_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of pub_current_devices
+-- Records of pub_devices
+-- ----------------------------
+INSERT INTO `pub_devices` VALUES ('3', '2147483647', '1', '1512540680', '1', null, '10');
+INSERT INTO `pub_devices` VALUES ('4', '2147483647', '1', '1513049252', '0', null, '0');
+
+-- ----------------------------
+-- Table structure for pub_devices_statu
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_devices_statu`;
+CREATE TABLE `pub_devices_statu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `device_id` int(11) unsigned NOT NULL COMMENT '关联的设备ID号',
+  `device_statu` tinyint(1) unsigned NOT NULL COMMENT '设备状态',
+  `updated_at` int(11) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `device_id` (`device_id`,`device_statu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_devices_statu
 -- ----------------------------
 
 -- ----------------------------
@@ -238,52 +268,29 @@ CREATE TABLE `pub_device_type` (
   `filter8` varchar(30) DEFAULT NULL,
   `addtime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_device_type
 -- ----------------------------
-INSERT INTO `pub_device_type` VALUES ('8', '商务型', 'PP棉', 'RO膜', 'RO膜2号', 'RO膜PP', 'RO膜PP1', 'PP棉2号', '', '', '1510282247');
-INSERT INTO `pub_device_type` VALUES ('7', '测试型', 'RO膜2号', 'RO膜PP', 'RO膜', '', '', '', '', '', '1510026151');
-INSERT INTO `pub_device_type` VALUES ('9', '家用型', 'RO膜PP', 'RO膜2号', 'RO膜', '', '', '', '', '', '1510282291');
+INSERT INTO `pub_device_type` VALUES ('10', '高级型', 'RO膜-A型', 'RO膜PP-C型', 'RO膜2号-B型', '', '', '', '', '', '1513048485');
 
 -- ----------------------------
--- Table structure for pub_devices
+-- Table structure for pub_feeds
 -- ----------------------------
-DROP TABLE IF EXISTS `pub_devices`;
-CREATE TABLE `pub_devices` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `device_code` int(20) unsigned NOT NULL COMMENT '设备编码',
-  `device_statu` tinyint(1) unsigned NOT NULL COMMENT '设备状态：1已入库，2待激活，3已激活',
-  `addtime` int(11) NOT NULL COMMENT '添加时间',
-  `binding_statu` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否绑定经销商 0：未绑定 1：已绑定',
-  `uid` int(11) DEFAULT NULL COMMENT '用户id',
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`,`device_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `pub_feeds`;
+CREATE TABLE `pub_feeds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL COMMENT '反馈内容',
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `addtime` int(11) NOT NULL COMMENT '反馈时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of pub_devices
+-- Records of pub_feeds
 -- ----------------------------
-INSERT INTO `pub_devices` VALUES ('3', '2147483647', '1', '1512540680', '1', '1');
-INSERT INTO `pub_devices` VALUES ('4', '858778687', '1', '85858585', '1', '1');
-
--- ----------------------------
--- Table structure for pub_devices_statu
--- ----------------------------
-DROP TABLE IF EXISTS `pub_devices_statu`;
-CREATE TABLE `pub_devices_statu` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `device_id` int(11) unsigned NOT NULL COMMENT '关联的设备ID号',
-  `device_statu` tinyint(1) unsigned NOT NULL COMMENT '设备状态',
-  `updated_at` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `device_id` (`device_id`,`device_statu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pub_devices_statu
--- ----------------------------
+INSERT INTO `pub_feeds` VALUES ('1', '这个产品真不错啊', '1', '1566897799');
 
 -- ----------------------------
 -- Table structure for pub_filters
@@ -293,6 +300,7 @@ CREATE TABLE `pub_filters` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `filtername` varchar(30) NOT NULL COMMENT '滤芯名称',
   `alias` varchar(30) DEFAULT '暂无别名' COMMENT '滤芯别名',
+  `picpath` varchar(255) NOT NULL COMMENT '滤芯图片',
   `timelife` int(11) unsigned NOT NULL COMMENT '时间寿命（小时）',
   `flowlife` int(11) unsigned NOT NULL COMMENT '流量寿命（升）',
   `balancatime` int(11) unsigned DEFAULT NULL COMMENT '时间寿命使能',
@@ -308,13 +316,13 @@ CREATE TABLE `pub_filters` (
 -- ----------------------------
 -- Records of pub_filters
 -- ----------------------------
-INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '500', '2000', null, null, '我是滤芯简介', 'http://www.baidu.com', '1509673437', '0.00');
-INSERT INTO `pub_filters` VALUES ('2', 'PP棉', null, '123', '321', null, null, '凄凄切切', 'http://www.baidu.com', '1509607569', '0.00');
-INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '234', '432', null, null, '尺寸齐全', 'http://www.baidu.com', '1509607600', '0.00');
-INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '5343', '3333', null, null, '望闻问切去', 'http://www.baidu.com', '1509673448', '0.00');
-INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '500', '2000', null, null, '啊啊按时到', 'http://www.baidu.com', '1509607666', '0.00');
-INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673463', '0.00');
-INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '0.00');
+INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '', '500', '2000', null, null, '我是滤芯简介', 'http://www.baidu.com', '1509673437', '0.00');
+INSERT INTO `pub_filters` VALUES ('2', 'PP棉', null, '', '123', '321', null, null, '凄凄切切', 'http://www.baidu.com', '1509607569', '0.00');
+INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '', '234', '432', null, null, '尺寸齐全', 'http://www.baidu.com', '1509607600', '0.00');
+INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '', '5343', '3333', null, null, '望闻问切去', 'http://www.baidu.com', '1509673448', '0.00');
+INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '', '500', '2000', null, null, '啊啊按时到', 'http://www.baidu.com', '1509607666', '0.00');
+INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673463', '0.00');
+INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '0.00');
 
 -- ----------------------------
 -- Table structure for pub_hire
@@ -396,6 +404,27 @@ CREATE TABLE `pub_orders` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for pub_repair
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_repair`;
+CREATE TABLE `pub_repair` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `device_code` varchar(255) NOT NULL COMMENT '设备编码',
+  `content` text NOT NULL COMMENT '问题描述',
+  `picpath` varchar(255) NOT NULL COMMENT '图片路径',
+  `uid` int(11) NOT NULL COMMENT '报修人ID 用户ID',
+  `address` varchar(255) NOT NULL COMMENT '维修地址',
+  `addtime` int(11) NOT NULL COMMENT '报修时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态0：未处理 1：已处理',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_repair
+-- ----------------------------
+INSERT INTO `pub_repair` VALUES ('1', '2147483647', '今天设备开不了机了', '假装我是图片路径', '1', '广东广州', '1565494664', '0');
+
+-- ----------------------------
 -- Table structure for pub_setmeal
 -- ----------------------------
 DROP TABLE IF EXISTS `pub_setmeal`;
@@ -408,11 +437,12 @@ CREATE TABLE `pub_setmeal` (
   `describe` varchar(255) NOT NULL COMMENT '套餐描述',
   `addtime` int(11) NOT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_setmeal
 -- ----------------------------
+INSERT INTO `pub_setmeal` VALUES ('1', '10', '0', '100.00', '1000', '100元包1000升流量', '1512958408');
 
 -- ----------------------------
 -- Table structure for pub_users
@@ -426,15 +456,14 @@ CREATE TABLE `pub_users` (
   `login_time` int(11) DEFAULT NULL COMMENT '最后登陆的时间',
   `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登陆的IP地址',
   `created_at` int(11) NOT NULL COMMENT '添加时间',
-  `open_id` varchar(50) NOT NULL COMMENT '关联微信信息表',
+  `open_id` int(11) NOT NULL COMMENT '关联微信信息表',
   PRIMARY KEY (`id`),
   KEY `name` (`name`,`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_users
 -- ----------------------------
-INSERT INTO `pub_users` VALUES ('1', '', '', '1', '1512961220', '140.207.54.80', '1512961220', 'oXwY4t2gearWoyg8z19ygjD34vDk');
 
 -- ----------------------------
 -- Table structure for pub_vendors
@@ -480,12 +509,11 @@ CREATE TABLE `pub_wechat` (
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`),
   KEY `user_id` (`open_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_wechat
 -- ----------------------------
-INSERT INTO `pub_wechat` VALUES ('1', 'oXwY4t2gearWoyg8z19ygjD34vDk', '馨品Mr\'feng', 'http://wx.qlogo.cn/mmopen/lbk4D8nFV3TBwoicSXcPoxia5iaIydTcZUBgibBvJUZBP67vsCUsWicmqK3EkDomcicB1A1o5rf4w7EP0QWDHMdLjA8snibHHxJOj5b/0', '2', '广东', '中国 广东 广州');
 
 -- ----------------------------
 -- Table structure for pub_work
