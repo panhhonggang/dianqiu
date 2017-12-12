@@ -10,14 +10,16 @@
 	height:0.88rem; 
 	margin-left: 2.786667rem; 
 }
-
+#btn>input{
+	color:#353659;
+	background: none;
+}
 #btn input:first-child{
 	width:1.333333rem;
 	height:0.88rem;
 	float:left;
 	border:none;
 	font-size: 0.426667rem;
-	color:#fff;
 }
 #btn input:last-child{
 	width:1.333333rem;
@@ -31,7 +33,7 @@ hr{border: 2px solid #ccc;}
 #but1{
 	width:1.2rem;
 	height:0.07rem;
-	background:green;
+	background:#3D3E63;
 	border-radius: 5px;
 	position: relative;
 	top:-0.07rem;
@@ -40,15 +42,15 @@ hr{border: 2px solid #ccc;}
 #but2{
 	width:1.2rem;
 	height:0.07rem;
-	background:green;
+	background:#3D3E63;
 	border-radius: 5px;
 	position: relative;
-	top:-0.14rem;
+	top:-0.07rem;
 	left:5.100000rem;
 	display: none;
 }
 #liuliang{
-	display:none;
+	display:block;
 	  /*=======显示=======*/
 	margin-bottom: 4.5rem;
 }
@@ -69,7 +71,7 @@ font-size: 0.426667rem;
 /*==========<!-- 滤芯开始 -->============*/
 #mo{
 	margin-bottom: 4.5rem; 
-	/*display: none;*/   /*=======显示=======*/ 
+	display: none;   /*=======显示=======*/ 
 }
 #ro1{
 	margin-top: 0.853333rem;
