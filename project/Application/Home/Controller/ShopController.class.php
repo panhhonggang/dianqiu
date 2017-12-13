@@ -17,9 +17,7 @@ class ShopController extends CommonController
     public function filterElement()
     {
     	// 获取用户open_id
-    	$weixin = new WeixinJssdk;
-    	//$openId = $weixin->GetOpenid();
-    	$openId = 'oXwY4t2gearWoyg8z19ygjD34vDk';
+        $openId = $_SESSION['homeuser']['open_id'];
 
         // 获取用户绑定设备充值套餐
         if($openId){

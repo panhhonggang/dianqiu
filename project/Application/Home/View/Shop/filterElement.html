@@ -34,7 +34,7 @@
 		<div id="mo" class="contentbox">
 			
 			<foreach name="filtersList" item="v" key="k">
-			<div class="item" state="0" fid="{{$v['id']}}">
+			<div class="item" state="0">
 				<div id="ro1" class="ro1">
 					<div id="ro-left"><img src="{{$v['picpath']}}" alt=""></div>
 					<div id="ro-right">
@@ -45,7 +45,7 @@
 						<div class="bott">
 						 <b>￥{{$v['price']/100}}</b>
 						 <i>
-						 	<input type="button" value="-" id="plus"><input type="text" value="0"><input type="button" value="+" id="minus">
+						 	<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="text" value="0"><input type="button" value="+" class="plus">
 						 </i>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 		<!-- 滤芯结束 -->
         <div id="foot">
 			<i class="iconfont icon-gouwuche"></i>
-			<input type="button" value="加入购物车"><input type="button" value="立即购买">
+			<input id="cart" type="button" value="加入购物车"><input type="button" value="立即购买">
 		</div>	
 	</div>
 	<script>
@@ -86,39 +86,133 @@
 			$('#liuliang>input').css({'background': '#F0F0F0','font-weight': 'normal','color':'#000'});
 			// 被选中的充值套餐改变样式
 			$(this).css({'background': '#7D7FCE','font-weight': '800','color':'#FFF'});
+			// 清除所有的class属性sid值
+			$('#liuliang>input').removeClass("sid");
+			// 给被选中的套餐添加class属性sid值
+			$(this).addClass("sid");
 		});
 
 		/**
-		 *  滤芯产品被选中效果
+		 *  减号按钮让产品购买数量自减
 		 */
-		// $('#mo>.item').click(function(){
-		// 	// 找到所有的充值套餐，设置默认样式
-		// 	//$('#mo>.item>hr').css({'border':'1px solid #CCC'});
-		// 	// 被选中的产品套餐改变样式
-			
+		$('.minus').click(function(){
+			// 点击减号按钮获取当前产品的value值,隐式转数值型
+			var num = $(this).next('input').val()-0;
 
-		// 	// 获取当前元素状态
-		// 	var state = $(this).attr('state');
-
-		// 	if( state == 0 ){
-		// 		$(this).attr({state:1});
-		// 		$(this).css({'background':'#F0F0F0'});
-		// 		$(this).find("hr").css({'border':'1px solid #7D7FCE'});
-
-		// 	}else{
-		// 		$(this).attr({state:0});
-		// 		$(this).css({'background':'#FFF'});
-		// 		$(this).find("hr").css({'border':'1px solid #CCC'});
-		// 	}
-		// });
-		
-		// 滤芯产品加减效果
-		// 加号按钮
-		$('#plus').click(function(){
+			// 判断产品数量大于0
+			if(num>0){
+				// 产品数量自减
+				$(this).next('input').val(--num);
+				// 如果产品数量等于0
+				if(num==0){
+					// 找祖先元素.item下面的子元素hr设置样式
+					$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
+					// 找祖先元素.item设置样式
+					$(this).parents('.item').css({'background':'#FFF'});
+					// 清除class属性fid值
+					$(this).next('input').removeClass("fid");
+				}
+			}
 
 		});
-		console.dir($('#plus').attr('value'));
-		console.dir($('#minus').attr('value'));
+
+		/**
+		 *  加号按钮让产品购买数量自增
+		 */
+		$('.plus').click(function(){
+			// 点击加号按钮获取当前产品的value值,隐式转数值型
+			var num = $(this).prev('input').val()-0;
+
+			// 判断产品数量小于库存
+			if(true){
+				// 产品数量自增
+				$(this).prev('input').val(++num);
+
+				// 找祖先元素.item设置样式
+				$(this).parents('.item').css({'background':'#F0F0F0'});
+				// 找祖先元素.item下面的子元素hr设置样式
+				$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+				// 给被选中的产品添加class属性fid值
+				$(this).prev('input').addClass("fid");
+			}
+		});
+
+		/**
+		 *  失去焦点事件检测产品购买数量设置样式
+		 */
+		$('.num').blur(function(){
+			// 获取产品购买数量
+			var num = $(this).val()-0;
+			if(num==0){
+				// 找祖先元素.item下面的子元素hr设置样式
+				$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
+				// 找祖先元素.item设置样式
+				$(this).parents('.item').css({'background':'#FFF'});
+				// 清除class属性fid值
+				$(this).removeClass("fid");
+			}else{
+				// 找祖先元素.item设置样式
+				$(this).parents('.item').css({'background':'#F0F0F0'});
+				// 找祖先元素.item下面的子元素hr设置样式
+				$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+				// 给被选中的产品添加class属性fid值
+				$(this).addClass("fid");
+			}
+
+		});
+
+		/**
+		 * 购买按钮和加入购物车按钮鼠标经过效果
+		 */
+		$('#foot>input').mouseenter(function(){
+			// 将所有的input恢复默认样式
+			$(this).parents('#foot').find('input').css({'background':'#DDD','color':'#000'});
+			// 设置当前的按钮样式
+			$(this).css({'background':'#353659','color':'#FFF'});
+
+		});
+
+		/**
+		 * 加入购物车操作
+		 */
+		$('#cart').click(function(){
+
+			// 创建空数组，将来装套餐和产品
+			var data = [];
+			// 初始化下标
+			var index = 0;
+			// 获取被选中的套餐
+			var sid = $('input.sid').attr('sid');
+			if(sid !== undefined){
+				// 设置套餐ID为数组
+				data[index] = [];
+				// 将选中的套餐ID隐式装换数值，装入数组
+				data[index]['sid'] = sid-0;
+				data[index++]['num'] = 1;
+
+			}
+
+			// 获取被选中的滤芯产品
+			var fid = $('input.fid');
+			if(fid.length>0){
+				for(var i=fid.length-1;i>=0;i--){
+					// 设置产品ID为数组
+					data[index] = [];
+					data[index]['fid'] = $(fid[i]).attr('fid')-0;
+					data[index++]['num'] = $(fid[i]).val()-0;
+				}
+			}
+
+			// 检测是否选择产品
+			if(data.length>0){
+				// ajax 请求添加购物车
+				console.dir(data);
+			}else{
+				// 用户未添加产品
+				alert('请先选择产品！');
+			}
+			
+		});
 	</script>
 	</body>
 
