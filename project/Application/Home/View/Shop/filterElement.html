@@ -185,11 +185,9 @@
 			var sid = $('input.sid').attr('sid');
 			if(sid !== undefined){
 				// 设置套餐ID为数组
-				data[index] = [];
-				// 将选中的套餐ID隐式装换数值，装入数组
-				data[index]['sid'] = sid-0;
-				data[index++]['num'] = 1;
-
+				data = [
+					{'sid':sid-0,'num':1}
+				];
 			}
 
 			// 获取被选中的滤芯产品
@@ -197,16 +195,20 @@
 			if(fid.length>0){
 				for(var i=fid.length-1;i>=0;i--){
 					// 设置产品ID为数组
-					data[index] = [];
-					data[index]['fid'] = $(fid[i]).attr('fid')-0;
-					data[index++]['num'] = $(fid[i]).val()-0;
+					data.push(
+						{'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
+					);
 				}
 			}
 
 			// 检测是否选择产品
 			if(data.length>0){
-				// ajax 请求添加购物车
-				console.dir(data);
+				// ajax请求添加购物车
+				var date = JSON.stringify(data)
+				// 异步提交
+				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
+
+				});
 			}else{
 				// 用户未添加产品
 				alert('请先选择产品！');

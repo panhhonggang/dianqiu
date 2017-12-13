@@ -15,5 +15,16 @@ class ShoppingCartController extends CommonController
         // 显示模板
         $this->display();        
     }
+
+	//购物车
+    public function shopAdd()
+    {
+    	$data = json_decode($_POST['data'],true);
+
+    	
+        print_r($data);
+
+
+    }
 	
 }
