@@ -26,30 +26,33 @@
 		<div id="liuliang" class="contentbox">
 			<h3><b>选择套餐</b></h3>
 			<foreach name="setmeallist" item="vo" key="ke">
-				<input type="button" value="{{$vo['describe']}}"><br>
+				<input type="button" value="{{$vo['describe']}}" sid="{{$vo['id']}}"><br>
 			</foreach>
 		</div>
 
 		<!-- 滤芯开始 -->
 		<div id="mo" class="contentbox">
+			
 			<foreach name="filtersList" item="v" key="k">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="{{$v['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$v['filtername']}}</h3>
-						<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
-					</div>
-					<div class="bott">
-					 <b>￥{{$v['price']/100}}</b>
-					 <i>
-					 	<input type="button" value="-"><input type="text" value="0"><input type="button" value="+">
-					 </i>
+			<div class="item" state="0" fid="{{$v['id']}}">
+				<div id="ro1" class="ro1">
+					<div id="ro-left"><img src="{{$v['picpath']}}" alt=""></div>
+					<div id="ro-right">
+						<div class="top">
+							<h3>{{$v['filtername']}}</h3>
+							<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+						</div>
+						<div class="bott">
+						 <b>￥{{$v['price']/100}}</b>
+						 <i>
+						 	<input type="button" value="-" id="plus"><input type="text" value="0"><input type="button" value="+" id="minus">
+						 </i>
+						</div>
 					</div>
 				</div>
+				<hr>
 			</div>
-			<hr>
-			</foreach>
+			</foreach>	
 		</div>
 			
 
@@ -60,8 +63,11 @@
 		</div>	
 	</div>
 	<script>
-		// 找到充值和滤芯按钮并绑定点击事件
-		$('#btn>input').click( function () { 
+		/**
+		 * TAB切换
+		 * 找到充值和滤芯按钮并绑定点击事件
+		 */
+		$('#btn>input').click( function () {
 			// 隐藏所有下划线
 			$('.line').css({'display':'none'});
 			// 显示当前选中的按钮下划线
@@ -70,7 +76,49 @@
 			$('.contentbox').css({'display':'none'});
 			// 显示当前的内容盒子
 			$('.contentbox:eq('+$(this).index()+')').css({'display':'block'});
-		});	
+		});
+
+		/**
+		 *  套餐被选中效果
+		 */
+		$('#liuliang>input').click(function(){
+			// 找到所有的充值套餐，设置默认样式
+			$('#liuliang>input').css({'background': '#F0F0F0','font-weight': 'normal','color':'#000'});
+			// 被选中的充值套餐改变样式
+			$(this).css({'background': '#7D7FCE','font-weight': '800','color':'#FFF'});
+		});
+
+		/**
+		 *  滤芯产品被选中效果
+		 */
+		// $('#mo>.item').click(function(){
+		// 	// 找到所有的充值套餐，设置默认样式
+		// 	//$('#mo>.item>hr').css({'border':'1px solid #CCC'});
+		// 	// 被选中的产品套餐改变样式
+			
+
+		// 	// 获取当前元素状态
+		// 	var state = $(this).attr('state');
+
+		// 	if( state == 0 ){
+		// 		$(this).attr({state:1});
+		// 		$(this).css({'background':'#F0F0F0'});
+		// 		$(this).find("hr").css({'border':'1px solid #7D7FCE'});
+
+		// 	}else{
+		// 		$(this).attr({state:0});
+		// 		$(this).css({'background':'#FFF'});
+		// 		$(this).find("hr").css({'border':'1px solid #CCC'});
+		// 	}
+		// });
+		
+		// 滤芯产品加减效果
+		// 加号按钮
+		$('#plus').click(function(){
+
+		});
+		console.dir($('#plus').attr('value'));
+		console.dir($('#minus').attr('value'));
 	</script>
 	</body>
 

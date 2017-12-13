@@ -25,7 +25,7 @@ class ShopController extends CommonController
         if($openId){
             // 查询用户绑定设备使用的套餐产品
             // remodel:充值模式 money:套餐金额 flow:套餐流量/时长 describe:套餐描述
-            $setmeallist = M('Setmeal')->field('remodel,money,flow,describe')
+            $setmeallist = M('Setmeal')->field('pub_setmeal.id,remodel,money,flow,describe')
             // 连接用户表 pub_users.open_id = 公众号唯一ID
             ->join('pub_users ON pub_users.open_id = "'.$openId.'"')
             // 连接用户和设备关联表
@@ -70,6 +70,7 @@ class ShopController extends CommonController
             }
             $this->assign('setmeallist',$setmeallist);
             $this->assign('filtersList',$filtersList);
+            // dump($filtersList);
         }
 
         $this->display();
