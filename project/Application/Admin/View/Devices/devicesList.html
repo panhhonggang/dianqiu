@@ -6,7 +6,7 @@
             <div class="tableBox">
                 <div class="titleBar">设备管理/<span>设备列表</span></div>
                 <form class="form-search fr" action="" method="">
-                    <input type="text" class="input-medium" name="name" placeholder="请输入用户昵称" / >  
+                    <input type="text" class="input-medium" name="code" placeholder="请输入设备编号" / >  
                     <button type="submit" class="btn">查找</button>
                 </form>
                 <table class="table table-bordered table-hover text-center" >
@@ -23,24 +23,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <volist name="deviceInfo" id="data">
-                            <tr>
-                                <td>{{$i}}</td>
-                                <td><a class="btn-link detail">{{$data.device_code}}</a></td>
-                                <td>{{$data.cname}}</td>
-                                <td>{{$data.name}}</td>
-                                <td>{{$data.typename}}</td>
-                                <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
-                                <td>{{$data.device_status}}</td>
-                                <td><a class="btn-link">开机 OR 停机</a></td>
-                            </tr>
-                        </volist>
+                        <empty name="deviceInfo['data']">
+                            <tr><td colspan="8">暂无设备信息</td></tr>
+                        <else />
+                            <volist name="deviceInfo['data']" id="data">
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    <td><a class="btn-link detail">{{$data.device_code}}</a></td>
+                                    <td>{{$data.cname}}</td>
+                                    <td>{{$data.name}}</td>
+                                    <td>{{$data.typename}}</td>
+                                    <if condition="$data['updatetime'] == null ">
+                                        <td></td>
+                                        <td>未激活</td>
+                                        <else />
+                                        <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
+                                        <td>{{$data.device_status}}</td>
+                                    </if>
+                                    <td></td>
+                                </tr>
+                            </volist>
+                        </empty>
                     </tbody>
                 </table>
                 <!-- 上下页，请加样式 -->
                 <div class="pagination pagination-lg pull-center">
                     <ul>
-                        {{$page}}
+                        {{$deviceInfo['show']}}
                     </ul>
                 </div>
             </div>
@@ -48,32 +57,3 @@
         <include file="Public/footer" />
     </div>  
 </div>  
-    <script type="text/javascript">
-        $('.detail').click(function (){
-            var code = $('.detail').html();
-            $.ajax({
-                url:"deviceDetail",
-                type:"post",
-                data:{code},
-                success:function(data){
-                    if('给你老王玩了'){
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                            layer.open({
-                                type: 1, 
-                                title: ['设备详情', 'font-size:18px;'],
-                                area: ['800px', '500px'],
-                                content: $(".showdetail")
-                            }); 
-                        });
-                        $(".showdetail h1").text(data.iccid);
-                    } else {
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                            layer.msg('参数错误', {icon: 5});
-                        });
-                    }
-                }
-            })
-        })
-    </script>

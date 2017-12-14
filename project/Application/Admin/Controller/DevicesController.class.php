@@ -15,10 +15,18 @@ class DevicesController extends CommonController
      */
     public function devicesList()
     {
+        // 查询条件
         $map = '';
-        if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+        if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
+
+        // 查询数据
         $devices = D('Devices')->getDevicesInfo($map);
-        $this->assign('deviceInfo', $vendor);
+        
+        // 分配视图变量
+        $assign = [
+            'deviceInfo' => $devices,
+        ];
+        $this->assign($assign);
         $this->display('devicesList');
     }
 
