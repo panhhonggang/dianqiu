@@ -152,7 +152,23 @@ font-size: 0.426667rem;
 	line-height: 1.2rem;
 	font-size: 0.8rem; /*60*/
 	margin:0.266667rem; /*20*/
+	position: relative;
 	
+}
+#foot i span{
+	display: inline-block;
+	width: 80%;
+	height: 80%;
+	position: absolute;
+	right: -30%;
+	top:-30%;
+	border-radius:50%;
+	background: red;
+	font-weight: 800;
+	line-height: 220%;
+	font-size:  40%; /*60*/
+	color:#fff;
+
 }
 
 #foot input{

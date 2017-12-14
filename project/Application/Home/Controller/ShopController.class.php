@@ -16,20 +16,20 @@ class ShopController extends CommonController
     // 商城充值套餐和滤芯产品
     public function filterElement()
     {
-    	// 获取用户open_id
-        $openId = $_SESSION['homeuser']['open_id'];
+    	// 获取用户uid
+        $uid = $_SESSION['homeuser']['id'];
 
         // 获取用户绑定设备充值套餐
-        if($openId){
+        if($uid){
             // 查询用户绑定设备使用的套餐产品
             // remodel:充值模式 money:套餐金额 flow:套餐流量/时长 describe:套餐描述
             $setmeallist = M('Setmeal')->field('pub_setmeal.id,remodel,money,flow,describe')
             // 连接用户表 pub_users.open_id = 公众号唯一ID
-            ->join('pub_users ON pub_users.open_id = "'.$openId.'"')
+            //->join('pub_users ON pub_users.open_id = "'.$openId.'"')
             // 连接用户和设备关联表
-            ->join('pub_current_devices ON pub_current_devices.uid = pub_users.id')
+            //->join('pub_current_devices ON pub_current_devices.uid = pub_users.id')
             // 连接设备表
-            ->join('pub_devices ON pub_devices.id = pub_current_devices.did')
+            ->join('pub_devices ON pub_devices.uid ='.$uid)
             // 查询一条
             ->select();
 
@@ -37,11 +37,11 @@ class ShopController extends CommonController
             // 查询用户绑定设备使用的滤芯产品
             $filters = $Model->field('filter1,filter2,filter3,filter4,filter5,filter6,filter7,filter8')
             // 连接用户表 pub_users.open_id = 公众号唯一ID
-            ->join('pub_users ON pub_users.open_id = "'.$openId.'"')
+            //->join('pub_users ON pub_users.open_id = "'.$openId.'"')
             // 连接用户和设备关联表
-            ->join('pub_current_devices ON pub_current_devices.uid = pub_users.id')
+            //->join('pub_current_devices ON pub_current_devices.uid = pub_users.id')
             // 连接设备表
-            ->join('pub_devices ON pub_devices.id = pub_current_devices.did')
+            ->join('pub_devices ON pub_devices.uid ='.$uid)
             // 连接设备类型表
             ->join('pub_device_type ON pub_device_type.id = pub_devices.type_id')
             // 查询一条
@@ -70,7 +70,7 @@ class ShopController extends CommonController
             $this->assign('filtersList',$filtersList);
             // dump($filtersList);
         }
-
+        //dump($setmeallist);die;
         $this->display();
     }
 }
