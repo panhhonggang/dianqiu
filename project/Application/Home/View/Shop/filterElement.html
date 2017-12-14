@@ -59,7 +59,7 @@
 		<!-- 滤芯结束 -->
         <div id="foot">
 			<i class="iconfont icon-gouwuche">
-				<span>99</span>
+				<span>{{$cartNum}}</span>
 			</i>
 			<input id="cart" type="button" value="加入购物车"><input type="button" value="立即购买">
 		</div>	
@@ -209,7 +209,12 @@
 				var date = JSON.stringify(data)
 				// 异步提交
 				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
-
+					// 判断购物车是否添加成功
+					if(res.status){
+						alert('购物车添加成功');
+						// 刷新页面
+						location.reload();
+					}
 				});
 			}else{
 				// 用户未添加产品

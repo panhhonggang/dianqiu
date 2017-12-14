@@ -66,11 +66,22 @@ class ShopController extends CommonController
                     $filtersList[] = $Model->where($data)->find();
                 }
             }
+
+            // 查询用户购物车
+            // 统计查询套餐产品数量
+            $smealNum = M('cartSetmeal')->where("`uid`='{$uid}'")->sum('num');
+            // 统计查询滤芯产品数量
+            $filtersNum = M('cartFilters')->where("`uid`='{$uid}'")->sum('num');
+            // 购物车商品数量
+            $cartNum = $smealNum+$filtersNum;
+
             $this->assign('setmeallist',$setmeallist);
             $this->assign('filtersList',$filtersList);
-            // dump($filtersList);
+            $this->assign('cartNum',$cartNum);
+
+
         }
-        //dump($setmeallist);die;
+
         $this->display();
     }
 }
