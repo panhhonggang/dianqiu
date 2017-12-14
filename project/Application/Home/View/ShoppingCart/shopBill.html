@@ -16,91 +16,42 @@
 		
 		<!-- 滤芯开始 -->
 		<div id="mo">
+
+			<foreach name="filters" item="v" key="k">
 			<div id="ro1" class="ro1">
-				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
+				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="{{$v['picpath']}}" alt=""></div>
 				<div id="ro-right">
 					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
+						<h3>{{$v['filtername']}}</h3>
+						<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
 					</div>
 					<div class="bott">
-					 <b>￥120.00</b>
-					 <p class="">X1</p>
+					 <b>￥{{$v['price']/100}}</b>
+					 <p class="">X{{$v['num']}}</p>
 					</div>
 				</div>
 			</div>
 			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
+			</foreach>
+
+			<foreach name="setmeal" item="vo" key="ke">
 			<div id="mo2">
 				<input type="text" value="—" readonly>
 				<div id="mo-right">
-					<b>200元套餐含2000L流量</b><p>￥200.00</p>
+					<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
+
 				</div>
-				<p class="bill">X1</p>
+				<p class="bill">X{{$vo['num']}}</p>
 			</div>
-			<hr>
+			<hr>			
+			</foreach>
 			<p class="franking">（含邮费¥0.00) </p>
 		</div>
 			
 
 		<!-- 滤芯结束 -->
         <div id="foot">
-			<b>合计金额：</b><b class="chang">￥420.00</b>
+			<b>合计金额：</b><b class="chang">￥{{$totalAmount/100}}</b>
 			<input type="submit" value="去结算">
 		</div>	
 	</div>

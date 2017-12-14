@@ -7,13 +7,45 @@ use Think\Controller;
  */
 class ShoppingCartController extends CommonController 
 {
-	//购物车
+	//显示购物车
     public function shopBill()
     {
+    	// 获取用户uid
+        $uid = $_SESSION['homeuser']['id'];
+        if($uid){
+	    	// 遍历购物车
+	    	// 遍历用户购物车套餐
+        	$setmeal = M('cartSetmeal')
+        	->where("`uid`='{$uid}'")
+        	->join('pub_setmeal ON pub_setmeal.id = pub_cart_setmeal.sid')
+        	->select();
 
+	    	// 遍历用户购物车滤芯
+        	$filters = M('cartFilters')
+        	->where("`uid`='{$uid}'")
+        	->join('pub_filters ON pub_filters.id = pub_cart_filters.fid')
+        	->select();
 
-        // 显示模板
-        $this->display();        
+        	$totalAmount = 0;
+        	// 统计套餐总金额
+        	foreach ($setmeal as $value) {
+        		$totalAmount += $value['num']*$value['money'];
+        	}
+        	// 统计滤芯总金额
+        	foreach ($filters as $value) {
+        		$totalAmount += $value['num']*$value['price'];
+        	}
+        	// 分配数据
+        	$this->assign('setmeal',$setmeal);
+            $this->assign('filters',$filters);
+            $this->assign('totalAmount',$totalAmount);
+       //      show($totalAmount);
+       //      show($filters);
+     		// die;
+	        // 显示模板
+	        $this->display();    
+        }
+    
     }
 
 	// 加入购物车
@@ -21,7 +53,7 @@ class ShoppingCartController extends CommonController
     {
     	// 接收POST过来的添加购物车数据
     	if(IS_POST){
-    		// 模拟数据
+    		// 模拟前台AJXJ提交过来的数据
     		//$_POST['data'] = '[{"sid":3,"num":5},{"fid":4,"num":3},{"fid":6,"num":2},{"fid":1,"num":1}]';
 
     		// 将json数据转换数组
@@ -65,7 +97,6 @@ class ShoppingCartController extends CommonController
 	    						'sid' 	=>$value['sid'],
 	    						'num'	=>$value['num']
 	    					);
-
 	    				}else{
 	    					// 套餐添加失败
 	    					$msgerror[] = array(
@@ -89,15 +120,13 @@ class ShoppingCartController extends CommonController
 	    						'sid' 	=>$value['sid'],
 	    						'num'	=>$value['num']
 	    					);		
-
 	    				}else{
+	    					// 套餐更新失败
 	    					$msgerror[] = array(
 	    						'error' => '套餐更新失败',
 	    						'sid' 	=>$value['sid'],
 	    						'num'	=>$value['num']
 	    					);
-	    					//echo '套餐更新失败';
-
 	    				}
 	    			}
 	    		}
@@ -134,16 +163,13 @@ class ShoppingCartController extends CommonController
 	    						'fid' 	=>$value['fid'],
 	    						'num'	=>$value['num']
 	    					);
-
-
 	    				}else{
+	    					// 滤芯添加失败
 	    					$msgerror[] = array(
 	    						'error' => '滤芯添加失败',
 	    						'fid' 	=>$value['fid'],
 	    						'num'	=>$value['num']
-	    					);
-	    					//$res[] = "{'error':3,'fid':{$value['fid']},'num':{$value['num']}}";
-	    					//echo '滤芯添加失败';
+	    					);	
 	    				}
 	    			}else{
 	    				// 滤芯已存在，更新
@@ -159,16 +185,13 @@ class ShoppingCartController extends CommonController
 	    						'fid' 	=>$value['fid'],
 	    						'num'	=>$value['num']
 	    					);
-
 	    				}else{
+	    					// 滤芯更新失败
 	    					$msgerror[] = array(
 	    						'error' => '滤芯更新失败',
 	    						'fid' 	=>$value['fid'],
 	    						'num'	=>$value['num']
-	    					);
-	    					//echo '滤芯更新失败';
-	    					//$res[] = "{'error':4,'fid':{$value['fid']},'num':{$value['num']}}";
-	    					
+	    					);	
 	    				}
 	    			}
 	    		}
@@ -190,31 +213,3 @@ class ShoppingCartController extends CommonController
     	}
     }	
 }
-
-// Array
-// (
-//     [0] => Array
-//         (
-//             [sid] => 1
-//             [num] => 1
-//         )
-
-//     [1] => Array
-//         (
-//             [fid] => 4
-//             [num] => 4
-//         )
-
-//     [2] => Array
-//         (
-//             [fid] => 6
-//             [num] => 3
-//         )
-
-//     [3] => Array
-//         (
-//             [fid] => 1
-//             [num] => 1
-//         )
-
-// )
