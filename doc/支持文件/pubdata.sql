@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-12-12 16:23:17
+Date: 2017-12-14 10:13:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -176,6 +176,42 @@ INSERT INTO `pub_binding` VALUES ('12', '3', '2', '炒鸡管理员', '1512460340
 INSERT INTO `pub_binding` VALUES ('13', '2', '3', '炒鸡管理员', '1512540689');
 
 -- ----------------------------
+-- Table structure for pub_cart_filters
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_cart_filters`;
+CREATE TABLE `pub_cart_filters` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `uid` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `fid` int(11) unsigned NOT NULL COMMENT '滤芯ID',
+  `num` int(11) unsigned NOT NULL COMMENT '购物数量',
+  `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_cart_filters
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for pub_cart_setmeal
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_cart_setmeal`;
+CREATE TABLE `pub_cart_setmeal` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `uid` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `sid` int(11) unsigned NOT NULL COMMENT '套餐ID',
+  `num` int(11) unsigned NOT NULL COMMENT '购物数量',
+  `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_cart_setmeal
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for pub_charg
 -- ----------------------------
 DROP TABLE IF EXISTS `pub_charg`;
@@ -332,13 +368,13 @@ CREATE TABLE `pub_filters` (
 -- ----------------------------
 -- Records of pub_filters
 -- ----------------------------
-INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '', '500', '2000', null, null, '我是滤芯简介', 'http://www.baidu.com', '1509673437', '0.00');
-INSERT INTO `pub_filters` VALUES ('2', 'PP棉', 'A型', '', '123', '321', null, null, '凄凄切切', 'http://www.baidu.com', '1509607569', '0.00');
-INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '', '234', '432', null, null, '尺寸齐全', 'http://www.baidu.com', '1509607600', '0.00');
-INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '', '5343', '3333', null, null, '望闻问切去', 'http://www.baidu.com', '1509673448', '0.00');
-INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '', '500', '2000', null, null, '啊啊按时到', 'http://www.baidu.com', '1509607666', '0.00');
-INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673463', '0.00');
-INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '0.00');
+INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '500', '2000', null, null, '我是滤芯简介', 'http://www.baidu.com', '1509673437', '0.00');
+INSERT INTO `pub_filters` VALUES ('2', 'PP棉', 'A型', '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '123', '321', null, null, '凄凄切切', 'http://www.baidu.com', '1509607569', '0.00');
+INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '234', '432', null, null, '尺寸齐全', 'http://www.baidu.com', '1509607600', '0.00');
+INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '5343', '3333', null, null, '望闻问切去', 'http://www.baidu.com', '1509673448', '0.00');
+INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '500', '2000', null, null, '啊啊按时到', 'http://www.baidu.com', '1509607666', '0.00');
+INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673463', '0.00');
+INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '\\dianqiu\\project\\Public\\Home\\images\\ro_02.png', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '0.00');
 
 -- ----------------------------
 -- Table structure for pub_hire
@@ -453,12 +489,14 @@ CREATE TABLE `pub_setmeal` (
   `describe` varchar(255) NOT NULL COMMENT '套餐描述',
   `addtime` int(11) NOT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_setmeal
 -- ----------------------------
-INSERT INTO `pub_setmeal` VALUES ('1', '10', '0', '100.00', '1000', '100元包1000升流量', '1512958408');
+INSERT INTO `pub_setmeal` VALUES ('1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1512958408');
+INSERT INTO `pub_setmeal` VALUES ('2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1512958436');
+INSERT INTO `pub_setmeal` VALUES ('3', '10', '0', '30000.00', '3000', '300元包3000升流量', '1512958962');
 
 -- ----------------------------
 -- Table structure for pub_users
@@ -475,12 +513,13 @@ CREATE TABLE `pub_users` (
   `open_id` varchar(50) NOT NULL COMMENT '关联微信信息表',
   PRIMARY KEY (`id`),
   KEY `name` (`name`,`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_users
 -- ----------------------------
 INSERT INTO `pub_users` VALUES ('1', '', '', '1', '1', '1', '1', 'oXwY4t2gearWoyg8z19ygjD34vDk');
+INSERT INTO `pub_users` VALUES ('10', null, null, '1', '1512700661', '140.207.54.79', '1512700661', 'oXwY4t2gearWoyg8z19ygjD34vDk');
 
 -- ----------------------------
 -- Table structure for pub_vendors
@@ -526,11 +565,12 @@ CREATE TABLE `pub_wechat` (
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`),
   KEY `user_id` (`open_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_wechat
 -- ----------------------------
+INSERT INTO `pub_wechat` VALUES ('24', 'oXwY4t2gearWoyg8z19ygjD34vDk', '馨品Mr\'feng', 'http://wx.qlogo.cn/mmopen/lbk4D8nFV3TBwoicSXcPoxia5iaIydTcZUBgibBvJUZBP67vsCUsWicmqK3EkDomcicB1A1o5rf4w7EP0QWDHMdLjA8snibHHxJOj5b/0', '2', '广东', '中国 广东 广州');
 
 -- ----------------------------
 -- Table structure for pub_work
