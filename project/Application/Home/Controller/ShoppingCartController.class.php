@@ -39,9 +39,7 @@ class ShoppingCartController extends CommonController
         	$this->assign('setmeal',$setmeal);
             $this->assign('filters',$filters);
             $this->assign('totalAmount',$totalAmount);
-       //      show($totalAmount);
-       //      show($filters);
-     		// die;
+
 	        // 显示模板
 	        $this->display();    
         }
@@ -241,36 +239,6 @@ class ShoppingCartController extends CommonController
 				$status = -1;
 				$this->ajaxReturn($status);		
 		    }
-
-	    	// switch ($type) {
-	    	// 	case 'sid':
-		    // 			$res =M('cartSetmeal')->where("`uid`='{$uid}' AND `sid`={$typeValue}")->save($num);
-		    // 			// 状态码
-		    // 			if($res){
-			   //  			$status = 1;
-			   //  			$this->ajaxReturn($status);	
-		    // 			}else{
-			   //  			$status = -1;
-			   //  			$this->ajaxReturn($status);		
-		    // 			}
-	    	// 		break;
-	    	// 	case 'fid':
-		    // 			$res =M('cartFilters')->where("`uid`='{$uid}' AND `fid`={$typeValue}")->save($num);
-		    // 			// 状态码
-		    // 			if($res){
-			   //  			$status = 1;
-			   //  			$this->ajaxReturn($status);	
-		    // 			}else{
-			   //  			$status = -1;
-			   //  			$this->ajaxReturn($status);		
-		    // 			}
-	    	// 		break;
-	    	// 	default:
-	    	// 			// 产品类型错误
-			   //  		$status = -2;
-			   //  		$this->ajaxReturn($status);	
-	    	// 		break;
-	    	// }
     	}
     }
 
@@ -304,13 +272,4 @@ class ShoppingCartController extends CommonController
 
 	    }
     }
-
-    /**
-     * [cartBlur 一件清空购物车]
-     * @return [type] [description]
-     */
-    public function cartDelAll(){
-
-    }
-
 }

@@ -60,7 +60,7 @@
 		<!-- 滤芯结束 -->
         <div id="foot">
 			<b>合计金额：</b><b class="chang">￥{{$totalAmount/100}}</b>
-			<input type="submit" value="去结算">
+			<a href="{{:U('ShoppingProcess/sureBill')}}"><input type="submit" value="去结算"></a>
 		</div>	
 	</div>
 	
@@ -101,7 +101,7 @@
 			var type = $(this).next('input').attr('sid')?'sid':'fid';
 			var typeValue = $(this).next('input').attr(type);
 			// 判断产品数量大于0
-			if(num>0){
+			if(num>1){
 				// 产品数量自减
 				$(this).next('input').val(--num);
 
@@ -170,7 +170,8 @@
 
 			if(num<=0){
 				// 异常处理
-				$(this).val(0);
+				$(this).val(1);
+				num = 1;
 				// 找祖先元素.item下面的子元素hr设置样式
 				$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
 				// 找祖先元素.item设置样式

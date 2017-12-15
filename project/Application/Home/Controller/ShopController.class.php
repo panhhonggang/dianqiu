@@ -79,8 +79,6 @@ class ShopController extends CommonController
             $this->assign('setmeallist',$setmeallist);
             $this->assign('filtersList',$filtersList);
             $this->assign('cartNum',$cartNum);
-
-
         }
 
         $this->display();
