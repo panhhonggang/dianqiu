@@ -21,7 +21,8 @@
 	display: inline-block;
 	
 }
-.bott i{
+.bott i,.bott b{
+	font-weight: normal;
 	color: red;
 }
 #ro-left input{
@@ -78,6 +79,13 @@
 	bottom: 0.0rem;
 }
 
+#ro-right .bott i{
+	font-size: 0.426667rem;
+	color:red;
+	position: absolute;
+	right: 0.0rem;
+	bottom: 0.0rem;
+}
 #ro-right .bott i input{
 	width: 0.533333rem;
 	height: 0.533333rem;
@@ -87,8 +95,26 @@
 #ro-right .bott i input:first-child,
 #ro-right .bott i input:last-child{
 	border:none;
-}
 
+}
+i.num{
+	font-size: 0.426667rem;
+	color:red;
+	position: absolute;
+	right: 0.0rem;
+	top: 0.0rem;
+}
+i.num input{
+	width: 0.533333rem;
+	height: 0.533333rem;
+	text-align: center;
+	background: #fff;
+}
+i.num input:first-child,
+i.num input:last-child{
+	border:none;
+
+}
 /*.ro1 + hr,.ro2 + hr ,.mo2 + hr{}*/
 hr{
 	border:1px solid #ccc;
@@ -103,7 +129,7 @@ hr{
 	display: inline-block;
 	font-size: 0.426667rem;
 }
-#mo2 input{
+#mo2>input{
 	font-family: "宋体","微软雅黑";
 	text-align: center;
 	border-radius: 0.533333rem;
@@ -128,8 +154,8 @@ hr{
 }
 #mo2>.bill{
 	display: inline-block;
-	/*height: 0.666667rem;
-    width: 0.666667rem;*/
+	height: 0.666667rem;
+    width: 2.666667rem;
     font-family: "宋体","微软雅黑";
     letter-spacing: 0.133333rem;
 	float: right;

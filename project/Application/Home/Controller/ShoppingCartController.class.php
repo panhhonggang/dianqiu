@@ -45,7 +45,6 @@ class ShoppingCartController extends CommonController
 	        // 显示模板
 	        $this->display();    
         }
-    
     }
 
 	// 加入购物车
@@ -211,5 +210,107 @@ class ShoppingCartController extends CommonController
 	    		$this->ajaxReturn($feedback);
 	    	}
     	}
-    }	
+    }
+
+    /**
+     * [cartMinus 修改购物]
+     * @return [type] [description]
+     */
+    public function reviseCart(){
+    	if(IS_POST){
+    		// 获取用户uid
+        	$uid = $_SESSION['homeuser']['id'];
+	    	// 获取POST传过
+	    	$data = I('post.data');
+	    	// 获取修改的产品类型
+	    	$type = $data['type'];
+	    	// 获取修改的产品ID
+	    	$typeValue = $data['typeValue'];
+	    	// 获取修改的产品数量
+	    	$num['num'] = $data['num'];
+	    	// 判断操作购物车表
+	    	$table = 'cartSetmeal';
+	    	if($type == 'fid') $table = 'cartFilters';
+	    	$res =M($table)->where("`uid`='{$uid}' AND `{$type}`={$typeValue}")->save($num);
+
+		    // 状态码
+		    if($res){
+				$status = 1;
+				$this->ajaxReturn($status);	
+		    }else{
+				$status = -1;
+				$this->ajaxReturn($status);		
+		    }
+
+	    	// switch ($type) {
+	    	// 	case 'sid':
+		    // 			$res =M('cartSetmeal')->where("`uid`='{$uid}' AND `sid`={$typeValue}")->save($num);
+		    // 			// 状态码
+		    // 			if($res){
+			   //  			$status = 1;
+			   //  			$this->ajaxReturn($status);	
+		    // 			}else{
+			   //  			$status = -1;
+			   //  			$this->ajaxReturn($status);		
+		    // 			}
+	    	// 		break;
+	    	// 	case 'fid':
+		    // 			$res =M('cartFilters')->where("`uid`='{$uid}' AND `fid`={$typeValue}")->save($num);
+		    // 			// 状态码
+		    // 			if($res){
+			   //  			$status = 1;
+			   //  			$this->ajaxReturn($status);	
+		    // 			}else{
+			   //  			$status = -1;
+			   //  			$this->ajaxReturn($status);		
+		    // 			}
+	    	// 		break;
+	    	// 	default:
+	    	// 			// 产品类型错误
+			   //  		$status = -2;
+			   //  		$this->ajaxReturn($status);	
+	    	// 		break;
+	    	// }
+    	}
+    }
+
+    /**
+     * [cartBlur 购物车删除一件产品]
+     * @return [type] [description]
+     */
+    public function cartDelOne(){
+    	if(IS_POST){
+    		// 获取用户uid
+        	$uid = $_SESSION['homeuser']['id'];
+	    	// 获取POST传过
+	    	$data = I('post.data');
+	    	// 获取修改的产品类型
+	    	$type = $data['type'];
+	    	// 获取修改的产品ID
+	    	$typeValue = $data['typeValue'];
+	    	$table = 'cartSetmeal';
+	    	if($type == 'fid') $table = 'cartFilters';
+
+	    	// 执行删除操作
+		    $res =M($table)->where("`uid`='{$uid}' AND `{$type}`={$typeValue}")->delete();
+		    // 状态码
+		    if($res){
+				$status = 1;
+				$this->ajaxReturn($status);	
+		    }else{
+				$status = -1;
+				$this->ajaxReturn($status);		
+		    }
+
+	    }
+    }
+
+    /**
+     * [cartBlur 一件清空购物车]
+     * @return [type] [description]
+     */
+    public function cartDelAll(){
+
+    }
+
 }

@@ -147,7 +147,9 @@
 		$('.num').blur(function(){
 			// 获取产品购买数量
 			var num = $(this).val()-0;
-			if(num==0){
+			if(num<=0){
+				// 特异常处理
+				$(this).val(0);
 				// 找祖先元素.item下面的子元素hr设置样式
 				$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
 				// 找祖先元素.item设置样式
@@ -213,7 +215,7 @@
 				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
 					// 判断购物车是否添加成功
 					if(res.status){
-						alert('购物车添加成功');
+						//alert('购物车添加成功');
 						// 刷新页面
 						location.reload();
 					}

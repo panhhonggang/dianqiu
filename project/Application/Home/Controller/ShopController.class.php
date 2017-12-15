@@ -75,6 +75,7 @@ class ShopController extends CommonController
             // 购物车商品数量
             $cartNum = $smealNum+$filtersNum;
 
+            // 分配数据到模板
             $this->assign('setmeallist',$setmeallist);
             $this->assign('filtersList',$filtersList);
             $this->assign('cartNum',$cartNum);

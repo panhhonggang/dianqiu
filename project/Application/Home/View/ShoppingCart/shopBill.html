@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 	</head>
 	<body>
 
@@ -18,32 +18,40 @@
 		<div id="mo">
 
 			<foreach name="filters" item="v" key="k">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><i><input type="text" value="—" readonly></i><img src="{{$v['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$v['filtername']}}</h3>
-						<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
-					</div>
-					<div class="bott">
-					 <b>￥{{$v['price']/100}}</b>
-					 <p class="">X{{$v['num']}}</p>
+			<div class="item">
+				<div id="ro1" class="ro1">
+					<div id="ro-left"><i><input class="del" type="text" value="—" readonly></i><img src="{{$v['picpath']}}" alt=""></div>
+					<div id="ro-right">
+						<div class="top">
+							<h3>{{$v['filtername']}}</h3>
+							<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+						</div>
+						<div class="bott">
+						 	<b>￥{{$v['price']/100}}</b>
+						 	<!-- <p class="">X{{$v['num']}}</p> -->
+						 	<i>
+								<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="text" value="{{$v['num']}}"><input type="button" value="+" class="plus">
+							</i>
+						</div>
 					</div>
 				</div>
+				<hr>
 			</div>
-			<hr>
 			</foreach>
 
 			<foreach name="setmeal" item="vo" key="ke">
-			<div id="mo2">
-				<input type="text" value="—" readonly>
-				<div id="mo-right">
-					<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
-
+			<div class="item">
+				<div id="mo2">
+					<input class="del" type="text" value="—" readonly>
+					<div id="mo-right">
+						<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
+						
+					</div>
+					<!-- <p class="bill">X{{$vo['num']}}</p> -->
+					<p class="bill" style="position: relative;"><i class="num"><input type="button" value="-" class="minus"><input sid="{{$vo['id']}}" class="num" type="text" value="{{$vo['num']}}"><input type="button" value="+" class="plus"></i></p>
 				</div>
-				<p class="bill">X{{$vo['num']}}</p>
-			</div>
-			<hr>			
+				<hr>
+			</div>			
 			</foreach>
 			<p class="franking">（含邮费¥0.00) </p>
 		</div>
@@ -57,5 +65,160 @@
 	</div>
 	
 	</body>
+<script>
+		/**
+		 * 初始化样式
+		 */
+		// 找对象
+		var shop = $('input.num');
 
+		// 循环遍历
+		for(var i=shop.length;i>=0;i--){
+			// 获取每个产品数量INPUT对象
+			var obj = $(shop[i]);
+			// 获取产品数量隐转数值类型
+			var n = obj.val()-0;
+			// 获取产品类型
+			var type = obj.attr('sid')?'sid':'fid';
+			// 初始化样式
+			if(n>0){	
+				// 找祖先元素.item设置样式
+				obj.parents('.item').css({'background':'#F0F0F0'});
+				// 找祖先元素.item下面的子元素hr设置样式
+				obj.parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+				// 根据sid或fid判断是充值套餐还是滤芯产品，给被选中的产品添加class属性sid值或fid值
+				obj.addClass(type);
+			}
+		}
+		
+
+		/**
+		 *  减号按钮让产品购买数量自减
+		 */
+		$('.minus').click(function(){
+			// 点击减号按钮获取当前产品的value值,隐式转数值型
+			var num = $(this).next('input').val()-0;
+			var type = $(this).next('input').attr('sid')?'sid':'fid';
+			var typeValue = $(this).next('input').attr(type);
+			// 判断产品数量大于0
+			if(num>0){
+				// 产品数量自减
+				$(this).next('input').val(--num);
+
+				// 异步请求，修改购物车
+				$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
+					// 判断购物车是否添加成功
+					if(res==1){
+						//alert('修改成功');
+						// 刷新页面
+						location.reload();
+					}
+				});
+
+				// 如果产品数量等于0
+				if(num==0){
+					// 找祖先元素.item下面的子元素hr设置样式
+					$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
+					// 找祖先元素.item设置样式
+					$(this).parents('.item').css({'background':'#FFF'});
+					// 清除class属性fid值或sid值
+					$(this).next('input').removeClass(type);
+				}
+			}
+		});
+
+		/**
+		 *  加号按钮让产品购买数量自增
+		 */
+		$('.plus').click(function(){
+			// 点击加号按钮获取当前产品的value值,隐式转数值型
+			var num = $(this).prev('input').val()-0;
+			var type = $(this).prev('input').attr('sid')?'sid':'fid';
+			var typeValue = $(this).prev('input').attr(type);
+			//alert(typeValue)
+			// 判断产品数量小于库存
+			if(true){
+				// 产品数量自增
+				$(this).prev('input').val(++num);
+
+				// 异步请求，修改购物车
+				$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
+					// 判断购物车是否添加成功
+					if(res==1){
+						//alert('修改成功');
+						// 刷新页面
+						location.reload();
+					}
+				});
+				// 找祖先元素.item设置样式
+				$(this).parents('.item').css({'background':'#F0F0F0'});
+				// 找祖先元素.item下面的子元素hr设置样式
+				$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+				// 给被选中的产品添加class属性fid值
+				$(this).prev('input').addClass(type);
+			}
+		});
+
+		/**
+		 *  失去焦点事件检测产品购买数量设置样式
+		 */
+		$('.num').blur(function(){
+			// 获取产品购买数量
+			var num = $(this).val()-0;
+			var type = $(this).attr('sid')?'sid':'fid';
+			var typeValue = $(this).attr(type);
+
+			if(num<=0){
+				// 异常处理
+				$(this).val(0);
+				// 找祖先元素.item下面的子元素hr设置样式
+				$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
+				// 找祖先元素.item设置样式
+				$(this).parents('.item').css({'background':'#FFF'});
+				// 清除class属性fid值	
+				$(this).removeClass(type);
+			}else{
+				// 找祖先元素.item设置样式
+				$(this).parents('.item').css({'background':'#F0F0F0'});
+				// 找祖先元素.item下面的子元素hr设置样式
+				$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+				// 给被选中的产品添加class属性fid值
+				$(this).addClass(type);
+			}
+
+			// 异步请求，修改购物车
+			$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
+				// 判断购物车是否添加成功
+				if(res==1){
+					//alert('修改成功');
+					// 刷新页面
+					location.reload();
+				}
+			});
+
+		});
+
+		/**
+		 * 删除购物车中的某件产品
+		 */
+		$('.del').click(function(){
+			// 找祖先.item下的对象input.num
+			var obj = $(this).parents('.item').find("input.num");
+			// 获取产品类型
+			var type = obj.attr('sid')?'sid':'fid';
+			// 获取产品类型ID值
+			var typeValue = obj.attr(type);
+
+			// 异步请求，删除购物车一个产品
+			$.post('{{:U("ShoppingCart/cartDelOne")}}',{data:{type:type,typeValue:typeValue}}, function(res){
+				// 判断购物车是否添加成功
+				if(res==1){
+					//alert('修改成功');
+					// 刷新页面
+					location.reload();
+				}
+			});
+			// console.dir('产品类型是：'+type+'产品类型的值是：'+typeValue);
+		});
+</script>
 </html>
