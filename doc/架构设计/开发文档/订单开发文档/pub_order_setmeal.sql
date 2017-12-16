@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-12-16 13:56:29
+Date: 2017-12-16 14:10:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,8 +23,8 @@ CREATE TABLE `pub_order_setmeal` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `order_id` varchar(32) NOT NULL,
   `setmeal_id` int(11) NOT NULL,
-  `total_num` int(11) unsigned NOT NULL COMMENT '商品的购买总数量',
-  `total_price` decimal(15,2) unsigned NOT NULL COMMENT '商品的购买总金额',
+  `goods_num` int(11) unsigned NOT NULL COMMENT '商品的购买总数量',
+  `goods_price` decimal(15,2) unsigned NOT NULL COMMENT '商品的购买总金额',
   `created_at` int(11) DEFAULT NULL COMMENT '订单创建时间',
   `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`),

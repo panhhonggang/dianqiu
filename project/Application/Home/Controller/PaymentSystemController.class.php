@@ -79,10 +79,23 @@ class PaymentSystemController extends CommonController
                 // 订单创建时间
                 $order['created_at']   = time();
 
-                // 实例化模型
+
+                // 实例化订单模型
                 $orders = M('Orders');
                 // 创建订单
-                $res = $orders->add($order);
+                $ordersRes = $orders->add($order);
+
+                // 准备数据
+                // 关联订单ID号
+                $setmeal['order_id'] = $order['order_id'];
+                // 套餐ID
+                $setmeal['num'] = $setmeal[0]['num'];
+                // taoc
+                $setmeal['price'] = $setmeal[0]['price'];
+                // 实例化订单套餐模型
+                $orderSetmeal = M('orderSetmeal');
+                // 创建订单套餐
+                $orderSetmealRes = $orderSetmeal->add($order);
 
                 // 判断订单是否创建成功
                 if($res){
