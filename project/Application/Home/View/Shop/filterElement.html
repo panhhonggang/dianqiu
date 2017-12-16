@@ -266,14 +266,14 @@
 					// 判断购物车是否添加成功
 					if(res.status){
 						// 添加购物车成功跳转
-						window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+						window.location.href='{{:U("PaymentSystem/action")}}';
 					}
 				});
 			}else{
 				// 购物车有产品
 				if(cartNun>0){
 					// 直接跳转到购买页面
-					window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+					window.location.href='{{:U("PaymentSystem/action")}}';
 				}else{
 					// 请先选择产品
 					alert('请先选择产品!');	
