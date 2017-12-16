@@ -7,7 +7,8 @@ header("Content-type:text/html;charset=utf-8");
  * @param  string  $url  url连接
  * @param  integer $size 尺寸 纯数字
  */
-function qrcode($url,$size=4){
+function qrcode($url,$size=4)
+{
     Vendor('Phpqrcode.phpqrcode');
     QRcode::png($url,false,QR_ECLEVEL_L,$size,2,false,0xFFFFFF,0x000000);
 }
@@ -56,7 +57,8 @@ function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=false)
  * @param  [type] $data [所有类型数据]
  * @return [type]       [木有]
  */
-function show($data){
+function show($data)
+{
   if(is_null($data)){
     echo 'is null';
   }elseif(is_scalar($data)){
@@ -68,4 +70,27 @@ function show($data){
   }else{
     dump($data);
   }
+}
+
+/**
+ * 生产唯一的订单ID
+ */
+function gerOrderId()
+{
+  do {
+    // 生成唯一订单号
+    $orderId = onlyOrderId();
+    //查询订单号是否存在
+    $oid = M('Orders')->where("`order_id`='{$orderId}'")->field('id')->find();
+    // 如果订单号已存在再重新获取一次
+  } while ($oid);
+
+  // 绝对唯一的32位订单ID号
+  return $orderId;
+}
+
+function onlyOrderId(){                     
+  $str = date('Ymd').time().mt_rand(1111111111, 9999999999).mt_rand(1111111111, 9999999999);
+  $yCode = mb_substr($str, 0, 32);
+  return $yCode;
 }

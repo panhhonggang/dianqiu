@@ -43,6 +43,19 @@ class PaymentSystemController extends CommonController
                 }   
             }
 
+            $totalAmount = 0;
+            $totalNum = 0;
+            // 统计套餐总金额
+            foreach ($setmeal as $value) {
+                $totalAmount += $value['num']*$value['money'];
+                $totalNum += $value['num'];
+            }
+            // 统计滤芯总金额
+            foreach ($filters as $value) {
+                $totalAmount += $value['num']*$value['price'];
+                $totalNum += $value['num'];
+            }
+
 
             // 异常处理，购物车没有产品
             if(empty($setmeal) && empty($filters)){
@@ -52,7 +65,34 @@ class PaymentSystemController extends CommonController
 
             // 情况一：购买套餐（1个套餐1件）
             if(empty($filters) && $setmealNum==1){
-                show('购买套餐（1个套餐1件）<br/>');
+                // 准备数据
+                // 唯一订单ID号
+                $order['order_id']      = gerOrderId();
+                // 用户ID号
+                $order['user_id']       = $uid;
+                // 关联的设备ID号
+                $order['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+                // 商品的购买总数量
+                $order['total_num']     = $totalNum;
+                // 商品的购买总金额
+                $order['total_price']   = $totalAmount;
+                // 订单创建时间
+                $order['created_at']   = time();
+
+                // 实例化模型
+                $orders = M('Orders');
+                // 创建订单
+                $res = $orders->add($order);
+
+                // 判断订单是否创建成功
+                if($res){
+                    // 存充值套餐
+                    
+                    show('订单创建成功');
+                }else{
+                    show('订单创建失败');
+                }
+
             }
 
             // 情况二：购买套餐（1个套餐1件以上）购买套餐（多个套餐1件）购买套餐（多个套餐多件）
@@ -64,7 +104,7 @@ class PaymentSystemController extends CommonController
             if($filters){
                 show('包含滤芯产品<br/>');
             }
-            
+
             show('套餐情况：<br/>');
             show($setmeal);
             show('滤芯情况：<br/>');
