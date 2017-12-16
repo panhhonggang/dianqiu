@@ -1,7 +1,7 @@
 <?php
 
-require_once substr(__DIR__, 0, strrpos(__DIR__, '/'))."/WxPay.Api.php";
-
+//require_once substr(__DIR__, 0, strrpos(__DIR__, '/'))."/WxPay.Api.php";
+require_once dirname(dirname(__FILE__))."/WxPay.Api.php";
 /**
 
  * 

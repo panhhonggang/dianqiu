@@ -10,9 +10,10 @@
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<!-- 微信支付支持JS部分代码 -->
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 	</head>
 	<body>
-
 	<div id="contain">
 
 		<div id="btn">
@@ -65,8 +66,22 @@
 			</i></a>
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
 		</div>
+
 	</div>
 	<script>
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'chooseWXPay'
+		    ]
+		});
+
 		/**
 		 * TAB切换
 		 * 找到充值和滤芯按钮并绑定点击事件
@@ -266,20 +281,53 @@
 					// 判断购物车是否添加成功
 					if(res.status){
 						// 添加购物车成功跳转
-						window.location.href='{{:U("PaymentSystem/action")}}';
+						//window.location.href='{{:U("PaymentSystem/action")}}';
+						// 异步提交
+						$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+							weixinPay(res);
+						});
 					}
 				});
 			}else{
 				// 购物车有产品
 				if(cartNun>0){
 					// 直接跳转到购买页面
-					window.location.href='{{:U("PaymentSystem/action")}}';
+					//window.location.href='{{:U("PaymentSystem/action")}}';
+					// 异步提交
+					$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+						weixinPay(res);
+					});
 				}else{
 					// 请先选择产品
 					alert('请先选择产品!');	
 				}
 			}
 		});
+
+
+
+		// 微信支付方法
+		function weixinPay(res){
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',
+				JSON.parse(res),
+				function(res){
+					if (res.err_msg.substr(-2) == 'ok') {
+						// 充值成功跳转到首页
+						// location.href = "{{:U('Home/Index/index')}}";
+						alert('成功！');
+					} else if (res.err_msg.substr(-6) == 'cancel') {
+
+		    			    alert('取消成功！');
+
+					}else{
+
+		    			    alert('充值失败！');
+
+					}
+				}
+			);
+		};
 	</script>
 	</body>
 

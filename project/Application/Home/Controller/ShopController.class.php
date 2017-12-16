@@ -24,10 +24,6 @@ class ShopController extends CommonController
             // 查询用户绑定设备使用的套餐产品
             // remodel:充值模式 money:套餐金额 flow:套餐流量/时长 describe:套餐描述
             $setmeallist = M('Setmeal')->field('pub_setmeal.id,remodel,money,flow,describe')
-            // 连接用户表 pub_users.open_id = 公众号唯一ID
-            //->join('pub_users ON pub_users.open_id = "'.$openId.'"')
-            // 连接用户和设备关联表
-            //->join('pub_current_devices ON pub_current_devices.uid = pub_users.id')
             // 连接设备表
             ->join('pub_devices ON pub_devices.uid ='.$uid)
             // 查询一条
@@ -36,10 +32,6 @@ class ShopController extends CommonController
             $Model = M('Filters');
             // 查询用户绑定设备使用的滤芯产品
             $filters = $Model->field('filter1,filter2,filter3,filter4,filter5,filter6,filter7,filter8')
-            // 连接用户表 pub_users.open_id = 公众号唯一ID
-            //->join('pub_users ON pub_users.open_id = "'.$openId.'"')
-            // 连接用户和设备关联表
-            //->join('pub_current_devices ON pub_current_devices.uid = pub_users.id')
             // 连接设备表
             ->join('pub_devices ON pub_devices.uid ='.$uid)
             // 连接设备类型表
@@ -81,6 +73,18 @@ class ShopController extends CommonController
             $this->assign('cartNum',$cartNum);
         }
 
+        //调用微信JS-SDK类获取签名需要用到的数据
+        $weixin = new WeixinJssdk;
+        $signPackage = $weixin->getSignPackage();
+
+        // 查询用户微信中的openid
+        $openId = $_SESSION['homeuser']['open_id'];;
+
+        //分配数据        
+        $this->assign('info',$signPackage);
+        $this->assign('openId',$openId);
+
         $this->display();
     }
 }
+
