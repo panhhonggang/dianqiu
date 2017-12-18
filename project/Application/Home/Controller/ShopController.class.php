@@ -16,6 +16,14 @@ class ShopController extends CommonController
     // 商城充值套餐和滤芯产品
     public function filterElement()
     {
+        //调用微信JS-SDK类获取签名需要用到的数据
+        $weixin = new WeixinJssdk;
+        $signPackage = $weixin->getSignPackage();
+
+        // 查询用户微信中的openid
+        $openId = $weixin->GetOpenid();
+        show($openId);
+        die;
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
 
@@ -78,7 +86,9 @@ class ShopController extends CommonController
         $signPackage = $weixin->getSignPackage();
 
         // 查询用户微信中的openid
-        $openId = $_SESSION['homeuser']['open_id'];;
+        $openId = $weixin->GetOpenid();
+        show($openId);
+        die;
 
         //分配数据        
         $this->assign('info',$signPackage);
