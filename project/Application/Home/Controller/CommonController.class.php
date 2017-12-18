@@ -16,14 +16,22 @@ class CommonController extends Controller
      */
     public function _initialize()
     {	
-    	// 获取用户open_id
-    	$weixin = new WeixinJssdk;
-    	//$openId = $weixin->GetOpenid();
-    	$openId = 'oXwY4t2gearWoyg8z19ygjD34vDk';
-    	// 查询用户信息
-    	$info = M('Users')->where("open_id='{$openId}'")->find();
-    	// 将用户信息缓存
-    	$_SESSION['homeuser'] = $info;
+        if(empty($_SESSION['homeuser'])){
+            // 实例化微信JSSDK对象
+            $weixin = new WeixinJssdk;
+            // 获取用户open_id
+            $openId = $weixin->GetOpenid();
+            // 查询用户信息
+            $info = M('Users')->where("open_id='{$openId}'")->find();
+            // 判断用户是否存在
+            if($info){
+               // 将用户信息缓存
+                $_SESSION['homeuser'] = $info; 
+            }else{
+                // 用户不存在
+                $this->error('用户不存在，请先关注公众号！');
+            }
+        }
     }
 
 

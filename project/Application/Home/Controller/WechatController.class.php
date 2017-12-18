@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 // 引入微信事件接收类
-use Home\Controller\WechatController;
+// use Home\Controller\WeixinEventController;
 
 class WechatController //extends CommonController 
 {
