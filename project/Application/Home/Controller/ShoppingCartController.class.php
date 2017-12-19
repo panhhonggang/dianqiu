@@ -193,6 +193,7 @@ class ShoppingCartController extends CommonController
 	    			}
 	    		}
 	    	}
+	    	
 	    	// AJAX返回
 	    	if(empty($msgerror)){
 	    		// 状态码

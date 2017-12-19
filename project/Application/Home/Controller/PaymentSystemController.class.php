@@ -111,8 +111,17 @@ class PaymentSystemController extends CommonController
                 if($ordersRes && $orderSetmealRes && $cartSetmealRes){
                     // 执行事务
                     $orders->commit();
+                    // 准备订单数据
+                    // 充值金额
+                    $money = $setmealData['goods_price']-0;
+                    // 订单号码
+                    $order_id = $order['order_id'];
+                    // 订单描述
+                    $contentstr = M('Setmeal')->where("`id`={$setmeal[0]['sid']}")->find()['describe'];
+                    // 描述超长处理
+                    $content = msubstr($contentstr, 0, 120);
                     // 订单创建成功，跳转到支付页面
-                    return $this->uniformOrder();
+                    return $this->uniformOrder($money,$order_id,$content);
                 }else{
                     // 事务回滚
                     $orders->rollback();
@@ -122,34 +131,38 @@ class PaymentSystemController extends CommonController
 
             // 情况二：购买套餐（1个套餐1件以上）购买套餐（多个套餐1件）购买套餐（多个套餐多件）
             if(empty($filters) && $setmealNum>1){
-                show('购买套餐（1个套餐1件以上）购买套餐（多个套餐1件）购买套餐（多个套餐多件）<br/>');
+                show(2);
             }
 
             // 情况三：包含滤芯产品
             if($filters){
-                show('包含滤芯产品<br/>');
-            }
-
-            // show('套餐情况：<br/>');
-            // show($setmeal);
-            // show('滤芯情况：<br/>');
-            // show($filters);
-            
+                show(3);
+            }           
         }   
     }
 
     /**
      * 统一下单并返回数据
      * @return string json格式的数据，可以直接用于js支付接口的调用
+     *
+
+
      */
-    public function uniformOrder()
+    /**
+     * 统一下单并返回数据
+     * @return string json格式的数据，可以直接用于js支付接口的调用
+     * @param  [type] $money    [订单金额]
+     * @param  [type] $order_id [订单号码]
+     * @param  [type] $content  [订单详情]
+     */
+    public function uniformOrder($money,$order_id,$content)
     {
         // 将金额强转换整数
         //$money = I('money') * 100;
         // 冲值测试额1分钱
-        $money = 1;
+        $money = $money;
         // 用户在公众号的唯一ID
-        $openId = $_SESSION['homeuser']['open_id'];;
+        $openId = $_SESSION['homeuser']['open_id'];
         //微信examle的WxPay.JsApiPay.php
         vendor('WxPay.jsapi.WxPay#JsApiPay');
 
@@ -160,11 +173,11 @@ class PaymentSystemController extends CommonController
         $input = new \WxPayUnifiedOrder();
 
         // 产品内容
-        $input->SetBody("馨品净水设备-充值");
+        $input->SetBody($content);
         // 用户ID
         $input->SetAttach($_SESSION['homeuser']['id']);
         // 设置商户系统内部的订单号,32个字符内、可包含字母, 其他说明见商户订单号
-        $input->SetOut_trade_no(\WxPayConfig::MCHID.date("YmdHis").mt_rand(0,9999));
+        $input->SetOut_trade_no($order_id);
         // 产品金额单位为分
         $input->SetTotal_fee($money);
         // 设置订单生成时间

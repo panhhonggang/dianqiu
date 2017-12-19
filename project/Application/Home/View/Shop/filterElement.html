@@ -278,13 +278,19 @@
 				var date = JSON.stringify(data)
 				// 异步提交
 				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
+
 					// 判断购物车是否添加成功
-					if(res.status){
+					if(res.status==1){
 						// 添加购物车成功跳转
-						//window.location.href='{{:U("PaymentSystem/action")}}';
-						// 异步提交
+						// 异步提交请求支付系统
 						$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-							weixinPay(res);
+							if(res==2){
+								alert('情况2');
+							}else if(res==3){
+								alert('情况3');
+							}else{
+								weixinPay(res);
+							}
 						});
 					}
 				});
@@ -295,7 +301,13 @@
 					//window.location.href='{{:U("PaymentSystem/action")}}';
 					// 异步提交
 					$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-						weixinPay(res);
+						if(res==2){
+							alert('情况2');
+						}else if(res==3){
+							alert('情况3');
+						}else{
+							weixinPay(res);
+						}
 					});
 				}else{
 					// 请先选择产品
@@ -303,8 +315,6 @@
 				}
 			}
 		});
-
-
 
 		// 微信支付方法
 		function weixinPay(res){
@@ -317,13 +327,9 @@
 						// location.href = "{{:U('Home/Index/index')}}";
 						alert('成功！');
 					} else if (res.err_msg.substr(-6) == 'cancel') {
-
 		    			    alert('取消成功！');
-
 					}else{
-
 		    			    alert('充值失败！');
-
 					}
 				}
 			);

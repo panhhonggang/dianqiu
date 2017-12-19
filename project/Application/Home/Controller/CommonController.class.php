@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
+use Home\Controller\WechatController;
 /**
  * 前共控制器
  * 前台控制器除login外必须继承我
@@ -16,11 +17,12 @@ class CommonController extends Controller
      */
     public function _initialize()
     {	
+        // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
             // 实例化微信JSSDK对象
             $weixin = new WeixinJssdk;
             // 获取用户open_id
-            $openId = $weixin->GetOpenid();
+            $openId = $weixin->GetOpenid();            
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
             // 判断用户是否存在
@@ -29,7 +31,10 @@ class CommonController extends Controller
                 $_SESSION['homeuser'] = $info; 
             }else{
                 // 用户不存在
-                $this->error('用户不存在，请先关注公众号！');
+                // 实例化微信信息类型
+                $Wechat = new WechatController;
+                // 调用填写微信信息的方法
+                $Wechat->add($openId);
             }
         }
     }
