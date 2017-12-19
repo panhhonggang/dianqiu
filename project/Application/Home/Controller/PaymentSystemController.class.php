@@ -90,15 +90,25 @@ class PaymentSystemController extends CommonController
 
                 // 准备数据
                 // 关联订单ID号
-                $setmealData['order_id'] = $order['order_id'];
+                $setmealData['order_id']        = $order['order_id'];
                 // 套餐ID
-                $setmealData['setmeal_id'] = $setmeal[0]['sid'];
+                $setmealData['setmeal_id']      = $setmeal[0]['sid'];
+                // 产品类型ID
+                $setmealData['type_id']      = $setmeal[0]['tid'];                       
+                // 充值模式                
+                $setmealData['remodel']           = $setmeal[0]['remodel'];
+                // 套餐价格
+                $setmealData['money']           = $setmeal[0]['money'];
+                // 套餐流量/时长
+                $setmealData['flow']           = $setmeal[0]['flow'];
+                // 套餐描述
+                $setmealData['describe']           = $setmeal[0]['describe'];
                 // 商品的购买数量
-                $setmealData['goods_num'] = $setmeal[0]['num'];
+                $setmealData['goods_num']       = $setmeal[0]['num'];
                 // 商品的购买金额
-                $setmealData['goods_price'] = $setmeal[0]['money'];
+                $setmealData['goods_price']     = $setmeal[0]['money'];
                 // 订单创建时间
-                $setmealData['created_at']   = $order['created_at'];
+                $setmealData['created_at']      = $order['created_at'];
 
                 // 创建订单
                 $ordersRes = $orders->add($order);
@@ -117,9 +127,9 @@ class PaymentSystemController extends CommonController
                     // 订单号码
                     $order_id = $order['order_id'];
                     // 订单描述
-                    $contentstr = M('Setmeal')->where("`id`={$setmeal[0]['sid']}")->find()['describe'];
+                    $contentstr = $setmealData['describe'];
                     // 描述超长处理
-                    $content = msubstr($contentstr, 0, 120);
+                    $content = msubstr($contentstr, 0, 100);
                     // 订单创建成功，跳转到支付页面
                     return $this->uniformOrder($money,$order_id,$content);
                 }else{
