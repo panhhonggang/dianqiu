@@ -1,0 +1,112 @@
+#repair-all {
+	width: 10.0rem;
+}
+
+#repair-container {
+	width: 9.2rem;
+	margin: 0.4rem 0.4rem 1.333333rem 0.4rem;
+}
+
+#repair-timer {
+	width: 6.3rem;
+	height: 3.2rem;
+}
+
+#repair-timer>p {
+	font-size: 0.32rem;
+	line-height: 0.533333rem;
+}
+
+#repair-timer>p>b {
+	float: right;
+}
+#repair-timer>p>b>input {
+	font-size: 0.373333rem;
+	text-align: center;
+	display: inline-block;
+	width:  2.65888rem;
+	line-height: 0.666667rem;
+	height: 0.666667rem;
+	padding-top: 0.266667rem;
+	margin: 0.133333rem;
+}
+#repair-timer>p>b>input:first-child {
+	width: 6.0rem;
+	margin: 0.133333rem;
+}
+#repair-timer>p>b>input:last-child{
+	float: right;
+}
+
+#repair-main {
+	width: 9.2rem;
+	height: 9.6rem;
+	margin: 0.933333rem 0.0rem;
+}
+
+#repair-main>h3 {
+	font-size: 0.426667rem;
+	line-height: 0.8rem;
+}
+
+#repair-main>h3>b {
+	color: #F9586B;
+}
+
+#repair-main>textarea {
+	margin-top: 0.133333rem;
+	height: 4.186667rem;
+	width: 9.173333rem;
+	display: inline-block;
+	resize: none;
+	overflow: hidden;
+	border: 1px dashed #CCC;
+}
+
+#repair-main>p {
+	margin-top: 0.933333rem;
+	font-size: 0.426667rem;
+}
+
+#repair-main>i {
+	margin: -0.133333rem;
+	font-size: 2.666667rem;
+	color: #D0D1FC;
+}
+
+#repair-link {
+	width: 9.2rem;
+	height: 3.626667rem;
+}
+
+#repair-link>p {
+	font-size: 0.426667rem;
+	height: 0.906667rem;
+	line-height: 0.906667rem;
+}
+
+#repair-link>p>label {
+	font-size: 0.426667rem;
+	float: left;
+}
+
+#repair-link>p>input {
+	float: right;
+	width: 6.693333rem;
+	height: 0.72rem;
+	border: 1px dashed #CCC;
+	border-radius: 0.106667rem;
+	background: #FFF;
+}
+
+#repair-container>input {
+	width: 8.266667rem;
+	height: 1.2rem;
+	background: #353659;
+	color: #FFF;
+	border: none;
+	font-size: 0.64rem;
+	margin-top: 2.4rem;
+	margin-left: 0.466667rem;
+	border-radius: 0.106667rem;
+}

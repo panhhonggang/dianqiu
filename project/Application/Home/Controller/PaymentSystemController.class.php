@@ -151,6 +151,127 @@ class PaymentSystemController extends CommonController
         }   
     }
 
+    // 情况2：套餐确认支付
+    public function sureSetmealPay()
+    {
+        // 获取用户uid
+        $uid = $_SESSION['homeuser']['id'];
+        if($uid){
+        // 遍历购物车
+            // 遍历用户购物车套餐
+            $setmeal = M('cartSetmeal')
+            ->where("`uid`='{$uid}' AND `num`>0")
+            ->join('pub_setmeal ON pub_setmeal.id = pub_cart_setmeal.sid')
+            ->select();
+
+            if($setmeal){
+                // 汇总套餐总金额
+                $totalAmount = 0;
+                // 汇总套餐总数量
+                $totalNum = 0;
+                // 统计套餐总金额
+                foreach ($setmeal as $value) {
+                    $totalAmount += $value['num']*$value['money'];
+                    $totalNum += $value['num'];
+                }
+
+                // 实例化订单模型
+                $orders = D('Orders');
+                // 实例化订单套餐模型
+                $orderSetmeal = D('OrderSetmeal');
+                // 实例化购物车模型
+                $cartSetmeal = M('CartSetmeal');
+                // 开启事务
+                $orders->startTrans();
+
+                // 准备数据
+                // 唯一订单ID号
+                $order['order_id']      = gerOrderId();
+                // 用户ID号
+                $order['user_id']       = $uid;
+                // 关联的设备ID号
+                $order['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+                // 商品的购买总数量
+                $order['total_num']     = $totalNum;
+                // 商品的购买总金额
+                $order['total_price']   = $totalAmount;
+                // 订单创建时间
+                $order['created_at']    = time();
+                // 创建订单,返回插入ID
+                $ordersRes = $orders->add($order);
+                // 统计套餐数量
+                $setmealCount = count($setmeal);
+                $addSetmealNumIndex = 0;
+                $delSetmealNumIndex = 0;
+                $contentstr = '';
+                foreach ($setmeal as $k => $v) {
+                    // 准备数据
+                    // 关联订单ID号
+                    $setmealData['order_id']        = $order['order_id'];
+                    // 套餐ID
+                    $setmealData['setmeal_id']      = $v['sid'];
+                    // 产品类型ID
+                    $setmealData['type_id']      = $v['tid'];                       
+                    // 充值模式                
+                    $setmealData['remodel']           = $v['remodel'];
+                    // 套餐价格
+                    $setmealData['money']           = $v['money'];
+                    // 套餐流量/时长
+                    $setmealData['flow']           = $v['flow'];
+                    // 套餐描述
+                    $setmealData['describe']           = $v['describe'];
+                    // 商品的购买数量
+                    $setmealData['goods_num']       = $v['num'];
+                    // 商品的购买金额
+                    $setmealData['goods_price']     = $v['money']*$v['num'];
+                    // 订单创建时间
+                    $setmealData['created_at']      = $order['created_at'];
+
+                    // 创建订单套餐
+                    $orderSetmealRes += $orderSetmeal->add($setmealData);
+                    if($orderSetmealRes){
+                        $addSetmealNumIndex++;
+                    }
+                    $cartSetmealRes += $cartSetmeal->where("`uid`={$uid} AND `sid`={$v['sid']}")->delete();
+                    if($cartSetmealRes){
+                        $delSetmealNumIndex++;
+                    }
+                    // 拼接订单描述
+                    $contentstr .= $setmealData['describe'].'X'.$setmealData['goods_num'].'  ';
+                }
+
+                if($ordersRes && $addSetmealNumIndex==$setmealCount && $delSetmealNumIndex==$setmealCount){
+                    // 执行事务
+                    $orders->commit();
+
+                    // 准备订单数据
+                    // 充值金额
+                    $money = $totalAmount-0;
+                    // 订单号码
+                    $order_id = $order['order_id'];
+                    // 描述超长处理
+                    $content = msubstr($contentstr, 0, 120);
+                    // show($money.'<br>');
+                    // show($order_id.'<br>');
+                    // show($content.'<br>');die;
+                    // 订单创建成功，跳转到支付页面
+                    return $this->uniformOrder($money,$order_id,$content);
+                }else{
+                    // 事务回滚
+                    $orders->rollback();
+                    //$this->error('订单创建失败');
+                    echo 2;
+                }
+            }    
+        }
+    }
+
+    // 情况2：套餐+产品确认支付
+    public function sureBillPay()
+    {
+
+    }
+
     /**
      * 统一下单并返回数据
      * @return string json格式的数据，可以直接用于js支付接口的调用

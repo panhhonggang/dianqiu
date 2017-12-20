@@ -1,0 +1,69 @@
+#devices-all {
+	width: 10.0rem;
+	position: relative;
+}
+
+#devices-container {
+	width: 9.2rem;
+	margin: 0.4rem 0.4rem 0.0rem 0.4rem;
+}
+
+#devices-list {
+	width: 9.2rem;
+}
+
+#devices-list>h3 {
+	margin-bottom: 0.266667rem;
+	font-size: 0.373333rem;
+	line-height: 0.8rem;
+}
+
+#devices-list>ul>b {
+	display: inline-block;
+	height: 1.28rem;
+	width: 1.28rem;
+	background: #353659;
+	border-radius: 0.933333rem;
+	margin-left: 0.266667rem;
+	margin-right: 0.133333rem;
+}
+
+#devices-list>ul>li {
+	display: inline-block;
+	margin: 0.133333rem;
+	width: 6.933333rem;
+	font-size: 0.373333rem;
+	border-bottom: 1px dashed #CCC;
+}
+
+#devices-list>ul>li>i {
+	float: right;
+	font-size: 0.56rem;
+	color: #1FBC5A;
+}
+
+#devices-add {
+	height: 1.466667rem;
+	width: 10.0rem;
+	background: #F1F1F1;
+	position: fixed;
+	bottom: 0.0rem;
+	line-height: 1.466667rem;
+}
+
+#devices-add>i {
+	float: left;
+	display: inline-block;
+	height: 1.466667rem;
+	font-size: 0.8rem;
+	margin-left: 0.666667rem;
+	margin-right: 0.466666rem;
+}
+
+#devices-add>p {
+	float: left;
+	height: 1.466667rem;
+	display: inline-block;
+	font-size: 0.373333rem;
+	line-height: 1.466667rem;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+		<title>订单确认</title>
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<!-- 微信支付支持JS部分代码 -->
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+	</head>
+	<body>
+
+	<div id="contain">
+		<div id="mo">
+			<foreach name="setmeal" item="vo" key="ke">
+			<div class="item">
+				<div id="mo2">
+					<div id="mo-right">
+						<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
+					</div>
+					<p class="bill">X{{$vo['num']}}</p>
+				</div>
+				<hr>
+			</div>
+			</foreach>
+			<div id="mo2">
+				<div id="mo-right2">
+					<b>共{{$totalNum}}件商品：小计：</b><p>￥{{$totalAmount/100}}</p>
+				</div>
+			</div>
+			<hr>
+<!-- 			<p class="franking">（含邮费¥0.00) </p> -->
+
+			
+		</div>
+			
+
+		<!-- 滤芯结束 -->
+        <div id="foot">
+			<b>合计金额：</b><b class="chang">￥{{$totalAmount/100}}</b>
+			<input type="submit" value="去结算">
+		</div>	
+	</div>
+	<script type="text/javascript">
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'chooseWXPay'
+		    ]
+		});
+
+		// 获取结算按钮
+		$('#foot>input[type=submit]').click(function(){
+			// 异步提交请求支付系统
+			$.post('{{:U("PaymentSystem/sureSetmealPay")}}',{ 'data':2 }, function(res){
+				// 调用微信支付
+				weixinPay(res);
+			});
+		});
+
+		// 微信支付方法
+		function weixinPay(res){
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',
+				JSON.parse(res),
+				function(res){
+					if (res.err_msg.substr(-2) == 'ok') {
+						// 充值成功跳转到首页
+						// location.href = "{{:U('Home/Index/index')}}";
+						alert('成功！');
+						// 刷新页面
+						location.reload();
+					} else if (res.err_msg.substr(-6) == 'cancel') {
+		    			    alert('取消成功！');
+		    			    // 刷新页面
+							location.reload();
+					}else{
+		    			    alert('充值失败！');
+		    			    // 刷新页面
+							location.reload();
+					}
+				}
+			);
+		};
+	</script>
+	</body>
+
+</html>

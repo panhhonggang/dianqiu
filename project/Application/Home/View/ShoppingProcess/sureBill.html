@@ -10,6 +10,9 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<!-- 微信支付支持JS部分代码 -->
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 	</head>
 	<body>
 
@@ -85,7 +88,62 @@
 			<input type="submit" value="去结算">
 		</div>	
 	</div>
-	
+	<script type="text/javascript">
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'chooseWXPay'
+		    ]
+		});
+
+		// 获取结算按钮
+		$('#foot>input[type=submit]').click(function(){
+				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,16}$/);
+				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);
+				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]+/);
+				if(!mainer){
+					alert('请输入有效的，收件人姓名！');
+				}else if(!tel){
+					alert('请输入有效的，有效手机号码！');
+				}else{
+					alert('请输入有效的，有效地址！');
+				}		
+		});
+
+		function pay(){
+			// 异步提交请求支付系统
+			$.post('{{:U("PaymentSystem/sureBillPay")}}',{ 'data':3 }, function(res){
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest',
+					JSON.parse(res),
+					function(res){
+						if (res.err_msg.substr(-2) == 'ok') {
+							// 充值成功跳转到首页
+							// location.href = "{{:U('Home/Index/index')}}";
+							alert('成功！');
+							// 刷新页面
+							location.reload();
+						} else if (res.err_msg.substr(-6) == 'cancel') {
+			    			    alert('取消成功！');
+			    			    // 刷新页面
+								location.reload();
+						}else{
+			    			    alert('充值失败！');
+			    			    // 刷新页面
+								location.reload();
+						}
+					}
+				);
+			});			
+		}
+
+	</script>
 	</body>
 
 </html>

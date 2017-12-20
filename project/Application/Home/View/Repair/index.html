@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>报修</title>
+	<link rel="stylesheet" href="__PUBLIC__/fonts/iconfont.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_nl5nael9r049rudi.css
+">
+	<link rel="stylesheet" href="__PUBLIC__/css/repair.css">
+	<script src="__PUBLIC__/js/flexible.js"></script>
+	<script src="__PUBLIC__/js/jquery-1.10.1.js"></script>
+	<script>
+		$(function(){
+			$('#repair-main>i').bind({
+				'mouseover':function(){
+					$(this).css('color','#6848F9');
+				},
+				'mouseout':function(){
+					$(this).css('color','#D0D1FC');
+				}
+			});
+		});
+		
+	</script>
+
+
+</head>
+<body>
+<div id="repair-all">
+	<div id="repair-container">
+		<div id="repair-timer">
+			<p>设备型号：0120563</p><br>
+			<p>服务时间：<b>
+				<input type="date"><br>
+				<input type="time">~<input type="time">
+			</b>
+			
+			</p>
+		</div>
+		<div id="repair-main">
+			<h3>您所遇到的问题描述<b>*</b></h3>
+			<textarea name="" id="" cols="30" rows="10"></textarea>
+			<p>上传截图</p>
+			<i class="iconfont icon-plus"></i>
+		</div>
+		<div id="repair-link">
+			<p>联系方式</p>
+			<p>	
+				<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+				<input id="name" type="text" placeholder="嗯嗯">
+			</p>
+			<p>	
+				<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+				<input id="name" type="text" placeholder="18218621563">
+			</p>
+			<p>	
+				<label for="name">维修地址：</label>
+				<input id="name" type="text" placeholder="广州">
+			</p>
+		</div>
+		<input type="button" value="提交">
+	</div>
+	
+</div>
+	
+</body>
+</html>

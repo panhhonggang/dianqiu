@@ -66,7 +66,7 @@
 			</i></a>
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
 		</div>
-
+	{{$info["appId"]}}----{{$info["timestamp"]}}--{{$info["nonceStr"]}}---{{$info["signature"]}}
 	</div>
 	<script>
 		//微信接口
@@ -285,10 +285,13 @@
 						// 异步提交请求支付系统
 						$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
 							if(res==2){
-								alert('情况2');
+								// 套餐确认
+								window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
 							}else if(res==3){
-								alert('情况3');
+								// 快递确认
+								window.location.href='{{:U("ShoppingProcess/sureBill")}}';
 							}else{
+								// 立即付款
 								weixinPay(res);
 							}
 						});
@@ -302,10 +305,13 @@
 					// 异步提交
 					$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
 						if(res==2){
-							alert('情况2');
+							// 套餐确认
+							window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
 						}else if(res==3){
-							alert('情况3');
+							// 快递确认
+							window.location.href='{{:U("ShoppingProcess/sureBill")}}';
 						}else{
+							// 立即付款
 							weixinPay(res);
 						}
 					});
@@ -326,10 +332,16 @@
 						// 充值成功跳转到首页
 						// location.href = "{{:U('Home/Index/index')}}";
 						alert('成功！');
+						// 刷新页面
+						location.reload();
 					} else if (res.err_msg.substr(-6) == 'cancel') {
 		    			    alert('取消成功！');
+		    			    // 刷新页面
+							location.reload();
 					}else{
 		    			    alert('充值失败！');
+		    			    // 刷新页面
+							location.reload();
 					}
 				}
 			);
