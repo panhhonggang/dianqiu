@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-21 14:48:51
+Date: 2017-12-21 15:42:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -187,7 +187,7 @@ CREATE TABLE `pub_cart_filters` (
   `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_cart_filters
@@ -205,7 +205,7 @@ CREATE TABLE `pub_cart_setmeal` (
   `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=364 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_cart_setmeal
@@ -488,7 +488,7 @@ CREATE TABLE `pub_order_filter` (
   `updated_at` int(11) NOT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_order_filter
@@ -508,6 +508,9 @@ INSERT INTO `pub_order_filter` VALUES ('19', '20171221151383798395450778058350',
 INSERT INTO `pub_order_filter` VALUES ('20', '20171221151383821195945932887410', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513838211', '0');
 INSERT INTO `pub_order_filter` VALUES ('21', '20171221151383823191181960535688', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513838231', '0');
 INSERT INTO `pub_order_filter` VALUES ('22', '20171221151383823191181960535688', '6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1513838231', '0');
+INSERT INTO `pub_order_filter` VALUES ('23', '20171221151383941916078055606562', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513839419', '0');
+INSERT INTO `pub_order_filter` VALUES ('24', '20171221151383941916078055606562', '6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1513839419', '0');
+INSERT INTO `pub_order_filter` VALUES ('25', '20171221151383941916078055606562', '4', 'RO膜2号', 'B型', '/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '4000.00', '1', '4000.00', '1513839419', '0');
 
 -- ----------------------------
 -- Table structure for pub_order_setmeal
@@ -528,7 +531,7 @@ CREATE TABLE `pub_order_setmeal` (
   `updated_at` int(11) unsigned DEFAULT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`(11))
-) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=297 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_order_setmeal
@@ -552,6 +555,16 @@ INSERT INTO `pub_order_setmeal` VALUES ('283', '20171221151383823191181960535688
 INSERT INTO `pub_order_setmeal` VALUES ('284', '20171221151383829196069397281586', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838291', null);
 INSERT INTO `pub_order_setmeal` VALUES ('285', '20171221151383869889439145439655', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838698', null);
 INSERT INTO `pub_order_setmeal` VALUES ('286', '20171221151383874486932180949530', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838744', null);
+INSERT INTO `pub_order_setmeal` VALUES ('287', '20171221151383921956667323285097', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839219', null);
+INSERT INTO `pub_order_setmeal` VALUES ('288', '20171221151383923342537362335171', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839233', null);
+INSERT INTO `pub_order_setmeal` VALUES ('289', '20171221151383936292277547018289', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839362', null);
+INSERT INTO `pub_order_setmeal` VALUES ('290', '20171221151383938365618285663362', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513839383', null);
+INSERT INTO `pub_order_setmeal` VALUES ('291', '20171221151383938365618285663362', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839383', null);
+INSERT INTO `pub_order_setmeal` VALUES ('292', '20171221151383941916078055606562', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '1', '30000.00', '1513839419', null);
+INSERT INTO `pub_order_setmeal` VALUES ('293', '20171221151383941916078055606562', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839419', null);
+INSERT INTO `pub_order_setmeal` VALUES ('294', '20171221151383947052925069831253', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839470', null);
+INSERT INTO `pub_order_setmeal` VALUES ('295', '20171221151383952257678633593351', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513839522', null);
+INSERT INTO `pub_order_setmeal` VALUES ('296', '20171221151383952257678633593351', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839522', null);
 
 -- ----------------------------
 -- Table structure for pub_orders
@@ -573,7 +586,7 @@ CREATE TABLE `pub_orders` (
   `is_recharge` tinyint(1) unsigned DEFAULT NULL COMMENT '充值状态(0：未充值1：已充值)',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`,`device_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_orders
@@ -600,6 +613,13 @@ INSERT INTO `pub_orders` VALUES ('248', '20171221151383823191181960535688', '3',
 INSERT INTO `pub_orders` VALUES ('249', '20171221151383829196069397281586', '3', '10', null, '1', '10000.00', '1513838291', null, '0', null, null, null);
 INSERT INTO `pub_orders` VALUES ('250', '20171221151383869889439145439655', '3', '10', null, '1', '10000.00', '1513838698', null, '0', null, null, null);
 INSERT INTO `pub_orders` VALUES ('251', '20171221151383874486932180949530', '3', '10', null, '1', '10000.00', '1513838744', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('252', '20171221151383921956667323285097', '3', '10', null, '1', '10000.00', '1513839219', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('253', '20171221151383923342537362335171', '3', '10', null, '1', '10000.00', '1513839233', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('254', '20171221151383936292277547018289', '3', '10', null, '1', '10000.00', '1513839362', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('255', '20171221151383938365618285663362', '3', '10', null, '2', '30000.00', '1513839383', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('256', '20171221151383941916078055606562', '3', '10', '1', '5', '51000.00', '1513839419', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('257', '20171221151383947052925069831253', '3', '10', null, '1', '10000.00', '1513839470', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('258', '20171221151383952257678633593351', '3', '10', null, '2', '30000.00', '1513839522', null, '0', null, null, null);
 
 -- ----------------------------
 -- Table structure for pub_repair
@@ -659,7 +679,7 @@ CREATE TABLE `pub_users` (
   `open_id` varchar(50) NOT NULL COMMENT '关联微信信息表',
   PRIMARY KEY (`id`),
   KEY `name` (`name`,`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_users
@@ -710,7 +730,7 @@ CREATE TABLE `pub_wechat` (
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`),
   KEY `user_id` (`open_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_wechat

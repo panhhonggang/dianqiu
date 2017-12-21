@@ -32,7 +32,7 @@ class CommonController extends Controller
             }else{
                 // 用户不存在
                 // 请先关注公众号
-                $this->error('请先关注公众号',U('/Home/Wechat/follow'),5);
+                $this->error('请先关注公众号',U('/Home/Wechat/follow'),2);
             }
         }
     }
