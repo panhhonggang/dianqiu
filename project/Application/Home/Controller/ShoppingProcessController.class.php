@@ -14,6 +14,13 @@ class ShoppingProcessController extends CommonController
         $uid = $_SESSION['homeuser']['id'];
         // 判断是否点击立即购买过去结算
         if($uid){
+            // 准备用户数据
+            $userData['uid'] = $uid;
+            $userData['status'] = 1;
+            // 查询用户快递信息
+            $expressInfo = M('ExpressInformation')->field('name,phone,addres')->where($data)->find();
+            $this->assign('expressInfo',$expressInfo);    
+
             // 遍历购物车
             // 遍历用户购物车套餐
             $setmeal = M('cartSetmeal')

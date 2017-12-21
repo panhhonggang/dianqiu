@@ -22,17 +22,17 @@
 			<div id="information">	
 				<p>	
 					<label for="mainer"><i class="iconfont icon-iconzhenghe31"></i>收货人：</label>
-					<input id="mainer" type="text" placeholder="杨华">
+					<input id="mainer" type="text" placeholder="杨华" value="{{$expressInfo['name']}}">
 				</p>
 				<p>
 					
 					<label for="tel"><i class="iconfont icon-dianhuahaoma"></i>电&nbsp;&nbsp;&nbsp;话：</label>
-					<input id="tel" type="text" placeholder="14725836911">
+					<input id="tel" type="text" placeholder="14725836911" value="{{$expressInfo['phone']}}">
 				</p>
 				<p>
 					
 					<label for="address"><i class="iconfont iconfont icon-dizhi"></i>地&nbsp;&nbsp;&nbsp;址：</label>
-					<textarea id="address" name="" id="" cols="30" rows="2" placeholder="广东省广州市番禺区大石街会 江村和平路十号"></textarea>
+					<textarea id="address" name="" id="" cols="30" rows="2" placeholder="广东省广州市番禺区大石街会 江村和平路十号">{{$expressInfo['addres']}}</textarea>
 				</p>
 				
 			</div>
@@ -104,45 +104,85 @@
 
 		// 获取结算按钮
 		$('#foot>input[type=submit]').click(function(){
-				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,16}$/);
+				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);
 				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);
 				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]+/);
-				if(!mainer){
-					alert('请输入有效的，收件人姓名！');
-				}else if(!tel){
-					alert('请输入有效的，有效手机号码！');
+				if(mainer){
+					var name = $('#mainer').val();
 				}else{
-					alert('请输入有效的，有效地址！');
-				}		
+					// 前端正则匹配错误提示
+					console.dir('请输入有效的，收件人姓名！');
+				}
+
+				if(tel){
+					var phone = $('#tel').val();
+				}else{
+					// 前端正则匹配错误提示
+					console.dir('请输入有效的，有效手机号码！');
+				}
+				if(address){
+					var addres = $('#address').val();
+				}else{
+					// 前端正则匹配错误提示
+					console.dir('请输入有效的，有效地址！');
+				}
+
+				$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'addres':addres},function(res){
+					// 后端正则匹配错误信息
+					if(res.name==-1){
+						// 用户名错误
+						console.dir('请输入正确的用户名');
+					}
+
+					if(res.phone==-1){
+						// 手机号码错误
+						console.dir('请输入正确的手机号码');
+					}
+
+					if(res.addres==-1){
+						// 收货地址错误
+						console.dir('请输入正确的收货地址');
+					}
+					//alert(res.expressId);
+					// 获取到收货地址
+					if(res.expressId){
+						// AJAX请求支付接口去付款
+						$.post('{{:U("PaymentSystem/sureBillPay")}}',{ 'express_id':res.expressId }, function(res){
+							weixinPay(res);
+						});	
+
+					}
+
+
+
+
+				});	
 		});
 
-		function pay(){
-			// 异步提交请求支付系统
-			$.post('{{:U("PaymentSystem/sureBillPay")}}',{ 'data':3 }, function(res){
-				WeixinJSBridge.invoke(
-					'getBrandWCPayRequest',
-					JSON.parse(res),
-					function(res){
-						if (res.err_msg.substr(-2) == 'ok') {
-							// 充值成功跳转到首页
-							// location.href = "{{:U('Home/Index/index')}}";
-							alert('成功！');
-							// 刷新页面
+		// 微信支付方法
+		function weixinPay(res){
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',
+				JSON.parse(res),
+				function(res){
+					if (res.err_msg.substr(-2) == 'ok') {
+						// 充值成功跳转到首页
+						// location.href = "{{:U('Home/Index/index')}}";
+						alert('成功！');
+						// 刷新页面
+						location.reload();
+					} else if (res.err_msg.substr(-6) == 'cancel') {
+		    			    alert('取消成功！');
+		    			    // 刷新页面
 							location.reload();
-						} else if (res.err_msg.substr(-6) == 'cancel') {
-			    			    alert('取消成功！');
-			    			    // 刷新页面
-								location.reload();
-						}else{
-			    			    alert('充值失败！');
-			    			    // 刷新页面
-								location.reload();
-						}
+					}else{
+		    			    alert('充值失败！');
+		    			    // 刷新页面
+							location.reload();
 					}
-				);
-			});			
-		}
-
+				}
+			);
+		};
 	</script>
 	</body>
 
