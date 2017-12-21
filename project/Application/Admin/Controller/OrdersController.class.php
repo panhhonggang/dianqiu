@@ -19,22 +19,30 @@ class OrdersController extends CommonController
         // 根据用户昵称进行搜索
         $map = '';
     	if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+        $map['is_pay'] = '1'; 
 
-        $user = M('feeds');
-        $total = $user->where($map)
-                        ->join('pub_users ON pub_feeds.uid = pub_users.id')
-                        ->field('pub_feeds.*,pub_users.name,pub_users.phone')
+        $order = M('orders');
+
+        $total = $order->where($map)
+                      ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
+                      ->join('pub_users ON pub_orders.user_id = pub_users.id')
+                      ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
+                      ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
+                      ->field('pub_orders.*,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $userlist = $user->where($map)
-                        ->join('pub_users ON pub_feeds.uid = pub_users.id')
-                        ->field('pub_feeds.*,pub_users.name,pub_users.phone')
-                        ->limit($page->firstRow.','.$page->listRows)
-                        ->select();
+        $list = $order->where($map)
+                      ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
+                      ->join('pub_users ON pub_orders.user_id = pub_users.id')
+                      ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
+                      ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
+                      ->field('pub_orders.*,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
+                      ->select();
+        // dump($list);
 
-        $this->assign('list',$userlist);
+        $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();
     }
@@ -45,13 +53,14 @@ class OrdersController extends CommonController
      * 更改状态
      * @author 潘宏钢 <619328391@qq.com>
      */
-    public function edit($id,$status)
+    public function edit($order_id,$is_receipt)
     {
-        $work = M("repair");
-        $data['status'] = $_GET['status'];
-        $res = $work->where('id='.$id)->save($data); 
+
+        $work = M("orders");
+        $data['is_receipt'] = $_GET['is_receipt'];
+        $res = $work->where('order_id='.$order_id)->save($data); 
         if ($res) {
-             $this->redirect('Feeds/repairlist');
+            $this->success('发货成功！',U('Orders/index'));        
         } else {
             $this->error('修改失败啦！');
         }
