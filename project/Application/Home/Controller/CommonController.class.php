@@ -31,13 +31,9 @@ class CommonController extends Controller
                 $_SESSION['homeuser'] = $info; 
             }else{
                 // 用户不存在
-                // 实例化微信信息类型
-                $Wechat = new WechatController;
-                // 调用填写微信信息的方法
-                $Wechat->add($openId);
+                // 请先关注公众号
+                $this->error('请先关注公众号',U('/Home/Wechat/follow'),5);
             }
         }
     }
-
-
 }

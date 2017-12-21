@@ -615,7 +615,9 @@ class PaymentSystemController extends CommonController
         // 设置商户系统内部的订单号,32个字符内、可包含字母, 其他说明见商户订单号
         $input->SetOut_trade_no($order_id);
         // 产品金额单位为分
-        $input->SetTotal_fee($money);
+        // $input->SetTotal_fee($money);
+        // 调试用1分钱
+        $input->SetTotal_fee(1);
         // 设置订单生成时间
         // $input->SetTime_start(date("YmdHis"));
         // 设置订单失效时间

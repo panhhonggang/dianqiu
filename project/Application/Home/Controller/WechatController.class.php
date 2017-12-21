@@ -4,7 +4,7 @@ use Think\Controller;
 // 引入微信事件接收类
 // use Home\Controller\WeixinEventController;
 
-class WechatController //extends CommonController 
+class WechatController extends Controller 
 {
 	/**
      * [index 微信关注事件-填写微信信息表]
@@ -87,5 +87,11 @@ class WechatController //extends CommonController
         );
     }
 
+    // 请先关注微信公众号
+    public function follow()
+    {
+        // 显示模板
+        $this->display();
+    }
 
 }
