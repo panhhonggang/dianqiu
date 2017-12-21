@@ -11,7 +11,6 @@ class OrderController extends CommonController
     public function orderAll()
     {
 
-
         // 显示模板
         $this->display();        
     }
@@ -19,7 +18,6 @@ class OrderController extends CommonController
 	//待付款订单
     public function orderPay()
     {
-
 
         // 显示模板
         $this->display();        

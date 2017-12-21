@@ -113,8 +113,6 @@ class ShoppingProcessController extends CommonController
 	//待付款订单
     public function surePay()
     {
-
-
         // 显示模板
         $this->display();        
     }

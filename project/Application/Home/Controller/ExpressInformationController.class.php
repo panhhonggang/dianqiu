@@ -5,7 +5,7 @@ use \Org\Util\WeixinJssdk;
 
 class ExpressInformationController extends CommonController 
 {
-    // 商城首页
+    // 快递信息首页
     public function index()
     {
 

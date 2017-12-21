@@ -262,19 +262,16 @@
 				JSON.parse(res),
 				function(res){
 					if (res.err_msg.substr(-2) == 'ok') {
-						// 充值成功跳转到首页
-						// location.href = "{{:U('Home/Index/index')}}";
-						alert('成功！');
-						// 刷新页面
-						location.reload();
+						// 付款成功，跳转前台主页
+						location.href = "{{:U('Home/Index/index')}}";
 					} else if (res.err_msg.substr(-6) == 'cancel') {
-		    			    alert('取消成功！');
-		    			    // 刷新页面
-							location.reload();
+		    			    // 取消付款
+		    			    // 跳转到待付款订单页面
+							location.href = "{{:U('Home/Order/orderPay')}}";
 					}else{
-		    			    alert('充值失败！');
-		    			    // 刷新页面
-							location.reload();
+							// 付款失败
+		    			    // 跳转到待付款订单页面
+							location.href = "{{:U('Home/Order/orderPay')}}";
 					}
 				}
 			);
