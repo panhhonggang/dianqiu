@@ -334,11 +334,11 @@
 					} else if (res.err_msg.substr(-6) == 'cancel') {
 		    			    // 取消付款
 		    			    // 跳转到待付款订单页面
-							location.href = "{{:U('Home/Order/orderPay')}}";
+							location.href = "{{:U('Home/Orders/orderPay')}}";
 					}else{
 							// 付款失败
 		    			    // 跳转到待付款订单页面
-							location.href = "{{:U('Home/Order/orderPay')}}";
+							location.href = "{{:U('Home/Orders/orderPay')}}";
 					}
 				}
 			);

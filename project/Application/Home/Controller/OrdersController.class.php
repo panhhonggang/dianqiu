@@ -5,12 +5,18 @@ use Think\Controller;
 /**
  * 订单
  */
-class OrderController extends CommonController 
+class OrdersController extends CommonController 
 {
 	//全部订单
     public function orderAll()
     {
-
+        // 获取用户uid
+        $uid = $_SESSION['homeuser']['id'];
+        if($uid){
+           $orders = M('Orders');
+            
+        }
+           
         // 显示模板
         $this->display();        
     }
