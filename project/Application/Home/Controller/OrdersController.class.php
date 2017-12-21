@@ -13,7 +13,8 @@ class OrdersController extends CommonController
         // 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         if($uid){
-           $orders = M('Orders');
+     
+
             
         }
            
@@ -24,7 +25,22 @@ class OrdersController extends CommonController
 	//待付款订单
     public function orderPay()
     {
+        // 获取用户uid
+        $uid = $_SESSION['homeuser']['id'];
+        // 查询用户全部未支付订单号
+        $orders = M('Orders')->order('id desc')->field('id,order_id')->where("`user_id`={$uid} AND `is_pay`=0")->select();
+        // 实例化订单滤芯对象
+        $orderFilter = M('OrderFilter');
+        // 实例化订单套餐对象
+        $orderSetmeal = M('OrderSetmeal');
+        // 准备数组装未支付订单信息
+        $ordersData = array();
 
+        foreach ($orders as $value) {
+            $ordersData['order_id']['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+            $ordersData['order_id']['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+        }
+        show($ordersData);die;
         // 显示模板
         $this->display();        
     }

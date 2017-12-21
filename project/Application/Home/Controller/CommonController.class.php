@@ -22,7 +22,8 @@ class CommonController extends Controller
             // 实例化微信JSSDK对象
             $weixin = new WeixinJssdk;
             // 获取用户open_id
-            $openId = $weixin->GetOpenid();           
+            //$openId = $weixin->GetOpenid();
+           $openId = 'oXwY4t-9clttAFWXjCcNRJrvch3w';         
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
             // 判断用户是否存在
