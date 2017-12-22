@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50714
-Source Host           : localhost:3306
+Source Server         : wuzhibin.cn
+Source Server Version : 50173
+Source Host           : sdm359768304.my3w.com:3306
 Source Database       : sdm359768304_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50714
+Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-16 17:19:05
+Date: 2017-12-22 12:07:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,53 +29,65 @@ CREATE TABLE `pub_orders` (
   `total_price` decimal(15,2) unsigned NOT NULL COMMENT '商品的购买总金额',
   `created_at` int(11) DEFAULT NULL COMMENT '订单创建时间',
   `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间',
-  `is_pay` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '付款状态(0：未付款1：已付款)',
-  `is_receipt` tinyint(1) unsigned DEFAULT NULL COMMENT '发货状态(0：未发货1：已发货)',
-  `is_ship` tinyint(1) unsigned DEFAULT NULL COMMENT '收货状态(0：未收货1：已收货)',
-  `is_recharge` tinyint(1) unsigned DEFAULT NULL COMMENT '充值状态(0：未充值1：已充值)',
+  `is_pay` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '付款状态(0：未付款1：已付款 2：已取消)',
+  `is_receipt` tinyint(1) unsigned DEFAULT '0' COMMENT '发货状态(0：未发货1：已发货)',
+  `is_ship` tinyint(1) unsigned DEFAULT '0' COMMENT '收货状态(0：未收货1：已收货)',
+  `is_recharge` tinyint(1) unsigned DEFAULT '0' COMMENT '充值状态(0：未充值1：已充值)',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`,`device_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_orders
 -- ----------------------------
-INSERT INTO `pub_orders` VALUES ('25', '20171216151340720112016317641317', '3', '10', null, '1', '10000.00', '1513407201', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('26', '20171216151341046412366446781281', '3', '10', null, '1', '10000.00', '1513410464', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('27', '20171216151341064513982794231133', '3', '10', null, '1', '10000.00', '1513410645', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('28', '20171216151341170712520724721219', '3', '10', null, '1', '10000.00', '1513411707', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('29', '20171216151341179113020728201338', '3', '10', null, '1', '10000.00', '1513411791', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('30', '20171216151341184013769198721379', '3', '10', null, '1', '10000.00', '1513411840', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('31', '20171216151341208713497202951355', '3', '10', null, '1', '10000.00', '1513412087', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('32', '20171216151341349013343258261376', '3', '10', null, '1', '10000.00', '1513413490', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('33', '20171216151341349413444911741129', '3', '10', null, '1', '10000.00', '1513413494', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('34', '20171216151341354713307633751402', '3', '10', null, '1', '10000.00', '1513413547', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('35', '20171216151341360614013567551118', '3', '10', null, '1', '10000.00', '1513413606', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('36', '20171216151341370513916951361155', '3', '10', null, '1', '10000.00', '1513413705', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('37', '20171216151341373113390899871123', '3', '10', null, '1', '20000.00', '1513413731', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('38', '20171216151341393512947499581375', '3', '10', null, '1', '10000.00', '1513413935', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('39', '20171216151341399813622077381136', '3', '10', null, '1', '10000.00', '1513413998', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('40', '20171216151341403111910415891388', '3', '10', null, '1', '10000.00', '1513414031', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('41', '20171216151341410212040997751210', '3', '10', null, '1', '10000.00', '1513414102', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('42', '20171216151341416212459119071353', '3', '10', null, '1', '10000.00', '1513414162', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('43', '20171216151341416513004652871293', '3', '10', null, '1', '10000.00', '1513414165', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('44', '20171216151341416513812735411243', '3', '10', null, '1', '10000.00', '1513414165', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('45', '20171216151341416512957975981302', '3', '10', null, '1', '10000.00', '1513414165', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('46', '20171216151341416611489874181368', '3', '10', null, '1', '10000.00', '1513414166', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('47', '20171216151341418813453628361308', '3', '10', null, '1', '10000.00', '1513414188', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('48', '20171216151341444011250858311114', '3', '10', null, '1', '10000.00', '1513414440', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('49', '20171216151341445114007973171216', '3', '10', null, '1', '10000.00', '1513414451', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('50', '20171216151341473712824060431288', '3', '10', null, '1', '10000.00', '1513414737', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('51', '20171216151341474112724181131324', '3', '10', null, '1', '10000.00', '1513414741', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('52', '20171216151341474312976822381362', '3', '10', null, '1', '10000.00', '1513414743', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('53', '20171216151341474413601151611117', '3', '10', null, '1', '10000.00', '1513414744', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('54', '20171216151341474612086273211256', '3', '10', null, '1', '10000.00', '1513414746', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('55', '20171216151341474813210651971221', '3', '10', null, '1', '10000.00', '1513414748', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('56', '20171216151341476012512276541126', '3', '10', null, '1', '20000.00', '1513414760', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('57', '20171216151341481911827554331395', '3', '10', null, '1', '10000.00', '1513414819', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('58', '20171216151341485912297463991156', '3', '10', null, '1', '10000.00', '1513414859', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('59', '20171216151341504214057892401395', '3', '10', null, '1', '10000.00', '1513415042', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('60', '20171216151341506613345129331390', '3', '10', null, '1', '10000.00', '1513415066', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('61', '20171216151341531912900528821244', '3', '10', null, '1', '10000.00', '1513415319', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('62', '20171216151341541412480112781186', '3', '10', null, '1', '10000.00', '1513415414', null, '0', null, null, null);
-INSERT INTO `pub_orders` VALUES ('63', '20171216151341576911297395611285', '3', '10', null, '1', '10000.00', '1513415769', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('230', '20171221151383312016454761061309', '3', '10', '12', '2', '11000.00', '1513833120', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('231', '20171221151383332634814141852704', '3', '10', '1', '2', '11000.00', '1513833326', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('232', '20171221151383340685215153131405', '3', '10', '1', '3', '26000.00', '1513833406', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('233', '20171221151383386174182037136774', '3', '10', '1', '1', '1000.00', '1513833861', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('234', '20171221151383470857241102225325', '3', '10', '1', '2', '11000.00', '1513834708', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('235', '20171221151383480625343451397009', '3', '10', '1', '2', '11000.00', '1513834806', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('236', '20171221151383594380214727336508', '3', '10', null, '2', '11000.00', '1513835943', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('237', '20171221151383598674745321313165', '3', '10', '22', '3', '17000.00', '1513835986', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('238', '20171221151383629177584575658963', '3', '10', null, '1', '10000.00', '1513836291', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('239', '20171221151383631525878072281191', '3', '10', null, '1', '10000.00', '1513836315', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('240', '20171221151383633437767370376508', '3', '10', null, '2', '30000.00', '1513836334', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('241', '20171221151383636519516722199376', '3', '10', '23', '1', '1000.00', '1513836365', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('242', '20171221151383775641640485329328', '3', '10', '24', '1', '1000.00', '1513837756', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('243', '20171221151383798395450778058350', '3', '10', '1', '1', '1000.00', '1513837983', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('244', '20171221151383815612241239011554', '3', '10', null, '1', '10000.00', '1513838156', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('245', '20171221151383817312271461223664', '3', '10', null, '1', '20000.00', '1513838173', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('246', '20171221151383819120695502558515', '3', '10', null, '2', '30000.00', '1513838191', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('247', '20171221151383821195945932887410', '3', '10', '1', '1', '1000.00', '1513838211', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('248', '20171221151383823191181960535688', '3', '10', '1', '3', '17000.00', '1513838231', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('249', '20171221151383829196069397281586', '3', '10', null, '1', '10000.00', '1513838291', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('250', '20171221151383869889439145439655', '3', '10', null, '1', '10000.00', '1513838698', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('251', '20171221151383874486932180949530', '3', '10', null, '1', '10000.00', '1513838744', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('252', '20171221151383921956667323285097', '3', '10', null, '1', '10000.00', '1513839219', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('253', '20171221151383923342537362335171', '3', '10', null, '1', '10000.00', '1513839233', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('254', '20171221151383936292277547018289', '3', '10', null, '1', '10000.00', '1513839362', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('255', '20171221151383938365618285663362', '3', '10', null, '2', '30000.00', '1513839383', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('256', '20171221151383941916078055606562', '3', '10', '1', '5', '51000.00', '1513839419', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('257', '20171221151383947052925069831253', '3', '10', null, '1', '10000.00', '1513839470', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('258', '20171221151383952257678633593351', '3', '10', null, '2', '30000.00', '1513839522', null, '0', '0', '0', '0');
+INSERT INTO `pub_orders` VALUES ('259', '20171221151384274382589621265408', '3', '10', null, '1', '10000.00', '1513842743', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('260', '20171221151384274955438097739132', '3', '10', null, '1', '20000.00', '1513842749', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('261', '20171221151384275950872235577567', '3', '10', null, '1', '10000.00', '1513842759', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('262', '20171221151384278561680391728678', '3', '10', null, '1', '10000.00', '1513842785', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('263', '20171221151384283046561839091518', '3', '10', null, '1', '10000.00', '1513842830', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('264', '20171221151384283917894097083137', '3', '10', null, '1', '10000.00', '1513842839', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('265', '20171221151384302298245613771343', '3', '10', null, '1', '10000.00', '1513843022', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('266', '20171221151384303178265502886830', '3', '10', null, '1', '10000.00', '1513843031', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('267', '20171221151384304674439037172253', '3', '10', null, '2', '30000.00', '1513843046', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('268', '20171221151384320082146163498188', '3', '10', null, '1', '10000.00', '1513843200', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('269', '20171221151384359249882276725182', '3', '10', null, '1', '10000.00', '1513843592', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('270', '20171221151384361473756108596191', '3', '10', null, '1', '10000.00', '1513843614', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('271', '20171221151384366827724545614454', '3', '10', null, '2', '30000.00', '1513843668', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('272', '20171221151384370822261789973299', '3', '10', null, '2', '20000.00', '1513843708', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('273', '20171221151384381511445371302176', '3', '10', '25', '1', '1000.00', '1513843815', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('274', '20171221151384411967011501977210', '3', '10', '1', '28', '125000.00', '1513844119', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('275', '20171221151384424366548654105877', '3', '10', null, '1', '20000.00', '1513844243', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('276', '20171221151384507783115719058858', '3', '10', null, '1', '10000.00', '1513845077', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('277', '20171221151384591177335899907146', '3', '10', null, '1', '10000.00', '1513845911', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('278', '20171221151384592956097874378477', '3', '10', null, '2', '30000.00', '1513845929', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('279', '20171221151384595260745399812354', '3', '10', '1', '1', '1000.00', '1513845952', null, '0', null, null, null);
+INSERT INTO `pub_orders` VALUES ('280', '20171221151384920297743045584269', '3', '10', null, '1', '10000.00', '1513849202', null, '0', null, null, null);

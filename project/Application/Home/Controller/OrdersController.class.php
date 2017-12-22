@@ -38,10 +38,14 @@ class OrdersController extends CommonController
 
         // 遍历订单未支付订单号
         foreach ($orders as $value) {
+            // 订单编号
+            $ordersData["{$value['order_id']}"]['order_id'] = $value['order_id'];
+            // 订单时间：
+            $ordersData["{$value['order_id']}"]['created_at'] = $value['created_at'];
             // 获取订单套餐明细
-            $ordersData["{$value['order_id']}-{$value['created_at']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+            $ordersData["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
             // 获取订单滤芯明细
-            $ordersData["{$value['order_id']}-{$value['created_at']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+            $ordersData["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
         }
         //show($ordersData);die;
         // 分配数据
