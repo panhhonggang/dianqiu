@@ -13,6 +13,9 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<!-- 微信支付支持JS部分代码 -->
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 	</head>
 	<body>
 
@@ -21,10 +24,10 @@
 	 <!-- order-all的头部开始 -->
 	 	<div id="order-all-header">
 	 		<ul>
-	 			<li>全部</li>
-	 			<li>待付款</li>
-	 			<li>代发货</li>
-	 			<li>待收货</li>
+	 			<li><a href="{{:U('Orders/orderAll')}}">全部</a></li>
+	 			<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
+	 			<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
+	 			<li><a href="{{:U('Orders/orderTake')}}">待收货</a></li>
 	 		</ul>
 	 		<div class="slip slip-pay"></div>
 	 	</div>
@@ -47,7 +50,7 @@
 				<div id="ro-right">
 					<div class="top">
 						<h3>{{$orderFilter['filtername']}}</h3>
-						<p>{{$orderFilter['introduce']}}</p>
+						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
 					</div>
 					<div class="bott">
 					 <b>￥{{$orderFilter['price']/100}}</b>
@@ -74,14 +77,67 @@
 			<p class="franking">（含邮费¥0.00) </p>
 			
 			<div id="order-all-foot" class="">
-				<input type="submit" id="ord-btn1" value="取消订单">
-				<input type="submit" id="ord-btn2"  value="支付订单">
+				<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')">
+				<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')">
 			</div>
 			<!-- <hr class="dai-pay-border">	 -->
 		</div>
 		<!-- 遍历结束 -->
 		</foreach>
 	</div>	
+	<script>
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'chooseWXPay'
+		    ]
+		});
+
+		// 微信支付方法
+		function weixinPay(res){
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',
+				JSON.parse(res),
+				function(res){
+					if (res.err_msg.substr(-2) == 'ok') {
+						// 付款成功，跳转前台主页
+						location.href = "{{:U('Home/Index/index')}}";
+					} else if (res.err_msg.substr(-6) == 'cancel') {
+		    			    // 取消付款
+		    			    // 跳转到待付款订单页面
+							location.href = "{{:U('Home/Orders/orderPay')}}";
+					}else{
+							// 付款失败
+		    			    // 跳转到待付款订单页面
+							location.href = "{{:U('Home/Orders/orderPay')}}";
+					}
+				}
+			);
+		};
+		// 取消订单
+		function cancel(oid){
+			$.post('{{:U("Orders/cancel")}}',{ 'oid':oid }, function(res){
+
+				// 订单取消成功
+				if(res==1){
+					// 刷新页面
+					location.reload();
+				}
+			});
+		}
+		// 支付订单
+		function payOrder(oid){
+			$.post('{{:U("PaymentSystem/payOrder")}}',{ 'oid':oid }, function(res){
+				weixinPay(res);
+			});
+		}
+	</script>
 	</body>
 
 </html>

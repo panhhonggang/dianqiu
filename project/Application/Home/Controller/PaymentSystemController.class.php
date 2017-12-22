@@ -610,10 +610,10 @@ class PaymentSystemController extends CommonController
 
         // 产品内容
         $input->SetBody($content);
-        // 用户ID
-        $input->SetAttach($_SESSION['homeuser']['id']);
+        // 唯一订单ID
+        $input->SetAttach($order_id);
         // 设置商户系统内部的订单号,32个字符内、可包含字母, 其他说明见商户订单号
-        $input->SetOut_trade_no($order_id);
+        $input->SetOut_trade_no(gerOrderId());
         // 产品金额单位为分
         // $input->SetTotal_fee($money);
         // 调试用1分钱
@@ -639,6 +639,57 @@ class PaymentSystemController extends CommonController
         echo $jsApiParameters;
         exit;
     }
+
+    // 支付订单
+    public function payOrder()
+    {
+        // 获取用户uid
+        $data['user_id'] = $_SESSION['homeuser']['id'];
+        $data['order_id'] = I('post.oid');
+
+        if($data['order_id'] && $data['user_id']){
+            // 实例化订单对象
+            $orders = M('Orders');
+            // 实例化套餐订单对象
+            $orderSetmeal = M('OrderSetmeal');    
+            // 实例化滤芯订单对象
+            $orderFilter = M('orderFilter');    
+
+            // 查询订单信息
+            $orderData = $orders->where($data)->field('total_price')->find();
+            $money = $orderData['total_price']-0;
+            $order_id = $data['order_id'];
+
+            // 查询订单套餐信息
+            $orderSetmealData = $orderSetmeal->where($data)->field('describe,goods_num')->select();
+            // 查询订单滤芯信息
+            $orderFilterData = $orderFilter->where($data)->field('filtername,goods_num')->select();
+            
+            $contentstr = '';
+
+            // 判断是否有套餐充值
+            if($orderSetmealData){
+                foreach ($orderSetmealData as $key => $value) {
+                    // 拼接订单描述
+                    $contentstr .= $value['describe'].'X'.$value['goods_num'].'  ';
+                }
+            }
+            // 判断是否有滤芯产品
+            if($orderFilterData){
+                foreach ($orderFilterData as $key => $value) {
+                    // 拼接订单描述
+                    $contentstr .= $value['filtername'].'X'.$value['goods_num'].'  ';
+                }
+            }
+            
+            // 描述超长处理
+            $content = msubstr($contentstr, 0, 120);
+            // 调用发起微信下单
+            // 订单创建成功，跳转到支付页面
+            return $this->uniformOrder($money,$order_id,$contentstr);
+        }
+    }
+
 
     // 支付成功
     public function paySuccess()

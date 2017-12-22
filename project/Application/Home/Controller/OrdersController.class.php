@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use \Org\Util\WeixinJssdk;
 
 /**
  * 订单
@@ -51,6 +52,16 @@ class OrdersController extends CommonController
         // 分配数据
         $this->assign('ordersData',$ordersData);
 
+        //调用微信JS-SDK类获取签名需要用到的数据
+        $weixin = new WeixinJssdk;
+        $signPackage = $weixin->getSignPackage();
+        // 查询用户微信中的openid
+        //$openId = $weixin->GetOpenid();
+        $openId = $_SESSION['homeuser']['open_id'];
+        //分配数据        
+        $this->assign('info',$signPackage);
+        $this->assign('openId',$openId);
+
         // 显示模板
         $this->display();        
     }
@@ -71,5 +82,23 @@ class OrdersController extends CommonController
 
         // 显示模板
         $this->display();        
+    }
+
+    // 取消订单
+    public function cancel()
+    {
+
+        // 获取用户uid
+        $data['user_id'] = $_SESSION['homeuser']['id'];
+        $data['order_id'] = I('post.oid');
+        $date['is_pay'] = 2;
+        $date['updated_at'] = time();
+        $res = M('Orders')->where($data)->save($date);;
+        // show($res);die;
+        if($res){
+            echo 1;
+        }else{
+            echo -1;
+        }
     }
 }
