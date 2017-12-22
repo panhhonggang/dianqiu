@@ -640,4 +640,18 @@ class PaymentSystemController extends CommonController
         exit;
     }
 
+    // 支付成功
+    public function paySuccess()
+    {
+        // 显示模板
+        $this->display(); 
+    }
+
+    // 支付失败
+    public function failureToPay()
+    {
+        // 显示模板
+        $this->display(); 
+    }    
+
 }
