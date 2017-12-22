@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-		<title>我的订单-代发货</title>
+		<title>我的订单-待收货</title>
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/order-all.css">
@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 	</head>
 	<body>
 
@@ -33,12 +34,14 @@
 	
 		
 		
+		<foreach name="ordersData" item="value">
 
 		<!-- =========未支付开始啦========= -->
 		<div id="all-sure-head" class="order-send">
 			<div id="all-information">
-				<b class="order-timer">订单时间：2017年11月20日</b><b class="paied">买家已付款</b><br>
-				
+				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><b class="paied">卖家已发货</b><br>
+				<div style="clear:both;"></div>			
 			</div>
 		</div>
 		
@@ -96,14 +99,27 @@
 			</div>
 			<hr>
 			<p class="franking">（含邮费¥0.00) </p>
+			<div style="clear:both;"></div>	
+			<!-- 滤芯结束 -->
+	        <div id="order-all-foot">
+				<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')">
+			</div>
 		</div>
-
-		<!-- 滤芯结束 -->
-        <!-- <div id="order-all-foot">
-			<input type="submit" id="ord-btn2"  value="提醒发货">
-		</div>	 -->
+		</foreach>
 	</div>
-	
+	<script type="text/javascript">
+		// 确认收货
+		function confirm(oid){
+			$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
+
+				// 订单取消成功
+				if(res==1){
+					// 刷新页面
+					location.reload();
+				}
+			});
+		}
+	</script>
 	</body>
 
 </html>
