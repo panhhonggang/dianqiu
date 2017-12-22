@@ -1,3 +1,8 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
 #repair-all {
 	width: 10.0rem;
 }
@@ -8,40 +13,46 @@
 }
 
 #repair-timer {
-	width: 6.3rem;
-	height: 3.2rem;
+	height: 3.0rem;
+	position: relative;
 }
 
 #repair-timer>p {
-	font-size: 0.32rem;
+	font-size: 0.426667rem;
+	margin-top: 0.2rem;
 	line-height: 0.533333rem;
+	display: inline-block;
 }
 
-#repair-timer>p>b {
-	float: right;
-}
-#repair-timer>p>b>input {
-	font-size: 0.373333rem;
-	text-align: center;
+#repair-timer .timer-set {
 	display: inline-block;
-	width:  2.65888rem;
-	line-height: 0.666667rem;
-	height: 0.666667rem;
-	padding-top: 0.266667rem;
-	margin: 0.133333rem;
-}
-#repair-timer>p>b>input:first-child {
-	width: 6.0rem;
-	margin: 0.133333rem;
-}
-#repair-timer>p>b>input:last-child{
+	height: 2.166667rem;
+	width: 6.68rem;
 	float: right;
+	position: absolute;
+	top: 0.5633333rem;
+}
+
+#repair-timer .timer-set input,
+#repair-timer .timer-set b {
+	margin-top: 0.4rem;
+}
+
+#repair-timer .timer-set input {
+	width: 2.33999rem;
+	height: 0.633333rem;
+	background: #fff;
+}
+
+#repair-timer .timer-set .in-first {
+	width: 5.18555rem;
 }
 
 #repair-main {
 	width: 9.2rem;
 	height: 9.6rem;
 	margin: 0.933333rem 0.0rem;
+	position: relative;
 }
 
 #repair-main>h3 {
@@ -61,6 +72,20 @@
 	resize: none;
 	overflow: hidden;
 	border: 1px dashed #CCC;
+}
+
+#repair-main>input {
+	margin-top: 0.163333rem;
+	height: 2.466667rem;
+	width: 2.42822rem;
+	background: #ccc;
+	color: #fff;
+	position: absolute;
+	border-radius: top:0rem;
+	left: 0rem;
+	border-radius: 0.4rem;
+	z-index: 6;
+	opacity: 0;
 }
 
 #repair-main>p {

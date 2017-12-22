@@ -4,6 +4,7 @@ $(function(){
 		$(this).css('display','none');
 		$('.mine-name').css('display','none');
 		$('.xia').css('display','block');
+		$('#mine-first-all').css('background','#fff');
 
 		
 	});
@@ -14,6 +15,9 @@ $(function(){
 		$(this).css('display','none');
 		$('.shang').css('display','block');
 		$('.mine-name').css('display','block');
+		$('#mine-first-all')
+		.css('background','url(./images/mine-first-01.png) no-repeat')
+		.css('background-size',' contain');
 	});
 });
 

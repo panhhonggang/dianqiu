@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1" >
+	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
+
+
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css">
+	<script src="__PUBLIC__/Admin/js/layui/layui.js"></script>
+	<title>滤芯</title>
+	<style>
+		*{
+			font-size: 12px;
+			font-family: "Microsoft Yahei";
+			padding: 0；
+			margin： 0；
+		}
+		body{
+			background-color: #EBEBEB
+		}
+		p{
+			color: #7A7A7A;
+			padding: 3px 0;
+		}
+		._progress{
+			margin: 0 auto;
+			border-radius: 10px;
+		}
+		h3{
+			color: #585858;
+			font-weight: 600;
+		}
+		body{
+			margin: 0;
+		}
+		ul,li{
+			list-style: none;
+			padding: 0;
+		}
+		._float_left{
+			float: left;
+		}
+		._float_right{
+			float: right;
+		}
+		._text_align{
+			text-align: center;
+		}
+		._line{
+			width: 100%;
+			border-top: 1px solid #EFEFEF;
+			margin: 15px 0;
+		}
+		._font_weigth{
+			font-weight: 600;
+		}
+		._padding{
+			padding: 5px 10px;
+			position: relative;
+		}
+		._radius{
+			border-radius: 100%;
+		}
+		._btn{
+			border: none;
+			border-radius: 5px;
+			width: 80%;
+			background-color: #353659;
+			color: #ffffff;
+			font-size: 14px;
+			padding: 10px 0;
+			margin: 35px 0 15px;
+			cursor: pointer;
+		}
+		._width{
+			width: 80%
+		}
+		._dian{
+			position: absolute;
+			left: 15px;
+			top: 18px;
+			width: 20px;
+			height: 20px;
+			border-radius: 100%;
+			border:2px solid #68698F;
+			cursor: pointer;
+		}
+		._active{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -5px;
+			margin-top: -5px;
+			width: 10px;
+			height: 10px;
+
+			border-radius: 100%;
+			background-color: #7D7FCE
+		}
+		._padding_left{
+			padding-left: 30px;
+		}
+		._ul{
+			background-color: #FFFFFF;
+			text-align: center;
+			margin-bottom: 8px;
+		}
+		._ul li{
+			display: inline-block;
+			padding: 10px 30px;
+			cursor: pointer;
+			font-weight: 600;
+			color: #555673
+		}
+		._background_color{
+			background-color: #FFFFFF;
+		}
+		._displey{
+			display: none;
+		}
+		._line{
+			position: absolute;
+			left: 0;
+			top: 20px;
+			background-color: #24254D;
+			width: 50px;
+			height: 8px;
+			border-radius: 8px;
+		}
+		._position{
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="_box">
+		
+		<div>
+			<div>
+				<ul class="_ul _position">
+					<li>滤芯详情</li>
+					<li>滤芯复位</li>
+				</ul>
+				<div class="_line"></div>
+			</div>
+		</div>
+		<div>
+				<!-- 滤芯详情 -->
+			<div class="_background_color">
+				<!-- progress -->
+				<div>
+					<ul>
+						<li class="_padding">
+							<p><span class="">RO膜</span><span class="_float_right">80%</span></p>
+							<p class="_text_align">
+								<div class="progress _progress _width">
+								  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</p>
+						</li>
+						<li class="_padding">
+							<p><span class="">后置活性炭</span><span class="_float_right">80%</span></p>
+							<p class="_text_align">
+								<div class="progress _progress _width">
+								  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</p>
+						</li>
+						<li class="_padding">
+							<p><span class="">滤芯3</span><span class="_float_right">80%</span></p>
+							<p class="_text_align">
+								<div class="progress _progress _width">
+								  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</p>
+						</li>
+						<li class="_padding">
+							<p><span class="">滤芯4</span><span class="_float_right">80%</span></p>
+							<p class="_text_align">
+								<div class="progress _progress _width">
+								  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</p>
+						</li>
+						<li class="_padding">
+							<p><span class="">滤芯5</span><span class="_float_right">80%</span></p>
+							<p class="_text_align">
+								<div class="progress _progress _width">
+								  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</p>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 横线 -->
+				<div class="_line"></div>
+				
+				<!-- RO膜 -->
+				<div class="_padding">
+					<h3>
+						RO膜
+					</h3>
+					<p>
+						RO膜能够有效地去除钙、镁、细菌、有机物、金属离子和放射性物质等，经过改装进化出的水晶莹清澈、甜美甘醇。
+					</p>
+					<p>
+						<span class="_font_weigth">总寿命：100L</span>
+						<span class="_float_right _font_weigth">剩余：800L</span>
+					</p>
+				</div>
+
+				<!-- 横线 -->
+				<div class="_line"></div>
+				
+				<!-- 后置活性炭 -->
+				<div class="_padding">
+					<h3>
+						后置活性炭
+					</h3>
+					<p>
+						更彻底地吸附净水的异色、异味，调整净水中口感。
+					</p>
+					<p>
+						<span class="_font_weigth">总寿命：100L</span>
+						<span class="_float_right _font_weigth">剩余：800L</span>
+					</p>
+				</div>
+			</div>
+
+			<!-- 滤芯复位 -->
+			<div class="_background_color _displey">
+				<!-- progress -->
+				<div>
+					<form class="layui-form" action="">
+						<ul>
+							<li class="_padding">
+								<span class="_dian"><span></span></span>
+								<div class="_padding_left">
+									<p><span class="">RO膜</span><span class="_float_right">80%</span></p>
+									<p class="_text_align">
+										<div class="progress _progress">
+										  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</p>
+								</div>
+							</li>
+							<li class="_padding">
+								<span class="_dian"><span></span></span>
+								<div class="_padding_left">
+									<p><span class="">后置活性炭</span><span class="_float_right">80%</span></p>
+									<p class="_text_align">
+										<div class="progress _progress">
+										  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</p>
+								</div>
+							</li>
+							<li class="_padding">
+								<span class="_dian"><span></span></span>
+								<div class="_padding_left">
+									<p><span class="">滤芯3</span><span class="_float_right">80%</span></p>
+									<p class="_text_align">
+										<div class="progress _progress">
+										  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</p>
+								</div>
+							</li>
+							<li class="_padding">
+								<span class="_dian"><span></span></span>
+								<div class="_padding_left">
+									<p><span class="">滤芯4</span><span class="_float_right">80%</span></p>
+									<p class="_text_align">
+										<div class="progress _progress">
+										  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</p>
+								</div>
+							</li>
+							<li class="_padding">
+								<span class="_dian"><span></span></span>
+								<div class="_padding_left">
+									<p><span class="">滤芯5</span><span class="_float_right">80%</span></p>
+									<p class="_text_align">
+										<div class="progress _progress">
+										  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</p>
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+
+				<div class="_text_align">
+					<button class="_btn">
+						确定
+					</button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+
+	<script type="text/javascript">
+
+		var log = console.log;
+		var $_dian = $('._dian');
+		var $tab_li = $('._ul li');
+		var $_box = $('#_box');
+
+
+		$_dian.click(function(){
+			$(this).find('span').toggleClass('_active');
+		})
+
+		$('._line').css({left:($tab_li.eq(0).offset().left+$tab_li.eq(0).innerWidth()/2 - 25)+'px'});
+
+		$tab_li.click(function(){
+			var $index = $(this).index();
+			var $left = $(this).offset().left+$(this).innerWidth()/2 - 25;
+			$_box.children('div').eq(1).children('div').eq($index).slideDown().siblings().slideUp();
+			$('._line').animate({left:$left+'px'});
+		})
+	</script>
+</body>
+</html>

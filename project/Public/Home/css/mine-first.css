@@ -52,18 +52,21 @@
 	margin-right: 1.066667rem;
 }
 
-#mine-first-top>p {
+#mine-first-top> p {
 	display: block;
 	width: 8.133333rem;
 	height: 1.066667rem;
 	font-size: 0.8rem;
 	text-align: center;
+	/*background: #ccc;*/
 }
 
 #mine-first-top>p>i {
 	font-size: 0.8rem;
 	line-height: 2.066667rem;
 	/*background: red;*/
+
+	color:#f00;
 }
 /*==================显示==================*/
 #mine-first-top>p:last-child{
@@ -84,9 +87,14 @@
 }
 
 #m-f-list>ul>li {
+	
 	display: inline-block;
-	width: 2.266667rem;
 	text-align: center;
+	
+}
+#m-f-list>ul>li a{
+	width: 2.266667rem;
+	display: inline-block;
 	padding-bottom: 0.266667rem;
 }
 

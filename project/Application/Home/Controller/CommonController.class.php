@@ -23,7 +23,7 @@ class CommonController extends Controller
             $weixin = new WeixinJssdk;
             // 获取用户open_id
             //$openId = $weixin->GetOpenid();
-           $openId = 'oXwY4t-9clttAFWXjCcNRJrvch3w';         
+            $openId = 'oXwY4t-9clttAFWXjCcNRJrvch3w';      
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
             // 判断用户是否存在
@@ -32,9 +32,13 @@ class CommonController extends Controller
                 $_SESSION['homeuser'] = $info; 
             }else{
                 // 用户不存在
-                // 请先关注公众号
-                $this->error('请先关注公众号',U('/Home/Wechat/follow'),2);
+                // 实例化微信信息类型
+                $Wechat = new WechatController;
+                // 调用填写微信信息的方法
+                $Wechat->add($openId);
             }
         }
     }
+
+
 }

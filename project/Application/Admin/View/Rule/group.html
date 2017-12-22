@@ -1,65 +1,59 @@
 <include file="Public/header" />
 <div class="content">
     <include file="Public/nav" />
-        <div class="row-fluid fl" id="main">
-            <div class="page-header">
-                <h1>
-                    首页 &gt; 用户组管理
-                </h1>
-            </div>
-            <div class="col-xs-12">
-                <div class="tabbable">
-                    <ul class="nav-tabs padding-12 tab-color-blue background-blue" id="myTab">
-                        <li class="active">
-                            <a href="#home" data-toggle="tab">
-                                用户组列表
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">权限管理/<span>权限组</span></div>
+            <a href="javascript:;" onclick="add()">添加用户组</a>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            用户组名
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <foreach name="data" item="v">
+                    <tr>
+                        <td>
+                            {{$v['title']}}
+                        </td>
+                        <td>
+                            <a href="javascript:;" ruleId="{{$v['id']}}" ruleTitle="{{$v['title']}}" onclick="edit(this)">
+                                修改
                             </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" onclick="add()">
-                                添加用户组
+                            |
+                            <a class="deleteBtn" ruleId="{{$v['id']}}" href="javascript:;">
+                                删除
                             </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <table class="table table-striped table-bordered table-hover table-condensed">
-                            <tr>
-                                <th>
-                                    用户组名
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                            </tr>
-                            <foreach name="data" item="v">
-                                <tr>
-                                    <td>
-                                        {{$v['title']}}
-                                    </td>
-                                    <td>
-                                        <a href="javascript:;" ruleId="{$v['id']}" ruleTitle="{{$v['title']}}" onclick="edit(this)">
-                                            修改
-                                        </a>
-                                        |
-                                        <a href="javascript:if(confirm('确定删除？'))location='{{:U('Admin/Rule/delete_group',array('id'=>$v['id']))}}'">
-                                            删除
-                                        </a>
-                                        |
-                                        <a href="{{:U('Admin/Rule/rule_group',array('id'=>$v['id']))}}">
-                                            分配权限
-                                        </a>
-                                        |
-                                        <a href="{{:U('Admin/Rule/group_list',array('group_id'=>$v['id']))}}">
-                                            成员列表
-                                        </a>
-                                    </td>
-                                </tr>
-                            </foreach>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="bjy-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                            |
+                            <a href="{{:U('Admin/Rule/rule_group',array('id'=>$v['id']))}}">
+                                分配权限
+                            </a>
+                            |
+                            <a href="{{:U('Admin/Rule/group_list',array('group_id'=>$v['id']))}}">
+                                成员列表
+                            </a>
+                        </td>
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+            <script>
+                $('.pagination ul a').unwrap('div').wrap('<li></li>');
+                $('.pagination ul span').wrap('<li class="active"></li>')
+            </script>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+<!-- 弹框信息 -->
+<div class="modal fade" id="bjy-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -134,9 +128,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    <include file="Public/footer" />
-</div>
 <script>
     // 添加菜单
     function add() {
@@ -152,4 +143,14 @@
         $("input[name='title']").val(ruletitle);
         $('#bjy-edit').modal('show');
     }
+    $(".deleteBtn").click(function(){
+        var id=$(this).attr('ruleId');
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.confirm('确定删除?', {icon: 3, title:'温馨提示'}, function(index){
+                window.location.href='delete_group?id='+id;                
+            });
+        });
+    });
 </script>
+

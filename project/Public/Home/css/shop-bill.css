@@ -1,190 +1,166 @@
-#contain{
-	width:9.2rem; 
-	margin:0.4rem 0.4rem 4.5rem 0.4rem;
+#contain {
+	width: 9.2rem;
+	margin: 0.4rem 0.4rem 4.5rem 0.4rem;
 }
 
 
 /*==========<!-- 滤芯开始 -->============*/
 
-#ro1{
+#ro1 {
 	margin-top: 0.853333rem;
-	width:9.2rem;
-	height:3.04rem;
+	width: 9.2rem;
+	height: 3.04rem;
 	margin-bottom: 0.573333rem;
-	/*background:pink;*/
 }
 
-#ro-left{
+#ro-left {
 	width: 3.413333rem;
-	height:3.013333rem;
-
+	height: 3.013333rem;
 	display: inline-block;
-	
 }
-.bott i,.bott b{
-	font-weight: normal;
+
+.bott i {
 	color: red;
 }
-#ro-left input{
-	font-family: "宋体","微软雅黑";
+
+#ro-left input {
+	font-family: "宋体", "微软雅黑";
 	width: 0.533333rem;
 	height: 0.533333rem;
-	border:1px solid red;
+	border: 1px solid red;
 	margin-top: 1.173333rem;
 	text-align: center;
 	border-radius: 1.066667rem;
-	color:#FF0000;
+	color: #FF0000;
 	float: left;
-	/*font-size: 0.426667rem;*/
 }
-#ro-left img{
+
+#ro-left img {
 	margin-left: 0.133333rem;
 	width: 2.533333rem;
 	height: 3.013333rem;
 	float: left;
 }
-#ro-right{
-	width:5.546667rem;
-	height:3.013333rem;
+
+#ro-right {
+	width: 5.546667rem;
+	height: 3.013333rem;
 	float: right;
 	display: inline-block;
+}
 
-	/*background-color: #ccc;*/
+#ro-right .top {
+	height: 2.453333rem;
 }
-#ro-right .top{
-	height: 2.453333rem;	
-}
-#ro-right .top h3{
+
+#ro-right .top h3 {
 	font-size: 0.426667rem;
-	margin-bottom:0.133333rem;
+	margin-bottom: 0.133333rem;
 }
-#ro-right .top p
-{
+
+#ro-right .top p {
 	font-size: 0.346667rem;
 }
-#ro-right .bott{
+
+#ro-right .bott {
 	width: 5.546667rem;
 	position: relative;
-	
 }
-.bott p{
-	font-family: "宋体","微软雅黑";
-	display:inline-block;
+
+.bott p {
+	font-family: "宋体", "微软雅黑";
+	display: inline-block;
 	width: 0.666667rem;
 	letter-spacing: 0.133333rem;
-	color:#FF0000;
+	color: #FF0000;
 	font-size: 0.426667rem;
 	position: absolute;
 	right: 0.0rem;
 	bottom: 0.0rem;
 }
 
-#ro-right .bott i{
-	font-size: 0.426667rem;
-	color:red;
-	position: absolute;
-	right: 0.0rem;
-	bottom: 0.0rem;
-}
-#ro-right .bott i input{
+#ro-right .bott i input {
 	width: 0.533333rem;
 	height: 0.533333rem;
 	text-align: center;
 	background: #fff;
 }
+
 #ro-right .bott i input:first-child,
-#ro-right .bott i input:last-child{
-	border:none;
+#ro-right .bott i input:last-child {
+	border: none;
+}
 
+hr {
+	border: 1px solid #ccc;
 }
-i.num{
-	font-size: 0.426667rem;
-	color:red;
-	position: absolute;
-	right: 0.0rem;
-	top: 0.0rem;
-}
-i.num input{
-	width: 0.533333rem;
-	height: 0.533333rem;
-	text-align: center;
-	background: #fff;
-}
-i.num input:first-child,
-i.num input:last-child{
-	border:none;
 
-}
-/*.ro1 + hr,.ro2 + hr ,.mo2 + hr{}*/
-hr{
-	border:1px solid #ccc;
-}
-#mo2{
+#mo2 {
 	width: 9.2rem;
-	height:1.333333rem;
+	height: 1.333333rem;
 	margin-top: 0.853333rem;
-	/*background: pink;*/
 }
-#mo2 b, #mo2 p ,#mo2 i{
+
+#mo2 b,
+#mo2 p,
+#mo2 i {
 	display: inline-block;
 	font-size: 0.426667rem;
 }
-#mo2>input{
-	font-family: "宋体","微软雅黑";
+
+#mo2 input {
+	font-family: "宋体", "微软雅黑";
 	text-align: center;
 	border-radius: 0.533333rem;
 	display: inline-block;
-	width:0.533333rem;
+	width: 0.533333rem;
 	height: 0.533333rem;
 	border-radius: 0.533333rem;
 	border: 1px solid #FF0000;
 	color: #FF0000;
 	margin-right: 0.32rem;
 }
-#mo-right{
+
+#mo-right {
 	display: inline-block;
-	/*background: green;*/
 }
-#mo-right>p{
+
+#mo-right>p {
 	display: inline-block;
-	font-size:0.373333rem;
-	margin:0.0rem 0.066667rem;
+	font-size: 0.373333rem;
+	margin: 0.0rem 0.066667rem;
 	color: #FF0000;
-	/*background: red;*/
 }
-#mo2>.bill{
+
+#mo2>.bill {
 	display: inline-block;
-	height: 0.666667rem;
-    width: 2.666667rem;
-    font-family: "宋体","微软雅黑";
-    letter-spacing: 0.133333rem;
+	font-family: "宋体", "微软雅黑";
+	letter-spacing: 0.133333rem;
 	float: right;
 	color: #FF0000;
 	font-size: 0.426667rem;
 }
-.franking{
-	/*position: absolute;*/
 
+.franking {
 	display: block;
 	margin-top: 0.853333rem;
-	float:right;
+	float: right;
 	font-size: 0.24rem;
 	margin-bottom: 3.0rem;
 }
 
+
 /*================<!-- 滤芯结束 -->=================*/
 
-
-
-#foot{
+#foot {
 	position: fixed;
-	width: 9.2rem; 
-	height: 1.2rem; /*90*/
+	width: 9.2rem;
+	height: 1.2rem;
 	bottom: 0.0rem;
 	background: #FFF;
 }
-#foot b{
-	/*font-size: 0.426667rem;*/
+
+#foot b {
 	display: inline-block;
 	height: 1.2rem;
 	font-size: 0.453333rem;
@@ -193,25 +169,18 @@ hr{
 	margin-right: 0.4rem;
 }
 
-.chang{
-	color:#FF0000;
+.chang {
+	color: #FF0000;
 }
 
-#foot input{
-width:3.85333rem;
-height: 1.2rem;
-float:right;
-border:none;
+#foot input {
+	width: 3.85333rem;
+	height: 1.2rem;
+	float: right;
+	border: none;
 }
 
-#foot input:last-child{
-	background:#353659;
-	color:#fff;
+#foot input:last-child {
+	background: #353659;
+	color: #fff;
 }
-
-
-
-
-
-
-

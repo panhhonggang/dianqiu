@@ -78,8 +78,9 @@ class ShopController extends CommonController
         $signPackage = $weixin->getSignPackage();
 
         // 查询用户微信中的openid
-        $openId = $weixin->GetOpenid();
-
+        //$openId = $weixin->GetOpenid();
+        // 调试用默认用户
+        $openId = $_SESSION['homeuser']['open_id'];
         //分配数据        
         $this->assign('info',$signPackage);
         $this->assign('openId',$openId);

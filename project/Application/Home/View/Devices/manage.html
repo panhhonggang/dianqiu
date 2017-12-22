@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1" >
+
+<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/iconfont.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/all-devices.css">
+
+<script>
+
+		$(function(){
+			$('#devices-list li').bind('click',function(){
+				$('#devices-list ul li i').removeClass('iconfont icon-chenggong');
+				$(this).children('i').addClass('iconfont icon-chenggong');		
+			});	
+		});
+
+		$(function(){
+			$('#devices-add i').bind({
+				'mouseover' : function () { 
+
+				$(this).css('color','#FF8600');
+				},
+				'mouseout' : function () {
+				$(this).css('color','#ccc');
+				}
+			});
+		});
+	</script>
+
+</head>
+<body>
+<div id="devices-all">
+	<div id="devices-container">
+		<div id="devices-list">
+			<h3>所有设备</h3>
+			<ul>
+				<b></b><li>设备型号:KD12345<i></i></li><br>
+				<b></b><li>设备型号:KD12345<i></i></li><br>
+				<b></b><li>设备型号:KD12345<i></i></li><br>
+				<b></b><li>设备型号:KD12345<i></i></li><br>
+				<b></b><li>设备型号:KD12345<i></i></li><br>
+				<b></b><li>设备型号:KD12345<i class="iconfont icon-chenggong"></i></li><br>
+			</ul>
+		</div>	
+	</div>
+	<div id="devices-add">
+		<i class="iconfont icon-jiahao"></i><p>添加设备</p>
+	</div>
+</div>
+	
+</body>
+</html>

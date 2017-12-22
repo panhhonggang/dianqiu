@@ -1,0 +1,43 @@
+#advice-all {
+	width: 10.0rem;
+}
+
+#advice-container {
+	width: 9.2rem;
+	margin: 0.4rem 0.4rem 1.333333rem 0.4rem;
+}
+
+#advice-container>h3 {
+	font-size: 0.426667rem;
+	line-height: 0.8rem;
+}
+
+#advice-container>h3>b {
+	color: #F9586B;
+}
+
+#advice-container>textarea {
+	margin-top: 0.133333rem;
+	height: 4.186667rem;
+	width: 9.173333rem;
+	display: inline-block;
+	resize: none;
+	overflow: hidden;
+	border: 1px dashed #CCC;
+}
+
+#advice-container>p {
+	color: #767676;
+}
+
+#advice-container>input {
+	width: 8.266667rem;
+	height: 1.2rem;
+	background: #353659;
+	margin-top: 6.4rem;
+	margin-left: 0.466667rem;
+	border: none;
+	border-radius: 0.106667rem;
+	color: #FFF;
+	font-size: 0.64rem;
+}
