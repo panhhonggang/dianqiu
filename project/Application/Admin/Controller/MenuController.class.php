@@ -9,6 +9,8 @@ class MenuController extends CommonController
         $assign=array(
             'data'=>$data
             );
+
+        // dump($data['_data']);die;
         $this->assign($assign);
         $this->display();
     }

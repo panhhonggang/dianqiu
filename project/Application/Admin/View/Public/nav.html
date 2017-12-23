@@ -13,10 +13,11 @@
                     <ul class="submenu">
                         <foreach name="v['_data']" item="n">
                             <li>
-                                <a href="{{:U($n['mca'])}}">
-                                    <i class="icon-double-angle-right"></i>
-                                    {{$n['name']}}
-                                </a>
+                                <switch name="n.id">
+                                    <case value="68"><a href="#"><i class="icon-double-angle-right"></i>{{$n['name']}}</a></case>
+                                    <case value="69"><a href="#"><i class="icon-double-angle-right"></i>{{$n['name']}}</a></case>
+                                    <default /><a href="{{:U($n['mca'])}}"><i class="icon-double-angle-right"></i>{{$n['name']}}</a>
+                                </switch>
                             </li>
                         </foreach>
                     </ul>

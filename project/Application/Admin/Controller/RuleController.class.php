@@ -13,6 +13,7 @@ class RuleController extends CommonController{
         $assign=array(
             'data'=>$data
             );
+
         $this->assign($assign);
         $this->display('Rule/index');
     }

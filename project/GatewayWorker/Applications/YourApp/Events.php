@@ -44,7 +44,7 @@ class Events
     * @param mixed $message 具体消息
     */
     public static function onMessage($client_id, $message) {
-
+        // var_dump($message);
         if( is_array($message)){
             $message['client_id'] = $client_id;
             $message['soure'] = 'TCP';
@@ -56,7 +56,7 @@ class Events
             $message['soure'] = 'WS';
         }
 
-        $url = 'http://xinpin.dianqiukj.com/api/action/receive';
+        $url = 'http://192.168.37.76/dianqiu/project/api/action/receive';
         $curlobj = curl_init();
         curl_setopt($curlobj,CURLOPT_URL,$url);
         curl_setopt($curlobj,CURLOPT_HEADER,0);     

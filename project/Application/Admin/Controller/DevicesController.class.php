@@ -18,11 +18,9 @@ class DevicesController extends CommonController
         // 查询条件
         $map = '';
         if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
+        $devices = D('Devices')->getDevicesInfo($map);   
 
-        // 查询数据
-        $devices = D('Devices')->getDevicesInfo($map);
-        
-        // 分配视图变量
+        // dump($devices);     
         $assign = [
             'deviceInfo' => $devices,
         ];
@@ -56,8 +54,6 @@ class DevicesController extends CommonController
         } else {
             $this->success('添加成功', 'show_add_device', 3);
         }
-
-
     }
 
     /**
@@ -192,5 +188,26 @@ class DevicesController extends CommonController
             }
         }
         $this->save_import($data);
+    }
+
+    public function del()
+    {
+        $code = I('get.');
+        if(empty($code)){
+            $this->error('设备编码错误');
+        }
+        $res = M('devices')->where($code)->find();
+        
+        if($res){
+            $delBind = M('binding')->where('did='.$res['id'])->delete();
+        }
+        if($res || $delBind){
+            $data = M('devices')->where($code)->delete();
+        }
+        if(!$data){
+            $this->error('删除不成功');
+        }
+        $this->success('删除成功');
+
     }
 }

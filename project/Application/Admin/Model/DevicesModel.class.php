@@ -32,7 +32,7 @@ class DevicesModel extends Model
         $res = array_column( $data, 'id' );
         return $res;
     }
-// 201705120000182
+    // 
     public function getDevicesInfo($map)
     {
         // 分页
