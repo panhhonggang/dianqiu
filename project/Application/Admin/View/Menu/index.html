@@ -6,6 +6,7 @@
             <div class="titleBar">菜单管理/<span>菜单编辑</span></div>
             <a href="javascript:;" onclick="add()">添加菜单</a>
             <table class="table table-bordered table-hover">
+                <form action="{{:U('Admin/Menu/order')}}" method="post">
                 <thead>
                     <tr>
                         <th width="5%">
@@ -63,6 +64,7 @@
                         </td>
                     </tr>
                 </tbody>
+                </form>
             </table>
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
