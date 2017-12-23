@@ -61,7 +61,7 @@
 </style>
 </head>
 <body>
-<input type="hidden" class="hiddenValue" value="2" name="">
+<input type="hidden" class="hiddenValue" value="1" name="">
 <section class="btnList">
     <ul>
         <li>
@@ -117,8 +117,8 @@
         </div>
     </div>
 </section> 
-<footer class="footerBtn">开机
-    <div></div>
+<footer id="footer">
+    <div class="footerBtn">开机</div>
 </footer>
 <script>
 const c = document.getElementById('canvas');
@@ -217,7 +217,7 @@ if($(".hiddenValue").val()==1){//制水
     $(".status_text").html("检修");
     $(".service").show();
     $(".ring-out").show();
-}else if($(".hiddenValue").val()==6){ //关机
+}else if($(".hiddenValue").val()==7){ //关机
     $("#canvas").hide();
     $(".status_text").html("");
     $(".ring-inside").hide();

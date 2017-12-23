@@ -94,6 +94,9 @@ h4{
     width: 25vw;
     text-align: center;
 }
+#footer {
+    height: 14vh;
+}
 .btnList ul li a{width: 25vw;height: 10vw; display:block;}
 .btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 35%; }
 .btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 20% 95%;}
@@ -265,7 +268,7 @@ h4{
     white-space: nowrap;
 }
 #waterDetial>div>span>img {
-    height: 50%;
+    height: 6vw;
 }
 .footerBtn {
     position: relative;
