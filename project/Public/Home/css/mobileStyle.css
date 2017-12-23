@@ -134,7 +134,7 @@ h4{
     width: 80%;
     animation:spin-reverse 1s infinite linear;
 }
-.addwater{
+.addwater{ 
     width: 65vw;
     height: 65vw;
     background: url("../images/addwater.png") no-repeat;
