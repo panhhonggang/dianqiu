@@ -46,7 +46,7 @@ h4{
     left: 0;
 }
 #canvas {
-    top: 5%;
+    top: 5vh;
 }
 .canvasBox .wash{
     width: 30vw;
@@ -81,7 +81,7 @@ h4{
 	width: 100vw;
 	height: 10vh;
 	padding: 0;
-	margin: 6% 0 0 0;
+	margin: 0;
 }
 .btnList ul{
 	width: 100vw;
@@ -103,7 +103,7 @@ h4{
     width: 90%; 
     height: 12vw; 
     line-height: 12vw;
-    margin:0 auto; 
+    margin:0 auto 6vh; 
     background: #2C2B4E; 
     color: #fff;
     border-radius: 2vw;
@@ -134,7 +134,7 @@ h4{
     width: 80%;
     animation:spin-reverse 1s infinite linear;
 }
-.addwater{
+.addwater{ 
     width: 65vw;
     height: 65vw;
     background: url("../images/addwater.png") no-repeat;
@@ -235,9 +235,7 @@ h4{
         width: 4%;
     }   
 }
-#canvas {
-    top: 5%;
-}
+
 .canvasBox .service{
     width: 20vw;
     height: 20vw;
@@ -250,9 +248,9 @@ h4{
     width: 100%;
     /*display: none;*/
     position: absolute;
-    bottom: 14%;
-    border-top: 1px solid #d8d1d1;
-    border-bottom: 1px solid #d8d1d1;
+    bottom: 6vh;
+    border-top: 1px solid #bedbf0;
+    border-bottom: 1px solid #bedbf0;
     font-size: 18px;
 }
 #waterDetial>div {
