@@ -8,9 +8,60 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 <title>点球共享水</title>
+<style>
+   /* #canvas {
+        top: 5%;
+    }
+    .canvasBox .service{
+        width: 20vw;
+        height: 20vw;
+        position: absolute;
+        right: 20%;
+        top: 38%;
+        z-index: 10;
+    }
+    #waterDetial {
+        width: 100%;
+        display: none;
+        position: absolute;
+        bottom: 14%;
+        border-top: 1px solid #d8d1d1;
+        border-bottom: 1px solid #d8d1d1;
+        font-size: 18px;
+    }
+    #waterDetial>div {
+        display: flex;
+        padding: 2% 6%;
+    }
+    #waterDetial>div>span {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        padding-left: 5%;
+        white-space: nowrap;
+    }
+    #waterDetial>div>span>img {
+        height: 50%;
+        filter: grayscale(100%);
+    }
+    .footerBtn {
+        position: relative;
+    }
+    .footerBtn>div {
+        width: 102%;
+        height: 114%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: -1%;
+        margin-top: -1%;
+        border: 1px solid #d4d4d4;
+        border-radius: 2vw;
+    }*/
+</style>
 </head>
 <body>
-<input type="hidden" class="hiddenValue" value="1" name="">
+<input type="hidden" class="hiddenValue" value="2" name="">
 <section class="btnList">
     <ul>
         <li>
@@ -20,7 +71,7 @@
             <a class="i2" href="{{:U('/Home/Filters/filterDetails')}}"></a>滤芯
         </li>
         <li>
-            <a class="i3" href="{{:U('Home/Shop/filterElement')}}"></a>商城
+            <a class="i3" href="{{:U('Home/Shop/index')}}"></a>商城
         </li>
         <li>
             <a class="i4" href="{{:U('Home/Users/mine')}}"></a>我的
@@ -39,19 +90,41 @@
     <section class="ring-out" style="display: none;"></section><!--外环-->
     <img class="dripping dripping1" style="display: none;" src="__PUBLIC__/Home/images/dripping.png">
     <img class="dripping dripping2" style="display: none;" src="__PUBLIC__/Home/images/dripping.png">
-</div>
+
     <section class="status_text">水满</section>
     <section class="date_show">
         <section></section>
         <section></section>
     </section>
+    <div id="waterDetial" >
+        <div>
+            <span>
+                <img src="__PUBLIC__/Home//images/4_47.png" alt="">
+                &nbsp;纯水&nbsp; <span>***ppm</span>
+            </span>
+            <span>
+                <img src="__PUBLIC__/Home//images/4_43.png" alt="">
+                &nbsp;原水&nbsp;<span>***ppm</span>
+            </span>
+        </div>
+        <div>
+            <span>
+                剩余流量：&nbsp;<span>***L</span>
+            </span>
+            <span>
+                已用流量：&nbsp;<span>***L</span>
+            </span>
+        </div>
+    </div>
 </section> 
-<footer class="footerBtn">开机</footer>
+<footer class="footerBtn">开机
+    <div></div>
+</footer>
 <script>
 const c = document.getElementById('canvas');
 const g = c.getContext('2d');
 const omega = 200;//值越大，波浪速度越慢
-var widthC=$(window).width()*.65;
+var widthC=$(window).width()*.6;
 c.width=widthC;
 c.height=widthC;
 function addCanvas(color1,color2,waterYield){
@@ -144,6 +217,13 @@ if($(".hiddenValue").val()==1){//制水
     $(".status_text").html("检修");
     $(".service").show();
     $(".ring-out").show();
+}else if($(".hiddenValue").val()==6){ //关机
+    $("#canvas").hide();
+    $(".status_text").html("");
+    $(".ring-inside").hide();
+    $("#waterDetial").css({display:'block'});
+    $(".canvasBox").css({filter:'grayscale(100%)'});
+    $(".btnList").css({filter:'grayscale(100%)'});
 }
 </script>
 

@@ -30,7 +30,7 @@
                     <notempty name="list">
                         <foreach name="list" item="vo" key="key">
                         <tr>
-                            <td><a href="#">{{$vo.order_id}}</a></td>
+                            <td>{{$vo.order_id}}</td>
                             <td>{{$vo.nickname}}</td>
                             <td>{{$vo.total_num}}</td>
                             <td>{{$vo.total_price}}</td>
@@ -52,7 +52,8 @@
                                     <case value="1">已发货</case>
                                     <default />
                                 </switch>
-                                
+                                <input type="hidden" name="order_id" value="{{$vo.order_id}}">
+                                <input type="hidden" name="is_receipt" value="1">
                             </td>
                             <td>
                                 <switch name="vo.is_ship">
@@ -99,7 +100,7 @@
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <form id="" class="form-inline" action="__URL__/edit/order_id/{{$vo.order_id}}/is_receipt/1"
+                            <form id="_orders" class="form-inline" action="__URL__/edit/order_id/{{$vo.order_id}}/is_receipt/1"
                             method="post">
                                 <table class="table table-striped table-bordered table-hover table-condensed">
                                     <tr>
@@ -107,7 +108,8 @@
                                             快递名称：
                                         </th>
                                         <td>
-                                            <input class="input-medium" type="text" name="express">
+                                            <input class="input-medium" type="text" name="name" id="input_name" style="vertical-align:top;">
+                                            <span style="color: red; display: inline-block;width: 230px;"></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -115,17 +117,18 @@
                                             快递单号：
                                         </th>
                                         <td>
-                                            <input class="input-medium" type="text" name="mca">
+                                            <input class="input-medium" type="text" name="mca" id="input_num" style="vertical-align:top;">
+                                            <span style="color: red; display: inline-block;width: 230px;"></span>
                                         </td>
                                     </tr>
                                 </table>
 
-                                <input type="hidden" name="order_id" value="{{$vo.order_id}}">
-                                <input type="hidden" name="is_receipt" value="1">
+                                <!-- <input type="hidden" name="order_id" value="{{$vo.order_id}}">
+                                <input type="hidden" name="is_receipt" value="1"> -->
 
                                 <div class="text-center">
                                     <input class="btn btn-info" type="button" value="取消">&nbsp;&nbsp;&nbsp;
-                                    <input class="btn btn-success" type="submit" value="确定">
+                                    <input class="btn btn-success" type="button" value="确定">
                                 </div>
                                 
                             </form>
@@ -136,16 +139,45 @@
 
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
-                $('.pagination ul span').wrap('<li class="active"></li>')
+                $('.pagination ul span').wrap('<li class="active"></li>');
 
                 // 弹框信息
-                $('table tr th').css('vertical-align','middle')
+                var name_bool = false;
+                var num_bool = false;
+                $('table tr th').css('vertical-align','middle');
                 $('._send').click(function(){
                     $('#_send').modal('show');
-                })
-                $('input[type=button]').click(function(){
+                });
+
+                $('#input_name').change(function(){
+                    if(/[\u4e00-\u9fa5]{2}/.test($(this).val())){
+                        $(this).next().text('');
+                        name_bool = true;
+                    }else{
+                        $(this).next().html('请输入正确的快递名称&nbsp;(&nbsp;2位以上中文字符&nbsp;)&nbsp;！');
+                    }
+                });
+                $('#input_num').change(function(){
+                    if(/^\w{9,15}/.test($(this).val())){
+                        $(this).next().text('');
+                        num_bool = true;
+                    }else{
+                        $(this).next().html('请输入正确的快递单号&nbsp;(&nbsp;9-15位数字或字母&nbsp;)&nbsp;！');
+                    }
+                });
+
+                $('input[type=button]').eq(0).click(function(){
                     $('#_send').modal('hide');
-                })
+                });
+
+                $('input[type=button]').eq(1).click(function(){
+
+                    if(name_bool&&num_bool){
+                        $('#_orders').submit();
+                    }else{
+                        return false;
+                    }
+                });
             </script>
         </div>
         <!-- footer part -->
