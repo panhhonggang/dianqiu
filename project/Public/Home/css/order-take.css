@@ -1,10 +1,9 @@
-.take-slip {
-	position: absolute;
-	top: 1.278rem;
-	left: 7.812222rem !important;
+.take-slip{
+    position: absolute;
+    top: 1.278rem;
+    left: 7.812222rem !important;
 }
-
-.paied {
+.paied{
 	display: inline-block;
 	margin-left: 1.066667rem;
 	font-family: "微软雅黑";

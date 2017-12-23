@@ -14,10 +14,15 @@ body {
     width: 100%;
    	height: 100%;
     overflow-x: hidden;
+    -webkit-user-select: none;
+}
+
+body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
     -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
+    /*line-height: 1.2;*/
 }
 ul li{
 	list-style: none;
@@ -26,209 +31,609 @@ ul li{
 h4{
 	padding-left: 2vw;
 }
-/*index css */
-.canvasBox{
-    width: 100vw;
-    height: 75vh;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    background: url("../images/status_bg.png") no-repeat;
-    background-size: 100% auto;
-    background-position: 0 100%;
+.listOption a,.payList a{
+text-decoration:none;
 }
-.canvasBox canvas{
-    z-index: 10;
-	position: absolute;
-	margin: auto;
-	top: 0vh;
-	right: 0;
-    left: 0;
+.logo{
+	width: 52vw;
+	height: 26.9vw;
+	margin:10vw auto;
+	margin-bottom: 5vw;
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 12.7rem 6.5rem;
+	background-position: 0 -2.5rem;
 }
-.canvasBox .wash{
-    width: 30vw;
-    height: 30vw;
-    position: absolute;
-    display: none;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 50vw;
-    z-index: 0;
+.inputBox{
+	width: 85vw;
+	margin: 0 auto;
 }
-.canvasBox .wash img{ 
-    width: 100%;
-    animation:wash 1s linear infinite;
-    -webkit-animation:wash 1s linear infinite;
+.inputBox .row input{
+	background: #60CDAF;
+	margin-top: 20px;
+	color: #fff;
+	border:none;
+	box-shadow:inset 0 0 5px #218C6A;
 }
-@keyframes wash{
-    0%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(-360deg);
-    }
+
+.inputBox .row input::-webkit-input-placeholder {
+	color:#fff;
 }
-.canvasBox .status_text{
-    padding-top: 70vw;
-    text-align: center;
-    color: #8A57F6;
+.registerBtn {
+	width: 90vw;
+	margin: 20vw 0 0 5vw;
+	color: #218C6A;
+	font-weight: bold;
 }
-.btnList{
-	width: 100vw;
-	height: 10vh;
-	padding: 0;
-	margin: 0;
-}
-.btnList ul{
-	width: 100vw;
-	height: 10vh;
-	margin-top: 1vh;
-} 
-.btnList ul li{
-    list-style: none;
-    float: left;
-    width: 25vw;
-    text-align: center;
-}
-.btnList ul li a{width: 25vw;height: 10vw; display:block;}
-.btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 35%; }
-.btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 20% 95%;}
-.btnList ul li .i3{background:url("../images/mall_btnBg.png") no-repeat; background-position: 50% 30%;background-size: 35%;}
-.btnList ul li .i4{background:url("../images/my_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 35%;}
-.footerBtn{
-    width: 90%; 
-    height: 12vw; 
-    line-height: 12vw;
-    margin:0 auto; 
-    background: #2C2B4E; 
-    color: #fff;
-    border-radius: 2vw;
-    text-align: center;
-}
-.canvasBox .service{
-    width: 20vw;
-    height: 20vw;
-    position: absolute;
-    right: 28vw;
-    top: 72vw;
-    z-index: 10;
-}
-@keyframes spin {
-    to {
-        transform: rotate(1turn);
-    }
-} 
-@keyframes spin-reverse {    
-    from {
-        transform: rotate(1turn);
-    }
-}
-.avatar{
-    animation: spin 1s infinite linear;   
-}
-.avatar > img {
-    width: 80%;
-    animation:spin-reverse 1s infinite linear;
-}
-.addwater{
-    width: 65vw;
-    height: 65vw;
-    background: url("../images/addwater.png") no-repeat;
-    background-size: 100%;
-    background-origin:5px 5px;
-    position: absolute;
-    margin: auto;
-    top: 8.5vh;
-    right: 0;
-    left: 0;
-    z-index: 10000;
+.provingSpan{
+	color: #000;
+	margin-top: 20px;
+	display: inline-block;
+	padding: 7px 0;
 
 }
-.ring-out{
-    width: 65vw;
-    height: 65vw;
-    background: url("../images/ring-out.png") no-repeat;
-    background-size: 100%;
-    background-origin:5px 5px;
-    position: absolute;
-    margin: auto;
-    top: 8.9vh;
-    right: 0;
-    left: 0;
+.registerFooter{
+	width: 100vw;
+	margin-top: 10vw;
 }
-.ring-inside{
-    width: 65vw;
-    height: 65vw;
-    background: url("../images/ring-inside.png") no-repeat;
-    background-size: 100%;
-    position: absolute;
-    margin: auto;
-    top:8.5vh;
-    right: 0;
-    left: 0;
+.registerFooter a{
+	color: #218C6A;
 }
-.dripping1{
-    position: absolute;
-    width: 100%;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 3vh;
-    animation:dripping1 2s linear infinite;
-    -webkit-animation:dripping1 2s linear infinite;;
+.inputBox .row input.checkSpan {
+	width: 14px;
+	height: 13px;
+	border: 1px solid #61CDAC;
+	margin:0 2vw;
+	border-radius: 3px;
+	padding: 0px 8px;
+	background: none;
+	box-shadow:none;
+	
 }
-.dripping2{
-    position: absolute;
-    width: 4%;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 25vh;
-    animation:dripping2 2s 1s linear infinite;
-    -webkit-animation:dripping2 2s 1s linear infinite;;
+.checkSpanBg{
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 17.7rem 9rem;
+	background-position: -15.5rem -2.7rem;
 }
-@keyframes dripping1{
-    0%{
-        opacity: 0;
-        top: 3vh;
-        width: 10%;
-    }
-    100%{
-        opacity:1;
-        top: 20vh;
-        width: 10%;
-    }
-    
+.btn-list{
+	margin-top: 5vw;
 }
-@-webkit-keyframes dripping1{
-    0%{
-        top: 3vh;
-        width: 10%;
-    }
-    100%{
-        top: 20vh;
-        width: 10%;
-    }
-    
+
+.col-md-12{position: relative;}
+.col-md-12 .caret{
+	position:absolute;
+	right: 5vw;
+	top: 15px;
+	color: #007958;
 }
-@keyframes dripping2{
-    0%{
-        top: 25vh;
-        width: 4%;
-    }
-    100%{
-        top: 37vh;
-        width: 4%;
-    }
+/*注册页面css end*/
+
+/*数据显示主页面css */
+.showBalanceBox{
+	width: 100vw;
+	height: 42vh;
+	background: #61CDB1;
+	position: relative;
 }
-@-webkit-keyframes dripping2{
-    0%{
-        top: 25vh;
-        width: 4%;
-    }
-    100%{
-        top: 37vh;
-        width: 4%;
-    }   
+.showBalanceBox .showBalance{
+	width: 100vw;
+	height: 36vh;
+	position: absolute;
+	top: 3vh;
+	background: #fff;
+	
+}
+.showDataContent{
+	width: 100vw;
+	height: 44vh;
+}
+.moneylogo{
+	width: 23vw;
+	height: 23vw;
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 3vw;
+}
+.showBalance .textBalance{
+	font-size: .7rem;
+	margin-top: 20vh;
+	margin-bottom: 0;
+}
+.numBalance{
+	font-weight: bold;
+	font-size: 1.8rem;
+	line-height: 1.2;
+	margin: 0;
+}
+.table-data{
+	background: url("../image/tableBg.png") no-repeat;
+	background-size: 100% 100%;
+	text-align: center;			
+}
+.slippage-list{
+	width: 100vw;
+	height: 20vw;
+	margin-top: 5vw;
+}
+h4.tableTitle {
+	color:#008A63;
+}
+
+.slippage-list li{
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #ccc;
+	margin: 0 2vw;
+}
+.slippage-list li.slippage-active{
+	background: #008A63;
+}
+footer{
+	width: 100vw;
+	height: 14vh;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	border-top: .2vh solid #ccc;
+	background: #fff;
+}
+footer > a{
+	width: 20vw;
+	padding: 2vh 0 1vh 0;
+	display: block;
+	float: left;
+	text-align: center;
+	color: #848282;
+}
+footer > a:hover{
+	color: #848282;
+	text-decoration: none;
+}
+footer > a span{
+	display: block;
+	width: 11vw;
+	height: 11vw;
+	margin: 0 auto;
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 17.7rem 9rem;
+}
+footer > a span.logo1{
+	background-position: -13.5rem 0;
+}
+footer > a span.logo2{
+	background-position: 0.1rem 0;
+}
+footer > a span.logo3{
+	background-position: 0.1rem -1.8rem;
+}
+footer > a span.logo4{
+	background-position: -3.8rem 0;
+}
+footer > a span.logo5{
+	background-position: -9.6rem 0;
+}
+
+/*添加ic卡 css*/
+.addIC {
+	width: 100vw;
+	height: 91vh;
+}
+.addIC .row{
+	margin-top: 15px;
+}
+.addIC .row .btn{
+	width: 2.5rem;
+	height: 1.7rem;
+	background:#F2F3F3 url("../image/sprite.png") no-repeat;
+	background-size: 17.7rem 9rem;
+	background-position: -15.7rem .2rem;
+}
+.addIC input{
+	width: 100%;
+	height: 1.7rem;
+	background: #F2F3F3;
+	border-radius: 6px;
+}
+.addICtitle{
+	width: 100vw;
+	height: 8vh;
+	padding: .5rem;
+	font-size: .8rem;
+	font-weight: bold;
+}
+.addIC .addIDBtn{
+	margin-top: 8rem;
+	border:0;
+	height: 1.7rem;
+}
+.addIDBtn input{
+	background: #008A63;
+	color: #fff;
+	font-weight: bold;
+	font-size: .7rem;
+}
+/*IDmanage*/
+.IDshow{
+	width: 100vw;
+	height: 45vh;
+	border-bottom: .3rem solid #F5F5F6;
+	position: relative;
+}
+.IDshow .IDshowBg{
+	position: relative;
+	width: 80vw;
+	height: 30vh;
+	margin: 0 auto;
+	margin-top: 1rem;
+	background: url("../image/ICbg.png") no-repeat;
+	background-size: 100% 100%;
+	color: #fff;
+}
+.IDshow .IDshowBgActive{
+	opcity:0.4;
+	color:#000;
+}
+.IDshow .IDshowBg .IDtext{
+	position: absolute;
+	left: 0;
+	bottom: 1.5rem;
+	width: 100%;
+	height: 1rem;	
+	font-size: 1rem;
+	font-weight: bold;
+}
+.IDshow .reportLostItemsTxt{
+	position: absolute;
+	left: 3rem;
+	bottom: 3rem;
+	font-weight: bold;
+	margin-bottom: .1rem;
+	opacity:1;
+	color: #fff;
+}
+.setList{
+	height: 6vh;
+	line-height: 6vh;
+	min-width: 17vw;
+	border:#008B61 1px solid;
+	
+	border-radius: 2vw;
+	position: relative;
+	position: absolute;
+	background:#fff;
+	display: inline-block;
+	top: 33vh;
+	right: 10vw;
+	margin-top: 2vh;
+	text-align: center;
+}
+.setList .set{
+	width: 17vw;
+	position:absolute;
+	display: inline-block;
+	color: #008B61;
+	font-weight: bold;
+	right: 0;
+	top: 0;
+}
+.setList .setItem{
+	display: none;
+	margin-right: 15vw;
+	/*padding: 0 2vw;*/
+	top: 0;
+
+}
+.setList .setItem > li{
+	float: left;
+	width: 20vw;
+	display: inline-block;
+	/*margin-right: 5vw;*/
+	padding: 0 5vw;
+}
+a.addIDbtn{
+	width:100vw;
+	height: 9vh;
+	line-height: 9vh;
+	display: block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background:#E8F9F5 url("../image/sprite.png") no-repeat;
+	background-size: 17rem auto;
+	background-position: -14rem -4.5rem;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+}
+.addIDbtn span{
+	display: block;
+	text-align: left;
+	padding-left:21vw;
+	color: #2B302F;
+	font-size: .8rem;
+}
+/*consume css*/
+.consume{
+	width: 100vw;
+	height: 13vh;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+.consumeList{
+	width: 200vw;
+}
+.consumeList >li{
+	text-align: center;
+	width: 50vw;
+	height: 13vh;
+	line-height: 10vh;
+	font-size: 1rem;
+}
+.consumeList >li p{
+	text-align: center;
+	width: 50vw;
+	height: 10vh;
+	line-height: 10vh;
+	font-size: 1rem;
+	margin-bottom: 0;
+	border-bottom: 1px solid #D7D7D7;
+}
+.consumeTable{
+}
+.spanActive{
+	background:#008A63;
+    opacity:0.5;
+    display: block;
+    float: left;
+    width:2vw; 
+    height:3vw; 
+    border-radius:5px;
+    margin-left:16.8vw;
+	padding:0  8vw;
+}
+.consumeList li+li,.consumePointList li+li,.thead li+li {
+	margin-left: 0;
+}
+.thead{
+	width: 100vw;
+	height: 10vh;
+}
+.thead > li{
+	width: 33.3vw;
+	height: 8vh;
+	line-height: 8vh;
+	text-align: center;
+	background: #60CDAF;
+	color: #fff;
+}
+.consumeNode{
+	width: 100vw;
+	height: 65vh;
+	margin-top: -.7rem;
+	overflow:scroll; 
+	overflow-x:hidden;
+}
+/*recharge css*/
+.rechargeHhead{
+	width: 100vw;
+	padding: 0 5vw;
+	text-align: center;
+	background: #60CDAF;
+	color: #fff;
+}
+.rechargeHhead > li{
+	width: 45vw;
+	height: 8vh;
+	line-height: 8vh;
+	text-align: left;
+	padding: 0 8px;
+}
+.rechargeHhead > li.text-right{
+	text-align: right;
+}
+.rechargeHhead > li+li {
+     margin-left: 0; 
+}
+.rechargeNode{
+	height: 80vh;
+}
+/*mine css*/
+.showmine{
+	width: 100vw;
+	height: 32vh;
+	border-bottom: 2vh solid #F5F5F6;
+}
+.minelogo{
+	width: 25vw;
+    height: 25vw;
+    margin: 0 auto;
+    margin-top: 5vw;
+    margin-bottom: 1vw;
+    border-radius: 50%;
+    text-align: center;
+}
+.textMine{
+	color: #5e5e5e;
+	font-size: .8rem;
+}
+.mineList{
+	width: 100vw;
+	height: 39vh;
+	margin-bottom:0;
+}
+.mineList > li > a{
+	position: relative;
+	display: block;
+	border-bottom: 1px #ccc solid;
+	font-size: .7rem;
+	width: 100vw;
+	padding-left: 15vw;
+	height: 10vh;
+	line-height: 10vh;
+	text-decoration: none;
+	color: #383838;
+}
+.mineList > li > a > i{
+	width: 8vw;
+	height: 8vw;
+	line-height: 8vw;
+	position: absolute;
+	left: 3vw;
+	top: 3vw;
+	font-weight: bold;
+	display: inline-block;
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 16.7rem 8.5rem;
+}
+
+.mineList > li > a > i.i1{
+	background-position: -8.5rem -2rem;
+}
+.mineList > li > a > i.i2{
+	background-position: -11.6rem -2rem;
+}
+.mineList > li > a > i.i3{
+	background-position: -13.1rem -2rem;
+}
+.mineList > li > a > span{
+	width: 8vw;
+	height: 8vw;
+	line-height: 8vw;
+	position: absolute;
+	right: 4vw;
+	top: 4vw;
+	display: inline-block;
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 17.7rem 9rem;
+	background-position: -13.5rem -3.6rem;
+}
+.quitBtn{
+	background: #D9534F;
+	color: #fff;
+	height: 7vh;
+	margin-bottom: 5vh;
+}
+/*personalInformation css*/
+.personalList{
+	width: 100vw;
+	height: 88vh;
+	margin-bottom:0;
+}
+.personalList > li{
+	position: relative;
+	display: block;
+	border-bottom: 1px #ccc solid;
+	font-size: .7rem;
+	width: 100vw;
+	padding-left: 15vw;
+	height: 10vh;
+	line-height: 10vh;
+	color: #383838;
+}
+.personalList > li > i{
+	width: 8vw;
+	height: 8vw;
+	line-height: 8vw;
+	position: absolute;
+	left: 3vw;
+	top: 2vw;
+	font-weight: bold;
+	display: inline-block;
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 16.7rem 8.5rem;
+}
+.personalList > li > i.i1{
+	background-position: -8.5rem -2rem;
+}
+.personalList > li > i.i2{
+	background-position: -7rem -2rem;
+}
+.personalList > li > i.i3{
+	background-position: -9.9rem -2rem;
+}
+.personalList > li > span{
+	margin-left: 4vw;
+	color: #5e5e5e;
+}
+/*textOption CSS*/
+.rechargeOption{
+	width: 100vw;
+	height: 35vh;
+	border-bottom: 2vh solid #F5F5F6;
+}
+.rechargeOption .textOption{
+	padding: 2vh;
+	font-size: .7rem;
+	font-weight: bold;
+	margin-bottom: 5vh;
+}
+.listOption a{
+	display: block;
+	width: 20vw;
+	height: 6vh;
+	margin: 3vw;
+	line-height: 6vh;
+	border:1px solid #383838;;
+	border-radius: 2vw;
+	text-align: center;
+	color: #383838;
+}
+.payList{
+	width: 100vw;
+	height: 26vh;
+	border-bottom: 2vh solid #F5F5F6;
+}
+.payList > a{
+	position: relative;
+	display: block;
+	font-size: .7rem;
+	width: 100vw;
+	padding-left: 15vw;
+	height: 8vh;
+	line-height: 8vh;
+	color: #383838;
+}
+
+.payList > a > i{
+	width: 11vw;
+	height: 11vw;
+	line-height: 11vw;
+	position: absolute;
+	left: 3vw;
+	top: 2vw;
+	font-weight: bold;
+	display: inline-block;
+	background: url("../image/sprite.png") no-repeat;
+	background-size: 17.7rem 9rem;
+}
+.payList > a > i.i1{
+	    background-position: -5.7rem -1.8rem;
+}
+.payList > a > i.i2{
+	    background-position: -3.8rem -1.9rem;
+}
+.payList > a > span{
+	width: 4vw;
+	height: 4vw;
+	position: absolute;
+	right: 4vw;
+	top: 5vw;
+	border: 1px solid #029167;
+	border-radius: 50%;
+}
+.payItem{
+	background: #029167;
+}
+.rechargeBtn{
+	background: #008A63;
+	color: #fff;
+	height: 6vh;
+	margin-bottom: 5vh;
+}
+.listOption a.activeBg{
+	background:#60CDAF;
+	border:0;
+	color:#fff;
 }

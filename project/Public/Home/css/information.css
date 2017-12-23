@@ -38,13 +38,16 @@
 	padding-right: 0.133333rem;
 }
 
-#char-list div p {
+#char-list div p{
 	/*width: 0.933333rem;*/
 	margin-left: 0.166667rem;
+	
 	display: inline-block;
+
 }
 
 #char-list div input {
+
 	border: none;
 	height: 0.666667rem;
 }

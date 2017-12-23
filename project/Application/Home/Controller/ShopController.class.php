@@ -5,15 +5,8 @@ use \Org\Util\WeixinJssdk;
 
 class ShopController extends CommonController 
 {
-    // 商城首页
-    public function index()
-    {
 
-        // 显示模板
-        $this->display();
-    }
-
-    // 商城充值套餐和滤芯产品
+    // 商城充值套餐和滤芯产品filterElement
     public function filterElement()
     {
     	// 获取用户uid
@@ -24,8 +17,10 @@ class ShopController extends CommonController
             // 查询用户绑定设备使用的套餐产品
             // remodel:充值模式 money:套餐金额 flow:套餐流量/时长 describe:套餐描述
             $setmeallist = M('Setmeal')->field('pub_setmeal.id,remodel,money,flow,describe')
+            // 当前设备表
+            ->join('pub_current_devices ON  pub_current_devices.uid='.$uid)
             // 连接设备表
-            ->join('pub_devices ON pub_devices.uid ='.$uid)
+            ->join('pub_devices ON pub_devices.id =pub_current_devices.did')
             // 查询一条
             ->select();
 
