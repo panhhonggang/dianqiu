@@ -29,7 +29,10 @@
                             <volist name="deviceInfo['data']" id="data">
                                 <tr>
                                     <td>{{$i}}</td>
-                                    <td><a class="btn-link detail">{{$data.device_code}}</a></td>
+                                    <td>
+                                        <a class="btn-link detail" href="deviceDetail?code={{$data.device_code}}">{{$data.device_code}}
+                                        </a>
+                                    </td>
                                     <td>{{$data.cname}}</td>
                                     <td>{{$data.name}}</td>
                                     <td>{{$data.typename}}</td>
