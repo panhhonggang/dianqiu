@@ -4,12 +4,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
 	<title>报修</title>
-	<link rel="stylesheet" href="__PUBLIC__/fonts/iconfont.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_nl5nael9r049rudi.css
 ">
-	<link rel="stylesheet" href="__PUBLIC__/css/repair.css">
-	<script src="__PUBLIC__/js/flexible.js"></script>
-	<script src="__PUBLIC__/js/jquery-1.10.1.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/repair.css">
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<script>
 		$(function(){
 			$('#repair-main>i').bind({
@@ -27,42 +27,46 @@
 
 </head>
 <body>
-<div id="repair-all">
-	<div id="repair-container">
-		<div id="repair-timer">
-			<p>设备型号：0120563</p><br>
-			<p>服务时间：<b>
-				<input type="date"><br>
-				<input type="time">~<input type="time">
-			</b>
-			
-			</p>
+		<div id="repair-all">
+			<div id="repair-container">
+				<div id="repair-timer">
+					<p>设备型号：0120563</p><br>
+					<p>服务时间：</p>
+					<div class="timer-set">
+						<input type="datetime" class="in-first"><br>
+						<input type="time">
+						<b>~</b>
+						<input type="time">
+					</div>
+
+				</div>
+				<div id="repair-main">
+					<h3>您所遇到的问题描述<b>*</b></h3>
+					<textarea name="" id="" cols="30" rows="10"></textarea>
+					<p>上传截图</p>
+					<i class="iconfont icon-plus"></i><form action="" enctype="multipart/form-data" method="post">
+						<input class="repair-sendpic" type="file" accept="image/*" />
+					</form>
+				</div>
+				<div id="repair-link">
+					<p>联系方式</p>
+					<p>
+						<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+						<input id="name" type="text" placeholder="嗯嗯">
+					</p>
+					<p>
+						<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+						<input id="name" type="text" placeholder="18218621563">
+					</p>
+					<p>
+						<label for="name">维修地址：</label>
+						<input id="name" type="text" placeholder="广州">
+					</p>
+				</div>
+				<input type="button" value="提交">
+			</div>
+
 		</div>
-		<div id="repair-main">
-			<h3>您所遇到的问题描述<b>*</b></h3>
-			<textarea name="" id="" cols="30" rows="10"></textarea>
-			<p>上传截图</p>
-			<i class="iconfont icon-plus"></i>
-		</div>
-		<div id="repair-link">
-			<p>联系方式</p>
-			<p>	
-				<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-				<input id="name" type="text" placeholder="嗯嗯">
-			</p>
-			<p>	
-				<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
-				<input id="name" type="text" placeholder="18218621563">
-			</p>
-			<p>	
-				<label for="name">维修地址：</label>
-				<input id="name" type="text" placeholder="广州">
-			</p>
-		</div>
-		<input type="button" value="提交">
-	</div>
-	
-</div>
-	
-</body>
+
+	</body>
 </html>
