@@ -39,8 +39,9 @@
     <section class="ring-out" style="display: none;"></section><!--外环-->
     <img class="dripping dripping1" style="display: none;" src="__PUBLIC__/Home/images/dripping.png">
     <img class="dripping dripping2" style="display: none;" src="__PUBLIC__/Home/images/dripping.png">
-
-    <section class="status_text">水满</section>
+    <div class="status_text_father">
+        <section class="status_text">水满</section>
+    </div>
     <section class="date_show">
         <section></section>
         <section></section>
@@ -49,19 +50,19 @@
         <div>
             <span>
                 <img src="__PUBLIC__/Home//images/4_47.png" alt="">
-                &nbsp;纯水&nbsp; <span>***ppm</span>
+                &nbsp;纯水&nbsp; <span>{{$deviceInfo['rawtds']}}ppm</span>
             </span>
             <span>
                 <img src="__PUBLIC__/Home//images/4_43.png" alt="">
-                &nbsp;原水&nbsp;<span>***ppm</span>
+                &nbsp;原水&nbsp;<span>{{$deviceInfo['puretds']}}ppm</span>
             </span>
         </div>
         <div>
             <span>
-                剩余流量：&nbsp;<span>***L</span>
+                剩余流量：&nbsp;<span>{{$deviceInfo['reflow']}}L</span>
             </span>
             <span>
-                已用流量：&nbsp;<span>***L</span>
+                已用流量：&nbsp;<span>{{$deviceInfo['sumflow']}}L</span>
             </span>
         </div>
     </div>

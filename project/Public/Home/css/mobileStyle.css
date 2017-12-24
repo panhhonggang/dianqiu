@@ -14,7 +14,7 @@ body {
     width: 100%;
    	height: 100%;
     overflow-x: hidden;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: PingFangSC-Regular, sans-serif;
     -webkit-text-size-adjust: 100%;
     -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
@@ -37,18 +37,14 @@ h4{
     background-size: 100% auto;
     background-position: 0 100%;
 }
-.canvasBox canvas{
+#canvas{
     z-index: 10;
-    display: block;
 	position: absolute;
 	margin: auto;
-	top: 3vh;
+	top: 1.4rem;
 	right: 0;
     left: 0;
 }
-/*#canvas {
-    top: 3vh;
-}*/
 .canvasBox .wash{
     width: 30vw;
     height: 30vw;
@@ -59,6 +55,8 @@ h4{
     right: 0;
     top: 20%;
     z-index: 0;
+    opacity: 1;
+    -webkit-backface-visibility: hidden;
 }
 .canvasBox .wash img{ 
     width: 100%;
@@ -73,10 +71,21 @@ h4{
         transform: rotate(-360deg);
     }
 }
-.canvasBox .status_text{
-    padding-top: 70vw;
+.status_text_father {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 46vh;
+}
+.status_text_father .status_text{
+    width: 100%;
+    position: relative;
     text-align: center;
     color: #8A57F6;
+    font-size: 18px;
 }
 .btnList{
 	width: 100vw;
@@ -95,10 +104,15 @@ h4{
     width: 25vw;
     text-align: center;
 }
+
 #footer {
+    width: 100vw;
     height: 14vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.btnList ul li a{width: 25vw;height: 10vw; display:block;}
+.btnList ul li a{width: 25vw;height: 10vw; display:block; margin-bottom: 1vh;}
 .btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 35%; }
 .btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 20% 95%;}
 .btnList ul li .i3{background:url("../images/mall_btnBg.png") no-repeat; background-position: 50% 30%;background-size: 35%;}
@@ -107,7 +121,6 @@ h4{
     width: 90%; 
     height: 12vw; 
     line-height: 12vw;
-    margin:0 auto 6vh; 
     background: #2C2B4E; 
     color: #fff;
     border-radius: 2vw;
@@ -122,21 +135,57 @@ h4{
     z-index: 10;
 }
 @keyframes spin {
-    to {
-        transform: rotate(1turn);
+    from {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
     }
 } 
 @keyframes spin-reverse {    
+    to {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
+    }
+}
+@-webkit-keyframes spin {
     from {
-        transform: rotate(1turn);
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
+    }
+} 
+@-webkit-keyframes spin-reverse {    
+    to {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
     }
 }
 .avatar{
-    animation: spin 1s infinite linear;   
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /*animation: spin 1s infinite linear;  
+    -webkit-animation: spin 1s infinite linear;  */ 
+    animation: yuanX 1s infinite ease-in;
 }
 .avatar > img {
     width: 80%;
-    animation:spin-reverse 1s infinite linear;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  /*  animation:spin-reverse 1s infinite linear;
+    -webkit-animation:spin-reverse 1s infinite linear;*/
+    animation: yuanY 1s infinite ease-out;
+}
+
+@keyframes yuanX {
+    50% {
+        transform: translateX(10px);
+    }
+}
+@keyframes yuanY {
+    50% {
+        transform: translateY(-10px);
+    }
 }
 .addwater{ 
     width: 65vw;
@@ -150,7 +199,6 @@ h4{
     right: 0;
     left: 0;
     z-index: 10000;
-
 }
 .ring-out{
     width: 65vw;
@@ -160,7 +208,7 @@ h4{
     background-origin:5px 5px;
     position: absolute;
     margin: auto;
-    top: 8.7vh;
+    top: 8vh;
     right: 0;
     left: 0;
 }
@@ -256,11 +304,10 @@ h4{
 }
 #waterDetial {
     width: 100%;
-    /*display: none;*/
     position: absolute;
-    bottom: 6vh;
-    border-top: 1px solid #bedbf0;
-    border-bottom: 1px solid #bedbf0;
+    bottom: 1vh;
+    border-top: 1px solid rgba(190, 219, 240, 0.72);
+    border-bottom: 1px solid rgba(190, 219, 240, 0.72);
     font-size: 18px;
 }
 #waterDetial>div {
@@ -271,24 +318,24 @@ h4{
     width: 50%;
     display: flex;
     align-items: center;
-    padding-left: 5%;
+    color: #666;
     white-space: nowrap;
 }
 #waterDetial>div>span>img {
     height: 6vw;
+    margin-top: -2%;
 }
 .footerBtn {
     position: relative;
+    box-shadow: 0 0 6px #b7b7b7;
 }
 .footerBtn>div {
-    width: 101%;
-    height: 13vw;
+    width: 100%;
+    height: 12vw;
     position: absolute;
     top: 0;
     left: 0;
-    margin-left: -.3vh;
-    margin-top: -.3vh;
-    border: 3px solid #f0f0f0;
-    border-radius: 2.3vw;
-    box-shadow: 0 0 1px #ececec;
+    border: 2px solid #f0f0f0;
+    border-radius: 2vw;
+    /*box-shadow: 0 0 6px #696969;*/
 }
