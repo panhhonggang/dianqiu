@@ -6,15 +6,18 @@ class UsersController extends CommonController
 	//我的
     public function mine()
     {
-        // // 查询用户IC卡号 xp_card
-        // $id = $_SESSION['homeuser']['id'];
+        $open_id = $_SESSION['homeuser']['open_id'];
+        // 查询用户微信头像
+        $userInfo = M('Wechat')
+        ->where('pub_wechat.open_id="'.$open_id.'"')
+        ->join('pub_users ON pub_users.open_id=pub_wechat.open_id')
+        ->join('pub_current_devices ON pub_current_devices.uid=pub_users.id')
+        ->join('pub_devices ON pub_devices.id=pub_current_devices.did')
+        ->find();
 
-        // // 查询用户名下已绑定的卡号
-        // $name = M('Users')->field('name')->where('`id`='.$id)->find()['name'];
-        // // print_r($name);die;
-        // // 分配数据
-        // $this->assign('name',$name);
-
+        // 分配数据到模板
+        $this->assign('userInfo',$userInfo);
+       
         // 显示模板
         $this->display();        
     }
