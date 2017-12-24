@@ -39,6 +39,7 @@ h4{
 }
 .canvasBox canvas{
     z-index: 10;
+    display: block;
 	position: absolute;
 	margin: auto;
 	top: 3vh;
@@ -280,13 +281,14 @@ h4{
     position: relative;
 }
 .footerBtn>div {
-    width: 102%;
-    height: 114%;
+    width: 101%;
+    height: 13vw;
     position: absolute;
     top: 0;
     left: 0;
-    margin-left: -1%;
-    margin-top: -1%;
-    border: 1px solid #d4d4d4;
-    border-radius: 2vw;
+    margin-left: -.3vh;
+    margin-top: -.3vh;
+    border: 3px solid #f0f0f0;
+    border-radius: 2.3vw;
+    box-shadow: 0 0 1px #ececec;
 }

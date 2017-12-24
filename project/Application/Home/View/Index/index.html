@@ -67,7 +67,10 @@
     </div>
 </section> 
 <footer id="footer">
-    <div class="footerBtn">开机</div>
+    <div class="footerBtn">
+        开关
+        <div></div>
+    </div>
 </footer>
 <script>
 const c = document.getElementById('canvas');
@@ -141,39 +144,70 @@ function addCanvas(color1,color2,waterYield){
     }
     requestAnimationFrame(update);
 }
-//判断水机状态
-if($(".hiddenValue").val()==1){//制水
-    addCanvas("#37BBD4","#87E8FD",-0.83);
-    $(".status_text").html("制水");
-    $(".addwater").show();
-    $(".dripping").show();
 
-}else if($(".hiddenValue").val()==2){//冲洗
-    addCanvas("#37BBD4","#87E8FD",-0.83);
-    $(".status_text").html("冲洗");
-    $(".wash").show();
-    $(".ring-out").show();
-}else if($(".hiddenValue").val()==3){//缺水
-    addCanvas("#D34656","#FD8795",-0.83);
-    $(".status_text").html("缺水");
-    $(".ring-out").show();
-}else if($(".hiddenValue").val()==4){//水满
-    addCanvas("#37BBD4","#87E8FD",0.65);
-    $(".status_text").html("水满");
-    $(".ring-out").show();
-}else if($(".hiddenValue").val()==5){//检修
-    addCanvas("#37BBD4","#87E8FD",0.65);
-    $(".status_text").html("检修");
-    $(".service").show();
-    $(".ring-out").show();
-}else if($(".hiddenValue").val()==7){ //关机
-    $("#canvas").hide();
-    $(".status_text").html("");
-    $(".ring-inside").hide();
-    $("#waterDetial").css({display:'block'});
-    $(".canvasBox").css({filter:'grayscale(100%)'});
-    $(".btnList").css({filter:'grayscale(100%)'});
+machineStatus();
+function machineStatus(){
+    //判断水机状态
+    if($(".hiddenValue").val()==1){//制水
+        addCanvas("#37BBD4","#87E8FD",-0.83);
+        $(".status_text").html("制水");
+        $(".addwater").show();
+        $(".dripping").show();
+
+    }else if($(".hiddenValue").val()==2){//冲洗
+        addCanvas("#37BBD4","#87E8FD",-0.83);
+        $(".status_text").html("冲洗");
+        $(".wash").show();
+        $(".ring-out").show();
+    }else if($(".hiddenValue").val()==3){//缺水
+        addCanvas("#D34656","#FD8795",-0.83);
+        $(".status_text").html("缺水");
+        $(".ring-out").show();
+    }else if($(".hiddenValue").val()==4){//水满
+        addCanvas("#37BBD4","#87E8FD",0.65);
+        $(".status_text").html("水满");
+        $(".ring-out").show();
+    }else if($(".hiddenValue").val()==5){//检修
+        addCanvas("#37BBD4","#87E8FD",0.65);
+        $(".status_text").html("检修");
+        $(".service").show();
+        $(".ring-out").show();
+    }else if($(".hiddenValue").val()==7){ //关机
+        $(".status_text").html("");
+        $(".ring-inside").hide();
+        $(".canvasBox").css({filter:'grayscale(100%)'});
+        $(".btnList").css({filter:'grayscale(100%)'});
+    }
 }
+
+// 点击‘开关’按钮，状态切换
+let isON = 'yes';
+
+$(".footerBtn").on('click',function(){
+
+    isON = isON == 'yes' ? 'no' : 'yes';
+
+    isON == 'yes' 
+            ? (
+                $(".hiddenValue").val(2),
+                $("#canvas").css({display: 'block'}),
+                $(".canvasBox").css({filter:'grayscale(0%)'}),
+                $(".btnList").css({filter:'grayscale(0%)'})
+            )
+            : (
+                $(".hiddenValue").val(7), 
+                $("#canvas").css({display: 'none'}),
+                $(".wash").css({display: 'none'}),
+                $(".ring-out").css({display: 'none'}),
+                $(".addwater").css({display: 'none'}),
+                $(".dripping").css({display: 'none'}),
+                $(".avatar").css({display: 'none'})
+            );
+
+    machineStatus();
+    // console.log(isON, $(".hiddenValue").val());
+});
+
 </script>
 
 </body>
