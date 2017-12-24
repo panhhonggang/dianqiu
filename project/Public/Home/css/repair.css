@@ -73,19 +73,25 @@
 	overflow: hidden;
 	border: 1px dashed #CCC;
 }
+#repair-main form{
+	position: relative;
+	top:-2.866667rem;
+	left: 0rem;
+	opacity: 0;
+}
 
-#repair-main>input {
+#repair-main form input {
 	margin-top: 0.163333rem;
 	height: 2.466667rem;
 	width: 2.42822rem;
 	background: #ccc;
 	color: #fff;
 	position: absolute;
-	border-radius: top:0rem;
+	top:0rem;
 	left: 0rem;
 	border-radius: 0.4rem;
 	z-index: 6;
-	opacity: 0;
+	
 }
 
 #repair-main>p {
@@ -117,7 +123,7 @@
 
 #repair-link>p>input {
 	float: right;
-	width: 6.693333rem;
+	width: 6.90rem;
 	height: 0.72rem;
 	border: 1px dashed #CCC;
 	border-radius: 0.106667rem;

@@ -52,7 +52,7 @@ class DevicesController extends CommonController
         $deviceInfo = M('Devices')->field('id,uid')->where("`device_code`={$device_code}")->find();
 
         // 判断设备是否已被绑定
-        if(!empty($deviceInfo['uid'] || $deviceInfo['uid']==0)){
+        if(!empty($deviceInfo['uid'])){
             echo -2;
             exit;
         }

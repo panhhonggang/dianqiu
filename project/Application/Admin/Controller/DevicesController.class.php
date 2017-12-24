@@ -56,6 +56,45 @@ class DevicesController extends CommonController
         }
     }
 
+    // 设备详情
+    public function deviceDetail()
+    {
+        $map['device_code'] = I('get.code');
+        // 状态信息
+        $data['statu'] = D('devices')
+            ->where($map)
+            ->alias('d')
+            ->join("__DEVICES_STATU__ statu ON d.device_code=statu.DeviceID", 'LEFT')
+            ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
+            ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
+            ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+            ->find();
+
+        // 滤芯信息
+        $filter = D('devices')
+            ->where($map)
+            ->alias('d')
+            ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+            ->field('type.*') 
+            ->find();
+        $data['filterInfo'] = $this->getFilterDetail($filter);
+        $this->ajaxReturn($data);
+    }
+
+    // 查询滤芯详情
+    public function getFilterDetail($sum)
+    {
+        unset($sum['id'],$sum['typename'],$sum['addtime']);
+        $sum = array_filter($sum);
+        foreach ($sum as $key => $value) {
+            $str = stripos($value,'-');
+            $map['filtername'] = substr($value, 0,$str);
+            $map['alias'] = substr($value, $str+1);
+            $res[] = M('filters')->where($map)->find();
+        }
+        return $res;
+    }
+
     /**
      * 批量上传
      * @return [type] [description]
