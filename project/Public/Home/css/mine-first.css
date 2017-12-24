@@ -1,3 +1,13 @@
+a{
+	color:#000;
+	font-family: '微软雅黑';
+	text-decoration: none;
+}
+a:link{text-decoration:none;}   /* 指正常的未被访问过的链接*/
+a:visited{text-decoration:none;} /*指已经访问过的链接*/
+a:hover{text-decoration:none;}/*指鼠标在链接*/
+a:active{text-decoration:none;}/* 指正在点的链接*/ 
+
 #mine-first-all {
 	width: 10.0rem;
 	background: url(../images/mine-first-01.png) no-repeat;
@@ -25,12 +35,12 @@
 	height: 2.0rem;
 	border-radius: 2.0rem;
 	background: #353659;
-	margin-left: 3.066667rem;
 	overflow: hidden;
+	text-align: center;
+	margin-left: 3.066667rem;
 }
-#mine-first-top>.mine-pic>b>img {
-	width: 100%;
-}
+
+
 #mine-first-top>.mine-pic>p {
 	display: block;
 	width: 8.133333rem;
@@ -67,9 +77,6 @@
 #mine-first-top>p>i {
 	font-size: 0.8rem;
 	line-height: 2.066667rem;
-	/*background: red;*/
-
-	color:#f00;
 }
 /*==================显示==================*/
 #mine-first-top>p:last-child{
@@ -96,7 +103,7 @@
 	
 }
 #m-f-list>ul>li a{
-	width: 2.266667rem;
+	width: 2.15908667rem;
 	display: inline-block;
 	padding-bottom: 0.266667rem;
 }
@@ -115,11 +122,11 @@
 	font-size: 0.373333rem;
 }
 
-#m-f-b-list>ul>li>b {
+#m-f-b-list>ul>li>a>b {
 	margin-left: 0.133333rem;
 }
 
-#m-f-b-list>ul>li>span {
+#m-f-b-list>ul>li>a>span {
 	margin-right: 0.4rem;
 	font-size: 0.16rem;
 	float: right;
@@ -129,7 +136,7 @@
 	float: right;
 }
 
-#m-f-b-list>ul>li>.num-one {
+#m-f-b-list>ul>li>a>.num-one {
 	color: #308BE8;
 	font-size: 0.8rem;
 	float: left;

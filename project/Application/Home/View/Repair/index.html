@@ -10,22 +10,7 @@
 	<link rel="stylesheet" href="__PUBLIC__/Home/css/repair.css">
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
-	<script>
-		$(function(){
-			$('#repair-main>i').bind({
-				'mouseover':function(){
-					$(this).css('color','#6848F9');
-				},
-				'mouseout':function(){
-					$(this).css('color','#D0D1FC');
-				}
-			});
-		});
-		
-	</script>
-
-
-</head>
+</head>  font-family: '微软雅黑';
 <body>
 		<div id="repair-all">
 			<div id="repair-container">
@@ -33,10 +18,11 @@
 					<p>设备型号：0120563</p><br>
 					<p>服务时间：</p>
 					<div class="timer-set">
-						<input type="datetime" class="in-first"><br>
-						<input type="time">
+						<input type="hidden" value="" name="datetime">
+						<input type="date" class="in-first"><br>
+						<input type="time" id="star">
 						<b>~</b>
-						<input type="time">
+						<input type="time" id="end">
 					</div>
 
 				</div>
@@ -63,10 +49,34 @@
 						<input id="name" type="text" placeholder="广州">
 					</p>
 				</div>
-				<input type="button" value="提交">
+				<input type="button" value="提交" id="re-commit">
 			</div>
 
 		</div>
+	<script>
+		
+		$('form>input').click(function(){
+			$('#repair-main>i').css('color','#6848F9');
+			$('form>input').mouseout(function(){
+				$('#repair-main>i').css('color','#D0D1FC');
+			})
+		});
+		
+		
 
+		var dateTime = '';
+		$('#re-commit').click(function(){
+			var date = $('.timer-set>input[type="date"]').val();
+			var starTime = $('#star').val();
+			var endTime = $('#end').val();
+			if(!date || !starTime || !endTime){
+				alert('请输入完整的时间段')
+			};
+			if(date && starTime && endTime){
+			$('.timer-set>input[type="hidden"]').val(date+','+starTime+','+endTime);
+			};
+
+		});
+	</script>
 	</body>
 </html>
