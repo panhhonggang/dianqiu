@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use \Org\Util\WeixinJssdk;
 
 class DevicesController extends CommonController 
 {
@@ -24,6 +25,17 @@ class DevicesController extends CommonController
         // 分配数据
         $this->assign('devices',$devices);
         $this->assign('currentDevices',$currentDevices);
+
+        //调用微信JS-SDK类获取签名需要用到的数据
+        $weixin = new WeixinJssdk;
+        $signPackage = $weixin->getSignPackage();
+        // 查询用户微信中的openid
+        //$openId = $weixin->GetOpenid();
+        // 调试用默认用户
+        $openId = $_SESSION['homeuser']['open_id'];
+        //分配数据        
+        $this->assign('info',$signPackage);
+        $this->assign('openId',$openId);
 
         // 显示模板
         $this->display();
