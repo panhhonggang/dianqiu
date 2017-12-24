@@ -71,10 +71,7 @@ class ExpressInformationController extends CommonController
             }
             
             // 返回数组
-            $this->ajaxReturn($pregRes);
-
-            
-
+            $this->ajaxReturn($pregRes);       
         }
     }
 
