@@ -27,9 +27,10 @@ class CommonController extends Controller
 
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
+            
             // 用户当前设备
-            $info['did'] = M('currentDevices')->where("`uid`={$uid}")->field('did')->find();
-
+            $info['did'] = M('currentDevices')->where("`uid`={$info['id']}")->field('did')->find()['did'];
+            
             // 判断用户是否存在
             if($info){
                // 将用户信息缓存
