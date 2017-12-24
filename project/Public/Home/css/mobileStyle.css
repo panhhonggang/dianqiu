@@ -181,8 +181,8 @@ h4{
     left: 0;
     right: 0;
     top: 3vh;
-    animation:dripping1 2s linear infinite;
-    -webkit-animation:dripping1 2s linear infinite;;
+    animation:dripping1 2.2s linear infinite;
+    -webkit-animation:dripping1 2.2s linear infinite;;
 }
 .dripping2{
     position: absolute;
@@ -190,7 +190,7 @@ h4{
     margin: auto;
     left: 0;
     right: 0;
-    top: 25vh;
+    top: 23vh;
     animation:dripping2 2s 1s linear infinite;
     -webkit-animation:dripping2 2s 1s linear infinite;;
 }
@@ -202,7 +202,7 @@ h4{
     }
     100%{
         opacity:1;
-        top: 20vh;
+        top: 19vh;
         width: 10%;
     }
     
@@ -211,31 +211,37 @@ h4{
     0%{
         top: 3vh;
         width: 10%;
+        opacity:0;
     }
     100%{
-        top: 20vh;
+        top: 19vh;
         width: 10%;
+        opacity:1;
     }
     
 }
 @keyframes dripping2{
     0%{
-        top: 25vh;
+        top: 23vh;
         width: 4%;
+        opacity:1;
     }
     100%{
-        top: 37vh;
+        top: 34vh;
         width: 4%;
+        opacity:0.5;
     }
 }
 @-webkit-keyframes dripping2{
     0%{
-        top: 25vh;
+        top: 23vh;
         width: 4%;
+        opacity:1;
     }
     100%{
-        top: 37vh;
+        top: 34vh;
         width: 4%;
+        opacity:0.5;
     }   
 }
 
