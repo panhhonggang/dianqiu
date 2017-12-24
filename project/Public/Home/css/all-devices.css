@@ -24,8 +24,6 @@
 	width: 1.28rem;
 	background: #353659;
 	border-radius: 0.933333rem;
-	margin-left: 0.266667rem;
-	margin-right: 0.133333rem;
 }
 
 #devices-list>ul>li {
@@ -33,7 +31,7 @@
 	margin: 0.133333rem;
 	width: 6.933333rem;
 	font-size: 0.373333rem;
-	border-bottom: 1px dashed #CCC;
+	border-bottom: 1px solid #CCC;
 }
 
 #devices-list>ul>li>i {

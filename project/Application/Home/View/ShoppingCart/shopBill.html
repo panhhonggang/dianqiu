@@ -37,7 +37,6 @@
 						</div>
 					</div>
 				</div>
-				<hr>
 			</div>
 			</foreach>
 
@@ -52,7 +51,6 @@
 					<!-- <p class="bill">X{{$vo['num']}}</p> -->
 					<p class="bill" style="position: relative;"><i class="num"><input type="button" value="-" class="minus"><input sid="{{$vo['id']}}" class="num" type="text" value="{{$vo['num']}}"><input type="button" value="+" class="plus"></i></p>
 				</div>
-				<hr>
 			</div>			
 			</foreach>
 			<p class="franking">（含邮费¥0.00) </p>
@@ -85,9 +83,9 @@
 			// 初始化样式
 			if(n>0){	
 				// 找祖先元素.item设置样式
-				obj.parents('.item').css({'background':'#F0F0F0'});
+				// obj.parents('.item').css({'background':'#F0F0F0'});
 				// 找祖先元素.item下面的子元素hr设置样式
-				obj.parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+				obj.parents('.item').css({'border-bottom':'1px solid #D8D8D8'});
 				// 根据sid或fid判断是充值套餐还是滤芯产品，给被选中的产品添加class属性sid值或fid值
 				obj.addClass(type);
 			}

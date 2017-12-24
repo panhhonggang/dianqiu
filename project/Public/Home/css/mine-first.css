@@ -26,8 +26,11 @@
 	border-radius: 2.0rem;
 	background: #353659;
 	margin-left: 3.066667rem;
+	overflow: hidden;
 }
-
+#mine-first-top>.mine-pic>b>img {
+	width: 100%;
+}
 #mine-first-top>.mine-pic>p {
 	display: block;
 	width: 8.133333rem;
