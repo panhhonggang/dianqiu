@@ -4,9 +4,7 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">用户组/<span>用户组详情</span></div>
-            <a href="{{:U('Admin/Rule/check_user', array('group_id'=>$group_data['group_id']))}}" >
-                            添加成员
-                        </a>
+            
             <table class="table table-bordered table-hover">
                 <caption><h3 class="ruleTitle"><span style="color:red">{{$name['title']}}</span>的成员分配情况</h3></caption>
                 <thead>
@@ -40,6 +38,11 @@
                     </volist >
                 </tbody>
             </table>
+            <div>
+                <a href="{{:U('Admin/Rule/check_user', array('group_id'=>$group_data['group_id']))}}" class="btn btn-primary">
+                            添加成员
+                </a>
+            </div>
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')

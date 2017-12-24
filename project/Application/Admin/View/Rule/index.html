@@ -4,7 +4,7 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">权限管理/<span>权限列表</span></div>
-            <a href="javascript:;" onclick="add()">添加权限</a>
+            
             <form class="form-search fr" action="__URL__/filterlist" method="get">
                 <input type="text" name="typename" class="input-medium" placeholder="请输入类型名称...">
                 <button type="submit" class="btn">搜索</button>
@@ -52,6 +52,9 @@
                     </foreach>
                 </tbody>
             </table>
+            <div>
+                <a href="javascript:;" onclick="add()" class="btn btn-primary">添加权限</a>
+            </div>
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
@@ -78,12 +81,13 @@
                     <input type="hidden" name="pid" value="">
                     <table class="table table-bordered table-hover">
                         <tr>
-                            <th width="12%">
+                            <th width="15%">
                                 权限名：
                             </th>
                             <td>
                                 <input class="input-medium" type="text" name="title">
                             </td>
+                            <td style="border-left: none"></td>
                         </tr>
                         <tr>
                             <th>
@@ -91,17 +95,18 @@
                             </th>
                             <td>
                                 <input class="input-medium" type="text" name="name">
-                                输入模块/控制器/方法即可 例如 Admin/Rule/index
+                                
                             </td>
-                        </tr>
-                        <tr>
-                            <th>
-                            </th>
-                            <td>
-                                <input class="btn btn-success" type="submit" value="添加">
+                            <td  style="border-left: none">
+                                <span>
+                                    输入模块/控制器/方法即可 例如 Admin/Rule/index
+                                </span>
                             </td>
                         </tr>
                     </table>
+                    <div class="text-right">
+                        <input class="btn btn-success" type="submit" value="添加">
+                    </div>
                 </form>
             </div>
         </div>
@@ -131,6 +136,7 @@ aria-hidden="true">
                             <td>
                                 <input class="input-medium" type="text" name="title">
                             </td>
+                            <td style="border-left: none"></td>
                         </tr>
                         <tr>
                             <th>
@@ -138,17 +144,17 @@ aria-hidden="true">
                             </th>
                             <td>
                                 <input class="input-medium" type="text" name="name">
-                                输入模块/控制器/方法即可 例如 Admin/Rule/index
                             </td>
-                        </tr>
-                        <tr>
-                            <th>
-                            </th>
-                            <td>
-                                <input class="btn btn-success" type="submit" value="修改">
+                            <td style="border-left: none">
+                                <span>
+                                    输入模块/控制器/方法即可 例如 Admin/Rule/index
+                                </span>
                             </td>
                         </tr>
                     </table>
+                    <div class="text-right">
+                        <input class="btn btn-success" type="submit" value="修改">
+                    </div>
                 </form>
             </div>
         </div>
