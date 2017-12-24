@@ -90,7 +90,8 @@ function gerOrderId()
 }
 
 function onlyOrderId(){                     
-  $str = date('Ymd').time().mt_rand(1111111111, 9999999999).mt_rand(1111111111, 9999999999);
-  $yCode = mb_substr($str, 0, 32);
+  // $str = date('Ymd').time().mt_rand(1111111111, 9999999999).mt_rand(1111111111, 9999999999);
+  $str = mt_rand(1111111111, 9999999999).mt_rand(1111111111, 9999999999).time();
+  $yCode = mb_substr($str, 0, 18);
   return $yCode;
 }

@@ -108,7 +108,7 @@
                                             快递名称：
                                         </th>
                                         <td>
-                                            <input class="input-medium" type="text" name="name" id="input_name" style="vertical-align:top;">
+                                            <input class="input-medium" type="text" name="express" id="input_name" style="vertical-align:top;">
                                             <span style="color: red; display: inline-block;width: 230px;"></span>
                                         </td>
                                     </tr>
@@ -123,8 +123,7 @@
                                     </tr>
                                 </table>
 
-                                <!-- <input type="hidden" name="order_id" value="{{$vo.order_id}}">
-                                <input type="hidden" name="is_receipt" value="1"> -->
+                               
 
                                 <div class="text-center">
                                     <input class="btn btn-info" type="button" value="取消">&nbsp;&nbsp;&nbsp;
@@ -140,7 +139,7 @@
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>');
-
+                
                 // 弹框信息
                 var name_bool = false;
                 var num_bool = false;

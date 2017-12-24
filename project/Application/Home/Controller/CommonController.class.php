@@ -23,13 +23,18 @@ class CommonController extends Controller
             $weixin = new WeixinJssdk;
             // 获取用户open_id
             //$openId = $weixin->GetOpenid();
-            $openId = 'oXwY4t-9clttAFWXjCcNRJrvch3w';      
+            $openId = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
+
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
+            
+            // 用户当前设备
+            $info['did'] = M('currentDevices')->where("`uid`={$info['id']}")->field('did')->find()['did'];
+            
             // 判断用户是否存在
             if($info){
                // 将用户信息缓存
-                $_SESSION['homeuser'] = $info; 
+                $_SESSION['homeuser'] = $info;
             }else{
                 // 用户不存在
                 // 实例化微信信息类型

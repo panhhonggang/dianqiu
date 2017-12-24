@@ -11,7 +11,6 @@ class DevicesController extends CommonController
         // 显示模板
         $this->display();
     }
-
     // 设备管理页面
     public function manage()
     {
@@ -21,7 +20,7 @@ class DevicesController extends CommonController
         // 查询用户设备
         $devices = M('Devices')->where("`uid`={$uid}")->field('id,device_code')->select();
         // 查找用户当前设备
-        $currentDevices = M('currentDevices')->where("`uid`={$uid}")->field('did')->find();
+        $currentDevices = M('currentDevices')->where("`uid`={$uid}")->field('did')->find()['did'];
         // 分配数据
         $this->assign('devices',$devices);
         $this->assign('currentDevices',$currentDevices);
