@@ -7,9 +7,9 @@ class WeixinEventController
     public function getEventData()
     {
     	// 实例化微信验证对象服务器第一次接入使用
-    	//$wechatObj = new \Org\Util\WechatCallbackapiTest;
+    	$wechatObj = new \Org\Util\WechatCallbackapiTest;
     	// 执行验证方法
-    	//$wechatObj->valid();
+    	$wechatObj->valid();
 
     	// 接受微信推送的事件
     	$xml=file_get_contents('php://input', 'r');

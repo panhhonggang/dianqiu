@@ -41,13 +41,13 @@ h4{
     z-index: 10;
 	position: absolute;
 	margin: auto;
-	top: 5%;
+	top: 3vh;
 	right: 0;
     left: 0;
 }
-#canvas {
-    top: 5vh;
-}
+/*#canvas {
+    top: 3vh;
+}*/
 .canvasBox .wash{
     width: 30vw;
     height: 30vw;

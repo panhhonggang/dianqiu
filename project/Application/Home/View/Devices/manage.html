@@ -11,22 +11,7 @@
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Home/css/iconfont.css">
 <link rel="stylesheet" href="__PUBLIC__/Home/css/all-devices.css">
-<!-- 微信支付支持JS部分代码 -->
-<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
-<script>
-		//微信接口
-		wx.config({
-		    debug: false,
-		    appId: '{{$info["appId"]}}',
-		    timestamp: '{{$info["timestamp"]}}',
-		    nonceStr: '{{$info["nonceStr"]}}',
-		    signature: '{{$info["signature"]}}',
-		    jsApiList: [
-		      // 所有要调用的 API 都要加到这个列表中
-		      'chooseWXPay'
-		    ]
-		});
-		
+<script>	
 		$(function(){
 			$('#devices-list li').bind('click',function(){
 				$('#devices-list ul li i').removeClass('iconfont icon-chenggong');
@@ -54,17 +39,19 @@
 		<div id="devices-list">
 			<h3>所有设备</h3>
 			<ul>
-				<b></b><li>设备型号:KD12345<i></i></li><br>
-				<b></b><li>设备型号:KD12345<i></i></li><br>
-				<b></b><li>设备型号:KD12345<i></i></li><br>
-				<b></b><li>设备型号:KD12345<i></i></li><br>
-				<b></b><li>设备型号:KD12345<i></i></li><br>
-				<b></b><li>设备型号:KD12345<i class="iconfont icon-chenggong"></i></li><br>
+				<foreach name="devices"	item="value">				
+					<if condition="$currentDevices['did'] == $value['id'] ">
+							<!-- 用户当前设备 -->
+							<b></b><li>设备型号:{{$value['device_code']}}<i class="iconfont icon-chenggong"></i></li><br>
+					    <else />
+					    	<b></b><li>设备型号:{{$value['device_code']}}<i></i></li><br>
+					</if>
+				</foreach>
 			</ul>
 		</div>	
 	</div>
 	<div id="devices-add">
-		<i class="iconfont icon-jiahao"></i><p>添加设备</p>
+		<i class="iconfont icon-jiahao"></i><p><a href="{{:U('Home/WaterPurifier/binding')}}">添加设备</a></p>
 	</div>
 </div>
 	

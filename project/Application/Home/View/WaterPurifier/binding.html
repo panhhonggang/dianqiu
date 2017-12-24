@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="__PUBLIC__/Home/css/water-purifier.css">
 	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<!-- 微信支付支持JS部分代码 -->
+	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<title>绑定指引</title>
 </head>
 <body>
@@ -21,8 +23,8 @@
 			<p>3.显示屏幕上信号<i class="iconfont icon-wifi"></i>指示灯亮起</p>
 			<p>4.手机成功连接网络</p>
 		</section>
+		
 		<footer id="foot">
-
 			<div id="wifi"><i class="iconfont icon-wifi1"></i><br>
 				<p>设置网络</p>
 			</div>
@@ -31,7 +33,76 @@
 			</div>
 		</footer>
 	</div>
+	<script>
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'configWXDeviceWiFi', 
+		      'scanQRCode'
+		    ]
+		});
 
+		$("#wifi").click(function(){			
+			WeixinJSBridge.invoke('configWXDeviceWiFi',{}, function(res){		
+				switch (res.err_msg){
+					case 'configWXDeviceWiFi:ok':
+						alert('配置成功');
+						break;
+					case 'configWXDeviceWiFi:fail':
+						alert('配网超时');
+						break;
+					case 'configWXDeviceWiFi:cancel':
+						alert('用户取消配网');
+						break;
+					default:
+						alert("res.err_msg:" + res.err_msg + "\nres.desc:" + res.desc);
+				}
+			});	
+		});
+
+		//sao yi sao 
+		$("#band").click(function(){
+			wx.scanQRCode({
+			    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+			    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+			    success: function (res) {
+			    	if (res.errMsg === "scanQRCode:ok"){
+				    	// 当needResult 为 1 时，扫码返回的结果
+					    $.ajax({
+					    	url:"{{:U('Home/Devices/bind')}}",
+					    	type:"post",
+					    	data:{device_code:res.resultStr},
+					    	dataType:'json',
+					    	success:function(data){
+					    		if(data==1){
+					    			window.location.href = "{{:U('Home/Devices/manage')}}?"+new Date().getTime();
+					    		}else if(data==-1){
+					    			alert('设备不存在！');
+					    		}else if(data==-2){
+					    			alert('设备已被绑定！');
+					    		}else{
+					    			alert('设备绑定失败！');
+					    		}
+		
+					    	},
+					    	error:function(jqXHR, textStatus, errorThrown){
+			    				hint("绑定失败" + jqXHR.status + textStatus + errorThrown);
+					    		//console.log(jqXHR.status);
+					    	}
+					    });
+					    alert(res.resultStr);
+				    }
+				}
+			});
+		});
+
+	</script>
 </body>
 
 </html>
