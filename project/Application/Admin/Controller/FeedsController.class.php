@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 
 /**
- * 客户反馈及报修控制器
+ * 客户建议及报修控制器
  * 
  * @author 潘宏钢 <619328391@qq.com>
  */
@@ -11,7 +11,7 @@ use Think\Controller;
 class FeedsController extends CommonController 
 {
 	/**
-     * 反馈列表
+     * 建议列表
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function feedslist()
@@ -40,7 +40,7 @@ class FeedsController extends CommonController
     }
 
     /**
-     * 反馈删除
+     * 客户建议的删除功能
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function feedsdel($id)
