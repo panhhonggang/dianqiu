@@ -13,6 +13,9 @@
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<!-- <script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<!-- 微信支付支持JS部分代码 -->
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 	</head>
 	<body>
 
@@ -31,117 +34,101 @@
 	 <!-- order-all的头部开始 -->
 	 <!-- <div class="all-kuai"> -->
 	 <input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+	 	<foreach name="orderTake" item="value">
 		<div id="all-sure-head">
-			<!-- <input type="buttom" value="交易完成" readonly="readonly"> -->
 			<div id="all-information">
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
+				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><br>
 				<b class="order-number"> 顺丰快递单号：89563230</b><br>
 			</div>
 		</div>
 		
 		<!-- 滤芯开始 -->
 		<div id="mo">
+			<foreach name="value['orderFilter']" item="orderFilter">
 			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
+				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
 				<div id="ro-right">
 					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
+						<h3>{{$orderFilter['filtername']}}</h3>
+						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
 					</div>
 					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
+					 <b>￥{{$orderFilter['price']/100}}</b>
+					 <p>X{{$orderFilter['goods_num']}}</p>
 					</div>
 				</div>
 			</div>
 			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
+			</foreach>
+			<foreach name="value['orderSetmeal']" item="orderSetmeal">
+			<div id="mo2">
+				<div id="mo-right">
+					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+				</div>
+				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+			</div>
+			<hr>
+			</foreach>
+			<div id="mo2">
+				<div id="mo-right2">
+					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
 
-			<div id="mo2">
-				<div id="mo-right">
-					<b>200元套餐含2000L流量</b><p>￥200.00</p>
-				</div>
-				<p class="bill">X1</p>
-			</div>
-			<hr>
-			<div id="mo2">
-				<div id="mo-right2">
-					<b>共3件商品：小计：</b><p>￥400.00</p>
-				</div>
-			</div>
-			<hr>
 			<p class="franking">（含邮费¥0.00) </p>
 		</div>
+		</foreach>
 	</div>
 <!-- =========未支付开始啦========= -->
 	<div class="nopay-kuai .clearfix">
 		<div class="nopay-top .clearfix">
-			 <input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+			 <input class="fini-change" type="buttom" value="未支付" readonly="readonly">
 		</div>
+		<foreach name="orderPay" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="未支付" readonly="readonly"> -->
 			<div id="all-information">
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
+				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><br>
 				
 			</div>
 		</div>
 		
 		<!-- 滤芯开始 -->
 		<div id="mo">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
 
+			<foreach name="value['orderFilter']" item="orderFilter">
+			<div id="ro1" class="ro1">
+				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
+				<div id="ro-right">
+					<div class="top">
+						<h3>{{$orderFilter['filtername']}}</h3>
+						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+					</div>
+					<div class="bott">
+					 <b>￥{{$orderFilter['price']/100}}</b>
+					 <p>X{{$orderFilter['goods_num']}}</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			</foreach>
+
+			<foreach name="value['orderSetmeal']" item="orderSetmeal">
 			<div id="mo2">
 				<div id="mo-right">
-					<b>200元套餐含2000L流量</b><p>￥200.00</p>
+					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
 				</div>
-				<p class="bill">X1</p>
+				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
 			</div>
 			<hr>
+			</foreach>
+
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共3件商品：小计：</b><p>￥200.00</p>
+					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -150,21 +137,24 @@
 
 		<!-- 滤芯结束 -->
         <div id="order-all-foot">
-			<input type="submit" id="ord-btn1" value="取消订单">
-			<input type="submit" id="ord-btn2"  value="支付订单">
-		</div>	
+			<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')">
+			<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')">
+		</div>
+		</foreach>	
 	</div>
 
 
 <!-- ==============================代发货 -->
 	<div class="nopay-kuai">
 		<div class="nopay-top .clearfix">
-			 <input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+			 <input class="fini-change" type="buttom" value="待发货" readonly="readonly">
 		</div>
+
+		<foreach name="orderSend" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="代发货" readonly="readonly"> -->
 			<div id="all-information">
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
+				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
 				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">买家已付款</span>
 				</b>
 				
@@ -173,39 +163,37 @@
 		<!-- 代发货 -->
 		<!-- 滤芯开始 -->
 		<div id="mo">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
 
+			<foreach name="value['orderFilter']" item="orderFilter">
+			<div id="ro1" class="ro1">
+				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
+				<div id="ro-right">
+					<div class="top">
+						<h3>{{$orderFilter['filtername']}}</h3>
+						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+					</div>
+					<div class="bott">
+					 <b>￥{{$orderFilter['price']/100}}</b>
+					 <p>X{{$orderFilter['goods_num']}}</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			</foreach>
 			
+			<foreach name="value['orderSetmeal']" item="orderSetmeal">
+			<div id="mo2">
+				<div id="mo-right">
+					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+				</div>
+				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+			</div>
+			<hr>
+			</foreach>
+
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共3件商品：小计：</b><p>￥200.00</p>
+					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -215,7 +203,8 @@
         <div id="order-all-foot">
 			
 			<input type="submit" id="ord-btn2"  value="提醒发货">
-		</div>	
+		</div>
+		</foreach>	
 	</div>
 
 <!-- =========================代付款开始 -->
@@ -223,10 +212,11 @@
 		<div class="nopay-top .clearfix">
 			 <input class="fini-change" type="buttom" value="待收货" readonly="readonly">
 		</div>
+		<foreach name="orderTake" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="待收货" readonly="readonly"> -->
 			<div id="all-information">
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
+				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
 				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">卖家已发货</span>
 				</b>
 				
@@ -235,39 +225,36 @@
 		<!-- 代发货 -->
 		<!-- 滤芯开始 -->
 		<div id="mo">
+			<foreach name="value['orderFilter']" item="orderFilter">
 			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
+				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
 				<div id="ro-right">
 					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
+						<h3>{{$orderFilter['filtername']}}</h3>
+						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
 					</div>
 					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
+					 <b>￥{{$orderFilter['price']/100}}</b>
+					 <p>X{{$orderFilter['goods_num']}}</p>
 					</div>
 				</div>
 			</div>
 			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
+			</foreach>
+			
+			<foreach name="value['orderSetmeal']" item="orderSetmeal">
+			<div id="mo2">
+				<div id="mo-right">
+					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
 				</div>
+				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
 			</div>
 			<hr>
-
+			</foreach>
 			
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共3件商品：小计：</b><p>￥200.00</p>
+					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -276,12 +263,76 @@
 		<!-- 滤芯结束 -->
         <div id="order-all-foot">
 			
-			<input type="submit" id="ord-btn2"  value="确认收货">
-		</div>	
+			<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')">
+		</div>
+		</foreach>	
 	</div>
 		<!-- 代付款结束 -->
 </div>
-	
+	<script>
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'chooseWXPay'
+		    ]
+		});
+
+		// 微信支付方法
+		function weixinPay(res){
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',
+				JSON.parse(res),
+				function(res){
+					if (res.err_msg.substr(-2) == 'ok') {
+						// 付款成功，跳转前台主页
+						location.href = "{{:U('Home/Index/index')}}";
+					} else if (res.err_msg.substr(-6) == 'cancel') {
+		    			    // 取消付款
+		    			    // 跳转到待付款订单页面
+							location.href = "{{:U('Home/Orders/orderPay')}}";
+					}else{
+							// 付款失败
+		    			    // 跳转到待付款订单页面
+							location.href = "{{:U('Home/Orders/orderPay')}}";
+					}
+				}
+			);
+		};
+		// 取消订单
+		function cancel(oid){
+			$.post('{{:U("Orders/cancel")}}',{ 'oid':oid }, function(res){
+
+				// 订单取消成功
+				if(res==1){
+					// 刷新页面
+					location.reload();
+				}
+			});
+		}
+		// 支付订单
+		function payOrder(oid){
+			$.post('{{:U("PaymentSystem/payOrder")}}',{ 'oid':oid }, function(res){
+				weixinPay(res);
+			});
+		}
+		// 确认收货
+		function confirm(oid){
+			$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
+
+				// 订单取消成功
+				if(res==1){
+					// 刷新页面
+					location.reload();
+				}
+			});
+		}
+	</script>
 	</body>
 
 </html>
