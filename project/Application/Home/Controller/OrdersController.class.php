@@ -111,6 +111,16 @@ class OrdersController extends CommonController
             }
             // 分配数据
             $this->assign('orderTake',$orderTake);
+
+            //调用微信JS-SDK类获取签名需要用到的数据
+            $weixin = new WeixinJssdk;
+            $signPackage = $weixin->getSignPackage();
+            // 查询用户微信中的openid
+            $openId = $weixin->GetOpenid();
+
+            //分配数据        
+            $this->assign('info',$signPackage);
+            $this->assign('openId',$openId);
             // show('未付款:');
             // show($orderPay);
             // show('已付款，待发货:');
