@@ -16,7 +16,7 @@ $(function(){
 		$('.shang').css('display','block');
 		$('.mine-name').css('display','block');
 		$('#mine-first-all')
-		.css('background','url(./images/mine-first-01.png) no-repeat')
+		.css('background','url(../images/mine-first-01.png) no-repeat')
 		.css('background-size',' contain');
 	});
 });
@@ -44,6 +44,7 @@ $(function(){
 			$(this).css('background','#FFF');
 		}
 	})
+});
 
 	$(function(){
 	$('#m-f-b-list ul li a p').bind({

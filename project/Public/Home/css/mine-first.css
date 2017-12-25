@@ -39,7 +39,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	text-align: center;
 	margin-left: 3.066667rem;
 }
-
+#mine-first-top>.mine-pic>b>img{
+	width: 100%;
+}
 
 #mine-first-top>.mine-pic>p {
 	display: block;

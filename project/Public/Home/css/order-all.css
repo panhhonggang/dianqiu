@@ -47,8 +47,18 @@
 }
 #all-sure-head>input{
 
-	width:2.533333rem; 
+	
 }
+.fini-change{
+	border: 1px solid #353659;
+    border-radius: 0 0.093333rem 0.093333rem 0;
+    width:2.533333rem; 
+    background: #353659;
+    color: #fff;
+    font-size: 0.533333rem;
+    margin-top:0.7rem;
+}
+
 #all-information>b
 {
 	line-height: 0.666667rem;
@@ -108,10 +118,6 @@ border:1px solid #000;
 /*============未支付============*/
 .no-pay{
 	clear: both;
-	margin-top: 0.573333rem;
-	padding-top: 0.533333rem;
-	border-top: 4px solid #CCC;
-
 }
 
 /*补全模块的css样式*/
@@ -119,13 +125,21 @@ border:1px solid #000;
 	font-size: 0.4rem;
 	color:#353659;
 	float: right;
-	/*position:relative;
-	right: 0px;
-	bottom: -0.026667rem;*/
+}
 
+.nopay-kuai{
+	border-top: 6px solid #EBEBEB;
+	margin-top: 2.7rem;
+}
 
-
-
+/*清除浮动*/
+.clearfix:after{
+	content:"";
+	height:0;
+    line-height:0;
+    display:block;
+    visibility:hidden;
+    clear:both
 }
 
 
