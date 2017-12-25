@@ -101,9 +101,9 @@
 		 */
 		$('#liuliang>input').click(function(){
 			// 找到所有的充值套餐，设置默认样式
-			$('#liuliang>input').css({'background': '#F0F0F0','font-weight': 'normal','color':'#000'});
+			$('#liuliang>input').css({'background': 'rgba(0,0,0,0)','color':'#585858'});
 			// 被选中的充值套餐改变样式
-			$(this).css({'background': '#7D7FCE','font-weight': '800','color':'#FFF'});
+			$(this).css({'background': '#7D7FCE','color':'#FFF'});
 			// 清除所有的class属性sid值
 			$('#liuliang>input').removeClass("sid");
 			// 给被选中的套餐添加class属性sid值
@@ -186,7 +186,7 @@
 		 */
 		$('#foot>input').mouseenter(function(){
 			// 将所有的input恢复默认样式
-			$(this).parents('#foot').find('input').css({'background':'#DDD','color':'#000'});
+			$(this).parents('#foot').find('input').css({'background':'rgba(0,0,0,0)','color':'#15164c'});
 			// 设置当前的按钮样式
 			$(this).css({'background':'#353659','color':'#FFF'});
 

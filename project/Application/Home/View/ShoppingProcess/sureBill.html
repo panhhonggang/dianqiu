@@ -70,12 +70,11 @@
 				<hr>
 			</div>
 			</foreach>
-			<div id="mo2">
+			<div id="mo2" class="res">
 				<div id="mo-right2">
 					<b>共{{$totalNum}}件商品：小计：</b><p>￥{{$totalAmount/100}}</p>
 				</div>
 			</div>
-			<hr>
 			<p class="franking">（含邮费¥0.00) </p>
 
 			
@@ -101,7 +100,10 @@
 		      'chooseWXPay'
 		    ]
 		});
-
+		
+		if(location.href.indexOf('sureBill') > -1){
+			$('#foot>input[type=submit]').val("提交订单");
+		}
 		// 获取结算按钮
 		$('#foot>input[type=submit]').click(function(){
 				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);
