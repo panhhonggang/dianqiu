@@ -9,28 +9,26 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	</head>
 
 	<body>
 		<div id="infor">
+			<form action="{{:U('Home/Users/personalInformation')}}" method="post">
 			<div id="container">
 				<h3>个人信息</h3>
 				<div id="char-list">
 					<i class="iconfont icon-iconzhenghe31"></i>
-					<div id="name"><p>姓名:</p><input type="text"></div><br>
-					<i class="iconfont icon-baobaoxingbie"></i>
-					<div id="name"><p>性别:</p><input type="text"></div><br>
+					<div id="name"><p>姓名:</p><input type="text" name="name"></div><br>
 					<i class="iconfont icon-dianhuahaoma"></i>
-					<div id="name" class="spac"><p>电话号码：</p><input type="text"></div><br>
+					<div id="name" class="spac"><p>电话号码：</p><input type="text" name="phone"></div><br>
 					<i class="iconfont iconfont icon-dizhi"></i>
-					<div id="name" class="spac"><p>安装地址：</p><input type="text"></div>
+					<div id="name" class="spac"><p>安装地址：</p><input type="text" name="Installaddress"></div>
 				</div>
 				<input id="save" type="submit" value="保存">
-
 			</div>
+			</form>
 		</div>
-		
-
 	</body>
 
 </html>

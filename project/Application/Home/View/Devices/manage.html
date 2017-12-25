@@ -85,8 +85,8 @@
 				    	dataType:'json',
 				    	success:function(data){
 				    		if(data==1){
-				    			// 绑定成功，刷新页面
-				    			window.location.href = "{{:U('Home/Devices/manage')}}?"+new Date().getTime();
+				    			// 绑定成功，跳转到填写用户安装信息
+				    			window.location.href = "{{:U('Home/Users/personalInformation')}}?"+new Date().getTime();
 				    		}else if(data==-1){
 				    			alert('设备不存在！');
 				    		}else if(data==-2){

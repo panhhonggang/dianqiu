@@ -25,16 +25,70 @@ class UsersController extends CommonController
 	//个人信息
 	public function personalInformation()
 	{
-        // // 查询用户IC卡号 xp_card
-        // $id = $_SESSION['homeuser']['id'];
+        if(IS_POST){
+            // 获取用户uid
+            $uid = $_SESSION['homeuser']['id'];
 
-        // // 查询用户名下已绑定的卡号
-        // $user = M('Users')->field('name,phone,address')->where('`id`='.$id)->find();
+            // 用户用正则验证
+            if($this->isName(I('post.name'))){
+                $data['name'] = I('post.name');
+            }else{
+                $this->error('请输入正确的用户名');
+            }
 
-        // // 分配数据
-        // $this->assign('user',$user);
+            // 手机正则验证
+            if($this->isPhone(I('post.phone'))){
+                $data['phone'] = I('post.phone');
+            }else{
+                $this->error('请输入正确的手机号码');
+            }
 
-        // 显示模板
-        $this->display();   
+            // 地址正则验证
+            if($this->isAddress(I('post.Installaddress'))){
+                $data['Installaddress'] = I('post.Installaddress');
+            }else{
+                $this->error('请输入正确的地址');
+            }
+
+            $res = M('Users')->where("id={$uid}")->save($data);
+
+            if($res){
+                $this->redirect('Home/Index/index');    
+            }else{
+                $this->error('请输正确的安装信息');
+            }
+            show($data);die;
+        }else{
+            // 显示模板
+            $this->display();              
+        }
+
 	}
+
+    // 正则检测手机号码
+    public function isPhone($value,$match='/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/')  
+    { 
+        $v = trim($value); 
+        if(empty($v)) 
+        return false; 
+        return preg_match($match,$v);
+    }
+
+    // 正则检测用户名
+    public function isName($value,$match='/^[a-zA-Z\x{4e00}-\x{9fa5}]{2,30}$/u')  
+    { 
+        $v = trim($value); 
+        if(empty($v)) 
+        return false; 
+        return preg_match($match,$v);
+    }
+
+    // 正则检测地址
+    public function isAddress($value,$match='/^[a-zA-Z\x{4e00}-\x{9fa5}]{6,255}$/u')  
+    { 
+        $v = trim($value); 
+        if(empty($v)) 
+        return false; 
+        return preg_match($match,$v);
+    }
 }
