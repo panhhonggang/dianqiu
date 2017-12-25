@@ -46,6 +46,7 @@ hr{
 	position: relative;
 	top:-0.17rem;
 	left:31vw;
+	animation: bottomMove1 .3s ease-in;
 }
 #but2{
 	width:1.2rem;
@@ -56,6 +57,51 @@ hr{
 	top:-0.17rem;
 	left:57.4vw;
 	display: none;
+	animation: bottomMove2 .3s ease-in;
+}
+@keyframes bottomMove1 {
+	0% {
+		margin-left: 25vw;
+	}
+	50% {
+		margin-left: -6vw;
+	}
+	100% {
+		margin-left: 0vw;
+	}
+}
+@keyframes bottomMove2 {
+	0% {
+		margin-left: -25vw;
+	}
+	50% {
+		margin-left: 6vw;
+	}
+	100% {
+		margin-left: 0vw;
+	}
+}
+@-webkit-keyframes bottomMove1 {
+	0% {
+		margin-left: 25vw;
+	}
+	50% {
+		margin-left: -6vw;
+	}
+	100% {
+		margin-left: 0vw;
+	}
+}
+@-webkit-keyframes bottomMove2 {
+	0% {
+		margin-left: -25vw;
+	}
+	50% {
+		margin-left: 6vw;
+	}
+	100% {
+		margin-left: 0vw;
+	}
 }
 #liuliang{
 	/*display:none;*/
@@ -90,8 +136,11 @@ font-size: 0.426667rem;
 }
 #ro1{
 	margin-top: 0.853333rem;
-	width:9.2rem;
+	width: 90%;
 	height:3.04rem;
+    position: relative;
+    left: 50%;
+    margin-left: -45%;
 	margin-bottom: 0.573333rem;
 	/*background:pink;*/
 }
@@ -99,7 +148,7 @@ font-size: 0.426667rem;
 	width: 2.88rem;
 	height:3.013333rem;
 	float: left;
-	margin-right:0.773333rem;
+	background: #eee;
 }
 #ro-left img{
 	width: 2.88rem;
