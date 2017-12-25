@@ -14,9 +14,111 @@ class OrdersController extends CommonController
         // 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         if($uid){
-     
-
             
+            // 待付款订单
+            // 查询用户全部未支付订单号
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_pay`=0")->select();
+            // 实例化订单滤芯对象
+            $orderFilter = M('OrderFilter');
+            // 实例化订单套餐对象
+            $orderSetmeal = M('OrderSetmeal');
+            // 准备数组装未支付订单信息
+            $orderPay = array();
+
+            // 遍历订单未支付订单号
+            foreach ($orders as $value) {
+                // 订单编号
+                $orderPay["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                // 订单时间：
+                $orderPay["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                // 订单数量
+                $orderPay["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                // 订单金额
+                $orderPay["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                // 获取订单套餐明细
+                $orderPay["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                // 获取订单滤芯明细
+                $orderPay["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+            }
+            // 分配数据
+            $this->assign('orderPay',$orderPay);
+
+            // 待发货订单
+            // 查询用户全部待发货订单
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_receipt`=0 AND `is_pay`=1")->select();
+            // 准备数组装待发货订单信息
+            $orderSend = array();
+
+            // 遍历订单未支付订单号
+            foreach ($orders as $value) {
+                // 订单编号
+                $orderSend["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                // 订单时间：
+                $orderSend["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                // 订单数量
+                $orderSend["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                // 订单金额
+                $orderSend["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                // 获取订单套餐明细
+                $orderSend["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                // 获取订单滤芯明细
+                $orderSend["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+            }
+
+            // 分配数据
+            $this->assign('orderSend',$orderSend);
+
+            // 待收货订单
+             $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_receipt`=1 AND `is_ship`=0")->select();
+            // 准备数组装待收货订单信息
+            $orderTake = array();
+            // 遍历订单未支付订单号
+            foreach ($orders as $value) {
+                // 订单编号
+                $orderTake["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                // 订单时间：
+                $orderTake["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                // 订单数量
+                $orderTake["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                // 订单金额
+                $orderTake["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                // 获取订单套餐明细
+                $orderTake["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                // 获取订单滤芯明细
+                $orderTake["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+            }
+            // 分配数据
+            $this->assign('orderTake',$orderTake);
+
+            // 已完成订单
+             $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_ship`=1")->select();
+            // 准备数组装待收货订单信息
+            $orderFulfil = array();
+            // 遍历订单未支付订单号
+            foreach ($orders as $value) {
+                // 订单编号
+                $orderFulfil["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                // 订单时间：
+                $orderFulfil["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                // 订单数量
+                $orderFulfil["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                // 订单金额
+                $orderFulfil["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                // 获取订单套餐明细
+                $orderFulfil["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                // 获取订单滤芯明细
+                $orderFulfil["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+            }
+            // 分配数据
+            $this->assign('orderTake',$orderTake);
+            // show('未付款:');
+            // show($orderPay);
+            // show('已付款，待发货:');
+            // show($orderSend);
+            // show('已发货，待收货:');
+            // show($orderTake);
+            // show('完成:');
+            // show($orderFulfil);
         }
            
         // 显示模板
@@ -81,7 +183,7 @@ class OrdersController extends CommonController
         $uid = $_SESSION['homeuser']['id'];
 
         if($uid){
-            // 查询用户全部未支付订单号
+            // 查询用户全部待发货订单
             $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_receipt`=0 AND `is_pay`=1")->select();
             // 实例化订单滤芯对象
             $orderFilter = M('OrderFilter');
