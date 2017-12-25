@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-12-22 16:26:51
+Date: 2017-12-25 09:47:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,8 +34,8 @@ CREATE TABLE `pub_admin_menu` (
 -- ----------------------------
 INSERT INTO `pub_admin_menu` VALUES ('43', '0', '设备管理', 'Admin/Devices', '', '2');
 INSERT INTO `pub_admin_menu` VALUES ('44', '43', '设备列表', 'Admin/Devices/devicesList', '', '2');
-INSERT INTO `pub_admin_menu` VALUES ('46', '0', '反馈及报修', 'Admin/Feeds', '', '3');
-INSERT INTO `pub_admin_menu` VALUES ('47', '46', '反馈列表', 'Admin/Feeds/feedslist', '', null);
+INSERT INTO `pub_admin_menu` VALUES ('46', '0', '建议及报修', 'Admin/Feeds', '', '3');
+INSERT INTO `pub_admin_menu` VALUES ('47', '46', '建议列表', 'Admin/Feeds/feedslist', '', null);
 INSERT INTO `pub_admin_menu` VALUES ('48', '46', '报修列表', 'Admin/Feeds/repairlist', '', null);
 INSERT INTO `pub_admin_menu` VALUES ('49', '0', '后台管理', 'Admin/Vendors', '', '2');
 INSERT INTO `pub_admin_menu` VALUES ('50', '49', '经销商添加', 'Admin/Vendors/add', '', null);
@@ -82,7 +82,7 @@ CREATE TABLE `pub_auth_group` (
 -- ----------------------------
 -- Records of pub_auth_group
 -- ----------------------------
-INSERT INTO `pub_auth_group` VALUES ('1', ' 超级管理员', '1', '3,4,5,6,7,8,9,10,11,12,13,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34');
+INSERT INTO `pub_auth_group` VALUES ('1', ' 超级管理员', '1', '3,4,5,6,7,8,9,10,11,12,13,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37');
 INSERT INTO `pub_auth_group` VALUES ('2', ' 普通管理员', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,18,19,20,21,22,23,24,25,26');
 
 -- ----------------------------
@@ -117,7 +117,7 @@ CREATE TABLE `pub_auth_rule` (
   `condition` char(100) NOT NULL DEFAULT '' COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='规则表';
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='规则表';
 
 -- ----------------------------
 -- Records of pub_auth_rule
@@ -154,6 +154,9 @@ INSERT INTO `pub_auth_rule` VALUES ('31', '30', 'Admin/Menu/index', '菜单编�
 INSERT INTO `pub_auth_rule` VALUES ('32', '0', 'Admin/Setmeal', '套餐管理', '1', '1', '');
 INSERT INTO `pub_auth_rule` VALUES ('33', '32', 'Admin/Setmeal/add', '套餐设置', '1', '1', '');
 INSERT INTO `pub_auth_rule` VALUES ('34', '32', 'Admin/Setmeal/index', '套餐列表', '1', '1', '');
+INSERT INTO `pub_auth_rule` VALUES ('35', '0', 'Admin/Feeds', '建议及报修', '1', '1', '');
+INSERT INTO `pub_auth_rule` VALUES ('36', '35', 'Admin/Feeds/feedslist', '建议列表', '1', '1', '');
+INSERT INTO `pub_auth_rule` VALUES ('37', '35', 'Admin/Feeds/repairlist', '报修列表', '1', '1', '');
 
 -- ----------------------------
 -- Table structure for pub_binding
@@ -407,7 +410,7 @@ CREATE TABLE `pub_feeds` (
 -- ----------------------------
 -- Records of pub_feeds
 -- ----------------------------
-INSERT INTO `pub_feeds` VALUES ('1', '这个产品真不错啊', '1', '1566897799');
+INSERT INTO `pub_feeds` VALUES ('1', '这个产品真不错啊', '10', '1566897799');
 
 -- ----------------------------
 -- Table structure for pub_filters
@@ -549,7 +552,7 @@ INSERT INTO `pub_orders` VALUES ('252', '20171221151383921956667323285097', '3',
 INSERT INTO `pub_orders` VALUES ('253', '20171221151383923342537362335171', '3', '10', null, '1', '10000.00', '1513839233', null, '0', '0', '0', '0', null, null);
 INSERT INTO `pub_orders` VALUES ('254', '20171221151383936292277547018289', '3', '10', null, '1', '10000.00', '1513839362', null, '0', '0', '0', '0', null, null);
 INSERT INTO `pub_orders` VALUES ('255', '20171221151383938365618285663362', '3', '10', null, '2', '30000.00', '1513839383', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('256', '20171221151383941916078055606562', '3', '10', '1', '5', '51000.00', '1513839419', null, '0', '0', '0', '0', null, null);
+INSERT INTO `pub_orders` VALUES ('256', '20171221151383941916078055606562', '3', '10', '1', '5', '51000.00', '1513839419', null, '1', '0', '0', '0', null, null);
 INSERT INTO `pub_orders` VALUES ('257', '20171221151383947052925069831253', '3', '10', null, '1', '10000.00', '1513839470', null, '0', '0', '0', '0', null, null);
 INSERT INTO `pub_orders` VALUES ('258', '20171221151383952257678633593351', '3', '10', null, '2', '30000.00', '1513839522', null, '0', '0', '0', '0', null, null);
 INSERT INTO `pub_orders` VALUES ('259', '20171221151384274382589621265408', '3', '10', null, '1', '10000.00', '1513842743', null, '0', null, null, null, null, null);
@@ -696,7 +699,7 @@ CREATE TABLE `pub_repair` (
 -- ----------------------------
 -- Records of pub_repair
 -- ----------------------------
-INSERT INTO `pub_repair` VALUES ('1', '2147483647', '今天设备开不了机了', '假装我是图片路径', '1', '广东广州', '1565494664', '0');
+INSERT INTO `pub_repair` VALUES ('1', '2147483647', '今天设备开不了机了', '假装我是图片路径', '10', '广东广州', '1565494664', '0');
 
 -- ----------------------------
 -- Table structure for pub_setmeal
@@ -740,7 +743,7 @@ CREATE TABLE `pub_users` (
 -- ----------------------------
 -- Records of pub_users
 -- ----------------------------
-INSERT INTO `pub_users` VALUES ('10', null, null, '1', '1513646091', '219.137.249.39', '1513646091', 'oXwY4t-9clttAFWXjCcNRJrvch3w');
+INSERT INTO `pub_users` VALUES ('10', '测试', '13838381438', '1', '1513646091', '219.137.249.39', '1513646091', 'oXwY4t-9clttAFWXjCcNRJrvch3w');
 
 -- ----------------------------
 -- Table structure for pub_vendors
