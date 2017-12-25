@@ -714,24 +714,24 @@ class PaymentSystemController extends CommonController
         // 获取微信服务器返回的xml文档
         $xml=file_get_contents('php://input', 'r');
         // file_put_contents('./wx_notifyXml.txt',$xml, FILE_APPEND);
-        $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
-<attach><![CDATA[949657681595765841]]></attach>
-<bank_type><![CDATA[CFT]]></bank_type>
-<cash_fee><![CDATA[1]]></cash_fee>
-<fee_type><![CDATA[CNY]]></fee_type>
-<is_subscribe><![CDATA[Y]]></is_subscribe>
-<mch_id><![CDATA[1394894802]]></mch_id>
-<nonce_str><![CDATA[n065r8e5w9324jfbr77e4lzq0ru4l0bf]]></nonce_str>
-<openid><![CDATA[oXwY4t-9clttAFWXjCcNRJrvch3w]]></openid>
-<out_trade_no><![CDATA[888853264382514038]]></out_trade_no>
-<result_code><![CDATA[SUCCESS]]></result_code>
-<return_code><![CDATA[SUCCESS]]></return_code>
-<sign><![CDATA[4969CE4C11D5078A0DB334EAC7C88C5D]]></sign>
-<time_end><![CDATA[20171225111218]]></time_end>
-<total_fee>1</total_fee>
-<trade_type><![CDATA[JSAPI]]></trade_type>
-<transaction_id><![CDATA[4200000025201712251015056729]]></transaction_id>
-</xml>';
+//         $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
+// <attach><![CDATA[949657681595765841]]></attach>
+// <bank_type><![CDATA[CFT]]></bank_type>
+// <cash_fee><![CDATA[1]]></cash_fee>
+// <fee_type><![CDATA[CNY]]></fee_type>
+// <is_subscribe><![CDATA[Y]]></is_subscribe>
+// <mch_id><![CDATA[1394894802]]></mch_id>
+// <nonce_str><![CDATA[n065r8e5w9324jfbr77e4lzq0ru4l0bf]]></nonce_str>
+// <openid><![CDATA[oXwY4t-9clttAFWXjCcNRJrvch3w]]></openid>
+// <out_trade_no><![CDATA[888853264382514038]]></out_trade_no>
+// <result_code><![CDATA[SUCCESS]]></result_code>
+// <return_code><![CDATA[SUCCESS]]></return_code>
+// <sign><![CDATA[4969CE4C11D5078A0DB334EAC7C88C5D]]></sign>
+// <time_end><![CDATA[20171225111218]]></time_end>
+// <total_fee>1</total_fee>
+// <trade_type><![CDATA[JSAPI]]></trade_type>
+// <transaction_id><![CDATA[4200000025201712251015056729]]></transaction_id>
+// </xml>';
         if($xml){
             //解析微信返回数据数组格式
             $result = $this->notifyData($xml);
@@ -742,6 +742,8 @@ class PaymentSystemController extends CommonController
                 $data['order_id'] = $result['attach'];
                 // 查询订单是否已处理
                 $orderData = M('Orders')->where($data)->field('is_pay,total_price')->find();
+                // 1分钱测试数据
+                $orderData['total_price'] = 1;
                 // 如果订单未处理，订单支付金额等于订单实际金额
                 if(empty($orderData['is_pay']) && $orderData['total_price'] == $result['total_fee']){
                     // 处理订单
