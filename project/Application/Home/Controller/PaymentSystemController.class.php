@@ -625,7 +625,7 @@ class PaymentSystemController extends CommonController
         // $input->SetGoods_tag("test");
         // 支付成功的回调地址
         //$input->SetNotify_url("http://xinpin.dianqiukj.com/index.php/Home/Weixinpay/notify.html");
-        $input->SetNotify_url("http://wuzhibin.cn/Home/Weixinpay/notify.html");
+        $input->SetNotify_url(C('notify_url'));
         // 支付方式 JS-SDK 类型是：JSAPI
         $input->SetTrade_type("JSAPI");
         // 用户在公众号的唯一标识
@@ -703,6 +703,195 @@ class PaymentSystemController extends CommonController
     {
         // 显示模板
         $this->display(); 
-    }    
+    } 
+
+    /**
+     * 处理订单写入数据
+     * @return array 返回数组格式的notify数据
+     */
+    public function notify()
+    {
+        // 获取微信服务器返回的xml文档
+        $xml=file_get_contents('php://input', 'r');
+        // file_put_contents('./wx_notifyXml.txt',$xml, FILE_APPEND);
+        $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
+<attach><![CDATA[949657681595765841]]></attach>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1394894802]]></mch_id>
+<nonce_str><![CDATA[n065r8e5w9324jfbr77e4lzq0ru4l0bf]]></nonce_str>
+<openid><![CDATA[oXwY4t-9clttAFWXjCcNRJrvch3w]]></openid>
+<out_trade_no><![CDATA[888853264382514038]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[4969CE4C11D5078A0DB334EAC7C88C5D]]></sign>
+<time_end><![CDATA[20171225111218]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[JSAPI]]></trade_type>
+<transaction_id><![CDATA[4200000025201712251015056729]]></transaction_id>
+</xml>';
+        if($xml){
+            //解析微信返回数据数组格式
+            $result = $this->notifyData($xml);
+
+            // 如果订单号不为空
+            if(!empty($result['out_trade_no'])){
+                // 获取传回来的订单号
+                $data['order_id'] = $result['attach'];
+                // 查询订单是否已处理
+                $orderData = M('Orders')->where($data)->field('is_pay,total_price')->find();
+                // 如果订单未处理，订单支付金额等于订单实际金额
+                if(empty($orderData['is_pay']) && $orderData['total_price'] == $result['total_fee']){
+                    // 处理订单
+                    // 实例化订单对象
+                    $orders = M('Orders');  
+                    // 实例化订单滤芯对象
+                    $orderFilter = M('OrderFilter');
+                    // 实例化订单套餐对象
+                    $orderSetmeal = M('OrderSetmeal');
+                    // 实例化设备详细信息对象
+                    $devicesStatu = M('devicesStatu');
+                    // 实例化设备对象
+                    $device = M('Devices');
+                    // 开启事务
+                    //$orders->startTrans();
+
+                    // 修改订单状态为已付款
+                    $isPay['is_pay'] = 1;
+                    $isPayRes = $orders->where($data)->save($isPay);
+
+                    // 查询订单包含的全部套餐
+                    $orderSetmealData = $orderSetmeal->where($data)->select();
+
+                    // 充值状态
+                    $status = 0;
+                    if($orderSetmealData){
+                        $countNun = count($orderSetmealData);
+                        // 定义计数器
+                        $num = 0;
+                        // 查询当前设备编号
+                        $deviceCode['DeviceID'] = $device->where('id='.$_SESSION['homeuser']['did'])->find()['device_code'];
+
+                        foreach ($orderSetmealData as $value) {
+                            // 查询设备当前剩余流量
+                            $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
+
+                            //show($devicesStatuReFlow);die;
+                            // 充值后流量应剩余流量
+                            $Flow['ReFlow'] = $devicesStatuReFlow + $value['flow'];
+                            // 修改设备剩余流量
+                            $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
+                            if($FlowRes){
+                                // 计数器++
+                                $num++;  
+                            }
+                            
+                        }
+
+                        // 全部套餐充值完成
+                        if($countNun == $num){
+                             $status = 1;
+                        }
+                    }else{
+                        // 没有套餐默认值
+                        $status = 1;
+                    }
+
+                    if($isPayRes && $status){
+                        // 执行事务
+                        $orders->commit();
+                        file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
+                    }else{
+                        // 事务回滚
+                        $orders->rollback();
+                        file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
+                    }
+                }else{
+                    // 充值金额不匹配
+                    if($orderData['total_price'] != $result['total_fee']){
+                       file_put_contents('./wx_notifymoney.txt','订单号：'.$result['attach']."充值失败,金额不匹配。订单金额：{$orderData['total_price']} ，充值金额：{$result['total_fee']} \r\n", FILE_APPEND); 
+                   }  
+                }
+            } 
+        }
+
+    }
+
+    /**
+     * 验证服务器返回支付成功订单
+     * @return array 返回数组格式的notify数据
+     */
+    public function notifyData($xml)
+    {
+        // 获取微信服务器返回的xml文档
+        // $xml=file_get_contents('php://input', 'r');
+        // file_put_contents('./wx_notify.txt',$xml, FILE_APPEND);
+
+        // 转成php数组
+        $data=$this->toArray($xml);
+
+        // file_put_contents('./wx_notify1.txt','data:'.$data, FILE_APPEND);    
+        // file_put_contents('./wx_notify2.txt','123:'.$data['out_trade_no'], FILE_APPEND);
+        // file_put_contents('./wx_notify3.txt','456:'.$data['sign'], FILE_APPEND); 
+
+        // 保存原sign
+        $dataSign=$data['sign'];
+
+        // sign不参与签名
+        unset($data['sign']);
+
+        // 生成签名
+        $sign=$this->makeSign($data);
+        // file_put_contents('./wx_notify.txt','原签: '.$dataSign.'现签：'.$sign, FILE_APPEND);  
+        // 判断签名是否正确  判断支付状态
+        if ($sign==$dataSign && $data['return_code']=='SUCCESS' && $data['result_code']=='SUCCESS') {
+
+            // 返回状态给微信服务器
+            echo '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
+
+            // 返回数据给回调函数进行插入操作
+            return $data;
+        }else{
+            // 签名错误 或 支付未成功 
+            $result=false;
+        }
+
+        
+    }
+
+    /**
+     * 将xml转为array
+     * @param  string $xml xml字符串
+     * @return array       转换得到的数组
+     */
+    public function toArray($xml){   
+        //禁止引用外部xml实体
+        libxml_disable_entity_loader(true);
+        $result= json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);        
+        return $result;
+    }
+
+    /**
+     * 生成签名
+     * @return 签名，本函数不覆盖sign成员变量，如要设置签名需要调用SetSign方法赋值
+     */
+    public function makeSign($data){
+        // 去空
+        $data=array_filter($data);
+        //签名步骤一：按字典序排序参数
+        ksort($data);
+        $string_a=http_build_query($data);
+        $string_a=urldecode($string_a);
+        //签名步骤二：在string后加入KEY
+        $config=$this->config;
+        $string_sign_temp=$string_a."&key=CAA5EAE2CE5AC44A3F8930E6F127B423";
+        //签名步骤三：MD5加密
+        $sign = md5($string_sign_temp);
+        // 签名步骤四：所有字符转为大写
+        $result=strtoupper($sign);
+        return $result;
+    }   
 
 }
