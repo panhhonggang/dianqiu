@@ -1,30 +1,16 @@
 #contain{
-	width:100%; 
-	padding: 1vh 0 16vh;
-	/*margin:0.4rem 0.4rem 4.5rem 0.4rem;*/
+	width:9.2rem; 
+	margin:0.4rem 0.4rem 4.5rem 0.4rem;
 }
-#sure-head {
-	position: relative;
-}
-#mo {
-	position: relative;
-}
-#mo .item, #mo2{
-	display: flex;
-	justify-content: center;
-	align-items: center;
 
-}
-#mo .item {
-	padding: 3vh 0;
-	border-bottom: 1px solid #dedede;
-}
+
 /*==========<!-- 滤芯开始 -->============*/
 
 #ro1{
+	margin-top: 0.853333rem;
 	width:9.2rem;
 	height:3.04rem;
-	/*margin-bottom: 0.573333rem;*/
+	margin-bottom: 0.573333rem;
 	/*background:pink;*/
 }
 
@@ -38,7 +24,6 @@
 .bott i,.bott b{
 	font-weight: normal;
 	color: red;
-	font-size: 0.426667rem;
 }
 #ro-left input{
 	font-family: "宋体","微软雅黑";
@@ -133,16 +118,12 @@ i.num input:last-child{
 /*.ro1 + hr,.ro2 + hr ,.mo2 + hr{}*/
 hr{
 	border:1px solid #ccc;
-	/*margin-top:0.4rem;*/
 }
 #mo2{
 	width: 9.2rem;
+	height:1.333333rem;
+	margin-top: 0.853333rem;
 	/*background: pink;*/
-}
-.res {
-	padding: 3vh 4vw 3vh 0 !important;    
-	border: none !important;
-	margin-top: 4vh;
 }
 #mo2 b, #mo2 p ,#mo2 i{
 	display: inline-block;
@@ -161,13 +142,12 @@ hr{
 	margin-right: 0.32rem;
 }
 #mo-right{
-	width: 80%;
 	display: inline-block;
 	/*background: green;*/
 }
-
 #mo-right>p{
 	display: inline-block;
+	font-size:0.373333rem;
 	margin:0.0rem 0.066667rem;
 	color: #FF0000;
 	/*background: red;*/
@@ -183,13 +163,13 @@ hr{
 	font-size: 0.426667rem;
 }
 .franking{
-    position: relative;
+	/*position: absolute;*/
+
 	display: block;
+	margin-top: 0.853333rem;
 	float:right;
-	padding-right: 4vw;
 	font-size: 0.24rem;
-	font-size: 0.346667rem;
-	margin: 2vh 0;
+	margin-bottom: 3.0rem;
 }
 
 /*================<!-- 滤芯结束 -->=================*/
@@ -197,37 +177,31 @@ hr{
 
 
 #foot{
-	width: 100%; 
-	display: flex;
 	position: fixed;
+	width: 9.2rem; 
 	height: 1.2rem; /*90*/
 	bottom: 0.0rem;
-	color: #15164c;    
-	border-top: 1px solid #dedede;
 	background: #FFF;
 }
 #foot b{
 	/*font-size: 0.426667rem;*/
-	width: 26%;
 	display: inline-block;
 	height: 1.2rem;
 	font-size: 0.453333rem;
 	text-align: center;
 	line-height: 1.2rem;
+	margin-right: 0.4rem;
 }
-#foot b:first-child {
-	padding-left: 4vw;
-}
-#foot .chang{
-	width: 36%;
+
+.chang{
 	color:#FF0000;
 }
 
 #foot input{
-	width: 40%;
-	height: 1.2rem;
-	border:none;
-	font-size: 0.426667rem;
+width:3.85333rem;
+height: 1.2rem;
+float:right;
+border:none;
 }
 
 #foot input:last-child{
