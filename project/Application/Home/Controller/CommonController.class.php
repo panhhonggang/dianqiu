@@ -17,6 +17,7 @@ class CommonController extends Controller
      */
     public function _initialize()
     {	
+        
         // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
             // 实例化微信JSSDK对象
@@ -28,19 +29,17 @@ class CommonController extends Controller
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
             
-            // 用户当前设备
-            $info['did'] = M('currentDevices')->where("`uid`={$info['id']}")->field('did')->find()['did'];
+
             
             // 判断用户是否存在
             if($info){
-               // 将用户信息缓存
+                // 用户当前设备
+                $info['did'] = M('currentDevices')->where("`uid`={$info['id']}")->field('did')->find()['did'];
+                // 将用户信息缓存
                 $_SESSION['homeuser'] = $info;
             }else{
                 // 用户不存在
-                // 实例化微信信息类型
-                $Wechat = new WechatController;
-                // 调用填写微信信息的方法
-                $Wechat->add($openId);
+                redirect(U('/Home/Wechat/follow'), 2, '请先关注微信公众号...');
             }
         }
     }
