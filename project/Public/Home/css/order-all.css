@@ -12,7 +12,6 @@
 {
 	width: 9.2rem;
 	height:0.98rem;
-	/*background: pink;*/
 }
 #order-all-header>ul>li
 {
@@ -41,7 +40,6 @@
 */
 #all-sure-head
 {
-	/*height:5.16rem;*/
 	width:9.2rem;
 	margin:0.6rem 0.0rem;
 	border-bottom: 1px solid #ccc;
@@ -55,15 +53,17 @@
 {
 	line-height: 0.666667rem;
 	margin-bottom: 0.266667rem;
+	display: inline-block;
+	font-weight: normal;
+	width: 100%;
 }
 
 #order-all-foot{
 	margin-top:1.2rem; 
 	width: 9.2rem; 
-	padding-bottom: 1.2rem; /*90*/
+	padding-bottom: 1.2rem;
 	position: relative;
 	bottom:-1.2rem;
-	/*background: pink;*/
 }
 
 #order-all-foot>input{
@@ -82,14 +82,12 @@ border:1px solid #000;
 #order-all-foot>#ord-btn2{
 	position: absolute;
 	right: 0.0rem;
-	/*float: right;*/
 	background:#FFF;
 	color: #000;
 }
 
 #mo-left{
 	display: inline-block;
-	/*background: green;*/
 }
 #mo2{
 	position: relative;
@@ -115,4 +113,19 @@ border:1px solid #000;
 	border-top: 4px solid #CCC;
 
 }
+
+/*补全模块的css样式*/
+#all-information>b>span.readyedpay{
+	font-size: 0.4rem;
+	color:#353659;
+	float: right;
+	/*position:relative;
+	right: 0px;
+	bottom: -0.026667rem;*/
+
+
+
+
+}
+
 

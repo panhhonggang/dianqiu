@@ -85,6 +85,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 
 #mine-first-bottom {
 	width: 9.2rem;
+	margin-top: 2.266667rem;
 }
 
 #m-f-list>h3 {
@@ -103,14 +104,20 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	
 }
 #m-f-list>ul>li a{
-	width: 2.15908667rem;
+	width: 2.15965rem;
 	display: inline-block;
 	padding-bottom: 0.266667rem;
 }
 
-#m-f-list>ul>li>i {
-	margin-right: 0.133333rem;
-	font-size: 0.373333rem;
+#m-f-list>ul>li>a>i {
+	
+	font-size:0.8rem!important;
+	color: #000;
+	text-align: center;
+}
+#m-f-list>ul>li>a>p{
+	font-size: 0.293333rem;
+	color:#6A6A6A;
 }
 
 #m-f-b-list>ul>li {
@@ -124,11 +131,16 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 
 #m-f-b-list>ul>li>a>b {
 	margin-left: 0.133333rem;
+	font-size: 0.426667rem;
+	letter-spacing: 2px;
+}
+#m-f-b-list>ul>li>a>i:first-child{
+	font-size:0.8rem; 
 }
 
 #m-f-b-list>ul>li>a>span {
 	margin-right: 0.4rem;
-	font-size: 0.16rem;
+	font-size: 0.293333rem;
 	float: right;
 }
 
@@ -136,13 +148,14 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	float: right;
 }
 
-#m-f-b-list>ul>li>a>.num-one {
+#m-f-b-list>ul>li>a>i.num-one {
 	color: #308BE8;
-	font-size: 0.8rem;
+	font-size: 0.833333rem;
 	float: left;
+	margin-left: -0.026667rem;
 }
 
-#m-f-b-list .num-two {
+#m-f-b-list>ul>li>a>i.num-two {
 	color: #389A9A;
 	font-size: 0.666667rem;
 	float: left;
