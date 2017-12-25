@@ -36,7 +36,17 @@ $(function(){
 
 // m-f-b-list-js样式
 $(function(){
-	$('#m-f-b-list ul li').bind({
+	$('#m-f-b-list ul li a i').bind({
+		'mouseover':function(){
+		$(this).css('background','#F1F1F1');
+		},
+		'mouseout':function(){
+			$(this).css('background','#FFF');
+		}
+	})
+
+	$(function(){
+	$('#m-f-b-list ul li a p').bind({
 		'mouseover':function(){
 		$(this).css('background','#F1F1F1');
 		},
