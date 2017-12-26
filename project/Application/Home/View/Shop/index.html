@@ -229,9 +229,9 @@
 				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
 					// 判断购物车是否添加成功
 					if(res.status){
-						//alert('购物车添加成功');
 						// 刷新页面
-						location.reload();
+						// location.reload();
+						location.href = "{{:U('Home/Shop/index')}}";
 					}
 				});
 			}else{
