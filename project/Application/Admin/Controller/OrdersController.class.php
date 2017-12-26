@@ -83,8 +83,21 @@ class OrdersController extends CommonController
     {
 
         $orders = D("orders");
-        $list = $orders->where('pub_orders.order_id='.$order_id)->getAll();
-        $this->ajaxReturn($list,'JSON');
+         $order = $orders->where('pub_orders.order_id='.$order_id)->select();
+        $filter = $orders->where('pub_orders.order_id='.$order_id)->join('LEFT JOIN pub_order_filter ON pub_orders.order_id = pub_order_filter.order_id')
+                      ->field('pub_order_filter.*')
+                      ->select();
+        $setmeal = $orders->where('pub_orders.order_id='.$order_id)->join('LEFT JOIN pub_order_setmeal ON pub_orders.order_id = pub_order_setmeal.order_id')
+                      ->field('pub_order_setmeal.*')
+                      ->select();              
+       
+        $info['order'] = $order; 
+        $info['filter'] = $filter; 
+        $info['setmeal'] = $setmeal; 
+        
+        // $list = $orders->where('pub_orders.order_id='.$order_id)->getAll();
+        dump($info);
+        $this->ajaxReturn($info,'JSON');
 
     }
  
