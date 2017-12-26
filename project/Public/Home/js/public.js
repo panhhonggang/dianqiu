@@ -125,24 +125,3 @@ function fnTab_txt(oTab,oList,aNav,iW,classActive)
     }
 }
 
-// 微信支付方法
-function weixinPay(res){
-    WeixinJSBridge.invoke(
-        'getBrandWCPayRequest',
-        JSON.parse(res),
-        function(res){
-            if (res.err_msg.substr(-2) == 'ok') {
-                // 付款成功，跳转前台主页
-                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
-            } else if (res.err_msg.substr(-6) == 'cancel') {
-                    // 取消付款
-                    // 跳转到待付款订单页面
-                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
-            }else{
-                    // 付款失败
-                    // 跳转到待付款订单页面
-                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
-            }
-        }
-    );
-};

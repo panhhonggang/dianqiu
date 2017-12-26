@@ -10,7 +10,7 @@
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 		<!-- 微信支付支持JS部分代码 -->
-		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	</head>
 	<body>
 	<div id="contain">
@@ -321,9 +321,28 @@
 			}
 		});
 
-		
+		// 微信支付方法
+		function weixinPay(res){
+		    WeixinJSBridge.invoke(
+		        'getBrandWCPayRequest',
+		        JSON.parse(res),
+		        function(res){
+		            if (res.err_msg.substr(-2) == 'ok') {
+		                // 付款成功，跳转前台主页
+		                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+		            } else if (res.err_msg.substr(-6) == 'cancel') {
+		                    // 取消付款
+		                    // 跳转到待付款订单页面
+		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+		            }else{
+		                    // 付款失败
+		                    // 跳转到待付款订单页面
+		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+		            }
+		        }
+		    );
+		};
 	</script>
-
 	</body>
 
 </html>
