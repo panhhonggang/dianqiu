@@ -19,8 +19,7 @@ class FiltersController extends CommonController
             $map['alias'] = substr($value, $str+1);
             $res[] = M('filters')->where($map)->find();
         }
-        dump($res);
-        $assign = array('res', $res);
+        $assign = array('res', json_encode($res));
         $this->assign($res);
         $this->display();
     }
