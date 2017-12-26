@@ -109,6 +109,7 @@ i.num input{
 	height: 0.533333rem;
 	text-align: center;
 	background: #fff;
+	float: right;
 }
 i.num input:first-child,
 i.num input:last-child{
@@ -128,6 +129,7 @@ hr{
 #mo2 b, #mo2 p ,#mo2 i{
 	display: inline-block;
 	font-size: 0.426667rem;
+	/*float: right;*/
 }
 #mo2>input{
 	font-family: "宋体","微软雅黑";

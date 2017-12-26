@@ -1,8 +1,14 @@
-.container{
+ins,a{text-decoration:none;color: #000;}
+a:link{text-decoration:none;}   /* 指正常的未被访问过的链接*/
+a:visited{text-decoration:none;} /*指已经访问过的链接*/
+a:hover{text-decoration:none;}/*指鼠标在链接*/}
+a:active{text-decoration:none;}/* 指正在点的链接*/ 
+
+#container{
 
     margin: 0.4rem 0.4rem 0.5rem 0.4rem !important;
 }
-}
+
 #order-all-header{
 	position: relative;
 
@@ -22,9 +28,18 @@
 	font-size: 0.426667rem;
 	text-align: center;
 	line-height: 0.88rem;
-	border-bottom: 4px solid #ccc;
+	border-bottom: 4px solid #EEEEEE;
 }
-#order-all-header>.slip
+#order-all-header>ul>li>a{
+    padding-bottom: 0.22rem;
+    border-radius: 0.05rem;
+     border-bottom: 4px solid #EEEEEE;
+}
+#order-all-header>ul>li>a.headOne{
+	 border-bottom: 4px solid #2E2F55;
+
+}
+/*#order-all-header>.slip
 {
 	width:1.3rem;
 	height:4px;
@@ -34,7 +49,7 @@
 	left:0.880911rem;
 	border-radius: 0.053333rem;
 
-}
+}*/
 
 /*<!-- order-all的头部结束 -->
 */
@@ -102,17 +117,38 @@ border:1px solid #000;
 #mo2{
 	position: relative;
 }
-#mo-right2>p,#mo-right>b{
+/*#mo-right2>p,#mo-right>b{
 
 	display: inline-block;
     font-size: 0.426667rem;
-	float: right!important;}
+	float: right!important;
+}*/
+#mo-right2{
+	width:5.733333rem;
+	float: right;
+
+}
+/*#mo-right2>p{
+
+	display: inline-block;
+    font-size: 0.426667rem;
+	float: right!important;
+}*/
+#mo-right>b{
+	background: red;
+	 font-size: 0.426667rem;
+	float: left;
+
+}
+
 #mo-right2>p{
 	display: inline-block;
-	 font-size: 0.426667rem;
-	margin:0.0rem 0.066667rem;
+    font-size: 0.473667rem;
 	color: #FF0000;
 	float: right !important;
+}
+#mo-right2>p>span{
+	color: #000;
 }
 
 /*============未支付============*/
@@ -125,11 +161,13 @@ border:1px solid #000;
 	font-size: 0.4rem;
 	color:#353659;
 	float: right;
+
 }
 
 .nopay-kuai{
 	border-top: 6px solid #EBEBEB;
-	margin-top: 2.7rem;
+	/*margin-top: 2.7rem;*/
+	margin:2.7rem  0.4rem 0rem 0.4rem;
 }
 
 /*清除浮动*/

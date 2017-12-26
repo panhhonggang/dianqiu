@@ -24,12 +24,12 @@
 	 <!-- order-all的头部开始 -->
 	 	<div id="order-all-header">  
 	 		<ul>
-	 			<li><a href="{{:U('Orders/orderAll')}}">全部</a></li>
+	 			<li><a class="headOne" href="{{:U('Orders/orderAll')}}">全部</a></li>
 	 			<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
 	 			<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
 	 			<li><a href="{{:U('Orders/orderTake')}}">待收货</a></li>
 	 		</ul>
-	 		<div class="slip"></div>
+	 		<!-- <div class="slip"></div> -->
 	 	</div>
 	 <!-- order-all的头部开始 -->
 	 <!-- <div class="all-kuai"> -->
@@ -72,7 +72,7 @@
 			</foreach>
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -86,6 +86,7 @@
 		<div class="nopay-top .clearfix">
 			 <input class="fini-change" type="buttom" value="未支付" readonly="readonly">
 		</div>
+		<div order-cont></div>
 		<foreach name="orderPay" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="未支付" readonly="readonly"> -->
@@ -128,7 +129,7 @@
 
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -193,7 +194,7 @@
 
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -254,7 +255,7 @@
 			
 			<div id="mo2">
 				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
@@ -332,7 +333,16 @@
 				}
 			});
 		}
+
+		// 头部的下划线显示
+		
+	
+		$('#order-all-header>ul>li').bind('click',function(){
+			
+			$(this).children().eq(0).css('borderBottom','4px solid #2E2F55');
+		})
 	</script>
 	</body>
+	<!-- $(".div_2").children().eq(0)#EEEEEE -->
 
 </html>
