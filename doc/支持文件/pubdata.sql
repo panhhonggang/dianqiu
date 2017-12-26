@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-25 10:11:03
+Date: 2017-12-26 13:58:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -190,7 +190,7 @@ CREATE TABLE `pub_cart_filters` (
   `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_cart_filters
@@ -208,7 +208,7 @@ CREATE TABLE `pub_cart_setmeal` (
   `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=364 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=410 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_cart_setmeal
@@ -360,7 +360,7 @@ CREATE TABLE `pub_devices_statu` (
 -- ----------------------------
 -- Records of pub_devices_statu
 -- ----------------------------
-INSERT INTO `pub_devices_statu` VALUES ('1', '2147483647', '11', null, '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, 'GPRS', '11223344556677889900', '90', '10020\0\0\0\0\0', '1513238294', '1513299086');
+INSERT INTO `pub_devices_statu` VALUES ('1', '2147483647', '11', '34000', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, 'GPRS', '11223344556677889900', '90', '10020\0\0\0\0\0', '1513238294', '1513299086');
 
 -- ----------------------------
 -- Table structure for pub_express_information
@@ -376,7 +376,7 @@ CREATE TABLE `pub_express_information` (
   `updated_at` int(11) DEFAULT NULL COMMENT '修改时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_express_information
@@ -394,6 +394,7 @@ INSERT INTO `pub_express_information` VALUES ('21', '10', '吴智彬都是', '13
 INSERT INTO `pub_express_information` VALUES ('22', '10', '吴智彬范围', '13425492760', '中国广州东圃', null, null, '0');
 INSERT INTO `pub_express_information` VALUES ('23', '10', '吴智彬uuu', '13425492760', '中国广州东圃', null, null, '0');
 INSERT INTO `pub_express_information` VALUES ('24', '10', '吴智彬Hhj', '13425492760', '中国广州东圃', null, null, '0');
+INSERT INTO `pub_express_information` VALUES ('25', '10', '吴智彬good', '13425492760', '中国广州东圃', null, null, '0');
 
 -- ----------------------------
 -- Table structure for pub_feeds
@@ -436,13 +437,13 @@ CREATE TABLE `pub_filters` (
 -- ----------------------------
 -- Records of pub_filters
 -- ----------------------------
-INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509673437', '1000.00');
-INSERT INTO `pub_filters` VALUES ('2', 'PP棉', 'A型', '/Public/Home/images/ro_02.png', '123', '321', null, null, '凄凄切切我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509607569', '2000.00');
-INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '/Public/Home/images/ro_02.png', '234', '432', null, null, '尺寸齐全我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509607600', '3000.00');
-INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509673448', '4000.00');
-INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '/Public/Home/images/ro_02.png', '500', '2000', null, null, '啊啊按时到我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509607666', '5000.00');
-INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509673463', '6000.00');
-INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '7000.00');
+INSERT INTO `pub_filters` VALUES ('1', 'RO膜', 'A型', '/dianqiu/project/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509673437', '1000.00');
+INSERT INTO `pub_filters` VALUES ('2', 'PP棉', 'A型', '/dianqiu/project/Public/Home/images/ro_02.png', '123', '321', null, null, '凄凄切切我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509607569', '2000.00');
+INSERT INTO `pub_filters` VALUES ('3', 'PP棉2号', null, '/dianqiu/project/Public/Home/images/ro_02.png', '234', '432', null, null, '尺寸齐全我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509607600', '3000.00');
+INSERT INTO `pub_filters` VALUES ('4', 'RO膜2号', 'B型', '/dianqiu/project/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509673448', '4000.00');
+INSERT INTO `pub_filters` VALUES ('5', 'PPRO', null, '/dianqiu/project/Public/Home/images/ro_02.png', '500', '2000', null, null, '啊啊按时到我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509607666', '5000.00');
+INSERT INTO `pub_filters` VALUES ('6', 'RO膜PP', 'C型', '/dianqiu/project/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1509673463', '6000.00');
+INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '/dianqiu/project/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实', 'http://www.baidu.com', '1509673287', '7000.00');
 
 -- ----------------------------
 -- Table structure for pub_hire
@@ -523,29 +524,23 @@ CREATE TABLE `pub_order_filter` (
   `updated_at` int(11) NOT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_order_filter
 -- ----------------------------
-INSERT INTO `pub_order_filter` VALUES ('8', '20171221151383312016454761061309', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513833120', '0');
-INSERT INTO `pub_order_filter` VALUES ('9', '20171221151383332634814141852704', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513833326', '0');
-INSERT INTO `pub_order_filter` VALUES ('10', '20171221151383340685215153131405', '6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1513833406', '0');
-INSERT INTO `pub_order_filter` VALUES ('11', '20171221151383386174182037136774', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513833861', '0');
-INSERT INTO `pub_order_filter` VALUES ('12', '20171221151383470857241102225325', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513834708', '0');
-INSERT INTO `pub_order_filter` VALUES ('13', '20171221151383480625343451397009', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513834806', '0');
-INSERT INTO `pub_order_filter` VALUES ('14', '20171221151383594380214727336508', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513835943', '0');
-INSERT INTO `pub_order_filter` VALUES ('15', '20171221151383598674745321313165', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513835986', '0');
-INSERT INTO `pub_order_filter` VALUES ('16', '20171221151383598674745321313165', '6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1513835986', '0');
-INSERT INTO `pub_order_filter` VALUES ('17', '20171221151383636519516722199376', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513836365', '0');
-INSERT INTO `pub_order_filter` VALUES ('18', '20171221151383775641640485329328', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513837756', '0');
-INSERT INTO `pub_order_filter` VALUES ('19', '20171221151383798395450778058350', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513837983', '0');
-INSERT INTO `pub_order_filter` VALUES ('20', '20171221151383821195945932887410', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513838211', '0');
-INSERT INTO `pub_order_filter` VALUES ('21', '20171221151383823191181960535688', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513838231', '0');
-INSERT INTO `pub_order_filter` VALUES ('22', '20171221151383823191181960535688', '6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1513838231', '0');
-INSERT INTO `pub_order_filter` VALUES ('23', '20171221151383941916078055606562', '1', 'RO膜', 'A型', '/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1513839419', '0');
-INSERT INTO `pub_order_filter` VALUES ('24', '20171221151383941916078055606562', '6', 'RO膜PP', 'C型', '/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1513839419', '0');
-INSERT INTO `pub_order_filter` VALUES ('25', '20171221151383941916078055606562', '4', 'RO膜2号', 'B型', '/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '4000.00', '1', '4000.00', '1513839419', '0');
+INSERT INTO `pub_order_filter` VALUES ('44', '970294217660737008', '1', 'RO膜', 'A型', '/dianqiu/project/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '4', '4000.00', '1514265775', '0');
+INSERT INTO `pub_order_filter` VALUES ('45', '970294217660737008', '6', 'RO膜PP', 'C型', '/dianqiu/project/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '1', '6000.00', '1514265775', '0');
+INSERT INTO `pub_order_filter` VALUES ('46', '970294217660737008', '4', 'RO膜2号', 'B型', '/dianqiu/project/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '4000.00', '1', '4000.00', '1514265775', '0');
+INSERT INTO `pub_order_filter` VALUES ('47', '157879036712097840', '1', 'RO膜', 'A型', '/dianqiu/project/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1514266678', '0');
+INSERT INTO `pub_order_filter` VALUES ('48', '157879036712097840', '6', 'RO膜PP', 'C型', '/dianqiu/project/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '2', '12000.00', '1514266678', '0');
+INSERT INTO `pub_order_filter` VALUES ('49', '157879036712097840', '4', 'RO膜2号', 'B型', '/dianqiu/project/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '4000.00', '3', '12000.00', '1514266678', '0');
+INSERT INTO `pub_order_filter` VALUES ('50', '160393629626761004', '1', 'RO膜', 'A型', '/dianqiu/project/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '4', '4000.00', '1514266748', '0');
+INSERT INTO `pub_order_filter` VALUES ('51', '160393629626761004', '6', 'RO膜PP', 'C型', '/dianqiu/project/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '5', '30000.00', '1514266748', '0');
+INSERT INTO `pub_order_filter` VALUES ('52', '160393629626761004', '4', 'RO膜2号', 'B型', '/dianqiu/project/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '4000.00', '3', '12000.00', '1514266748', '0');
+INSERT INTO `pub_order_filter` VALUES ('53', '476493813094536543', '1', 'RO膜', 'A型', '/dianqiu/project/Public/Home/images/ro_02.png', '500', '2000', null, null, '我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '1000.00', '1', '1000.00', '1514267672', '0');
+INSERT INTO `pub_order_filter` VALUES ('54', '476493813094536543', '6', 'RO膜PP', 'C型', '/dianqiu/project/Public/Home/images/ro_02.png', '444', '322', null, null, '啊实打实我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '6000.00', '2', '12000.00', '1514267672', '0');
+INSERT INTO `pub_order_filter` VALUES ('55', '476493813094536543', '4', 'RO膜2号', 'B型', '/dianqiu/project/Public/Home/images/ro_02.png', '5343', '3333', null, null, '望闻问切去我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介我是滤芯简介', 'http://www.baidu.com', '4000.00', '2', '8000.00', '1514267672', '0');
 
 -- ----------------------------
 -- Table structure for pub_order_setmeal
@@ -566,40 +561,25 @@ CREATE TABLE `pub_order_setmeal` (
   `updated_at` int(11) unsigned DEFAULT NULL COMMENT '订单修改时间',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`(11))
-) ENGINE=InnoDB AUTO_INCREMENT=297 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=342 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_order_setmeal
 -- ----------------------------
-INSERT INTO `pub_order_setmeal` VALUES ('268', '20171221151383312016454761061309', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513833120', null);
-INSERT INTO `pub_order_setmeal` VALUES ('269', '20171221151383332634814141852704', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513833326', null);
-INSERT INTO `pub_order_setmeal` VALUES ('270', '20171221151383340685215153131405', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '2', '20000.00', '1513833406', null);
-INSERT INTO `pub_order_setmeal` VALUES ('271', '20171221151383470857241102225325', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513834708', null);
-INSERT INTO `pub_order_setmeal` VALUES ('272', '20171221151383480625343451397009', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513834806', null);
-INSERT INTO `pub_order_setmeal` VALUES ('273', '20171221151383594380214727336508', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513835943', null);
-INSERT INTO `pub_order_setmeal` VALUES ('274', '20171221151383598674745321313165', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513835986', null);
-INSERT INTO `pub_order_setmeal` VALUES ('275', '20171221151383629177584575658963', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513836291', null);
-INSERT INTO `pub_order_setmeal` VALUES ('276', '20171221151383631525878072281191', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513836315', null);
-INSERT INTO `pub_order_setmeal` VALUES ('277', '20171221151383633437767370376508', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513836334', null);
-INSERT INTO `pub_order_setmeal` VALUES ('278', '20171221151383633437767370376508', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513836334', null);
-INSERT INTO `pub_order_setmeal` VALUES ('279', '20171221151383815612241239011554', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838156', null);
-INSERT INTO `pub_order_setmeal` VALUES ('280', '20171221151383817312271461223664', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513838173', null);
-INSERT INTO `pub_order_setmeal` VALUES ('281', '20171221151383819120695502558515', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513838191', null);
-INSERT INTO `pub_order_setmeal` VALUES ('282', '20171221151383819120695502558515', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838191', null);
-INSERT INTO `pub_order_setmeal` VALUES ('283', '20171221151383823191181960535688', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838231', null);
-INSERT INTO `pub_order_setmeal` VALUES ('284', '20171221151383829196069397281586', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838291', null);
-INSERT INTO `pub_order_setmeal` VALUES ('285', '20171221151383869889439145439655', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838698', null);
-INSERT INTO `pub_order_setmeal` VALUES ('286', '20171221151383874486932180949530', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513838744', null);
-INSERT INTO `pub_order_setmeal` VALUES ('287', '20171221151383921956667323285097', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839219', null);
-INSERT INTO `pub_order_setmeal` VALUES ('288', '20171221151383923342537362335171', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839233', null);
-INSERT INTO `pub_order_setmeal` VALUES ('289', '20171221151383936292277547018289', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839362', null);
-INSERT INTO `pub_order_setmeal` VALUES ('290', '20171221151383938365618285663362', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513839383', null);
-INSERT INTO `pub_order_setmeal` VALUES ('291', '20171221151383938365618285663362', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839383', null);
-INSERT INTO `pub_order_setmeal` VALUES ('292', '20171221151383941916078055606562', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '1', '30000.00', '1513839419', null);
-INSERT INTO `pub_order_setmeal` VALUES ('293', '20171221151383941916078055606562', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839419', null);
-INSERT INTO `pub_order_setmeal` VALUES ('294', '20171221151383947052925069831253', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839470', null);
-INSERT INTO `pub_order_setmeal` VALUES ('295', '20171221151383952257678633593351', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1513839522', null);
-INSERT INTO `pub_order_setmeal` VALUES ('296', '20171221151383952257678633593351', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1513839522', null);
+INSERT INTO `pub_order_setmeal` VALUES ('328', '970294217660737008', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '3', '60000.00', '1514265775', null);
+INSERT INTO `pub_order_setmeal` VALUES ('329', '970294217660737008', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '4', '120000.00', '1514265775', null);
+INSERT INTO `pub_order_setmeal` VALUES ('330', '970294217660737008', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '6', '60000.00', '1514265775', null);
+INSERT INTO `pub_order_setmeal` VALUES ('331', '373440200299964027', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514266279', null);
+INSERT INTO `pub_order_setmeal` VALUES ('332', '157879036712097840', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514266678', null);
+INSERT INTO `pub_order_setmeal` VALUES ('333', '160393629626761004', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514266748', null);
+INSERT INTO `pub_order_setmeal` VALUES ('334', '787036001695699849', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514267597', null);
+INSERT INTO `pub_order_setmeal` VALUES ('335', '890131072049768713', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '1', '30000.00', '1514267628', null);
+INSERT INTO `pub_order_setmeal` VALUES ('336', '890131072049768713', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1514267628', null);
+INSERT INTO `pub_order_setmeal` VALUES ('337', '890131072049768713', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514267628', null);
+INSERT INTO `pub_order_setmeal` VALUES ('338', '476493813094536543', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514267672', null);
+INSERT INTO `pub_order_setmeal` VALUES ('339', '352819442332884757', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '4', '120000.00', '1514267723', null);
+INSERT INTO `pub_order_setmeal` VALUES ('340', '352819442332884757', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '2', '40000.00', '1514267723', null);
+INSERT INTO `pub_order_setmeal` VALUES ('341', '352819442332884757', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '2', '20000.00', '1514267723', null);
 
 -- ----------------------------
 -- Table structure for pub_orders
@@ -623,62 +603,19 @@ CREATE TABLE `pub_orders` (
   `mca` varchar(32) DEFAULT NULL COMMENT '快递订单号',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`,`device_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_orders
 -- ----------------------------
-INSERT INTO `pub_orders` VALUES ('230', '20171221151383312016454761061309', '3', '10', '12', '2', '11000.00', '1513833120', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('231', '20171221151383332634814141852704', '3', '10', '1', '2', '11000.00', '1513833326', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('232', '20171221151383340685215153131405', '3', '10', '1', '3', '26000.00', '1513833406', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('233', '20171221151383386174182037136774', '3', '10', '1', '1', '1000.00', '1513833861', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('234', '20171221151383470857241102225325', '3', '10', '1', '2', '11000.00', '1513834708', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('235', '20171221151383480625343451397009', '3', '10', '1', '2', '11000.00', '1513834806', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('236', '20171221151383594380214727336508', '3', '10', null, '2', '11000.00', '1513835943', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('237', '20171221151383598674745321313165', '3', '10', '22', '3', '17000.00', '1513835986', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('238', '20171221151383629177584575658963', '3', '10', null, '1', '10000.00', '1513836291', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('239', '20171221151383631525878072281191', '3', '10', null, '1', '10000.00', '1513836315', null, '3', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('240', '20171221151383633437767370376508', '3', '10', null, '2', '30000.00', '1513836334', null, '2', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('241', '20171221151383636519516722199376', '3', '10', '23', '1', '1000.00', '1513836365', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('242', '20171221151383775641640485329328', '3', '10', '24', '1', '1000.00', '1513837756', null, '1', '1', '0', '0', '顺丰', '1324659945665645');
-INSERT INTO `pub_orders` VALUES ('243', '20171221151383798395450778058350', '3', '10', '1', '1', '1000.00', '1513837983', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('244', '20171221151383815612241239011554', '3', '10', null, '1', '10000.00', '1513838156', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('245', '20171221151383817312271461223664', '3', '10', null, '1', '20000.00', '1513838173', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('246', '20171221151383819120695502558515', '3', '10', null, '2', '30000.00', '1513838191', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('247', '20171221151383821195945932887410', '3', '10', '1', '1', '1000.00', '1513838211', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('248', '20171221151383823191181960535688', '3', '10', '1', '3', '17000.00', '1513838231', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('249', '20171221151383829196069397281586', '3', '10', null, '1', '10000.00', '1513838291', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('250', '20171221151383869889439145439655', '3', '10', null, '1', '10000.00', '1513838698', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('251', '20171221151383874486932180949530', '3', '10', null, '1', '10000.00', '1513838744', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('252', '20171221151383921956667323285097', '3', '10', null, '1', '10000.00', '1513839219', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('253', '20171221151383923342537362335171', '3', '10', null, '1', '10000.00', '1513839233', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('254', '20171221151383936292277547018289', '3', '10', null, '1', '10000.00', '1513839362', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('255', '20171221151383938365618285663362', '3', '10', null, '2', '30000.00', '1513839383', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('256', '20171221151383941916078055606562', '3', '10', '1', '5', '51000.00', '1513839419', null, '1', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('257', '20171221151383947052925069831253', '3', '10', null, '1', '10000.00', '1513839470', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('258', '20171221151383952257678633593351', '3', '10', null, '2', '30000.00', '1513839522', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('259', '20171221151384274382589621265408', '3', '10', null, '1', '10000.00', '1513842743', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('260', '20171221151384274955438097739132', '3', '10', null, '1', '20000.00', '1513842749', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('261', '20171221151384275950872235577567', '3', '10', null, '1', '10000.00', '1513842759', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('262', '20171221151384278561680391728678', '3', '10', null, '1', '10000.00', '1513842785', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('263', '20171221151384283046561839091518', '3', '10', null, '1', '10000.00', '1513842830', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('264', '20171221151384283917894097083137', '3', '10', null, '1', '10000.00', '1513842839', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('265', '20171221151384302298245613771343', '3', '10', null, '1', '10000.00', '1513843022', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('266', '20171221151384303178265502886830', '3', '10', null, '1', '10000.00', '1513843031', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('267', '20171221151384304674439037172253', '3', '10', null, '2', '30000.00', '1513843046', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('268', '20171221151384320082146163498188', '3', '10', null, '1', '10000.00', '1513843200', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('269', '20171221151384359249882276725182', '3', '10', null, '1', '10000.00', '1513843592', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('270', '20171221151384361473756108596191', '3', '10', null, '1', '10000.00', '1513843614', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('271', '20171221151384366827724545614454', '3', '10', null, '2', '30000.00', '1513843668', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('272', '20171221151384370822261789973299', '3', '10', null, '2', '20000.00', '1513843708', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('273', '20171221151384381511445371302176', '3', '10', '25', '1', '1000.00', '1513843815', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('274', '20171221151384411967011501977210', '3', '10', '1', '28', '125000.00', '1513844119', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('275', '20171221151384424366548654105877', '3', '10', null, '1', '20000.00', '1513844243', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('276', '20171221151384507783115719058858', '3', '10', null, '1', '10000.00', '1513845077', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('277', '20171221151384591177335899907146', '3', '10', null, '1', '10000.00', '1513845911', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('278', '20171221151384592956097874378477', '3', '10', null, '2', '30000.00', '1513845929', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('279', '20171221151384595260745399812354', '3', '10', '1', '1', '1000.00', '1513845952', null, '0', null, null, null, null, null);
-INSERT INTO `pub_orders` VALUES ('280', '20171221151384920297743045584269', '3', '10', null, '1', '10000.00', '1513849202', null, '0', null, null, null, null, null);
+INSERT INTO `pub_orders` VALUES ('303', '970294217660737008', '3', '10', '1', '19', '254000.00', '1514265775', '1514265815', '1', '1', '1', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('304', '373440200299964027', '3', '10', null, '1', '10000.00', '1514266279', null, '1', '0', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('305', '157879036712097840', '3', '10', '1', '7', '35000.00', '1514266678', null, '1', '0', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('306', '160393629626761004', '3', '10', '25', '13', '56000.00', '1514266748', '1514267544', '1', '1', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('307', '787036001695699849', '3', '10', null, '1', '10000.00', '1514267597', null, '0', '0', '0', '0', null, null);
+INSERT INTO `pub_orders` VALUES ('308', '890131072049768713', '3', '10', null, '3', '60000.00', '1514267628', null, '1', '0', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('309', '476493813094536543', '3', '10', '1', '6', '31000.00', '1514267672', null, '0', '0', '0', '0', null, null);
+INSERT INTO `pub_orders` VALUES ('310', '352819442332884757', '3', '10', null, '8', '180000.00', '1514267723', null, '0', '0', '0', '0', null, null);
 
 -- ----------------------------
 -- Table structure for pub_repair

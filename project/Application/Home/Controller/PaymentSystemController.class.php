@@ -762,6 +762,7 @@ class PaymentSystemController extends CommonController
 
                     // 修改订单状态为已付款
                     $isPay['is_pay'] = 1;
+                    $isPay['is_recharge'] = 1;
                     $isPayRes = $orders->where($data)->save($isPay);
 
                     // 查询订单包含的全部套餐

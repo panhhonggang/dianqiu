@@ -51,18 +51,24 @@ class OrdersController extends CommonController
 
             // 遍历订单未支付订单号
             foreach ($orders as $value) {
-                // 订单编号
-                $orderSend["{$value['order_id']}"]['order_id'] = $value['order_id'];
-                // 订单时间：
-                $orderSend["{$value['order_id']}"]['created_at'] = $value['created_at'];
-                // 订单数量
-                $orderSend["{$value['order_id']}"]['total_num'] = $value['total_num'];
-                // 订单金额
-                $orderSend["{$value['order_id']}"]['total_price'] = $value['total_price'];
-                // 获取订单套餐明细
-                $orderSend["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
-                // 获取订单滤芯明细
-                $orderSend["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+
+                $emptyFulfil = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+
+                if($emptyFulfil){
+                    // 订单编号
+                    $orderSend["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                    // 订单时间：
+                    $orderSend["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                    // 订单数量
+                    $orderSend["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                    // 订单金额
+                    $orderSend["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                    // 获取订单套餐明细
+                    $orderSend["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                    // 获取订单滤芯明细
+                    $orderSend["{$value['order_id']}"]['orderFilter'] = $emptyFulfil;   
+                }
+
             }
 
             // 分配数据
@@ -91,10 +97,12 @@ class OrdersController extends CommonController
             $this->assign('orderTake',$orderTake);
 
             // 已完成订单
-             $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_ship`=1")->select();
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_ship`=1 AND `is_recharge`=1")->select();
             // 准备数组装待收货订单信息
             $orderFulfil = array();
-            // 遍历订单未支付订单号
+
+            // 包含滤芯产品
+            // 遍历订单已收货和已充值订单号
             foreach ($orders as $value) {
                 // 订单编号
                 $orderFulfil["{$value['order_id']}"]['order_id'] = $value['order_id'];
@@ -109,8 +117,53 @@ class OrdersController extends CommonController
                 // 获取订单滤芯明细
                 $orderFulfil["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
             }
+
+            // 包含滤芯产品已已收货
+            // 已完成订单
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_ship`=1")->select();
+
+            // 包含滤芯产品
+            // 遍历订单已收货和已收货订单号
+            foreach ($orders as $value) {
+                $emptySetmeal = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                if(empty($emptySetmeal)){
+                    // 订单编号
+                    $orderFulfil["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                    // 订单时间：
+                    $orderFulfil["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                    // 订单数量
+                    $orderFulfil["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                    // 订单金额
+                    $orderFulfil["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                    // 获取订单滤芯明细
+                    $orderFulfil["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+                }
+            }
+
+
+            // 已完成充值
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_recharge`=1")->select();
+
+            // 不包含滤芯产品
+            // 遍历订单已充值订单号
+            foreach ($orders as $value) {
+                $emptyFulfil = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+                if(empty($emptyFulfil)){
+                    // 订单编号
+                    $orderFulfil["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                    // 订单时间：
+                    $orderFulfil["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                    // 订单数量
+                    $orderFulfil["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                    // 订单金额
+                    $orderFulfil["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                    // 获取订单套餐明细
+                    $orderFulfil["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                }
+            }
+            //show($orderFulfil);die;
             // 分配数据
-            $this->assign('orderTake',$orderTake);
+            $this->assign('orderFulfil',$orderFulfil);
 
             //调用微信JS-SDK类获取签名需要用到的数据
             $weixin = new WeixinJssdk;
@@ -205,18 +258,24 @@ class OrdersController extends CommonController
 
             // 遍历订单未支付订单号
             foreach ($orders as $value) {
-                // 订单编号
-                $ordersData["{$value['order_id']}"]['order_id'] = $value['order_id'];
-                // 订单时间：
-                $ordersData["{$value['order_id']}"]['created_at'] = $value['created_at'];
-                // 订单数量
-                $ordersData["{$value['order_id']}"]['total_num'] = $value['total_num'];
-                // 订单金额
-                $ordersData["{$value['order_id']}"]['total_price'] = $value['total_price'];
-                // 获取订单套餐明细
-                $ordersData["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
-                // 获取订单滤芯明细
-                $ordersData["{$value['order_id']}"]['orderFilter'] = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+
+                $emptyFulfil = $orderFilter->where("`order_id`='{$value['order_id']}'")->select();
+
+                if($emptyFulfil){
+                    // 订单编号
+                    $ordersData["{$value['order_id']}"]['order_id'] = $value['order_id'];
+                    // 订单时间：
+                    $ordersData["{$value['order_id']}"]['created_at'] = $value['created_at'];
+                    // 订单数量
+                    $ordersData["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                    // 订单金额
+                    $ordersData["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                    // 获取订单套餐明细
+                    $ordersData["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
+                    // 获取订单滤芯明细
+                    $ordersData["{$value['order_id']}"]['orderFilter'] = $emptyFulfil; 
+                }
+
             }
             //show($ordersData);die;
             // 分配数据
