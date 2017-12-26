@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50548
 File Encoding         : 65001
 
-Date: 2017-12-12 14:14:52
+Date: 2017-12-28 14:55:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,4 +27,4 @@ CREATE TABLE `pub_admin_menu` (
   `ico` varchar(20) DEFAULT '' COMMENT 'font-awesome图标',
   `order_number` int(11) unsigned DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
