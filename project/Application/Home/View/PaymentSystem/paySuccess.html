@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_9yess21xmgyzaor.css">
 	<link rel="stylesheet" href="__PUBLIC__/Home/css/pay-succeed.css">
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
-
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <div id="pay-succeed-all">
@@ -18,10 +18,19 @@
 		<div id="pay-succeed-btn">
 			<input type="button" value="查看订单">
 			<input type="button" value="返回首页">
-
 		</div>
 	</div>
 </div>
-	
+	<script>
+		// 查看订单
+		$('#pay-succeed-btn>input[value="查看订单"]').click(function(){
+			location.href = "{{:U('Home/Orders/orderSend')}}";
+		});
+		
+		// 返回主页
+		$('#pay-succeed-btn>input[value="返回首页"]').click(function(){
+			location.href = "{{:U('Home/Index/index')}}";
+		});
+	</script>	
 </body>
 </html>
