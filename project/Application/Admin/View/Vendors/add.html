@@ -63,7 +63,6 @@ $(function(){
     //城市三级联动
     _init_area();
     $(".oddbtn").click(function(ev){
-        var addressValue="";
         if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
             layui.use('layer', function(){
                 var layer = layui.layer;
@@ -71,7 +70,7 @@ $(function(){
             });    
             ev.preventDefault();
         }else{
-            addressValue=$('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val() + "";
+            $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         }
     });
 })

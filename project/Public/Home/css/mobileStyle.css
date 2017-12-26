@@ -41,7 +41,7 @@ h4{
     z-index: 10;
 	position: absolute;
 	margin: auto;
-	top: 1.4rem;
+	top: 0.9rem;
 	right: 0;
     left: 0;
 }
@@ -53,7 +53,7 @@ h4{
     margin: auto;
     left: 0;
     right: 0;
-    top: 20%;
+    top: 16vh;
     z-index: 0;
     opacity: 1;
     -webkit-backface-visibility: hidden;
@@ -112,7 +112,12 @@ h4{
     justify-content: center;
     align-items: center;
 }
-.btnList ul li a{width: 25vw;height: 10vw; display:block; margin-bottom: 1vh;}
+.btnList ul li a{
+    display: block;
+    color:#666666;
+    text-decoration: none;
+}
+.btnList ul li i{width: 25vw;height: 10vw; display:block; margin-bottom: 1vh;}
 .btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 35%; }
 .btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 20% 95%;}
 .btnList ul li .i3{background:url("../images/mall_btnBg.png") no-repeat; background-position: 50% 30%;background-size: 35%;}
@@ -133,115 +138,84 @@ h4{
     right: 20%;
     top: 38%;
     z-index: 10;
+    animation: spin 1s infinite linear;   
+}
+.canvasBox .service > img {
+    width: 70%;
+    animation:spin-reverse 1s infinite linear;
 }
 @keyframes spin {
-    from {
-        transform: rotate(-1turn);
-        -webkit-transform: rotate(-1turn);
+    to {
+        transform: rotate(1turn);
     }
 } 
 @keyframes spin-reverse {    
-    to {
-        transform: rotate(-1turn);
-        -webkit-transform: rotate(-1turn);
-    }
-}
-@-webkit-keyframes spin {
     from {
-        transform: rotate(-1turn);
-        -webkit-transform: rotate(-1turn);
+        transform: rotate(1turn);
     }
-} 
-@-webkit-keyframes spin-reverse {    
-    to {
-        transform: rotate(-1turn);
-        -webkit-transform: rotate(-1turn);
-    }
-}
-.avatar{
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    /*animation: spin 1s infinite linear;  
-    -webkit-animation: spin 1s infinite linear;  */ 
-    animation: yuanX 1s infinite ease-in;
-}
-.avatar > img {
-    width: 80%;
-    opacity: 1;
-    top: 0;
-    left: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  /*  animation:spin-reverse 1s infinite linear;
-    -webkit-animation:spin-reverse 1s infinite linear;*/
-    animation: yuanY 1s infinite ease-out;
 }
 
-@keyframes yuanX {
-    50% {
-        transform: translateX(10px);
-    }
-}
-@keyframes yuanY {
-    50% {
-        transform: translateY(-10px);
-    }
-}
 .addwater{ 
-    width: 65vw;
-    height: 65vw;
+    width: 60vw;
+    height: 60vw;
+    display: none;
     background: url("../images/addwater.png") no-repeat;
+    background-position: left bottom;
     background-size: 100%;
-    background-origin:5px 5px;
     position: absolute;
     margin: auto;
-    top: 8.5vh;
+    top: 0;
     right: 0;
     left: 0;
     z-index: 10000;
 }
 .ring-out{
-    width: 65vw;
-    height: 65vw;
+    width: 60vw;
+    height: 60vw;
     background: url("../images/ring-out.png") no-repeat;
+    background-position:left bottom;
     background-size: 100%;
-    background-origin:5px 5px;
     position: absolute;
+    display: none;
     margin: auto;
-    top: 8vh;
+    top: 0;
     right: 0;
     left: 0;
 }
 .ring-inside{
-    width: 65vw;
-    height: 65vw;
+    width: 60vw;
+    height: 60vw;
+    display: none;
     background: url("../images/ring-inside.png") no-repeat;
+    background-position: left bottom;
     background-size: 100%;
     position: absolute;
     margin: auto;
-    top:8.5vh;
+    top:-.6rem;
     right: 0;
     left: 0;
 }
 .dripping1{
     position: absolute;
     width: 100%;
+    display: none;
     margin: auto;
     left: 0;
     right: 0;
-    top: 3vh;
+    top: 0;
     animation:dripping1 2.2s linear infinite;
     -webkit-animation:dripping1 2.2s linear infinite;;
 }
 .dripping2{
     position: absolute;
     width: 4%;
+    display: none;
     margin: auto;
     left: 0;
     right: 0;
-    top: 23vh;
-    animation:dripping2 2s 1s linear infinite;
-    -webkit-animation:dripping2 2s 1s linear infinite;;
+    top: 20vh;
+    animation:dripping2 2s 2s linear infinite;
+    -webkit-animation:dripping2 2s 2s linear infinite;;
 }
 @keyframes dripping1{
     0%{
@@ -251,7 +225,7 @@ h4{
     }
     100%{
         opacity:1;
-        top: 19vh;
+        top: 15vh;
         width: 10%;
     }
     
@@ -263,9 +237,9 @@ h4{
         opacity:0;
     }
     100%{
-        top: 19vh;
-        width: 10%;
         opacity:1;
+        top: 15vh;
+        width: 10%;
     }
     
 }
@@ -297,9 +271,10 @@ h4{
 .canvasBox .service{
     width: 20vw;
     height: 20vw;
+    display: none;
     position: absolute;
-    right: 20%;
-    top: 38%;
+    right: 8rem;
+    top: 14rem;
     z-index: 10;
 }
 #waterDetial {
@@ -327,7 +302,7 @@ h4{
 }
 .footerBtn {
     position: relative;
-    box-shadow: 0 0 6px #b7b7b7;
+    box-shadow: 0 0 6px rgba(0,0,0,0.25);
 }
 .footerBtn>div {
     width: 100%;

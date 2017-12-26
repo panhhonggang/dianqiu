@@ -10,20 +10,32 @@
 <title>点球共享水</title>
 </head>
 <body>
-<input type="hidden" class="hiddenValue" value="1" name="">
+<input type="hidden" class="hiddenValue" value="5" name="">
 <section class="btnList">
     <ul>
         <li>
-            <a class="i1" href=""></a>冲洗
+            <a  href="javascript:;">
+                <i class="i1"></i>
+                冲洗
+            </a>
         </li>
         <li>
-            <a class="i2" href="{{:U('/Home/Filters/filterDetails')}}"></a>滤芯
+            <a href="{{:U('/Home/Filters/filterDetails')}}">
+                <i class="i2"></i>
+                滤芯
+            </a>
         </li>
         <li>
-            <a class="i3" href="{{:U('Home/Shop/index')}}"></a>商城
+            <a href="{{:U('Home/Shop/index')}}">
+                <i class="i3"></i>
+                商城
+            </a>
         </li>
         <li>
-            <a class="i4" href="{{:U('Home/Users/mine')}}"></a>我的
+            <a href="{{:U('Home/Users/mine')}}">
+                <i class="i4"></i>
+                我的
+            </a>
         </li>
     </ul>
 </section>
@@ -31,25 +43,21 @@
     <section class="ring-inside"></section>
     <canvas id="canvas"></canvas>
     
-    <section class="wash" style="display: none;"><img src="__PUBLIC__/Home/images/wash.png"></section><!--冲洗-->
-    <section class="service avatar" style="display: none;">
+    <section class="wash"><img src="__PUBLIC__/Home/images/wash.png"></section><!--冲洗-->
+    <section class="service avatar">
         <img src="__PUBLIC__/Home/images/service.png" alt="">
     </section><!--检修-->
-    <section class="addwater" style="display: none;"></section><!-- 制水 -->
-    <section class="ring-out" style="display: none;"></section><!--外环-->
-    <img class="dripping dripping1" style="display: none;" src="__PUBLIC__/Home/images/dripping.png">
-    <img class="dripping dripping2" style="display: none;" src="__PUBLIC__/Home/images/dripping.png">
+    <section class="addwater"></section><!-- 制水 -->
+     <section class="ring-out" ></section><!--外环 -->
+    <img class="dripping dripping1" src="__PUBLIC__/Home/images/dripping.png">
+    <img class="dripping dripping2" src="__PUBLIC__/Home/images/dripping.png">
     <div class="status_text_father">
         <section class="status_text">水满</section>
     </div>
-    <section class="date_show">
-        <section></section>
-        <section></section>
-    </section>
     <div id="waterDetial" >
         <div>
             <span>
-                <img src="__PUBLIC__/Home//images/4_47.png" alt="">
+                <img src="__PUBLIC__/Home/images/4_47.png" alt="">
                 &nbsp;纯水&nbsp; <span>{{$deviceInfo['rawtds']}}ppm</span>
             </span>
             <span>
@@ -59,10 +67,10 @@
         </div>
         <div>
             <span>
-                剩余流量：<span>{{$deviceInfo['reflow']}}L</span>
+                剩余流量：&nbsp;<span>{{$deviceInfo['reflow']}}L</span>
             </span>
             <span>
-                已用流量：<span>{{$deviceInfo['sumflow']}}L</span>
+                已用流量：&nbsp;<span>{{$deviceInfo['sumflow']}}L</span>
             </span>
         </div>
     </div>
@@ -77,7 +85,7 @@
 const c = document.getElementById('canvas');
 const g = c.getContext('2d');
 const omega = 200;//值越大，波浪速度越慢
-var widthC=$(window).width()*.6;
+var widthC=$(window).width()*.55;//设置波浪动画宽度
 c.width=widthC;
 c.height=widthC;
 function addCanvas(color1,color2,waterYield){
@@ -110,7 +118,7 @@ function addCanvas(color1,color2,waterYield){
     const update = () => {
         //外圆环
         c.width = c.width;
-        g.lineCap='round';
+        g.lineCap='round';//画线头样式
         g.lineWidth = 0;
         g.beginPath();
         var gradient=g.createLinearGradient(0,0,0,c.width);
@@ -154,28 +162,32 @@ function machineStatus(){
         $(".status_text").html("制水");
         $(".addwater").show();
         $(".dripping").show();
+        $(".ring-inside").show();
 
     }else if($(".hiddenValue").val()==2){//冲洗
         addCanvas("#37BBD4","#87E8FD",-0.83);
         $(".status_text").html("冲洗");
         $(".wash").show();
+        $(".ring-inside").show();
         $(".ring-out").show();
     }else if($(".hiddenValue").val()==3){//缺水
         addCanvas("#D34656","#FD8795",-0.83);
         $(".status_text").html("缺水");
+        $(".ring-inside").show();
         $(".ring-out").show();
     }else if($(".hiddenValue").val()==4){//水满
         addCanvas("#37BBD4","#87E8FD",0.65);
         $(".status_text").html("水满");
+        $(".ring-inside").show();
         $(".ring-out").show();
     }else if($(".hiddenValue").val()==5){//检修
         addCanvas("#37BBD4","#87E8FD",0.65);
         $(".status_text").html("检修");
         $(".service").show();
+        $(".ring-inside").show();
         $(".ring-out").show();
     }else if($(".hiddenValue").val()==7){ //关机
         $(".status_text").html("");
-        $(".ring-inside").hide();
         $(".canvasBox").css({filter:'grayscale(100%)'});
         $(".btnList").css({filter:'grayscale(100%)'});
     }
