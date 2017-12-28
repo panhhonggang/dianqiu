@@ -96,7 +96,7 @@ class OrdersController extends CommonController
         $info['setmeal'] = $setmeal; 
         
         // $list = $orders->where('pub_orders.order_id='.$order_id)->getAll();
-        dump($info);
+        // dump($info);
         $this->ajaxReturn($info,'JSON');
 
     }
