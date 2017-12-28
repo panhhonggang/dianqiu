@@ -20,6 +20,18 @@ html, body {
 ul li{
 	list-style: none;
 }
+
+/*order_detail css*/
+@media screen and (min-width: 1399px) {
+    ._float_left {
+        width:48%;
+        float:left;
+    }
+    ._float_right{
+        width: 48%;
+        float: right;
+    }
+}
 /*nav part css*/
 .navBox{width: 15%; padding: 0;}
 .navBox ul li ul{
