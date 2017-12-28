@@ -154,10 +154,10 @@ hr{
 	color: #FF0000;
 	/*background: red;*/
 }
-#mo2>.bill{
+#mo2 .bill{
 	display: inline-block;
 	height: 0.666667rem;
-    width: 2.666667rem;
+    /*width: 2.666667rem;*/
     font-family: "宋体","微软雅黑";
     letter-spacing: 0.133333rem;
 	float: right;
@@ -210,6 +210,41 @@ border:none;
 	background:#353659;
 	color:#fff;
 }
+
+
+/*=========order-pay的css=========*/
+.all-information{
+	border:none!important;
+}
+.slip-pay{
+    position: absolute;
+    top: 1.278rem;
+    left: 3.189566rem !important;
+}
+
+
+/*=========order-send的css=========*/
+.send-slip{
+    position: absolute;
+    top: 1.278rem;
+    left: 5.499566rem !important;
+}
+
+
+/*=========order-take的css=========*/
+.take-slip{
+    position: absolute;
+    top: 1.278rem;
+    left: 7.812222rem !important;
+}
+.paied{
+	display: inline-block;
+	margin-left: 1.066667rem;
+	font-family: "微软雅黑";
+	font-size: 0.266667rem;
+	float: right !important;
+}
+
 
 
 

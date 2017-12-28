@@ -22,7 +22,7 @@
 #char-list div {
 	width: 7.0rem;
 	letter-spacing: 0.33rem;
-	border-bottom: 1px dashed #ccc;
+	border-bottom: 1px solid #ccc;
 	padding: 0.133333rem 0.0rem;
 	margin: 0.276667rem 0.0rem;
 	font-size: 0.373333rem;
@@ -34,21 +34,20 @@
 }
 
 #char-list i {
-	font-size: 0.64rem;
+	font-size: 0.74rem;
 	padding-right: 0.133333rem;
 }
 
 #char-list div p{
-	/*width: 0.933333rem;*/
 	margin-left: 0.166667rem;
-	
+	letter-spacing: 0.026667rem;
 	display: inline-block;
 
 }
 
 #char-list div input {
-
 	border: none;
+	background: #fff;
 	height: 0.666667rem;
 }
 

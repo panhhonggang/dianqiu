@@ -1,8 +1,8 @@
-ins,a{text-decoration:none;color: #000;}
-a:link{text-decoration:none;}   /* 指正常的未被访问过的链接*/
-a:visited{text-decoration:none;} /*指已经访问过的链接*/
-a:hover{text-decoration:none;}/*指鼠标在链接*/}
-a:active{text-decoration:none;}/* 指正在点的链接*/ 
+ins,a{text-decoration:none!important;color: #000;}
+a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
+a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
+a:hover{text-decoration:none!important;}/*指鼠标在链接*/}
+a:active{text-decoration:none!important;}/* 指正在点的链接*/ 
 
 #container{
 
@@ -31,7 +31,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	border-bottom: 4px solid #EEEEEE;
 }
 #order-all-header>ul>li>a{
-    padding-bottom: 0.22rem;
+    padding-bottom: 0.23rem;
     border-radius: 0.05rem;
      border-bottom: 4px solid #EEEEEE;
 }
@@ -135,7 +135,6 @@ border:1px solid #000;
 	float: right!important;
 }*/
 #mo-right>b{
-	background: red;
 	 font-size: 0.426667rem;
 	float: left;
 
