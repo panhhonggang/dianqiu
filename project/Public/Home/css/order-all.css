@@ -31,9 +31,9 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 	border-bottom: 4px solid #EEEEEE;
 }
 #order-all-header>ul>li>a{
-    padding-bottom: 0.23rem;
+    padding-bottom: 0.22rem;
     border-radius: 0.05rem;
-     border-bottom: 4px solid #EEEEEE;
+     border-bottom: 2px solid #EEEEEE;
 }
 #order-all-header>ul>li>a.headOne{
 	 border-bottom: 4px solid #2E2F55;
@@ -109,6 +109,7 @@ border:1px solid #000;
 	right: 0.0rem;
 	background:#FFF;
 	color: #000;
+	letter-spacing: 1px;
 }
 
 #mo-left{
