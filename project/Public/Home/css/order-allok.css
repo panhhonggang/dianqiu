@@ -22,8 +22,9 @@
 	
 }
 .bott i,.bott b{
-	font-weight: normal;
+	font-weight: 500;
 	color: red;
+	font-size: 0.426667rem;
 }
 #ro-left input{
 	font-family: "宋体","微软雅黑";
@@ -57,10 +58,13 @@
 #ro-right .top h3{
 	font-size: 0.426667rem;
 	margin-bottom:0.133333rem;
+	font-weight: 600;
 }
 #ro-right .top p
 {
 	font-size: 0.346667rem;
+	line-height: 0.48rem;
+	color: #636363;
 }
 #ro-right .bott{
 	width: 5.546667rem;
@@ -149,9 +153,10 @@ hr{
 }
 #mo-right>p{
 	display: inline-block;
-	font-size:0.373333rem;
+	font-size: 0.426667rem;
 	margin:0.0rem 0.066667rem;
 	color: #FF0000;
+	font-weight: 500;
 	/*background: red;*/
 }
 #mo2 .bill{
@@ -171,7 +176,7 @@ hr{
 	margin-top: 0.853333rem;
 	float:right;
 	font-size: 0.24rem;
-	margin-bottom: 3.0rem;
+	margin-bottom: 1.0rem;
 }
 
 /*================<!-- 滤芯结束 -->=================*/
@@ -245,6 +250,23 @@ border:none;
 	float: right !important;
 }
 
+
+.order-all-foot{
+	
+
+    border: 1px solid #000;
+    position: absolute;
+    right: 0.4rem;
+    color: #000;
+	text-align: center;
+	line-height: 0.70rem;
+}
+.order-all-foot input{
+	background: #FFF;
+	width: 2.85333rem;
+    height: 0.70rem;
+    border: none;
+}
 
 
 
