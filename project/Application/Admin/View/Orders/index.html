@@ -30,7 +30,7 @@
                     <notempty name="list">
                         <foreach name="list" item="vo" key="key">
                         <tr>
-                            <td>{{$vo.order_id}}</td>
+                            <td><a href="__URL__/detail.html/{{$vo.order_id}}">{{$vo.order_id}}</a></td>
                             <td>{{$vo.nickname}}</td>
                             <td>{{$vo.total_num}}</td>
                             <td>{{$vo.total_price}}</td>

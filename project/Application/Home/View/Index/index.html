@@ -82,6 +82,7 @@
     </div>
 </footer>
 <script>
+// 设备状态js动画
 const c = document.getElementById('canvas');
 const g = c.getContext('2d');
 const omega = 200;//值越大，波浪速度越慢
@@ -192,33 +193,6 @@ function machineStatus(){
         $(".btnList").css({filter:'grayscale(100%)'});
     }
 }
-// 点击‘开关’按钮，状态切换
-let isON = 'yes';
-
-$(".footerBtn").on('click',function(){
-
-    isON = isON == 'yes' ? 'no' : 'yes';
-
-    isON == 'yes' 
-            ? (
-                $(".hiddenValue").val(2),
-                $("#canvas").css({display: 'block'}),
-                $(".canvasBox").css({filter:'grayscale(0%)'}),
-                $(".btnList").css({filter:'grayscale(0%)'})
-            )
-            : (
-                $(".hiddenValue").val(7), 
-                $("#canvas").css({display: 'none'}),
-                $(".wash").css({display: 'none'}),
-                $(".ring-out").css({display: 'none'}),
-                $(".addwater").css({display: 'none'}),
-                $(".dripping").css({display: 'none'}),
-                $(".avatar").css({display: 'none'})
-            );
-
-    machineStatus();
-    // console.log(isON, $(".hiddenValue").val());
-});
 
 </script>
 
