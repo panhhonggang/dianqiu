@@ -1,0 +1,131 @@
+<include file="Public/header" />
+<div class="content">
+
+    <include file="Public/nav"/>
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox" id="_app">   
+            <div class="titleBar">订单管理/<span>订单列表/订单详情</span>&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(-1)" class="btn btn-info">&lt;&lt;返回</a></div>
+            <div id="_show" class="clearfix">
+                <div id="_num" class="clearfix">
+                    <span class="pull-left"></span>
+                    <span class="pull-right">订单号：</span>
+                </div>
+          
+              
+                <table class="table table-condensed _float_left" >
+                    <tr>
+                        <td>
+                            滤芯
+                        </td>
+                        <td>
+                            滤芯名称
+                        </td>
+                        <td>
+                            滤芯单价
+                        </td>
+                        <td>
+                            滤芯购买数量
+                        </td>
+                        <td>
+                            滤芯购买总金额
+                        </td>
+                        
+                    </tr>
+                    <tbody id="_tbody">
+                        
+                    </tbody>
+                </table>
+
+                <table class="table table-condensed _float_right">
+                    <tr>
+                        <td>
+                            套餐描述
+                        </td>
+                        <td>
+                            套餐金额
+                        </td>
+                        <td>
+                            套餐购买数量
+                        </td>
+                        <td>
+                            套餐
+                        </td>
+                        <td>
+                            套餐购买总金额
+                        </td>
+                    </tr>
+                    <tbody id="_tbody2">
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+           
+            <div id="_fn" style="font-size: 16px">
+                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+                
+            
+            </div>
+            <script>
+
+
+               $.ajax({
+                url:'__URL__/detail/order_id/' + location.hash.slice(1),
+                success:function(data){
+                    console.log(data)
+                    // $('#_fn').html(data)
+                    if(data.filter[0].created_at){
+                        data.filter[0].created_at = new Date(parseInt(data.filter[0].created_at)*1000).toLocaleString()
+                    }
+                    $('#_num').children('span').eq(0).html(data.filter[0].created_at)
+                    $('#_num').children('span').get(1).innerHTML +=  data.order[0].order_id
+
+                    if(data.filter.length){
+                        for(var i in data.filter){
+                            var html = '<tr>'
+                            html += '<td><img width=50 src="__ROOT__'+data.filter[i].picpath+'"></td>'+
+                                    '<td>'+data.filter[i].filtername+'&nbsp;(&nbsp;'+data.filter[i].alias+'&nbsp;)&nbsp;</td>'+
+                                    '<td>'+data.filter[i].goods_price+'</td>'+
+                                    '<td>'+data.filter[i].goods_num+'</td>'+
+                                    '<td>'+data.filter[i].price+'</td>'
+                            html += '</tr>'
+                            $('#_tbody').append(html)
+                        }
+                    }else{
+                        $('#_tbody').append('暂无购买套餐')
+                    }
+                    
+
+                    if(data.setmeal.length){
+                        for(var j in data.setmeal){
+                            var html2 = '<tr>'
+                            var str = Number(data.setmeal[j].remodel)?'(小时)':'(L)'
+                            console.log(str)
+                            html2 += '<td>'+data.setmeal[j].describe+'</td>'+
+                                     '<td>'+data.setmeal[j].money+'</td>'+
+                                     '<td>'+data.setmeal[j].goods_num+'</td>'+
+                                     '<td>'+data.setmeal[j].flow+str+'</td>'+
+                                     '<td>'+data.setmeal[j].goods_price+'</td>'
+                            html2 += '</tr>'
+                            $('#_tbody2').append(html2)
+                        }
+                    }else{
+                        $('#_tbody2').append('暂无购买产品')
+                    }
+                    var $span = $('#_fn span')
+                    $span.eq(0).append('订单总价：'+data.order[0].total_price)
+                    $span.eq(1).append('订单数量：'+data.order[0].total_num)
+                    $span.eq(2).append(data.order[0].express?('快递：'+data.order[0].express):'快递：暂无快递')
+                }
+               })
+            </script>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+
