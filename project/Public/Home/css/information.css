@@ -13,6 +13,9 @@
 #container h3 {
 	margin-top: 0.266667rem;
 	font-size: 0.453333rem;
+	line-height:0.666667rem;
+	padding-bottom: 0.133333rem;
+	font-weight: 700;
 }
 
 #char-list {
@@ -20,35 +23,56 @@
 }
 
 #char-list div {
-	width: 7.0rem;
+	height: 0.933333rem;
+	width: 9.0rem;
+	line-height: 0.933333rem;
 	letter-spacing: 0.33rem;
 	border-bottom: 1px solid #ccc;
 	padding: 0.133333rem 0.0rem;
 	margin: 0.276667rem 0.0rem;
 	font-size: 0.373333rem;
 	display: inline-block;
+	/*background: #fc1;*/
 }
 
-#char-list .spac {
+/*#char-list .spac {
 	letter-spacing: 0.0rem;
-}
+}*/
 
 #char-list i {
+
 	font-size: 0.74rem;
+	float: left;
+	height: 0.933333rem;
+	line-height: 0.933333rem;
 	padding-right: 0.133333rem;
+	
+}
+.spac-tel{
+	font-weight: 600;
 }
 
 #char-list div p{
-	margin-left: 0.166667rem;
-	letter-spacing: 0.026667rem;
-	display: inline-block;
+	/*margin-left: 0.166667rem;*/
+    letter-spacing: 0.026667rem;
+    display: inline-block;
+    /*background: red;*/
+    font-size:0.426667rem;
+    width: 2.28rem;
+    text-align: right;
+    color:#6A6A6A;
+    float: left;
 
 }
 
-#char-list div input {
+#char-list div input {display: inline-block;
 	border: none;
 	background: #fff;
 	height: 0.666667rem;
+	/*background: green;*/
+	width:5.333333rem;
+	height:0.933333rem;
+	font-size: 0.426667rem;
 }
 
 #save {
