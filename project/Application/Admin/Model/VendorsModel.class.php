@@ -13,13 +13,15 @@ class VendorsModel extends BaseModel
     // 自动验证
     protected $_validate = array(
         array('user','require','账户名不能为空'),
+        // array('user','((?=[\x21-\x7e]+)[^A-Za-z0-9])','登陆帐号不可以使用特殊字符'),
+        // array('name','((?=[\x21-\x7e]+)[^A-Za-z0-9])','用户昵称不可以使用特殊字符'),
         array('user','','该账户已存在，请换一个试试',0,'unique',1),
         array('repassword','password','两次密码不相同',0,'confirm'), //验证确认密码是否和密码一致
         array('phone','/^1[34578]\d{9}$/','电话号码格式不对',1,'regex'),
-        array('email','/([a-z0-9]*[-_\.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?/i','邮箱格式不对',1,'regex'),
+        array('email','/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/','邮箱格式不对',1,'regex'),
         array('name','require','用户昵称不能为空'),
         array('address','require','地址不能为空'),
-        array('idcard','/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/','身份证格式不对',1,'regex')
+        array('idcard','/\d{17}[\d|x]|\d{15}/','身份证格式不对',1,'regex')
     );
 
 

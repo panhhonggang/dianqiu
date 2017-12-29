@@ -159,7 +159,6 @@ class ProductController extends CommonController
 
             $mod = D('filters');
             $info = $mod->create();
-            
             if($info){
                 $res = $mod->where("id=".$_POST['id'])->save();
 
