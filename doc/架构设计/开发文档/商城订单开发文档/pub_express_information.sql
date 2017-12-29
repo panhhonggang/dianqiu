@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : wuzhibin.cn
-Source Server Version : 50173
-Source Host           : sdm359768304.my3w.com:3306
-Source Database       : sdm359768304_db
+Source Server         : localhost_3306
+Source Server Version : 50505
+Source Host           : localhost:3306
+Source Database       : pubdata
 
 Target Server Type    : MYSQL
-Target Server Version : 50173
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-12-21 14:48:04
+Date: 2017-12-29 10:37:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,7 @@ CREATE TABLE `pub_express_information` (
   `updated_at` int(11) DEFAULT NULL COMMENT '修改时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_express_information
@@ -47,3 +47,4 @@ INSERT INTO `pub_express_information` VALUES ('21', '10', '吴智彬都是', '13
 INSERT INTO `pub_express_information` VALUES ('22', '10', '吴智彬范围', '13425492760', '中国广州东圃', null, null, '0');
 INSERT INTO `pub_express_information` VALUES ('23', '10', '吴智彬uuu', '13425492760', '中国广州东圃', null, null, '0');
 INSERT INTO `pub_express_information` VALUES ('24', '10', '吴智彬Hhj', '13425492760', '中国广州东圃', null, null, '0');
+INSERT INTO `pub_express_information` VALUES ('25', '10', '吴智彬good', '13425492760', '中国广州东圃', null, null, '0');

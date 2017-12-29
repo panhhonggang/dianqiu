@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-25 10:10:39
+Date: 2017-12-28 10:50:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,4 +36,4 @@ CREATE TABLE `pub_users` (
 -- ----------------------------
 -- Records of pub_users
 -- ----------------------------
-INSERT INTO `pub_users` VALUES ('10', '测试', '13838381438', null, '1', '1513646091', '219.137.249.39', '1513646091', 'oXwY4t-9clttAFWXjCcNRJrvch3w');
+INSERT INTO `pub_users` VALUES ('10', '吴智彬', '13425492760', '安装设备的地址', '1', '1513646091', '219.137.249.39', '1513646091', 'oXwY4t-9clttAFWXjCcNRJrvch3w');

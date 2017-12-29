@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50714
-Source Host           : localhost:3306
+Source Server         : wuzhibin.cn
+Source Server Version : 50173
+Source Host           : sdm359768304.my3w.com:3306
 Source Database       : sdm359768304_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50714
+Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-14 10:10:46
+Date: 2017-12-28 14:55:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,8 +27,11 @@ CREATE TABLE `pub_cart_setmeal` (
   `create_time` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) unsigned DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=416 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_cart_setmeal
 -- ----------------------------
+INSERT INTO `pub_cart_setmeal` VALUES ('415', '10', '3', '1', '1514443257', null);
+INSERT INTO `pub_cart_setmeal` VALUES ('414', '10', '2', '1', '1514443254', null);
+INSERT INTO `pub_cart_setmeal` VALUES ('413', '10', '1', '1', '1514443249', null);
