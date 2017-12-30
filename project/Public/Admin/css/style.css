@@ -42,6 +42,46 @@ ul li{
 	background: #333;
 }
 
+/*devices_detail css*/
+._four{
+	width:20%;
+	height:100px;
+	border-radius: 10px;
+	float: left
+}
+._DD4B39{
+	background-color:#DD4B39;
+}
+._337AB7{
+	background-color:#337AB7;
+}
+._05CE3E{
+	background-color:#05CE3E;
+}
+._77E1FB{
+	background-color:#77E1FB;
+}
+
+._margin-right{
+	margin-right:6%;
+}
+._text{
+	color:#ffffff;
+}
+._h1{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+}
+._device{
+	background-color: #ffffff;
+	margin-top: 15px;
+	border-radius: 5px;
+	padding: 5px 10px;
+	border-top: 2px #D2D6DE solid;
+	border-bottom:  2px #D2D6DE solid
+}
+
 /*content part css*/
 .content{
 	overflow: hidden;
