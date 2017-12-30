@@ -3,10 +3,10 @@ a{
 	font-family: '微软雅黑';
 	text-decoration: none;
 }
-a:link{text-decoration:none;}   /* 指正常的未被访问过的链接*/
-a:visited{text-decoration:none;} /*指已经访问过的链接*/
-a:hover{text-decoration:none;}/*指鼠标在链接*/
-a:active{text-decoration:none;}/* 指正在点的链接*/ 
+a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
+a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
+a:hover{text-decoration:none!important;}/*指鼠标在链接*/
+a:active{text-decoration:none!important;}/* 指正在点的链接*/ 
 
 #mine-first-all {
 	width: 10.0rem;
@@ -26,6 +26,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 #mine-first-top {
 	width: 8.133333rem;
 	margin-left: 0.533333rem;
+	background: #fc1;
 	margin-bottom: 0.933333rem;
 }
 
@@ -53,20 +54,25 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 /*==================显示==================*/
 #mine-first-top>.mine-name {
-	height: 1.066667rem;
+	height: 2.066667rem;
 	width: 8.133333rem;
-	display: none;
+	/*display: none;*/
+	background: red;
+	/*width:8.133333rem
+	;*/
 }
 
 #mine-first-top>.mine-name>section {
-	display: inline-block;
+	text-align: center;
+	height: 2.666667rem;
+	background: green;
 }
 
 #mine-first-top>.mine-name>section>p>span {
 	margin-left: 0.266667rem;
 	margin-right: 1.066667rem;
 }
-
+*/
 #mine-first-top> p {
 	display: block;
 	width: 8.133333rem;
@@ -80,6 +86,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	font-size: 0.8rem;
 	line-height: 2.066667rem;
 }
+
 /*==================显示==================*/
 #mine-first-top>p:last-child{
 	display: none;
