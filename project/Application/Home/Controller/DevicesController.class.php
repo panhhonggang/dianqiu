@@ -40,6 +40,24 @@ class DevicesController extends CommonController
         $this->display();
     }
 
+    // 设置当前设备
+    public function setNowDevices()
+    {
+        if(IS_POST){
+            $uid = $_SESSION['homeuser']['id'];
+            $device_code = I('post.device_code');
+            $data['did'] = M('Devices')->where("`device_code`={$device_code}")->field('id')->find()['id'];
+            $res = M('currentDevices')->where("`uid`={$uid}")->save($data);
+
+            if($res){
+                echo 1;
+            }else{
+                echo -1;
+            }
+        }
+        
+    }
+
     // 设备绑定
     public function bind()
     {
