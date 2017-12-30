@@ -3,9 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width,initial-scale=1" >
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css">
@@ -15,11 +13,8 @@
 		*{
 			font-size: 12px;
 			font-family: "Microsoft Yahei";
-			padding: 0；
-			margin： 0；
-		}
-		body{
-			background-color: #EBEBEB
+			padding:0;
+			margin:0;
 		}
 		p{
 			color: #7A7A7A;
@@ -33,13 +28,7 @@
 			color: #585858;
 			font-weight: 600;
 		}
-		body{
-			margin: 0;
-		}
-		ul,li{
-			list-style: none;
-			padding: 0;
-		}
+
 		._float_left{
 			float: left;
 		}
@@ -51,7 +40,6 @@
 		}
 		._line{
 			width: 100%;
-			border-top: 1px solid #EFEFEF;
 			margin: 15px 0;
 		}
 		._font_weigth{
@@ -96,9 +84,7 @@
 			margin-top: -5px;
 			width: 10px;
 			height: 10px;
-
 			border-radius: 100%;
-			background-color: #7D7FCE
 		}
 		._padding_left{
 			padding-left: 30px;
@@ -106,7 +92,7 @@
 		._ul{
 			background-color: #FFFFFF;
 			text-align: center;
-			margin-bottom: 8px;
+			border-bottom: 8px solid #ccc;
 		}
 		._ul li{
 			display: inline-block;
@@ -136,17 +122,13 @@
 	</style>
 </head>
 <body>
-
 	<div id="_box">
-		
 		<div>
-			<div>
-				<ul class="_ul _position">
-					<li>滤芯详情</li>
-					<li>滤芯复位</li>
-				</ul>
-				<div class="_line"></div>
-			</div>
+			<ul class="_ul _position">
+				<li>滤芯详情</li>
+				<li>滤芯复位</li>
+			</ul>
+			<div class="_line"></div>
 		</div>
 		<div>
 				<!-- 滤芯详情 -->
@@ -309,23 +291,23 @@
 
 
 	<script type="text/javascript">
-
-		var log = console.log;
 		var $_dian = $('._dian');
 		var $tab_li = $('._ul li');
 		var $_box = $('#_box');
 
-
+		//选定单个滤芯事件
 		$_dian.click(function(){
 			$(this).find('span').toggleClass('_active');
 		})
 
 		$('._line').css({left:($tab_li.eq(0).offset().left+$tab_li.eq(0).innerWidth()/2 - 25)+'px'});
-
+		//tab按钮切换
 		$tab_li.click(function(){
-			var $index = $(this).index();
+			// 左边偏移量
 			var $left = $(this).offset().left+$(this).innerWidth()/2 - 25;
-			$_box.children('div').eq(1).children('div').eq($index).slideDown().siblings().slideUp();
+			// 内容
+			$_box.children('div').eq(1).children('div').eq($(this).index()).slideDown().siblings().slideUp();
+			// 下划线动画
 			$('._line').animate({left:$left+'px'});
 		})
 	</script>

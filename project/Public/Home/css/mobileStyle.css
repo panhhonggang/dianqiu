@@ -34,7 +34,6 @@ h4{
     margin: 0;
     position: relative;
     background: url("../images/status_bg.png") no-repeat;
-    opacity:0.;
     background-size: 100% auto;
     background-position: 0 100%;
 }

@@ -193,7 +193,21 @@ function machineStatus(){
         $(".btnList").css({filter:'grayscale(100%)'});
     }
 }
-
+//websoket
+var websoket=new WebSocket("ws://120.27.12.1:6001");
+websoket.onopen=function(){
+    //包数据
+    ajson={
+        "DeviceID":"201705120000197",
+        "PackType":"login",
+        "Vison":0,
+    };
+    websoket.send(JSON.stringify(ajson));
+}
+//接收数据
+websoket.onmessage=function(data){
+    console.log(data);
+}
 </script>
 
 </body>

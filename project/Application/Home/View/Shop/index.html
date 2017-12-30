@@ -7,52 +7,53 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/lvxin-chongzhi.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css">
-		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<!-- 微信支付支持JS部分代码 -->
 		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	</head>
 	<body>
 	<div id="contain">
-
-		<div id="btn">
-			<input type="button" value="充值">
-			<input type="button" value="滤芯">
-		</div>
-		<hr>
-		<div id="but1" class="line"></div>
-		<div id="but2" class="line"></div>
-
-		<div id="liuliang" class="contentbox">
-			<h3><b>选择套餐</b></h3>
-			<foreach name="setmeallist" item="vo" key="ke">
-				<input type="button" value="{{$vo['describe']}}" sid="{{$vo['id']}}"><br>
-			</foreach>
+		<div>
+			<ul class="_ul _position">
+				<li>充值</li>
+				<li>滤芯</li>
+			</ul>
+			<div class="_line"></div>
 		</div>
 
-		<!-- 滤芯开始 -->
-		<div id="mo" class="contentbox">
-			
-			<foreach name="filtersList" item="v" key="k">
-			<div class="item" state="0">
-				<div id="ro1" class="ro1">
-					<div id="ro-left"><img src="{{$v['picpath']}}" alt=""></div>
-					<div id="ro-right">
-						<div class="top">
-							<h3>{{$v['filtername']}}</h3>
-							<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
-						</div>
-						<div class="bott">
-						 <b>￥{{$v['price']/100}}</b>
-						 <i>
-						 	<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="text" value="0"><input type="button" value="+" class="plus">
-						 </i>
+		<div class="contentBox">
+			<div id="liuliang" class="contentbox">
+				<h3><b>选择套餐</b></h3>
+				<foreach name="setmeallist" item="vo" key="ke">
+					<input type="button" value="{{$vo['describe']}}" sid="{{$vo['id']}}"><br>
+				</foreach>
+			</div>
+
+			<!-- 滤芯开始 -->
+			<div id="mo" class="contentbox">
+				
+				<foreach name="filtersList" item="v" key="k">
+				<div class="item" state="0">
+					<div id="ro1" class="ro1">
+						<div id="ro-left"><img src="{{$v['picpath']}}" alt=""></div>
+						<div id="ro-right">
+							<div class="top">
+								<h3>{{$v['filtername']}}</h3>
+								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+							</div>
+							<div class="bott">
+							 <b>￥{{$v['price']/100}}</b>
+							 <i>
+							 	<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="text" value="0"><input type="button" value="+" class="plus">
+							 </i>
+							</div>
 						</div>
 					</div>
+					<hr>
 				</div>
-				<hr>
+				</foreach>	
 			</div>
-			</foreach>	
 		</div>
 			
 
@@ -65,6 +66,37 @@
 			</i></a>
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
 		</div>
+		<style type="text/css">
+			#contain{
+				margin-top: 0;
+			}
+			._line{
+				width: 100%;
+			border-top: 1px solid #EFEFEF;
+			margin: 15px 0;
+			position: absolute;
+			left: 85px;
+			top: 35px;
+			background-color: #24254D;
+			width: 50px;
+			height: 8px;
+			border-radius: 8px;
+
+		}
+		._ul{
+			background-color: #FFFFFF;
+			text-align: center;
+			position: relative;
+			border-bottom: 8px solid #ccc;
+		}
+		._ul li{
+			display: inline-block;
+			padding: 10px 30px;
+			cursor: pointer;
+			font-weight: 600;
+			color: #555673
+		}
+		</style>
 	
 	</div>
 	<script>
@@ -85,15 +117,15 @@
 		 * TAB切换
 		 * 找到充值和滤芯按钮并绑定点击事件
 		 */
-		$('#btn>input').click( function () {
-			// 隐藏所有下划线
-			$('.line').css({'display':'none'});
-			// 显示当前选中的按钮下划线
-			$('.line:eq('+$(this).index()+')').css({'display':'block'});
-			// 隐藏所有的内容盒子
-			$('.contentbox').css({'display':'none'});
-			// 显示当前的内容盒子
-			$('.contentbox:eq('+$(this).index()+')').css({'display':'block'});
+		$('._line').css({left:($('._ul > li').eq(0).offset().left+$('._ul > li').eq(0).innerWidth()/2 - 25)+'px'});
+		//点击事件
+		$('._ul > li').click( function () {
+			// 左边偏移量
+			var $left = $(this).offset().left+$(this).innerWidth()/2 - 25;
+			// // 显示当前的内容盒子
+			$(".contentBox").children('div').eq($(this).index()).slideDown().siblings().slideUp();
+			// 下划线动画
+			$('._line').animate({left:$left+'px'});
 		});
 
 		/**
