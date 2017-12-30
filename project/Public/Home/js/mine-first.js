@@ -1,25 +1,28 @@
+
 // mine-name的收缩
-// $(function(){
-// 	$('.shang').click(function(){
-// 		$(this).css('display','none');
-// 		$('.mine-name').css('display','none');
-// 		$('.xia').css('display','block');
-// 		$('#mine-first-all').css('background','#fff');
+$(function(){
+	$('.shang').click(function(){
+		$(this).css('display','none');
+		$('.mine-name').css('display','none');
+		$('.xia').css('display','block');
+		$('#mine-first-all').removeClass('mine-first-all')
+	});
+});
 
-		
-// 	});
-// });
+$(function(){
+	$('.xia').click(function(){
+		$(this).css('display','none');
+		$('.shang').css('display','block');
+		$('.mine-name').css('display','block')
 
-// $(function(){
-// 	$('.xia').click(function(){
-// 		$(this).css('display','none');
-// 		$('.shang').css('display','block');
-// 		$('.mine-name').css('display','block');
-// 		$('#mine-first-all')
-// 		.css('background','url(./images/mine-first-01.png) no-repeat');
-// 		// .css('background-size',' contain');
-// 	});
-// });
+		// console.log($('#mine-first-all').attr('url'))
+		$('#mine-first-all').addClass('mine-first-all');
+		// .css('background-size',' contain');
+		// background: url("./images/mine-first-01.png") 0% 0% / contain no-repeat;
+		// __PUBLIC__/Home/css/mine-first.css
+		// 
+	});
+});
 
 // 我的订单下面的li
 $(function(){
