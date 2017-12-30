@@ -8,21 +8,38 @@
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css">
 	<script src="__PUBLIC__/Admin/js/layui/layui.js"></script>
+		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<title>滤芯</title>
 	<style>
 		*{
-			font-size: 12px;
 			font-family: "Microsoft Yahei";
 			padding:0;
 			margin:0;
+		}
+		body {
+			font-size: .4rem !important;
 		}
 		p{
 			color: #7A7A7A;
 			padding: 3px 0;
 		}
 		._progress{
+			height: 4px;
+			display: flex;
+			align-items: center;
 			margin: 0 auto;
 			border-radius: 10px;
+			background: #dfdfdf;
+			overflow: visible;
+		}
+		.progress-bar {
+			height: 12px;
+			border-radius: 6px;
+			background: #486fea;
+			background-size: 10px 10px;
+			background-image: linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+			background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+			background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
 		}
 		h3{
 			color: #585858;
@@ -40,7 +57,6 @@
 		}
 		._line{
 			width: 100%;
-			margin: 15px 0;
 		}
 		._font_weigth{
 			font-weight: 600;
@@ -89,17 +105,37 @@
 		._padding_left{
 			padding-left: 30px;
 		}
+
+		#ulDiv {
+			height: 10vh;
+			position: relative;
+		}
+		#lineDiv {
+			height: 1vh;
+			position: absolute;
+			margin: 0;
+			top: auto;
+			bottom: 0;
+			margin-bottom: 1vh;
+		}
 		._ul{
+			width: 100vw;
+			height: 9vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			background-color: #FFFFFF;
 			text-align: center;
-			border-bottom: 8px solid #ccc;
+			position: relative;
+			border-bottom: 1vh solid #ccc;
 		}
 		._ul li{
 			display: inline-block;
-			padding: 10px 30px;
+			padding: 0 30px;
 			cursor: pointer;
 			font-weight: 600;
-			color: #555673
+			color: #555673;
+			font-size: .5rem;
 		}
 		._background_color{
 			background-color: #FFFFFF;
@@ -108,13 +144,13 @@
 			display: none;
 		}
 		._line{
-			position: absolute;
+			position: relative;
 			left: 0;
-			top: 20px;
+			bottom: 0;
 			background-color: #24254D;
 			width: 50px;
 			height: 8px;
-			border-radius: 8px;
+			border-radius: 18px;
 		}
 		._position{
 			position: relative;
@@ -123,12 +159,12 @@
 </head>
 <body>
 	<div id="_box">
-		<div>
+		<div id="ulDiv">
 			<ul class="_ul _position">
 				<li>滤芯详情</li>
 				<li>滤芯复位</li>
 			</ul>
-			<div class="_line"></div>
+			<div id="lineDiv" class="_line"></div>
 		</div>
 		<div>
 				<!-- 滤芯详情 -->
@@ -180,7 +216,7 @@
 				</div>
 				
 				<!-- 横线 -->
-				<div class="_line"></div>
+				<!-- <div class="_line"></div> -->
 				
 				<!-- RO膜 -->
 				<div class="_padding">
@@ -197,7 +233,7 @@
 				</div>
 
 				<!-- 横线 -->
-				<div class="_line"></div>
+				<!-- <div class="_line"></div> -->
 				
 				<!-- 后置活性炭 -->
 				<div class="_padding">

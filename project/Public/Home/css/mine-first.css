@@ -10,14 +10,11 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 
 #mine-first-all {
 	width: 10.0rem;
-	background: url(../images/mine-first-01.png) no-repeat;
 	background-size: contain;
 }
-
-.mine-first-all {
-	background: #FFF!important;
+.mine-first-all{
+	background: url(../images/mine-first-01.png) no-repeat;
 }
-
 #mine-first-container {
 	width: 9.2rem;
 	margin: 0.8rem 0.4rem 0.0rem 0.4rem;
@@ -26,7 +23,6 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 #mine-first-top {
 	width: 8.133333rem;
 	margin-left: 0.533333rem;
-	background: #fc1;
 	margin-bottom: 0.933333rem;
 }
 
@@ -54,47 +50,44 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 }
 /*==================显示==================*/
 #mine-first-top>.mine-name {
-	height: 2.066667rem;
 	width: 8.133333rem;
-	/*display: none;*/
-	background: red;
-	/*width:8.133333rem
-	;*/
 }
 
 #mine-first-top>.mine-name>section {
+	/*background: green;*/
+	padding-bottom: 0.8333rem;
+}
+#mine-first-top>.mine-name>section>p{
+	line-height: 0.666667rem;
+}
+#mine-first-top>.mine-name>section>p>em{
+	display: inline-block;
+	width: 25%;
+	text-align: right;
+}
+#mine-first-top>.mine-name>section>p.mineAddr>span{
+	width: 75%;
+	float: right;
+	overflow: hidden;
+}
+.shouFang{
+	margin-top:0.533333rem;
 	text-align: center;
-	height: 2.666667rem;
-	background: green;
 }
-
-#mine-first-top>.mine-name>section>p>span {
-	margin-left: 0.266667rem;
-	margin-right: 1.066667rem;
+.shouFang i{
+	font-size:0.666667rem;
 }
-*/
-#mine-first-top> p {
-	display: block;
-	width: 8.133333rem;
-	height: 1.066667rem;
-	font-size: 0.8rem;
-	text-align: center;
-	/*background: #ccc;*/
-}
-
-#mine-first-top>p>i {
-	font-size: 0.8rem;
-	line-height: 2.066667rem;
-}
-
-/*==================显示==================*/
-#mine-first-top>p:last-child{
+.shouFang>.xia{
 	display: none;
 }
 
+
+
+/*==================显示==================*/
+
+
 #mine-first-bottom {
 	width: 9.2rem;
-	margin-top: 2.266667rem;
 }
 
 #m-f-list>h3 {

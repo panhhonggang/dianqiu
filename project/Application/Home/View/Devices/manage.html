@@ -15,8 +15,16 @@
 <script>	
 		$(function(){
 			$('#devices-list li').bind('click',function(){
-				$('#devices-list ul li i').removeClass('iconfont icon-chenggong');
-				$(this).children('i').addClass('iconfont icon-chenggong');		
+				var device_code = $(this).attr('title');
+				var _this = this;
+				$.post('{{:U("Home/Devices/setNowDevices")}}',{ 'device_code':device_code }, function(res){
+					// 判断购物车是否添加成功
+					if(res==1){
+						$('#devices-list ul li i').removeClass('iconfont icon-chenggong');
+						$(_this).children('i').addClass('iconfont icon-chenggong');	
+					}
+				});
+	
 			});	
 		});
 
@@ -43,9 +51,9 @@
 				<foreach name="devices"	item="value">				
 					<if condition="$currentDevices['did'] == $value['id'] ">
 							<!-- 用户当前设备 -->
-							<b></b><li>设备型号:{{$value['device_code']}}<i class="iconfont icon-chenggong"></i></li><br>
+							<b></b><li title="{{$value['device_code']}}">设备型号:{{$value['device_code']}}<i class="iconfont icon-chenggong"></i></li><br>
 					    <else />
-					    	<b></b><li>设备型号:{{$value['device_code']}}<i></i></li><br>
+					    	<b></b><li title="{{$value['device_code']}}">设备型号:{{$value['device_code']}}<i></i></li><br>
 					</if>
 				</foreach>
 			</ul>

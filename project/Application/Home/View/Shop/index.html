@@ -14,12 +14,12 @@
 	</head>
 	<body>
 	<div id="contain">
-		<div>
+		<div id="ulDiv">
 			<ul class="_ul _position">
 				<li>充值</li>
 				<li>滤芯</li>
 			</ul>
-			<div class="_line"></div>
+			<div id="lineDiv" class="_line"></div>
 		</div>
 
 		<div class="contentBox">
@@ -67,8 +67,22 @@
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
 		</div>
 		<style type="text/css">
+			body {
+				font-size: .4rem !important;
+			}
 			#contain{
 				margin-top: 0;
+			}
+			#ulDiv {
+				height: 10vh;
+				position: relative;
+			}
+			#lineDiv {
+				height: 1vh;
+				margin: 0;
+				top: auto;
+				bottom: 0;
+				margin-bottom: 1vh;
 			}
 			._line{
 				width: 100%;
@@ -76,7 +90,7 @@
 			margin: 15px 0;
 			position: absolute;
 			left: 85px;
-			top: 35px;
+			top: 36px;
 			background-color: #24254D;
 			width: 50px;
 			height: 8px;
@@ -84,17 +98,23 @@
 
 		}
 		._ul{
+			width: 100vw;
+			height: 8vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			background-color: #FFFFFF;
 			text-align: center;
 			position: relative;
-			border-bottom: 8px solid #ccc;
+			border-bottom: 1vh solid #ccc;
 		}
 		._ul li{
 			display: inline-block;
-			padding: 10px 30px;
+			padding: 0 30px;
 			cursor: pointer;
 			font-weight: 600;
-			color: #555673
+			color: #555673;
+			font-size: .5rem;
 		}
 		</style>
 	
