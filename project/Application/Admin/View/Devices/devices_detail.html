@@ -25,34 +25,73 @@
                         </div>
                     </div> 
                 </div>
-                <div class="_float_left">
-                    <div class="_device">
-                        <div>
-                            <h3>滤芯信息(剩余值)</h3>
+                <div class="clearfix">
+                    <div class="_float_left">
+                        <div class="_device">
+                            <div>
+                                <h3>滤芯信息(剩余值)</h3>
+                            </div>
+                            <table class="table _table" style="margin-bottom: 0">
+
+                            </table>
                         </div>
-                        <table class="table _table" style="margin-bottom: 0">
 
-                        </table>
+                        <div class="_device">
+                            <div>
+                                <h3>设备操作</h3>
+                                <div style="padding: 0 100px"><button class="btn btn-primary" style="padding:15px 25px">关机</button></div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="_float_right">
+                        <div style="padding: 5px 10px;" class="_device">
+                            <div>
+                                <h3>设备信息</h3>
+                            </div>
+                            <table class="table _table2">
 
-                    <div class="_device">
-                        <div>
-                            <h3>设备操作</h3>
-                            <div style="padding: 0 100px"><button class="btn btn-primary btn-lg">关机</button></div>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="_float_right">
-                    <div style="padding: 5px 10px;" class="_device">
-                        <div>
-                            <h3>设备信息</h3>
-                        </div>
-                        <table class="table _table2" style="margin-bottom: 50px;">
-
-                        </table>
-                    </div>
+                <div class="_tb">
+                    <h2>经销商信息列表</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>经销商ID</td>
+                                <td>经销商ID</td>
+                                <td>经销商姓名</td>
+                                <td>手机号码</td>
+                                <td>地址</td>
+                                <td>管理级别</td>
+                                <td>管理级别</td>
+                                <td>邮箱</td>
+                                <td>备注</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
-                
+                <div class="_tb" style="margin-bottom: 50px;">
+                    <h2>使用记录</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>序号</td>
+                                <td>IC卡编号</td>
+                                <td>用户姓名</td>
+                                <td>手机号码</td>
+                                <td>使用时间</td>
+                                <td>使用流量/mL</td>
+                                <td>使用地址</td>
+                                <td>备注</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
                 <script>
                     var devicestause = {
                         '0':'制水',
@@ -90,72 +129,75 @@
                             $status.eq(2).html(data.statu.rawtds?data.statu.rawtds:'--')
                             $status.eq(3).html(data.statu.leasingmode?leasingmode[data.statu.leasingmode]:'--')
                             
+                            var _color = ['#05CE3E','#005384','#DD4B39','#337AB7','#5CB85C','#77E1FB']
                             data.filterInfo.forEach(function(el,i,data){
                                 var html = '<tr>'+
                                             '<td>'+el.filtername+'&nbsp;(&nbsp;'+el.alias+'&nbsp;)&nbsp;'+'</td>'+
-                                            '<td>'+'<div class="progress progress-striped" style="border-radius:10px;">'+
-                                                '<div class="progress-bar progress-bar-info" role="progressbar"'+
-                                                     'aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"'+
-                                                     'style="width: 30%;">'+
-                                                    '<span class="sr-only" style="color:#fff;padding-left:10px">30%</span>'+
+                                            '<td style="width:50%">'+
+                                                '<div class="text-center">'+
+                                                    '<div class="_progress">'+
+                                                        '<div class="_progress_" style="width: 20%;background-color:'+_color[i%_color.length]+'">'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                                    '<span>还剩20%</span>'+
                                                 '</div>'+
-                                                '</div>'+'</td>'+
-                                                '<td>'+'<span>30/100</span>'+'</td>'+
-                                                '<td>'+'<tutton class="btn btn-info">复位</button>'+'</td>'+
+                                            '</td>'+
+                                            '<td>'+'20/'+el.flowlife+'</td>'+
+                                            '<td>'+'<tutton class="btn btn-info">复位</button>'+'</td>'+
                                             '</tr>'
                                 $_table.append(html)
                             })
                             var html2 = '<tr>'+
-                                        '<td>'+'设备编号'+'</td>'+
-                                        '<td>'+data.statu.deviceid+'</td>'+
+                                            '<td>'+'设备编号'+'</td>'+
+                                            '<td>'+data.statu.deviceid+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'设备状态'+'</td>'+
-                                        '<td>'+devicestause[data.statu.devicestause]+'</td>'+
+                                            '<td>'+'设备状态'+'</td>'+
+                                            '<td>'+devicestause[data.statu.devicestause]+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'安装时间'+'</td>'+
-                                        '<td>'+(data.statu.addtime?new Date(data.statu.addtime*1000).toLocaleString():'--')+'</td>'+
+                                            '<td>'+'安装时间'+'</td>'+
+                                            '<td>'+(data.statu.addtime?new Date(data.statu.addtime*1000).toLocaleString():'--')+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'安装地址'+'</td>'+
-                                        '<td>'+data.statu.address+'</td>'+
+                                            '<td>'+'安装地址'+'</td>'+
+                                            '<td>'+data.statu.address+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'原水值(ppm)'+'</td>'+
-                                        '<td>'+data.statu.puretds+'</td>'+
+                                            '<td>'+'原水值(ppm)'+'</td>'+
+                                            '<td>'+data.statu.puretds+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'纯水值(ppm)'+'</td>'+
-                                        '<td>'+data.statu.rawtds+'</td>'+
+                                            '<td>'+'纯水值(ppm)'+'</td>'+
+                                            '<td>'+data.statu.rawtds+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'剩余流量 (L)'+'</td>'+
-                                        '<td>'+data.statu.reflow+'</td>'+
+                                            '<td>'+'剩余流量 (L)'+'</td>'+
+                                            '<td>'+data.statu.reflow+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'剩余天数 (D)'+'</td>'+
-                                        '<td>'+data.statu.reday+'</td>'+
+                                            '<td>'+'剩余天数 (D)'+'</td>'+
+                                            '<td>'+data.statu.reday+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'租赁模式'+'</td>'+
-                                        '<td>'+(data.statu.leasingmode?leasingmode[data.statu.leasingmode]:'--')+'</td>'+
+                                            '<td>'+'租赁模式'+'</td>'+
+                                            '<td>'+(data.statu.leasingmode?leasingmode[data.statu.leasingmode]:'--')+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'激活状态'+'</td>'+
-                                        '<td>'+(Number(data.statu.alivestause)?'已激活':'未激活')+'</td>'+
+                                            '<td>'+'激活状态'+'</td>'+
+                                            '<td>'+(Number(data.statu.alivestause)?'已激活':'未激活')+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'滤芯模式'+'</td>'+
-                                        '<td>'+(data.statu.filtermode?filtermode[data.statu.filtermode]:'--')+'</td>'+
+                                            '<td>'+'滤芯模式'+'</td>'+
+                                            '<td>'+(data.statu.filtermode?filtermode[data.statu.filtermode]:'--')+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'温度'+'</td>'+
-                                        '<td>'+(data.statu.temperature?data.statu.temperature:'--')+'</td>'+
+                                            '<td>'+'温度'+'</td>'+
+                                            '<td>'+(data.statu.temperature?data.statu.temperature:'--')+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
-                                        '<td>'+'更新时间'+'</td>'+
-                                        '<td>'+(data.statu.updatetime?new Date(data.statu.updatetime*1000).toLocaleString():'--')+'</td>'+
+                                            '<td>'+'更新时间'+'</td>'+
+                                            '<td>'+(data.statu.updatetime?new Date(data.statu.updatetime*1000).toLocaleString():'--')+'</td>'+
                                         '</tr>'
                             $_table2.append(html2)
                             console.log()
