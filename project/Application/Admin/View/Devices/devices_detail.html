@@ -131,18 +131,21 @@
                             
                             var _color = ['#05CE3E','#005384','#DD4B39','#337AB7','#5CB85C','#77E1FB']
                             data.filterInfo.forEach(function(el,i,data){
+                                var redayfilter = []
+                                var persent = Number(el.timelife)/Number(el.flowlife)*100
+                                var width = Math.min(persent,100)
                                 var html = '<tr>'+
                                             '<td>'+el.filtername+'&nbsp;(&nbsp;'+el.alias+'&nbsp;)&nbsp;'+'</td>'+
                                             '<td style="width:50%">'+
                                                 '<div class="text-center">'+
                                                     '<div class="_progress">'+
-                                                        '<div class="_progress_" style="width: 20%;background-color:'+_color[i%_color.length]+'">'+
+                                                        '<div class="_progress_" style="width: '+width+'%;background-color:'+_color[i%_color.length]+'">'+
                                                         '</div>'+
                                                     '</div>'+
-                                                    '<span>还剩20%</span>'+
+                                                    '<span>还剩'+persent.toFixed(2)+'%</span>'+
                                                 '</div>'+
                                             '</td>'+
-                                            '<td>'+'20/'+el.flowlife+'</td>'+
+                                            '<td>'+el.timelife+'/'+el.flowlife+'</td>'+
                                             '<td>'+'<tutton class="btn btn-info">复位</button>'+'</td>'+
                                             '</tr>'
                                 $_table.append(html)
