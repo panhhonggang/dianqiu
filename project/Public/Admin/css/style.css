@@ -81,6 +81,11 @@ ul li{
 	border-top: 2px #D2D6DE solid;
 	border-bottom:  2px #D2D6DE solid
 }
+._user{
+	border-top: 4px #5ED0F4 solid;
+    border-bottom:  1px #CCCCCC solid;
+    margin-bottom: 0
+}
 ._tb{
 	background-color: #ffffff;
 	margin-top: 15px;
