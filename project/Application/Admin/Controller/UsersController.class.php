@@ -73,6 +73,31 @@ class UsersController extends CommonController
         }
     }
 
+    public function user_info()
+    {
+        $map['name'] = I('get.name');
+
+        // 用户信息
+        $user = M('users')->where($map)->find();
+
+        $map['uid'] = $user['id'];
+        // 充值记录
+        $flow = M('flow')->where($map)->find();
+
+        // 消费记录
+        $consume = M('consume')->where($map)->find();
+
+        $assign = [
+            'user' => json_encode($user),
+            'flow' => json_encode($flow),
+            'consume' => json_encode($consume),
+        ];
+        $this->assign($assign);
+        $this->display();
+
+    }
+
+
     /**
      * 编辑用户方法
      * @author 潘宏钢 <619328391@qq.com>
@@ -101,15 +126,15 @@ class UsersController extends CommonController
 
         $flow = M('flow');
         $total = $flow->where($map)
-                                ->join('xp_users ON xp_flow.uid = xp_users.id')
-                                ->field('xp_flow.*,xp_users.name,xp_users.balance')
+                                ->join('pub_users ON pub_flow.uid = pub_users.id')
+                                ->field('pub_flow.*,pub_users.name,pub_users.balance')
                                 ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
         $list = $flow->where($map)->limit($page->firstRow.','.$page->listRows)
-                                ->join('xp_users ON xp_flow.uid = xp_users.id')
-                                ->field('xp_flow.*,xp_users.name,xp_users.balance')
+                                ->join('pub_users ON pub_flow.uid = pub_users.id')
+                                ->field('pub_flow.*,pub_users.name,pub_users.balance')
                                 ->select();
         // dump($list);die;
         $this->assign('list',$list);
@@ -129,17 +154,17 @@ class UsersController extends CommonController
 
         $consume = M('consume');
         $total = $consume->where($map)
-                                ->join('xp_users ON xp_consume.uid = xp_users.id')
-                                ->join('xp_card ON xp_consume.icid = xp_card.id')
-                                ->field('xp_consume.*,xp_users.name,xp_card.iccard')
+                                ->join('pub_users ON pub_consume.uid = pub_users.id')
+                                // ->join('pub_card ON pub_consume.icid = pub_card.id')
+                                ->field('pub_consume.*,pub_users.name')
                                 ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
         $list = $consume->where($map)->limit($page->firstRow.','.$page->listRows)
-                                ->join('xp_users ON xp_consume.uid = xp_users.id')
-                                ->join('xp_card ON xp_consume.icid = xp_card.id')
-                                ->field('xp_consume.*,xp_users.name,xp_users.balance,xp_card.iccard')
+                                ->join('pub_users ON pub_consume.uid = pub_users.id')
+                                // ->join('pub_card ON pub_consume.icid = pub_card.id')
+                                ->field('pub_consume.*,pub_users.name,pub_users.balance')
                                 ->select();
         // dump($list);die;
         $this->assign('list',$list);

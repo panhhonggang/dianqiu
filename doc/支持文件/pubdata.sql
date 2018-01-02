@@ -673,6 +673,7 @@ CREATE TABLE `pub_users` (
   `login_time` int(11) DEFAULT NULL COMMENT '最后登陆的时间',
   `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登陆的IP地址',
   `created_at` int(11) NOT NULL COMMENT '添加时间',
+  `balance` int(10) NOT NULL DEFAULT '0' COMMENT '账户余额',
   `open_id` varchar(50) NOT NULL COMMENT '关联微信信息表',
   PRIMARY KEY (`id`),
   KEY `name` (`name`,`phone`)
@@ -754,3 +755,32 @@ CREATE TABLE `pub_work` (
 -- ----------------------------
 -- Records of pub_work
 -- ----------------------------
+
+DROP TABLE IF EXISTS `pub_flow`;
+CREATE TABLE `pub_flow` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '充值流水ID',
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `ordernumber` varchar(32) NOT NULL COMMENT '商户订单号',
+  `money` int(10) NOT NULL COMMENT '充值金额',
+  `mode` tinyint(1) NOT NULL COMMENT '充值方式(0：系统赠送 1：微信 2：支付宝)',
+  `time` int(11) NOT NULL COMMENT '充值时间',
+  `currentbalance` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '当前余额',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+
+
+-- ----------------------------
+-- Table structure for pub_consume
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_consume`;
+CREATE TABLE `pub_consume` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `did` int(11) NOT NULL COMMENT '设备ID',
+  `uid` int(11) DEFAULT NULL COMMENT '用户ID',
+  `icid` int(11) NOT NULL COMMENT 'IC卡ID',
+  `flow` int(10) NOT NULL COMMENT '消费流量',
+  `address` varchar(255) DEFAULT NULL COMMENT '消费地点',
+  `time` int(11) NOT NULL COMMENT '消费时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
