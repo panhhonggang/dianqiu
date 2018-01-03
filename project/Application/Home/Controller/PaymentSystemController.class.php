@@ -757,8 +757,11 @@ class PaymentSystemController extends CommonController
                     $devicesStatu = M('devicesStatu');
                     // 实例化设备对象
                     $device = M('Devices');
+                    // 实例化充值流水对象
+                    $flowObj = M('Flow');
+
                     // 开启事务
-                    //$orders->startTrans();
+                    $orders->startTrans();
 
                     // 修改订单状态为已付款
                     $isPay['is_pay'] = 1;
@@ -771,9 +774,11 @@ class PaymentSystemController extends CommonController
                     // 充值状态
                     $status = 0;
                     if($orderSetmealData){
+                        // 统计未处理套餐数量
                         $countNun = count($orderSetmealData);
                         // 定义计数器
-                        $num = 0;
+                        $num     = 0;
+                        $flownum = 0;
                         // 查询当前设备编号
                         $deviceCode['DeviceID'] = $device->where('id='.$_SESSION['homeuser']['did'])->find()['device_code'];
 
@@ -781,11 +786,40 @@ class PaymentSystemController extends CommonController
                             // 查询设备当前剩余流量
                             $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
 
-                            //show($devicesStatuReFlow);die;
                             // 充值后流量应剩余流量
-                            $Flow['ReFlow'] = $devicesStatuReFlow + $value['flow'];
+                            $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
                             // 修改设备剩余流量
                             $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
+
+                            // 写充值流水
+                            // 订单编号
+                            $flowData['order_id']       = $value['order_id'];
+                            // 用户ID
+                            $flowData['uid']            = $_SESSION['homeuser']['id'];
+                            // 充值金额
+                            $flowData['money']          = $value['money'];
+                            // 充值方式
+                            $flowData['mode']           = 1;
+                            // 充值流量
+                            $flowData['flow']           = $value['flow'];
+                            // 套餐数量
+                            $flowData['num']            = $value['goods_num'];
+                            // 套餐描述
+                            $flowData['describe']       = $value['describe'];
+                            // 当前流量
+                            $flowData['currentflow']    = $Flow['ReFlow'];
+                            // 充值时间
+                            $flowData['addtime']           = time();
+
+                            // 创建充值流水
+                            $flowObjRes = $flowObj->add($flowData);
+                            // 判断流水是否创建成果
+                            if($flowObjRes){
+                                // 定时器++
+                                $flownum++;
+                            }
+
+                            // 判断修改结果
                             if($FlowRes){
                                 // 计数器++
                                 $num++;  
@@ -794,28 +828,30 @@ class PaymentSystemController extends CommonController
                         }
 
                         // 全部套餐充值完成
-                        if($countNun == $num){
-                             $status = 1;
+                        if($countNun == $num && $countNun == $flownum){
+                            // 充值和流水完成，状态设为1
+                            $status = 1;
                         }
+
                     }else{
-                        // 没有套餐默认值
+                        // 没有套餐默认值，状态设为1
                         $status = 1;
                     }
 
                     if($isPayRes && $status){
                         // 执行事务
                         $orders->commit();
-                        file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
+                        // file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
                     }else{
                         // 事务回滚
                         $orders->rollback();
-                        file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
+                        // file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
                     }
                 }else{
                     // 充值金额不匹配
-                    if($orderData['total_price'] != $result['total_fee']){
-                       file_put_contents('./wx_notifymoney.txt','订单号：'.$result['attach']."充值失败,金额不匹配。订单金额：{$orderData['total_price']} ，充值金额：{$result['total_fee']} \r\n", FILE_APPEND); 
-                   }  
+                    // if($orderData['total_price'] != $result['total_fee']){
+                    //    file_put_contents('./wx_notifymoney.txt','订单号：'.$result['attach']."充值失败,金额不匹配。订单金额：{$orderData['total_price']} ，充值金额：{$result['total_fee']} \r\n", FILE_APPEND); 
+                    // }  
                 }
             } 
         }
