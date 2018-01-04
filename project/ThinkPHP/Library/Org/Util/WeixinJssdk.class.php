@@ -86,7 +86,7 @@ class WeixinJssdk
 
   // 辅助方法-----------------------------------------------------------------------------------------------------------------
   // access_token 是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用 
-  private function getAccessToken() 
+  public function getAccessToken() 
   {
     // access_token 全局存储7000与更新[文件形式缓存]
     $data = json_decode($this->get_php_file("access_token.php"));
@@ -109,7 +109,7 @@ class WeixinJssdk
   }
 
   // jsapi_ticket公众号用于调用微信JS接口的临时票据，对于JS-SDK权限开发验证
-  private function getJsApiTicket() 
+  public function getJsApiTicket() 
   {
       // jsapi_ticket 全局存储7000与更新[文件形式缓存]
       $data = json_decode($this->get_php_file("jsapi_ticket.php"));
@@ -131,7 +131,7 @@ class WeixinJssdk
   }
 
   // 随机字符串
-  private function createNonceStr($length = 16) 
+  public function createNonceStr($length = 16) 
   {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $str = "";
@@ -142,7 +142,7 @@ class WeixinJssdk
   }
 
   // 专用于发HTTP GET请求 
-  private function httpGet($url) 
+  public function httpGet($url) 
   {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -159,14 +159,14 @@ class WeixinJssdk
   }
   
   // 读取文的方法
-  private function get_php_file($filename) 
+  public function get_php_file($filename) 
   {
 
     return trim(substr(file_get_contents(dirname(__FILE__).'/weixin/'.$filename), 15));
   }
   
   // 写入文的方法
-  private function set_php_file($filename, $content) 
+  public function set_php_file($filename, $content) 
   {
     $fp = fopen(dirname(__FILE__).'/weixin/'.$filename, "w");
     fwrite($fp, "<?php exit();?>" . $content);
@@ -209,7 +209,7 @@ class WeixinJssdk
    * 
    * @return 返回构造好的url
    */
-  private function __CreateOauthUrlForCode($redirectUrl)
+  public function __CreateOauthUrlForCode($redirectUrl)
   {
     $urlObj["appid"] = $this->APPID;
     $urlObj["redirect_uri"] = "$redirectUrl";
@@ -227,7 +227,7 @@ class WeixinJssdk
    * 
    * @return 返回已经拼接好的字符串
    */
-  private function ToUrlParams($urlObj)
+  public function ToUrlParams($urlObj)
   {
     $buff = "";
     foreach ($urlObj as $k => $v)
@@ -281,7 +281,7 @@ class WeixinJssdk
    * 
    * @return 请求的url
    */
-  private function __CreateOauthUrlForOpenid($code)
+  public function __CreateOauthUrlForOpenid($code)
   {
     $urlObj["appid"] = $this->APPID;
     $urlObj["secret"] = $this->APPSECRET;

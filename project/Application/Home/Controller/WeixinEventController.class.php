@@ -6,14 +6,15 @@ class WeixinEventController
 	// 接受微信服务器下发的事件
     public function getEventData()
     {
+
     	// 实例化微信验证对象服务器第一次接入使用
-    	$wechatObj = new \Org\Util\WechatCallbackapiTest;
+    	//$wechatObj = new \Org\Util\WechatCallbackapiTest;
     	// 执行验证方法
-    	$wechatObj->valid();
+    	//$wechatObj->valid();
 
     	// 接受微信推送的事件
     	$xml=file_get_contents('php://input', 'r');
-        // file_put_contents('./tmp.txt', $xml);
+        //file_put_contents('./tmp.txt', $xml);
 //     	$xml = "<xml>
 //     <ToUserName><![CDATA[gh_85ebcdb60fa2]]></ToUserName>
 //     <FromUserName><![CDATA[oXwY4t2gearWoyg8z19ygjD34vDk]]></FromUserName>
@@ -38,7 +39,7 @@ class WeixinEventController
                 $Wechat = new WechatController;
                 // 调用填写微信信息的方法
                 $Wechat->add($data['FromUserName']);
-                //file_put_contents('./add.txt', $xml);
+                // file_put_contents('./add.txt', $xml);
                 exit;
             }
 
