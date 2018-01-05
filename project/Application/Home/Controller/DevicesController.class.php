@@ -19,8 +19,10 @@ class DevicesController extends CommonController
 
         // 查询用户设备
         $devices = M('Devices')->where("`uid`={$uid}")->field('id,device_code')->select();
+        
         // 查找用户当前设备
         $currentDevices = M('currentDevices')->where("`uid`={$uid}")->field('did')->find()['did'];
+
         // 分配数据
         $this->assign('devices',$devices);
         $this->assign('currentDevices',$currentDevices);
@@ -35,7 +37,7 @@ class DevicesController extends CommonController
         //分配数据        
         $this->assign('info',$signPackage);
         $this->assign('openId',$openId);
-
+        //show($openId);die;
         // 显示模板
         $this->display();
     }
@@ -82,12 +84,26 @@ class DevicesController extends CommonController
         }else{
             // 绑定设备
             $res = M('Devices')->where("`device_code`={$device_code}")->save($data);
-
+            $devicesData = M('Devices')->where("uid={$data['uid']}")->select();
+            $devicesNum = count($devicesData);
+            if($devicesNum==1){
+                //show($devicesData);
+                $currentDevicesData['uid'] = $data['uid'];
+                $currentDevicesData['did'] = $devicesData[0]['id'];
+                $currentDevicesRes = M('currentDevices')->add($currentDevicesData);
+                if($currentDevicesRes){
+                    $_SESSION['homeuser']['did'] = $currentDevicesData['did'];
+                    echo 1;
+                    exit;
+                }
+            }
             if($res){
                 echo 1;
+                exit;
             }else{
                 // 设备绑定失败
                 echo -3;
+                exit;
             }  
         }
     }

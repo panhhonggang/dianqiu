@@ -76,7 +76,7 @@ class ExpressInformationController extends CommonController
     }
 
     // 正则检测手机号码
-    public function isPhone($value,$match='/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/')  
+    public function isPhone($value,$match='/^1((((3[0-35-9])|([5|8][0-9])|(4[5|7|9])|66|(7[3|5-8])|(9[8|9]))\d)|(34[0-8]))\d{7}$/')  
     { 
         $v = trim($value); 
         if(empty($v)) 
@@ -85,7 +85,7 @@ class ExpressInformationController extends CommonController
     }
 
     // 正则检测用户名
-    public function isName($value,$match='/^[a-zA-Z\x{4e00}-\x{9fa5}]{2,30}$/u')  
+    public function isName($value,$match='/^[0-9a-zA-Z_\x{4e00}-\x{9fa5}]{2,30}$/u')  
     { 
         $v = trim($value); 
         if(empty($v)) 
@@ -94,7 +94,7 @@ class ExpressInformationController extends CommonController
     }
 
     // 正则检测地址
-    public function isAddress($value,$match='/^[a-zA-Z\x{4e00}-\x{9fa5}]{6,255}$/u')  
+    public function isAddress($value,$match='/^[0-9a-zA-Z_\x{4e00}-\x{9fa5}]{6,255}$/u')  
     { 
         $v = trim($value); 
         if(empty($v)) 

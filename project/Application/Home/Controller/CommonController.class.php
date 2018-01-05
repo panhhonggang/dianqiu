@@ -35,8 +35,10 @@ class CommonController extends Controller
             if($info){
                 // 用户当前设备
                 $info['did'] = M('currentDevices')->where("`uid`={$info['id']}")->field('did')->find()['did'];
+                
                 // 将用户信息缓存
-                $_SESSION['homeuser'] = $info;
+                $_SESSION['homeuser'] = $info;       
+                
             }else{
                 // 用户不存在
                 redirect(U('/Home/Wechat/follow'), 2, '请先关注微信公众号...');
