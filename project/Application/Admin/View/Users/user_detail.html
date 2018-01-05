@@ -64,6 +64,15 @@
                 </table>
             </div>
         </div>
+        <script>
+            console.log(location)
+            $.ajax({
+                url:'usersDetail?id='+location.hash.slice(1),
+                success:function(data){
+                    console.log(data)
+                }
+            })
+        </script>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
