@@ -75,9 +75,8 @@
 
                $.ajax({
                 url:'__URL__/detail/order_id/' + location.hash.slice(1),
+                user_info?id={{$vo.id}}
                 success:function(data){
-                    console.log(data)
-                    // $('#_fn').html(data)
                     if(data.filter[0].created_at){
                         data.filter[0].created_at = new Date(parseInt(data.filter[0].created_at)*1000).toLocaleString()
                     }

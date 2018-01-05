@@ -1,1 +1,95 @@
-<h1>用户详情</h1>
+{{$user|dump}}
+<include file="Public/header" />
+<div class="content" style="background-color: #ECF0F5">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">用户管理/<span>用户详情</span></div>
+            
+            <h1 class="text-center">当前用户：</h1>
+            <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
+    border-bottom:  1px #CCCCCC solid">
+                <h3>用户基础信息</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>用户ID</td>
+                            <td>姓名</td>
+                            <td>手机</td>
+                            <td>地址</td>
+                            <td>用户余额</td>
+                            <td>最后登录时间</td>
+                            <td>登录IP</td>
+                            <td>注册时间</td>
+                            <td>状态</td>
+                            <td>备注</td>
+                        </tr>
+                    </thead>
+                    <thbody>
+                        <tr>
+                            <td>{{$user.id}}</td>
+                            <td>姓名</td>
+                            <td>手机</td>
+                            <td>地址</td>
+                            <td>用户余额</td>
+                            <td>最后登录时间</td>
+                            <td>登录IP</td>
+                            <td>注册时间</td>
+                            <td>状态</td>
+                            <td>备注</td>
+                        </tr>
+                    </thbody>
+                </table>
+            </div>
+            
+            <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
+    border-bottom:  1px #CCCCCC solid">
+                <h3>充值记录</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>充值流水ID</td>
+                            <td>用户昵称</td>
+                            <td>充值方式</td>
+                            <td>充值金额/元</td>
+                            <td>用户余额</td>
+                            <td>充值时间</td>
+                            <td>备注</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
+    border-bottom:  1px #CCCCCC solid">
+                <h3>消费记录</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>消费记录ID</td>
+                            <td>用户昵称</td>
+                            <td>账户余额</td>
+                            <td>IC卡编号</td>
+                            <td>用水地址</td>
+                            <td>用水时间</td>
+                            <td>盛水量/mL</td>
+                            <td>备注</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <script>
+            console.log(location)
+            $.ajax({
+                url:'user_detail?id='+location.hash.slice(1),
+                success:function(data){
+                    console.log(data)
+                }
+            })
+        </script>
+        <!-- footer part -->
+        <include file="Public/footer" />
+    </div>
+</div>
+
