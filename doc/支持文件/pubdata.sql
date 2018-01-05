@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50505
-Source Host           : localhost:3306
+Source Server         : 192.168.37.76
+Source Server Version : 50548
+Source Host           : 192.168.37.76:3306
 Source Database       : pubdata
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50548
 File Encoding         : 65001
 
-Date: 2018-01-03 10:37:28
+Date: 2018-01-05 17:14:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -234,6 +234,26 @@ CREATE TABLE `pub_charg` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for pub_consume
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_consume`;
+CREATE TABLE `pub_consume` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `did` int(11) NOT NULL COMMENT '设备ID',
+  `uid` int(11) DEFAULT NULL COMMENT '用户ID',
+  `icid` int(11) DEFAULT NULL COMMENT 'IC卡ID',
+  `flow` int(10) NOT NULL COMMENT '消费流量',
+  `address` varchar(255) DEFAULT NULL COMMENT '消费地点',
+  `time` int(11) NOT NULL COMMENT '消费时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_consume
+-- ----------------------------
+INSERT INTO `pub_consume` VALUES ('1', '1', '18', null, '10', ' 广州', '1513646091');
+
+-- ----------------------------
 -- Table structure for pub_current_devices
 -- ----------------------------
 DROP TABLE IF EXISTS `pub_current_devices`;
@@ -250,12 +270,54 @@ CREATE TABLE `pub_current_devices` (
 INSERT INTO `pub_current_devices` VALUES ('1', '10', '3');
 
 -- ----------------------------
+-- Table structure for pub_device_config
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_device_config`;
+CREATE TABLE `pub_device_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `did` int(11) NOT NULL COMMENT '设备ID',
+  `dtid` int(11) NOT NULL COMMENT '设备类型ID',
+  `vid` int(11) NOT NULL COMMENT '经销商ID',
+  `leasingmode` tinyint(1) DEFAULT NULL COMMENT '租赁模式(0：时间 1：流量)',
+  `addtime` int(11) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_device_config
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for pub_device_type
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_device_type`;
+CREATE TABLE `pub_device_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `typename` varchar(255) NOT NULL COMMENT '类型名称',
+  `filter1` varchar(30) DEFAULT NULL COMMENT '一级滤芯',
+  `filter2` varchar(30) DEFAULT NULL,
+  `filter3` varchar(30) DEFAULT NULL,
+  `filter4` varchar(30) DEFAULT NULL,
+  `filter5` varchar(30) DEFAULT NULL,
+  `filter6` varchar(30) DEFAULT NULL,
+  `filter7` varchar(30) DEFAULT NULL,
+  `filter8` varchar(30) DEFAULT NULL,
+  `addtime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_device_type
+-- ----------------------------
+INSERT INTO `pub_device_type` VALUES ('10', '高级型', 'RO膜-A型', 'RO膜PP-C型', 'RO膜2号-B型', '', '', '', '', '', '1513048485');
+
+-- ----------------------------
 -- Table structure for pub_devices
 -- ----------------------------
 DROP TABLE IF EXISTS `pub_devices`;
 CREATE TABLE `pub_devices` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `device_code` int(20) unsigned NOT NULL COMMENT '设备编码',
+  `device_code` varchar(20) NOT NULL COMMENT '设备编码',
   `device_statu` tinyint(1) unsigned NOT NULL COMMENT '设备状态：1已入库，2待激活，3已激活',
   `addtime` int(11) NOT NULL COMMENT '添加时间',
   `binding_statu` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否绑定经销商 0：未绑定 1：已绑定',
@@ -318,49 +380,7 @@ CREATE TABLE `pub_devices_statu` (
 -- ----------------------------
 -- Records of pub_devices_statu
 -- ----------------------------
-INSERT INTO `pub_devices_statu` VALUES ('1', '2147483647', '11', '82000', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, 'GPRS', '11223344556677889900', '90', '10020\0\0\0\0\0', '1513238294', '1513299086');
-
--- ----------------------------
--- Table structure for pub_device_config
--- ----------------------------
-DROP TABLE IF EXISTS `pub_device_config`;
-CREATE TABLE `pub_device_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `did` int(11) NOT NULL COMMENT '设备ID',
-  `dtid` int(11) NOT NULL COMMENT '设备类型ID',
-  `vid` int(11) NOT NULL COMMENT '经销商ID',
-  `leasingmode` tinyint(1) DEFAULT NULL COMMENT '租赁模式(0：时间 1：流量)',
-  `addtime` int(11) NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pub_device_config
--- ----------------------------
-
--- ----------------------------
--- Table structure for pub_device_type
--- ----------------------------
-DROP TABLE IF EXISTS `pub_device_type`;
-CREATE TABLE `pub_device_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `typename` varchar(255) NOT NULL COMMENT '类型名称',
-  `filter1` varchar(30) DEFAULT NULL COMMENT '一级滤芯',
-  `filter2` varchar(30) DEFAULT NULL,
-  `filter3` varchar(30) DEFAULT NULL,
-  `filter4` varchar(30) DEFAULT NULL,
-  `filter5` varchar(30) DEFAULT NULL,
-  `filter6` varchar(30) DEFAULT NULL,
-  `filter7` varchar(30) DEFAULT NULL,
-  `filter8` varchar(30) DEFAULT NULL,
-  `addtime` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pub_device_type
--- ----------------------------
-INSERT INTO `pub_device_type` VALUES ('10', '高级型', 'RO膜-A型', 'RO膜PP-C型', 'RO膜2号-B型', '', '', '', '', '', '1513048485');
+INSERT INTO `pub_devices_statu` VALUES ('1', '2147483647', '11', '34000', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, 'GPRS', '11223344556677889900', '90', '10020\0\0\0\0\0', '1513238294', '1513299086');
 
 -- ----------------------------
 -- Table structure for pub_express_information
@@ -450,47 +470,20 @@ INSERT INTO `pub_filters` VALUES ('7', 'RO膜PP1', '', '/dianqiu/project/Public/
 -- ----------------------------
 DROP TABLE IF EXISTS `pub_flow`;
 CREATE TABLE `pub_flow` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '充值流水ID',
-  `uid` int(11) unsigned NOT NULL COMMENT '用户ID',
-  `order_id` varchar(32) NOT NULL COMMENT '订单编号',
-  `money` decimal(25,0) unsigned NOT NULL COMMENT '充值金额',
-  `mode` tinyint(1) unsigned NOT NULL COMMENT '充值方式(0：系统赠送 1：微信 2：支付宝)',
-  `flow` int(11) unsigned NOT NULL COMMENT '流量',
-  `num` int(11) unsigned NOT NULL COMMENT '套餐数量',
-  `describe` varchar(255) NOT NULL COMMENT '套餐描述',
-  `currentflow` int(11) unsigned NOT NULL COMMENT '当前流量',
-  `addtime` int(11) NOT NULL COMMENT '充值时间',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '充值流水ID',
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `ordernumber` varchar(32) NOT NULL COMMENT '商户订单号',
+  `money` int(10) NOT NULL COMMENT '充值金额',
+  `mode` tinyint(1) NOT NULL COMMENT '充值方式(0：系统赠送 1：微信 2：支付宝)',
+  `time` int(11) NOT NULL COMMENT '充值时间',
+  `currentbalance` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '当前余额',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_flow
 -- ----------------------------
-INSERT INTO `pub_flow` VALUES ('1', '4', '1480327842201712281631161096', '1', '1', '0', '0', '', '0', '1514449883');
-INSERT INTO `pub_flow` VALUES ('2', '4', '1480327842201712281504376806', '1', '1', '0', '0', '', '0', '1514450331');
-INSERT INTO `pub_flow` VALUES ('3', '4', '1480327842201712281543294888', '1', '1', '0', '0', '', '0', '1514450868');
-INSERT INTO `pub_flow` VALUES ('4', '4', '1480327842201712281550088411', '1', '1', '0', '0', '', '0', '1514451264');
-INSERT INTO `pub_flow` VALUES ('5', '3', '1480327842201712281455363916', '1', '1', '0', '0', '', '0', '1514451601');
-INSERT INTO `pub_flow` VALUES ('6', '4', '1480327842201712290844434770', '1', '1', '0', '0', '', '0', '1514508290');
-INSERT INTO `pub_flow` VALUES ('7', '3', '1480327842201712291026431038', '1', '1', '0', '0', '', '0', '1514514410');
-INSERT INTO `pub_flow` VALUES ('8', '2', '1480327842201712281627203744', '1', '1', '0', '0', '', '0', '1514611090');
-INSERT INTO `pub_flow` VALUES ('9', '2', '1480327842201712281627203745', '1', '1', '0', '0', '', '0', '1514611407');
-INSERT INTO `pub_flow` VALUES ('10', '4', '1480327842201712301327207416', '1', '1', '0', '0', '', '0', '1514611647');
-INSERT INTO `pub_flow` VALUES ('11', '2', '1480327842201712281627203743', '1', '1', '0', '0', '', '0', '1514612400');
-INSERT INTO `pub_flow` VALUES ('12', '4', '1480327842201712301408333141', '1', '1', '0', '0', '', '0', '1514614120');
-INSERT INTO `pub_flow` VALUES ('13', '4', '148032784220171230140903190', '1', '1', '0', '0', '', '0', '1514614149');
-INSERT INTO `pub_flow` VALUES ('14', '4', '1480327842201712301308192890', '1', '1', '0', '0', '', '0', '1514614358');
-INSERT INTO `pub_flow` VALUES ('15', '4', '1480327842201712301343454809', '1', '1', '0', '0', '', '0', '1514614675');
-INSERT INTO `pub_flow` VALUES ('16', '4', '148032784220171230144215933', '1', '1', '0', '0', '', '0', '1514616142');
-INSERT INTO `pub_flow` VALUES ('17', '10', '949657681595765841', '30000', '1', '3000', '4', '300元包3000升流量', '46000', '1514945912');
-INSERT INTO `pub_flow` VALUES ('18', '10', '949657681595765841', '20000', '1', '1000', '2', '200元包2000升流量', '48000', '1514945912');
-INSERT INTO `pub_flow` VALUES ('19', '10', '949657681595765841', '10000', '1', '1000', '2', '100元包1000升流量', '50000', '1514945912');
-INSERT INTO `pub_flow` VALUES ('20', '10', '949657681595765841', '30000', '1', '3000', '4', '300元包3000升流量', '62000', '1514946036');
-INSERT INTO `pub_flow` VALUES ('21', '10', '949657681595765841', '20000', '1', '1000', '2', '200元包2000升流量', '64000', '1514946036');
-INSERT INTO `pub_flow` VALUES ('22', '10', '949657681595765841', '10000', '1', '1000', '2', '100元包1000升流量', '66000', '1514946036');
-INSERT INTO `pub_flow` VALUES ('23', '10', '949657681595765841', '30000', '1', '3000', '4', '300元包3000升流量', '78000', '1514946834');
-INSERT INTO `pub_flow` VALUES ('24', '10', '949657681595765841', '20000', '1', '1000', '2', '200元包2000升流量', '80000', '1514946834');
-INSERT INTO `pub_flow` VALUES ('25', '10', '949657681595765841', '10000', '1', '1000', '2', '100元包1000升流量', '82000', '1514946834');
+INSERT INTO `pub_flow` VALUES ('1', '18', '13564526545', '100', '1', '1513646091', '30');
 
 -- ----------------------------
 -- Table structure for pub_hire
@@ -546,42 +539,6 @@ CREATE TABLE `pub_loglist` (
 -- ----------------------------
 -- Records of pub_loglist
 -- ----------------------------
-
--- ----------------------------
--- Table structure for pub_orders
--- ----------------------------
-DROP TABLE IF EXISTS `pub_orders`;
-CREATE TABLE `pub_orders` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `order_id` varchar(32) NOT NULL COMMENT '订单编号',
-  `device_id` int(11) unsigned NOT NULL COMMENT '关联的设备ID号',
-  `user_id` int(11) unsigned NOT NULL COMMENT '关联的用户ID号',
-  `express_id` int(11) unsigned DEFAULT NULL COMMENT '关联快递信息ID号',
-  `total_num` int(11) unsigned NOT NULL COMMENT '商品的购买总数量',
-  `total_price` decimal(15,2) unsigned NOT NULL COMMENT '商品的购买总金额',
-  `created_at` int(11) DEFAULT NULL COMMENT '订单创建时间',
-  `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间',
-  `is_pay` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '付款状态(0：未付款1：已付款 2：已取消)',
-  `is_receipt` tinyint(1) unsigned DEFAULT '0' COMMENT '发货状态(0：未发货1：已发货)',
-  `is_ship` tinyint(1) unsigned DEFAULT '0' COMMENT '收货状态(0：未收货1：已收货)',
-  `is_recharge` tinyint(1) unsigned DEFAULT '0' COMMENT '充值状态(0：未充值1：已充值)',
-  `express` varchar(32) DEFAULT NULL COMMENT '快递名称',
-  `mca` varchar(32) DEFAULT NULL COMMENT '快递订单号',
-  PRIMARY KEY (`id`),
-  KEY `order_id` (`order_id`,`device_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pub_orders
--- ----------------------------
-INSERT INTO `pub_orders` VALUES ('303', '970294217660737008', '3', '10', '1', '19', '254000.00', '1514265775', '1514265815', '1', '1', '1', '1', null, null);
-INSERT INTO `pub_orders` VALUES ('304', '373440200299964027', '3', '10', null, '1', '10000.00', '1514266279', null, '1', '0', '0', '1', null, null);
-INSERT INTO `pub_orders` VALUES ('305', '157879036712097840', '3', '10', '1', '7', '35000.00', '1514266678', null, '1', '0', '0', '1', null, null);
-INSERT INTO `pub_orders` VALUES ('306', '160393629626761004', '3', '10', '25', '13', '56000.00', '1514266748', '1514267544', '1', '1', '0', '1', null, null);
-INSERT INTO `pub_orders` VALUES ('307', '787036001695699849', '3', '10', null, '1', '10000.00', '1514267597', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('308', '890131072049768713', '3', '10', null, '3', '60000.00', '1514267628', null, '1', '0', '0', '1', null, null);
-INSERT INTO `pub_orders` VALUES ('309', '476493813094536543', '3', '10', '1', '6', '31000.00', '1514267672', null, '0', '0', '0', '0', null, null);
-INSERT INTO `pub_orders` VALUES ('310', '949657681595765841', '3', '10', null, '8', '180000.00', '1514267723', null, '1', '0', '0', '1', null, null);
 
 -- ----------------------------
 -- Table structure for pub_order_filter
@@ -660,9 +617,45 @@ INSERT INTO `pub_order_setmeal` VALUES ('335', '890131072049768713', '3', '10', 
 INSERT INTO `pub_order_setmeal` VALUES ('336', '890131072049768713', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '1', '20000.00', '1514267628', null);
 INSERT INTO `pub_order_setmeal` VALUES ('337', '890131072049768713', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514267628', null);
 INSERT INTO `pub_order_setmeal` VALUES ('338', '476493813094536543', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '1', '10000.00', '1514267672', null);
-INSERT INTO `pub_order_setmeal` VALUES ('339', '949657681595765841', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '4', '120000.00', '1514267723', null);
-INSERT INTO `pub_order_setmeal` VALUES ('340', '949657681595765841', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '2', '40000.00', '1514267723', null);
-INSERT INTO `pub_order_setmeal` VALUES ('341', '949657681595765841', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '2', '20000.00', '1514267723', null);
+INSERT INTO `pub_order_setmeal` VALUES ('339', '352819442332884757', '3', '10', '0', '30000.00', '3000', '300元包3000升流量', '4', '120000.00', '1514267723', null);
+INSERT INTO `pub_order_setmeal` VALUES ('340', '352819442332884757', '2', '10', '0', '20000.00', '1000', '200元包2000升流量', '2', '40000.00', '1514267723', null);
+INSERT INTO `pub_order_setmeal` VALUES ('341', '352819442332884757', '1', '10', '0', '10000.00', '1000', '100元包1000升流量', '2', '20000.00', '1514267723', null);
+
+-- ----------------------------
+-- Table structure for pub_orders
+-- ----------------------------
+DROP TABLE IF EXISTS `pub_orders`;
+CREATE TABLE `pub_orders` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `order_id` varchar(32) NOT NULL COMMENT '订单编号',
+  `device_id` int(11) unsigned NOT NULL COMMENT '关联的设备ID号',
+  `user_id` int(11) unsigned NOT NULL COMMENT '关联的用户ID号',
+  `express_id` int(11) unsigned DEFAULT NULL COMMENT '关联快递信息ID号',
+  `total_num` int(11) unsigned NOT NULL COMMENT '商品的购买总数量',
+  `total_price` decimal(15,2) unsigned NOT NULL COMMENT '商品的购买总金额',
+  `created_at` int(11) DEFAULT NULL COMMENT '订单创建时间',
+  `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间',
+  `is_pay` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '付款状态(0：未付款1：已付款 2：已取消)',
+  `is_receipt` tinyint(1) unsigned DEFAULT '0' COMMENT '发货状态(0：未发货1：已发货)',
+  `is_ship` tinyint(1) unsigned DEFAULT '0' COMMENT '收货状态(0：未收货1：已收货)',
+  `is_recharge` tinyint(1) unsigned DEFAULT '0' COMMENT '充值状态(0：未充值1：已充值)',
+  `express` varchar(32) DEFAULT NULL COMMENT '快递名称',
+  `mca` varchar(32) DEFAULT NULL COMMENT '快递订单号',
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`,`device_id`,`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pub_orders
+-- ----------------------------
+INSERT INTO `pub_orders` VALUES ('303', '970294217660737008', '3', '10', '1', '19', '254000.00', '1514265775', '1514265815', '1', '1', '1', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('304', '373440200299964027', '3', '10', null, '1', '10000.00', '1514266279', null, '1', '0', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('305', '157879036712097840', '3', '10', '1', '7', '35000.00', '1514266678', null, '1', '0', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('306', '160393629626761004', '3', '10', '25', '13', '56000.00', '1514266748', '1514267544', '1', '1', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('307', '787036001695699849', '3', '10', null, '1', '10000.00', '1514267597', null, '0', '0', '0', '0', null, null);
+INSERT INTO `pub_orders` VALUES ('308', '890131072049768713', '3', '10', null, '3', '60000.00', '1514267628', null, '1', '0', '0', '1', null, null);
+INSERT INTO `pub_orders` VALUES ('309', '476493813094536543', '3', '10', '1', '6', '31000.00', '1514267672', null, '0', '0', '0', '0', null, null);
+INSERT INTO `pub_orders` VALUES ('310', '352819442332884757', '3', '10', null, '8', '180000.00', '1514267723', null, '0', '0', '0', '0', null, null);
 
 -- ----------------------------
 -- Table structure for pub_repair
@@ -720,15 +713,17 @@ CREATE TABLE `pub_users` (
   `login_time` int(11) DEFAULT NULL COMMENT '最后登陆的时间',
   `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登陆的IP地址',
   `created_at` int(11) NOT NULL COMMENT '添加时间',
+  `balance` int(10) NOT NULL DEFAULT '0' COMMENT '账户余额',
   `open_id` varchar(50) NOT NULL COMMENT '关联微信信息表',
   PRIMARY KEY (`id`),
   KEY `name` (`name`,`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_users
 -- ----------------------------
-INSERT INTO `pub_users` VALUES ('10', '吴智彬', '13425492760', '安装设备的地址', '1', '1513646091', '219.137.249.39', '1513646091', 'oXwY4t-9clttAFWXjCcNRJrvch3w');
+INSERT INTO `pub_users` VALUES ('10', '测试', '13838381438', null, '1', '1513646091', '219.137.249.39', '1513646091', '0', 'oXwY4t-9clttAFWXjCcNRJrvch3w');
+INSERT INTO `pub_users` VALUES ('18', '15878399901', '15878399901', null, '1', '1513646091', '219.137.249.39', '1513646091', '0', 'oXwY4t-9clttAFWXjCcNRJrvch3w');
 
 -- ----------------------------
 -- Table structure for pub_vendors
@@ -748,7 +743,7 @@ CREATE TABLE `pub_vendors` (
   `idcard` varchar(20) NOT NULL COMMENT '身份证号',
   PRIMARY KEY (`id`),
   KEY `user` (`user`,`name`,`password`,`email`,`phone`,`leavel`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pub_vendors
@@ -759,6 +754,7 @@ INSERT INTO `pub_vendors` VALUES ('3', '123', '经销商2', '202cb962ac59075b964
 INSERT INTO `pub_vendors` VALUES ('4', '11', '12', 'd41d8cd98f00b204e9800998ecf8427e', '13838381438', '619328391@qq.com', '1212', '1', '1', '1508989286', '430122199610224517');
 INSERT INTO `pub_vendors` VALUES ('5', 'ping', 'ping', 'df911f0151f9ef021d410b4be5060972', '13800138000', '13800138000@139.com', '123456', '1', '1', '1512522159', '138001380001380000');
 INSERT INTO `pub_vendors` VALUES ('6', 'qwe', '鞍山市', '202cb962ac59075b964b07152d234b70', '13838381438', '619328391@qq.com', '1212', '1', '1', '1509585067', '430122199610224517');
+INSERT INTO `pub_vendors` VALUES ('7', 'chen', 'ping', '022d4433f89b3a97e89918246f1a6772', '13800138000', '!2@121.com', '北京市 北京市 东城区', '1', '1', '1514526928', '123112566849526158');
 
 -- ----------------------------
 -- Table structure for pub_wechat
