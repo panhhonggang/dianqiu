@@ -85,7 +85,7 @@ class ProductController extends CommonController
         if (IS_POST) {
             // 先处理图片
             $picpath = $this->upload();
-            
+            dump($picpath);die;
             if ($picpath) {
                 $_POST['picpath'] = $picpath[0];
 

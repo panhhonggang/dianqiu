@@ -75,7 +75,7 @@ class UsersController extends CommonController
 
     public function user_info()
     {
-        $map['name'] = I('get.name');
+        $map['id'] = I('get.id');
 
         // 用户信息
         $user = M('users')->where($map)->find();

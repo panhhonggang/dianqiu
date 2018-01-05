@@ -30,7 +30,7 @@
                     <foreach name="list" item="vo" key="key">
                     <tr>
                         <td>{{$vo.id}}</td>
-                        <td>{{$vo.name}}</td>
+                        <td><a href="user_detail?name={{$vo.name}}">{{$vo.name}}</a></td>
                         <td>{{$vo.phone}}</td>
                         <td>{{$vo.address}}</td>
                         <td>{{$vo.balance}}</td>
