@@ -1,3 +1,4 @@
+{{$user|dump}}
 <include file="Public/header" />
 <div class="content" style="background-color: #ECF0F5">
     <include file="Public/nav" />
@@ -24,6 +25,20 @@
                             <td>备注</td>
                         </tr>
                     </thead>
+                    <thbody>
+                        <tr>
+                            <td>{{$user.id}}</td>
+                            <td>姓名</td>
+                            <td>手机</td>
+                            <td>地址</td>
+                            <td>用户余额</td>
+                            <td>最后登录时间</td>
+                            <td>登录IP</td>
+                            <td>注册时间</td>
+                            <td>状态</td>
+                            <td>备注</td>
+                        </tr>
+                    </thbody>
                 </table>
             </div>
             

@@ -30,7 +30,11 @@
                     <foreach name="list" item="vo" key="key">
                     <tr>
                         <td>{{$vo.id}}</td>
+<<<<<<< HEAD
                         <td><a href="user_detail#{{$vo.id}}">{{$vo.name}}</a></td>
+=======
+                        <td><a href="user_detail?name={{$vo.name}}">{{$vo.name}}</a></td>
+>>>>>>> 1b9afbdcdba7742a92310f9fc15ebb763d697b92
                         <td>{{$vo.phone}}</td>
                         <td>{{$vo.address}}</td>
                         <td>{{$vo.balance}}</td>
