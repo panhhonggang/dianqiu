@@ -19,7 +19,7 @@ class WechatController extends Controller
         $wxJSSDK = new \Org\Util\WeixinJssdk;
         // 调用获取公众号的全局唯一接口调用凭据
         $accessToken = $wxJSSDK->getAccessToken();
-
+        //show($accessToken);die;
         // 请求返回简体中文版用户信息数据
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$accessToken.'&openid='.$openid.'&lang=zh_CN';
 

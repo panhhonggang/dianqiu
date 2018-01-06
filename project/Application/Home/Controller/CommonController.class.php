@@ -35,9 +35,14 @@ class CommonController extends Controller
             if($info){
                 // 用户当前设备
                 $info['did'] = M('currentDevices')->where("`uid`={$info['id']}")->field('did')->find()['did'];
-                
-                // 将用户信息缓存
-                $_SESSION['homeuser'] = $info;       
+                if($info['did']){
+                    // 将用户信息缓存
+                    $_SESSION['homeuser'] = $info;   
+                }else{
+                    // 用户不存在
+                    redirect(U('/Home/Devices/bind'), 2, '请绑定设备...');
+                }
+                     
                 
             }else{
                 // 用户不存在

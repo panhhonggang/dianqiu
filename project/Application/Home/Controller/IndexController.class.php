@@ -10,11 +10,12 @@ class IndexController extends CommonController
     	if($userInfo){
 	        // 获取用户当前设备
 	        $did = $userInfo['did'];
-            $did = 3;
-	        // if(empty($did)){
-	        // 	// 请先绑定设备
-	        // 	$this->success('请先绑定设备...', 'Home/Devices/manage');
-	        // }else{
+            //show($did);die;
+	        if(empty($did)){
+	        	// 请先绑定设备
+	        	$this->success('请先绑定设备...', 'Home/Devices/manage');
+                // exit;
+	        }else{
 	        	// 查询用户设备设备码
 	        	$deviceInfo = M('Devices')
 	        	->where('pub_devices.id='.$did)
@@ -45,7 +46,7 @@ class IndexController extends CommonController
                 $this->assign($res);
             	// 显示模板
 	        	$this->display();	
-	        // }
+	        }
     	}
 
 	}

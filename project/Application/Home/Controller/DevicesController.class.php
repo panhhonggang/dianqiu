@@ -21,8 +21,8 @@ class DevicesController extends CommonController
         $devices = M('Devices')->where("`uid`={$uid}")->field('id,device_code')->select();
         
         // 查找用户当前设备
-        $currentDevices = M('currentDevices')->where("`uid`={$uid}")->field('did')->find()['did'];
-
+        $currentDevices = M('currentDevices')->where("`uid`={$uid}")->field('did')->find();
+        //show($currentDevices);die;
         // 分配数据
         $this->assign('devices',$devices);
         $this->assign('currentDevices',$currentDevices);
@@ -87,14 +87,12 @@ class DevicesController extends CommonController
             $devicesData = M('Devices')->where("uid={$data['uid']}")->select();
             $devicesNum = count($devicesData);
             if($devicesNum==1){
-                //show($devicesData);
+                
                 $currentDevicesData['uid'] = $data['uid'];
                 $currentDevicesData['did'] = $devicesData[0]['id'];
                 $currentDevicesRes = M('currentDevices')->add($currentDevicesData);
                 if($currentDevicesRes){
                     $_SESSION['homeuser']['did'] = $currentDevicesData['did'];
-                    echo 1;
-                    exit;
                 }
             }
             if($res){

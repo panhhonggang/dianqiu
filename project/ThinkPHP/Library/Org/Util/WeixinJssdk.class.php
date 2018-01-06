@@ -88,14 +88,17 @@ class WeixinJssdk
   // access_token 是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用 
   public function getAccessToken() 
   {
+    //return dirname(__FILE__).'/weixin/'."access_token.php";
     // access_token 全局存储7000与更新[文件形式缓存]
     $data = json_decode($this->get_php_file("access_token.php"));
+
+   
     // 判断access_token是否过期
     if ($data->expire_time < time()) {
-  
-       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->APPID&secret=$this->APPSECRET";
-       $res = json_decode($this->httpGet($url));
-      
+    
+      $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->APPID&secret=$this->APPSECRET";
+      $res = json_decode($this->httpGet($url));
+      //show($res);die;
       $access_token = $res->access_token;
       if ($access_token) {
         $data->expire_time = time() + 7000;
@@ -105,6 +108,7 @@ class WeixinJssdk
     } else {
       $access_token = $data->access_token;
     }
+    //show($access_token);die;
     return $access_token;
   }
 
@@ -161,7 +165,7 @@ class WeixinJssdk
   // 读取文的方法
   public function get_php_file($filename) 
   {
-
+    //show(trim(substr(file_get_contents(dirname(__FILE__).'/weixin/'.$filename), 15)));die;
     return trim(substr(file_get_contents(dirname(__FILE__).'/weixin/'.$filename), 15));
   }
   
