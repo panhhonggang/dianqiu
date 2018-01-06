@@ -8,7 +8,7 @@
         <div class="tableBox">
             <div class="titleBar">用户管理/<span>用户详情</span></div>
             
-            <h1 class="text-center">当前用户：</h1>
+            <h1 class="text-center __user">当前用户：</h1>
             <input type="hidden" value='{{$user}}' class="_inp">
             <input type="hidden" value='{{$flow}}' class="_inp">
             <input type="hidden" value='{{$consume}}' class="_inp">
@@ -86,6 +86,7 @@
             }
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
+                $('.__user').append(data.name)
                 var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
                 var create_at = create_at?new Date(Number(data.create_at)*1000).toLocaleString():'--'
                 var installaddress = data.installaddress?data.installaddress:'--'
