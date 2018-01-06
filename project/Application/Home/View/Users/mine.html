@@ -12,6 +12,34 @@
 <script src="__PUBLIC__/Home/js/mine-first.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Home/css/mine-first.css">
 <title>个人信息</title>
+<style>
+	#deviceManage>a,
+	#clearLog>a,
+	#proposal>a,
+	#deviceRepair>a {
+		width: 92%;
+	    height: 1.3rem;
+	    display: block;
+	    position: absolute;
+	}
+	.userName,
+	.device_code,
+	.mineAddr,
+	.userPhone {
+		display: inline-block;
+		margin: 4px 0;
+		color: #35365A;
+		font-size: .35rem;
+	}
+	.userName,
+	.mineAddr {
+		width: 40%;
+	}
+	.device_code,
+	.userPhone {
+		width: 58%;
+	}
+</style>
 </head> 
 <body>
 <div id="mine-first-all" class="mine-first-all" >
@@ -35,11 +63,26 @@
 			</div> -->
 			 <div class="mine-name">
 			 	<section>
-			 		<p><em>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：</em><span>{{$userInfo['name']}}</span></p>
-
-					<p><em>手机号码：</em><span>{{$userInfo['phone']}}</span></p>
-					<p><em>设备型号：</em><span>{{$userInfo['device_code']}}</span></p>
-					<p class="mineAddr"><em>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 址：</em><span>{{$userInfo['address']}}</span></p>
+			 		<p>
+				 		<span class="userName">
+				 			<em>姓名：</em>
+				 			{{$userInfo['name']}}
+				 		</span>
+				 		<span class="device_code">
+				 			<em>设备型号：</em>
+				 			{{$userInfo['device_code']}}
+				 		</span>
+			 		</p>
+			 		<p>
+				 		<span class="mineAddr">
+				 			<em>地址：</em>
+				 			{{$userInfo['address']}}
+				 		</span>
+				 		<span class="userPhone">
+				 			<em>手机号码：</em>
+				 			{{$userInfo['phone']}}
+				 		</span>
+			 		</p>
 					<b> </b>
 			 	</section>
 			</div> 
@@ -80,7 +123,7 @@
 			</div>
 			<div id="m-f-b-list">
 				<ul>
-					<li>
+					<li id="deviceManage">
 						<a href="{{:U('Home/Devices/manage')}}">
 							<i class="iconfont  icon-shebeiguanli1 num-one"></i>
 							<b>设备管理</b>
@@ -88,21 +131,21 @@
 							<span>当前设备：{{$userInfo['device_code']}}</span>
 						</a>
 					</li>
-					<li>
+					<li id="clearLog">
 						<a href="{{:U('Home/WaterPurifier/record')}}">
 							<i class="iconfont icon-jilu num-two"></i>
 							<b>净水记录</b>
 							<i class="iconfont icon-dayuhao right "></i>
 						</a>
 					</li>
-					<li>
+					<li id="deviceRepair">
 						<a href="{{:U('Home/Repair/index')}}">
 							<i class="iconfont icon-wuyebaoxiu num-third"></i>
 							<b>报修</b>
 							<i class="iconfont icon-dayuhao right "></i>
 						</a>
 					</li>
-					<li>
+					<li id="proposal">
 						<a href="{{:U('Home/Feeds/proposal')}}">
 							<i class="iconfont  icon-dengpao1 num-fourth"></i>
 							<b>建议</b>
