@@ -12,18 +12,6 @@
   	win.addEventListener(resizeEvt, recalc, false);
   	doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
-//服务器提示信息
-function hint(hint){
-	if(hint)
-	{
-		$('.hint_bg').css("display","block");
-		$('.hint_bg').height($(window).height());
-		$('.hint_text').html(hint);
-		$('.hint_btn').click(function(){
-			$('.hint_bg').css("display","none");
-		});
-	}
-}
 
 //拖拽显示js：
 function id(obj) {
@@ -122,6 +110,37 @@ function fnTab_txt(oTab,oList,aNav,iW,classActive)
             removeClass(aNav[i],classActive);
         }
         addClass(aNav[iNow],classActive);
+    }
+}
+
+
+
+//设置软件盘弹出后优化页面布局
+function solveCompatible(obj){
+    var oHeight = $(document).height(); //浏览器当前的高度
+    $(window).resize(function(){
+        if($(document).height() < oHeight){
+            obj.css("position","static");
+        }else{
+            obj.css("position","absolute");
+        } 
+    });
+}
+//layuiHint弹框提示封装
+function layuiHint(text){
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.msg(text);
+    });  
+}
+//密码验证封装
+function passwordVaild(obj){
+    var reg = /^[0-9a-zA-Z]{6,12}$/;
+    if(!reg.test(obj)){
+        layuiHint("密码只能由6-12位数字或字母组成");
+        return 0;
+    }else{
+        return 1;
     }
 }
 
