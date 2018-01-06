@@ -14,6 +14,7 @@ class ShoppingProcessController extends CommonController
         $uid = $_SESSION['homeuser']['id'];
         // 判断是否点击立即购买过去结算
         if($uid){
+            //show($uid);die;
             // 准备用户数据
             $userData['user_id'] = $uid;
             $userData['status'] = 1;
