@@ -1,6 +1,4 @@
-{{$user|dump}}
-{{$flow|dump}}
-{{$consume|dump}}
+
 <include file="Public/header" />
 <div class="content" style="background-color: #ECF0F5">
     <include file="Public/nav" />
@@ -102,35 +100,39 @@
                             '</tr>'
                 $('._user_').append(html)
             })
-            flow.replace(/({.+})/,function(match,p1,offset,str){
+            flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
-                var time = data.time?new Date(Number(data.time)*1000).toLocaleString():'--'
-                var html = '<tr>'+
-                                '<td>'+data.id+'</td>'+
-                                '<td>'+mode[data.mode]+'</td>'+
-                                '<td>'+data.ordernumber+'</td>'+
-                                '<td>'+data.money+'</td>'+
-                                '<td>'+data.currentbalance+'</td>'+
-                                '<td>'+time.trim()+'</td>'+
-                            '</tr>'
-                $('._flow').append(html)
-                
+                data.forEach(function(el,i,arr){
+                    var time = el.time?new Date(Number(el.time)*1000).toLocaleString():'--'
+                    var html = '<tr>'+
+                                    '<td>'+el.id+'</td>'+
+                                    '<td>'+mode[el.mode]+'</td>'+
+                                    '<td>'+el.ordernumber+'</td>'+
+                                    '<td>'+el.money+'</td>'+
+                                    '<td>'+el.currentbalance+'</td>'+
+                                    '<td>'+time.trim()+'</td>'+
+                                '</tr>'
+                    $('._flow').append(html)
+                })
             })
 
-            consume.replace(/({.+})/,function(match,p1,offset,str){
+            consume.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
-                var time = data.time?new Date(Number(data.time)*1000).toLocaleString():'--'
-                var icid = data.icid?data.icid:'--'
-                var address = data.address?data.address:'--'
-                var html = '<tr>'+
-                                '<td>'+data.did+'</td>'+
-                                '<td>'+data.id+'</td>'+
-                                '<td>'+icid+'</td>'+
-                                '<td>'+data.flow+'</td>'+
-                                '<td>'+data.address+'</td>'+
-                                '<td>'+time+'</td>'+
-                            '</tr>'
-                $('._consume').append(html)
+                data.forEach(function(el,i,arr){
+                    var time = el.time?new Date(Number(el.time)*1000).toLocaleString():'--'
+                    var icid = el.icid?el.icid:'--'
+                    var address = el.address?el.address:'--'
+                    var html = '<tr>'+
+                                    '<td>'+el.did+'</td>'+
+                                    '<td>'+el.id+'</td>'+
+                                    '<td>'+icid+'</td>'+
+                                    '<td>'+el.flow+'</td>'+
+                                    '<td>'+el.address+'</td>'+
+                                    '<td>'+time+'</td>'+
+                                '</tr>'
+                    $('._consume').append(html)
+                })
+                
                                 
             })
         </script>
