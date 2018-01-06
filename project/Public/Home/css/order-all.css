@@ -88,7 +88,8 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 	width: 9.2rem; 
 	padding-bottom: 1.2rem;
 	position: relative;
-	bottom:-1.2rem;
+	bottom:-1.0rem;
+	border-bottom: 6px solid #EBEBEB;
 }
 
 #order-all-foot>input{
@@ -157,6 +158,9 @@ border:1px solid #000;
 }
 
 /*补全模块的css样式*/
+#all-information{
+	margin-top: 2.0rem;
+}
 #all-information>b>span.readyedpay{
 	font-size: 0.4rem;
 	color:#353659;
