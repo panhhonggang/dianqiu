@@ -9,9 +9,9 @@
             <div class="titleBar">用户管理/<span>用户详情</span></div>
             
             <h1 class="text-center">当前用户：</h1>
-            <input type="hidden" value="{{$user|dump}}" class="_inp">
-            <input type="hidden" value="{{$flow|dump}}" class="_inp">
-            <input type="hidden" value="{{$consume|dump}}" class="_inp">
+            <input type="hidden" value='{{$user}}' class="_inp">
+            <input type="hidden" value='{{$flow}}' class="_inp">
+            <input type="hidden" value='{{$consume}}' class="_inp">
             <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
     border-bottom:  1px #CCCCCC solid">
                 <h3>用户基础信息</h3>
@@ -84,6 +84,7 @@
                 '1':'微信',
                 '2':'支付宝'
             }
+            console.log(user,flow,consume)
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
