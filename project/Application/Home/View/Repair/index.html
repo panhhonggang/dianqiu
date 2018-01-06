@@ -43,19 +43,19 @@
 			display: inline-block;
 			position: relative;
 		}
-		#picShow>span>span {
+		.delPic {
 			width: 5vmin;
 			height: 5vmin;
-			display: block;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			position: absolute;
 			top: 0;
 			right: 0;
-			margin-top: -1vmin;
-			margin-right: -1vmin;
+			margin-top: -2vmin;
+			margin-right: -2vmin;
 			border-radius: 5vmin;
 			color: #fff;
-			text-align: center;
-			line-height: 5vmin;
 			background: red;
 		}
 	</style>
@@ -106,60 +106,63 @@
 		</div>
 	</form>
 	<script>
-		
-		$('form>input').click(function(){
-			$('#repair-main>i').css('color','#6848F9');
-			$('form>input').mouseout(function(){
-				$('#repair-main>i').css('color','#D0D1FC');
-			})
-		});
-		
-		
+		$(function(){
 
-		var dateTime = '';
-		$('#re-commit').click(function(){
-			var date = $('.timer-set>input[type="date"]').val();
-			var starTime = $('#star').val();
-			var endTime = $('#end').val();
-			if(!date || !starTime || !endTime){
-				alert('请输入完整的时间段')
-				return false;
-			};
+			$('form>input').click(function(){
+				$('#repair-main>i').css('color','#6848F9');
+				$('form>input').mouseout(function(){
+					$('#repair-main>i').css('color','#D0D1FC');
+				})
+			});
+			
+			var dateTime = '';
+			$('#re-commit').click(function(){
+				var date = $('.timer-set>input[type="date"]').val();
+				var starTime = $('#star').val();
+				var endTime = $('#end').val();
+				if(!date || !starTime || !endTime){
+					alert('请输入完整的时间段')
+					return false;
+				};
 
-		});
+			});
 
-		$(".repair-sendpic").on("change",function(e){
-			var files =this.files;
-			var span = $("<span></span>"),
-				span1 = $("<span>X</span>"),
-				img = $('<img src="" alt="" />'
-					);
-			var reader =new FileReader();
-			reader.readAsDataURL(files[0]);
-			reader.onload =function(e){
-				
-				var dx =(e.total/1024)/1024;
-				if(dx>=2){
-				  alert("文件大小大于2M");
-				  return;
+			$(".repair-sendpic").on("change",function(e){
+				var files =this.files;
+				var span = $("<span></span>"),
+					span1 = $("<span>X</span>"),
+					img = $('<img src="" alt="" />'
+						);
+				var reader =new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload =function(e){
+					
+					var dx =(e.total/1024)/1024;
+					if(dx>=2){
+					  alert("文件大小大于2M");
+					  return;
+					}
+					img[0].src = this.result;
+					img[0].width = "100%";
+					img[0].height = "90%";
+					
+					// console.log(span, span[0]);
+					span1.addClass("delPic");
+					span1.css({zIndex: '999'});
+					span.append(span1);
+					span.append(img[0]);
+					$('#picShow').append(span);
 				}
-				img[0].src = this.result;
-				img[0].width = "100%";
-				img[0].height = "90%";
-				
-				// console.log(span, span[0]);
-				span1.addClass("delPic");
-				span1.css({zIndex: '999'});
-				span.append(span1);
-				span.append(img[0]);
-				$('#picShow').append(span);
-			}
-		})
+			});
 
-		$(".delPic").on("click", function(){
-			console.log(1221);
-			$(this).next("img").remove();
+			// 点击上传的图片右上角的" x "，删除这张图片
+			$("#picShow>span").live("click",  ".delPic", function(){
+				
+				$(this).remove()
+				
+			})
 		})
+	
 	</script>
 	</body>
 </html>

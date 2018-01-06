@@ -84,7 +84,6 @@
                 '1':'微信',
                 '2':'支付宝'
             }
-            console.log(user,flow,consume)
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
@@ -105,7 +104,6 @@
             flow.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 var time = data.time?new Date(Number(data.time)*1000).toLocaleString():'--'
-                console.log(time.trim())
                 var html = '<tr>'+
                                 '<td>'+data.id+'</td>'+
                                 '<td>'+mode[data.mode]+'</td>'+
