@@ -17,13 +17,13 @@ class FeedsController extends CommonController
     public function proposal()
     {	
         if (IS_POST) {
-
             // 接收用户输入数据
             $arr = array(
                 'content' => I('content'),
-                'uid' => $_SESSION['homeuser']['uid'],
+                'uid' => $_SESSION['homeuser']['id'],
                 'addtime' => time(),
             );
+
             // 实例化
             $feeds = M('feeds');
             if ($feeds->add($arr)) {
