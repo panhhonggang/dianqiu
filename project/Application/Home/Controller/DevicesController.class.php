@@ -52,6 +52,7 @@ class DevicesController extends CommonController
             $res = M('currentDevices')->where("`uid`={$uid}")->save($data);
 
             if($res){
+                $_SESSION['homeuser']['did'] = $data['did'];
                 echo 1;
             }else{
                 echo -1;

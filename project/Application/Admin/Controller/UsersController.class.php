@@ -82,10 +82,10 @@ class UsersController extends CommonController
 
         $maps['uid'] = $user['id'];
         // 充值记录
-        $flow = M('flow')->where($maps)->find();
+        $flow = M('flow')->where($maps)->select();
 
         // 消费记录
-        $consume = M('consume')->where($maps)->find();
+        $consume = M('consume')->where($maps)->select();
         $assign = [
             'user' => json_encode($user),
             'flow' => json_encode($flow),
