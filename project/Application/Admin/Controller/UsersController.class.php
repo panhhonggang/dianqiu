@@ -80,13 +80,12 @@ class UsersController extends CommonController
         // 用户信息
         $user = M('users')->where($map)->find();
 
-        $map['uid'] = $user['id'];
+        $maps['uid'] = $user['id'];
         // 充值记录
-        $flow = M('flow')->where($map)->find();
+        $flow = M('flow')->where($maps)->find();
 
         // 消费记录
-        $consume = M('consume')->where($map)->find();
-
+        $consume = M('consume')->where($maps)->find();
         $assign = [
             'user' => json_encode($user),
             'flow' => json_encode($flow),
