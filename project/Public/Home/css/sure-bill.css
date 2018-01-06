@@ -142,5 +142,15 @@
 .bill{
 	text-align: right;
 }
+/*提交未成功的模态框*/
+.hidMain{
+	display: none;
+	color:red;
+	position: absolute;
+	top:0.1rem;
+	left: 3.6rem;
+}
+
+    /*$('.class').text()  获取文本的内容；*/
 
 

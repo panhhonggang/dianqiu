@@ -75,7 +75,7 @@
 				<p>
 					
 					<label for="tel"><i class="iconfont icon-dianhuahaoma"></i>电&nbsp;&nbsp;&nbsp;话：</label>
-					<input id="tel" type="text" placeholder="14725836911" value="{{$expressInfo['phone']}}">
+					<input id="tel" type="text" placeholder="14725836911" value="{{$expressInfo['phone']}}"><div class="hidMain">请输入正确的电话号码！</div>
 				</p>
 				<p>
 					
@@ -162,6 +162,7 @@
 				}else{
 					// 前端正则匹配错误提示
 					console.dir('请输入有效的，收件人姓名！');
+
 				}
 
 				if(tel){
@@ -169,6 +170,12 @@
 				}else{
 					// 前端正则匹配错误提示
 					console.dir('请输入有效的，有效手机号码！');
+					 $('.hidMain').css('display','block');
+					  // focus() 
+					  $('#tel').focus(function(){
+					 $('.hidMain').css('display','none');
+
+					  }) 
 				}
 				if(address){
 					var addres = $('#address').val();
