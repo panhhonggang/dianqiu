@@ -1,4 +1,6 @@
 {{$user|dump}}
+{{$flow|dump}}
+{{$consume|dump}}
 <include file="Public/header" />
 <div class="content" style="background-color: #ECF0F5">
     <include file="Public/nav" />
@@ -7,38 +9,27 @@
             <div class="titleBar">用户管理/<span>用户详情</span></div>
             
             <h1 class="text-center">当前用户：</h1>
+            <input type="hidden" value="{{$user|dump}}" class="_inp">
+            <input type="hidden" value="{{$flow|dump}}" class="_inp">
+            <input type="hidden" value="{{$consume|dump}}" class="_inp">
             <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
     border-bottom:  1px #CCCCCC solid">
                 <h3>用户基础信息</h3>
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>用户ID</td>
                             <td>姓名</td>
                             <td>手机</td>
-                            <td>地址</td>
+                            <td>安装地址</td>
                             <td>用户余额</td>
                             <td>最后登录时间</td>
                             <td>登录IP</td>
                             <td>注册时间</td>
-                            <td>状态</td>
+                            <td>用户状态</td>
                             <td>备注</td>
                         </tr>
                     </thead>
-                    <thbody>
-                        <tr>
-                            <td>{{$user.id}}</td>
-                            <td>姓名</td>
-                            <td>手机</td>
-                            <td>地址</td>
-                            <td>用户余额</td>
-                            <td>最后登录时间</td>
-                            <td>登录IP</td>
-                            <td>注册时间</td>
-                            <td>状态</td>
-                            <td>备注</td>
-                        </tr>
-                    </thbody>
+                    <tbody class="_user_"></tbody>
                 </table>
             </div>
             
@@ -48,16 +39,17 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>充值流水ID</td>
-                            <td>用户昵称</td>
+                            <td>用户ID</td>
                             <td>充值方式</td>
+                            <td>订单号码</td>
                             <td>充值金额/元</td>
-                            <td>用户余额</td>
+                            <td>当前余额</td>
                             <td>充值时间</td>
-                            <td>备注</td>
                         </tr>
                     </thead>
+                    <tbody class="_flow"></tbody>
                 </table>
+                
             </div>
 
             <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
@@ -66,26 +58,80 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>消费记录ID</td>
-                            <td>用户昵称</td>
-                            <td>账户余额</td>
-                            <td>IC卡编号</td>
-                            <td>用水地址</td>
-                            <td>用水时间</td>
-                            <td>盛水量/mL</td>
-                            <td>备注</td>
+                            <td>设备ID</td>
+                            <td>用户ID</td>
+                            <td>IC卡号</td>
+                            <td>用户余额</td>
+                            <td>消费地址</td>
+                            <td>消费时间</td>
                         </tr>
                     </thead>
+                    <tbody class="_consume"></tbody>
                 </table>
             </div>
         </div>
         <script>
-            console.log(location)
-            $.ajax({
-                url:'user_detail?id='+location.hash.slice(1),
-                success:function(data){
-                    console.log(data)
-                }
+            var _inp = $('._inp')
+            var user = _inp.eq(0).val()
+            var flow = _inp.eq(1).val()
+            var consume = _inp.eq(2).val()
+            var userStatus = {
+                '0':'禁用',
+                '1':'启用'
+            }
+            var mode = {
+                '0':'系统赠送',
+                '1':'微信',
+                '2':'支付宝'
+            }
+            user.replace(/({.+})/,function(match,p1,offset,str){
+                var data = JSON.parse(match)
+                var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
+                var create_at = create_at?new Date(Number(data.create_at)*1000).toLocaleString():'--'
+                var installaddress = data.installaddress?data.installaddress:'--'
+                var html = '<tr>'+
+                                '<td>'+data.name+'</td>'+
+                                '<td>'+data.phone+'</td>'+
+                                '<td>'+installaddress+'</td>'+
+                                '<td>'+data.balance+'</td>'+
+                                '<td>'+login_time+'</td>'+
+                                '<td>'+data.login_ip+'</td>'+
+                                '<td>'+create_at+'</td>'+
+                                '<td>'+userStatus[data.user_status]+'</td>'+
+                            '</tr>'
+                $('._user_').append(html)
+            })
+            flow.replace(/({.+})/,function(match,p1,offset,str){
+                var data = JSON.parse(match)
+                var time = data.time?new Date(Number(data.time)*1000).toLocaleString():'--'
+                console.log(time.trim())
+                var html = '<tr>'+
+                                '<td>'+data.id+'</td>'+
+                                '<td>'+mode[data.mode]+'</td>'+
+                                '<td>'+data.ordernumber+'</td>'+
+                                '<td>'+data.money+'</td>'+
+                                '<td>'+data.currentbalance+'</td>'+
+                                '<td>'+time.trim()+'</td>'+
+                            '</tr>'
+                $('._flow').append(html)
+                
+            })
+
+            consume.replace(/({.+})/,function(match,p1,offset,str){
+                var data = JSON.parse(match)
+                var time = data.time?new Date(Number(data.time)*1000).toLocaleString():'--'
+                var icid = data.icid?data.icid:'--'
+                var address = data.address?data.address:'--'
+                var html = '<tr>'+
+                                '<td>'+data.did+'</td>'+
+                                '<td>'+data.id+'</td>'+
+                                '<td>'+icid+'</td>'+
+                                '<td>'+data.flow+'</td>'+
+                                '<td>'+data.address+'</td>'+
+                                '<td>'+time+'</td>'+
+                            '</tr>'
+                $('._consume').append(html)
+                                
             })
         </script>
         <!-- footer part -->
