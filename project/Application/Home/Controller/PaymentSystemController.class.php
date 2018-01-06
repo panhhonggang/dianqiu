@@ -725,27 +725,27 @@ class PaymentSystemController extends Controller
         //file_put_contents('./wx_pay.txt',$xml, FILE_APPEND);
         //echo 1;die;
 //         $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
-// <attach><![CDATA[949657681595765841]]></attach>
+// <attach><![CDATA[144081768868905096]]></attach>
 // <bank_type><![CDATA[CFT]]></bank_type>
 // <cash_fee><![CDATA[1]]></cash_fee>
 // <fee_type><![CDATA[CNY]]></fee_type>
 // <is_subscribe><![CDATA[Y]]></is_subscribe>
 // <mch_id><![CDATA[1394894802]]></mch_id>
-// <nonce_str><![CDATA[n065r8e5w9324jfbr77e4lzq0ru4l0bf]]></nonce_str>
+// <nonce_str><![CDATA[dfznydinwjtijw7wsg3v8f2vgt2sqmm3]]></nonce_str>
 // <openid><![CDATA[oXwY4t-9clttAFWXjCcNRJrvch3w]]></openid>
-// <out_trade_no><![CDATA[888853264382514038]]></out_trade_no>
+// <out_trade_no><![CDATA[344008809571978527]]></out_trade_no>
 // <result_code><![CDATA[SUCCESS]]></result_code>
 // <return_code><![CDATA[SUCCESS]]></return_code>
-// <sign><![CDATA[4969CE4C11D5078A0DB334EAC7C88C5D]]></sign>
-// <time_end><![CDATA[20171225111218]]></time_end>
+// <sign><![CDATA[7A87B2853D4FB34F7BBCD54E9D808A25]]></sign>
+// <time_end><![CDATA[20180106110704]]></time_end>
 // <total_fee>1</total_fee>
 // <trade_type><![CDATA[JSAPI]]></trade_type>
-// <transaction_id><![CDATA[4200000025201712251015056729]]></transaction_id>
+// <transaction_id><![CDATA[4200000004201801069013687506]]></transaction_id>
 // </xml>';
         if($xml){
             //解析微信返回数据数组格式
             $result = $this->notifyData($xml);
-
+            
             // 如果订单号不为空
             if(!empty($result['out_trade_no'])){
                 // 获取传回来的订单号
@@ -771,19 +771,23 @@ class PaymentSystemController extends Controller
                     $flowObj = M('Flow');
 
                     // 开启事务
-                    $orders->startTrans();
+                    //$orders->startTrans();
 
                     // 修改订单状态为已付款
                     $isPay['is_pay'] = 1;
-                    $isPay['is_recharge'] = 1;
-                    $isPayRes = $orders->where($data)->save($isPay);
-
+                    
+                    
+                    //show($isPayRes);die;
                     // 查询订单包含的全部套餐
                     $orderSetmealData = $orderSetmeal->where($data)->select();
-
+                    if($orderSetmealData){
+                        $isPay['is_recharge'] = 1;
+                    }
+                    $isPayRes = $orders->where($data)->save($isPay);
                     // 充值状态
                     $status = 0;
                     if($orderSetmealData){
+                        
                         // 统计未处理套餐数量
                         $countNun = count($orderSetmealData);
                         // 定义计数器
@@ -847,15 +851,17 @@ class PaymentSystemController extends Controller
                         // 没有套餐默认值，状态设为1
                         $status = 1;
                     }
-
+                    
+                    //show($isPayRes);die;
                     if($isPayRes && $status){
+                        
                         // 执行事务
                         $orders->commit();
-                        // file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
+                       // file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
                     }else{
                         // 事务回滚
                         $orders->rollback();
-                        // file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
+                       // file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
                     }
                 }else{
                     // 充值金额不匹配

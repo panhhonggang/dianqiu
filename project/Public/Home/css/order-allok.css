@@ -254,18 +254,32 @@ border:none;
 .order-all-foot{
 	
 
-    border: 1px solid #000;
+  /*  border: 1px solid #ccc;*/
     position: absolute;
     right: 0.4rem;
     color: #000;
 	text-align: center;
 	line-height: 0.70rem;
+    /*margin-bottom: 0.4rem;*/
+  
+
 }
 .order-all-foot input{
 	background: #FFF;
 	width: 2.85333rem;
     height: 0.70rem;
     border: none;
+}
+.clearfix:after{
+	content:"";
+	height:0;
+	line-height:0;
+	display:block;
+	visibility:hidden;
+	clear:both;
+}
+.clear{
+	clear:both;
 }
 
 

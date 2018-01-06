@@ -84,6 +84,10 @@ class DevicesController extends CommonController
         }else{
             // 绑定设备
             $res = M('Devices')->where("`device_code`={$device_code}")->save($data);
+            // 写入设备详细数据
+            $devicesStatuData['DeviceID'] = $device_code;
+            M('devicesStatu')->add($devicesStatuData);
+
             $devicesData = M('Devices')->where("uid={$data['uid']}")->select();
             $devicesNum = count($devicesData);
             if($devicesNum==1){
