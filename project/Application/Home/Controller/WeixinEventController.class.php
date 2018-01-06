@@ -15,14 +15,14 @@ class WeixinEventController
     	// 接受微信推送的事件
     	$xml=file_get_contents('php://input', 'r');
         //file_put_contents('./tmp.txt', $xml);
-//     	$xml = "<xml>
+//      	$xml = "<xml>
 //     <ToUserName><![CDATA[gh_85ebcdb60fa2]]></ToUserName>
-//     <FromUserName><![CDATA[oXwY4t2gearWoyg8z19ygjD34vDk]]></FromUserName>
-//     <CreateTime>1512626554</CreateTime>
+//     <FromUserName><![CDATA[oXwY4t-9clttAFWXjCcNRJrvch3w]]></FromUserName>
+//     <CreateTime>1515130791</CreateTime>
 //     <MsgType><![CDATA[event]]></MsgType>
 //     <Event><![CDATA[subscribe]]></Event>
 //     <EventKey><![CDATA[]]></EventKey>
-//     <Encrypt><![CDATA[OxO9gI2fl03qCfsH41IvARULK4zwJNEl6i8W+W2shPwpUFl18+Rg6SmY80WtRj8oUr5o1VYW9lHVYU1vGHfPn++Wc1Q1p7rge4YhpRJqZUURNe0xHghSz+tZ/uUMA+173lVq3GUQtqbMjaFZk1a7zD9JTjhOtQ1mlcBlLZezaDUbFFGBCvscspR51Y+bQogvNvyhzitbFH0D4zx0s6JWkdsxhs0Ctwqi/SDhgnMDt8z/0HkhJi1h+7cAHtAkk87IfNv2GBYHmBhkAwMSkGqNn6tSBOsCtRvfNhYjARVX9npb4FeRZi+d9g/kFxcsuBMRD/4SSkHumhqpGHIE+8aF4mBXUH9FKV3xtrO6viFwrTUBECCQPIbrNm1qKskY07P+zMYbkhcx8VQf8xd2uM8NhqU8OW21qlRxoBTQOnNiRBM=]]></Encrypt>
+//     <Encrypt><![CDATA[2TNSc1A+6tKUvjgqbMEAoxkrcauhxXSzAcXgVnnPuL7cENVb+6CLK7hif7sUecs8UxOSPDckEun1gCMCt5LEAlY9tGyfLKbGj8ag9Go21GUwI6VrEd7fZCoLchOiPyQNu/fp3cIV0HIut3gnEf1tvZ7EzbBA+nfrXrW161qJonG5rkxc44Knc+KE0DwlHKyR7pDpAdQAwUhrTHNK38OBQwQoHOAouEJD1AFoajI03YHWJ5CD3AX930dwwaDLeEFp1reG73gVhd6GCWwT3tQPCL6jYvbOjmGTdoOwk18opHyh1Vie9+cnL87O7fMU/yopgJWoZE/AKEovdkRYtf8I8RlXShiE2+Id2vg69/4LLLG/FvNeiG6ouLErchJ0WVArEGUbECZKBMQrFaH4tmDkEUU4yDUfBiUOXyB2/AIkz9A=]]></Encrypt>
 // </xml>";
 
 		if($xml){

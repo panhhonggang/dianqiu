@@ -6,7 +6,7 @@ use \Org\Util\WeixinJssdk;
 /**
  * 支付系统
  */
-class PaymentSystemController extends CommonController 
+class PaymentSystemController extends Controller
 {
     /**
      * [index 购买类型判断-分配支付流程]
@@ -156,6 +156,7 @@ class PaymentSystemController extends CommonController
     {
         // 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
+
         if($uid){
         // 遍历购物车
             // 遍历用户购物车套餐
@@ -268,6 +269,7 @@ class PaymentSystemController extends CommonController
     // 情况3：套餐+产品确认支付
     public function sureBillPay()
     {
+        //echo 1;die;
         // 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
 
@@ -297,6 +299,8 @@ class PaymentSystemController extends CommonController
                     $setmealNum += $value['num'];
                 }   
             }
+
+
             // 准备变量装总金额
             $totalAmount = 0;
             // 准备变量装总数量
@@ -304,6 +308,7 @@ class PaymentSystemController extends CommonController
 
             // 判断套餐产品数量
             if($setmealNum>0){
+
                 // 有套餐产品
                 // 统计套餐总金额
                 foreach ($setmeal as $value) {
@@ -345,6 +350,8 @@ class PaymentSystemController extends CommonController
                 $ordersData['total_price']   = $totalAmount;
                 // 订单创建时间
                 $ordersData['created_at']    = time();
+
+
                 // 创建订单,返回插入ID
                 $ordersRes = $orders->add($ordersData);
                 
@@ -390,9 +397,10 @@ class PaymentSystemController extends CommonController
                     // 拼接订单描述
                     $contentstr .= $setmealData['describe'].'X'.$setmealData['goods_num'].'  ';
                 }
-
+                
                 // 统计滤芯数量
                 $filterCount = count($filters);
+
                 $addFilterNumIndex = 0;
                 $delFilterNumIndex = 0;
                 foreach ($filters as $k => $v) {
@@ -625,7 +633,7 @@ class PaymentSystemController extends CommonController
         // $input->SetGoods_tag("test");
         // 支付成功的回调地址
         //$input->SetNotify_url("http://xinpin.dianqiukj.com/index.php/Home/Weixinpay/notify.html");
-        $input->SetNotify_url(C('notify_url'));
+        $input->SetNotify_url('http://pub.dianqiukj.com/index.php/Home/PaymentSystem/notify');
         // 支付方式 JS-SDK 类型是：JSAPI
         $input->SetTrade_type("JSAPI");
         // 用户在公众号的唯一标识
@@ -711,9 +719,11 @@ class PaymentSystemController extends CommonController
      */
     public function notify()
     {
+        //echo 123;
         // 获取微信服务器返回的xml文档
         $xml=file_get_contents('php://input', 'r');
-        // file_put_contents('./wx_notifyXml.txt',$xml, FILE_APPEND);
+        //file_put_contents('./wx_pay.txt',$xml, FILE_APPEND);
+        //echo 1;die;
 //         $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
 // <attach><![CDATA[949657681595765841]]></attach>
 // <bank_type><![CDATA[CFT]]></bank_type>
