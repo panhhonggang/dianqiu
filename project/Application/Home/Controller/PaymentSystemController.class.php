@@ -775,15 +775,19 @@ class PaymentSystemController extends Controller
 
                     // 修改订单状态为已付款
                     $isPay['is_pay'] = 1;
-                    $isPay['is_recharge'] = 1;
-                    $isPayRes = $orders->where($data)->save($isPay);
+                    
+                    
                     //show($isPayRes);die;
                     // 查询订单包含的全部套餐
                     $orderSetmealData = $orderSetmeal->where($data)->select();
-
+                    if($orderSetmealData){
+                        $isPay['is_recharge'] = 1;
+                    }
+                    $isPayRes = $orders->where($data)->save($isPay);
                     // 充值状态
                     $status = 0;
                     if($orderSetmealData){
+                        
                         // 统计未处理套餐数量
                         $countNun = count($orderSetmealData);
                         // 定义计数器
@@ -847,14 +851,16 @@ class PaymentSystemController extends Controller
                         // 没有套餐默认值，状态设为1
                         $status = 1;
                     }
+                    
                     //show($isPayRes);die;
                     if($isPayRes && $status){
+                        
                         // 执行事务
-                       //$orders->commit();
+                        $orders->commit();
                        // file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
                     }else{
                         // 事务回滚
-                        //$orders->rollback();
+                        $orders->rollback();
                        // file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
                     }
                 }else{
