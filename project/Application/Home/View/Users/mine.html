@@ -26,18 +26,18 @@
 	.device_code,
 	.mineAddr,
 	.userPhone {
-		display: inline-block;
+		display: block;
 		margin: 4px 0;
 		color: #35365A;
 		font-size: .35rem;
 	}
 	.userName,
 	.mineAddr {
-		width: 40%;
+		width: 100%;
 	}
 	.device_code,
 	.userPhone {
-		width: 58%;
+		width: 100%;
 	}
 </style>
 </head> 
@@ -65,7 +65,7 @@
 			 	<section>
 			 		<p>
 				 		<span class="userName">
-				 			<em>姓名：</em>
+				 			<em>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</em>
 				 			{{$userInfo['name']}}
 				 		</span>
 				 		<span class="device_code">
@@ -75,7 +75,7 @@
 			 		</p>
 			 		<p>
 				 		<span class="mineAddr">
-				 			<em>地址：</em>
+				 			<em>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</em>
 				 			{{$userInfo['address']}}
 				 		</span>
 				 		<span class="userPhone">
