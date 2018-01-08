@@ -79,7 +79,7 @@
 				<p>
 					
 					<label for="tel"><i class="iconfont icon-dianhuahaoma"></i>电&nbsp;&nbsp;&nbsp;话：</label>
-					<input id="tel" type="text" placeholder="14725836911" value="{{$expressInfo['phone']}}"><div class="hidMain">请输入正确的电话号码！</div>
+					<input id="tel" type="text" placeholder="14725836911" value="{{$expressInfo['phone']}}">
 				</p>
 				<p>
 					
@@ -136,7 +136,7 @@
 		<!-- 滤芯结束 -->
         <div id="foot">
 			<b>合计金额：</b><b class="chang">￥{{$totalAmount/100}}</b>
-			<input type="submit" value="去结算">
+			<a href="{{:U("ShoppingProcess/surePay")}}"><input class="pinBtn" type="submit" value="去结算"></a>
 		</div>	
 	</div>
 	<script type="text/javascript">
@@ -161,10 +161,10 @@
 		});
 		
 		if(location.href.indexOf('sureBill') > -1){
-			$('#foot>input[type=submit]').val("提交订单");
+			$('#foot>a>input[type=submit]').val("提交订单");
 		}
 		// 获取结算按钮
-		$('#foot>input[type=submit]').click(function(){
+		$('#foot>a>input[type=submit]').click(function(){
 				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);
 				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);
 				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]+/);

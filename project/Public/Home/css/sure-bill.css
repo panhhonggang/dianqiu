@@ -116,7 +116,6 @@
 
 #mo-left{
 	display: inline-block;
-	/*background: green;*/
 }
 #mo2{
 	position: relative;
@@ -125,32 +124,32 @@
 	position: absolute;
 	right: 0;
 }
-/*#mo-right2>p,#mo-right>b{
-
-	display: inline-block;
-    font-size: 0.426667rem;
-	float: right;}*/
 #mo-right2>p{
 	display: inline-block;
 	font-size:0.373333rem;
 	margin:0.0rem 0.066667rem;
 	color: #FF0000;
-	/*background: red;*/
 	float: right;
 }
 
 .bill{
 	text-align: right;
 }
-/*提交未成功的模态框*/
-.hidMain{
-	display: none;
-	color:red;
-	position: absolute;
-	top:0.1rem;
-	left: 3.6rem;
+/*链接跳转*/
+/*#foot{
+	position: relative;
+}*/
+#foot>a{
+	display: block;
+	width: 4rem;
+	float: right;
+}
+#foot>a>input.pinBtn{
+	width: 100%;
+    height: 1.2rem;
+    border: none;
+    font-size: 0.426667rem;
 }
 
-    /*$('.class').text()  获取文本的内容；*/
 
 
