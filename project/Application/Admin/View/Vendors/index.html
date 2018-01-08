@@ -5,7 +5,7 @@
         <div class="tableBox">
             <div class="titleBar">后台管理/<span>经销商列表</span></div>
             <form class="form-search fr" action="__URL__/index" method="get">
-                <input type="text" name="name" class="input-medium" placeholder="请输入真实姓名...">
+                <input type="text" name="name" class="input-medium" placeholder="请输入昵称...">
                 <button type="submit" class="btn">搜索</button>
             </form>
 
@@ -19,7 +19,7 @@
                     <th>邮箱</th>
                     <th>地址</th>
                     <th>身份证号</th>
-                    <th>添加时间</th>
+                    <th>最新添加时间</th>
                     <th>管理级别</th>
                     <th>操作</th>
                 </tr>
@@ -39,7 +39,7 @@
                         <td>{{$vo.leavel}}</td>
                         <td>
                             <a href="__URL__/edit/id/{{$vo.id}}">编辑</a>
-                            <a href="__URL__/del/id/{{$vo.id}}">删除</a>
+                            <a href="__URL__/del/id/{{$vo.id}}" class="_del">删除</a>
                         </td>
                     </tr>
                     </foreach>
@@ -55,7 +55,15 @@
                     {{$button}}
                 </ul>
             </div>
+            <script src="__PUBLIC__/Home/js/public.js"></script>
             <script>
+                //del
+                $('._del').click(function(){
+                    tip('确定删除？','提示',function(){
+                        window.location.href = '__URL__/del/id/{{$vo.id}}'
+                    })
+                    return false
+                })
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
             </script>

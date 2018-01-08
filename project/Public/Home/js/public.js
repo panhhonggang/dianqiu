@@ -143,6 +143,29 @@ function passwordVaild(obj){
         return 1;
     }
 }
-// <!-- <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> -->
-//         <script src="__PUBLIC__/Admin/layui/layui.js"></script>
-
+//验证特殊字符
+function specail(val){
+    return /[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(val.trim())?1:0
+}
+//验证手机号码
+function phone(val){
+    return /1[3,4,5,6,7,8]\d{9}/.test(val.trim())?1:0
+}
+//验证email
+function email(val){
+    return /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(val.trim())?1:0
+}
+//验证中文
+function chinese(val){
+    return /[\u4E00-\u9FA5\uF900-\uFA2D]/.test(val.trim())?1:0
+}
+//提示
+function tip(tip,title,fn){
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.confirm(tip, {icon: 3, title:title}, function(index){
+            fn&&fn()                
+        });
+    });
+}
+[\u4E00-\u9FA5\uF900-\uFA2D]

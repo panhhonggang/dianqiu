@@ -3,9 +3,9 @@
     <include file="Public/nav" />
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
-            <div class="titleBar">后台管理/<span>绑定机组</span></div>
+            <div class="titleBar">后台管理/<span>设备归属</span></div>
             <div class="formBox">
-                <form class="form-horizontal " action="__URL__/devices_add" method="post">
+                <form class="form-horizontal " action="__URL__/devices_add" method="post" id="_formTable">
                     <div class="control-group">
                         <label class="control-label">请选择经销商：</label>
                         <div class="controls">
@@ -26,10 +26,10 @@
                             <select name="did" id="">
                                 <notempty name="devices">
                                     <foreach name="devices" item="vv" key="key">
-                                        <option value="{{$vv.id}}">{{$vv.device_code}}</option>
+                                        <option value="{{$vv.id}}" tip='1'>{{$vv.device_code}}</option>
                                     </foreach>
                                     <else />
-                                    <option value="0">查无数据</option>
+                                    <option value="0" tip='0'>查无数据</option>
                                 </notempty>
                             </select>
                         </div>
@@ -39,6 +39,18 @@
                     </div>
                 </form>
             </div>
+            <script src="__PUBLIC__/Home/js/public.js"></script>
+            <script type='text/javascript'>
+                $('#_formTable').submit(function(event) {
+                    var bool = $('select[name=did] option').attr('tip').trim()
+                    if(Number(bool)){
+                        return true
+                    }else{
+                        layuiHint('设备号为空，请到&nbsp;“&nbsp;设备管理>>设备添加&nbsp;”&nbsp;里进行添加')
+                        return false
+                    }
+                });
+            </script>
         </div>
         <include file="Public/footer" />
     </div>

@@ -22,20 +22,20 @@
         }
     </style>
         <div class="tableBox">
-            <div class="titleBar">工单管理/<span>新增工单</span></div>
+            <div class="titleBar">工单管理/<span>工单添加</span></div>
             <div class="formBox">
                 <form class="" action="__URL__/add" method="post">
                     <div class="control-group">
-                        <span>工单号</span>
+                        <span>工单号<sub class="_start">*</sub></span>
                         <!-- 需加数字验证 -->
                         <input type="text" class="control" name="number" placeholder="请输入工单号..." style="width:210px;">
                     </div>
                     <div class="control-group">
-                        <span>处理人</span>
+                        <span>处理人<sub class="_start">*</sub></span>
                         <input type="text" class="control" name="name" placeholder="请输入处理人姓名..." style="width:210px;">
                     </div>
                     <div class="control-group">
-                        <span>处理人电话</span>
+                        <span>处理人电话<sub class="_start">*</sub></span>
                         <input type="text" class="control" name="phone" placeholder="请输入处理人电话..." style="width:210px;">
                     </div>
                     <div class="control-group">
@@ -45,11 +45,11 @@
                         <input type="radio" class="control" name="type" value="2">维护&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="control-group">
-                        <span>工作内容</span>
+                        <span>工作内容<sub class="_start">*</sub></span>
                         <textarea name="content" cols="30" rows="5"></textarea>
                     </div>
                     <div class="control-group">
-                        <span>地址</span>
+                        <span>地址<sub class="_start">*</sub></span>
                         <div class="info">
                             <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
                             <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
@@ -65,7 +65,7 @@
                         <input type="radio" class="control" name="result" value="2">已处理&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="control-group">
-                        <span>处理时间</span>
+                        <span>处理时间<sub class="_start">*</sub></span>
                         <!-- 需要时间插件 -->
                         <input type="text" id="addMaintenanceDate" name="time" placeholder="输入处理时间" onclick="layui.laydate({elem: this,istime: 1, format: 'YYYY-MM-DD' })"/>
                     </div>
