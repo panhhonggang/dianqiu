@@ -10,8 +10,10 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-		<script src="__PUBLIC__/Home/js/public.js"></script>
+		<!-- <script src="__PUBLIC__/Home/js/public.js"></script> -->
 
+		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
+       <script src="__PUBLIC__/Admin/layui/layui.js"></script>
 		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 		<!-- 微信支付支持JS部分代码 -->
 		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
@@ -138,6 +140,13 @@
 		</div>	
 	</div>
 	<script type="text/javascript">
+		//layuiHint弹框提示封装
+		function layuiHint(text){
+		    layui.use('layer', function(){
+		        var layer = layui.layer;
+		        layer.msg(text);
+		    });  
+		}
 		//微信接口
 		wx.config({
 		    debug: false,
@@ -164,6 +173,8 @@
 				}else{
 					// 前端正则匹配错误提示
 					console.dir('请输入有效的，收件人姓名！');
+					layuiHint('请输入有效收件人姓名！');
+
 
 				}
 
@@ -172,21 +183,20 @@
 				}else{
 					// 前端正则匹配错误提示
 					console.dir('请输入有效的，有效手机号码！');
-					 $('.hidMain').css('display','block');
-					  // focus() 
-					  $('#tel').focus(function(){
-					 $('.hidMain').css('display','none');
-
-					  }) 
+					 
+					layuiHint('请输入有效手机号码！');
+					   
 				}
 				if(address){
-					var addres = $('#address').val();
+					var address = $('#address').val();
 				}else{
 					// 前端正则匹配错误提示
 					console.dir('请输入有效的，有效地址！');
+					layuiHint('请输入有效地址！');
+
 				}
 
-				$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'addres':addres},function(res){
+				$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'address':address},function(res){
 					// 后端正则匹配错误信息
 					if(res.name==-1){
 						// 用户名错误
