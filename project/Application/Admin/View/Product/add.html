@@ -9,13 +9,13 @@
         <div class="tableBox">
             <div class="titleBar">产品管理/<span>产品类型设置</span></div>
             <div class="formBox">
-                <form class="form-horizontal " action="__URL__/add" method="post">
+                <form class="form-horizontal " action="__URL__/add" method="post" id="_formTable">
                     <div class="groupBox control-group">
-                        <span>类型名称：</span>
+                        <span>类型名称<sub class="_start">*</sub></span>
                         <input type="text" class="control" name="typename" placeholder="请输入类型名称" style="width:210px;">
                     </div>
                     <div class="groupBox control-group">
-                        <span>请设置滤芯：</span>
+                        <span>请设置滤芯</span>
                         <input type="text" class="control selects" placeholder="设置滤芯" />
                         <div class="selectList">
                             <foreach name="list" item="vo">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="groupBox control-group">
-                        <span class="elected" >已选择滤芯：</span>
+                        <span class="elected" >已选择滤芯</span>
                         <div class="textareaBox textarea inline"></div>
                     </div>
 
@@ -39,10 +39,24 @@
         <include file="Public/footer"/>
     </div>
 </div>
+ <script type="text/javascript" src="__PUBLIC__/Home/js/public.js"></script>
 <script>
     var filter="",textareaHtml1="";
     var b=0; 
-    
+    //验证
+    $('#_formTable').submit(function(){
+        var val = $('input[name=typename]').val()
+        if(val){
+            if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(val.trim())){
+                layuiHint('不能输入特殊字符')
+            }else{
+                return true
+            }
+        }else{
+            layuiHint('类型名称不能为空')
+        }
+        return false
+    })
     //添加滤芯项
     $(".selects").click(function(ev){
         b++;
