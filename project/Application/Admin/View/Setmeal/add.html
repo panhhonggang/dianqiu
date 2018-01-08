@@ -24,7 +24,7 @@
         <div class="tableBox">
             <div class="titleBar">套餐管理/<span>套餐设置</span></div>
             <div class="formBox">
-                <form class="" action="__URL__/add" method="post">
+                <form class="" action="__URL__/add" method="post" id="_formTable">
                     <div class="control-group">
                         <span>产品类型</span>
                         <select name="tid" id="">
@@ -39,16 +39,16 @@
                         <input type="radio" class="control" name="remodel" value="1">时长
                     </div>
                     <div class="control-group">
-                        <span>套餐金额</span>
+                        <span>套餐金额<sub class="_start">*</sub></span>
                         <input type="text" class="control" name="money" placeholder="请输入套餐金额..." style="width:210px;">
                     </div>
                     <div class="control-group">
-                        <span>套餐量</span>
+                        <span>套餐量<sub class="_start">*</sub></span>
                         <!-- 输入框太短 -->
                         <input type="text" class="control" name="flow" placeholder="输入数字即可，如100升输入100，24小时输入24" style="width:210px;">
                     </div>
                     <div class="control-group">
-                        <span>套餐名称</span>
+                        <span>套餐名称<sub class="_start">*</sub></span>
                         <input type="text" class="control" name="describe" placeholder="请输入套餐名称..." style="width:210px;">
                     </div>
                     <div class="btn-groups">
@@ -58,6 +58,16 @@
                     
 
                 </form>
+                <script type="text/javascript">
+                    
+                    $('#_formTable').submit(function(){
+                        var describe = $('input[name=describe]').val().trim()
+                        if(/\s/.test(describe)){
+                            layuiHint("套餐名称不能有空格")
+                            return false
+                        }
+                    })
+                </script>
             </div>
         </div>
         <!-- footer part -->

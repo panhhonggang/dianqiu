@@ -24,7 +24,7 @@
         <div class="tableBox">
             <div class="titleBar">工单管理/<span>工单添加</span></div>
             <div class="formBox">
-                <form class="" action="__URL__/add" method="post">
+                <form class="" action="__URL__/add" method="post" id="_formTable">
                     <div class="control-group">
                         <span>工单号<sub class="_start">*</sub></span>
                         <!-- 需加数字验证 -->
@@ -35,7 +35,7 @@
                         <input type="text" class="control" name="name" placeholder="请输入处理人姓名..." style="width:210px;">
                     </div>
                     <div class="control-group">
-                        <span>处理人电话<sub class="_start">*</sub></span>
+                        <span>处理人手机号码<sub class="_start">*</sub></span>
                         <input type="text" class="control" name="phone" placeholder="请输入处理人电话..." style="width:210px;">
                     </div>
                     <div class="control-group">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="control-group">
                         <span>工作内容<sub class="_start">*</sub></span>
-                        <textarea name="content" cols="30" rows="5"></textarea>
+                        <textarea name="content" cols="30" rows="5" class="_textarea"></textarea>
                     </div>
                     <div class="control-group">
                         <span>地址<sub class="_start">*</sub></span>
@@ -65,9 +65,9 @@
                         <input type="radio" class="control" name="result" value="2">已处理&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="control-group">
-                        <span>处理时间<sub class="_start">*</sub></span>
+                        <span>处理时间</span>
                         <!-- 需要时间插件 -->
-                        <input type="text" id="addMaintenanceDate" name="time" placeholder="输入处理时间" onclick="layui.laydate({elem: this,istime: 1, format: 'YYYY-MM-DD' })"/>
+                        <input type="text" id="addMaintenanceDate" name="time"/>
                     </div>
                     <div class="btn-groups">
                         <button class="btns reset btn-primary" type="reset">重置</button>
@@ -82,7 +82,50 @@
         <include file="Public/footer"/>
     </div>
 </div>
+<script src="__PUBLIC__/Home/js/public.js"></script>
 <script>
+//表单验证
+function zero(num){
+    return Number(num)<10?'0'+num:num
+}
+var time = $('input[name=time]')
+var date = new Date()
+var year = date.getFullYear()
+var month = date.getMonth()+1
+var day = date.getDate()
+var str = year+'-'+zero(month)+'-'+zero(day)
+time.val(str)
+time.click(function(){
+    $(this).blur()
+})
+$('#_formTable').submit(function(event) {
+    var number = $('input[name=number]').val().trim()
+    var name = $('input[name=name]').val().trim()
+    var phoneNumber = $('input[name=phone]').val().trim()
+    if(number){
+        if(specail(number)||chinese(number)){
+            layuiHint('工单号不能为中文或特殊字符')
+            return false
+        }
+    }else{
+        layuiHint('工单号不能空')
+        return false
+    }
+    
+    if(!name){
+        layuiHint('处理人不能为空')
+        return false
+    }
+    if(phoneNumber){
+        if(!phone(phoneNumber)){
+            layuiHint('请输入正确的处理人手机号码')
+            return false
+        }
+    }else{
+        layuiHint('处理人手机号码不能为空')
+        return false
+    }
+});
 $(function(){
     //处理日期
     layui.use('laydate', function(){
@@ -104,13 +147,6 @@ $(function(){
         }else{
             $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         } 
-        if($("#addMaintenanceDate").val()==""){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('请输入处理时间');
-            });    
-            ev.preventDefault();
-        }
     });
 })
 
