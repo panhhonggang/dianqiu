@@ -59,6 +59,11 @@
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
+
+                //input的value
+                if(window.location.search){
+                    $('input[name=filtername]').val(window.location.search.slice(12))
+                }
             </script>
         </div>
         <!-- footer part -->
