@@ -33,7 +33,9 @@
 	 	</div>
 	 <!-- order-all的头部开始 -->
 	 <!-- <div class="all-kuai"> -->
-	 <input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+	<notempty name="orderFulfil">
+	<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+	</notempty>
 	 	<foreach name="orderFulfil" item="value">
 		<div id="all-sure-head">
 			<div id="all-information">
@@ -83,9 +85,11 @@
 	</div>
 <!-- =========未支付开始啦========= -->
 	<div class="nopay-kuai .clearfix">
-		<div class="nopay-top .clearfix">
-			 <input class="fini-change" type="buttom" value="未支付" readonly="readonly">
+		<notempty name="orderPay">
+		<div class="nopay-top .clearfix">	
+			<input class="fini-change" type="buttom" value="未支付" readonly="readonly">
 		</div>
+		</notempty>
 		<div order-cont></div>
 		<foreach name="orderPay" item="value">
 		<div id="all-sure-head" class="no-pay">
@@ -147,10 +151,11 @@
 
 <!-- ==============================代发货 -->
 	<div class="nopay-kuai daifahuo">
+		<notempty name="orderSend">
 		<div class="nopay-top .clearfix">
 			 <input class="fini-change" type="buttom" value="待发货" readonly="readonly">
 		</div>
-
+		</notempty>
 		<foreach name="orderSend" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="代发货" readonly="readonly"> -->
@@ -210,9 +215,11 @@
 
 <!-- =========================代付款开始 -->
 	<div class="nopay-kuai">
+		<notempty name="orderTake">
 		<div class="nopay-top .clearfix">
 			 <input class="fini-change" type="buttom" value="待收货" readonly="readonly">
 		</div>
+		</notempty>
 		<foreach name="orderTake" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="待收货" readonly="readonly"> -->
