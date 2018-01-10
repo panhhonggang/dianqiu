@@ -44,10 +44,10 @@ class DevicesModel extends Model
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
             ->field("statu.*,bind.*,vendors.*,type.*,d.*")
-            ->order('statu.updatetime')
+            ->order('statu.updatetime desc')
             ->limit($page->firstRow.','.$page->listRows)
             ->count();
-        $page = new \Think\Page($count, 2);
+        $page = new \Think\Page($count, 10);
         $page->rollPage = 10;
         $this->getPageConfig($page);
         $show = $page->show();
@@ -61,7 +61,7 @@ class DevicesModel extends Model
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
             ->field("statu.*,bind.*,vendors.*,type.*,d.*")
-            ->order('statu.updatetime')
+            ->order('statu.updatetime desc')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
         // 分配返回数据

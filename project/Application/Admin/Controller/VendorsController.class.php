@@ -70,9 +70,19 @@ class VendorsController extends CommonController
     {
         if(IS_POST){
             $user = D('vendors');
+            if(empty($_POST['password'])) {
+                unset($_POST['password']);
+            } else {
+                $_POST['password'] = md5($_POST['password']);
+            }
+            // empty($_POST['password'])?unset($_POST['password']):$_POST['password'];
             $userinfo = $user->create();
             if ($userinfo) {
                 $res = $user->save();
+                if($res && $_SESSION['adminuser']['id'] == $_POST['id']) {
+                    $this->success('编辑经销商成功啦！！！',U('Login/login'));
+                    exit;
+                }
                 if ($res) {
                     $this->success('编辑经销商成功啦！！！',U('Vendors/index'));
                 } else {
