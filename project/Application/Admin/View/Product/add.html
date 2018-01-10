@@ -59,6 +59,7 @@
     })
     //添加滤芯项
     $(".selects").click(function(ev){
+        $(this).blur()
         b++;
         if(b>8){
             layui.use('layer', function(){
