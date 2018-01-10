@@ -18,10 +18,19 @@
 		<div id="pay-succeed-btn">
 			<input type="button" value="再次支付">
 			<input type="button" value="返回首页">
-
 		</div>
 	</div>
 </div>
-	
+	<script>
+		// 再次支付
+		$('#pay-succeed-btn>input[value="再次支付"]').click(function(){
+			location.href = "{{:U('Home/Orders/orderPay')}}";
+		});
+		
+		// 返回首页
+		$('#pay-succeed-btn>input[value="返回首页"]').click(function(){
+			location.href = "{{:U('Home/Index/index')}}";
+		});
+	</script>	
 </body>
 </html>
