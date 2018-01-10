@@ -23,6 +23,7 @@ class VendorsController extends CommonController
         $user = D('vendors');
         $total = $user->where($map)->count();
         $page  = new \Think\Page($total,8);
+        D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
         $userlist = $user->where($map)->limit($page->firstRow.','.$page->listRows)->getAll();
@@ -258,7 +259,7 @@ class VendorsController extends CommonController
             $new = md5(I('newpassword')); 
             $re = md5(I('repassword'));
             $id = I('id');
-
+            if($old === $new) $this->error('新密码与旧密码一致');
             if ($new == $re) {
                 $user = M('Vendors');
                 $info = $user->where('id='.$id)->getField('password');

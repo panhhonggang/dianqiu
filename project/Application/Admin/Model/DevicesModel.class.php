@@ -43,10 +43,11 @@ class DevicesModel extends Model
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+            ->field("statu.*,bind.*,vendors.*,type.*,d.*")
             ->order('statu.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
             ->count();
-        $page = new \Think\Page($count, 15);
+        $page = new \Think\Page($count, 2);
         $page->rollPage = 10;
         $this->getPageConfig($page);
         $show = $page->show();
@@ -59,6 +60,7 @@ class DevicesModel extends Model
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+            ->field("statu.*,bind.*,vendors.*,type.*,d.*")
             ->order('statu.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();

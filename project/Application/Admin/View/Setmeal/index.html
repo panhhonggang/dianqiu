@@ -19,6 +19,7 @@
                     <th>套餐量</th>
                     <th>套餐名称</th>
                     <th>创建时间</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,7 @@
                         <td>{{$vo.flow}}</td>
                         <td>{{$vo.describe}}</td>
                         <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
+                        <td><a class="deletBnt" ruleId="{{$vo['id']}}" href="javascript:;">删除</a></td>
                     </tr>
                     </foreach>
                     <else />
@@ -61,4 +63,17 @@
         <include file="Public/footer" />
     </div>
 </div>
-
+<script type="text/javascript">
+    $(".deletBnt").click(function(){
+        var _this=$(this);
+        var id = $(this).attr('ruleId');
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.confirm('确定删除?', {icon: 3, title:'温馨提示'}, function(index){
+                window.location.href='del?id='+id;
+                layer.close(index);
+                
+            });
+        });
+    });
+</script>

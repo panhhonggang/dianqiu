@@ -26,6 +26,7 @@ class ProductController extends CommonController
         
         $total =$type->where($map)->count();
         $page  = new \Think\Page($total,8);
+        D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
         $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->select();
@@ -85,7 +86,6 @@ class ProductController extends CommonController
         if (IS_POST) {
             // 先处理图片
             $picpath = $this->upload();
-            dump($picpath);die;
             if ($picpath) {
                 $_POST['picpath'] = $picpath[0];
 
@@ -130,7 +130,8 @@ class ProductController extends CommonController
         $filter = M('filters');
         
         $total =$filter->where($map)->count();
-        $page  = new \Think\Page($total,8);
+        $page  = new \Think\Page($total,1);
+        D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
         $filterlist = $filter->where($map)->limit($page->firstRow.','.$page->listRows)->select();
@@ -150,13 +151,16 @@ class ProductController extends CommonController
         if(IS_POST){
 
             $picpath = $this->upload();
+            $_POST['picpath'] = $picpath[0];
+            if ($picpath) {
+              unlink("./Public".$_POST['oldpicpath']);    
+            }
             if (!$picpath) {
                 // 如果没有上传新的图片，那么就取原来的老图片，也就是隐藏域的值
                 $picpath = $_POST['oldpicpath'];
+                $_POST['picpath'] = $picpath;
             }
             
-            $_POST['picpath'] = $picpath[0];
-
             $mod = D('filters');
             $info = $mod->create();
             if($info){
@@ -164,7 +168,7 @@ class ProductController extends CommonController
 
                 if ($res) {
                     // 删除原图片
-                    unlink("./Public".$_POST['oldpicpath']); 
+                    
                     $this->success('修改成功啦！',U('Product/filterlist'));
                 }else{
                     $this->error('修改失败！');

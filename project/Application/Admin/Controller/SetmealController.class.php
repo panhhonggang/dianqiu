@@ -29,6 +29,7 @@ class SetmealController extends CommonController
                     ->field('pub_setmeal.*,pub_device_type.typename')
                     ->count();
         $page  = new \Think\Page($total,8);
+        D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
         $list = $type->where($map)
@@ -79,7 +80,13 @@ class SetmealController extends CommonController
      */
     public function del()
     {
-
+        $map['id'] = I("get.id");
+        $res = M('setmeal')->where($map)->delete();
+        if($res) {
+            $this->success("删除成功");
+        } else {
+            $this->error("删除失败");
+        }
     }
 
     

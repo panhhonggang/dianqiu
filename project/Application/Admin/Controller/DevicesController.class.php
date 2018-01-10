@@ -20,7 +20,6 @@ class DevicesController extends CommonController
         if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
         $devices = D('Devices')->getDevicesInfo($map);   
 
-        // dump($devices);     
         $assign = [
             'deviceInfo' => $devices,
         ];
@@ -236,7 +235,7 @@ class DevicesController extends CommonController
             $this->error('设备编码错误');
         }
         $res = M('devices')->where($code)->find();
-        
+        if($res['uid']) $this->error("已绑定了用户，不可删除");
         if($res){
             $delBind = M('binding')->where('did='.$res['id'])->delete();
         }
