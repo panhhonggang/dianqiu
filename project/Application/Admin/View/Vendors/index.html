@@ -1,4 +1,4 @@
-<include file="Public/header" />
+   <include file="Public/header" />
 <div class="content">
     <include file="Public/nav" />
     <div class="row-fluid fl" id="main">
@@ -57,6 +57,7 @@
             </div>
             <script src="__PUBLIC__/Home/js/public.js"></script>
             <script>
+
                 //del
                 $('._del').click(function(){
                     tip('确定删除？','提示',function(){
@@ -66,6 +67,10 @@
                 })
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
+
+                if(window.location.search){
+                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
+                }
             </script>
         </div>
         <!-- footer part -->

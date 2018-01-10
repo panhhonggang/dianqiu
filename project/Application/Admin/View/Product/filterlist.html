@@ -62,7 +62,7 @@
 
                 //input的value
                 if(window.location.search){
-                    $('input[name=filtername]').val(window.location.search.slice(12))
+                    $('input[name=filtername]').val(decodeURI(window.location.search.slice(12)))
                 }
             </script>
         </div>
