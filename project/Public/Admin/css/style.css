@@ -104,11 +104,6 @@ ul li{
 	background-color: #005384;
 	border-radius: 5px
 }
-._start{
-	color: red;
-	margin-left: 5px;
-}
-
 /*content part css*/
 .content{
 	overflow: hidden;
