@@ -1,0 +1,62 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="page-header">
+            <div class="titleBar">用户组列表/<span>添加用户</span></div>
+        </div>
+        <div class="contentRight">
+            <div class="tabbable">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <tr>
+                        <th width="8%">
+                            查找经销商名：
+                        </th>
+                        <td>
+                            <form class="form-inline" action="">
+                                <input class="input-medium" type="text" name="username" value="{{$Think.get.username}}">
+                                <input class="btn btn-sm btn-success" type="submit" value="搜索">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <caption><h3><span style="color: red">{{$group_name}}</span>用户组操作</h3></caption>
+                    <tr>
+                        <th width="10%">
+                            用户名
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                    <empty name="user_data">
+                        <tr>
+                            <td colspan="2">
+                                <span style="color: red">搜索需要添加的经销商名，才可以添加！</span>
+                            </td>
+                        </tr>
+                    <else /> 
+                        <foreach name="user_data" item="v">
+                            <tr>
+                                <th>
+                                    {{$v['user']}}
+                                </th>
+                                <td>
+                                    <if condition="in_array($v['id'],$uids)">
+                                        已经是{{$group_name}}小组成员
+                                        <else/>
+                                        <a href="{{:U('Admin/Rule/add_user_to_group',array('uid'=>$v['id'],'group_id'=>$_GET['group_id'],'username'=>$_GET['username']))}}">
+                                            设为{{$group_name}}小组成员
+                                        </a>
+                                    </if>
+                                </td>
+                            </tr>
+                        </foreach>
+                    </empty>     
+                </table>
+            </div>
+        </div>
+    </div>
+    <include file="Public/footer" />
+</div>

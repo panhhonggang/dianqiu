@@ -18,7 +18,7 @@ class OrdersController extends CommonController
     {	
         // 根据用户昵称进行搜索
         $map = '';
-    	if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+    	if(!empty($_GET['order_id'])) $map['order_id'] = array('like',"%{$_GET['order_id']}%");
         $map['is_pay'] = '1'; 
 
         $order = M('orders');

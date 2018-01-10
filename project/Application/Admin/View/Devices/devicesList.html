@@ -28,9 +28,9 @@
                         <else />
                             <volist name="deviceInfo['data']" id="data">
                                 <tr>
-                                    <td>{{$i}}</td>
+                                    <td>{{$data.id}}</td>
                                     <td>
-                                        <a class="btn-link detail" href="devices_detail#{{$data.device_code}}">{{$data.device_code}}
+                                        <a class="btn-link detail" href="{{:U('devices_detail', [device_code=>$data.device_code])}}">{{$data.device_code}}
                                         </a>
                                     </td>
                                     <td>{{$data.cname}}</td>

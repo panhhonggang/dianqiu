@@ -14,6 +14,7 @@ class WorkModel extends Model
     // 自动验证
     protected $_validate = array(
         array('number','require','工单号不能为空'),
+        array('number','/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]{1,660}$/u','用户名不能使用特殊字符',1,'regex'),
         array('name','require','处理人不能为空'),
         array('phone','/^1[34578]\d{9}$/','电话号码格式不对',1,'regex'),
         array('content','require','工作内容不能为空'),

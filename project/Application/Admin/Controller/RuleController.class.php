@@ -135,7 +135,7 @@ class RuleController extends CommonController{
                 );
             $data['rules']=implode(',', $data['rule_ids']);
             $result=D('AuthGroup')->editData($map,$data);
-            if ($result) {
+            if ($result || $result === 0) {
                 $this->success('操作成功',U('Admin/Rule/group'));
             }else{
                 $this->error('操作失败');
