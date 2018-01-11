@@ -46,7 +46,7 @@
 						 	<b>￥{{$v['price']/100}}</b>
 						 	<!-- <p class="">X{{$v['num']}}</p> -->
 						 	<i>
-								<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="text" value="{{$v['num']}}"><input type="button" value="+" class="plus">
+								<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="{{$v['num']}}"><input type="button" value="+" class="plus">
 							</i>
 						</div>
 					</div>
@@ -63,7 +63,7 @@
 						
 					</div>
 					<!-- <p class="bill">X{{$vo['num']}}</p> -->
-					<p class="bill" style="position: relative;"><i class="num"><input type="button" value="-" class="minus"><input sid="{{$vo['id']}}" class="num" type="text" value="{{$vo['num']}}"><input type="button" value="+" class="plus"></i></p>
+					<p class="bill" style="position: relative;"><i class="num"><input type="button" value="-" class="minus"><input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}"><input type="button" value="+" class="plus"></i></p>
 				</div>
 			</div>			
 			</foreach>
