@@ -34,16 +34,15 @@ class IndexController extends CommonController
                     $map['alias'] = substr($value, $str+1);
                     $res[] = M('filters')->where($map)->find();
                 }
-
                 $assign = array(
                     'res' => json_encode($res),
                     'status' => json_encode($status),
+                    'deviceInfo' => json_encode($deviceInfo),
 
                 );
 
                 // 分配数据到模板
-                $this->assign('deviceInfo',$deviceInfo);
-                $this->assign($res);
+                $this->assign($assign);
             	// 显示模板
 	        	$this->display();	
 	        }

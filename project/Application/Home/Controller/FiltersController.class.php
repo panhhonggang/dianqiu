@@ -14,4 +14,3 @@ class FiltersController extends CommonController
     }
 
 }
-

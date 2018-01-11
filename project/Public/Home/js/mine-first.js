@@ -1,6 +1,12 @@
 
 // mine-name的收缩
+
 $(function(){
+	$('.shang').css('display','none');
+	$('.mine-name').css('display','none');
+	$('.xia').css('display','block');
+	$('#mine-first-all').removeClass('mine-first-all')
+		
 	$('.shang').click(function(){
 		$(this).css('display','none');
 		$('.mine-name').css('display','none');

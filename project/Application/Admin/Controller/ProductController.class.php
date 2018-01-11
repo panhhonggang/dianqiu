@@ -39,7 +39,6 @@ class ProductController extends CommonController
     public function add()
     {
         if (IS_POST) {
-            // dump($_POST);die;
             $device_type = D('type');
             $info = $device_type->create();
             
@@ -130,7 +129,7 @@ class ProductController extends CommonController
         $filter = M('filters');
         
         $total =$filter->where($map)->count();
-        $page  = new \Think\Page($total,1);
+        $page  = new \Think\Page($total,8);
         D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
