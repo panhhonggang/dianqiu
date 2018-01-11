@@ -57,6 +57,10 @@
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
+
+                if(window.location.search){
+                    $('input[name=typename]').val(decodeURI(window.location.search.slice(10)))
+                }
             </script>
         </div>
         <!-- footer part -->

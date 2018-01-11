@@ -58,6 +58,11 @@
                     </ul>
                 </div>
             </div>
+            <script>
+                if(window.location.search){
+                    $('input[name=code]').val(decodeURI(window.location.search.slice(6)))
+                }
+            </script>
         </div>
         <include file="Public/footer" />
     </div>  
