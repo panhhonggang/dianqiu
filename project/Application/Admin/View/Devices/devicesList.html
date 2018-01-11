@@ -19,7 +19,6 @@
                             <td>设备类型(滤芯)</td>
                             <td>最近更新时间</td>
                             <td>设备状态</td>
-                            <td>操作</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +44,6 @@
                                         <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
                                         <td>{{$data.device_status}}</td>
                                     </if>
-                                    <td>
-                                        <a class="btn-link del" href="javascript:if(confirm('确定要删除吗？'))location='{{:U('devices/del',array('device_code'=>$data['device_code']))}}'">删除</a>
-                                    </td>
                                 </tr>
                             </volist>
                         </empty>
