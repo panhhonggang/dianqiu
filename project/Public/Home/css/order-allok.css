@@ -1,6 +1,6 @@
 #contain{
 	width:9.2rem; 
-	margin:0.4rem 0.4rem 4.5rem 0.4rem;
+	margin:0.4rem 0.4rem 2rem 0.4rem;
 }
 
 
@@ -148,11 +148,15 @@ hr{
 	margin-right: 0.32rem;
 }
 #mo-right{
+	width: 87%;
 	display: inline-block;
+	position: relative;
 	/*background: green;*/
 }
 #mo-right>p{
 	display: inline-block;
+	position: absolute;
+    right: 0;
 	font-size: 0.426667rem;
 	margin:0.0rem 0.066667rem;
 	color: #FF0000;
