@@ -82,6 +82,7 @@
                 '1':'微信',
                 '2':'支付宝'
             }
+            console.log(user,flow,consume)
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 $('.__user').append(data.name)
@@ -104,12 +105,15 @@
                 var data = JSON.parse(match)
                 data.forEach(function(el,i,arr){
                     var time = el.time?new Date(Number(el.time)*1000).toLocaleString():'--'
+                    var ordernumber = el.ordernumber?el.ordernumber:'--'
+                    var currentbalance = el.currentbalance?el.currentbalance:'--'
+                    var money = el.money?el.money:'--'
                     var html = '<tr>'+
                                     '<td>'+el.id+'</td>'+
                                     '<td>'+mode[el.mode]+'</td>'+
-                                    '<td>'+el.ordernumber+'</td>'+
-                                    '<td>'+el.money+'</td>'+
-                                    '<td>'+el.currentbalance+'</td>'+
+                                    '<td>'+ordernumber+'</td>'+
+                                    '<td>'+money+'</td>'+
+                                    '<td>'+currentbalance+'</td>'+
                                     '<td>'+time.trim()+'</td>'+
                                 '</tr>'
                     $('._flow').append(html)
@@ -127,7 +131,7 @@
                                     '<td>'+el.id+'</td>'+
                                     '<td>'+icid+'</td>'+
                                     '<td>'+el.flow+'</td>'+
-                                    '<td>'+el.address+'</td>'+
+                                    '<td>'+address+'</td>'+
                                     '<td>'+time+'</td>'+
                                 '</tr>'
                     $('._consume').append(html)
