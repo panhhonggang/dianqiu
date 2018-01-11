@@ -92,15 +92,15 @@
 					<p>联系方式</p>
 					<p>
 						<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-						<input name="name" id="name" type="text" placeholder="张三">
+						<input name="name" id="name" type="text" placeholder="请输入您的姓名">
 					</p>
 					<p>
 						<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
-						<input name="phone" id="name" class="phone" type="text" placeholder="13800138000">
+						<input name="phone" id="name" class="phone" type="text" placeholder="请输入手机号码">
 					</p>
 					<p>
 						<label for="name">维修地址：</label>
-						<input name="address" id="name" class="address" type="text" placeholder="广州XX区XX路XX号">
+						<input name="address" id="name" class="address" type="text" placeholder="请输入您的详细地址">
 					</p>
 				</div>
 				<input type="submit" value="提交" id="re-commit">
@@ -109,6 +109,13 @@
 		</div>
 	</form>
 	<script>
+	//layuiHint弹框提示封装
+	function layuiHint(text){
+	    layui.use('layer', function(){
+	        var layer = layui.layer;
+	        layer.msg(text);
+	    });  
+	}
 		$(function(){
 
 			$('form>input').click(function(){
@@ -130,6 +137,7 @@
 
 			});
 
+			// 上传的图片
 			$(".repair-sendpic").on("change",function(e){
 				var files =this.files;
 				var span = $("<span></span>"),
@@ -159,11 +167,36 @@
 			});
 
 			// 点击上传的图片右上角的" x "，删除这张图片
-			$("#picShow>span").live("click",  ".delPic", function(){
-				
+			$("#picShow>span").live("click", ".delPic", function(){
 				$(this).remove()
-				
 			})
+			// var device_code,date,begin_time,
+			// 	over_time,name,phone,address,content,picpath;
+
+			// 报修提交
+			// $("input[type='submit']").on("click", function(){
+			//     device_code = $("input[name='device_code']").val(),
+			// 	date = $("input[name='date']").val(),
+			// 	begin_time = $("input[name='begin_time']").val(),
+			// 	over_time = $("input[name='over_time']").val(),
+			// 	name = $("input[name='name']").val(),
+			// 	phone = $("input[name='phone']").val(),
+			// 	address = $("input[name='address']").val(),
+			// 	content = $("textarea[name='content']").val()
+			// 	picpath = $("#picShow>span>img")[0].src;
+			// 	// console.log(picpath);
+
+			// 	// 有描述内容时才可以提交
+			// 	if(content){
+			// 		$.post(
+			// 		'{{:U("Repair/upload")}}',
+			// 		{'device_code':device_code,'date':date,'begin_time':begin_time,'over_time':over_time,'name': name,'phone':phone,'address':address,'content':content,'content':content, 'picpath': picpath},
+			// 		function(res){
+			// 			// console.log('device_code:'+device_code,'date:' +date,'begin_time:' +begin_time,'over_time:'+over_time,'name:' +name,'phone:'+phone,'address:'+address,'content:'+content, 'picpath:' +picpath)
+			// 		})
+			// 	}
+				
+			// })
 		})
 	
 	</script>
