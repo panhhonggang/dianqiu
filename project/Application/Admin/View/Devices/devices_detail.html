@@ -120,6 +120,7 @@
                         url:'__URL__/deviceDetail?code=' + location.hash.slice(1),
                         type:'get',
                         success:function(data){
+                            console.log(data)
                             $('._dev').append(location.hash.slice(1)+'设备详情')
                             var $status = $('._dive div h1')
                             var $_table = $('._table')
@@ -205,6 +206,15 @@
                                             '<td>'+(data.statu.updatetime?new Date(data.statu.updatetime*1000).toLocaleString():'--')+'</td>'+
                                         '</tr>'
                             $_table2.append(html2)
+                        }
+                    })
+                    $.ajax({
+                        url:'device_code/Arraydevice_code',
+                        success:function(data){
+                            console.log(data)
+                        },
+                        error:function(){
+                            console.log('__URL__/deviceDetail?code=' + location.hash.slice(1))
                         }
                     })
                 </script>
