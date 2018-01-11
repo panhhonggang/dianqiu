@@ -151,29 +151,29 @@
 <body>
 	<div id="dateSelect">
 		<select name="year" id="year">
-			<option value="1">2010</option>
-			<option value="2">2011</option>
-			<option value="3">2012</option>
-			<option value="3">2013</option>
-			<option value="3">2014</option>
-			<option value="3">2015</option>
-			<option value="3">2016</option>
-			<option value="3">2017</option>
-			<option value="3">2018</option>
+			<option value="1">&emsp;&emsp;2010&emsp;&emsp;</option>
+			<option value="2">&emsp;&emsp;2011&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2012&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2013&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2014&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2015&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2016&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2017&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2018&emsp;&emsp;</option>
 		</select>
 		<select name="month" id="month">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
+			<option value="1">&emsp;&emsp;1&emsp;&emsp;</option>
+			<option value="2">&emsp;&emsp;2&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;3&emsp;&emsp;</option>
+			<option value="4">&emsp;&emsp;4&emsp;&emsp;</option>
+			<option value="5">&emsp;&emsp;5&emsp;&emsp;</option>
+			<option value="6">&emsp;&emsp;6&emsp;&emsp;</option>
+			<option value="7">&emsp;&emsp;7&emsp;&emsp;</option>
+			<option value="8">&emsp;&emsp;8&emsp;&emsp;</option>
+			<option value="9">&emsp;&emsp;9&emsp;&emsp;</option>
+			<option value="10">&emsp;&emsp;10&emsp;&emsp;</option>
+			<option value="11">&emsp;&emsp;11&emsp;&emsp;</option>
+			<option value="12">&emsp;&emsp;12&emsp;&emsp;</option>
 		</select>
 		<div id="dateShow">
 			<div>2017</div>
@@ -203,21 +203,15 @@
 	<script>
 	$(function(){
 
-			$("#year").on("change", function(){
-				//年份选择
-				$("#dateShow>div").eq(0).text($("#year").find("option:selected").text());
-			})
-			
+		$("#year").on("change", function(){
+			//年份选择
+			$("#dateShow>div").eq(0).text($("#year").find("option:selected").text());
+		})
 		
-			$("#month").on("change", function(){
-				//月份选择
-				$("#dateShow>div").eq(1).text($("#month").find("option:selected").text());
-			})
-			
-
-			console.log( $("#year").find("option:selected").text() )
-			console.log( $("#month").find("option:selected").text() )
-		
+		$("#month").on("change", function(){
+			//月份选择
+			$("#dateShow>div").eq(1).text($("#month").find("option:selected").text());
+		})
 
 	})
 	var getOption = function(_chartType, _yAxisData, _seriesData, _chartName, lineColor) {
