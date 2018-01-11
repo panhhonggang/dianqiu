@@ -70,7 +70,7 @@
         var id = $(this).attr('ruleId');
         layui.use('layer', function(){
             var layer = layui.layer;
-            layer.confirm('确定删除?', {icon: 3, title:'温馨提示'}, function(index){
+            layer.confirm('确定删除?', {icon: 3, title:'提示'}, function(index){
                 window.location.href='del?id='+id;
                 layer.close(index);
                 

@@ -9,7 +9,7 @@
                 <form class="form-horizontal " action="add_device" method="post" id="_form">
                     <div class="control-group">
                         <span>设备编码：</span>
-                        <input type="text" name="device_code" placeholder="请输入设备编码(15位数字)"><a class="addBtn" href="javascript:;">批量添加</a>
+                        <input type="text" name="device_code" placeholder="请输入设备编码(15位数字)"><a class="addBtn" href="javascript:void(0);">批量添加</a>
                     </div>
                     <div class="control-group">
                         <span>请选择产品类型：</span>
@@ -69,8 +69,18 @@
             }); 
         });
     });
+    //layuiHint弹框提示封装
+    function layuiHint(text){
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg(text);
+        });  
+    }
     $('#_form').submit(function(event) {
        var _val = $('input[name=device_code]').val().trim()
-       if()
+       if(/[^\d]/.test(_val)){
+            layuiHint('请输入数字')
+            return false
+       }
     });
 </script>
