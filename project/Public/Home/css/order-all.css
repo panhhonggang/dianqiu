@@ -166,7 +166,7 @@ border:1px solid #000;
 
 /*补全模块的css样式*/
 #all-information{
-	margin-top: 2.0rem;
+	margin-top: 1.0rem;
 }
 #all-information>b>span.readyedpay{
 	font-size: 0.4rem;
@@ -178,7 +178,7 @@ border:1px solid #000;
 .nopay-kuai{
 	border-top: 6px solid #EBEBEB;
 	/*margin-top: 2.7rem;*/
-	margin:2.7rem  0.4rem 0rem 0.4rem;
+	margin: 1rem  0.4rem 0rem 0.4rem;
 }
 
 /*清除浮动*/
