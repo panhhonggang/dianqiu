@@ -8,13 +8,23 @@
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 	<link rel="stylesheet" href="__PUBLIC__/Home/css/mui.min.css">
+	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<style>
+		select {
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		option {
+			padding-left: 13%;
+		}
 		html, body {
 			width: 100% !important;
 			height: 100%;
 		}
 		#dateSelect{
 			width: 60%;
+			height: 5vh;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -28,41 +38,6 @@
 			border-radius: 10px;
 			overflow: hidden;
 		}
-		#dateSelect>div {
-			width: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-		#dateSelect>div>input:focus {
-			background: red;
-		}
-		#dateSelect>div>input:first-child {
-			border-right: 1px solid #303164 !important;
-			border-radius: 10px 0 0 10px;
-		}
-		#dateSelect>div>input:last-child {
-			border-radius: 0 10px 10px 0;
-		}
-		.dateDiv {
-			z-index: 20;
-		}
-		.date {
-			width: 100% !important;
-			display: inline-block;
-			position: relative;
-			margin: 0 !important;
-			border: none !important;
-			text-align: center;
-		}
-		.dateText {
-			width: 49% !important;
-			display: inline-block;
-			position: relative;
-			margin: 0 !important;
-			border: none !important;
-			text-align: center;
-		}
 		#dateSelect:before {
 			content: '';
 			width: 0;
@@ -70,7 +45,7 @@
 			display: block;
 			position: absolute;
 			left: 38%;
-			bottom: 10%;
+			top: 1rem;
 			border: 10px solid;
 			border-color: #303164 transparent transparent transparent;
 			z-index: 11;
@@ -82,22 +57,41 @@
 			display: block;
 			position: absolute;
 			left: 84%;
-			bottom: 10%;
+			top: 1rem;
 			border: 10px solid;
 			border-color: #303164 transparent transparent transparent;
 			z-index: 11;
 		}
-		.dateDiv{
+		#year, #month {
+			height: 5vh;
 			opacity: 0;
-			z-index: 20;
+			z-index: 12;
 		}
-		.textDiv{
+		#dateShow {
+			width: 100%;
+			height: 5vh;
 			position: absolute;
 			top: 0;
 			left: 0;
+			z-index: 11;
 		}
-		.date:first-child {
-			border-right: 1px solid #333 !important;
+		#dateShow :after {
+			content: '';
+			width: 2px;
+			height: 5vh;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			background: #303164;
+		}
+		#dateShow>div {
+			width: 49%;
+			height: 5vh;
+			display: inline-block;
+			text-align: center;
+			line-height: 5vh;
+			vertical-align: middle;
 		}
 		.chart {
 			width: 96%;
@@ -156,16 +150,36 @@
 </head>
 <body>
 	<div id="dateSelect">
-		<div class="dateDiv">
-			<input class="date" type="date" />
-			<input class="date" type="date" />
+		<select name="year" id="year">
+			<option value="1">&emsp;&emsp;2010&emsp;&emsp;</option>
+			<option value="2">&emsp;&emsp;2011&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2012&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2013&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2014&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2015&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2016&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2017&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;2018&emsp;&emsp;</option>
+		</select>
+		<select name="month" id="month">
+			<option value="1">&emsp;&emsp;1&emsp;&emsp;</option>
+			<option value="2">&emsp;&emsp;2&emsp;&emsp;</option>
+			<option value="3">&emsp;&emsp;3&emsp;&emsp;</option>
+			<option value="4">&emsp;&emsp;4&emsp;&emsp;</option>
+			<option value="5">&emsp;&emsp;5&emsp;&emsp;</option>
+			<option value="6">&emsp;&emsp;6&emsp;&emsp;</option>
+			<option value="7">&emsp;&emsp;7&emsp;&emsp;</option>
+			<option value="8">&emsp;&emsp;8&emsp;&emsp;</option>
+			<option value="9">&emsp;&emsp;9&emsp;&emsp;</option>
+			<option value="10">&emsp;&emsp;10&emsp;&emsp;</option>
+			<option value="11">&emsp;&emsp;11&emsp;&emsp;</option>
+			<option value="12">&emsp;&emsp;12&emsp;&emsp;</option>
+		</select>
+		<div id="dateShow">
+			<div>2017</div>
+			<div>12</div>
 		</div>
-		<div class="textDiv">
-			<input class="dateText" type="text" value="2017">
-			<span class="down"></span>
-			<input class="dateText" type="text" value="11">
-			<span class="down"></span>
-		</div>
+	</div>
 	</div>
 	<div>
 		<h3 class="eChartTitle">纯水 <span>(平均值：82.66ppm)</span></h3><br />
@@ -187,27 +201,19 @@
 	</div>
 	<script src="__PUBLIC__/Home/js/echarts.min.js"></script>
 	<script>
-	window.onload = function(){
+	$(function(){
 
-		var date = document.getElementsByClassName('date'),
-			dateYearText = document.getElementsByClassName('dateText')[0],
-			dateMonthText = document.getElementsByClassName('dateText')[1];
+		$("#year").on("change", function(){
+			//年份选择
+			$("#dateShow>div").eq(0).text($("#year").find("option:selected").text());
+		})
+		
+		$("#month").on("change", function(){
+			//月份选择
+			$("#dateShow>div").eq(1).text($("#month").find("option:selected").text());
+		})
 
-			date[0].onchange = function(){	//日期选择
-				dateYearText.value = date[0].value.split('-')[0];
-				dateMonthText.value = date[0].value.split('-')[1];
-
-				date[1].value = date[0].value;		//日期同步
-			};
-
-			date[1].onchange = function(){	//日期选择
-				dateYearText.value = date[1].value.split('-')[0];
-				dateMonthText.value = date[1].value.split('-')[1];
-
-				date[0].value = date[1].value;
-			};
-
-	}
+	})
 	var getOption = function(_chartType, _yAxisData, _seriesData, _chartName, lineColor) {
 		var chartOption = {
 			grid: {
