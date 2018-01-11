@@ -39,11 +39,17 @@
         <include file="Public/footer"/>
     </div>
 </div>
- <script type="text/javascript" src="__PUBLIC__/Home/js/public.js"></script>
 <script>
     var filter="",textareaHtml1="";
     var b=0; 
     //验证
+    //layuiHint弹框提示封装
+    function layuiHint(text){
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg(text);
+        });  
+    }
     $('#_formTable').submit(function(){
         var val = $('input[name=typename]').val()
         if(val){
