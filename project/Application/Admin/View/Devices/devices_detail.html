@@ -60,14 +60,11 @@
                         <thead>
                             <tr>
                                 <td>经销商ID</td>
-                                <td>经销商ID</td>
                                 <td>经销商姓名</td>
                                 <td>手机号码</td>
                                 <td>地址</td>
                                 <td>管理级别</td>
-                                <td>管理级别</td>
                                 <td>邮箱</td>
-                                <td>备注</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,7 +84,6 @@
                                 <td>使用时间</td>
                                 <td>使用流量/mL</td>
                                 <td>使用地址</td>
-                                <td>备注</td>
                             </tr>
                         </thead>
                     </table>
@@ -153,9 +149,14 @@
                             })
                             var _devicestause = devicestause[data.statu.devicestause]?devicestause[data.statu.devicestause]:'--'
                             var _address = data.statu.address?data.statu.address:'--'
+                            var _deviceid = location.hash.slice(1)
+                            var _puretds = data.statu.puretds?data.statu.puretds:'--'
+                            var _rawtds = data.statu.rawtds?data.statu.rawtds:'--'
+                            var _reflow = data.statu.reflow?data.statu.reflow:'--'
+                            var _reday = data.statu.reday?data.statu.reday:'--'
                             var html2 = '<tr>'+
                                             '<td>'+'设备编号'+'</td>'+
-                                            '<td>'+data.statu.deviceid+'</td>'+
+                                            '<td>'+_deviceid+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'设备状态'+'</td>'+
@@ -171,19 +172,19 @@
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'原水值(ppm)'+'</td>'+
-                                            '<td>'+data.statu.puretds+'</td>'+
+                                            '<td>'+_puretds+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'纯水值(ppm)'+'</td>'+
-                                            '<td>'+data.statu.rawtds+'</td>'+
+                                            '<td>'+_rawtds+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'剩余流量 (L)'+'</td>'+
-                                            '<td>'+data.statu.reflow+'</td>'+
+                                            '<td>'+_reflow+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'剩余天数 (D)'+'</td>'+
-                                            '<td>'+data.statu.reday+'</td>'+
+                                            '<td>'+_reday+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'租赁模式'+'</td>'+
