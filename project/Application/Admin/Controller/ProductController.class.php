@@ -129,7 +129,7 @@ class ProductController extends CommonController
         $filter = M('filters');
         
         $total =$filter->where($map)->count();
-        $page  = new \Think\Page($total,1);
+        $page  = new \Think\Page($total,8);
         D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 

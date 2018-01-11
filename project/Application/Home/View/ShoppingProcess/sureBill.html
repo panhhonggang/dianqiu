@@ -159,23 +159,24 @@
 		
 		// 获取结算按钮
 		$('#foot>input[type=submit]').click(function(){
-				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);
-				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);
-				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/);
+
+				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);//姓名
+				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);//电话
+				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/);//地址
 				if(mainer){
 					var name = $('#mainer').val();
 				}else{
 					// 前端正则匹配错误提示
-					console.dir('请输入有效的，收件人姓名！');
+					// console.dir('请输入有效的，收件人姓名！');
 					layuiHint('请输入有效收件人姓名！');
+
 				}
 
 				if(tel){
 					var phone = $('#tel').val();
 				}else{
 					// 前端正则匹配错误提示
-					console.dir('请输入有效的，有效手机号码！');
-					 
+					// console.dir('请输入有效的，有效手机号码！');
 					layuiHint('请输入有效手机号码！');
 					   
 				}
@@ -183,13 +184,14 @@
 					var address = $('#address').val();
 				}else{
 					// 前端正则匹配错误提示
-					console.dir('请输入有效的，有效地址！');
+					// console.dir('请输入有效的，有效地址！');
 					layuiHint('请输入有效地址！');
 
 				}
 
-				$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'address':address},function(res){
+				$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'addres':address},function(res){
 					// 后端正则匹配错误信息
+					// console.dir(res);
 					if(res.name==-1){
 						// 用户名错误
 						console.dir('请输入正确的用户名');
