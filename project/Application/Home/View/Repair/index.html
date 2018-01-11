@@ -109,13 +109,13 @@
 		</div>
 	</form>
 	<script>
-	//layuiHint弹框提示封装
-	function layuiHint(text){
-	    layui.use('layer', function(){
-	        var layer = layui.layer;
-	        layer.msg(text);
-	    });  
-	}
+		//layuiHint弹框提示封装
+		function layuiHint(text){
+		    layui.use('layer', function(){
+		        var layer = layui.layer;
+		        layer.msg(text);
+		    });  
+		}
 		$(function(){
 
 			$('form>input').click(function(){
@@ -148,8 +148,8 @@
 				reader.readAsDataURL(files[0]);
 				reader.onload =function(e){
 					
-					var dx =(e.total/1024)/1024;
-					if(dx>=2){
+					var dx =(e.total/1024);
+					if(dx>=20){
 					  alert("文件大小大于2M");
 					  return;
 					}
