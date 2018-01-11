@@ -44,9 +44,10 @@ class LoginController extends Controller
     public function yzm()
     {
         $config = array(
-            'font-Size'     =>   20, //验证码大学
-            'length'        =>   3,  //验证码个数
-            'useNoise'      =>   false, //关闭验证码杂点
+            'font-Size' =>  60, //验证码大学
+            'length'    =>  3,  //验证码个数
+            'useNoise'  =>  false, //关闭验证码杂点
+            'useCurve'  =>  false
         );
         $Verify = new \Think\Verify($config);
         $Verify->entry();
