@@ -150,13 +150,15 @@
                                             '</tr>'
                                 $_table.append(html)
                             })
+                            var _devicestause = devicestause[data.statu.devicestause]?devicestause[data.statu.devicestause]:'--'
+                            var _address = data.statu.address?data.statu.address:'--'
                             var html2 = '<tr>'+
                                             '<td>'+'设备编号'+'</td>'+
                                             '<td>'+data.statu.deviceid+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'设备状态'+'</td>'+
-                                            '<td>'+devicestause[data.statu.devicestause]+'</td>'+
+                                            '<td>'+_devicestause+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'安装时间'+'</td>'+
@@ -164,7 +166,7 @@
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'安装地址'+'</td>'+
-                                            '<td>'+data.statu.address+'</td>'+
+                                            '<td>'+_address+'</td>'+
                                         '</tr>'+
                                         '<tr>'+
                                             '<td>'+'原水值(ppm)'+'</td>'+
