@@ -167,4 +167,4 @@ function tip(tip,title,fn){
             fn&&fn()                
         });
     });
-}
+} 
