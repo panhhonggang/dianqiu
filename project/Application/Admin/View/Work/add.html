@@ -88,6 +88,21 @@
 function zero(num){
     return Number(num)<10?'0'+num:num
 }
+//验证特殊字符
+function specail(val){
+    return /[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(val.trim())?1:0
+}
+//验证中文
+function chinese(val){
+    return /[\u4E00-\u9FA5\uF900-\uFA2D]/.test(val.trim())?1:0
+}
+//layuiHint弹框提示封装
+function layuiHint(text){
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.msg(text);
+    });  
+}
 var time = $('input[name=time]')
 var date = new Date()
 var year = date.getFullYear()
