@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1" >
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 <title>点球共享水</title>
 </head>
@@ -14,7 +13,7 @@
 <section class="btnList">
     <ul>
         <li>
-            <a  href="javascript:;">
+            <a class="washBtn"  href="javascript:;">
                 <i class="i1"></i>
                 冲洗
             </a>
@@ -42,10 +41,9 @@
 <section class="canvasBox">
     <section class="ring-inside"></section>
     <canvas id="canvas"></canvas>
-    
     <section class="wash"><img src="__PUBLIC__/Home/images/wash.png"></section><!--冲洗-->
     <section class="service avatar">
-        <img src="__PUBLIC__/Home/images/service.png" alt="">
+        <img src="__PUBLIC__/Home/images/service.png">
     </section><!--检修-->
     <section class="addwater"></section><!-- 制水 -->
      <section class="ring-out" ></section><!--外环 -->
@@ -156,8 +154,9 @@ function addCanvas(color1,color2,waterYield){
 }
 
 machineStatus();
+//判断水机状态
 function machineStatus(){
-    //判断水机状态
+    
     if($(".hiddenValue").val()==1){//制水
         addCanvas("#37BBD4","#87E8FD",-0.83);
         $(".status_text").html("制水");
@@ -193,6 +192,13 @@ function machineStatus(){
         $(".btnList").css({filter:'grayscale(100%)'});
     }
 }
+
+$(".washBtn").click(function(){
+    $.ajax({
+        
+    });
+});
+
 //websoket
 var websoket=new WebSocket("ws://120.27.12.1:6001");
 websoket.onopen=function(){

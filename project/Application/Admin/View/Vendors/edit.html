@@ -13,8 +13,9 @@
                 <form class="" action="__URL__/edit" method="post">
                     
                     <input type="hidden" name="id" value="{{$vo.id}}">
+                    <input type="hidden" name="user" value="{{$vo.user}}">
                     <input type="hidden" name="name" value="{{$vo.name}}">
-                    <input type="hidden" name="password" value="{{$vo.password}}">
+                    <!-- <input type="hidden" name="password" value="{{$vo.password}}"> -->
                     <div class="control-group">
                         <span>您正在编辑的是</span>
                         <span style="font-size:30px;color:red;">{{$vo.name}}</span>
@@ -25,7 +26,7 @@
                     </div>
                     <div class="control-group">
                         <span>密码</span>
-                        <input type="text" name="password" value="{{$vo.phone}}">
+                        <input type="password" name="password" value="">
                     </div>
                     <div class="control-group">
                         <span>邮箱</span>

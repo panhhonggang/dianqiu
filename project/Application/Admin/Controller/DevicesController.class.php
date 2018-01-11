@@ -132,6 +132,8 @@ class DevicesController extends CommonController
             $Devices = D('Devices'); 
             $res = D('Devices')->getCate();
             $info = $Devices->create();
+            $code = $Devices->where("device_code='{$_POST['device_code']}'")->find();
+            if(!empty($code)) $this->error( '已导入' . $i . '条数据<br>' . $_POST['device_code'] . '已存在');
             if($info){
                 if(!in_array($_POST['type_id'], $res)){
                     $this->error('已导入' . $i . '条数据<br>' . $_POST['device_code'] . '设备类型不存在');
@@ -142,12 +144,10 @@ class DevicesController extends CommonController
                     $this->error('导入失败啦！');
                 }
             } else {
-                $this->error('已导入' . $i . '条数据<br>' . $_POST['device_code'] . '不正确');
+                $this->error('已导入' . $i . '条数据<br>');
             }   
             $i ++;
         }
-
-        $this->success($i . '条数据导入成功');
     }
 
     private function getExcel($fileName, $headArr, $data)

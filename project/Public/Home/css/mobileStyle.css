@@ -38,10 +38,9 @@ h4{
     background-position: 0 100%;
 }
 #canvas{
-    z-index: 10;
 	position: absolute;
 	margin: auto;
-	top: 0.9rem;
+	top: 0.7rem;
 	right: 0;
     left: 0;
 }
@@ -166,8 +165,7 @@ h4{
 .avatar{
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    /*animation: spin 1s infinite linear;  
-    -webkit-animation: spin 1s infinite linear;  */ 
+
     animation: yuanX 1s infinite ease-in;
 }
 .avatar > img {
@@ -177,8 +175,6 @@ h4{
     left: 0;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-  /*  animation:spin-reverse 1s infinite linear;
-    -webkit-animation:spin-reverse 1s infinite linear;*/
     animation: yuanY 1s infinite ease-out;
 }
 
@@ -310,8 +306,8 @@ h4{
     height: 20vw;
     display: none;
     position: absolute;
-    right: 8rem;
-    top: 14rem;
+    right: 6rem;
+    top: 9rem;
     z-index: 10;
 }
 #waterDetial {
@@ -349,5 +345,4 @@ h4{
     left: 0;
     border: 2px solid #f0f0f0;
     border-radius: 2vw;
-    /*box-shadow: 0 0 6px #696969;*/
 }
