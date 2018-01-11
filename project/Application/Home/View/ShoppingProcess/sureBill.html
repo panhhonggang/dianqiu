@@ -127,16 +127,13 @@
 					<b>共{{$totalNum}}件商品：小计：</b><p>￥{{$totalAmount/100}}</p>
 				</div>
 			</div>
-			<p class="franking">（含邮费¥0.00) </p>
-
-			
+			<p class="franking">（含邮费¥0.00) </p>	
 		</div>
 			
-
 		<!-- 滤芯结束 -->
         <div id="foot">
 			<b>合计金额：</b><b class="chang">￥{{$totalAmount/100}}</b>
-			<a href="{{:U("ShoppingProcess/surePay")}}"><input class="pinBtn" type="submit" value="去结算"></a>
+			<input class="pinBtn" type="submit" value="去结算">
 		</div>	
 	</div>
 	<script type="text/javascript">
@@ -160,11 +157,8 @@
 		    ]
 		});
 		
-		if(location.href.indexOf('sureBill') > -1){
-			$('#foot>a>input[type=submit]').val("提交订单");
-		}
 		// 获取结算按钮
-		$('#foot>a>input[type=submit]').click(function(){
+		$('#foot>input[type=submit]').click(function(){
 				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);
 				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);
 				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]+/);
@@ -174,8 +168,6 @@
 					// 前端正则匹配错误提示
 					console.dir('请输入有效的，收件人姓名！');
 					layuiHint('请输入有效收件人姓名！');
-
-
 				}
 
 				if(tel){
@@ -201,16 +193,19 @@
 					if(res.name==-1){
 						// 用户名错误
 						console.dir('请输入正确的用户名');
+						layuiHint('请输入有效收件人姓名！');
 					}
 
 					if(res.phone==-1){
 						// 手机号码错误
 						console.dir('请输入正确的手机号码');
+						layuiHint('请输入有效手机号码！');
 					}
 
 					if(res.addres==-1){
 						// 收货地址错误
 						console.dir('请输入正确的收货地址');
+						layuiHint('请输入有效地址！');
 					}
 					//alert(res.expressId);
 					// 获取到收货地址
@@ -219,12 +214,7 @@
 						$.post('{{:U("PaymentSystem/sureBillPay")}}',{ 'express_id':res.expressId }, function(res){
 							weixinPay(res);
 						});	
-
 					}
-
-
-
-
 				});	
 		});
 
