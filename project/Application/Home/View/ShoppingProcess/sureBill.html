@@ -54,14 +54,14 @@
 			#information>p>input {
 				width: 68%;
 				padding: 1%;
-			    border: 1px dotted;
+			    border: 1px solid;
 			    border-radius: 3px;
 			}
 			#information>p>textarea {
 			    width: 68%;
 			    position: relative;
 			    padding: 1%;
-			    border: 1px dotted;
+			    border: 1px solid;
 			    border-radius: 3px;
 			}
 		</style>
@@ -84,7 +84,7 @@
 				<p>
 					
 					<label for="address"><i class="iconfont iconfont icon-dizhi"></i>地&nbsp;&nbsp;&nbsp;址：</label>
-					<textarea id="address" name="" id="" cols="30" rows="2" placeholder="xx省xx市xx区xx街道 xx路xx号">{{$expressInfo['addres']}}</textarea>
+					<textarea id="address" name="" id="" cols="30" rows="2" placeholder="请输入详细地址">{{$expressInfo['addres']}}</textarea>
 				</p>
 				
 			</div>
@@ -161,7 +161,7 @@
 		$('#foot>input[type=submit]').click(function(){
 				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);
 				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);
-				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]+/);
+				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/);
 				if(mainer){
 					var name = $('#mainer').val();
 				}else{
@@ -202,7 +202,7 @@
 						layuiHint('请输入有效手机号码！');
 					}
 
-					if(res.addres==-1){
+					if(res.address==-1){
 						// 收货地址错误
 						console.dir('请输入正确的收货地址');
 						layuiHint('请输入有效地址！');
