@@ -17,6 +17,7 @@ class CommonController extends Controller
      */
     public function _initialize()
     {	
+        
         // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
             // 实例化微信JSSDK对象
