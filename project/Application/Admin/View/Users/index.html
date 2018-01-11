@@ -17,12 +17,12 @@
                     <th>姓名</th>
                     <th>手机</th>
                     <th>地址</th>
-                    <th>账户余额</th>
+                    <!-- <th>账户余额</th> -->
                     <th>最后登录</th>
                     <th>登录IP</th>
-                    <th>注册时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th>关注日期</th>
+                    <!-- <th>状态</th> -->
+                    <!-- <th>操作</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -33,18 +33,18 @@
                         <td><a href="user_info?id={{$vo.id}}">{{$vo.name}}</a></td>
                         <td>{{$vo.phone}}</td>
                         <td>{{$vo.address}}</td>
-                        <td>{{$vo.balance}}</td>
+                        <!-- <td>{{$vo.balance}}</td> -->
                         <td>{{$vo.login_time|date='Y-m-d H:i:s',###}}</td>
                         <td>{{$vo.login_ip}}</td>
                         <td>{{$vo.created_at|date='Y-m-d H:i:s',###}}</td>
-                        <td>{{$vo.status}}</td>
+                       <!--  <td>{{$vo.status}}</td>
                         <td>
                             <switch name="vo.status">
                                 <case value="禁用"><a href="__URL__/edit/id/{{$vo.id}}/status/1">启用&nbsp;&nbsp;</a></case>
                                 <case value="启用"><a href="__URL__/edit/id/{{$vo.id}}/status/0">禁用&nbsp;&nbsp;</a></case>
                                 <default />
                             </switch>
-                        </td>
+                        </td> -->
                     </tr>
                     </foreach>
                     <else />
@@ -60,11 +60,12 @@
                 </ul>
             </div>
             <script>
+                
+                $('.pagination ul a').unwrap('div').wrap('<li></li>');
+                $('.pagination ul span').wrap('<li class="active"></li>')
                 if(window.location.search){
                     $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
                 }
-                $('.pagination ul a').unwrap('div').wrap('<li></li>');
-                $('.pagination ul span').wrap('<li class="active"></li>')
             </script>
         </div>
         <!-- footer part -->

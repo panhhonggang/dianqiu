@@ -39,7 +39,7 @@
                         <td>{{$vo.leavel}}</td>
                         <td>
                             <a href="__URL__/edit/id/{{$vo.id}}">编辑</a>
-                            <a href="__URL__/del/id/{{$vo.id}}" class="_del">删除</a>
+                            <a href="javascript:void(0)" url="__URL__/del/id/{{$vo.id}}" class="_del">删除</a>
                         </td>
                     </tr>
                     </foreach>
@@ -58,19 +58,29 @@
             <script src="__PUBLIC__/Home/js/public.js"></script>
             <script>
 
-                //del
-                $('._del').click(function(){
-                    tip('确定删除？','提示',function(){
-                        window.location.href = '__URL__/del/id/{{$vo.id}}'
-                    })
-                    return false
-                })
+                
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
 
                 if(window.location.search){
                     $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
                 }
+                //del
+                //提示
+                function tip(tip,title,fn){
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.confirm(tip, {icon: 3, title:title}, function(index){
+                            fn&&fn()                
+                        });
+                    });
+                }
+                $('._del').click(function(){
+                    tip('确定删除？','提示',function(){
+                        window.location.href = '__URL__/del/id/{{$vo.id}}'
+                    })
+                    return false
+                })
             </script>
         </div>
         <!-- footer part -->

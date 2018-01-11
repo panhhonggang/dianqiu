@@ -32,7 +32,7 @@
                         <td>{{$vo.content}}</td>
                         <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                         <td>
-                            <a href="__URL__/feedsdel/id/{{$vo.id}}">删除</a>                            
+                            <a href="javascript:void(0)" url="__URL__/feedsdel/id/{{$vo.id}}" class="_del">删除</a>                          
                         </td>
                     </tr>
                     </foreach>
@@ -51,6 +51,21 @@
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
+                //提示
+                function tip(tip,title,fn){
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.confirm(tip, {icon: 3, title:title}, function(index){
+                            fn&&fn()                
+                        });
+                    });
+                }
+                $('._del').click(function(){
+                    tip('确定删除？','提示',function(){
+                        window.location.href = "__URL__/feedsdel/id/{{$vo.id}}"
+                    })
+                    return false
+                })
             </script>
         </div>
         <!-- footer part -->

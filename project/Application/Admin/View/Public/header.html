@@ -75,8 +75,16 @@
             <div class="button bowOut">
                 <a href="javascript:void(0)" url="{{:U('Login/logout')}}" style="color: #9d9d9d;;" id="_exit">退出</a>
             </div>
-            <script src="__PUBLIC__/Home/js/public.js"></script>
-            <script type="text/javascript">
+            <script type="text/javascript">  
+                //提示
+                function tip(tip,title,fn){
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.confirm(tip, {icon: 3, title:title}, function(index){
+                            fn&&fn()                
+                        });
+                    });
+                }   
                 $('#_exit').click(function(){
                     tip('确定退出？','提示',function(){
                         window.location.href = "{{:U('Login/logout')}}"
