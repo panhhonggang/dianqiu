@@ -14,8 +14,8 @@
                 <tr>
                     <th>充值流水ID</th>
                     <th>用户昵称</th>
-                    <th>充值金额</th>
-                    <th>账户余额</th>
+                    <th>充值流量</th>
+                    <th>账户流量</th>
                     <th>充值方式</th>
                     <th>充值时间</th>
                     <!-- <th>操作</th> -->
@@ -27,8 +27,8 @@
                     <tr>
                         <td>{{$vo.id}}</td>
                         <td>{{$vo.name}}</td>
-                        <td>{{$vo.money}}</td>
-                        <td>{{$vo.balance}}</td>
+                        <td>{{$vo.flow}}</td>
+                        <td>{{$vo.currentflow}}</td>
                         <td>
                             <switch name="vo.mode">
                                 <case value="0">系统赠送</case>

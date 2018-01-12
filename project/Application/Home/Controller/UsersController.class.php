@@ -29,6 +29,7 @@ class UsersController extends CommonController
         if(IS_POST){
             // 获取用户uid
             $uid = $_SESSION['homeuser']['id'];
+            $did = $_SESSION['homeuser']['did'];
 
             // 用户用正则验证
             if($this->isName(I('post.name'))){
@@ -51,14 +52,17 @@ class UsersController extends CommonController
                 $this->error('请输入正确的地址');
             }
 
-            $res = M('Users')->where("id={$uid}")->save($data);
+            $saveData['uid'] = $uid;
+            $saveData['id'] = $did;
+
+            $res = M('Devices')->where($saveData)->save($data);
 
             if($res){
                 $this->redirect('Home/Index/index');    
             }else{
                 $this->error('请输正确的安装信息');
             }
-            show($data);die;
+            //show($data);die;
         }else{
             // 显示模板
             $this->display();              
