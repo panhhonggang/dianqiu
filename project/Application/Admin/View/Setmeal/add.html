@@ -62,10 +62,30 @@
                     
                     $('#_formTable').submit(function(){
                         var describe = $('input[name=describe]').val().trim()
-                        if(/\s/.test(describe)){
-                            layuiHint("套餐名称不能有空格")
-                            return false
+                        var money = $('input[name=money]').val().trim()
+                        var flow = $('input[name=flow]').val().trim()
+                        if(money){
+                            if(flow){
+                                if( /^[1-9]\d*$/.test(flow)){
+                                    if(describe){
+                                        if(/\s/.test(describe)){
+                                            layuiHint("套餐名称不能有空格")
+                                        }else{
+                                            return true
+                                        }
+                                    }else{
+                                        layuiHint("套餐名称不能为空")
+                                    }
+                                }else{
+                                    layuiHint("套餐量请输入整数")
+                                }
+                            }else{
+                                layuiHint("套餐量不能为空")
+                            }
+                        }else{
+                            layuiHint("套餐金额不能为空")
                         }
+                        return false
                     })
                 </script>
             </div>
