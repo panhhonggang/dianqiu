@@ -21,12 +21,20 @@ class UsersController extends CommonController
     	if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
 
         $user = D('users');
-        $total = $user->where($map)->count();
+        $total = $user
+            ->where($map)
+            // ->alias('u')
+            // ->join('__DEVICES__ d u.id=d.uid', 'LEFT')
+            ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $userlist = $user->where($map)->limit($page->firstRow.','.$page->listRows)->getAll();
-        // dump($userlist);die;
+        $userlist = $user
+            ->where($map)
+            // ->alias('u')
+            // ->join('__DEVICES__ d u.id=d.uid', 'LEFT')
+            ->limit($page->firstRow.','.$page->listRows)
+            ->getAll();
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
