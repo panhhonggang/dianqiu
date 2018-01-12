@@ -20,7 +20,7 @@
 			height: 100%;
 		}
 		#dateSelect{
-			width: 60%;
+			width: 40%;
 			height: 5vh;
 			display: flex;
 			justify-content: center;
@@ -28,7 +28,7 @@
 			position: relative;
 			margin: 16px 0;
 			left: 50%;
-			margin-left: -30%;
+			margin-left: -20%;
 			background: #fff;
 			z-index: 999;
 			border: 1px solid #303164;
@@ -37,38 +37,30 @@
 		}
 
 		#dateSelect>input {
-			width: 49%;
+			width: 100%;
 			height: 5vh;
-			line-height: 5vh;
-			vertical-align: middle;
+			display: flex;
+		    justify-content: center;
+		    align-items: center;
 			margin-bottom: 0;
 			border: none;
+			font-size: 1.8rem;
 		}
 
-		#dateSelect:before {
-			content: '';
-			width: 0;
-			height: 0;
-			display: block;
-			position: absolute;
-			right: 53%;
-			top: 1.5vh;
-			border: 1.5vh solid;
-			border-color: #303164 transparent transparent transparent;
-		}
 		#dateSelect:after {
 			content: '';
 			width: 0;
 			height: 0;
 			display: block;
 			position: absolute;
-			right: 3%;
+			right: 6%;
 			top: 1.5vh;
 			border: 1.5vh solid;
 			border-color: #303164 transparent transparent transparent;
 		}
-		#dateSelect>input:nth-of-type(1) {
-			border-right: 2px solid #303164;
+		.echartDiv {
+			position: relative;
+			margin: 5vh 0;
 		}
 		.chart {
 			width: 96%;
@@ -90,15 +82,22 @@
 		.chart>div>canvas {
 			width: 100% !important;
 		}
+
 		.eChartTitle {
 			display: inline-block;
 			position: relative;
-			left: 0;
+			/*left: 0;*/
+			float: left;
 			padding: 1% 2%;
 			color: #fff;
 			font-weight: 400;
 			border-radius: 0 0.33333rem 0.33333rem 0;
 			background: #303164;
+		}
+		.eChartTitle:after {
+			content: '';
+			display: block;
+			clear: both;
 		}
 		.eChartTitle>span {
 			font-size: 16px;
@@ -127,11 +126,10 @@
 </head>
 <body>
 	<div id="dateSelect">
-		<input name="year" type="text" class="in-first layui-input" id="chooseYear" value="" placeholder="yyyy年">
-		<input name="month" type="text" class="in-first layui-input" id="chooseMonth" value="" placeholder="M月">
+		<input name="date" type="button" class="in-first layui-input" id="chooseMonth" value="">
 	</div>
 	</div>
-	<div>
+	<div class="echartDiv">
 		<h3 class="eChartTitle">纯水 <span>(平均值：82.66ppm)</span></h3><br />
 		<div class="chart" id="lineChart1" _echarts_instance_="1513755345537" >
 			<div>
@@ -140,7 +138,7 @@
 			</div>
 		</div>
 	</div>
-	<div>
+	<div class="echartDiv">
 		<h3 class="eChartTitle">原水 <span>(平均值：1386.08ppm)</span></h3><br />
 		<div class="chart" id="lineChart2" _echarts_instance_="1513755345537" >
 			<div>
@@ -152,26 +150,15 @@
 	<script src="__PUBLIC__/Home/js/echarts.min.js"></script>
 	<script>
 	$(function(){
-		//年范围选择
-		laydate.render({ 
-		  elem: '#chooseYear',
-		  type: 'year',
-		  max: new Date().getTime()
-		});
-
-		//月范围选择
+		
+		// 页面加载就给月份赋值
+		$("#chooseMonth").val(new Date().getFullYear()+ '-' + new Date().getMonth()+1)
+		//年月范围选择
 		laydate.render({ 
 		  elem: '#chooseMonth',
 		  type: 'month',
 		  max: new Date().getTime()
 		});
-
-		$("#chooseMonth").on("blur", function(){
-			console.log( $("#chooseMonth") instanceof Array)
-			console.log($("#chooseMonth"))
-			// $("#chooseMonth").val ($("#chooseMonth").val().substr(-2) );
-		})
-
 	})
 	var getOption = function(_chartType, _yAxisData, _seriesData, _chartName, lineColor) {
 		var chartOption = {
@@ -230,8 +217,8 @@
 
 	var yAxisData = [[400],[2000]];
 
-	var seriesData = [[20,70,40,70,100,70,40,70,120,110,120,90,80,90,70,90,100,130,115,120,100,160,140,130,120,130,110,80,80,90],
-		[200,300,400,700,900,700,800,700,1000,1100,1200,900,800,800,700,900,1000,1100,1150,1200,1500,1600,1400,1300,1200,1000,1100,900,800,700]];
+	var seriesData = [[20,70,40,70,100,70,40,70],
+		[200,300,400,700,900,700,800,700,1000,1100,1200,900,800,800,700,900,1300,1200,1000,1100,900,800,700]];
 
 	var lineChart1 = echarts.init(byId('lineChart1'));
 	lineChart1.setOption(getOption('line', yAxisData[0], seriesData[0], '纯水', '#74c2ad'));
