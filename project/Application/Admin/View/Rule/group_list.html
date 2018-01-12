@@ -55,7 +55,7 @@
                         });
                     });
                 } 
-                $('_del').click(function(){
+                $('#_del').click(function(){
                     tip('确定删除？','提示',function(){
                         location.href = "{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}"
                     })

@@ -130,7 +130,6 @@ class VendorsController extends CommonController
     public function devices_add()
     {
         if (IS_POST) {
-    
             if ($_POST['did']) {
 
                 if ($_POST['vid']) {
@@ -159,7 +158,7 @@ class VendorsController extends CommonController
                 }
 
             }else{
-                $this->error('设备不存在或已无未绑定设备！请在设备管理中添加设备后尝试！正在为您跳转至设备管理',U('Devices/index'));
+                $this->error('设备不存在或已无未绑定设备！请在设备管理中添加设备后尝试！正在为您跳转至设备管理',U('Devices/show_add_device'),5);
             }   
 
         }else{

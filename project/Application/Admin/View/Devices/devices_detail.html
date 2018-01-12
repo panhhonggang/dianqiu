@@ -248,3 +248,96 @@
         </div>
         <include file="Public/footer" />
 </div>
+
+<script type="text/javascript">
+    $(function(){
+            //websoket  
+    //1.建立连接
+    var websoket= new WebSocket("ws://120.27.12.1:6001");
+    //2.打开事件
+    var deviceId=$(".deviceID").text();//设备id
+    websoket.onopen=function(){
+        //发送包数据
+        ajson={
+            "DeviceID":deviceId,
+            "PackType":"login",
+            "Vison":0,
+        };
+        websoket.send(JSON.stringify(ajson));
+    }
+    //实时接收数据
+    websoket.onmessage=function(data){
+        if(data.PackType=="Select")
+        {
+            $(".deviceStause").text(data.deviceStause);//设置设备状态
+            $(".puretdsVal").text(data.puretds);//设置当前设备原水值
+            $(".rawtdsVal").text(data.rawtds);//设置当前设备纯水值
+            $(".leasingmodeVal").text(data.leasingmode);//设置当前设备租赁模式
+            $(".reflow").text(data.reflow);//设置当前设备剩余流量
+            $(".reday").text(data.reday);//设置当前设备剩余天数
+            $(".filtermode").text(data.filtermode);//设置当前设备滤芯模式
+            $(".temperature").text(data.temperature);//设置当前设备温度
+            $(".updatetime").text(data.updatetime);//设置当前设备更新时间
+        }
+        else if(data.PackType=="SetData")
+        {
+            for(var i=0;i<CmdList.length;i++){
+                if(CmdList[i].PackNum==data.PackNum)
+                {
+                    if(CmdList[i].type=="关机中")
+                    {
+                        
+                    }
+                    else if(CmdList[i].type=="开机中")
+                    {
+
+                    }
+                    else if(CmdList[i].type=="1")
+                    {
+                        $(".filterInfoTable").children("tr").children("td").children("span").text(100);
+                        $(".filterInfoTable").children("tr").children("td").children("div").children("p").width(100+"%");
+                    }
+                    else if(CmdList[i].type=="2")
+                    {
+                        
+                    }
+                    else if(CmdList[i].type=="3")
+                    {
+                         
+                    }
+                    else if(CmdList[i].type=="4")
+                    {
+                        
+                    }
+                    else if(CmdList[i].type=="5")
+                    {
+                        
+                    }
+                    CmdList.splice(i,1);
+                    break;
+                }
+            }
+        }
+        else if(data.PackType=="Heart")
+        {
+
+        }
+        else if(data.PackType=="login")
+        {
+
+        }
+        //循环遍历设置滤芯剩余显示样式
+        for(var i=1;i<=$(".filterInfoTable tbody tr").length;i++){
+            var filterVal;
+            if(data['reflowfilter'+i]){
+                filterVal=data['reflowfilter'+i];
+            }else{
+                filterVal=0;
+            }
+            $(".filterInfoTable tbody tr").eq(i).children("td").children(".surplusShowColor").width(data['reflowfilter'+i]+"%");
+            $(".filterInfoTable tbody tr").eq(i).children("td").children(".surplusNum2").text(filterVal);
+        }
+
+    }
+    })
+</script>

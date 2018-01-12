@@ -14,7 +14,6 @@ class UsersController extends CommonController
         ->join('pub_current_devices ON pub_current_devices.uid=pub_users.id')
         ->join('pub_devices ON pub_devices.id=pub_current_devices.did')
         ->find();
-        $userInfo['address'] = $userInfo['installaddress'];
 
         // 分配数据到模板
         $this->assign('userInfo',$userInfo);
