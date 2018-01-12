@@ -38,7 +38,8 @@ class RepairController extends CommonController
                     'uid' => $_SESSION['homeuser']['id'],
                     'address' => I('address'),
                     'addtime' => time(),
-                    'picpath' => $picpath[0]
+                    'picpath' => $picpath[0],
+                    'did' => session('did')
                 );
 
             }else{
