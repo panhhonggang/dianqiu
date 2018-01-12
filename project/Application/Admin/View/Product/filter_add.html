@@ -9,7 +9,7 @@
         <div class="tableBox">
             <div class="titleBar">产品管理/<span>滤芯设置</span></div>
             <div class="formBox">
-                <form class="form-horizontal" action="__URL__/filter_add" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="__URL__/filter_add" method="post" id="_form" enctype="multipart/form-data" id>
                 
                     <div class="control-group">
                         <span>滤芯名称<sub style="color:red;margin-left: 5px;">*</sub></span>
@@ -50,6 +50,53 @@
                 </form>
             </div>
         </div>
+        <script type="text/javascript">
+            
+            $('#_form').submit(function(event) {
+                var _filtername = $('input[name=filtername]').val().trim()
+                var _myfile = $('input[name=myfile]').val().trim()
+                var _price = $('input[name=price]').val().trim()
+                var _timelife = $('input[name=timelife]').val().trim()
+                var _flowlife = $('input[name=flowlife]').val().trim()
+                if(!_filtername){
+                    layuiHint('滤芯名称不能为空')
+                }else{
+                    if(!_myfile){
+                        layuiHint('滤芯图片不能为空')
+                    }else{
+                        if(!_price){
+                            layuiHint('滤芯价格不能为空')
+                        }else{
+                            if(!_price){
+                                layuiHint('滤芯价格不能为空')
+                            }else{
+                                if(!_timelife){
+                                    layuiHint('时间寿命不能为空')
+                                }else{
+                                    if(!_timelife){
+                                        layuiHint('时间寿命不能为空')
+                                    }else{
+                                        if(!_flowlife){
+                                            layuiHint('流量寿命不能为空')
+                                        }else{
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false 
+            });
+            //layuiHint弹框提示封装
+            function layuiHint(text){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg(text);
+                });  
+            }
+        </script>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>

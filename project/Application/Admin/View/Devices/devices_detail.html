@@ -1,7 +1,6 @@
 <include file="Public/header" />
 <div class="content" style="background-color: #ECF0F5">
     <include file="Public/nav" />
-        <div id="aaa"></div>
         <div class="row-fluid fl" id="main">
             <div style="padding: 0 15px;">
                  <div class="titleBar">设备管理/<span>设备列表/设备详情</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(-1)" class="btn btn-info">&lt;&lt;返回</a></div>
@@ -68,7 +67,7 @@
                                 <td>邮箱</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="_vendor">
                             
                         </tbody>
                     </table>
@@ -80,13 +79,15 @@
                             <tr>
                                 <td>序号</td>
                                 <td>IC卡编号</td>
-                                <td>用户姓名</td>
                                 <td>手机号码</td>
                                 <td>使用时间</td>
                                 <td>使用流量/mL</td>
                                 <td>使用地址</td>
                             </tr>
                         </thead>
+                        <tbody class="_list">
+                            
+                        </tbody>
                     </table>
                 </div>
                 <script>
@@ -118,10 +119,10 @@
                         type:'get',
                         error:function(err){
                             console.log('err',err)
-                            $('#aaa').html(err.responseText)
                         },
                         success:function(data){
                             console.log(data)
+                            //设备
                             $('._dev').append(location.hash.slice(1)+'设备详情')
                             var $status = $('._dive div h1')
                             var $_table = $('._table')
@@ -130,11 +131,15 @@
                             $status.eq(1).html(data.statu.puretds?data.statu.puretds:'--')
                             $status.eq(2).html(data.statu.rawtds?data.statu.rawtds:'--')
                             $status.eq(3).html(data.statu.leasingmode?leasingmode[data.statu.leasingmode]:'--')
-                            
+                            //滤芯信息
                             var _color = ['#05CE3E','#005384','#DD4B39','#337AB7','#5CB85C','#77E1FB']
-                            data.filterInfo.forEach(function(el,i,data){
+                            data.filterInfo.forEach(function(el,i){
                                 var redayfilter = []
-                                var persent = Number(el.timelife)/Number(el.flowlife)*100
+                                
+                                var persent1 = Number(data.statu[('reflowfilter'+(i+1))])/Number(el.flowlife)*100
+                                var persent2 = Number(data.statu[('redayfilter'+(i+1))])/Number(el.timelife)*100
+                                var persent = Math.min(persent1,persent2)
+                                var _bool = persent == persent1?true:false
                                 var width = Math.min(persent,100)
                                 var html = '<tr>'+
                                             '<td>'+el.filtername+'&nbsp;(&nbsp;'+el.alias+'&nbsp;)&nbsp;'+'</td>'+
@@ -144,14 +149,15 @@
                                                         '<div class="_progress_" style="width: '+width+'%;background-color:'+_color[i%_color.length]+'">'+
                                                         '</div>'+
                                                     '</div>'+
-                                                    '<span>还剩'+persent.toFixed(2)+'%</span>'+
+                                                    '<span>还剩'+width.toFixed(2)+'%</span>'+
                                                 '</div>'+
                                             '</td>'+
-                                            '<td>'+el.timelife+'/'+el.flowlife+'</td>'+
+                                            '<td>'+(_bool?Number(data.statu[('reflowfilter'+(i+1))]):Number(data.statu[('redayfilter'+(i+1))]))+'/'+(_bool?el.flowlife:el.timelife)+'</td>'+
                                             '<td>'+'<tutton class="btn btn-info">复位</button>'+'</td>'+
                                             '</tr>'
                                 $_table.append(html)
                             })
+                            //设备信息
                             var _devicestause = devicestause[data.statu.devicestause]?devicestause[data.statu.devicestause]:'--'
                             var _address = data.statu.address?data.statu.address:'--'
                             var _deviceid = location.hash.slice(1)
@@ -212,15 +218,30 @@
                                             '<td>'+(data.statu.updatetime?new Date(data.statu.updatetime*1000).toLocaleString():'--')+'</td>'+
                                         '</tr>'
                             $_table2.append(html2)
-                        }
-                    })
-                    $.ajax({
-                        url:'device_code/Arraydevice_code',
-                        success:function(data){
-                            console.log(data)
-                        },
-                        error:function(){
-                            console.log('__URL__/deviceDetail?code=' + location.hash.slice(1))
+                            //经销商列表
+                            if(data.vendor){
+                                var _html3 = '<tr>'+
+                                            '<td>'+(data.vendor.id?data.vendor.id:'--')+'</td>'+
+                                            '<td>'+(data.vendor.name?data.vendor.name:'--')+'</td>'+
+                                            '<td>'+(data.vendor.phone?data.vendor.phone:'--')+'</td>'+
+                                            '<td>'+(data.vendor.address?data.vendor.address:'--')+'</td>'+
+                                            '<td>'+(data.vendor.leavel?data.vendor.leavel:'--')+'</td>'+
+                                            '<td>'+(data.vendor.email?data.vendor.email:'--')+'</td>'+
+                                            '</tr>'
+                                $('._vendor').html(_html3)
+                            }
+                            //使用记录
+                            if(data.list.length){
+                                var _html4 = ''
+                                data.list.forEach(function(el,i,arr){
+                                    _html4 += '<tr>'+
+                                                '<td>'+(el.id?el.id:'--')+'</td>'+
+                                                '<td>'+(el.icid?el.icid:'--')+'</td>'+
+                                                '<td>'+(el.icid?el.icid:'--')+'</td>'+
+                                                '</tr>'
+                                })
+                                $('._list').html(_html4)
+                            }
                         }
                     })
                 </script>
