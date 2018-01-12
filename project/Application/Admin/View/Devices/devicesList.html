@@ -42,7 +42,7 @@
                                         <td>未激活</td>
                                         <else />
                                         <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
-                                        <td>{{$data.device_status}}</td>
+                                        <td>{{$data.device_status|dump}}已激活</td>
                                     </if>
                                 </tr>
                             </volist>
