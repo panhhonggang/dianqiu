@@ -607,6 +607,8 @@ class PaymentSystemController extends Controller
         $money = $money;
         // 用户在公众号的唯一ID
         $openId = $_SESSION['homeuser']['open_id'];
+
+
         //微信examle的WxPay.JsApiPay.php
         vendor('WxPay.jsapi.WxPay#JsApiPay');
 
@@ -615,7 +617,8 @@ class PaymentSystemController extends Controller
         //②、统一下单
         vendor('WxPay.jsapi.WxPay#JsApiPay');
         $input = new \WxPayUnifiedOrder();
-
+        // 傳用戶ID
+        //$input->SetDetail($uid);
         // 产品内容
         $input->SetBody($content);
         // 唯一订单ID
@@ -630,7 +633,7 @@ class PaymentSystemController extends Controller
         // $input->SetTime_start(date("YmdHis"));
         // 设置订单失效时间
         // $input->SetTime_expire(date("YmdHis", time() + 300));
-        // $input->SetGoods_tag("test");
+        //$input->SetGoods_tag($uid);
         // 支付成功的回调地址
         //$input->SetNotify_url("http://xinpin.dianqiukj.com/index.php/Home/Weixinpay/notify.html");
         $input->SetNotify_url('http://pub.dianqiukj.com/index.php/Home/PaymentSystem/notify');
@@ -719,7 +722,7 @@ class PaymentSystemController extends Controller
      */
     public function notify()
     {
-
+        //dump($_SESSION);die;
         // 实例化微信JSSDK类对象
         //$wxJSSDK = new \Org\Util\WeixinJssdk;
         // 獲取微信微信ID
@@ -729,33 +732,38 @@ class PaymentSystemController extends Controller
 
         // 获取微信服务器返回的xml文档
         $xml=file_get_contents('php://input', 'r');
-        //file_put_contents('./wx_pay.txt',$xml."\r\n", FILE_APPEND);
+        //file_put_contents('./wx_pay.txt',$xml."\r\n", FILE_APPEND);die;
         //echo 1;die;
 //         $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
-// <attach><![CDATA[315037233979249849]]></attach>
+// <attach><![CDATA[316904214969787641]]></attach>
 // <bank_type><![CDATA[CFT]]></bank_type>
 // <cash_fee><![CDATA[1]]></cash_fee>
 // <fee_type><![CDATA[CNY]]></fee_type>
 // <is_subscribe><![CDATA[Y]]></is_subscribe>
 // <mch_id><![CDATA[1394894802]]></mch_id>
-// <nonce_str><![CDATA[pl67wmh81v4mm9u8ku07nh3qvfo90ri0]]></nonce_str>
+// <nonce_str><![CDATA[s5qfmwv8zk7es4r8iz65v98klr4ijgc1]]></nonce_str>
 // <openid><![CDATA[oXwY4t-9clttAFWXjCcNRJrvch3w]]></openid>
-// <out_trade_no><![CDATA[546871425788022934]]></out_trade_no>
+// <out_trade_no><![CDATA[614841407334299817]]></out_trade_no>
 // <result_code><![CDATA[SUCCESS]]></result_code>
 // <return_code><![CDATA[SUCCESS]]></return_code>
-// <sign><![CDATA[FC8E5247612B4A198C4136355577FFF7]]></sign>
-// <time_end><![CDATA[20180111193923]]></time_end>
+// <sign><![CDATA[79A94BC290092A928F851539742BFA3A]]></sign>
+// <time_end><![CDATA[20180112102104]]></time_end>
 // <total_fee>1</total_fee>
 // <trade_type><![CDATA[JSAPI]]></trade_type>
-// <transaction_id><![CDATA[4200000060201801112325849443]]></transaction_id>
+// <transaction_id><![CDATA[4200000052201801122671865383]]></transaction_id>
 // </xml>';
-// 
+        
         if($xml){
             //解析微信返回数据数组格式
             $result = $this->notifyData($xml);
-            file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
+            //show($result);die;
+            //$uid = M('Users')->where("open_id='{$result['']}'")->find()['id'];
+            //file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
             // 如果订单号不为空
             if(!empty($result['out_trade_no'])){
+                $uid = substr($result['out_trade_no'],15);
+                //file_put_contents('./wx_pay1.txt',$result['out_trade_no']."\r\n", FILE_APPEND);
+                //file_put_contents('./wx_pay1.txt',$uid."\r\n", FILE_APPEND);
                 // 获取传回来的订单号
                 $data['order_id'] = $result['attach'];
 
@@ -766,7 +774,7 @@ class PaymentSystemController extends Controller
                 $orderData['total_price'] = 1;
                 // 如果订单未处理，订单支付金额等于订单实际金额
                 if(empty($orderData['is_pay']) && $orderData['total_price'] == $result['total_fee']){
-                    file_put_contents('./wx_pay121.txt',$xml."\r\n", FILE_APPEND);
+                    //file_put_contents('./wx_pay121.txt',$xml."\r\n", FILE_APPEND);
                     //dump($result);
                     // 处理订单
                     // 实例化订单对象
@@ -809,9 +817,10 @@ class PaymentSystemController extends Controller
                         // 定义计数器
                         $num     = 0;
                         $flownum = 0;
-
+                        file_put_contents('./wx_pay1uid.txt',$result['out_trade_no']."\r\n", FILE_APPEND);
                         // 查询当前设备编号
                         $deviceId['id'] = M('CurrentDevices')->where("uid={$uid}")->find()['did'];
+                        file_put_contents('./wx_pay2uid.txt',$uid."\r\n", FILE_APPEND);
                         $deviceCode['DeviceID'] = $device->where($deviceId)->find()['device_code'];
                         
                         foreach ($orderSetmealData as $value) {
@@ -875,7 +884,7 @@ class PaymentSystemController extends Controller
                     }
                     
                     //show($status);die;
-                    file_put_contents('saaa',$isPayRes .'jfdslajfds'. $status);
+                    //file_put_contents('saaa',$isPayRes .'jfdslajfds'. $status);
                     if($isPayRes && $status){
                         
                         // 执行事务
