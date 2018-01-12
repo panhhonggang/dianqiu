@@ -53,7 +53,6 @@ class AdminMenuModel extends BaseModel{
                 }
             }
         }
-        // p($data);die;
         return $data;
     }
 }

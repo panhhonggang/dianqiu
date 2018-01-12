@@ -22,18 +22,22 @@ class FeedsController extends CommonController
 
         $user = M('feeds');
         $total = $user->where($map)
-                        ->join('pub_users ON pub_feeds.uid = pub_users.id')
-                        ->field('pub_feeds.*,pub_users.name,pub_users.phone')
+                        ->alias('f')
+                        // ->join('pub_users ON pub_feeds.uid = pub_users.id')
+                        ->join('__DEVICES__ d ON f.uid = d.uid', 'LEFT')
+                        ->join('__DEVICES__ d ON f.did = d.id', 'LEFT')
+                        ->field('d.*,f.content,f.addtime')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
-
         $userlist = $user->where($map)
-                        ->join('pub_users ON pub_feeds.uid = pub_users.id')
-                        ->field('pub_feeds.*,pub_users.name,pub_users.phone')
+                        ->alias('f')
+                        // ->join('pub_users ON pub_feeds.uid = pub_users.id')
+                        ->join('__DEVICES__ d ON f.uid = d.uid', 'LEFT')
+                        ->join('__DEVICES__ d ON f.did = d.id', 'LEFT')
+                        ->field('d.*,f.content,f.addtime')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
-
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();

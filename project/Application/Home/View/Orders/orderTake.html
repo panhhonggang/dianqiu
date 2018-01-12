@@ -49,54 +49,42 @@
 		
 		<!-- 滤芯开始 -->
 		<div id="mo">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><!-- <i><input type="text" value="—"></i> --><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><!-- <i><input type="text" value="—"></i> --><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			<div id="ro1" class="ro2">
-				<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_02.png" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>RO膜</h3>
-						<p>RO膜能够有效地去除水中钙、镁、 细菌、有机物、无机物、金属离子和 放射性物质等</p>
-					</div>
-					<div class="bott">
-					 <b>￥120.00</b>
-					 <p>X1</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-
+			{{:dump($value['orderFilter'])}}
 			
+			<!-- 滤芯产品遍历开始 -->
+			<foreach name="value['orderFilter']" item="orderFilter">
+			<div id="ro1" class="ro1">
+				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
+				<div id="ro-right">
+					<div class="top">
+						<h3>{{$orderFilter['filtername']}}</h3>
+						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+					</div>
+					<div class="bott">
+					 <b>￥{{$orderFilter['price']/100}}</b>
+					 <p>X{{$orderFilter['goods_num']}}</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			</foreach>
+			<!-- 滤芯产品遍历结束 -->
+
+			<!-- 套餐产品遍历开始 -->
+			<foreach name="value['orderSetmeal']" item="orderSetmeal">
+			<div id="mo2">
+				<div id="mo-right">
+					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+				</div>
+				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+			</div>
+			<hr>
+			</foreach>
+			<!-- 套餐产品遍历结束 -->
 			<div id="mo2">
 				<!-- <input type="text" value="—"> -->
 				<div id="mo-right2">
-					<b>共3件商品：小计：</b><p>￥200.00</p>
+					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
 				</div>
 			</div>
 			<hr>
