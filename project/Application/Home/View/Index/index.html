@@ -9,76 +9,231 @@
 <title>点球共享水</title>
 </head>
 <body>
-<input type="hidden" class="hiddenValue" value="5" name="">
-<section class="btnList">
-    <ul>
-        <li>
-            <a class="washBtn"  href="javascript:;">
-                <i class="i1"></i>
-                冲洗
-            </a>
-        </li>
-        <li>
-            <a href="{{:U('/Home/Filters/filterDetails')}}">
-                <i class="i2"></i>
-                滤芯
-            </a>
-        </li>
-        <li>
-            <a href="{{:U('Home/Shop/index')}}">
-                <i class="i3"></i>
-                商城
-            </a>
-        </li>
-        <li>
-            <a href="{{:U('Home/Users/mine')}}">
-                <i class="i4"></i>
-                我的
-            </a>
-        </li>
-    </ul>
+<!-- 设备状态显示页面 -->
+<section class="DeviceStausePage">
+    <input type="hidden" class="hiddenValue" value="5" name="">
+    <input type="hidden" class="deviceID" value="2147483647" name="">
+    <input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
+    <input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
+    <input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
+    <section class="btnList">
+        <ul>
+            <li>
+                <a class="washBtn controlBtn">
+                    <i class="i1"></i>
+                    冲洗
+                </a>
+            </li>
+            <li>
+                <!-- <a href="{{:U('/Home/Filters/filterDetails')}}"> -->
+                <a class="filterBtn">
+                    <i class="i2"></i>
+                    滤芯
+                </a>
+            </li>
+            <li>
+                <a href="{{:U('Home/Shop/index')}}">
+                    <i class="i3"></i>
+                    商城
+                </a>
+            </li>
+            <li>
+                <a href="{{:U('Home/Users/mine')}}">
+                    <i class="i4"></i>
+                    我的
+                </a>
+            </li>
+        </ul>
+    </section>
+    <section class="canvasBox">
+        <section class="ring-inside"></section>
+        <canvas id="canvas"></canvas>
+        <section class="wash"><img src="__PUBLIC__/Home/images/wash.png"></section><!--冲洗-->
+        <section class="service avatar">
+            <img src="__PUBLIC__/Home/images/service.png">
+        </section><!--检修-->
+        <section class="addwater"></section><!-- 制水 -->
+         <section class="ring-out" ></section><!--外环 -->
+        <img class="dripping dripping1" src="__PUBLIC__/Home/images/dripping.png">
+        <img class="dripping dripping2" src="__PUBLIC__/Home/images/dripping.png">
+        <div class="status_text_father">
+            <section class="status_text">水满</section>
+        </div>
+        <div id="waterDetial" >
+        </div>
+    </section> 
+    <footer id="footer">
+        <div class="footerBtn">
+            <div class="controlBtn">开机</div>
+        </div>
+    </footer>
 </section>
-<section class="canvasBox">
-    <section class="ring-inside"></section>
-    <canvas id="canvas"></canvas>
-    <section class="wash"><img src="__PUBLIC__/Home/images/wash.png"></section><!--冲洗-->
-    <section class="service avatar">
-        <img src="__PUBLIC__/Home/images/service.png">
-    </section><!--检修-->
-    <section class="addwater"></section><!-- 制水 -->
-     <section class="ring-out" ></section><!--外环 -->
-    <img class="dripping dripping1" src="__PUBLIC__/Home/images/dripping.png">
-    <img class="dripping dripping2" src="__PUBLIC__/Home/images/dripping.png">
-    <div class="status_text_father">
-        <section class="status_text">水满</section>
+<!-- 滤芯详情页面 -->
+<section id="_box">
+    <div id="ulDiv">
+        <ul class="_ul _position">
+            <li>滤芯详情</li>
+            <li>滤芯复位</li>
+        </ul>
+        <div id="lineDiv" class="_line"></div>
     </div>
-    <div id="waterDetial" >
-        <div>
-            <span>
-                <img src="__PUBLIC__/Home/images/4_47.png" alt="">
-                &nbsp;纯水&nbsp; <span>{{$deviceInfo['rawtds']}}ppm</span>
-            </span>
-            <span>
-                <img src="__PUBLIC__/Home//images/4_43.png" alt="">
-                &nbsp;原水&nbsp;<span>{{$deviceInfo['puretds']}}ppm</span>
-            </span>
+    <div>
+        <!-- 滤芯详情 -->
+        <div class="_background_color">
+            <!-- progress -->
+            <div>
+                <ul>
+                    <li class="_padding">
+                        <p><span class="">RO膜</span><span class="_float_right">80%</span></p>
+                        <p class="_text_align">
+                            <div class="progress _progress _width">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </li>
+                    <li class="_padding">
+                        <p><span class="">后置活性炭</span><span class="_float_right">80%</span></p>
+                        <p class="_text_align">
+                            <div class="progress _progress _width">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </li>
+                    <li class="_padding">
+                        <p><span class="">滤芯3</span><span class="_float_right">80%</span></p>
+                        <p class="_text_align">
+                            <div class="progress _progress _width">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </li>
+                    <li class="_padding">
+                        <p><span class="">滤芯4</span><span class="_float_right">80%</span></p>
+                        <p class="_text_align">
+                            <div class="progress _progress _width">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </li>
+                    <li class="_padding">
+                        <p><span class="">滤芯5</span><span class="_float_right">80%</span></p>
+                        <p class="_text_align">
+                            <div class="progress _progress _width">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 横线 -->
+            <!-- <div class="_line"></div> -->
+            
+            <!-- RO膜 -->
+            <div class="_padding">
+                <h3>
+                    RO膜
+                </h3>
+                <p>
+                    RO膜能够有效地去除钙、镁、细菌、有机物、金属离子和放射性物质等，经过改装进化出的水晶莹清澈、甜美甘醇。
+                </p>
+                <p>
+                    <span class="_font_weigth">总寿命：100L</span>
+                    <span class="_float_right _font_weigth">剩余：800L</span>
+                </p>
+            </div>
+
+            <!-- 横线 -->
+            <!-- <div class="_line"></div> -->
+            
+            <!-- 后置活性炭 -->
+            <div class="_padding">
+                <h3>
+                    后置活性炭
+                </h3>
+                <p>
+                    更彻底地吸附净水的异色、异味，调整净水中口感。
+                </p>
+                <p>
+                    <span class="_font_weigth">总寿命：100L</span>
+                    <span class="_float_right _font_weigth">剩余：800L</span>
+                </p>
+            </div>
         </div>
-        <div>
-            <span>
-                剩余流量：&nbsp;<span>{{$deviceInfo['reflow']}}L</span>
-            </span>
-            <span>
-                已用流量：&nbsp;<span>{{$deviceInfo['sumflow']}}L</span>
-            </span>
+
+        <!-- 滤芯复位 -->
+        <div class="_background_color _displey">
+            <!-- progress -->
+            <div>
+                <form class="layui-form" action="">
+                    <ul>
+                        <li class="_padding">
+                            <span class="_dian"><span></span></span>
+                            <div class="_padding_left">
+                                <p><span class="">RO膜</span><span class="_float_right">80%</span></p>
+                                <p class="_text_align">
+                                    <div class="progress _progress">
+                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="_padding">
+                            <span class="_dian"><span></span></span>
+                            <div class="_padding_left">
+                                <p><span class="">后置活性炭</span><span class="_float_right">80%</span></p>
+                                <p class="_text_align">
+                                    <div class="progress _progress">
+                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="_padding">
+                            <span class="_dian"><span></span></span>
+                            <div class="_padding_left">
+                                <p><span class="">滤芯3</span><span class="_float_right">80%</span></p>
+                                <p class="_text_align">
+                                    <div class="progress _progress">
+                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="_padding">
+                            <span class="_dian"><span></span></span>
+                            <div class="_padding_left">
+                                <p><span class="">滤芯4</span><span class="_float_right">80%</span></p>
+                                <p class="_text_align">
+                                    <div class="progress _progress">
+                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="_padding">
+                            <span class="_dian"><span></span></span>
+                            <div class="_padding_left">
+                                <p><span class="">滤芯5</span><span class="_float_right">80%</span></p>
+                                <p class="_text_align">
+                                    <div class="progress _progress">
+                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+            <div class="_text_align">
+                <button class="_btn">
+                    确定
+                </button>
+            </div>
         </div>
     </div>
-</section> 
-<footer id="footer">
-    <div class="footerBtn">
-        开关
-        <div></div>
-    </div>
-</footer>
+</section>
 <script>
 // 设备状态js动画
 const c = document.getElementById('canvas');
@@ -152,55 +307,84 @@ function addCanvas(color1,color2,waterYield){
     }
     requestAnimationFrame(update);
 }
+// 设备状态页面数据渲染
+var deviceInfo=JSON.parse($(".deviceInfo").val());
+var deviceInfoHtml='';
+deviceInfoHtml='<div><span><img src="__PUBLIC__/Home/images/4_47.png" alt="">&nbsp;纯水&nbsp;<span class="rawtdsVal"></span>'+deviceInfo.rawtds+'ppm</span><span class="spanTow"><img src="__PUBLIC__/Home//images/4_43.png" alt="">&nbsp;原水&nbsp;<span class="puretdsVal">'+deviceInfo.puretds+'ppm</span></span></div><div><span>剩余流量&nbsp;<span class="reflowVal">'+deviceInfo.reflow+'L</span></span><span class="spanTow">已用流量&nbsp;<span class="sumflowVal">'+deviceInfo.sumflow+'L</span></span></div>';
+$("#waterDetial").html(deviceInfoHtml);
 
 machineStatus();
 //判断水机状态
+//制水
+function addwater(){
+    addCanvas("#37BBD4","#87E8FD",-0.83);
+    $(".status_text").html("制水");
+    $(".addwater").show();
+    $(".dripping").show();
+    $(".ring-inside").show();
+}
+//冲洗
+function wash(){
+    addCanvas("#37BBD4","#87E8FD",-0.83);
+    $(".status_text").html("冲洗");
+    $(".wash").show();
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//缺水
+function lessWaters(){
+    addCanvas("#D34656","#FD8795",-0.83);
+    $(".status_text").html("缺水");
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//水满
+function fullWaters(){
+    addCanvas("#37BBD4","#87E8FD",0.65);
+    $(".status_text").html("水满");
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//检修
+function service(){
+    addCanvas("#37BBD4","#87E8FD",0.65);
+    $(".status_text").html("检修");
+    $(".service").show();
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//关机
+function showDown(){
+    $(".status_text").html("");
+    $(".canvasBox").css({filter:'grayscale(100%)'});
+    $(".btnList").css({filter:'grayscale(100%)'});
+}
+//显示当前设备状态
 function machineStatus(){
-    
-    if($(".hiddenValue").val()==1){//制水
-        addCanvas("#37BBD4","#87E8FD",-0.83);
-        $(".status_text").html("制水");
-        $(".addwater").show();
-        $(".dripping").show();
-        $(".ring-inside").show();
-
-    }else if($(".hiddenValue").val()==2){//冲洗
-        addCanvas("#37BBD4","#87E8FD",-0.83);
-        $(".status_text").html("冲洗");
-        $(".wash").show();
-        $(".ring-inside").show();
-        $(".ring-out").show();
+    if($(".hiddenValue").val()==0){//制水
+        addwater();
+    }else if($(".hiddenValue").val()==1){//冲洗
+        wash();
+    }else if($(".hiddenValue").val()==2){//水满
+        fullWaters();
     }else if($(".hiddenValue").val()==3){//缺水
-        addCanvas("#D34656","#FD8795",-0.83);
-        $(".status_text").html("缺水");
-        $(".ring-inside").show();
-        $(".ring-out").show();
-    }else if($(".hiddenValue").val()==4){//水满
-        addCanvas("#37BBD4","#87E8FD",0.65);
-        $(".status_text").html("水满");
-        $(".ring-inside").show();
-        $(".ring-out").show();
+        lessWaters();
     }else if($(".hiddenValue").val()==5){//检修
-        addCanvas("#37BBD4","#87E8FD",0.65);
-        $(".status_text").html("检修");
-        $(".service").show();
-        $(".ring-inside").show();
-        $(".ring-out").show();
+        service();
     }else if($(".hiddenValue").val()==7){ //关机
-        $(".status_text").html("");
-        $(".canvasBox").css({filter:'grayscale(100%)'});
-        $(".btnList").css({filter:'grayscale(100%)'});
+        showDown();
+    }else if($(".hiddenValue").val()==8){//开机
+        $(".footerBtn span").html("关机");
     }
 }
 
-$(".washBtn").click(function(){
-    $.ajax({
-        
-    });
-});
+
+
 
 //websoket
 var websoket=new WebSocket("ws://120.27.12.1:6001");
+var deviceId=$(".deviceID").val();//设备id
+
 websoket.onopen=function(){
     //包数据
     ajson={
@@ -212,8 +396,123 @@ websoket.onopen=function(){
 }
 //接收数据
 websoket.onmessage=function(data){
+
     console.log(data);
 }
+// 开机/关机/冲洗按钮操作
+$(".controlBtn").click(function(){
+
+    var btnText=$(this).html();
+    var ajson;//数据对象
+    var type="";
+    var CmdList=[];//命令队列
+    ajson={
+        "DeviceID":deviceId,
+        "PackType":"SetData",
+        "Vison":0,
+        // "PackNum":PackNum,
+        "curTime":0,
+    }; 
+    if(btnText=="开机"){
+        ajson['DeviceStause']=8;
+        btnText="关机中";
+        type="关机中";  
+        alert("关机中");
+    }else if(btnText=="关机"){
+        ajson['DeviceStause']=7;
+        btnText="开机中";
+        type="开机中";
+        alert("开机中");
+    }else{
+        ajson['DeviceStause']=1;
+            type="冲洗中";
+            alert("冲洗中");
+    }
+    //发送数据
+    websoket.send(JSON.stringify(ajson));
+    
+    CmdList.push({
+        cmd:ajson,
+        type:type
+    });
+});
+
+// 滤芯详情页面
+var $_dian = $('._dian');
+var $tab_li = $('._ul li');
+var $_box = $('#_box');
+// js进入滤芯详情页面
+$(".filterBtn").click(function(){
+    $(".DeviceStausePage").hide().siblings().show();
+    $('._line').css({left:($tab_li.eq(0).offset().left+$tab_li.eq(0).innerWidth()/2-25)+'px'});
+    // 滤芯详情页面数据渲染
+    var data=JSON.parse($(".status").val());
+    var res=JSON.parse($('.res').val());
+    console.log(data);
+
+    //滤芯显示
+    var str='reflowfilter';
+    var filterHtml='';//滤芯显示html代码
+    var filterList=[];//字符串数组
+    var filterNum=[];//存放滤芯键值对
+    var CmdList=[];//命令队列
+    var reflowName=[];//存放滤芯名称
+    var flowPercent;//剩余滤芯百分比值
+    //遍历出以“reflowfilter”开头的数据字段
+    for(var i=1;i<20;i++){
+        if(data['reflowfilter'+i] >= 0){
+            filterList['reflowfilter'+i] = data['reflowfilter'+i];
+            filterList['length'] = i;
+            reflowName.push(filterList['reflowfilter'+i]);
+        }
+    }
+    //遍历显示滤芯
+    if($(".deviceID").html()!="--"){
+        for(var i=0;i<reflowName.length;i++){
+            filterNum[i]=reflowName[i];
+            //计算百分比
+            flowPercent=parseInt(reflowName[i]/res['flowlife']*100);
+            if(flowPercent>100){
+                flowPercent=100;
+            }
+            var filterVal;
+            var filterSum;
+            if(!flowPercent){
+                flowPercent=0;
+            }
+            if(reflowName[i]){
+                filterVal=reflowName[i];
+            }else{
+                filterVal=0;
+            }
+            if(res['flowlife']){
+                filterSum=res['flowlife'];
+            }else{
+                filterSum=0;
+            }
+            filterHtml+='<li class="_padding"><p><span class="">RO膜</span><span class="_float_right">80%</span></p><p class="_text_align"><div class="progress _progress _width"><div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div></div></p></li>';
+        }
+    }else{
+        filterHtml="无数据";
+    }
+    $(".filterInfoTable tbody").html(filterHtml);
+});
+
+//选定单个滤芯事件
+$_dian.click(function(){
+    $(this).find('span').toggleClass('_active');
+})
+
+
+//tab按钮切换
+$tab_li.click(function(){
+    // 左边偏移量
+    var $left = $(this).offset().left+$(this).innerWidth()/2 - 25;
+    // 内容
+    $_box.children('div').eq(1).children('div').eq($(this).index()).slideDown().siblings().slideUp();
+    // 下划线动画
+    $('._line').animate({left:$left+'px'});
+})
 </script>
 
 </body>
