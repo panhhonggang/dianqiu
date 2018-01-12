@@ -23,21 +23,18 @@ class FeedsController extends CommonController
         $user = M('feeds');
         $total = $user->where($map)
                         ->alias('f')
-                        // ->join('pub_users ON pub_feeds.uid = pub_users.id')
-                        ->join('__DEVICES__ d ON f.uid = d.uid', 'LEFT')
-                        ->join('__DEVICES__ d ON f.did = d.id', 'LEFT')
-                        ->field('d.*,f.content,f.addtime')
+                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->field('d.*,f.id,f.content,f.addtime')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $userlist = $user->where($map)
                         ->alias('f')
-                        // ->join('pub_users ON pub_feeds.uid = pub_users.id')
-                        ->join('__DEVICES__ d ON f.uid = d.uid', 'LEFT')
-                        ->join('__DEVICES__ d ON f.did = d.id', 'LEFT')
-                        ->field('d.*,f.content,f.addtime')
+                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->field('d.*,f.id, f.content,f.addtime')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
+                        echo $user->getLastSql();
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
@@ -71,15 +68,17 @@ class FeedsController extends CommonController
 
         $user = M('repair');
         $total = $user->where($map)
-                        ->join('pub_users ON pub_repair.uid = pub_users.id')
-                        ->field('pub_repair.*,pub_users.name,pub_users.phone')
+                        ->alias('f')
+                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->field('d.*,f.id, f.content,f.addtime')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
         $userlist = $user->where($map)
-                        ->join('pub_users ON pub_repair.uid = pub_users.id')
-                        ->field('pub_repair.*,pub_users.name,pub_users.phone')
+                        ->alias('f')
+                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->field('d.*,f.id, f.content,f.addtime')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
 
