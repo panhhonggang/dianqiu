@@ -761,7 +761,7 @@ class PaymentSystemController extends Controller
             //file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
             // 如果订单号不为空
             if(!empty($result['out_trade_no'])){
-                $uid = substr($result['out_trade_no'],15);
+                $did = substr($result['out_trade_no'],15);
                 //file_put_contents('./wx_pay1.txt',$result['out_trade_no']."\r\n", FILE_APPEND);
                 //file_put_contents('./wx_pay1.txt',$uid."\r\n", FILE_APPEND);
                 // 获取传回来的订单号
@@ -817,10 +817,10 @@ class PaymentSystemController extends Controller
                         // 定义计数器
                         $num     = 0;
                         $flownum = 0;
-                        file_put_contents('./wx_pay1uid.txt',$result['out_trade_no']."\r\n", FILE_APPEND);
+                        //file_put_contents('./wx_pay1uid.txt',$result['out_trade_no']."\r\n", FILE_APPEND);
                         // 查询当前设备编号
-                        $deviceId['id'] = M('CurrentDevices')->where("uid={$uid}")->find()['did'];
-                        file_put_contents('./wx_pay2uid.txt',$uid."\r\n", FILE_APPEND);
+                        $deviceId['id'] = $did;
+                        //file_put_contents('./wx_pay2uid.txt',$uid."\r\n", FILE_APPEND);
                         $deviceCode['DeviceID'] = $device->where($deviceId)->find()['device_code'];
                         
                         foreach ($orderSetmealData as $value) {
@@ -838,7 +838,7 @@ class PaymentSystemController extends Controller
                             // 订单编号
                             $flowData['order_id']       = $value['order_id'];
                             // 用户ID
-                            $flowData['uid']            = $uid;
+                            $flowData['did']            = $did;
                             // 充值金额
                             $flowData['money']          = $value['money'];
                             // 充值方式

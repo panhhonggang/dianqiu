@@ -40,8 +40,8 @@
                             <td>用户ID</td>
                             <td>充值方式</td>
                             <td>订单号码</td>
-                            <td>充值金额/元</td>
-                            <td>当前余额</td>
+                            <td>充值流量/升</td>
+                            <td>当前流量</td>
                             <td>充值时间</td>
                         </tr>
                     </thead>
@@ -104,10 +104,10 @@
             flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 data.forEach(function(el,i,arr){
-                    var time = el.time?new Date(Number(el.time)*1000).toLocaleString():'--'
-                    var ordernumber = el.ordernumber?el.ordernumber:'--'
-                    var currentbalance = el.currentbalance?el.currentbalance:'--'
-                    var money = el.money?el.money:'--'
+                    var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
+                    var ordernumber = el.order_id?el.order_id:'--'
+                    var currentbalance = el.currentflow?el.currentflow:'--'
+                    var money = el.flow?el.flow:'--'
                     var html = '<tr>'+
                                     '<td>'+el.id+'</td>'+
                                     '<td>'+mode[el.mode]+'</td>'+
@@ -123,7 +123,7 @@
             consume.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 data.forEach(function(el,i,arr){
-                    var time = el.time?new Date(Number(el.time)*1000).toLocaleString():'--'
+                    var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
                     var icid = el.icid?el.icid:'--'
                     var address = el.address?el.address:'--'
                     var html = '<tr>'+

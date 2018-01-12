@@ -24,16 +24,18 @@ class UsersController extends CommonController
         $total = $user
             ->where($map)
             ->alias('u')
-            ->join('__DEVICES__ d ON u.did=d.id AND u.id=d.uid', 'LEFT')
+            ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
+            ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->field('d.device_code,d.name,d.address,d.phone,u.*')
             ->count();
-        $page  = new \Think\Page($total,38);
+        $page  = new \Think\Page($total,10);
         $pageButton =$page->show();
 
         $userlist = $user
             ->where($map)
             ->alias('u')
-            ->join('__DEVICES__ d ON u.did=d.id AND u.id=d.uid', 'LEFT')
+            ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
+            ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->field('d.device_code,d.name,d.address,d.phone,u.*')
             ->limit($page->firstRow.','.$page->listRows)
             ->getAll();
@@ -91,19 +93,30 @@ class UsersController extends CommonController
         $user = M('users')
             ->alias('u')
             ->where($map)
-            ->join('__DEVICES__ d ON u.did=d.id AND u.id=d.uid', 'LEFT')
+            ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
+            ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->find();
 
-        $maps['f.uid'] = $user['id'];
+        $maps['u.id'] = $user['uid'];
+        // 记录分页
+        $total = M('flow')
+            ->alias('f')
+            ->where($maps)
+            ->join('__DEVICES__ d ON f.did=d.id', 'LEFT')
+            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+            ->field('f.*,d.*')
+            ->count();
+        $page  = new \Think\Page($total,10);
+        $pageButton =$page->show();
         // 充值记录
         $flow = M('flow')
             ->alias('f')
             ->where($maps)
-            ->join('__USERS__ u ON f.uid=u.id', 'LEFT')
-            ->join('__DEVICES__ d ON u.did=d.id', 'LEFT')
+            ->join('__DEVICES__ d ON f.did=d.id', 'LEFT')
+            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+            ->field('f.*,d.*')
             ->select();
-
-        $where['u.id'] = $user['id'];
+        $where['u.id'] = $user['uid'];
         // 消费记录
         $consume = M('consume')
             ->alias('c')
@@ -115,6 +128,7 @@ class UsersController extends CommonController
             'user' => json_encode($user),
             'flow' => json_encode($flow),
             'consume' => json_encode($consume),
+            'show' => $show,
         ];
         $this->assign($assign);
         $this->display();
@@ -150,19 +164,20 @@ class UsersController extends CommonController
 
         $flow = M('flow');
         $total = $flow->where($map)
-            ->join('pub_users ON pub_flow.uid = pub_users.id', 'LEFT')
-            ->join('pub_devices ON pub_users.did=pub_devices.id', 'LEFT')
-            ->field('pub_flow.*,pub_devices.name,pub_users.balance')
+            ->alias('f')
+            ->join('__DEVICES__ d ON f.did=d.id','LEFT')
+            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+            ->field('f.*,d.name,u.balance')
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
         $list = $flow->where($map)->limit($page->firstRow.','.$page->listRows)
-            ->join('pub_users ON pub_flow.uid = pub_users.id', 'LEFT')
-            ->join('pub_devices ON pub_users.did=pub_devices.id', 'LEFT')
-            ->field('pub_flow.*,pub_devices.name,pub_users.balance')
+            ->alias('f')
+            ->join('__DEVICES__ d ON f.did=d.id','LEFT')
+            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+            ->field('f.*,d.name,u.balance')
             ->select();
-        // dump($list);die;
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();        

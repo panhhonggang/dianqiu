@@ -11,7 +11,7 @@ class ShopController extends CommonController
     {
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
-
+        $did = $_SESSION['homeuser']['did'];
         // 获取用户绑定设备充值套餐
         if($uid){
             // 查询用户绑定设备使用的套餐产品
@@ -28,12 +28,11 @@ class ShopController extends CommonController
             // 查询用户绑定设备使用的滤芯产品
             $filters = $Model->field('filter1,filter2,filter3,filter4,filter5,filter6,filter7,filter8')
             // 连接设备表
-            ->join('pub_devices ON pub_devices.uid ='.$uid)
+            ->join('pub_devices ON pub_devices.id ='.$did)
             // 连接设备类型表
             ->join('pub_device_type ON pub_device_type.id = pub_devices.type_id')
             // 查询一条
             ->find();
-
             if(is_array($filters)){
                 // 删除数组中的空元素
                 $filters = array_filter($filters);
