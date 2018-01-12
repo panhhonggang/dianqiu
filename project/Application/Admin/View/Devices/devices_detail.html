@@ -1,6 +1,7 @@
 <include file="Public/header" />
 <div class="content" style="background-color: #ECF0F5">
     <include file="Public/nav" />
+        <div id="aaa"></div>
         <div class="row-fluid fl" id="main">
             <div style="padding: 0 15px;">
                  <div class="titleBar">设备管理/<span>设备列表/设备详情</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(-1)" class="btn btn-info">&lt;&lt;返回</a></div>
@@ -115,6 +116,10 @@
                     $.ajax({
                         url:'__URL__/deviceDetail?code=' + location.hash.slice(1),
                         type:'get',
+                        error:function(err){
+                            console.log('err',err)
+                            $('#aaa').html(err.responseText)
+                        },
                         success:function(data){
                             console.log(data)
                             $('._dev').append(location.hash.slice(1)+'设备详情')

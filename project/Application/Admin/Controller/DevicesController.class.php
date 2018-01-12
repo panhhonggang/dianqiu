@@ -83,7 +83,7 @@ class DevicesController extends CommonController
             ->where($map)
             ->alias('d')
             ->join('__BINDING__ bind ON d.id=bind.did', 'LEFT')
-            ->join('__VENDORS____ v ON bind.vid=v.id', 'LEFT')
+            ->join('__VENDORS__ v ON bind.vid=v.id', 'LEFT')
             ->field('v.*')
             ->find();
 
