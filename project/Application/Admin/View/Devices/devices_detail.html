@@ -79,7 +79,6 @@
                             <tr>
                                 <td>序号</td>
                                 <td>IC卡编号</td>
-                                <td>手机号码</td>
                                 <td>使用时间</td>
                                 <td>使用流量/mL</td>
                                 <td>使用地址</td>
@@ -235,7 +234,9 @@
                                     _html4 += '<tr>'+
                                                 '<td>'+(el.id?el.id:'--')+'</td>'+
                                                 '<td>'+(el.icid?el.icid:'--')+'</td>'+
-                                                '<td>'+(el.icid?el.icid:'--')+'</td>'+
+                                                '<td>'+(el.addtime?new Date(el.addtime*1000).toLocaleString():'--')+'</td>'+
+                                                '<td>'+(el.flow?el.flow:(el.time?el.time:'--'))+'</td>'+
+                                                '<td>'+(el.address?el.address:'--')+'</td>'+
                                                 '</tr>'
                                 })
                                 $('._list').html(_html4)
