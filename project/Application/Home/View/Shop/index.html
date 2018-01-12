@@ -34,36 +34,36 @@
 			}
 			._line{
 				width: 100%;
-			border-top: 1px solid #EFEFEF;
-			margin: 15px 0;
-			position: absolute;
-			left: 85px;
-			top: 36px;
-			background-color: #24254D;
-			width: 50px;
-			height: 8px;
-			border-radius: 8px;
+				border-top: 1px solid #EFEFEF;
+				margin: 15px 0;
+				position: absolute;
+				left: 85px;
+				top: 36px;
+				background-color: #24254D;
+				width: 50px;
+				height: 8px;
+				border-radius: 8px;
 
-		}
-		._ul{
-			width: 100vw;
-			height: 8vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: #FFFFFF;
-			text-align: center;
-			position: relative;
-			border-bottom: 1vh solid #ccc;
-		}
-		._ul li{
-			display: inline-block;
-			padding: 0 30px;
-			cursor: pointer;
-			font-weight: 600;
-			color: #555673;
-			font-size: .5rem;
-		}
+			}
+			._ul{
+				width: 100vw;
+				height: 8vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #FFFFFF;
+				text-align: center;
+				position: relative;
+				border-bottom: 1vh solid #ccc;
+			}
+			._ul li{
+				display: inline-block;
+				padding: 0 30px;
+				cursor: pointer;
+				font-weight: 600;
+				color: #555673;
+				font-size: .5rem;
+			}
 		</style>
 	</head>
 	<body>
@@ -97,7 +97,7 @@
 								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
 							</div>
 							<div class="bott">
-							 <b>￥{{$v['price']/100}}aa </b>
+							 <b>￥{{$v['price']/100}} </b>
 							 <i>
 							 	<input type="button" value="-" class="minus" style="width:30px;height:25px"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input style="width:30px;height:25px" type="button" value="+" class="plus">
 							 </i>
