@@ -78,10 +78,10 @@ function show($data)
 function gerOrderId()
 {
   do {
-    $uid = $_SESSION['homeuser']['id'];
+    $did = $_SESSION['homeuser']['did'];
     // $uid = M('Users')->where("open_id='{$orderId}'")->find()['id'];
     // 生成唯一订单号
-    $orderId = onlyOrderId().$uid;
+    $orderId = onlyOrderId().$did;
     //查询订单号是否存在
     $oid = M('Orders')->where("`order_id`='{$orderId}'")->field('id')->find();
     // 如果订单号已存在再重新获取一次
