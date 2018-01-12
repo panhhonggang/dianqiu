@@ -118,8 +118,9 @@ i.num{
 	top: 0.0rem;
 }
 i.num input{
-	width: 0.533333rem;
-    height: 0.533333rem;
+	
+    width: 30px;
+    height: 25px;
 	text-align: center;
 	background: #fff;
 	color: #9E9E9E;
@@ -127,9 +128,11 @@ i.num input{
 }
 
 i.num input:nth-child(2){
+	width: 22px;
+    height:22px;
 	color: #7D7D7D;
 	font-size:20px;
-	border: 
+	border: solid 1px #ccc;
 }
 hr{
 	border:1px solid #ccc;
