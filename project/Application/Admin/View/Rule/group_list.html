@@ -30,7 +30,7 @@
                                 {{$v['user']}}
                             </td>
                             <td>
-                                <a href="javascript:if(confirm('确定删除？'))location='{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}'">
+                                <a id="_del" url="{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}" href="javascript:void(0)">
                                     删除
                                 </a>
                             </td>
@@ -39,13 +39,27 @@
                 </tbody>
             </table>
             <div>
-                <a href="{{:U('Admin/Rule/check_user', array('group_id'=>$group_data['group_id']))}}" class="btn btn-primary">
+                <a href="{{:U('Admin/Rule/check_user', array('group_id'=>$group_data['group_id']))}}" class="btn btn-success">
                             添加成员
                 </a>
             </div>
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
+                //提示
+                function tip(tip,title,fn){
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.confirm(tip, {icon: 3, title:title}, function(index){
+                            fn&&fn()                
+                        });
+                    });
+                } 
+                $('_del').click(function(){
+                    tip('确定删除？','提示',function(){
+                        location.href = "{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}"
+                    })
+                })
             </script>
         </div>
         <!-- footer part -->
