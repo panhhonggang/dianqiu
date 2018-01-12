@@ -7,6 +7,18 @@
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 <title>点球共享水</title>
+<style>
+    #lvxinIntroduce {
+
+    }
+    #lvxinIntroduce>div {
+        padding: 2vh 0;
+        border-bottom: 1px solid #ccc;
+    }
+    #lvxinIntroduce>div:nth-of-type(1) {
+        border-top: 1px solid #ccc;
+    }
+</style>
 </head>
 <body>
 <!-- 设备状态显示页面 -->
@@ -82,72 +94,21 @@
         <div class="_background_color">
             <!-- progress -->
             <div>
-                <ul>
-                    <li class="_padding">
-                        <p><span class="">RO膜</span><span class="_float_right">80%</span></p>
-                        <p class="_text_align">
-                            <div class="progress _progress _width">
-                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </p>
-                    </li>
-                    <li class="_padding">
-                        <p><span class="">后置活性炭</span><span class="_float_right">80%</span></p>
-                        <p class="_text_align">
-                            <div class="progress _progress _width">
-                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </p>
-                    </li>
-                    <li class="_padding">
-                        <p><span class="">滤芯3</span><span class="_float_right">80%</span></p>
-                        <p class="_text_align">
-                            <div class="progress _progress _width">
-                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </p>
-                    </li>
-                    <li class="_padding">
-                        <p><span class="">滤芯4</span><span class="_float_right">80%</span></p>
-                        <p class="_text_align">
-                            <div class="progress _progress _width">
-                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </p>
-                    </li>
-                    <li class="_padding">
-                        <p><span class="">滤芯5</span><span class="_float_right">80%</span></p>
-                        <p class="_text_align">
-                            <div class="progress _progress _width">
-                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </p>
-                    </li>
-                </ul>
+                <ul id="lvxinDetailUL"></ul>
             </div>
             
             <!-- 横线 -->
             <!-- <div class="_line"></div> -->
             
             <!-- RO膜 -->
-            <div class="_padding">
-                <h3>
-                    RO膜
-                </h3>
-                <p>
-                    RO膜能够有效地去除钙、镁、细菌、有机物、金属离子和放射性物质等，经过改装进化出的水晶莹清澈、甜美甘醇。
-                </p>
-                <p>
-                    <span class="_font_weigth">总寿命：100L</span>
-                    <span class="_float_right _font_weigth">剩余：800L</span>
-                </p>
+            <div class="_padding" id="lvxinIntroduce">
             </div>
 
             <!-- 横线 -->
             <!-- <div class="_line"></div> -->
             
             <!-- 后置活性炭 -->
-            <div class="_padding">
+            <!-- <div class="_padding">
                 <h3>
                     后置活性炭
                 </h3>
@@ -158,7 +119,7 @@
                     <span class="_font_weigth">总寿命：100L</span>
                     <span class="_float_right _font_weigth">剩余：800L</span>
                 </p>
-            </div>
+            </div> -->
         </div>
 
         <!-- 滤芯复位 -->
@@ -166,62 +127,7 @@
             <!-- progress -->
             <div>
                 <form class="layui-form" action="">
-                    <ul>
-                        <li class="_padding">
-                            <span class="_dian"><span></span></span>
-                            <div class="_padding_left">
-                                <p><span class="">RO膜</span><span class="_float_right">80%</span></p>
-                                <p class="_text_align">
-                                    <div class="progress _progress">
-                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="_padding">
-                            <span class="_dian"><span></span></span>
-                            <div class="_padding_left">
-                                <p><span class="">后置活性炭</span><span class="_float_right">80%</span></p>
-                                <p class="_text_align">
-                                    <div class="progress _progress">
-                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="_padding">
-                            <span class="_dian"><span></span></span>
-                            <div class="_padding_left">
-                                <p><span class="">滤芯3</span><span class="_float_right">80%</span></p>
-                                <p class="_text_align">
-                                    <div class="progress _progress">
-                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="_padding">
-                            <span class="_dian"><span></span></span>
-                            <div class="_padding_left">
-                                <p><span class="">滤芯4</span><span class="_float_right">80%</span></p>
-                                <p class="_text_align">
-                                    <div class="progress _progress">
-                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="_padding">
-                            <span class="_dian"><span></span></span>
-                            <div class="_padding_left">
-                                <p><span class="">滤芯5</span><span class="_float_right">80%</span></p>
-                                <p class="_text_align">
-                                    <div class="progress _progress">
-                                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </p>
-                            </div>
-                        </li>
+                    <ul id="lvxinReset">
                     </ul>
                 </form>
             </div>
@@ -441,15 +347,102 @@ $(".controlBtn").click(function(){
 var $_dian = $('._dian');
 var $tab_li = $('._ul li');
 var $_box = $('#_box');
+
 // js进入滤芯详情页面
 $(".filterBtn").click(function(){
+
     $(".DeviceStausePage").hide().siblings().show();
     $('._line').css({left:($tab_li.eq(0).offset().left+$tab_li.eq(0).innerWidth()/2-25)+'px'});
     // 滤芯详情页面数据渲染
+    var status=JSON.parse($('.status').val());
     var data=JSON.parse($(".status").val());
     var res=JSON.parse($('.res').val());
-    console.log(data);
+    console.log('status ', status);
+    // console.log('data ', data);
+    console.log('res ', res);
 
+    var moHTML = '',lvxinHTML = '',lvxinIntroduceHTML = '';
+    for(var i=0; i<res.length; i++){
+        // console.log(res[i]);
+
+        // 遍历膜的详情, 不存在则不遍历
+        if(res[i].filtername){
+            
+            moHTML += '<li class="_padding">'+ 
+                '<p><span class="">'+ res[i].filtername + ' ( '+res[i].alias+ ' ) ' +
+                '</span><span class="_float_right">'+ 
+                ((res[i].flowlife/res[i].timelife)*100).toFixed(0)
+                +'%</span></p>'+
+                '<p class="_text_align">'+
+                    '<div class="progress _progress _width">'+
+                      '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
+                      ((res[i].flowlife/res[i].timelife)*100).toFixed(0) +
+                      '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                    '</div>'+
+                '</p>'+
+            '</li>';  
+        }
+
+        // 遍历滤芯详情, 不存在则不遍历
+        if(status['reflowfilter'+(i+1)]){
+           
+            lvxinHTML += '<li class="_padding">'+
+                '<p><span class="">'+ 
+                status['reflowfilter'+(i+1)] +
+                '</span><span class="_float_right">'+ 
+                ((status['reflowfilter'+(i+1)]/status.sumflow)*100).toFixed(0)
+                +'%</span></p>'+
+                '<p class="_text_align">'+
+                    '<div class="progress _progress _width">'+
+                      '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
+                      ((status['reflowfilter'+(i+1)]/status.sumflow)*100).toFixed(0) +
+                      '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                    '</div>'+
+                '</p>'+
+            '</li>';
+        }
+        
+        //滤芯简介
+        if(res[i].introduce){
+            res[i].balancatime = !res[i].balancatime ? 0 : res[i].balancatime;
+            res[i].balancaflow = !res[i].balancaflow ? 0 : res[i].balancaflow;
+
+            lvxinIntroduceHTML += '<div>'+
+                '<h3>'+
+                    res[i].filtername +
+                '</h3>'+
+                '<p>'+
+                    res[i].introduce +
+                '</p>'+
+                '<p>'+
+                    '<span class="_font_weigth">总寿命：'+ res[i].balancatime +
+                    '</span>'+
+                    '<span class="_float_right _font_weigth">剩余：'+ res[i].balancaflow +
+                    'L</span>'+
+                '</p>'+
+            '</div>';
+        }
+       
+    }
+    console.log(lvxinIntroduceHTML);
+
+    // 遍历滤芯详情，然后添加到$("#lvxinDetailUL")
+    $("#lvxinDetailUL").html(moHTML + lvxinHTML);
+    //遍历膜、滤芯简介
+    $("#lvxinIntroduce").html(lvxinIntroduceHTML);
+    // 遍历滤芯复位，然后添加到$("#lvxinDetailUL")
+    $("#lvxinReset").html(moHTML + lvxinHTML);
+
+    // 剩余比例小于100%
+    for(var i=0; i<$("._float_right").length; i++){
+        
+        parseInt($("._float_right").eq(i).text()) > 100
+        ? $("._float_right").eq(i).text('100%')
+        : parseInt($("._float_right").eq(i).text())
+    }
+    
+    
+    // console.log('$("#lvxinDetailUL").html() ', $("#lvxinDetailUL").html());
     //滤芯显示
     var str='reflowfilter';
     var filterHtml='';//滤芯显示html代码
@@ -466,6 +459,7 @@ $(".filterBtn").click(function(){
             reflowName.push(filterList['reflowfilter'+i]);
         }
     }
+    console.log($(".deviceID").html());
     //遍历显示滤芯
     if($(".deviceID").html()!="--"){
         for(var i=0;i<reflowName.length;i++){

@@ -12,6 +12,16 @@
 	<script src="__PUBLIC__/Home/js/laydate.js"></script>
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<style>
+		.timer-set>div {
+			width: 5.18555rem;
+			display: flex;
+    		justify-content: space-between;
+    		align-items: center;
+		}
+		#chooseDate, #star, #end {
+			border: 1px solid #666;
+			font-size: .4rem;
+		}
 		#repair-main {
 			height: auto;
 		}
@@ -29,6 +39,7 @@
 		}
 		#picShow {
 			width: 100%;
+			display: inline;
 			position: relative;
 		}
 		#picShow>span {
@@ -75,10 +86,12 @@
 					<p>服务时间：</p>
 					<div class="timer-set">
 						<input type="hidden" value="{{$code['device_code']}}" name="device_code">
-						<input name="date" type="text" class="in-first layui-input" id="chooseDate" value="" placeholder="yyyy年MM月dd日"><br>
-						<input name="begin_time" type="text" id="star" value="" placeholder="HH:mm:ss">
-						<b>~</b>
-						<input name="over_time" type="text" id="end" value="" placeholder="HH:mm:ss">
+						<input name="date" type="button" class="in-first layui-input" id="chooseDate" value="" placeholder="yyyy年MM月dd日"><br>
+						<div>
+							<input name="begin_time" type="button" id="star" value="" placeholder="HH:mm:ss">
+							<b>~</b>
+							<input name="over_time" type="button" id="end" value="" placeholder="HH:mm:ss">
+						</div>
 					</div>
 				</div>
 				<div id="repair-main">
@@ -110,39 +123,51 @@
 		</div>
 	</form>
 	<script>
-		var nowDate = new Date().getTime(),
-			end_time = nowDate;
-			// console.log(end_time);
+
+		$("#star").val('09:00:00');
+		var nowDate = new Date().getTime();
+
+		// $("#chooseDate").val(
+		// 	new Date().toLocaleString()
+		// 	.substr(0,9).replace('/', '年').replace('/', '月') +'日'
+		// );
+		// console.log(end_time);
 		//选择服务日期，
 		laydate.render({
-		  elem: '#chooseDate', //指定元素
-		  format: 'yyyy年MM月dd日',
-		  btns: ['clear', 'confirm'],
-		  min: 1
+			elem: '#chooseDate', //指定元素
+			format: 'yyyy年MM月dd日',
+			btns: ['clear', 'confirm'],
+			min: 1
 		});
 
 		// 选择服务起始时间
-		laydate.render({
-		  elem: '#star', //指定元素
-		  type: 'time',
-		  format: 'HH:mm:ss',
-		  min: '09:00:00',
-		  max: '18:00:00'
+		var startDate = laydate.render({
+			elem: '#star', //指定元素
+			type: 'time',
+			format: 'HH:mm:ss',
+			min: '09:00:00',
+			max: '18:00:00',   
+			done: function (value, dates) {     
+				// console.log(dates);
+			    endDate.config.min ={  
+		             year: dates.year,   
+		             month: dates.month-1, //关键  
+		             date: dates.date,   
+		             hours: dates.hours,   
+		             minutes: dates.minutes,   
+		             seconds : dates.seconds  
+			    };      
+			}
 		});
 
-		// 设置结束时间的最小值是不能小于开始时间
-		$("#star").on("blur",function(){
-			end_time = nowDate;
-		})
-
 		// 选择服务结束时间
-		laydate.render({
-		  elem: '#end', //指定元素
-		  type: 'time',
-		  format: 'HH:mm:ss',
-		  btns: ['clear', 'confirm'],
-		  min: end_time,
-		  max: '18:00:00'
+		var endDate= laydate.render({
+			elem: '#end', //指定元素
+			type: 'time',
+			format: 'HH:mm:ss',
+			btns: ['clear', 'confirm'],
+			min: '09:00:00',
+			max: '18:00:00'
 		});
 
 		//layuiHint弹框提示封装
