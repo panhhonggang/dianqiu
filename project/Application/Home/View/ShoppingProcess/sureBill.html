@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="en">
 
 	<head>
@@ -63,6 +63,33 @@
 			    padding: 1%;
 			    border: 1px solid;
 			    border-radius: 3px;
+			}
+			#ro-right .bott {
+				display: flex;
+				align-items: center;
+			}
+			.bott b {
+				width: 70%;
+				display: inline-block;
+				text-align: right;
+			}
+			.bott p {
+				width: 30%;
+				position: relative;
+				text-align: right;
+			}
+			#mo-right {
+				width: 83%;
+			}
+			#mo-right>p {
+				float: right;
+			}
+			#mo2>.bill {
+				width: 17%;
+			}
+			#mo-right2>p {
+				font-size: 0.473333rem;
+				font-weight: bold;
 			}
 		</style>
 	</head>
@@ -209,7 +236,7 @@
 						console.dir('请输入正确的收货地址');
 						layuiHint('请输入有效地址！');
 					}
-					console.log(res.expressId);
+					// console.log(res.expressId);
 					// 获取到收货地址
 					if(res.expressId){
 						// AJAX请求支付接口去付款
