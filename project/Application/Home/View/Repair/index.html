@@ -9,6 +9,7 @@
 ">
 	<link rel="stylesheet" href="__PUBLIC__/Home/css/repair.css">
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<script src="__PUBLIC__/Home/js/laydate.js"></script>
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<style>
 		#repair-main {
@@ -62,7 +63,7 @@
 			font-size: .4rem;
 		}
 	</style>
-</head>  
+</head>
 <body>
 	<form action="" method="post" enctype="multipart/form-data">
 		
@@ -74,10 +75,10 @@
 					<p>服务时间：</p>
 					<div class="timer-set">
 						<input type="hidden" value="{{$code['device_code']}}" name="device_code">
-						<input name="date" type="date" class="in-first" value=""><br>
-						<input name="begin_time" type="time" id="star">
+						<input name="date" type="text" class="in-first layui-input" id="chooseDate" value="" placeholder="yyyy年MM月dd日"><br>
+						<input name="begin_time" type="text" id="star" value="" placeholder="HH:mm:ss">
 						<b>~</b>
-						<input name="over_time" type="time" id="end">
+						<input name="over_time" type="text" id="end" value="" placeholder="HH:mm:ss">
 					</div>
 				</div>
 				<div id="repair-main">
@@ -109,6 +110,41 @@
 		</div>
 	</form>
 	<script>
+		var nowDate = new Date().getTime(),
+			end_time = nowDate;
+			// console.log(end_time);
+		//选择服务日期，
+		laydate.render({
+		  elem: '#chooseDate', //指定元素
+		  format: 'yyyy年MM月dd日',
+		  btns: ['clear', 'confirm'],
+		  min: 1
+		});
+
+		// 选择服务起始时间
+		laydate.render({
+		  elem: '#star', //指定元素
+		  type: 'time',
+		  format: 'HH:mm:ss',
+		  min: '09:00:00',
+		  max: '18:00:00'
+		});
+
+		// 设置结束时间的最小值是不能小于开始时间
+		$("#star").on("blur",function(){
+			end_time = nowDate;
+		})
+
+		// 选择服务结束时间
+		laydate.render({
+		  elem: '#end', //指定元素
+		  type: 'time',
+		  format: 'HH:mm:ss',
+		  btns: ['clear', 'confirm'],
+		  min: end_time,
+		  max: '18:00:00'
+		});
+
 		//layuiHint弹框提示封装
 		function layuiHint(text){
 		    layui.use('layer', function(){
@@ -124,18 +160,6 @@
 					$('#repair-main>i').css('color','#D0D1FC');
 				})
 			});
-			
-			var dateTime = '';
-			$('#re-commit').click(function(){
-				var date = $('.timer-set>input[type="date"]').val();
-				var starTime = $('#star').val();
-				var endTime = $('#end').val();
-				if(!date || !starTime || !endTime){
-					alert('请输入完整的时间段')
-					return false;
-				};
-
-			});
 
 			// 上传的图片
 			$(".repair-sendpic").on("change",function(e){
@@ -148,11 +172,6 @@
 				reader.readAsDataURL(files[0]);
 				reader.onload =function(e){
 					
-					var dx =(e.total/1024);
-					if(dx>=20){
-					  alert("文件大小大于2M");
-					  return;
-					}
 					img[0].src = this.result;
 					img[0].width = "100%";
 					img[0].height = "90%";
