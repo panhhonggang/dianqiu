@@ -58,7 +58,6 @@
 			}
 			.minus, .plus {
 				line-height: 0.533333rem;
-				vertical-align: middle;
 				font-size: .6rem;
 			}
 		</style>
@@ -83,7 +82,7 @@
 						 	<b>￥{{$v['price']/100}}</b>
 						 	<!-- <p class="">X{{$v['num']}}</p> -->
 						 	<i>
-								<input type="button" value="-" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="{{$v['num']}}"><input type="button" value="+" class="plus">
+								<input type="button" value="━" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="{{$v['num']}}"><input type="button" value="╋" class="plus">
 							</i>
 						</div>
 					</div>
@@ -94,13 +93,16 @@
 			<foreach name="setmeal" item="vo" key="ke">
 			<div class="item">
 				<div id="mo2">
-					<input class="del" type="text" value="—" readonly>
+					<input class="del" type="text" value="━" readonly>
 					<div id="mo-right">
 						<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
 						
 					</div>
-					<!-- <p class="bill">X{{$vo['num']}}</p> -->
-					<p class="bill" style="position: relative;"><i class="num"><input type="button" value="-" class="minus"><input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}"><input type="button" value="+" class="plus"></i></p>
+					<p class="bill" style="position: relative;">
+						<i class="num">
+							<input type="button" value="━" class="minus"><input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}"><input type="button" value="╋" class="plus">
+						</i>
+					</p>
 				</div>
 			</div>			
 			</foreach>

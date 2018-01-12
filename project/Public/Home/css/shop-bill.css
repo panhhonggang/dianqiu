@@ -63,8 +63,6 @@
 	height:3.013333rem;
 	float: right;
 	display: inline-block;
-
-	/*background-color: #ccc;*/
 }
 #ro-right .top{
 	height: 2.453333rem;	
@@ -116,24 +114,25 @@ i.num{
 	font-size: 0.426667rem;
 	color:red;
 	position: absolute;
-	right: 0.0rem;
+	right: 20px;
 	top: 0.0rem;
 }
 i.num input{
 	width: 0.533333rem;
-	height: 0.533333rem;
+    height: 0.533333rem;
 	text-align: center;
 	background: #fff;
-}
-i.num input:first-child,
-i.num input:last-child{
+	color: #9E9E9E;
 	border:none;
-
 }
-/*.ro1 + hr,.ro2 + hr ,.mo2 + hr{}*/
+
+i.num input:nth-child(2){
+	color: #7D7D7D;
+	font-size:20px;
+	border: 
+}
 hr{
 	border:1px solid #ccc;
-	/*margin-top:0.4rem;*/
 }
 #mo2{
 	width: 9.2rem;

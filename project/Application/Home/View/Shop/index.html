@@ -16,9 +16,9 @@
 		<!-- 微信支付支持JS部分代码 -->
 		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 		<style type="text/css">
-			body {
+			/*body {
 				font-size: .4rem !important;
-			}
+			}*/
 			#contain{
 				margin-top: 0;
 			}
@@ -41,7 +41,7 @@
 				top: 36px;
 				background-color: #24254D;
 				width: 50px;
-				height: 8px;
+				height: 6px;
 				border-radius: 8px;
 
 			}
@@ -63,6 +63,14 @@
 				font-weight: 600;
 				color: #555673;
 				font-size: .5rem;
+			}
+			#ro-right input{
+				color: #9E9E9E;
+				font-style: normal;
+			}
+			#ro-right input:nth-child(2){
+				color: #7D7D7D;
+				font-size:20px;
 			}
 		</style>
 	</head>
@@ -99,7 +107,7 @@
 							<div class="bott">
 							 <b>￥{{$v['price']/100}} </b>
 							 <i>
-							 	<input type="button" value="-" class="minus" style="width:30px;height:25px"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input style="width:30px;height:25px" type="button" value="+" class="plus">
+							 	<input type="button" value="━" class="minus" style="width:30px;height:25px"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input style="width:30px;height:25px" type="button" value="╋" class="plus">
 							 </i>
 							</div>
 						</div>
