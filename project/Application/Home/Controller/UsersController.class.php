@@ -24,7 +24,7 @@ class UsersController extends CommonController
     }
 	
 	//个人信息
-	public function personalInformation()
+	public function personalinformation()
 	{
         if(IS_POST){
             // 获取用户uid
@@ -47,12 +47,12 @@ class UsersController extends CommonController
 
             // 地址正则验证
             if($this->isAddress(I('post.Installaddress'))){
-                $data['Installaddress'] = I('post.Installaddress');
+                $data['address'] = I('post.Installaddress');
             }else{
                 $this->error('请输入正确的地址');
             }
 
-            $saveData['uid'] = $uid;
+            //$data['uid'] = $uid;
             $saveData['id'] = $did;
 
             $res = M('Devices')->where($saveData)->save($data);

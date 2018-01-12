@@ -719,7 +719,14 @@ class PaymentSystemController extends Controller
      */
     public function notify()
     {
-        //echo 123;
+
+        // 实例化微信JSSDK类对象
+        //$wxJSSDK = new \Org\Util\WeixinJssdk;
+        // 獲取微信微信ID
+        //$openId = $wxJSSDK->GetOpenid();
+        // 查询用户ID
+        //$uid = M('Users')->where("open_id='{$openId}'")->find()['id'];
+
         // 获取微信服务器返回的xml文档
         $xml=file_get_contents('php://input', 'r');
         //file_put_contents('./wx_pay.txt',$xml."\r\n", FILE_APPEND);
@@ -803,10 +810,8 @@ class PaymentSystemController extends Controller
                         $num     = 0;
                         $flownum = 0;
 
-                        file_put_contents('./wx_payuid1.txt',$_SESSION['homeuser']['id']."\r\n", FILE_APPEND);
                         // 查询当前设备编号
-                        $deviceId['id'] = M('CurrentDevices')->where("uid={$_SESSION['homeuser']['id']}")->find()['did'];
-                        file_put_contents('./wx_payuid2.txt',$_SESSION['homeuser']['id']."\r\n", FILE_APPEND);
+                        $deviceId['id'] = M('CurrentDevices')->where("uid={$uid}")->find()['did'];
                         $deviceCode['DeviceID'] = $device->where($deviceId)->find()['device_code'];
                         
                         foreach ($orderSetmealData as $value) {
@@ -824,7 +829,7 @@ class PaymentSystemController extends Controller
                             // 订单编号
                             $flowData['order_id']       = $value['order_id'];
                             // 用户ID
-                            $flowData['uid']            = $_SESSION['homeuser']['id'];
+                            $flowData['uid']            = $uid;
                             // 充值金额
                             $flowData['money']          = $value['money'];
                             // 充值方式

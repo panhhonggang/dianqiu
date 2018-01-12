@@ -77,6 +77,22 @@ class DevicesController extends CommonController
             ->field('type.*') 
             ->find();
         $data['filterInfo'] = $this->getFilterDetail($filter);
+
+        // 获取经销商信息
+        $data['vendor'] = D('devices')
+            ->where($map)
+            ->alias('d')
+            ->join('__BINDING__ bind ON d.id=bind.did', 'LEFT')
+            ->join('__VENDORS____ v ON bind.vid=v.id', 'LEFT')
+            ->field('v.*')
+            ->find();
+
+        // 获取使用记录
+        $data['list'] = D('devices')
+            ->where($map)
+            ->alias('d')
+            ->join('__CONSUME__ c ON d.id=c.did', 'LEFT')
+            ->select();
         $this->ajaxReturn($data);
     }
 
