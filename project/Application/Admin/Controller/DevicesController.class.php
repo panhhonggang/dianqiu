@@ -88,11 +88,11 @@ class DevicesController extends CommonController
             ->find();
 
         // 获取使用记录
-        $data['list'] = D('devices')
-            ->where($map)
-            ->alias('d')
-            ->join('__CONSUME__ c ON d.id=c.did', 'LEFT')
-            ->select();
+        // $data['list'] = D('devices')
+        //     ->where($map)
+        //     ->alias('d')
+        //     ->join('__CONSUME__ c ON d.id=c.did', 'LEFT')
+        //     ->select();
         $this->ajaxReturn($data);
     }
 

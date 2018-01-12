@@ -118,16 +118,16 @@ class UsersController extends CommonController
             ->select();
         $where['u.id'] = $user['uid'];
         // 消费记录
-        $consume = M('consume')
-            ->alias('c')
-            ->where($where)
-            ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
-            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->select();
+        // $consume = M('consume')
+        //     ->alias('c')
+        //     ->where($where)
+        //     ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
+        //     ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+        //     ->select();
         $assign = [
             'user' => json_encode($user),
             'flow' => json_encode($flow),
-            'consume' => json_encode($consume),
+            // 'consume' => json_encode($consume),
             'show' => $show,
         ];
         $this->assign($assign);
@@ -187,31 +187,31 @@ class UsersController extends CommonController
      * 用户消费记录列表
      * @author 潘宏钢 <619328391@qq.com>
      */
-    public function consume()
-    {
-        // 根据用户昵称进行搜索
-        $map = '';
-        if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+    // public function consume()
+    // {
+    //     // 根据用户昵称进行搜索
+    //     $map = '';
+    //     if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
 
-        $consume = M('consume');
-        $total = $consume->where($map)
-            ->alias('c')
-            ->where($map)
-            ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
-            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->count();
-        $page  = new \Think\Page($total,8);
-        $pageButton =$page->show();
+    //     $consume = M('consume');
+    //     $total = $consume->where($map)
+    //         ->alias('c')
+    //         ->where($map)
+    //         ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
+    //         ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+    //         ->count();
+    //     $page  = new \Think\Page($total,8);
+    //     $pageButton =$page->show();
 
-        $list = $consume->where($map)->limit($page->firstRow.','.$page->listRows)
-            ->alias('c')
-            ->where($map)
-            ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
-            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->select();
-        // dump($list);die;
-        $this->assign('list',$list);
-        $this->assign('button',$pageButton);
-        $this->display();        
-    }   
+    //     $list = $consume->where($map)->limit($page->firstRow.','.$page->listRows)
+    //         ->alias('c')
+    //         ->where($map)
+    //         ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
+    //         ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+    //         ->select();
+    //     // dump($list);die;
+    //     $this->assign('list',$list);
+    //     $this->assign('button',$pageButton);
+    //     $this->display();        
+    // }   
 }

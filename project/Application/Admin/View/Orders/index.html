@@ -4,7 +4,7 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">订单管理/<span>订单列表</span></div>
-            <form class="form-search fr" action="__URL__/bindinglist" method="get">
+            <form class="form-search fr" action="__URL__/index" method="get">
                 <input type="text" class="input-medium" name="order_id" placeholder="请输入订单号...">
                 <button type="submit" class="btn">搜索</button>
             </form>
@@ -32,7 +32,7 @@
                             <td><a href="__URL__/order_detail.html#{{$vo.order_id}}">{{$vo.order_id}}</a></td>
                             <td>{{$vo.nickname}}</td>
                             <td>{{$vo.total_num}}</td>
-                            <td>{{$vo.total_price}}</td>
+                            <td>{{$vo['total_price']/100}}</td>
                             <td>{{$vo.name}}</td>
                             <td>{{$vo.phone}}</td>
                             <td>{{$vo.addres}}</td>

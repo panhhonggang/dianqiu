@@ -88,9 +88,9 @@
                             var html = '<tr>'
                             html += '<td><img width=50 src="__ROOT__'+data.filter[i].picpath+'"></td>'+
                                     '<td>'+data.filter[i].filtername+'&nbsp;(&nbsp;'+data.filter[i].alias+'&nbsp;)&nbsp;</td>'+
-                                    '<td>'+data.filter[i].goods_preic+'</td>'+
+                                    '<td>'+data.filter[i].price/100+'</td>'+
                                     '<td>'+data.filter[i].goods_num+'</td>'+
-                                    '<td>'+data.filter[i].price+'</td>'
+                                    '<td>'+data.filter[i].goods_price/100+'</td>'
                             html += '</tr>'
                             $('#_tbody').append(html)
                         }
@@ -115,7 +115,7 @@
                         $('#_tbody2').append('暂无购买产品')
                     }
                     var $span = $('#_fn span')
-                    $span.eq(0).append('订单总价：'+data.order[0].total_price)
+                    $span.eq(0).append('订单总价：'+data.order[0].total_price/100)
                     $span.eq(1).append('订单数量：'+data.order[0].total_num)
                     $span.eq(2).append(data.order[0].express?('快递：'+data.order[0].express):'快递：暂无快递')
                 }

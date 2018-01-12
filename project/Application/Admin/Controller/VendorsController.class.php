@@ -207,7 +207,7 @@ class VendorsController extends CommonController
     {
        // 根据用户昵称进行搜索
         $map = '';
-        if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+        if(!empty($_GET['name'])) $map['pub_vendors.name'] = array('like',"%{$_GET['name']}%");
 
         $binding = M('binding');
         
