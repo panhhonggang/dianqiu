@@ -88,7 +88,7 @@
                             var html = '<tr>'
                             html += '<td><img width=50 src="__ROOT__'+data.filter[i].picpath+'"></td>'+
                                     '<td>'+data.filter[i].filtername+'&nbsp;(&nbsp;'+data.filter[i].alias+'&nbsp;)&nbsp;</td>'+
-                                    '<td>'+data.filter[i].goods_price+'</td>'+
+                                    '<td>'+data.filter[i].goods_preic+'</td>'+
                                     '<td>'+data.filter[i].goods_num+'</td>'+
                                     '<td>'+data.filter[i].price+'</td>'
                             html += '</tr>'
@@ -103,11 +103,11 @@
                         for(var j in data.setmeal){
                             var html2 = '<tr>'
                             var str = Number(data.setmeal[j].remodel)?'(小时)':'(L)'
-                            html2 += '<td>'+data.setmeal[j].describe+'</td>'+
-                                     '<td>'+data.setmeal[j].money+'</td>'+
-                                     '<td>'+data.setmeal[j].goods_num+'</td>'+
-                                     '<td>'+data.setmeal[j].flow+str+'</td>'+
-                                     '<td>'+data.setmeal[j].goods_price+'</td>'
+                            html2 += '<td>'+(data.setmeal[j].describe?data.setmeal[j].describe:'--')+'</td>'+
+                                     '<td>'+(data.setmeal[j].money?data.setmeal[j].money:'--')+'</td>'+
+                                     '<td>'+(data.setmeal[j].goods_num?data.setmeal[j].goods_num:'--')+'</td>'+
+                                     '<td>'+(data.setmeal[j].flow?data.setmeal[j].flow:'--')+str+'</td>'+
+                                     '<td>'+(data.setmeal[j].goods_price?data.setmeal[j].goods_price:'--')+'</td>'
                             html2 += '</tr>'
                             $('#_tbody2').append(html2)
                         }
