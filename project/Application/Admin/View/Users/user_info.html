@@ -87,8 +87,8 @@
                 var data = JSON.parse(match)
                 $('.__user').append(data.name)
                 var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
-                var create_at = create_at?new Date(Number(data.create_at)*1000).toLocaleString():'--'
-                var installaddress = data.installaddress?data.installaddress:'--'
+                var addtime = data.addtime?new Date(Number(data.addtime)*1000).toLocaleString():'--'
+                var installaddress = data.address?data.address:'--'
                 var html = '<tr>'+
                                 '<td>'+data.name+'</td>'+
                                 '<td>'+data.phone+'</td>'+
@@ -96,7 +96,7 @@
                                 '<td>'+data.balance+'</td>'+
                                 '<td>'+login_time+'</td>'+
                                 '<td>'+data.login_ip+'</td>'+
-                                '<td>'+create_at+'</td>'+
+                                '<td>'+addtime+'</td>'+
                                 '<td>'+userStatus[data.user_status]+'</td>'+
                             '</tr>'
                 $('._user_').append(html)
