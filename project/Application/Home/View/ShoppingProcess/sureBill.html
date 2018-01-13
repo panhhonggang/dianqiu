@@ -194,10 +194,12 @@
 		
 		// 获取结算按钮
 		$('#foot>input[type=submit]').click(function(){
-
+								
 				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);//姓名
 				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);//电话
 				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/);//地址
+
+				//alert(address);
 				if(mainer){
 					var name = $('#mainer').val();
 				}else{
