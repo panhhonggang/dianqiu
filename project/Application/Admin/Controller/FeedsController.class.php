@@ -36,7 +36,6 @@ class FeedsController extends CommonController
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
-                        echo $user->getLastSql();
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
