@@ -20,13 +20,7 @@ $(function(){
 		$(this).css('display','none');
 		$('.shang').css('display','block');
 		$('.mine-name').css('display','block')
-
-		// console.log($('#mine-first-all').attr('url'))
 		$('#mine-first-all').addClass('mine-first-all');
-		// .css('background-size',' contain');
-		// background: url("./images/mine-first-01.png") 0% 0% / contain no-repeat;
-		// __PUBLIC__/Home/css/mine-first.css
-		// 
 	});
 });
 

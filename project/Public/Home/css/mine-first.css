@@ -51,6 +51,7 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 /*==================显示==================*/
 #mine-first-top>.mine-name {
 	width: 8.133333rem;
+	display: none;
 }
 
 #mine-first-top>.mine-name>section {
