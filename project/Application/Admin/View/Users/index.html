@@ -8,8 +8,6 @@
                 <input type="text" name="name" class="input-medium" placeholder="请输入真实姓名...">
                 <button type="submit" class="btn">搜索</button>
             </form>
-            
-            
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
@@ -30,21 +28,13 @@
                     <foreach name="list" item="vo" key="key">
                     <tr>
                         <td>{{$vo.id}}</td>
-                        <td><a href="user_info?id={{$vo.id}}">{{$vo.name}}</a></td>
+                        <td><a href="__URL__/user_info?id={{$vo.id}}">{{$vo.name}}</a></td>
                         <td>{{$vo.phone}}</td>
                         <td>{{$vo.installaddress}}</td>
-                        <!-- <td>{{$vo.balance}}</td> -->
                         <td>{{$vo.login_time|date='Y-m-d H:i:s',###}}</td>
                         <td>{{$vo.login_ip}}</td>
                         <td>{{$vo.created_at|date='Y-m-d H:i:s',###}}</td>
-                       <!--  <td>{{$vo.status}}</td>
-                        <td>
-                            <switch name="vo.status">
-                                <case value="禁用"><a href="__URL__/edit/id/{{$vo.id}}/status/1">启用&nbsp;&nbsp;</a></case>
-                                <case value="启用"><a href="__URL__/edit/id/{{$vo.id}}/status/0">禁用&nbsp;&nbsp;</a></case>
-                                <default />
-                            </switch>
-                        </td> -->
+                       
                     </tr>
                     </foreach>
                     <else />
