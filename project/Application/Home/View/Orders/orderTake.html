@@ -97,9 +97,6 @@
 		</div>
 		</foreach>
 	</div>
-	<!-- layui.js -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
-    <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<script type="text/javascript">
 		// 确认收货
 		function confirm(oid){
@@ -107,10 +104,8 @@
 
 				// 订单取消成功
 				if(res==1){
-					layui.use('layer', function(){
-					  var layer = layui.layer;
-					  layer.msg("订单取消成功，亲请放心！");
-					}); 
+					// 在这里写提示信息
+					
 					// 刷新页面
 					location.reload();
 				}
