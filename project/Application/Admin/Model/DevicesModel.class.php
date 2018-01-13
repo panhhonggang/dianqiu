@@ -43,7 +43,7 @@ class DevicesModel extends Model
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
-            ->field("statu.*,bind.*,vendors.*,type.*,d.*")
+            ->field("statu.*,bind.*,d.id,d.device_code,type.*,vendors.*")
             ->order('d.id asc')
             ->limit($page->firstRow.','.$page->listRows)
             ->count();
@@ -60,7 +60,7 @@ class DevicesModel extends Model
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
-            ->field("statu.*,bind.*,vendors.*,type.*,d.*")
+            ->field("statu.*,bind.*,d.id,d.device_code,type.*,vendors.*")
             ->order('d.id asc')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
