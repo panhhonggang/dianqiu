@@ -98,16 +98,7 @@ class UsersController extends CommonController
             ->find();
 
         $maps['u.id'] = $user['uid'];
-        // 记录分页
-        $total = M('flow')
-            ->alias('f')
-            ->where($maps)
-            ->join('__DEVICES__ d ON f.did=d.id', 'LEFT')
-            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->field('f.*,d.*')
-            ->count();
-        $page  = new \Think\Page($total,10);
-        $pageButton =$page->show();
+
         // 充值记录
         $flow = M('flow')
             ->alias('f')
@@ -116,14 +107,7 @@ class UsersController extends CommonController
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
             ->field('f.*,d.*')
             ->select();
-        $where['u.id'] = $user['uid'];
-        // 消费记录
-        // $consume = M('consume')
-        //     ->alias('c')
-        //     ->where($where)
-        //     ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
-        //     ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-        //     ->select();
+
         $assign = [
             'user' => json_encode($user),
             'flow' => json_encode($flow),
