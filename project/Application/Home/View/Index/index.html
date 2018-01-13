@@ -9,10 +9,11 @@
 <title>点球共享水</title>
 <style>
     #lvxinIntroduce {
-
+        padding: 0;
+        margin: 2vh 0;
     }
     #lvxinIntroduce>div {
-        padding: 2vh 0;
+        padding: 2vh 1vh;
         border-bottom: 1px solid #ccc;
     }
     #lvxinIntroduce>div:nth-of-type(1) {
@@ -107,19 +108,6 @@
             <!-- 横线 -->
             <!-- <div class="_line"></div> -->
             
-            <!-- 后置活性炭 -->
-            <!-- <div class="_padding">
-                <h3>
-                    后置活性炭
-                </h3>
-                <p>
-                    更彻底地吸附净水的异色、异味，调整净水中口感。
-                </p>
-                <p>
-                    <span class="_font_weigth">总寿命：100L</span>
-                    <span class="_float_right _font_weigth">剩余：800L</span>
-                </p>
-            </div> -->
         </div>
 
         <!-- 滤芯复位 -->
@@ -361,6 +349,7 @@ $(".filterBtn").click(function(){
     // console.log('data ', data);
     console.log('res ', res);
 
+    // 存放膜、滤芯、滤芯简介的遍历的标签
     var moHTML = '',lvxinHTML = '',lvxinIntroduceHTML = '';
     for(var i=0; i<res.length; i++){
         // console.log(res[i]);
