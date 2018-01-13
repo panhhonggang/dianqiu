@@ -158,6 +158,9 @@
         </div>
     </div>
 </section>
+<!-- layui.js -->
+<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+ <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 <script>
 // 设备状态js动画
 const c = document.getElementById('canvas');
@@ -308,7 +311,15 @@ function machineStatus(){
 //websoket
 var websoket=new WebSocket("ws://120.27.12.1:6001");
 var deviceId=$(".deviceID").val();//设备id
-
+var PackNum=0;//包数据
+var str='reflowfilter';
+    var filterHtml='';//滤芯显示html代码
+    var filterList=[];//字符串数组
+    var filterNum=[];//存放滤芯键值对
+    var CmdList=[];//命令队列
+    var reflowName=[];//存放滤芯名称
+    var data = {{$data|json_encode}};//数组转换为对象
+    var flowPercent;//剩余滤芯百分比值
 websoket.onopen=function(){
     //包数据
     ajson={
