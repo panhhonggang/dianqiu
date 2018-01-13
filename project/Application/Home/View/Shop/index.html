@@ -135,9 +135,31 @@
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
 		</div>
 		
-	
 	</div>
 	<script>
+		// console.log('lineRight: ',sessionStorage.getItem("lineRight"));
+		// console.log('lineMove: ',sessionStorage.getItem("lineMove"));
+
+		var lineMove = sessionStorage.getItem("lineMove");	//判断上次选择的是充值还是滤芯
+		var lineRight = sessionStorage.getItem("lineRight"),
+			lineLeft = sessionStorage.getItem("lineRight");
+
+		if(lineMove == lineLeft){	//上次选择的是充值
+			$("#lineDiv").css({left: lineLeft + 'px'});
+
+			// // 显示当前的内容盒子
+			$(".contentBox").children('div').eq(1).slideDown().siblings().slideUp();
+			// 下划线动画
+			$('._line').animate({left:lineLeft+'px'});
+
+		}else if(lineMove == lineRight){	//上次选择的是滤芯
+			$("#lineDiv").css({left: lineRight + 'px'});
+
+			// // 显示当前的内容盒子
+			$(".contentBox").children('div').eq(1).slideDown().siblings().slideUp();
+			// 下划线动画
+			$('._line').animate({left: lineRight+'px'});
+		}
 		//微信接口
 		wx.config({
 		    debug: false,
@@ -281,6 +303,7 @@
 		 */
 		$('#cart').click(function(){
 
+
 			// 创建空数组，将来装套餐和产品
 			var data = [];
 			// 初始化下标
@@ -313,11 +336,37 @@
 				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
 					// 判断购物车是否添加成功
 					if(res.status){
+						// console.log(res);
 						// 刷新页面
 						// location.reload();
 						location.href = "{{:U('Home/Shop/index')}}";
+						// for(var i in res.msg){
+						// 	$("#cartNun").val($("#cartNun").val() + res.msg.num)
+						// }
+						
 					}
 				});
+				// console.log(parseInt($("#lineDiv").css("left")) , $(window).innerWidth()/2);
+
+				// 选中滤芯
+				if(parseInt($("#lineDiv").css("left")) > $(window).innerWidth()/2){
+					sessionStorage.setItem("lineRight", 
+						parseInt($("#lineDiv").offset().left+$("#lineDiv").innerWidth()/2 - 25)
+						)
+					//设置判断当前所在“充值”还是”滤芯“的判断值
+					sessionStorage.setItem("lineMove", 
+						parseInt($("#lineDiv").offset().left+$("#lineDiv").innerWidth()/2 - 25)
+						)
+
+				}else if(parseInt($("#lineDiv").css("left")) < $(window).innerWidth()/2){
+					// 选中充值
+					sessionStorage.setItem("lineLeft", 
+						parseInt($("#lineDiv").css("left"))
+						)
+					sessionStorage.setItem("lineMove", 
+						parseInt($("#lineDiv").offset().left+$("#lineDiv").innerWidth()/2 - 25)
+						)
+				}
 			}else{
 				// 用户未添加产品
 				alert('请先选择产品！');
