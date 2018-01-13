@@ -25,6 +25,7 @@ class FeedsController extends CommonController
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
                         ->field('d.*,f.id,f.content,f.addtime')
+                        ->order('f.addtime desc')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
@@ -32,6 +33,7 @@ class FeedsController extends CommonController
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime')
+                        ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
                         echo $user->getLastSql();
@@ -71,6 +73,7 @@ class FeedsController extends CommonController
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime,f.picpath')
+                        ->order('f.addtime desc')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
@@ -79,6 +82,7 @@ class FeedsController extends CommonController
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime,f.picpath,f.status')
+                        ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
         //dump($userlist);die;                
