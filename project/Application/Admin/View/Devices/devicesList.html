@@ -5,7 +5,7 @@
         <div class="row-fluid fl" id="main" style="width: 100%">
             <div class="tableBox">
                 <div class="titleBar">设备管理/<span>设备列表</span></div>
-                <form class="form-search fr" action="" method="">
+                <form class="form-search fr" action="__URL__/devicesList" method="">
                     <input type="text" class="input-medium" name="code" placeholder="请输入设备编号" / >  
                     <button type="submit" class="btn">查找</button>
                 </form>
@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>{{$data.id}}</td>
                                     <td>
-                                        <a class="btn-link detail" href="devices_detail.html#{{$data.device_code}}">{{$data.device_code}}
+                                        <a class="btn-link detail" href="__URL__/devices_detail.html#{{$data.device_code}}">{{$data.device_code}}
                                         </a>
                                     </td>
                                     <td>{{$data.name}}</td>
