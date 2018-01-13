@@ -146,7 +146,7 @@
 						<div id="ro-right">
 							<div class="top">
 								<h3>{{$v['filtername']}}</h3>
-								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}指的是法国色哥哥三个指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色色</p>
 							</div>
 							<div class="bott">
 							 <b>￥{{$v['price']/100}} </b>
@@ -198,6 +198,9 @@
 			// 下划线动画
 			$('._line').animate({left: lineRight+'px'});
 		}
+		$("#ro-right>.top>p").click(function(){
+			layuiHint( $(this).text() )
+		})
 		//微信接口
 		wx.config({
 		    debug: false,
