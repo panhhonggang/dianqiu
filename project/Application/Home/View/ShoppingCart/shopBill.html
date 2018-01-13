@@ -28,6 +28,7 @@
 			}
 			#ro-right .bott i input {
 				position: relative;
+				color: #9E9E9E;
 			}
 			.bott>i {
 				width: 1.6rem;
@@ -39,26 +40,55 @@
 			.bott>b {
 				margin-right: 8px;
 			}
-			
-			.bill>i {
-				width: 100%;
-				white-space: nowrap;
-			}
+
 			#mo-right {
 				width: 80%;
 				position: relative;
 			}
 			#mo2>.bill {
-				width: 20%;
+				width: 18%;
 				text-align: center;
+				line-height: 0.666667rem;
+    			vertical-align: middle;
 			}
 			#mo-right>p {
 				position: absolute;
 				right: 0;
 			}
-			.minus, .plus {
-				line-height: 0.533333rem;
-				font-size: .6rem;
+			.minus {
+				font-size: .5rem;
+			}
+			input[type="number"] {
+				border: none;
+			}
+			i.num input {
+				width: 50%;
+				height: auto;
+				text-align: right;
+			}
+			#mo2 i {
+				width: 100%;
+				display: flex;
+				position: relative;
+				white-space: nowrap;
+    			right: 0;
+			}
+			#ro-right .bott i input {
+				flex: 1;
+				height: auto;
+				font-size: .5rem;
+				text-align: right;
+			}
+			#ro-right .bott i input:nth-child(2) {
+				text-align: center;
+			}
+			i.num input:nth-child(2) {
+			     width: 50%; 
+			     height: auto; 
+			     color: #9E9E9E; 
+			     font-size: .5rem;
+			     border: none; 
+			     text-align: center;
 			}
 		</style>
 	</head>
@@ -82,7 +112,9 @@
 						 	<b>￥{{$v['price']/100}}</b>
 						 	<!-- <p class="">X{{$v['num']}}</p> -->
 						 	<i>
-								<input type="button" value="━" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="{{$v['num']}}"><input type="button" value="╋" class="plus">
+								<input type="button" value="x" class="minus">
+								<input fid="{{$v['id']}}" class="num" type="number" value="{{$v['num']}}">
+								<!-- <input type="button" value="" class="plus"> -->
 							</i>
 						</div>
 					</div>
@@ -93,14 +125,16 @@
 			<foreach name="setmeal" item="vo" key="ke">
 			<div class="item">
 				<div id="mo2">
-					<input class="del" type="text" value="━" readonly>
+					<input class="del" type="text" value="—" readonly>
 					<div id="mo-right">
 						<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
 						
 					</div>
 					<p class="bill" style="position: relative;">
 						<i class="num">
-							<input type="button" value="━" class="minus"><input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}"><input type="button" value="╋" class="plus">
+							<input type="button" value="x" class="minus">
+							<input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}">
+							<!-- <input type="button" value="" class="plus"> -->
 						</i>
 					</p>
 				</div>
@@ -148,109 +182,109 @@
 		/**
 		 *  减号按钮让产品购买数量自减
 		 */
-		$('.minus').click(function(){
-			// 点击减号按钮获取当前产品的value值,隐式转数值型
-			var num = $(this).next('input').val()-0;
-			var type = $(this).next('input').attr('sid')?'sid':'fid';
-			var typeValue = $(this).next('input').attr(type);
-			// 判断产品数量大于0
-			if(num>1){
-				// 产品数量自减
-				$(this).next('input').val(--num);
+		// $('.minus').click(function(){
+		// 	// 点击减号按钮获取当前产品的value值,隐式转数值型
+		// 	var num = $(this).next('input').val()-0;
+		// 	var type = $(this).next('input').attr('sid')?'sid':'fid';
+		// 	var typeValue = $(this).next('input').attr(type);
+		// 	// 判断产品数量大于0
+		// 	if(num>1){
+		// 		// 产品数量自减
+		// 		$(this).next('input').val(--num);
 
-				// 异步请求，修改购物车
-				$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
-					// 判断购物车是否添加成功
-					if(res==1){
-						//alert('修改成功');
-						// 刷新页面
-						location.reload();
-					}
-				});
+		// 		// 异步请求，修改购物车
+		// 		$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
+		// 			// 判断购物车是否添加成功
+		// 			if(res==1){
+		// 				//alert('修改成功');
+		// 				// 刷新页面
+		// 				location.reload();
+		// 			}
+		// 		});
 
-				// 如果产品数量等于0
-				if(num==0){
-					// 找祖先元素.item下面的子元素hr设置样式
-					$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
-					// 找祖先元素.item设置样式
-					$(this).parents('.item').css({'background':'#FFF'});
-					// 清除class属性fid值或sid值
-					$(this).next('input').removeClass(type);
-				}
-			}
-		});
+		// 		// 如果产品数量等于0
+		// 		if(num==0){
+		// 			// 找祖先元素.item下面的子元素hr设置样式
+		// 			$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
+		// 			// 找祖先元素.item设置样式
+		// 			$(this).parents('.item').css({'background':'#FFF'});
+		// 			// 清除class属性fid值或sid值
+		// 			$(this).next('input').removeClass(type);
+		// 		}
+		// 	}
+		// });
 
 		/**
 		 *  加号按钮让产品购买数量自增
 		 */
-		$('.plus').click(function(){
-			// 点击加号按钮获取当前产品的value值,隐式转数值型
-			var num = $(this).prev('input').val()-0;
-			var type = $(this).prev('input').attr('sid')?'sid':'fid';
-			var typeValue = $(this).prev('input').attr(type);
-			//alert(typeValue)
-			// 判断产品数量小于库存
-			if(true){
-				// 产品数量自增
-				$(this).prev('input').val(++num);
+		// $('.plus').click(function(){
+		// 	// 点击加号按钮获取当前产品的value值,隐式转数值型
+		// 	var num = $(this).prev('input').val()-0;
+		// 	var type = $(this).prev('input').attr('sid')?'sid':'fid';
+		// 	var typeValue = $(this).prev('input').attr(type);
+		// 	//alert(typeValue)
+		// 	// 判断产品数量小于库存
+		// 	if(true){
+		// 		// 产品数量自增
+		// 		$(this).prev('input').val(++num);
 
-				// 异步请求，修改购物车
-				$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
-					// 判断购物车是否添加成功
-					if(res==1){
-						//alert('修改成功');
-						// 刷新页面
-						location.reload();
-					}
-				});
-				// 找祖先元素.item设置样式
-				$(this).parents('.item').css({'background':'#F0F0F0'});
-				// 找祖先元素.item下面的子元素hr设置样式
-				$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
-				// 给被选中的产品添加class属性fid值
-				$(this).prev('input').addClass(type);
-			}
-		});
+		// 		// 异步请求，修改购物车
+		// 		$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
+		// 			// 判断购物车是否添加成功
+		// 			if(res==1){
+		// 				//alert('修改成功');
+		// 				// 刷新页面
+		// 				location.reload();
+		// 			}
+		// 		});
+		// 		// 找祖先元素.item设置样式
+		// 		$(this).parents('.item').css({'background':'#F0F0F0'});
+		// 		// 找祖先元素.item下面的子元素hr设置样式
+		// 		$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+		// 		// 给被选中的产品添加class属性fid值
+		// 		$(this).prev('input').addClass(type);
+		// 	}
+		// });
 
 		/**
 		 *  失去焦点事件检测产品购买数量设置样式
 		 */
-		$('.num').blur(function(){
-			// 获取产品购买数量
-			var num = $(this).val()-0;
-			var type = $(this).attr('sid')?'sid':'fid';
-			var typeValue = $(this).attr(type);
+		// $('.num').blur(function(){
+		// 	// 获取产品购买数量
+		// 	var num = $(this).val()-0;
+		// 	var type = $(this).attr('sid')?'sid':'fid';
+		// 	var typeValue = $(this).attr(type);
 
-			if(num<=0){
-				// 异常处理
-				$(this).val(1);
-				num = 1;
-				// 找祖先元素.item下面的子元素hr设置样式
-				$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
-				// 找祖先元素.item设置样式
-				$(this).parents('.item').css({'background':'#FFF'});
-				// 清除class属性fid值	
-				$(this).removeClass(type);
-			}else{
-				// 找祖先元素.item设置样式
-				$(this).parents('.item').css({'background':'#F0F0F0'});
-				// 找祖先元素.item下面的子元素hr设置样式
-				$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
-				// 给被选中的产品添加class属性fid值
-				$(this).addClass(type);
-			}
+		// 	if(num<=0){
+		// 		// 异常处理
+		// 		$(this).val(1);
+		// 		num = 1;
+		// 		// 找祖先元素.item下面的子元素hr设置样式
+		// 		$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
+		// 		// 找祖先元素.item设置样式
+		// 		$(this).parents('.item').css({'background':'#FFF'});
+		// 		// 清除class属性fid值	
+		// 		$(this).removeClass(type);
+		// 	}else{
+		// 		// 找祖先元素.item设置样式
+		// 		$(this).parents('.item').css({'background':'#F0F0F0'});
+		// 		// 找祖先元素.item下面的子元素hr设置样式
+		// 		$(this).parents('.item').find("hr").css({'border':'1px solid #7D7FCE'});
+		// 		// 给被选中的产品添加class属性fid值
+		// 		$(this).addClass(type);
+		// 	}
 
-			// 异步请求，修改购物车
-			$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
-				// 判断购物车是否添加成功
-				if(res==1){
-					//alert('修改成功');
-					// 刷新页面
-					location.reload();
-				}
-			});
+		// 	// 异步请求，修改购物车
+		// 	$.post('{{:U("ShoppingCart/reviseCart")}}',{data:{type:type,typeValue:typeValue,num:num}}, function(res){
+		// 		// 判断购物车是否添加成功
+		// 		if(res==1){
+		// 			//alert('修改成功');
+		// 			// 刷新页面
+		// 			location.reload();
+		// 		}
+		// 	});
 
-		});
+		// });
 
 		/**
 		 * 删除购物车中的某件产品
