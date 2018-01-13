@@ -22,7 +22,7 @@ class FeedsController extends CommonController
                 'content' => I('content'),
                 'uid' => $_SESSION['homeuser']['id'],
                 'addtime' => time(),
-                'did' => session('did'),
+                'did' => $_SESSION['homeuser']['did'],
             );
 
             // 实例化
