@@ -144,7 +144,7 @@
 		var lineRight = sessionStorage.getItem("lineRight"),
 			lineLeft = sessionStorage.getItem("lineRight");
 
-		if(lineMove == lineLeft){	//上次选择的是充值
+		if(lineMove == lineLeft && lineMove && lineLeft ){	//上次选择的是充值
 			$("#lineDiv").css({left: lineLeft + 'px'});
 
 			// // 显示当前的内容盒子
@@ -152,7 +152,7 @@
 			// 下划线动画
 			$('._line').animate({left:lineLeft+'px'});
 
-		}else if(lineMove == lineRight){	//上次选择的是滤芯
+		}else if(lineMove == lineRight && lineMove && lineRight){	//上次选择的是滤芯
 			$("#lineDiv").css({left: lineRight + 'px'});
 
 			// // 显示当前的内容盒子
