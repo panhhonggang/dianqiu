@@ -55,7 +55,7 @@
 <!-- 设备状态显示页面 -->
 <section class="DeviceStausePage">
     <input type="hidden" class="hiddenValue" value="5" name="">
-    <!-- <input type="hidden" class="deviceID" value="2147483647" name=""> -->
+    <input type="hidden" class="devicestatus" value="" name="">
     <input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
     <input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
     <input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
@@ -240,70 +240,7 @@ var deviceInfoHtml='';
 deviceInfoHtml='<div><span><img src="__PUBLIC__/Home/images/4_47.png" alt="">&nbsp;纯水&nbsp;<span class="rawtdsVal"></span>'+(deviceInfo.rawtds-0)+'ppm</span><span class="spanTow"><img src="__PUBLIC__/Home//images/4_43.png" alt="">&nbsp;原水&nbsp;<span class="puretdsVal">'+(deviceInfo.puretds-0)+'ppm</span></span></div><div><span>剩余流量&nbsp;<span class="reflowVal">'+(deviceInfo.reflow-0)+'L</span></span><span class="spanTow">已用流量&nbsp;<span class="sumflowVal">'+(deviceInfo.sumflow-0)+'L</span></span></div>';
 $("#waterDetial").html(deviceInfoHtml);
 
-machineStatus();
-//判断水机状态
-//制水
-function addwater(){
-    addCanvas("#37BBD4","#87E8FD",-0.83);
-    $(".status_text").html("制水");
-    $(".addwater").show();
-    $(".dripping").show();
-    $(".ring-inside").show();
-}
-//冲洗
-function wash(){
-    addCanvas("#37BBD4","#87E8FD",-0.83);
-    $(".status_text").html("冲洗");
-    $(".wash").show();
-    $(".ring-inside").show();
-    $(".ring-out").show();
-}
-//缺水
-function lessWaters(){
-    addCanvas("#D34656","#FD8795",-0.83);
-    $(".status_text").html("缺水");
-    $(".ring-inside").show();
-    $(".ring-out").show();
-}
-//水满
-function fullWaters(){
-    addCanvas("#37BBD4","#87E8FD",0.65);
-    $(".status_text").html("水满");
-    $(".ring-inside").show();
-    $(".ring-out").show();
-}
-//检修
-function service(){
-    addCanvas("#37BBD4","#87E8FD",0.65);
-    $(".status_text").html("检修");
-    $(".service").show();
-    $(".ring-inside").show();
-    $(".ring-out").show();
-}
-//关机
-function showDown(){
-    $(".status_text").html("");
-    $(".canvasBox").css({filter:'grayscale(100%)'});
-    $(".btnList").css({filter:'grayscale(100%)'});
-}
-//显示当前设备状态
-function machineStatus(){
-    if($(".hiddenValue").val()==0){//制水
-        addwater();
-    }else if($(".hiddenValue").val()==1){//冲洗
-        wash();
-    }else if($(".hiddenValue").val()==2){//水满
-        fullWaters();
-    }else if($(".hiddenValue").val()==3){//缺水
-        lessWaters();
-    }else if($(".hiddenValue").val()==5){//检修
-        service();
-    }else if($(".hiddenValue").val()==7){ //关机
-        showDown();
-    }else if($(".hiddenValue").val()==8){//开机
-        $(".footerBtn span").html("关机");
-    }
-}
+
 
 
 
@@ -315,6 +252,9 @@ var $tab_li = $('._ul li');
 var $_box = $('#_box');
 var data=JSON.parse($(".status").val());
 var res=JSON.parse($('.res').val());
+// var devicestause=data.devicestause;
+var devicestause=data.devicestause;
+console.log(data);
 // var deviceId=data.deviceid;//设备id
 deviceId=112233445566778;//设备id
 var PackNum=0;//包数据
@@ -392,7 +332,70 @@ websoket.onopen=function(){
 
     }
 
-
+machineStatus();
+//判断水机状态
+//制水
+function addwater(){
+    addCanvas("#37BBD4","#87E8FD",-0.83);
+    $(".status_text").html("制水");
+    $(".addwater").show();
+    $(".dripping").show();
+    $(".ring-inside").show();
+}
+//冲洗
+function wash(){
+    addCanvas("#37BBD4","#87E8FD",-0.83);
+    $(".status_text").html("冲洗");
+    $(".wash").show();
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//缺水
+function lessWaters(){
+    addCanvas("#D34656","#FD8795",-0.83);
+    $(".status_text").html("缺水");
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//水满
+function fullWaters(){
+    addCanvas("#37BBD4","#87E8FD",0.65);
+    $(".status_text").html("水满");
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//检修
+function service(){
+    addCanvas("#37BBD4","#87E8FD",0.65);
+    $(".status_text").html("检修");
+    $(".service").show();
+    $(".ring-inside").show();
+    $(".ring-out").show();
+}
+//关机
+function showDown(){
+    $(".status_text").html("");
+    $(".canvasBox").css({filter:'grayscale(100%)'});
+    $(".btnList").css({filter:'grayscale(100%)'});
+}
+//显示当前设备状态
+function machineStatus(){
+    if(devicestause==0){//制水
+        addwater();
+    }else if(devicestause==1){//冲洗
+        wash();
+    }else if(devicestause==2){//水满
+        fullWaters();
+    }else if(devicestause==3){//缺水
+        lessWaters();
+    }else if(devicestause==5){//检修
+        service();
+    }else if(devicestause==7){ //关机
+        showDown();
+    }else if($(".hiddenValue").val()==8){//开机
+        $(".footerBtn span").html("关机");
+    }
+}
 
     //按钮操作
     $('.clickBtn').click(function(){
@@ -444,19 +447,20 @@ websoket.onopen=function(){
                     cmd:ajson,
                     type:type
                 });
+                window.location.reload();
                 //判断是否操作成功
-                setInterval(function(){
-                    if(_this=="开机"){
-                        ajson['DeviceStause']=8;
-                        _this="关机中";
-                    }else if(_this=="关机"){
-                        ajson['DeviceStause']=7;
-                        _this="开机中";
-                    }else if(_this=="复位"){
-                        ajson['ReFlowFilter'+filterN]=0;
-                        ajson['ReDayFilter'+filterN]=0;
-                    }
-                },5000);
+                // setInterval(function(){
+                //     if(_this=="开机"){
+                //         ajson['DeviceStause']=8;
+                //         _this="关机中";
+                //     }else if(_this=="关机"){
+                //         ajson['DeviceStause']=7;
+                //         _this="开机中";
+                //     }else if(_this=="复位"){
+                //         ajson['ReFlowFilter'+filterN]=0;
+                //         ajson['ReDayFilter'+filterN]=0;
+                //     }
+                // },5000);
             });
         });
     });
