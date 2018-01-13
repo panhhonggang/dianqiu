@@ -204,7 +204,7 @@ function addCanvas(color1,color2,waterYield){
 // 设备状态页面数据渲染
 var deviceInfo=JSON.parse($(".deviceInfo").val());
 var deviceInfoHtml='';
-deviceInfoHtml='<div><span><img src="__PUBLIC__/Home/images/4_47.png" alt="">&nbsp;纯水&nbsp;<span class="rawtdsVal"></span>'+deviceInfo.rawtds+'ppm</span><span class="spanTow"><img src="__PUBLIC__/Home//images/4_43.png" alt="">&nbsp;原水&nbsp;<span class="puretdsVal">'+deviceInfo.puretds+'ppm</span></span></div><div><span>剩余流量&nbsp;<span class="reflowVal">'+deviceInfo.reflow+'L</span></span><span class="spanTow">已用流量&nbsp;<span class="sumflowVal">'+deviceInfo.sumflow+'L</span></span></div>';
+deviceInfoHtml='<div><span><img src="__PUBLIC__/Home/images/4_47.png" alt="">&nbsp;纯水&nbsp;<span class="rawtdsVal"></span>'+(deviceInfo.rawtds-0)+'ppm</span><span class="spanTow"><img src="__PUBLIC__/Home//images/4_43.png" alt="">&nbsp;原水&nbsp;<span class="puretdsVal">'+(deviceInfo.puretds-0)+'ppm</span></span></div><div><span>剩余流量&nbsp;<span class="reflowVal">'+(deviceInfo.reflow-0)+'L</span></span><span class="spanTow">已用流量&nbsp;<span class="sumflowVal">'+(deviceInfo.sumflow-0)+'L</span></span></div>';
 $("#waterDetial").html(deviceInfoHtml);
 
 machineStatus();
