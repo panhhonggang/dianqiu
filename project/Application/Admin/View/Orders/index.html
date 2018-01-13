@@ -97,7 +97,7 @@
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <form id="_orders" class="form-inline" action="__URL__/edit/order_id/{{$vo.order_id}}/is_receipt/1"
+                            <form id="_orders" class="form-inline" url="__URL__/edit/order_id/{{$vo.order_id}}/is_receipt/1"
                             method="post">
                                 <table class="table table-striped table-bordered table-hover table-condensed">
                                     <tr>
@@ -143,6 +143,8 @@
                 $('table tr th').css('vertical-align','middle');
                 $('._send').click(function(){
                     $('#_send').modal('show');
+                    var _order_id = $(this).parent().parent().parent().children().eq(0).text().trim()
+                    $('#_orders').attr('action','__URL__/edit/order_id/'+_order_id+'/is_receipt/1')
                 });
 
                 $('#input_name').change(function(){
