@@ -19,6 +19,36 @@
     #lvxinIntroduce>div:nth-of-type(1) {
         border-top: 1px solid #ccc;
     }
+    #lvxinDetailUL .checkbox {
+        display: none;
+    }
+    .progress {
+        position: relative;
+    }
+    .progress>.checkbox {
+        width: 3vh;
+        height: 3vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        margin-left: -4vh;
+        border: 1px solid #666;
+        border-radius: 3vh;
+    }
+    .progress>.checkbox>input[type="checkbox"] {
+        width: 2.2vh;
+        height: 2.2vh;
+        position: relative;
+        border: none;
+        outline: none;
+        border-radius: 2.2vh;
+        /*background: #7D7FCE;*/
+    }
+    .progress>.checkbox>input[type="checkbox"]:checked {
+        background: #7D7FCE;
+    }
 </style>
 </head>
 <body>
@@ -364,6 +394,7 @@ $(".filterBtn").click(function(){
                 +'%</span></p>'+
                 '<p class="_text_align">'+
                     '<div class="progress _progress _width">'+
+                     '<div class="checkbox"><input type="checkbox" name='+ i +'></div>'+
                       '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
                       ((res[i].flowlife/res[i].timelife)*100).toFixed(0) +
                       '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
@@ -383,6 +414,7 @@ $(".filterBtn").click(function(){
                 +'%</span></p>'+
                 '<p class="_text_align">'+
                     '<div class="progress _progress _width">'+
+                     '<div class="checkbox"><input type="checkbox" name='+ reflowfilter+(i+1) +'></div>'+
                       '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
                       ((status['reflowfilter'+(i+1)]/status.sumflow)*100).toFixed(0) +
                       '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
