@@ -131,7 +131,7 @@
 			<foreach name="filters" item="v" key="k">
 			<div class="item">
 				<div id="ro1" class="ro1">
-					<div id="ro-left"><img src="__PUBLIC__/Home/images/ro_01.png" alt=""></div>
+					<div id="ro-left"><img src="__PUBLIC__/{{$v['picpath']}}" alt=""></div>
 					<div id="ro-right">
 						<div class="top">
 							<h3>{{$v['filtername']}}</h3>
@@ -194,51 +194,67 @@
 		
 		// 获取结算按钮
 		$('#foot>input[type=submit]').click(function(){
+								
+				var mainer = $('#mainer').val().match(/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/);//姓名
+				var tel = $('#tel').val().match(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/);//电话
+				var address = $('#address').val().match(/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/);//地址
 
-				var mainer = $('#mainer').val();//姓名
-				var tel = $('#tel').val();//电话
-				var address = $('#address').val()//地址
-				if(!/^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/.test(mainer)){
-					layuiHint('请输入有效收件人姓名！');
-				}else if(!/^1[34578]\d{9}$/.test(tel)){
-					layuiHint('请输入有效手机号码！');
-
-				}else if(!/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/.test(address)){
-					layuiHint('请输入有效地址！');
+				//alert(address);
+				if(mainer){
+					var name = $('#mainer').val();
 				}else{
-					$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'addres':address},function(res){
-						// 后端正则匹配错误信息
-						// console.dir(res);
-						if(res.name==-1){
-							// 用户名错误
-							console.dir('请输入正确的用户名');
-							layuiHint('请输入有效收件人姓名！');
-						}
+					// 前端正则匹配错误提示
+					// console.dir('请输入有效的，收件人姓名！');
+					layuiHint('请输入有效收件人姓名！');
 
-						if(res.phone==-1){
-							// 手机号码错误
-							console.dir('请输入正确的手机号码');
-							layuiHint('请输入有效手机号码！');
-						}
-
-						if(res.address==-1){
-							// 收货地址错误
-							console.dir('请输入正确的收货地址');
-							layuiHint('请输入有效地址！');
-						}
-						// console.log(res.expressId);
-						// 获取到收货地址
-						if(res.expressId){
-							// AJAX请求支付接口去付款
-							$.post('{{:U("PaymentSystem/sureBillPay")}}',{ 'express_id':res.expressId }, function(res){
-								weixinPay(res);
-							});	
-						}
-					});	
 				}
-				
 
-				
+				if(tel){
+					var phone = $('#tel').val();
+				}else{
+					// 前端正则匹配错误提示
+					// console.dir('请输入有效的，有效手机号码！');
+					layuiHint('请输入有效手机号码！');
+					   
+				}
+				if(address){
+					var address = $('#address').val();
+				}else{
+					// 前端正则匹配错误提示
+					// console.dir('请输入有效的，有效地址！');
+					layuiHint('请输入有效地址！');
+
+				}
+
+				$.post('{{:U("ExpressInformation/add")}}',{'name':name,'phone':phone,'addres':address},function(res){
+					// 后端正则匹配错误信息
+					// console.dir(res);
+					if(res.name==-1){
+						// 用户名错误
+						console.dir('请输入正确的用户名');
+						layuiHint('请输入有效收件人姓名！');
+					}
+
+					if(res.phone==-1){
+						// 手机号码错误
+						console.dir('请输入正确的手机号码');
+						layuiHint('请输入有效手机号码！');
+					}
+
+					if(res.address==-1){
+						// 收货地址错误
+						console.dir('请输入正确的收货地址');
+						layuiHint('请输入有效地址！');
+					}
+					// console.log(res.expressId);
+					// 获取到收货地址
+					if(res.expressId){
+						// AJAX请求支付接口去付款
+						$.post('{{:U("PaymentSystem/sureBillPay")}}',{ 'express_id':res.expressId }, function(res){
+							weixinPay(res);
+						});	
+					}
+				});	
 		});
 
 		// 微信支付方法

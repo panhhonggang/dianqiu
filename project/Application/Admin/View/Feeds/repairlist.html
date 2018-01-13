@@ -4,7 +4,7 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">建议及报修/<span>报修列表</span></div>
-            <form class="form-search fr" action="__URL__/bindinglist" method="get">
+            <form class="form-search fr" action="__URL__/repairlist" method="get">
                 <input type="text" class="input-medium" name="name" placeholder="请输入用户昵称...">
                 <button type="submit" class="btn">搜索</button>
             </form>
@@ -34,7 +34,7 @@
                             <td>{{$vo.name}}</td>
                             <td>{{$vo.phone}}</td>
                             <td>{{$vo.content}}</td>
-                            <td>{{$vo.picpath}}</td>
+                            <td><img width="40" src="__PUBLIC__{{$vo.picpath}}" alt=""></td>
                             <td>{{$vo.address}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                             <td>

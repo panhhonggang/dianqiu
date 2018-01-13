@@ -56,12 +56,12 @@
 				<b class="order-number"> 顺丰快递单号：89563230</b><br>
 			</div>
 		</div>
-		
+
 		<!-- 滤芯开始 -->
 		<div id="mo">
 			<foreach name="value['orderFilter']" item="orderFilter">
 			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
+				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
 				<div id="ro-right">
 					<div class="top">
 						<h3>{{$orderFilter['filtername']}}</h3>

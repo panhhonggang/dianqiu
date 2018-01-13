@@ -72,7 +72,7 @@ class FeedsController extends CommonController
         $total = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->field('d.*,f.id, f.content,f.addtime')
+                        ->field('d.*,f.id, f.content,f.addtime,f.picpath')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
@@ -80,10 +80,10 @@ class FeedsController extends CommonController
         $userlist = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->field('d.*,f.id, f.content,f.addtime')
+                        ->field('d.*,f.id, f.content,f.addtime,f.picpath')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
-
+        //dump($userlist);die;                
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display(); 

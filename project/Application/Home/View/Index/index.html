@@ -19,6 +19,36 @@
     #lvxinIntroduce>div:nth-of-type(1) {
         border-top: 1px solid #ccc;
     }
+    #lvxinDetailUL .checkbox {
+        display: none;
+    }
+    .progress {
+        position: relative;
+    }
+    .progress>.checkbox {
+        width: 3vh;
+        height: 3vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        margin-left: -4vh;
+        border: 1px solid #666;
+        border-radius: 3vh;
+    }
+    .progress>.checkbox>input[type="checkbox"] {
+        width: 2.2vh;
+        height: 2.2vh;
+        position: relative;
+        border: none;
+        outline: none;
+        border-radius: 2.2vh;
+        /*background: #7D7FCE;*/
+    }
+    .progress>.checkbox>input[type="checkbox"]:checked {
+        background: #7D7FCE;
+    }
 </style>
 </head>
 <body>
@@ -32,7 +62,7 @@
     <section class="btnList">
         <ul>
             <li>
-                <a class="washBtn controlBtn">
+                <a class="washBtn clickBtn">
                     <i class="i1"></i>
                     冲洗
                 </a>
@@ -77,7 +107,7 @@
     </section> 
     <footer id="footer">
         <div class="footerBtn">
-            <div class="controlBtn">开机</div>
+            <div class="controlBtn clickBtn">开机</div>
         </div>
     </footer>
 </section>
@@ -119,7 +149,7 @@
                     </ul>
                 </form>
             </div>
-
+ 
             <div class="_text_align">
                 <button class="_btn">
                     确定
@@ -128,6 +158,9 @@
         </div>
     </div>
 </section>
+<!-- layui.js -->
+<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+ <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 <script>
 // 设备状态js动画
 const c = document.getElementById('canvas');
@@ -278,7 +311,15 @@ function machineStatus(){
 //websoket
 var websoket=new WebSocket("ws://120.27.12.1:6001");
 var deviceId=$(".deviceID").val();//设备id
-
+var PackNum=0;//包数据
+var str='reflowfilter';
+    var filterHtml='';//滤芯显示html代码
+    var filterList=[];//字符串数组
+    var filterNum=[];//存放滤芯键值对
+    var CmdList=[];//命令队列
+    var reflowName=[];//存放滤芯名称
+    var data = {{$data|json_encode}};//数组转换为对象
+    var flowPercent;//剩余滤芯百分比值
 websoket.onopen=function(){
     //包数据
     ajson={
@@ -288,48 +329,146 @@ websoket.onopen=function(){
     };
     websoket.send(JSON.stringify(ajson));
 }
-//接收数据
-websoket.onmessage=function(data){
+    //实时接收数据
+    websoket.onmessage=function(data){
+        if(data.PackType=="Select")
+        {
+            $(".deviceStause").text(data.deviceStause);//设置设备状态
+            $(".puretdsVal").text(data.puretds);//设置当前设备原水值
+            $(".rawtdsVal").text(data.rawtds);//设置当前设备纯水值
+            $(".leasingmodeVal").text(data.leasingmode);//设置当前设备租赁模式
+            $(".reflow").text(data.reflow);//设置当前设备剩余流量
+            $(".reday").text(data.reday);//设置当前设备剩余天数
+            $(".filtermode").text(data.filtermode);//设置当前设备滤芯模式
+            $(".temperature").text(data.temperature);//设置当前设备温度
+            $(".updatetime").text(data.updatetime);//设置当前设备更新时间
+        }
+        else if(data.PackType=="SetData")
+        {
+            for(var i=0;i<CmdList.length;i++){
+                if(CmdList[i].PackNum==data.PackNum)
+                {
+                    if(CmdList[i].type=="关机中")
+                    {
+                        
+                    }
+                    else if(CmdList[i].type=="开机中")
+                    {
 
-    console.log(data);
-}
-// 开机/关机/冲洗按钮操作
-$(".controlBtn").click(function(){
+                    }
+                    else if(CmdList[i].type=="1")
+                    {
+                        $(".filterInfoTable").children("tr").children("td").children("span").text(100);
+                        $(".filterInfoTable").children("tr").children("td").children("div").children("p").width(100+"%");
+                    }
+                    else if(CmdList[i].type=="2")
+                    {
+                        
+                    }
+                    else if(CmdList[i].type=="3")
+                    {
+                         
+                    }
+                    else if(CmdList[i].type=="4")
+                    {
+                        
+                    }
+                    else if(CmdList[i].type=="5")
+                    {
+                        
+                    }
+                    CmdList.splice(i,1);
+                    break;
+                }
+            }
+        }
+        else if(data.PackType=="Heart")
+        {
 
-    var btnText=$(this).html();
-    var ajson;//数据对象
-    var type="";
-    var CmdList=[];//命令队列
-    ajson={
-        "DeviceID":deviceId,
-        "PackType":"SetData",
-        "Vison":0,
-        // "PackNum":PackNum,
-        "curTime":0,
-    }; 
-    if(btnText=="开机"){
-        ajson['DeviceStause']=8;
-        btnText="关机中";
-        type="关机中";  
-        alert("关机中");
-    }else if(btnText=="关机"){
-        ajson['DeviceStause']=7;
-        btnText="开机中";
-        type="开机中";
-        alert("开机中");
-    }else{
-        ajson['DeviceStause']=1;
-            type="冲洗中";
-            alert("冲洗中");
+        }
+        else if(data.PackType=="login")
+        {
+
+        }
+        //循环遍历设置滤芯剩余显示样式
+        for(var i=1;i<=$(".filterInfoTable tbody tr").length;i++){
+            var filterVal;
+            if(data['reflowfilter'+i]){
+                filterVal=data['reflowfilter'+i];
+            }else{
+                filterVal=0;
+            }
+            $(".filterInfoTable tbody tr").eq(i).children("td").children(".surplusShowColor").width(data['reflowfilter'+i]+"%");
+            $(".filterInfoTable tbody tr").eq(i).children("td").children(".surplusNum2").text(filterVal);
+        }
+
     }
-    //发送数据
-    websoket.send(JSON.stringify(ajson));
-    
-    CmdList.push({
-        cmd:ajson,
-        type:type
+
+
+
+    //按钮操作
+    $('.clickBtn').click(function(){
+        var _this=$(this).text();
+        var filterN = $(this).attr('name');
+        var ajson;//数据对象
+        //判断操作类型
+        if(_this!="复位"){
+            var tipsText = "确定要"+ _this + deviceId +"吗？";
+        } else {
+            var tipsText = "确定要"+ _this + "<a>滤芯" + filterN +"</a>吗";
+        }
+        //弹框提示
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
+                layer.close(index);
+                ajson={
+                    "DeviceID":deviceId,
+                    "PackType":"SetData",
+                    "Vison":0,
+                    "PackNum":PackNum,
+                    "curTime":0,
+                }; 
+                //根据当前设备状态设置按钮文本
+                var type=0; 
+                if(_this=="开机"){
+                    ajson['DeviceStause']=8;
+                    _this="关机中";
+                    type="关机中";
+                    
+                }else if(_this=="关机"){
+                    ajson['DeviceStause']=7;
+                    _this="开机中";
+                    type="开机中";
+
+                }else if(_this=="复位"){
+                    ajson['ReFlowFilter'+filterN]=0;
+                    ajson['ReDayFilter'+filterN]=0;
+                    type=filterN;
+                }
+                //发送数据
+                websoket.send(JSON.stringify(ajson));
+                CmdList.push({
+                    cmd:ajson,
+                    type:type
+                });
+                //判断是否操作成功
+                setInterval(function(){
+                    if(_this=="开机"){
+                        ajson['DeviceStause']=8;
+                        _this="关机中";
+                    }else if(_this=="关机"){
+                        ajson['DeviceStause']=7;
+                        _this="开机中";
+                    }else if(_this=="复位"){
+                        ajson['ReFlowFilter'+filterN]=0;
+                        ajson['ReDayFilter'+filterN]=0;
+                    }
+                },5000);
+            });
+        });
     });
-});
+
 
 // 滤芯详情页面
 var $_dian = $('._dian');
@@ -364,6 +503,7 @@ $(".filterBtn").click(function(){
                 +'%</span></p>'+
                 '<p class="_text_align">'+
                     '<div class="progress _progress _width">'+
+                     '<div class="checkbox"><input type="checkbox" name='+ i +'></div>'+
                       '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
                       ((res[i].flowlife/res[i].timelife)*100).toFixed(0) +
                       '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
@@ -383,6 +523,7 @@ $(".filterBtn").click(function(){
                 +'%</span></p>'+
                 '<p class="_text_align">'+
                     '<div class="progress _progress _width">'+
+                     '<div class="checkbox"><input type="checkbox" name='+ reflowfilter+(i+1) +'></div>'+
                       '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
                       ((status['reflowfilter'+(i+1)]/status.sumflow)*100).toFixed(0) +
                       '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+

@@ -48,7 +48,7 @@
 			<!-- 滤芯产品遍历开始 -->
 			<foreach name="value['orderFilter']" item="orderFilter">
 			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="{{$orderFilter['picpath']}}" alt=""></div>
+				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
 				<div id="ro-right">
 					<div class="top">
 						<h3>{{$orderFilter['filtername']}}</h3>
@@ -95,6 +95,7 @@
     <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
     <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<script type="text/javascript">
+		// 待完善
 		function onClickBtn(){
 			layui.use('layer', function(){
 			  var layer = layui.layer;

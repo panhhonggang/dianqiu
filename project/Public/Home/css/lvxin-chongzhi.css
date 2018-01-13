@@ -187,8 +187,7 @@ font-size: 0.426667rem;
 	bottom: 0.0rem;
 }
 #ro-right .bott i input{
-	width: 0.533333rem;
-	height: 0.533333rem;
+	padding:5px 12px;
 	text-align: center;
 	background: #fff;
 }
