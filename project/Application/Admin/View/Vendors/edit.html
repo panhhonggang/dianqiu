@@ -7,11 +7,10 @@
     <!-- from part-->
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
-            <div class="titleBar">后台管理/<span>编辑经销商</span></div>
+            <div class="titleBar">后台管理/<span>编辑经销商</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(-1)" class="btn btn-info">&lt;&lt;返回</a></div>
             <div class="formBox">
                 <foreach name="info" item="vo" key="key">
                 <form class="" action="__URL__/edit" method="post">
-                    
                     <input type="hidden" name="id" value="{{$vo.id}}">
                     <input type="hidden" name="user" value="{{$vo.user}}">
                     <input type="hidden" name="name" value="{{$vo.name}}">
