@@ -39,8 +39,8 @@
                             <td>用户ID</td>
                             <td>充值方式</td>
                             <td>订单号码</td>
-                            <td>充值流量/升</td>
-                            <td>当前流量</td>
+                            <td>充值流量/L</td>
+                            <td>当前流量/L</td>
                             <td>充值时间</td>
                         </tr>
                     </thead>
@@ -63,7 +63,6 @@
                 '1':'微信',
                 '2':'支付宝'
             }
-            console.log(user,flow,consume)
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 $('.__user').append(data.name)
