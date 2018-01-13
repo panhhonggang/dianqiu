@@ -71,7 +71,7 @@
         layui.use('layer', function(){
             var layer = layui.layer;
             layer.confirm('确定删除?', {icon: 3, title:'提示'}, function(index){
-                window.location.href='del?id='+id;
+                window.location.href='{{:U("Admin/Setmeal/del","","")}}?id='+id;
                 layer.close(index);
             });
         });
