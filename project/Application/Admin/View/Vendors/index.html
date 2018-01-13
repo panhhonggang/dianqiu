@@ -76,8 +76,9 @@
                     });
                 }
                 $('._del').click(function(){
+                    var This = this
                     tip('确定删除？','提示',function(){
-                        window.location.href = '__URL__/del/id/{{$vo.id}}'
+                        window.location.href = $(This).attr('url').trim()
                     })
                     return false
                 })
