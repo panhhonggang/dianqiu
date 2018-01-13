@@ -1,7 +1,7 @@
 <include file="Public/header" />
 <div class="content" style="background-color: #ECF0F5">
     <include file="Public/nav" />
-        <div class="row-fluid fl" id="main">
+        <div class="row-fluid fl" id="main" style="margin-bottom: 50px">
             <div style="padding: 0 15px;">
                  <div class="titleBar">设备管理/<span>设备列表/设备详情</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(-1)" class="btn btn-info">&lt;&lt;返回</a></div>
                 <h1 class="text-center _dev">当前设备：</h1>
@@ -72,23 +72,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="_tb" style="margin-bottom: 50px;">
-                    <h2>使用记录</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>序号</td>
-                                <td>IC卡编号</td>
-                                <td>使用时间</td>
-                                <td>使用流量/mL</td>
-                                <td>使用地址</td>
-                            </tr>
-                        </thead>
-                        <tbody class="_list">
-                            
-                        </tbody>
-                    </table>
-                </div>
+              
                 <script>
                     var devicestause = {
                         '0':'制水',
@@ -227,20 +211,7 @@
                                             '</tr>'
                                 $('._vendor').html(_html3)
                             }
-                            //使用记录
-                            if(data.list.length){
-                                var _html4 = ''
-                                data.list.forEach(function(el,i,arr){
-                                    _html4 += '<tr>'+
-                                                '<td>'+(el.id?el.id:'--')+'</td>'+
-                                                '<td>'+(el.icid?el.icid:'--')+'</td>'+
-                                                '<td>'+(el.addtime?new Date(el.addtime*1000).toLocaleString():'--')+'</td>'+
-                                                '<td>'+(el.flow?el.flow:(el.time?el.time:'--'))+'</td>'+
-                                                '<td>'+(el.address?el.address:'--')+'</td>'+
-                                                '</tr>'
-                                })
-                                $('._list').html(_html4)
-                            }
+                         
                         }
                     })
                 </script>
