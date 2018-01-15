@@ -155,7 +155,7 @@
             var _reday = data.statu.reday?data.statu.reday:'--'
             var html2 = '<tr>'+
                             '<td>'+'设备编号'+'</td>'+
-                            '<td>'+_deviceid+'</td>'+
+                            '<td class="deviceId">'+_deviceid+'</td>'+
                         '</tr>'+
                         '<tr>'+
                             '<td>'+'设备状态'+'</td>'+
@@ -227,15 +227,15 @@
     var filterNum=[];//存放滤芯键值对
     var CmdList=[];//命令队列
     var reflowName=[];//存放滤芯名称
-    // var data = {{$data|json_encode}};//数组转换为对象
     var flowPercent;//剩余滤芯百分比值
 
     //websoket  
     //1.建立连接
     var websoket= new WebSocket("ws://120.27.12.1:6001");
     //2.打开事件
-    // var deviceId=$(".deviceID").text();//设备id
-    var deviceId=112233445566778;
+    var deviceId=$(".deviceId").text();//设备id
+    // var deviceId=112233445566778;
+
     websoket.onopen=function(){
         //发送包数据
         ajson={
