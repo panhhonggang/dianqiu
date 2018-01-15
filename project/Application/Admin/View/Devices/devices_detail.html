@@ -146,6 +146,7 @@
                 $_table.append(html)
             })
             //设备信息
+            //激活状态  待修复，调换位置即可
             var _devicestause = devicestause[data.statu.devicestause]?devicestause[data.statu.devicestause]:'--'
             var _address = data.statu.address?data.statu.address:'--'
             var _deviceid = location.hash.slice(1)
@@ -205,7 +206,7 @@
                             '<td>'+'更新时间'+'</td>'+
                             '<td>'+(data.statu.updatetime?new Date(data.statu.updatetime*1000).toLocaleString():'--')+'</td>'+
                         '</tr>'
-            $_table2.append(html2)
+            $_table2.append(html2);
             //经销商列表
             if(data.vendor){
                 var _html3 = '<tr>'+

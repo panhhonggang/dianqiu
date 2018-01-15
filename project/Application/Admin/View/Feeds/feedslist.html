@@ -32,7 +32,9 @@
                         <td>{{$vo.content}}</td>
                         <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                         <td>
-                            <a href="javascript:void(0)" url="__URL__/feedsdel/id/{{$vo.id}}" class="_del">删除</a>                          
+                            <!-- <a href="javascript:void(0)" url="__URL__/feedsdel/id/{{$vo.id}}" class="_del">删除</a> -->
+                            <a href="javascript:;" class="_del">删除</a>
+                            <input type="hidden" value="{{$vo.id}}" />              
                         </td>
                     </tr>
                     </foreach>
@@ -60,11 +62,14 @@
                         });
                     });
                 }
+                
                 $('._del').click(function(){
+                    var a=$(this).siblings().val();
                     tip('确定删除？','提示',function(){
-                        window.location.href = "__URL__/feedsdel/id/{{$vo.id}}"
+                        window.location.href = "feedsdel?id="+a;
+                        // window.location.href='delete?id='+id;
                     })
-                    return false
+                    return false;
                 })
             </script>
         </div>

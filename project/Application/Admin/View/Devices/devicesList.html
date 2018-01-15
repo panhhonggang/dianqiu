@@ -12,7 +12,7 @@
                 <table class="table table-bordered table-hover text-center" >
                     <thead class="h4 ">
                         <tr class="danger">
-                            <td>ID</td>
+                            <td>编号</td>
                             <td>设备编号</td>
                             <td>经销商名称</td>
                             <td>设备类型(滤芯)</td>
@@ -24,9 +24,10 @@
                         <empty name="deviceInfo['data']">
                             <tr><td colspan="8">暂无设备信息</td></tr>
                         <else />
-                            <volist name="deviceInfo['data']" id="data">
+                    <foreach name="deviceInfo['data']" item="data" key="key">
+
                                 <tr>
-                                    <td>{{$data.id}}</td>
+                                    <td>{{$key+1}}</td>
                                     <td>
                                         <a class="btn-link detail" href="__URL__/devices_detail.html#{{$data.device_code}}">{{$data.device_code}}
                                         </a>
@@ -41,7 +42,7 @@
                                         <td>已激活</td>
                                     </if>
                                 </tr>
-                            </volist>
+                            </foreach>
                         </empty>
                     </tbody>
                 </table>
