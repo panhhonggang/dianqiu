@@ -97,18 +97,17 @@
 				display: flex;
 				align-items: center;
 				position: relative;
-			}
-			#ro-right .bott i>input {
+				margin-left: 6px;
+			} 
+			#ro-right .bott i input {
 				width: 33.33% !important;
 				padding: 0;
-				display: flex;
-				justify-content: center;
-				align-items: center;
 				background: #fff;
 				border: 1px solid;
 				border-radius: 6px;
 				appearance: none;
 				-webkit-appearance: none;
+				text-align: center;
 			}
 			#ro-right .top p {
 				display: -webkit-box;
@@ -146,12 +145,12 @@
 						<div id="ro-right">
 							<div class="top">
 								<h3>{{$v['filtername']}}</h3>
-								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}指的是法国色哥哥三个指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色指的是法国色哥哥三个色色</p>
+								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
 							</div>
 							<div class="bott">
 							 <b>￥{{$v['price']/100}} </b>
 							 <i>
-							 	<input type="button" value="━" class="minus" style="width:30px;height:25px"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input style="width:30px;height:25px" type="button" value="╋" class="plus">
+							 	<input type="button" value="━" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input type="button" value="╋" class="plus">
 							 </i>
 							</div>
 						</div>
