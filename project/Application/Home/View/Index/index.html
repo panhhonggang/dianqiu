@@ -238,65 +238,181 @@ $(".filterBtn").click(function(){
 });
     // 存放膜、滤芯、滤芯简介的遍历的标签
     var moHTML = '',lvxinHTML = '',lvxinIntroduceHTML = '';
+    var leasingmode = data.leasingmode;
+    console.log(leasingmode)
     for(var i=0; i<res.length; i++){
-        // 遍历膜的详情, 不存在则不遍历
-        if(res[i].filtername){
+
+        //零售
+        if(leasingmode == 0){
+
+        }else if(leasingmode == 1){
+             // 遍历膜的详情, 不存在则不遍历
+            if(res[i].filtername){
+
+                moHTML += '<li class="_padding">'+ 
+                    '<p><span class="">'+ res[i].filtername +
+                    '</span><span class="_float_right">'+ 
+                    ((data['reflowfilter'+(i+1)]/res[i].flowlife)*100).toFixed(0)
+                    +'%</span></p>'+
+                    '<p class="_text_align">'+
+                        '<div class="progress _progress _width">'+
+                           '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
+                          '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
+                         ((data['reflowfilter'+(i+1)]/res[i].flowlife)*100).toFixed(0) +
+                          '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                        '</div>'+
+                    '</p>'+
+                '</li>';  
+            }
             
-            moHTML += '<li class="_padding">'+ 
-                '<p><span class="">'+ res[i].filtername + ' ( '+res[i].alias+ ' ) ' +
-                '</span><span class="_float_right">'+ 
-                ((res[i].flowlife/res[i].timelife)*100).toFixed(0)
-                +'%</span></p>'+
-                '<p class="_text_align">'+
-                    '<div class="progress _progress _width">'+
-                       '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
-                      '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
-                      ((res[i].flowlife/res[i].timelife)*100).toFixed(0) +
-                      '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
-                    '</div>'+
-                '</p>'+
-            '</li>';  
-        }
+            //滤芯简介
+            if(res[i].introduce && data.reflowfilter+[i+1]){
+                res[i].flowlife = !res[i].flowlife ? 0 : res[i].flowlife;
+                data['reflowfilter'+(i+1)] = !data['reflowfilter'+(i+1)] ? 0 : data['reflowfilter'+(i+1)];
 
-        // 遍历每个滤芯详情, 不存在则不遍历
-        if(status['reflowfilter'+(i+1)]){
-           
-            lvxinHTML += '<li class="_padding">'+
-                '<p><span class="">'+ 
-                status['reflowfilter'+(i+1)] +
-                '</span><span class="_float_right">'+ 
-                ((status['reflowfilter'+(i+1)]/status.sumflow)*100).toFixed(0)
-                +'%</span></p>'+
-                '<p class="_text_align">'+
-                    '<div class="progress _progress _width">'+
-                     '<div class="checkbox"><input class="chBox" type="checkbox" name='+ reflowfilter+(i+1) +'></div>'+
-                      '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
-                      ((status['reflowfilter'+(i+1)]/status.sumflow)*100).toFixed(0) +
-                      '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
-                    '</div>'+
-                '</p>'+
-            '</li>';
-        }
-        
-        //滤芯简介
-        if(res[i].introduce){
-            res[i].balancatime = !res[i].balancatime ? 0 : res[i].balancatime;
-            res[i].balancaflow = !res[i].balancaflow ? 0 : res[i].balancaflow;
+                lvxinIntroduceHTML += '<div>'+
+                    '<h3>'+
+                        res[i].filtername +
+                    '</h3>'+
+                    '<p>'+
+                        res[i].introduce +
+                    '</p>'+
+                    '<p>'+
+                        '<span class="_font_weigth">总寿命：'+ res[i].flowlife +
+                        'L</span>'+
+                        '<span class="_float_right _font_weigth">剩余：'+ data['reflowfilter'+(i+1)] +
+                        'L</span>'+
+                    '</p>'+
+                '</div>';
+            }
+        }else if(leasingmode == 2){
+            //按时间
+            // 遍历膜的详情, 不存在则不遍历
+            if(res[i].filtername){
 
-            lvxinIntroduceHTML += '<div>'+
-                '<h3>'+
-                    res[i].filtername +
-                '</h3>'+
-                '<p>'+
-                    res[i].introduce +
-                '</p>'+
-                '<p>'+
-                    '<span class="_font_weigth">总寿命：'+ res[i].balancatime +
-                    '</span>'+
-                    '<span class="_float_right _font_weigth">剩余：'+ res[i].balancaflow +
-                    'L</span>'+
-                '</p>'+
-            '</div>';
+                moHTML += '<li class="_padding">'+ 
+                    '<p><span class="">'+ res[i].filtername +
+                    '</span><span class="_float_right">'+ 
+                    ((data['redayfilter'+(i+1)]/res[i].timelife)*100).toFixed(0)
+                    +'%</span></p>'+
+                    '<p class="_text_align">'+
+                        '<div class="progress _progress _width">'+
+                           '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
+                          '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
+                         ((data['redayfilter'+(i+1)]/res[i].timelife)*100).toFixed(0) +
+                          '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                        '</div>'+
+                    '</p>'+
+                '</li>';  
+            }
+            
+            //滤芯简介
+            if(res[i].introduce){
+                console.log(data);
+                res[i].timelife = !res[i].timelife ? 0 : res[i].timelife;
+                data['redayfilter'+(i+1)] = !data['redayfilter'+(i+1)] ? 0 : data['redayfilter'+(i+1)];
+
+                lvxinIntroduceHTML += '<div>'+
+                    '<h3>'+
+                        res[i].filtername +
+                    '</h3>'+
+                    '<p>'+
+                        res[i].introduce +
+                    '</p>'+
+                    '<p>'+
+                        '<span class="_font_weigth">总寿命：'+ res[i].timelife +
+                        '天</span>'+
+                        '<span class="_float_right _font_weigth">剩余：'+ data['redayfilter'+(i+1)] +
+                        '天</span>'+
+                    '</p>'+
+                '</div>';
+            }
+        }else if(leasingmode == 3){
+            //按流量和时间
+            // 遍历膜的详情, 不存在则不遍历
+            
+           if( ((data['reflowfilter'+(i+1)]/res[i].flowlife)*100).toFixed(0) >
+            ((data['redayfilter'+(i+1)]/res[i].timelife)*100).toFixed(0) ){
+                //时间剩余比例小则显示时间
+                if(res[i].filtername){
+
+                    moHTML += '<li class="_padding">'+ 
+                        '<p><span class="">'+ res[i].filtername +
+                        '</span><span class="_float_right">'+ 
+                        ((data['redayfilter'+(i+1)]/res[i].timelife)*100).toFixed(0)
+                        +'%</span></p>'+
+                        '<p class="_text_align">'+
+                            '<div class="progress _progress _width">'+
+                               '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
+                              '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
+                             ((data['redayfilter'+(i+1)]/res[i].timelife)*100).toFixed(0) +
+                              '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                            '</div>'+
+                        '</p>'+
+                    '</li>';  
+                }
+                
+                //滤芯简介
+                if(res[i].introduce){
+                    res[i].timelife = !res[i].timelife ? 0 : res[i].timelife;
+                    res[i]['redayfilter'+(i+1)] = !res[i]['redayfilter'+(i+1)] ? 0 : res[i]['redayfilter'+(i+1)];
+
+                    lvxinIntroduceHTML += '<div>'+
+                        '<h3>'+
+                            res[i].filtername +
+                        '</h3>'+
+                        '<p>'+
+                            res[i].introduce +
+                        '</p>'+
+                        '<p>'+
+                            '<span class="_font_weigth">总寿命：'+ res[i].timelife +
+                            '</span>'+
+                            '天<span class="_float_right _font_weigth">剩余：'+ res[i]['redayfilter'+(i+1)] +
+                            '天</span>'+
+                        '</p>'+
+                    '</div>';
+                }
+            }else{
+                //流量剩余比例小则显示流量
+                if(res[i].filtername){
+
+                    moHTML += '<li class="_padding">'+ 
+                        '<p><span class="">'+ res[i].filtername +
+                        '</span><span class="_float_right">'+ 
+                       ((data['reflowfilter'+(i+1)]/res[i].flowlife)*100).toFixed(0)
+                        +'%</span></p>'+
+                        '<p class="_text_align">'+
+                            '<div class="progress _progress _width">'+
+                               '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
+                              '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+ 
+                             ((data['reflowfilter'+(i+1)]/res[i].flowlife)*100).toFixed(0) +
+                              '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                            '</div>'+
+                        '</p>'+
+                    '</li>';  
+                }
+                
+                //滤芯简介
+                if(res[i].introduce){
+                    res[i].flowlife = !res[i].flowlife ? 0 : res[i].flowlife;
+                    res[i].balancaflow = !res[i].balancaflow ? 0 : res[i].balancaflow;
+
+                    lvxinIntroduceHTML += '<div>'+
+                        '<h3>'+
+                            res[i].filtername +
+                        '</h3>'+
+                        '<p>'+
+                            res[i].introduce +
+                        '</p>'+
+                        '<p>'+
+                            '<span class="_font_weigth">总寿命：'+ res[i].flowlife +
+                            '</span>'+
+                            'L<span class="_float_right _font_weigth">剩余：'+ res[i].balancaflow +
+                            'L</span>'+
+                        '</p>'+
+                    '</div>';
+                }
+            }
         }
        
     }
