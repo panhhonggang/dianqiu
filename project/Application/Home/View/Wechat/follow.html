@@ -2,8 +2,19 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" >
 	<title>关注微信公众号</title>
 	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			width: 100vw;
+			height: 100vh;
+			overflow-x: hidden;
+		}
 		#favor {
 			width: 100vw;
 			height: 50vh;
@@ -18,39 +29,60 @@
 
 		#favor>h4,
 		#favor>img {
-			width: 50%;
+			width: 54%;
+			text-align: center;
+			white-space: nowrap;
+		}
+		#favor>img {
+			background-size: content;
 		}
 		#hand {
-			width: 10vw;
-			height: 10vw;
-			position: relative;
-			border-radius: 10vw;
-			background: #eee;
-			transform: rotate(0turn) translateX(0%);
-			animation: look 5s ease infinite;
-		}
-		@keyframes look {
-			0% {
-				transform: rotate(0turn) translateX(0%);
-			}
-			25% {
-				transform: rotate(.25turn) translateX(25%);
-			}
-			50% {
-				transform: rotate(.5turn) translateX(50%);
-			}
-			75% {
-				transform: rotate(.75turn) translateX(75%);
-			}
-			100% {
-				transform: rotate(1turn) translateX(60%);
-			}
-		}
+            width: 10vw;
+            height: 10vw;
+            position: relative;
+            margin: 3vh 0;
+            border-radius: 3vw;
+            background: -webkit-linear-gradient(top left, #47c047 14%,#7196ee);
+            -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.2);
+                    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+            -webkit-transform: rotate(0turn) translateX(0%);
+                    transform: rotate(0turn) translateX(0%);
+            -webkit-animation: look 5s ease infinite alternate;
+                    animation: look 5s ease infinite alternate;
+        }
+        @-webkit-keyframes look {
+            0% {
+                -webkit-transform: translate(-100%) rotate(0turn);
+                        transform: translate(-100%) rotate(0turn);
+            }
+            50% {
+                -webkit-transform: translate(0%) rotate(.5turn);
+                        transform: translate(0%) rotate(.5turn);
+            }
+            100% {
+                -webkit-transform: translate(100%) rotate(1turn);
+                        transform: translate(100%) rotate(1turn);
+            }
+        }
+        @keyframes look {
+            0% {
+                -webkit-transform: translate(-100%) rotate(0turn);
+                        transform: translate(-100%) rotate(0turn);
+            }
+            50% {
+                -webkit-transform: translate(0%) rotate(.5turn);
+                        transform: translate(0%) rotate(.5turn);
+            }
+            100% {
+                -webkit-transform: translate(100%) rotate(1turn);
+                        transform: translate(100%) rotate(1turn);
+            }
+        }
 	</style>
 </head>
 <body>
 	<div id="favor">
-		<h1>长按下方二维码，关注公众号</h1>
+		<h4>长按下方二维码，关注公众号</h4>
 		<div id="hand"></div>
 		<img src="__PUBLIC__/Home/images/dianqiu.jpg" alt="点球科技">
 	</div>
