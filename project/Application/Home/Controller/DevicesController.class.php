@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
+use Think\Log;
 
 class DevicesController extends CommonController 
 {
@@ -86,19 +87,34 @@ class DevicesController extends CommonController
             // 绑定设备
             $res = M('Devices')->where("`device_code`={$device_code}")->save($data);
 
+            // 查询当前用户是否有设备
+            $currenRes = M('currentDevices')->where('`uid`='.$_SESSION['homeuser']['id'])->find()['id'];
+
+            Log::write(json_encode($currenRes), '存储数据');
+
+            // 查询设备的ID
             $currentDevicesData['did'] = M('Devices')->where("`device_code`={$device_code}")->find()['id'];
-            $currentDevicesData['uid'] = $data['uid'];
-            $currentDevicesRes = M('currentDevices')->add($currentDevicesData);
+            // echo 1;die;
+            // 将设备的ID存储起来
+            $did = $currentDevicesData['did'];
 
-            if($currentDevicesRes){
-                $_SESSION['homeuser']['did'] = $currentDevicesData['did'];
+            // 判断当前设备是否存在
+            if(!empty($currenRes)){
+                // 设备存在，则更新当前设备
+                $currentDevicesRes = M('currentDevices')->where('`uid`='.$data['uid'])->save($currentDevicesData);
+
+            }else{
+                // 设备不存在，则新增当前设备
+                $currentDevicesData['uid'] = $data['uid'];
+                $currentDevicesRes = M('currentDevices')->add($currentDevicesData);
             }
-
-
+            if($currentDevicesRes) $_SESSION['homeuser']['did'] = $did;
+            
+            
             // 写入设备详细数据
             $devicesStatuData['DeviceID'] = $device_code;
-            M('devicesStatu')->add($devicesStatuData);
-
+            if(!M('devicesStatu')->where($devicesStatuData)->find()) M('devicesStatu')->add($devicesStatuData);
+            
             if($res){
                 echo 1;
                 exit;

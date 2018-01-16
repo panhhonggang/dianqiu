@@ -24,10 +24,14 @@ class FiltersModel extends Model
     // 自动完成
     protected $_auto = array ( 
         array('addtime','time',3,'function'), // 对addtime字段在新增和编辑的时候写入当前时间戳 
-
+        array('price','money',3,'callback'), 
     );
 
-
+    // 金额转单位为元
+    protected function money($money)
+    {
+        return $money*100;
+    }
    
 
     

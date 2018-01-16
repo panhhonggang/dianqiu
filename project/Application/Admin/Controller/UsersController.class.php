@@ -38,7 +38,8 @@ class UsersController extends CommonController
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->field('d.device_code,d.name,d.address,d.phone,u.*')
             ->limit($page->firstRow.','.$page->listRows)
-            ->getAll();
+            ->select();
+            // ->getAll();
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();

@@ -27,7 +27,7 @@ class FeedsController extends CommonController
                         ->field('d.*,f.id,f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->count();
-        $page  = new \Think\Page($total,1);
+        $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $userlist = $user->where($map)
                         ->alias('f')
