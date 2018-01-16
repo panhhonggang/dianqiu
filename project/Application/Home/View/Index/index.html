@@ -487,6 +487,35 @@ $(".filterBtn").click(function(){
                     '</div>';
                 }
             }
+        }else{
+
+            moHTML += '<li class="_padding">'+ 
+                '<p><span class="">'+ res[i].filtername +
+                    '</span><span class="_float_right">--%</span></p>'+
+                '<p class="_text_align">'+
+                    '<div class="progress _progress _width">'+
+                       '<div class="checkbox"><span class="chBox" name="--"></span></div>'+
+                      '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:0%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
+                    '</div>'+
+                '</p>'+
+            '</li>';  
+            
+            //滤芯简介
+            lvxinIntroduceHTML += '<div>'+
+                    '<h3>'+
+                        res[i].filtername +
+                    '</h3>'+
+                    '<p>'+
+                        res[i].introduce +
+                    '</p>'+
+                    '<p>'+
+                        '<span class="_font_weigth">总寿命：'+ res[i].timelife +
+                        '天</span>'+
+                        '<span class="_float_right _font_weigth">剩余：'+ data['redayfilter'+(i+1)] +
+                        '天</span>'+
+                    '</p>'+
+                '</div>';
+                
         }
        
     }
