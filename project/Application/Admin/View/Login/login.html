@@ -2,80 +2,82 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>公版后台登录</title>
+	<!-- jquery -->
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
     <!-- bootstrap css -->
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css" media="screen" />
+	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+     <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css" />
     <!--响应式特性 css-->
     <link href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <!-- jquery -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
+    
     <!-- bootstrap.js -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
-    <!-- 左边导航栏引用 -->
-    <script src="__PUBLIC__/Admin/js/ace.min.js"></script>
-    <link rel="stylesheet" href="__PUBLIC__/Admin/css/ace.min.css">
-    <script src="__PUBLIC__/Admin/js/adminPublic.js"></script>
-</head>
-<body>
+  
 
-    <div class="" id="login">
-        <div class="loginBox">
-            <form class="form-horizontal" action="" method="post">
-                <p>公版后台登录</p>
-                <div class="control-group">
-                    <label class="control-label" for="inputName">用户名</label>
-                    <div class="controls">
-                        <input type="text" name="name" id="inputName" placeholder="Name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="inputPassword">密码</label>
-                    <div class="controls">
-                        <input type="password" name="password" id="inputPassword" placeholder="Password">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="inputPassword">验证码</label>
-                    <div class="controls">
-                        <input type="text" name="code" class="verifyBox" placeholder="验证码"><img src="__URL__/yzm" onclick="this.src='__URL__/yzm?id=' + Math.random()">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <button type="submit" class="btn btns btn-primary form-submit">登录</button>
-                </div>
-            </form>
-            <include file="Public/footer" />
-        </div>
-    </div>
-    <style>
+	    <style>
+		*{
+			padding:0;
+			margin:0;
+			border:none;
+		}
+		body{
+			width:100%;
+			height:100%;
+			background: url(__PUBLIC__/Admin/img/logobg.jpg) no-repeat;
+			background-size: 100% 100%; 
+			border:none;
+			font-family:"黑体";
+		}
+		a,button{ 
+		outline:none;
+		}
         .form-horizontal p{
+			width:350px;
+			height:100px;
+			line-height:100px;
+			padding-left:100px;
+			margin-left:20px;
+			font-weight:bold;
+			background:url(__PUBLIC__/Admin/img/logo.png) no-repeat;
             font-size: 40px;
             text-align: center;
             margin-bottom: 50px;
         }
         .loginBox{
-            width: 500px;
-            margin:0 auto;
+            width: 546px;
+			height:800px;
+            float:right;
+			box-shadow: 40px 0 40px -40px #ccc,
+						-40px 0 40px -40px #ccc,
+						-40px 40px 40px -40px #ccc;
+			
         }
-        .controls img{
-            width: 119px;
-            height: 30px;
-            margin-left: 5px;
-        }
+        
         .verifyBox{
             width: 80px;
         }
-        .btn{
-            width: 270px;
-            height: 40px;
+        .loginbtn{
+            width: 400px;
+            height: 60px;
             line-height: 40px;
             display: block;
+			color:#fff;
             margin: 80px auto;
             border:none;
             padding: 0;
-            border-radius: 5px;
+			font-size:25px;
+            border-radius: 12px;
+			font-family:"黑体";
+			background: -moz-linear-gradient(top,  #61e5e1 0%, #2b75d4 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#61e5e1), color-stop(100%,#2b75d4));
+			background: -webkit-linear-gradient(top,  #61e5e1 0%,#2b75d4 100%);
+			background: -o-linear-gradient(top,  #61e5e1 0%,#2b75d4 100%);
+			background: -ms-linear-gradient(top,  #61e5e1 0%,#2b75d4 100%);
+			background: linear-gradient(to bottom,  #61e5e1 0%,#2b75d4 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#61e5e1', endColorstr='#2b75d4',GradientType=0 );
+
         }
         #footer div p{
             position: absolute;
@@ -84,4 +86,134 @@
             left: 0;
             text-align: center;
         }
+		.control-group{
+			width:400px;
+			height:60px;
+			line-height:60px;
+			border:1px solid #eae6e6;
+			border-radius:8px;
+			margin:0 auto;
+			 -webkit-box-shadow:0 0 8px 1px #eae6e6 inset;  
+			-moz-box-shadow:0 0 8px 1px #eae6e6 inset;  
+			box-shadow:0 0 8px 1px #eae6e6 inset;
+		}
+		.control-group label{
+			width:0;
+		}
+		.control-group span{
+			width:60px;
+			height:50px;
+			margin:5px 0 0 0;
+			border-right:1px solid #ccc;
+		}
+		.control-group .span1{
+			background:url(__PUBLIC__/Admin/img/adminlogo.jpg) no-repeat center center;
+		}
+		.control-group .span2{
+			background:url(__PUBLIC__/Admin/img/psdlogo.jpg) no-repeat center center;
+		}
+		.control-group input{
+			float:right;
+			width:310px;
+			height:30px;
+			border:0;
+			margin-top:10px;
+			background:rgba(0,0,0,0);
+			font-size:20px;
+		}
+		.control-group .inputBox{
+			height:60px;
+			width:180px;
+			float:left;
+			display:inline-black;
+			border:1px solid #eae6e6;
+			padding-left:10px;
+			border-radius:8px;
+			 -webkit-box-shadow:0 0 8px 1px #eae6e6 inset;  
+			-moz-box-shadow:0 0 8px 1px #eae6e6 inset;  
+			box-shadow:0 0 8px 1px #eae6e6 inset;  
+		}
+		.control-group > .inputBox > .verifyBox{
+			height:30px;
+			margin-top:10px;
+			width:180px;
+			
+			
+		}
+		.control-group img{
+            width: 200px;
+            height: 60px;
+            margin-left: 5px;
+        }
     </style>
+</head>
+<body>
+
+    <div class="" id="login">
+		<div class="loginleft">
+			<img class="logo1" src="__PUBLIC__/Admin/img/addwater.jpg"/>
+			<img class="logo2" src="__PUBLIC__/Admin/img/fullwaters.jpg"/>
+			<img class="logo3" src="__PUBLIC__/Admin/img/washlogo.jpg"/>
+		</div>
+        <div class="loginBox">
+            <form class="form-horizontal" action="" method="post" >
+                <p>点球互联网云平台</p>
+                <div class="control-group">
+                    <span class="span1"></span> <input type="text" name="name" id="inputName" placeholder="账号">
+                </div>
+                <div class="control-group" style="background:url(../img/logobg.jpg) 100% 100%;">
+                    <span class="span2"></span><input type="password" name="password" id="inputPassword" placeholder="密码">
+                </div>
+                <div class="control-group" style="box-shadow:none;border:0">
+                        <span class="inputBox"><input type="text" name="code" class="verifyBox" placeholder="验证码"></span><img src="__URL__/yzm" onclick="this.src='__URL__/yzm?id=' + Math.random()">
+                </div>
+                <div>
+                    <button type="submit" class="loginbtn">登&nbsp;&nbsp;录</button>
+                </div>
+            </form>
+            <include file="Public/footer" />
+        </div>
+    </div>
+	<script>
+	$(function(){
+		//登录页面左边logo图标轮播淡入淡出效果
+		var time;
+		var index = 0;
+		function autoPlay(){
+		index=$(".loginleft").index();
+		time=setInterval(function(){
+		index++;
+		if(index>3){index=0};
+		$(".loginleft img").eq(index).fadeIn(2000).siblings().fadeOut(2000);
+		},5000)
+		}
+		autoPlay();
+		
+		
+		
+		
+	});
+	$(".loginbtn").click(function(){
+
+			if($("#inputName").val()==""){
+				layui.use('layer', function(){
+					var layer = layui.layer;
+					layer.msg('请输入登录账号');
+				});  
+				return false;
+			}else if($("#inputPassword").val()==""){
+				layui.use('layer', function(){
+					var layer = layui.layer;
+					layer.msg('请输入登录密码');
+				});  
+				return false;
+			}else{
+				return true;
+			}
+		});
+	
+
+ 
+ 
+	</script>
+
