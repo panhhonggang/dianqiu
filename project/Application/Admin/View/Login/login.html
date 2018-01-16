@@ -48,7 +48,7 @@
         .loginBox{
             width: 546px;
 			height:800px;
-            float:right;
+            float:left;
 			box-shadow: 40px 0 40px -40px #ccc,
 						-40px 0 40px -40px #ccc,
 						-40px 40px 40px -40px #ccc;
@@ -114,10 +114,10 @@
 		}
 		.control-group input{
 			float:right;
-			width:310px;
-			height:30px;
+			width:312px;
+			height:50px;
 			border:0;
-			margin-top:10px;
+			padding-left:20px;
 			background:rgba(0,0,0,0);
 			font-size:20px;
 		}
@@ -134,10 +134,9 @@
 			box-shadow:0 0 8px 1px #eae6e6 inset;  
 		}
 		.control-group > .inputBox > .verifyBox{
-			height:30px;
-			margin-top:10px;
+			height:50px;
 			width:180px;
-			
+			padding-left:5px;
 			
 		}
 		.control-group img{
@@ -151,9 +150,9 @@
 
     <div class="" id="login">
 		<div class="loginleft">
-			<img class="logo1" src="__PUBLIC__/Admin/img/addwater.jpg"/>
 			<img class="logo2" src="__PUBLIC__/Admin/img/fullwaters.jpg"/>
 			<img class="logo3" src="__PUBLIC__/Admin/img/washlogo.jpg"/>
+			<img class="logo1" src="__PUBLIC__/Admin/img/addwater.jpg"/>
 		</div>
         <div class="loginBox">
             <form class="form-horizontal" action="" method="post" >
@@ -205,6 +204,12 @@
 				layui.use('layer', function(){
 					var layer = layui.layer;
 					layer.msg('请输入登录密码');
+				});  
+				return false;
+			}else if($(".verifyBox").val()==""){
+				layui.use('layer', function(){
+					var layer = layui.layer;
+					layer.msg('请输入验证码');
 				});  
 				return false;
 			}else{

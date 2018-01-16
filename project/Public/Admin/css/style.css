@@ -225,14 +225,14 @@ ul li{
 }
 /*login part css*/
 #login{
-	width:1200px;
+	width:1400px;
 	margin:0 auto;
-	background:#f00;
 }
 .loginleft{
 	width:550px;
 	height:500px;
 	float:left;
+	margin-right:180px;
 	margin-top:200px;
 	position:relative;
 }
