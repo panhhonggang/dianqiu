@@ -7,6 +7,41 @@
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 <title>点球共享水</title>
+<style>
+
+    #ulDiv {
+        height: 10vh;
+        position: fixed;
+        background: #fff;
+        z-index: 999;
+    }
+    #back2Home {
+        width: 10vh;
+        height: 8vh;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        justify-content: center;
+        -ms-align-items: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    #back2Home:active {
+        background: #ccc;
+    }
+
+    #_box {
+        height: 100vh;
+    }
+    #_box>div:nth-of-type(2) {
+        position: relative;
+        top: 10vh;
+    }
+</style>
 </head>
 <body>
 <!-- 设备状态显示页面 -->
@@ -74,6 +109,9 @@
             <li>滤芯复位</li>
         </ul>
         <div id="lineDiv" class="_line"></div>
+        <div id="back2Home">
+            <p>《 返回</p>
+        </div>
     </div>
     <div>
         <!-- 滤芯详情 -->
@@ -113,6 +151,12 @@
 <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
  <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 <script>
+// 点击滤芯详情界面左上角的返回
+$("#back2Home").click(function(){
+    $("#_box").hide();
+    $(".DeviceStausePage").show();
+})
+
 var data=JSON.parse($(".status").val());
 var res=JSON.parse($('.res').val());
 var deviceId=data.deviceid;//设备id
@@ -244,9 +288,10 @@ $(".filterBtn").click(function(){
 
         //零售
         if(leasingmode == 0){
-
+            //暂无
         }else if(leasingmode == 1){
-             // 遍历膜的详情, 不存在则不遍历
+            //流量模式
+             // 遍历滤芯详情, 不存在则不遍历
             if(res[i].filtername){
 
                 moHTML += '<li class="_padding">'+ 
@@ -308,7 +353,7 @@ $(".filterBtn").click(function(){
             
             //滤芯简介
             if(res[i].introduce){
-                console.log(data);
+                // console.log(data);
                 res[i].timelife = !res[i].timelife ? 0 : res[i].timelife;
                 data['redayfilter'+(i+1)] = !data['redayfilter'+(i+1)] ? 0 : data['redayfilter'+(i+1)];
 
@@ -432,11 +477,6 @@ $(".filterBtn").click(function(){
         ? $("._float_right").eq(i).text('100%')
         : parseInt($("._float_right").eq(i).text())
     }
-
-    // $("input[type='checkbox']").each(function(){
-    //     $(this).checked("checked").sliblings("input[type='checkbox']").checked("false")
-
-    // })
 
     // console.log('$("#lvxinDetailUL").html() ', $("#lvxinDetailUL").html());
     //滤芯显示
