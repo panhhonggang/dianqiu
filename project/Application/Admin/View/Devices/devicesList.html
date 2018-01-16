@@ -18,7 +18,6 @@
                             <td>设备类型(滤芯)</td>
                             <td>最近更新时间</td>
                             <td>设备状态</td>
-                            <td>操作</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +41,6 @@
                                         <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
                                         <td>已激活</td>
                                     </if>
-                                    <td><a device_id="{{$data.device_code}}" class="remove">解绑</a></td>
                                 </tr>
                             </foreach>
                         </empty>

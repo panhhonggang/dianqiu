@@ -245,7 +245,7 @@ class VendorsController extends CommonController
     {
         
         if ($_SESSION['adminuser']['leavel'] == 0) {
-
+            
             $res = D('binding')->delete($id);
             if($res){
                 // 更新设备绑定状态

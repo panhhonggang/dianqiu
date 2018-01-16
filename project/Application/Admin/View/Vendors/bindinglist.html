@@ -33,7 +33,7 @@
                             <td>{{$vo.phone}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                             <td>
-                                <a href="__URL__/bindingdel/id/{{$vo.id}}/did/{{$vo.did}}">解除绑定</a>
+                                <a class="remove" device_id="{{$vo.id}}" device_did="{{$vo.did}}">解除绑定</a>
                             </td>
                         </tr>
                         </foreach>
@@ -63,3 +63,15 @@
 </div>
 
 
+<script type="text/javascript">
+    $('.remove').click(function(){
+        var id=$(this).attr('device_id');
+        var did=$(this).attr('device_did');
+        console.log(id);
+        console.log(did);
+        tip('确定解除绑定？','提示',function(){
+            window.location.href = "{{:U('bindingdel')}}"+"?id="+id+"&did="+did;
+        })
+        return false;
+    })
+</script>
