@@ -111,6 +111,11 @@ class VendorsController extends CommonController
         if ($userinfo[0]['leavel'] == 0 ) {
             $this->error('不能删除超级管理员！');
         }else{
+            $res = M('binding')->where("vid=".$id)->select();
+            if(!empty($res)){
+                $this->error('已绑定设备，不可删除');
+                return false;
+            }
             // 查
             $res = D('vendors')->delete($id);
             if($res){

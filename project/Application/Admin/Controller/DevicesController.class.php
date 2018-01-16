@@ -244,24 +244,23 @@ class DevicesController extends CommonController
         $this->save_import($data);
     }
 
-    public function del()
+    // 解除绑定
+    public function remove()
     {
         $code = I('get.');
         if(empty($code)){
             $this->error('设备编码错误');
         }
         $res = M('devices')->where($code)->find();
-        if($res['uid']) $this->error("已绑定了用户，不可删除");
-        if($res){
-            $delBind = M('binding')->where('did='.$res['id'])->delete();
-        }
+        if($res['uid']) $this->error("已绑定了用户，不可解除绑定");
+        if($res) $delBind = M('binding')->where('did='.$res['id'])->delete();
         if($res || $delBind){
-            $data = M('devices')->where($code)->delete();
+            $data['binding_statu'] = 0;
+            $data = M('devices')->where($code)->save($data);
         }
-        if(!$data){
-            $this->error('删除不成功');
-        }
-        $this->success('删除成功');
+        if(!$data) $this->error('解绑失败');
+        $this->success('解绑成功');
 
     }
+
 }

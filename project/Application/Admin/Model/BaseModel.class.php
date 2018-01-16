@@ -31,7 +31,9 @@ class BaseModel extends Model{
         foreach ($data as $k => $v) {
             $data[$k]=trim($v);
         }
+        dump($data);die;
         $result=$this->where($map)->save($data);
+        echo $this->getLastSQL();die;
         return $result;
     }
 

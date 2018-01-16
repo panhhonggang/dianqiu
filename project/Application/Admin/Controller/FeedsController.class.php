@@ -27,7 +27,7 @@ class FeedsController extends CommonController
                         ->field('d.*,f.id,f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->count();
-        $page  = new \Think\Page($total,8);
+        $page  = new \Think\Page($total,1);
         $pageButton =$page->show();
         $userlist = $user->where($map)
                         ->alias('f')
@@ -47,7 +47,6 @@ class FeedsController extends CommonController
      */
     public function feedsdel($id)
     {
-        
         $res = M('feeds')->delete($id);
         if($res){
             $this->success('删除成功',U('Feeds/feedslist'));
@@ -56,7 +55,7 @@ class FeedsController extends CommonController
         }
     
     }
-
+    
     /**
      * 报修列表
      * @author 潘宏钢 <619328391@qq.com>
