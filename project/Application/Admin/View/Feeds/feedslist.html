@@ -66,8 +66,7 @@
                 $('._del').click(function(){
                     var a=$(this).siblings().val();
                     tip('确定删除？','提示',function(){
-                        window.location.href = "feedsdel?id="+a;
-                        // window.location.href='delete?id='+id;
+                        window.location.href = "__URL__/feedsdel?id="+a;
                     })
                     return false;
                 })
