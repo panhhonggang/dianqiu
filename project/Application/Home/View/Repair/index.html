@@ -142,7 +142,7 @@
 					<p>联系方式</p>
 					<p>
 						<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-						<input name="name" id="name" type="text" placeholder="请输入您的姓名">
+						<input name="name" id="name" class="name" type="text" placeholder="请输入您的姓名">
 					</p>
 					<p>
 						<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
@@ -273,21 +273,44 @@
 				$(this).remove()
 			})
 
+			// 验证姓名，手机号，地址的正则
+			var	nameReg = /^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/,
+				phoneReg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/,
+				addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
+
 			// 点击‘提交’
 			$("#re-commit").click(function(){
 
-				if($("#chooseDate").val() && $("#star").val() && $("#end").val() && $("#QUesdec").val()){
+				if($("#chooseDate").val() 
+					&& $("#star").val() && $("#end").val() 
+					&& $("#QUesdec").val() && $("#picShow").html()
+					&& (nameReg.test($(".name").val()))
+					&& (phoneReg.test($(".phone").val()))
+					&& (addressReg.test($(".address").val())) ){
 					$("#form").submit();
 
 				}else if(!$("#chooseDate").val() || !$("#star").val() || !$("#end").val()){
+					layuiHint("请选择完整的服务时间！");
 
-					layuiHint("请选择服务时间！");
 				}else if(!$("#QUesdec").val()){
-
 					layuiHint("请描述您遇到的问题！");
+
+				}else if(!$("#picShow").html()){
+					layuiHint("请上传图片！");
+
+				}else if( !(nameReg.test($(".name").val())) ){
+					layuiHint("请输入正确的姓名！");
+
+				}else if( !(phoneReg.test($(".phone").val())) ){
+					layuiHint("请输入正确的手机号码！");
+
+				}else if( !(addressReg.test($(".address").val())) ){
+					layuiHint("请输入详细地址！");
+
 				}
 
-				console.log($("#QUesdec"))
+				// console.log($("#picShow").html())
+				// console.log($("#QUesdec"))
 			})
 		})
 	
