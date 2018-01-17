@@ -78,14 +78,15 @@ h4{
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 46vh;
+	
+    top: 42vh;
 }
 .status_text_father .status_text{
     width: 100%;
     position: relative;
     text-align: center;
     color: #8A57F6;
-    font-size: 18px;
+    font-size: 20px;
 }
 .btnList{
 	width: 100vw;
@@ -118,10 +119,10 @@ h4{
     text-decoration: none;
 }
 .btnList ul li i{width: 25vw;height: 10vw; display:block; margin-bottom: 1vh;}
-.btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 35%; }
-.btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 20% 95%;}
+.btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 36%; }
+.btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 17% 95%;}
 .btnList ul li .i3{background:url("../images/mall_btnBg.png") no-repeat; background-position: 50% 30%;background-size: 35%;}
-.btnList ul li .i4{background:url("../images/my_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 35%;}
+.btnList ul li .i4{background:url("../images/my_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 34%;}
 .footerBtn{
     width: 90%; 
     height: 12vw; 
@@ -314,14 +315,14 @@ h4{
 #waterDetial {
     width: 100%;
     position: absolute;
-    bottom: 1vh;
+    bottom: 3vh;
     border-top: 1px solid rgba(190, 219, 240, 0.72);
     border-bottom: 1px solid rgba(190, 219, 240, 0.72);
     font-size: 18px;
 }
 #waterDetial>div {
     display: flex;
-    padding: 2% 6%;
+    padding: 4% 6%;
 }
 #waterDetial>div>span {
     width: 50%;
@@ -340,12 +341,13 @@ h4{
 }
 .footerBtn>div {
     width: 100%;
-    height: 12vw;
+    height: 13vw;
     position: absolute;
     top: 0;
     left: 0;
     border: 2px solid #f0f0f0;
     border-radius: 2vw;
+	font-size:20px;
 }
 #waterDetial>div .spanTow{
     display: inline-block;
