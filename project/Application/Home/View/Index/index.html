@@ -395,9 +395,9 @@ $(".filterBtn").click(function(){
                     '</p>'+
                     '<p>'+
                         '<span class="_font_weigth">总寿命：'+ res[i].timelife +
-                        '天</span>'+
+                        '小时</span>'+
                         '<span class="_float_right _font_weigth">剩余：'+ data['redayfilter'+(i+1)] +
-                        '天</span>'+
+                        '小时</span>'+
                     '</p>'+
                 '</div>';
             }
@@ -441,8 +441,8 @@ $(".filterBtn").click(function(){
                         '<p>'+
                             '<span class="_font_weigth">总寿命：'+ res[i].timelife +
                             '</span>'+
-                            '天<span class="_float_right _font_weigth">剩余：'+ res[i]['redayfilter'+(i+1)] +
-                            '天</span>'+
+                            '小时<span class="_float_right _font_weigth">剩余：'+ res[i]['redayfilter'+(i+1)] +
+                            '小时</span>'+
                         '</p>'+
                     '</div>';
                 }
@@ -507,19 +507,19 @@ $(".filterBtn").click(function(){
                 res[i].timelife = !res[i].timelife ? 0 : res[i].timelife;
                 data['redayfilter'+(i+1)] = !data['redayfilter'+(i+1)] ? 0 : data['redayfilter'+(i+1)];
                 lvxinIntroduceHTML += '<div>'+
-                        '<h3>'+
-                            res[i].filtername +
-                        '</h3>'+
-                        '<p>'+
-                            res[i].introduce +
-                        '</p>'+
-                        '<p>'+
-                            '<span class="_font_weigth">总寿命：'+ res[i].timelife +
-                            '天</span>'+
-                            '<span class="_float_right _font_weigth">剩余：'+ data['redayfilter'+(i+1)] +
-                            '天</span>'+
-                        '</p>'+
-                    '</div>';
+                    '<h3>'+
+                        res[i].filtername +
+                    '</h3>'+
+                    '<p>'+
+                        res[i].introduce +
+                    '</p>'+
+                    '<p>'+
+                        '<span class="_font_weigth">总寿命：'+ res[i].timelife +
+                        '小时</span>'+
+                        '<span class="_float_right _font_weigth">剩余：'+ data['redayfilter'+(i+1)] +
+                        '小时</span>'+
+                    '</p>'+
+                '</div>';
 
             }else{
                  //流量比例小则按流量显示
@@ -538,19 +538,19 @@ $(".filterBtn").click(function(){
                 res[i].flowlife = !res[i].flowlife ? 0 : res[i].flowlife;
                 data['reflowfilter'+(i+1)] = !data['reflowfilter'+(i+1)] ? 0 : data['reflowfilter'+(i+1)];
                 lvxinIntroduceHTML += '<div>'+
-                        '<h3>'+
-                            res[i].filtername +
-                        '</h3>'+
-                        '<p>'+
-                            res[i].introduce +
-                        '</p>'+
-                        '<p>'+
-                            '<span class="_font_weigth">总寿命：'+ res[i].flowlife +
-                            'L</span>'+
-                            '<span class="_float_right _font_weigth">剩余：'+ data['reflowfilter'+(i+1)] +
-                            'L</span>'+
-                        '</p>'+
-                    '</div>';
+                    '<h3>'+
+                        res[i].filtername +
+                    '</h3>'+
+                    '<p>'+
+                        res[i].introduce +
+                    '</p>'+
+                    '<p>'+
+                        '<span class="_font_weigth">总寿命：'+ res[i].flowlife +
+                        'L</span>'+
+                        '<span class="_float_right _font_weigth">剩余：'+ data['reflowfilter'+(i+1)] +
+                        'L</span>'+
+                    '</p>'+
+                '</div>';
             }
         }
        
