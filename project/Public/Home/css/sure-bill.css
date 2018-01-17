@@ -121,8 +121,8 @@
 	position: relative;
 }
 #mo2>#mo-right2{
-	position: absolute;
-	right: 0;
+	text-align: right;
+    width: 100%;
 }
 #mo-right2>p{
 	display: inline-block;

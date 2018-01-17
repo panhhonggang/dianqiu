@@ -23,13 +23,13 @@
 
 	<body>
 		<div id="infor">
-			<form action="{{:U('Home/Users/personalInformation')}}" method="post">
+			<form action="{{:U('Home/Users/personalInformation')}}" method="post" pos>
 			<div id="container">
 				<h3>个人信息</h3>
 				<div id="char-list">
 					<label for="name">
 						
-						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name"> 
+						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name"> 
 					    </div>
 					</label>
 					<label for="tel">
@@ -45,6 +45,25 @@
 			</div>
 			</form>
 		</div>
+		<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
+		<script>
+			$("#save").click(function(){
+				if($("#name").val()==""||$("#tel").val()==""||$("#addr").val()==""){
+					layui.use('layer', function(){
+						var layer = layui.layer;
+						layer.msg('请输入完整个人信息');
+					});  
+					return false;
+				}else if(!(/^1[34578]\d{9}$/.test($("#tel").val()))){
+					layui.use('layer', function(){
+						var layer = layui.layer;
+						layer.msg('请正确输入手机号码');
+					});  
+					return false;
+				}
+			});
+		</script>
 	</body>
 
 </html>                                                                                                                                 
