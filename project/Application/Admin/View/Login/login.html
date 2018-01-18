@@ -34,13 +34,9 @@
 		outline:none;
 		}
         .form-horizontal p{
-			width:450px;
 			height:100px;
 			line-height:100px;
-			padding-left:110px;
-			margin-left:20px;
-			background:url(__PUBLIC__/Admin/img/logo.png) no-repeat;
-			background-position:0 center;
+			text-align:center;
             font-size: 45px;
             margin-bottom: 50px;
         }
@@ -157,7 +153,7 @@
 		</div>
         <div class="loginBox">
             <form class="form-horizontal" action="" method="post" >
-                <p>点球互联网云平台</p>
+                <p>净水物联网云平台</p>
                 <div class="control-group">
                     <span class="span1"></span> <input type="text" name="name" id="inputName" placeholder="账号">
                 </div>
@@ -185,7 +181,7 @@
 		index++;
 		if(index>3){index=0};
 		$(".loginleft img").eq(index).fadeIn(2000).siblings().fadeOut(2000);
-		},5000)
+		},2000)
 		}
 		autoPlay();
 		
