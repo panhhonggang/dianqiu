@@ -94,4 +94,65 @@ class WechatController extends Controller
         $this->display();
     }
 
+
+
+    
+    /**
+     * 生成自定义菜单
+     * @return bool true or false
+     */
+    public function create_menu()
+    {
+        // $appid = C('APPID');
+        // $appsecret = C('APPSECRET');
+        // $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+
+        // $output = $this->https_request($url);
+        // $jsoninfo = json_decode($output, true);
+
+        // $access_token = $jsoninfo["access_token"];
+        // 
+        // 实例化微信JSSDK类对象
+        $wxJSSDK = new \Org\Util\WeixinJssdk;
+        // 调用获取公众号的全局唯一接口调用凭据
+        $access_token = $wxJSSDK->getAccessToken();
+
+
+        $jsonmenu = '{
+            "button":[{
+                "name":"我的水机",
+                "type":"view",
+                
+                "url":"http://pub.dianqiukj.com/"
+            }]
+        }';
+
+
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
+        $result = $this->https_request($url, $jsonmenu);
+        var_dump($result);
+
+    }
+
+    /**
+     * CURL使用
+     * @param  string $url  URL地址
+     * @param  Array $data 传递数据
+     * @return string  $output     传递数据时返回的结果
+     */
+    public function https_request($url,$data = null){
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+        if (!empty($data)){
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($curl);
+        curl_close($curl);
+        return $output;
+    }
+
 }

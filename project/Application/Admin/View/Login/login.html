@@ -30,6 +30,15 @@
 			border:none;
 			font-family:"微软雅黑";
 		}
+		.loginleft{
+			width:550px;
+			height:500px;
+			float:left;
+			margin-right:180px;
+			margin-top:200px;
+			position:relative;
+			background: url(__PUBLIC__/Admin/img/showBg.png) no-repeat 70px bottom;
+		}
 		a,button{ 
 		outline:none;
 		}
@@ -157,7 +166,7 @@
                 <div class="control-group">
                     <span class="span1"></span> <input type="text" name="name" id="inputName" placeholder="账号">
                 </div>
-                <div class="control-group" style="background:url(../img/logobg.jpg) 100% 100%;">
+                <div class="control-group">
                     <span class="span2"></span><input type="password" name="password" id="inputPassword" placeholder="密码">
                 </div>
                 <div class="control-group" style="box-shadow:none;border:0">
@@ -181,7 +190,7 @@
 		index++;
 		if(index>3){index=0};
 		$(".loginleft img").eq(index).fadeIn(2000).siblings().fadeOut(2000);
-		},2000)
+		},1000)
 		}
 		autoPlay();
 		

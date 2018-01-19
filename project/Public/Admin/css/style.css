@@ -228,14 +228,7 @@ ul li{
 	width:1400px;
 	margin:0 auto;
 }
-.loginleft{
-	width:550px;
-	height:500px;
-	float:left;
-	margin-right:180px;
-	margin-top:200px;
-	position:relative;
-}
+
 .loginleft img{
 	position:absolute;
 	margin:auto;
