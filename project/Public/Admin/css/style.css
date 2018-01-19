@@ -225,7 +225,7 @@ ul li{
 }
 /*login part css*/
 #login{
-	width:1400px;
+	width:1200px;
 	margin:0 auto;
 }
 
@@ -235,8 +235,8 @@ ul li{
 	left:0;
 	top:0;
 	bottom:0;
-	width:68%;
-	height:58%;
+
+	display:none
 }
 .textareaBox{width: 215px; min-height: 110px; border: 1px solid #ccc;}
 .textareaBox p{
