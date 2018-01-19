@@ -180,8 +180,8 @@
 var data=JSON.parse($(".status").val());
 var res=JSON.parse($('.res').val());
 var deviceInfo=JSON.parse($(".deviceInfo").val());
-//var deviceId=data.deviceid;//设备id
-var deviceId=112233445566778;//设备id
+var deviceId=data.deviceid;//设备id
+//var deviceId=112233445566778;//设备id
 var devicestause=data.devicestause;//设备状态
 console.log(data);
 
@@ -271,7 +271,7 @@ function machineStatus(){
 	}else if(devicestause==1){//冲洗
 		wash();
 	}else if(devicestause==2){//水满
-		fullWaters();
+		//fullWaters();
 	}else if(devicestause==3){//缺水
 		lessWaters();
 	}else if(devicestause==5){//检修
@@ -635,6 +635,7 @@ function service(){
     $(".service").show();
     $(".ring-inside").show();
     $(".ring-out").show();
+	$("#canvas").show();
 }
 //关机
 function showDown(){
