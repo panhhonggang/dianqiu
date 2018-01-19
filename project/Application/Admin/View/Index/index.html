@@ -1,7 +1,257 @@
 <include file="Public/header" />
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	a:link {
+		color: #fff;
+	}
+	a:visited {
+		color: #aaa;
+	}
+	a:hover {
+		color: #ddd;
+	}
+	a:active {
+		color: #999;
+	}
+	.content .welcomePage {
+		width: auto;
+	    height: auto;
+	    margin: auto auto;
+	    font-size: 40px;
+	}
+	/*内容头部*/
+	#hTop {
+		width: 85%;
+		display: inline-flex;
+		position: relative;
+		left: 0;
+		margin-top: 2%;
+	}
+	/*数字*/
+	.h1 {
+		font-size: 2rem;
+		padding: 0 4%;
+	}
+	#hTop>div {
+		width: 24%;
+		display: inline-block;
+		margin: 0 2%;
+		color: #FFF;    
+		border-radius: 3px;
+	}
+	#hTop>div:nth-of-type(1) {
+		background: #00C0EF;
+	}
+	#hTop>div:nth-of-type(2) {
+		background: #00A65A;
+	}
+	#hTop>div:nth-of-type(3) {
+		background: #F39C12;
+	}
+	#hTop>div:nth-of-type(4) {
+		background: #DD4B39;
+	}
+	/*描述*/
+	#hTop>div>p {
+		padding: 0 4%;
+		margin: 10px 0;
+		font-size: 1rem;
+	}
+	/*更多*/
+	#hTop>div>a {
+		width: 100%;
+		display: block;
+		margin-top: 6px;
+		text-align: center;
+		background: rgba(0,0,0,.1);
+		border-radius: 3px;
+	}
+	/*底部统计图、地图*/
+	#hBottom {
+		width: 85%;
+		height: 75vh;
+		position: relative;
+		top: 0;
+		left: 0;
+		margin-left: 15%;
+		padding-top: 2%;
+	}
+
+	#hBottom>div {
+		width: 46%;
+		height: 100%;
+		display: inline-block;
+		position: relative;
+		margin: 0 2%;
+	}
+	/*左侧折线图*/
+	#bottomLeft {
+		float: left;
+	}
+	#bottomLeft:after {
+		content: '';
+		display: block;
+		clear: both;
+		line-height: 1;
+		visibility: hidden;
+	}
+	#bottomLeft>div {
+		width: 100%;
+		height: 48%;
+		position: relative;
+		background: #eee;
+	}
+	#bottomLeft>div:nth-of-type(2){
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+	
+	/*右侧地图*/
+	#map {
+		float: right;
+		background: #eee;
+	}
+
+	#map:after {
+		content: '';
+		display: block;
+		clear: both;
+		line-height: 1;
+		visibility: hidden;
+	}
+</style>
 <!-- content part -->
 <div class="content">
 <include file="Public/nav" />
-	<p class="welcomePage">欢迎来到后台首页</p>
+	<!-- <p class="welcomePage">欢迎来到后台首页</p> -->
+	<!-- 内容顶部tab -->
+	<div id="hTop">
+		<div>
+			<span class="h1">0</span>￥
+			<p>当日收入环比0%</p>
+			<a href="javascript:;">更多</a>
+		</div>
+		<div>
+			<span class="h1">0.35</span>￥
+			<p>总收入</p>
+			<a href="javascript:;">更多</a>
+		</div>
+		<div>
+			<span class="h1">45</span>
+			<p>总设备数</p>
+			<a href="javascript:;">更多</a>
+		</div>
+		<div>
+			<span class="h1">84</span>
+			<p>总经销商</p>
+			<a href="javascript:;">更多</a>
+		</div>
+	</div>
+	<div id="hBottom">
+		<!-- 折线图 -->
+		<div id="bottomLeft">
+			<!-- 收入 -->
+			<div id="income"></div>
+			<!-- 新增设备 -->
+			<div id="newMoreDevice"></div>
+		</div>
+		<!-- 地图 -->
+		<div id="map"></div>
+	</div>
+	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
+	<script>
+		// 收入
+        var income = echarts.init(document.getElementById('income'));
+        // 新增设备
+        var newMoreDevice = echarts.init(document.getElementById('newMoreDevice'));
+
+        var getOption = function(_subtext, yAxis_data){
+			return option = {
+			    title: {
+			        text: '',
+			        subtext: _subtext
+			    },
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'cross'
+			        }
+			    },
+			    toolbox: {
+			        show: true,
+			        feature: {
+			            dataView: {readOnly: false},
+			            magicType: {type: ['line', 'bar']},
+			            restore: {},
+			            saveAsImage: {}
+			        }
+			    },
+			    xAxis:  {
+			        type: 'category',
+			        boundaryGap: false,
+			        data: [ '', '','2017-12-11', '', '', '2017-12-14', '', '', '2017-12-18']	//x轴坐标数据
+			    },
+			    yAxis: {
+			        type: 'category',
+			        boundaryGap: false,
+			        data: yAxis_data,	//y轴坐标数据
+			        axisPointer: {
+			            snap: true
+			        }
+			    },
+			    visualMap: {
+			        show: false,
+			        dimension: 0,
+			        pieces: [{
+			            lte: 6,
+			            color: '#00c0ef'
+			        }, {
+			            gt: 6,
+			            lte: 8,
+			            color: '#00c0ef'
+			        }, {
+			            gt: 8,
+			            lte: 14,
+			            color: '#00c0ef'
+			        }, {
+			            gt: 14,
+			            lte: 17,
+			            color: '#00c0ef'
+			        }, {
+			            gt: 17,
+			            color: '#00c0ef'
+			        }]
+			    },
+			    series: [
+			        {
+			            name:'收入',
+			            type:'line',
+			            smooth: true,
+			            data: [.3, .28, .25, .26, .27, .3, .55, .5, .4],
+			            markArea: {
+			                data: [ [{
+			                    name: '早高峰',
+			                    xAxis: '2017-12-11'
+			                }, {
+			                    xAxis: '2017-12-11'
+			                }] ]
+			            }
+			        }
+			    ]
+			};
+		} 
+		// y轴坐标数据
+		var yAxis_data = [['','',''],[ '1台', '2台', '3台']];
+		//收入 折线图显示
+        income.setOption(getOption('金额',yAxis_data[0]));
+
+		//新增设备 折线图显示
+        newMoreDevice.setOption(getOption('新增设备',yAxis_data[1]));
+	</script>
 </div>
 <include file="Public/footer" />
