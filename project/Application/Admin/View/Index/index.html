@@ -17,6 +17,9 @@
 	a:active {
 		color: #999;
 	}
+	.content {
+		background: #ecf0f5;
+	}
 	.content .welcomePage {
 		width: auto;
 	    height: auto;
@@ -35,6 +38,7 @@
 	.h1 {
 		font-size: 2rem;
 		padding: 0 4%;
+		font-weight: bold;
 	}
 	#hTop>div {
 		width: 24%;
@@ -103,7 +107,7 @@
 		width: 100%;
 		height: 48%;
 		position: relative;
-		background: #eee;
+		background: #fff !important
 	}
 	#bottomLeft>div:nth-of-type(2){
 		position: absolute;
@@ -114,7 +118,7 @@
 	/*右侧地图*/
 	#map {
 		float: right;
-		background: #eee;
+		background: #fff;
 	}
 
 	#map:after {
@@ -123,6 +127,19 @@
 		clear: both;
 		line-height: 1;
 		visibility: hidden;
+	}
+	/*标题*/
+	#map>h5 {
+		width: 100%;
+		padding: 1% 6%;
+	}
+	/*百度地图*/
+	#allmap {
+		width: 100%;
+		height: 95%;
+		overflow: hidden;
+		margin: 0;
+		font-family:"微软雅黑";
 	}
 </style>
 <!-- content part -->
@@ -161,21 +178,32 @@
 			<div id="newMoreDevice"></div>
 		</div>
 		<!-- 地图 -->
-		<div id="map"></div>
+		<div id="map">
+			<h5>水机分布图</h5>
+			<div id="allmap"></div>
+		</div>
 	</div>
 	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuzP"></script>
 	<script>
+	// var script = document.createElement("script");
+	// script.src = "http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuz";
+	// document.body.appendChild(script);
 		// 收入
         var income = echarts.init(document.getElementById('income'));
         // 新增设备
         var newMoreDevice = echarts.init(document.getElementById('newMoreDevice'));
 
 
-        var getOption = function(_subtext, yAxis_data){
+        var getOption = function(_subtext,legend_data, yAxis_data, series_data){
 			return option = {
 			    title: {
 			        text: '',
 			        subtext: _subtext
+			    },
+			    color: '#00c0ef',
+			    legend: {
+			        data: [legend_data]
 			    },
 			    tooltip: {
 			        trigger: 'axis',
@@ -185,6 +213,7 @@
 			    },
 			    toolbox: {
 			        show: true,
+			        right: '5%',
 			        feature: {
 			            dataView: {readOnly: false},
 			            magicType: {type: ['line', 'bar']},
@@ -195,7 +224,12 @@
 			    xAxis:  {
 			        type: 'category',
 			        boundaryGap: false,
-			        data: [ '', '','2017-12-11', '', '', '2017-12-14', '', '', '2017-12-18']	//x轴坐标数据
+			        interval: 1,
+			        axisLabel: {
+			        	align: 'left',
+			        	interval: 0
+			        },
+			        data: ['2017-12-11', '','2017-12-14', '','2017-12-18', '', ]	//x轴坐标数据
 			    },
 			    yAxis: {
 			        type: 'category',
@@ -232,8 +266,7 @@
 			        {
 			            name:'收入',
 			            type:'line',
-			            smooth: true,
-			            data: [.3, .28, .25, .26, .27, .3, .55, .5, .4],
+			            data: series_data,
 			            markArea: {
 			                data: [ [{
 			                    name: '早高峰',
@@ -245,14 +278,41 @@
 			        }
 			    ]
 			};
-		} 
+		}
+		var legend_data = ['收入','新增设备'];
 		// y轴坐标数据
-		var yAxis_data = [['','',''],[ '1台', '2台', '3台']];
+		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
+		// 要显示的数据
+		var series_data = [[],[]];
 		//收入 折线图显示
-        income.setOption(getOption('金额',yAxis_data[0]));
+        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0]));
 
 		//新增设备 折线图显示
-        newMoreDevice.setOption(getOption('新增设备',yAxis_data[1]));
+        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1]));
+
+        // 百度地图API功能
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		map.centerAndZoom(new BMap.Point(113.404, 23.115), 9);  // 初始化地图,设置中心点坐标和地图级别
+		//添加地图类型控件
+		map.addControl(new BMap.MapTypeControl({
+			mapTypes:[
+	            BMAP_NORMAL_MAP,
+	            BMAP_HYBRID_MAP
+	        ]}));	  
+		map.setCurrentCity("广州");          // 设置地图显示的城市 此项是必须设置的
+		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+		var marker = new BMap.Marker(new BMap.Point(116.404, 39.915)); // 创建点
+
+		$.get(
+			"{{:U('Admin/Index/index')}}",
+			function(res){
+				console.log(res);
+				for(var i in res.flows){
+					console.log(res.flows[i].money);
+				}
+			}
+		)
 	</script>
 </div>
 <include file="Public/footer" />
