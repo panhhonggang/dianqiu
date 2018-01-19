@@ -115,6 +115,50 @@ class UsersController extends CommonController
             // 'consume' => json_encode($consume),
             'show' => $show,
         ];
+        /*
+         * 用户及设备绑定和当前绑定详情
+         * 
+         * */
+        // 用户详情
+        $id = $maps['u.id'];
+
+        $userinfo = M('users')
+            ->find($id);
+        // 用户当前绑定设备
+        $current_devices = M('current_devices')
+            ->where('cd.uid='.$id)
+            ->alias('cd')
+            ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
+            ->field('d.*')
+            ->limit($page->firstRow.','.$page->listRows)
+            ->select();
+        // 用户绑定设备信息
+        $devices = M('devices')
+            ->where('uid='.$id)
+            ->select();
+        foreach ($devices as $key => $value) {
+            $device_codes[] = $value['device_code'];
+        }
+
+        // 用户绑定设备信息详情
+        $device_statu = M('devices_statu')
+            ->where(['DeviceID' => ['in',$device_codes]])
+            ->alias('ds')
+            ->field('ds.*')
+            ->limit($page->firstRow.','.$page->listRows)
+            ->select();
+        $data = ['userinfo'=>$userinfo];
+        $data['userinfo']['devices'] = $devices;
+        $data['userinfo']['current_devices'] = $current_devices;
+        foreach ($data['userinfo']['devices'] as $key => $value) {
+            foreach ($device_statu as $key2 => $value2) {
+                if ($value['device_code'] == $value2['deviceid']) {
+                   $data['userinfo']['devices']["$key"]['device_statu'] = $device_statu["$key2"];
+                }
+            }            
+        }
+        
+        $assign['userinfo'] = json_encode($data);
         $this->assign($assign);
         $this->display();
 

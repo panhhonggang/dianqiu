@@ -19,12 +19,16 @@ class DevicesController extends CommonController
         $map = '';
         if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
         $devices = D('Devices')->getDevicesInfo($map);   
-
         $assign = [
             'deviceInfo' => $devices,
         ];
         $this->assign($assign);
         $this->display('devicesList');
+    }
+
+    public function userBindDvice()
+    {
+        
     }
 
     /**
