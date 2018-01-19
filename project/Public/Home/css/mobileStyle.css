@@ -164,6 +164,9 @@ h4{
         -webkit-transform: rotate(-1turn);
     }
 }
+#lvxinReset{
+	width:100%；
+}
 .avatar{
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
