@@ -76,7 +76,7 @@ class ExpressInformationController extends CommonController
     }
 
     // 正则检测手机号码
-    public function isPhone($value,$match='/^1((((3[0-35-9])|([5|8][0-9])|(4[5|7|9])|66|(7[3|5-8])|(9[8|9]))\d)|(34[0-8]))\d{7}$/')  
+    public function isPhone($value,$match='/^1[34578]\d{9}$/')  
     { 
         $v = trim($value); 
         if(empty($v)) 

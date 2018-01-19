@@ -15,6 +15,10 @@ class UsersController extends CommonController
         ->join('pub_devices ON pub_devices.id=pub_current_devices.did')
         ->find();
 
+        // dump(session());
+        if(empty($userInfo['name']) || empty($userInfo['phone']) || empty($userInfo['address'])){
+            $this->redirect('personalinformation');
+        }
         // 分配数据到模板
         $this->assign('userInfo',$userInfo);
        
@@ -70,7 +74,7 @@ class UsersController extends CommonController
 	}
 
     // 正则检测手机号码
-    public function isPhone($value,$match='/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/')  
+    public function isPhone($value,$match='/^1[34578]\d{9}$/')  
     { 
         $v = trim($value); 
         if(empty($v)) 
