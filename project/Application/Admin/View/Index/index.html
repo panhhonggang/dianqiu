@@ -1,4 +1,5 @@
 <include file="Public/header" />
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 	* {
 		margin: 0;
@@ -43,6 +44,7 @@
 	#hTop>div {
 		width: 24%;
 		display: inline-block;
+		padding-top: 1%;
 		margin: 0 2%;
 		color: #FFF;    
 		border-radius: 3px;
@@ -131,7 +133,7 @@
 	/*标题*/
 	#map>h5 {
 		width: 100%;
-		padding: 1% 6%;
+		padding: 0% 2%;
 	}
 	/*百度地图*/
 	#allmap {
@@ -179,7 +181,10 @@
 		</div>
 		<!-- 地图 -->
 		<div id="map">
-			<h5>水机分布图</h5>
+			<h5>
+				<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+				水机分布图
+			</h5>
 			<div id="allmap"></div>
 		</div>
 	</div>
@@ -229,7 +234,8 @@
 			        data: ['2017-12-11', '','2017-12-14', '','2017-12-18', '', ]	//x轴坐标数据
 			    },
 			    yAxis: {
-			        type: 'category',
+			        type: 'value',
+			        offset: 1,
 			        boundaryGap: false,
 			        data: yAxis_data,	//y轴坐标数据
 			        axisPointer: {
@@ -280,36 +286,19 @@
 		// y轴坐标数据
 		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
 		// 要显示的数据
-		var series_data = [['43','34','32','7','0'],[]];
-		//收入 折线图显示
-        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
-		//新增设备 折线图显示
-        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
-		// 异步请求后台数据
-		$.ajax({
-			url: "{{:U('Admin/Index/index')}}",
-			type: 'post',
-			async: true,
-			dataType: 'json',
-			success: function(res){
-				
+		var series_data = [[],[]];
+		$.post(
+			"{{:U('Admin/Index/index')}}",
+			function(res){
 				// 存放总收入，总订单数量，总报修数量，总建议数量
 				var allincome = 0, orderNum = 0, repaire = 0, feeds = 0;
-				
-				console.log(res);
-				// for(var i in res.flows){
-				// 	// 遍历收入
-				// 	series_data[0].push(res.flows[i].money)
-				// }
+
 				for(var i=0; i<res.flows.length; i++){
 					// 遍历总收入
 					allincome += parseInt(res.flows[i].money);
+
 					// 遍历订单数量
 					orderNum += parseInt(res.flows[i].num);
-				}
-				for(var i in res.order_filters){
-					// 遍历新增设备数量
-					series_data[1].push(res.order_filters[i].total_num)
 				}
 				// 总收入
 				$("#allincome").text(allincome);
@@ -319,13 +308,40 @@
 				$("#repaire").text(res.$repairs.list.length);
 				// 建议数量
 				$("#feeds").text(res.feeds.list.length);
+			}
+		)
+		// 请求后台数据
+		$.ajax({
+			url: "{{:U('Admin/Index/index')}}",
+			type: 'post',
+			async: false,
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+				for(var i=0; i<res.flows.length; i++){
+					// 遍历总收入
+					series_data[0].push(parseInt(res.flows[i].money));
 
+					// 遍历订单数量
+					orderNum += parseInt(res.flows[i].num);
+				}
+				for(var i in res.order_filters){
+					// 遍历新增设备数量
+					series_data[1].push(parseInt(res.order_filters[i].total_num));
+				}
 			},
 			error: function(res){
 				console.log('错误 ',res)
 			}
 		})
+		console.log(series_data)
+		if(series_data[0].length){
 
+			//收入 折线图显示
+	        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
+			//新增设备 折线图显示
+	        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		}
 		/*************************  地图  **************************/
         // 百度地图API功能
 		var map = new BMap.Map("allmap");    // 创建Map实例
