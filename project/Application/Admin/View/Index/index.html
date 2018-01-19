@@ -149,24 +149,24 @@
 	<!-- 内容顶部tab -->
 	<div id="hTop">
 		<div>
-			<span class="h1">0</span>￥
-			<p>当日收入环比0%</p>
-			<a href="javascript:;">更多</a>
-		</div>
-		<div>
-			<span class="h1">0.35</span>￥
+			<span class="h1" id="allincome">0</span>￥
 			<p>总收入</p>
-			<a href="javascript:;">更多</a>
+			<a href="{{:U('Admin/Users/flow')}}">更多</a>
 		</div>
 		<div>
-			<span class="h1">45</span>
-			<p>总设备数</p>
-			<a href="javascript:;">更多</a>
+			<span class="h1" id="orderNum">0</span>￥
+			<p>订单数量</p>
+			<a href="{{:U('Admin/Orders/index')}}">更多</a>
 		</div>
 		<div>
-			<span class="h1">84</span>
-			<p>总经销商</p>
-			<a href="javascript:;">更多</a>
+			<span class="h1" id="repaire">0</span>
+			<p>客户报修</p>
+			<a href="{{:U('Admin//Feeds/repairlist')}}">更多</a>
+		</div>
+		<div>
+			<span class="h1" id="feeds">0</span>
+			<p>客户建议</p>
+			<a href="{{:U('Admin/Feeds/feedslist')}}">更多</a>
 		</div>
 	</div>
 	<div id="hBottom">
@@ -186,16 +186,13 @@
 	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuzP"></script>
 	<script>
-	// var script = document.createElement("script");
-	// script.src = "http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuz";
-	// document.body.appendChild(script);
+	
 		// 收入
         var income = echarts.init(document.getElementById('income'));
         // 新增设备
         var newMoreDevice = echarts.init(document.getElementById('newMoreDevice'));
 
-
-        var getOption = function(_subtext,legend_data, yAxis_data, series_data){
+        var getOption = function(_subtext,legend_data, yAxis_data, series_data, markName){
 			return option = {
 			    title: {
 			        text: '',
@@ -264,7 +261,7 @@
 			    },
 			    series: [
 			        {
-			            name:'收入',
+			            name: markName,
 			            type:'line',
 			            data: series_data,
 			            markArea: {
@@ -283,13 +280,53 @@
 		// y轴坐标数据
 		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
 		// 要显示的数据
-		var series_data = [[],[]];
+		var series_data = [['43','34','32','7','0'],[]];
 		//收入 折线图显示
-        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0]));
-
+        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
 		//新增设备 折线图显示
-        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1]));
+        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		// 异步请求后台数据
+		$.ajax({
+			url: "{{:U('Admin/Index/index')}}",
+			type: 'post',
+			async: true,
+			dataType: 'json',
+			success: function(res){
+				
+				// 存放总收入，总订单数量，总报修数量，总建议数量
+				var allincome = 0, orderNum = 0, repaire = 0, feeds = 0;
+				
+				console.log(res);
+				// for(var i in res.flows){
+				// 	// 遍历收入
+				// 	series_data[0].push(res.flows[i].money)
+				// }
+				for(var i=0; i<res.flows.length; i++){
+					// 遍历总收入
+					allincome += parseInt(res.flows[i].money);
+					// 遍历订单数量
+					orderNum += parseInt(res.flows[i].num);
+				}
+				for(var i in res.order_filters){
+					// 遍历新增设备数量
+					series_data[1].push(res.order_filters[i].total_num)
+				}
+				// 总收入
+				$("#allincome").text(allincome);
+				// 报修数量
+				$("#orderNum").text(orderNum);
+				// 报修数量
+				$("#repaire").text(res.$repairs.list.length);
+				// 建议数量
+				$("#feeds").text(res.feeds.list.length);
 
+			},
+			error: function(res){
+				console.log('错误 ',res)
+			}
+		})
+
+		/*************************  地图  **************************/
         // 百度地图API功能
 		var map = new BMap.Map("allmap");    // 创建Map实例
 		map.centerAndZoom(new BMap.Point(113.404, 23.115), 9);  // 初始化地图,设置中心点坐标和地图级别
@@ -304,15 +341,6 @@
 
 		var marker = new BMap.Marker(new BMap.Point(116.404, 39.915)); // 创建点
 
-		$.get(
-			"{{:U('Admin/Index/index')}}",
-			function(res){
-				console.log(res);
-				for(var i in res.flows){
-					console.log(res.flows[i].money);
-				}
-			}
-		)
 	</script>
 </div>
 <include file="Public/footer" />
