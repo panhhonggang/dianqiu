@@ -6,7 +6,14 @@
             <div class="tableBox">
                 <div class="titleBar">设备管理/<span>设备列表</span></div>
                 <form class="form-search fr" action="__URL__/devicesList" method="">
-                    <input type="text" class="input-medium" name="code" placeholder="请输入设备编号" / >  
+                    <span class="select-box">
+                      <select class="select" size="1" name="key" style="width: 100px;">
+                        <option value="0" selected>设备编号</option>
+                        <option value="1">经销商</option>
+                        <option value="2">设备类型</option>
+                      </select>
+                    </span>
+                    <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
                     <button type="submit" class="btn">查找</button>
                 </form>
                 <table class="table table-bordered table-hover text-center" >

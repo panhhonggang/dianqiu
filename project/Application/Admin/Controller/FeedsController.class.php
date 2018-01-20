@@ -16,9 +16,21 @@ class FeedsController extends CommonController
      */
     public function feedslist()
     {	
-        // 根据用户昵称进行搜索
+        /// 查询条件
         $map = '';
-    	if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['d.name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['d.phone'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
 
         $user = M('feeds');
         $total = $user->where($map)
@@ -62,10 +74,24 @@ class FeedsController extends CommonController
      */
     public function repairlist()
     {
-        // 根据用户昵称进行搜索
+         /// 查询条件
         $map = '';
-        if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
-
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['d.name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['d.phone'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '3':
+                    $map['d.address'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $user = M('repair');
         $total = $user->where($map)
                         ->alias('f')

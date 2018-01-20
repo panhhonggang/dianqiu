@@ -5,8 +5,16 @@
         <div class="tableBox">
             <div class="titleBar">后台管理/<span>经销商列表</span></div>
             <form class="form-search fr" action="__URL__/index" method="get">
-                <input type="text" name="name" class="input-medium" placeholder="请输入昵称...">
-                <button type="submit" class="btn">搜索</button>
+                <span class="select-box">
+                  <select class="select" size="1" name="key" style="width: 100px;">
+                    <option value="1" selected>账号</option>
+                    <option value="2">昵称</option>
+                    <option value="3">邮箱</option>
+                    <option value="4">手机号</option>
+                  </select>
+                </span>
+                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
+                <button type="submit" class="btn">查找</button>
             </form>
 
             <table class="table table-striped table-bordered">

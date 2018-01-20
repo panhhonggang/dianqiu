@@ -16,10 +16,27 @@ class VendorsController extends CommonController
      */
     public function index()
     {	
-        // 根据用户昵称进行搜索
+        /// 查询条件
         $map = '';
-    	if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
-
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['user'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '3':
+                    $map['email'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '4':                   
+                    $map['phone'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $user = D('vendors');
         $total = $user->where($map)->count();
         $page  = new \Think\Page($total,8);
@@ -211,9 +228,21 @@ class VendorsController extends CommonController
     public function bindinglist()
     {
        // 根据用户昵称进行搜索
+        /// 查询条件
         $map = '';
-        if(!empty($_GET['name'])) $map['pub_vendors.name'] = array('like',"%{$_GET['name']}%");
-
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['pub_vendors.name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['pub_vendors.phone'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $binding = M('binding');
         
         $total =$binding->where($map)
@@ -230,7 +259,8 @@ class VendorsController extends CommonController
                                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                                 ->field('pub_binding.*,pub_vendors.name,pub_vendors.phone,pub_devices.device_code')
                                 ->select();
-        // dump($bindinglist);
+        echo $binding->_sql();
+
         $this->assign('list',$bindinglist);
         $this->assign('button',$pageButton);
         $this->display(); 

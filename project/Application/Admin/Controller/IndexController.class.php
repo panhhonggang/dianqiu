@@ -6,7 +6,7 @@ class IndexController extends CommonController {
     public function index(){
     	if (IS_AJAX) {
     		// 充值数额统计数量（本月列表显示）
-	    	$flows = D('Flow')->getCurrentMonth();
+	    	$flows = D('Flow')->getTotalByEveryDay();
 
 	    	// 滤芯订单数量（以发货及未发货数量->以发货及未发货列表）
 	    	$order_filters = D('OrderFilter')->getAll();
@@ -25,7 +25,6 @@ class IndexController extends CommonController {
 	    	];
 	    	$this->ajaxReturn($data);
     	}
- 
         $this->display('index');
     }
 
@@ -34,3 +33,4 @@ class IndexController extends CommonController {
         $this->show('<h1>欢迎回来！</h1>');
     }
 }
+

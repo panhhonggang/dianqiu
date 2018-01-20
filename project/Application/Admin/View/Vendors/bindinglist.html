@@ -5,8 +5,14 @@
         <div class="tableBox">
             <div class="titleBar">后台管理/<span>设备归属列表</span></div>
             <form class="form-search fr" action="__URL__/bindinglist" method="get">
-                <input type="text" class="input-medium" name="name" placeholder="请输入经销商姓名...">
-                <button type="submit" class="btn">搜索</button>
+                <span class="select-box">
+                  <select class="select" size="1" name="key" style="width: 100px;">
+                    <option value="1" selected>经销商</option>
+                    <option value="2">手机</option>
+                  </select>
+                </span>
+                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
+                <button type="submit" class="btn">查找</button>
             </form>
             <table class="table table-striped table-bordered">
                 <thead>
