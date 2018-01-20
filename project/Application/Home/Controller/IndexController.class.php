@@ -23,20 +23,20 @@ class IndexController extends CommonController
 	        	->field('RawTDS,PureTDS,ReFlow,SumFlow')
 	        	->find();
                 // 滤芯详情
-                // $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
-                // $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->find();
-                // $type = M('device_type')->where("id={$code['type_id']}")->find();
-                // unset($type['id'], $type['typename'], $type['addtime']);
-                // $sum = array_filter($type);
-                // foreach ($sum as $key => $value) {
-                //     $str = stripos($value,'-');
-                //     $map['filtername'] = substr($value, 0,$str);
-                //     $map['alias'] = substr($value, $str+1);
-                //     $res[] = M('filters')->where($map)->find();
-                // }
+                $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
+                $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->find();
+                $type = M('device_type')->where("id={$code['type_id']}")->find();
+                unset($type['id'], $type['typename'], $type['addtime']);
+                $sum = array_filter($type);
+                foreach ($sum as $key => $value) {
+                    $str = stripos($value,'-');
+                    $map['filtername'] = substr($value, 0,$str);
+                    $map['alias'] = substr($value, $str+1);
+                    $res[] = M('filters')->where($map)->find();
+                }
                 $assign = array(
-                    // 'res' => json_encode($res),
-                    // 'status' => json_encode($status),
+                    'res' => json_encode($res),
+                    'status' => json_encode($status),
                     'deviceInfo' => json_encode($deviceInfo),
 
                 );
