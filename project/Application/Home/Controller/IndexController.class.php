@@ -52,7 +52,8 @@ class IndexController extends CommonController
 
 	}
 
-    public function filterDetail()
+    // 滤芯数据
+    public function filterDetails()
     {
         // 滤芯详情
         $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
