@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1" >
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" >
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
@@ -34,6 +34,21 @@
 	.userName,
 	.mineAddr {
 		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+	/*地址*/
+	.mineAddr>em {
+		width: 30%;
+		display: inline-block;
+		position: relative;
+		float: left;
+	}
+	.mineAddr>span {
+		width: 65%;
+		position: relative;
+		display: inline-block;
+		float: right;
 	}
 	.device_code,
 	.userPhone {
@@ -45,11 +60,19 @@
 	#deviceRepair>a {
 		position: relative;
 	}
+	.mine-name>section {
+		width: 66%;
+	    position: relative;
+	    left: 50%;
+	    margin-left: -33%;
+	}
+	.edit {
+		width: 100%;
+		position: absolute;
+		bottom: -8px;
+		text-align: center;
+	}
 	.infoBtn{
-		display:block;
-		width:50px;
-		height:20px;
-		margin-left:57vw; 
 		border-radius:5px; 
 		padding:2px 12px; 
 		border:1px solid #ccc;
@@ -81,15 +104,14 @@
 			 		<p>
 				 		<span class="mineAddr">
 				 			<em>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</em>
-				 			{{$userInfo['address']}}
+				 			<span>{{$userInfo['address']}}</span>
 				 		</span>
 				 		<span class="userPhone">
 				 			<em>手机号码：</em>
 				 			{{$userInfo['phone']}}
 				 		</span>
 			 		</p>
-					<p><a class="infoBtn" href="{{:U('personalinformation', array('name'=>$userInfo['name'],'device_code'=>$userInfo['device_code'],'address'=>$userInfo['address'],'phone'=>$userInfo['phone']))}}">编辑</a></p>
-					<b> </b>
+					<p class="edit"><a class="infoBtn" href="personalinformation">编辑</a></p>					<b> </b>
 			 	</section>
 			</div> 
 			<div class="shouFang">
