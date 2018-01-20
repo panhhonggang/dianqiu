@@ -53,7 +53,7 @@ class IndexController extends CommonController
 	}
 
     // 滤芯数据
-    public function filterDetails()
+    public function filter()
     {
         // 滤芯详情
         $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
@@ -68,7 +68,8 @@ class IndexController extends CommonController
             $res[] = M('filters')->where($map)->find();
         }
         $assign = array(
-            'deviceInfo' => json_encode($deviceInfo),
+            'res' => json_encode($res),
+            'status' => json_encode($status),
 
         );
         // 分配数据到模板
