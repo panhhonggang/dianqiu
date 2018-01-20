@@ -88,7 +88,7 @@
 				 			{{$userInfo['phone']}}
 				 		</span>
 			 		</p>
-					<p><a class="infoBtn" href="personalinformation">编辑</a></p>
+					<p><a class="infoBtn" href="{{:U('personalinformation', array('name'=>$userInfo['name'],'device_code'=>$userInfo['device_code'],'address'=>$userInfo['address'],'phone'=>$userInfo['phone']))}}">编辑</a></p>
 					<b> </b>
 			 	</section>
 			</div> 
