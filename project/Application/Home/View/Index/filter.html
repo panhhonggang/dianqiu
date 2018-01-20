@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<script src="__PUBLIC__/Home/js/flexible.js"></script> 
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 	<title>滤芯详情</title>
@@ -74,6 +75,8 @@
 	</style>
 </head>
 <body>
+    <input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
+    <input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
 <!-- 滤芯详情页面 -->
 <section id="_box">
     <div id="ulDiv">
@@ -82,9 +85,7 @@
             <li>滤芯复位</li>
         </ul>
         <div id="lineDiv" class="_line"></div>
-        <a id="back2Home" href="{{:U('Home/index/index')}}">
-            <p>《 返回</p>
-        </a>
+        <a id="back2Home" href="{{:U('Home/index/index')}}">《 返回</a>
     </div>
     <div>
         <!-- 滤芯详情 -->
@@ -100,10 +101,8 @@
         <!-- 滤芯复位 -->
         <div class="_background_color _displey">
             <!-- progress -->
-			<div class="filterBtn">
-				<ul id="lvxinReset">
-				</ul>
-			</div>
+			<ul id="lvxinReset">
+			</ul>
             <div class="_text_align">
                 <button class="_btn">
                     复位
@@ -115,22 +114,11 @@
 
 <script type="text/javascript">
 //变量定义
-
+//var deviceId=data.deviceid;//设备id
+var deviceId=112233445566778;//设备id
 var filterName="";//获取选择滤芯的名称
 var filterNumber=0;//获取选择滤芯的索引
-// js进入滤芯详情页面
-    $('._line').css({left:($('._ul li').eq(0).offset().left+$('._ul li').eq(0).innerWidth()/2-25)+'px'});
-    $(".layui-layer-move").hide();
-	//滤芯选中状态样式
-	$("#lvxinReset li").unbind("click").click(function(){
-		alert(123);
-		$(this).children(".progress").children(".checkbox").children(".chBox").css({"visibility":"visible"});
-		$(this).siblings().children(".progress").children(".checkbox").children(".chBox").css({"visibility":"hidden"});
-		filterName=$(this).children("p").children().eq(0).text();
-		filterNumber=$(this).index()+1;
-	});
-	
-
+$('._line').css({left:($('._ul li').eq(0).offset().left+$('._ul li').eq(0).innerWidth()/2-25)+'px'});
 
 //tab按钮切换
 $('._ul > li').click(function(){
@@ -140,11 +128,33 @@ $('._ul > li').click(function(){
     $('#_box').children('div').eq(1).children('div').eq($(this).index()).slideDown().siblings().slideUp();
     // 下划线动画
     $('._line').animate({left:$left+'px'});
+	$(".layui-layer-move").hide();
+	//滤芯选中状态样式
+	$("#lvxinReset").on("click","li",function(){
+		$(this).children(".progress").children(".checkbox").children(".chBox").css({"visibility":"visible"});
+		$(this).siblings().children(".progress").children(".checkbox").children(".chBox").css({"visibility":"hidden"});
+		filterName=$(this).children("p").children().eq(0).text();
+		filterNumber=$(this).index()+1;
+	});
+	
 })
+window.onbeforeunload=function(){
+
+    $("#lvxinReset li").click(function(){
+        $(this).children(".progress").children(".checkbox").children(".chBox").css({"visibility":"visible"});
+        $(this).siblings().children(".progress").children(".checkbox").children(".chBox").css({"visibility":"hidden"});
+        filterName=$(this).children("p").children().eq(0).text();
+        filterNumber=$(this).index()+1;
+    });
+};
+
+
+
+
 
 var data=JSON.parse($(".status").val());
+console.log(data);
 var res=JSON.parse($('.res').val());
-var deviceInfo=JSON.parse($(".deviceInfo").val());
 // 存放膜、滤芯、滤芯简介的遍历的标签
 var moHTML = '',lvxinHTML = '',lvxinIntroduceHTML = '';
 var filtermode = data.filtermode;
@@ -406,6 +416,8 @@ for(var i=0; i<$("._float_right").length; i++){
 
 $(function(){
 	//websoket
+    var timer=null;
+    var identify=0;
 	var websoket=new WebSocket("ws://120.27.12.1:6001");
 	var PackNum=0;//包数据
 	var CmdList=[];//命令队列
@@ -418,54 +430,7 @@ $(function(){
 		};
 		websoket.send(JSON.stringify(ajson));
 	}
-		
-			
-			
-			//复位按钮操作
-			$('._btn').click(function(){
-				var _this=$(this).text();
-				var ajson;//数据对象
-				//判断操作类型
-				if(filterName==""){
-					layui.use('layer', function(){
-					  var layer = layui.layer;
-					  layer.msg('请选择要复位的滤芯项');
-					});
-				} else {
-					var tipsText = "确定要"+ _this + "<a>滤芯" + filterName +"</a>吗";
-					//弹框提示
-					layui.use('layer', function(){
-						var layer = layui.layer;
-						layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
-							layer.close(index);
-							ajson={
-								"DeviceID":deviceId,
-								"PackType":"SetData",
-								"Vison":0,
-								"PackNum":PackNum,
-								"curTime":0,
-							};
-							var type=0;
-							ajson['ReFlowFilter'+filterNumber]=100;
-							ajson['ReDayFilter'+filterNumber]=100;
-							type=filterNumber;
-							//发送数据
-							websoket.send(JSON.stringify(ajson));
-							CmdList.push({
-								cmd:ajson,
-								type:type
-							});
-							//window.location.reload();
-						});
-					});
-				}
-
-			});
-});
-
-
-
-//实时接收数据
+	//实时接收数据
 	websoket.onmessage=function(data)
 	{
 		var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
@@ -481,7 +446,6 @@ $(function(){
 			
 				if(parseInt(dataList['ReDayFilter1']) > 0 && parseInt(dataList['ReFlowFilter1']) <= 0 ){
 					//按时间
-					return ;
 					// 遍历膜的详情, 不存在则不遍历
 					if(res[i].filtername){
 						if(parseInt(dataList['ReDayFilter'+(i+1)])){
@@ -504,7 +468,7 @@ $(function(){
 										'</p>'+
 									'</li>';
 					}
-
+					
 					//滤芯简介
 					if(res[i].introduce){
 
@@ -530,7 +494,7 @@ $(function(){
 					//流量模式
 					 // 遍历滤芯详情, 不存在则不遍历
 					if(res[i].filtername){
-						moHTML += '<div class="aaa"><li class="_padding">'+
+						moHTML += '<li class="_padding">'+
 							'<p><span class="">'+ res[i].filtername +
 							'</span><span class="_float_right">'+
 							((parseInt(dataList['ReFlowFilter'+(i+1)])/res[i].flowlife)*100).toFixed(0)
@@ -543,7 +507,7 @@ $(function(){
 								  '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
 								'</div>'+
 							'</p>'+
-						'</li></div>';
+						'</li>';
 					}
 
 					//滤芯简介
@@ -737,25 +701,81 @@ $(function(){
 		}
 		else if(dataList.PackType=="SetData")//设置数据类型数据
 		{
-			console.log(dataList);
+
 			for(var i=0;i<CmdList.length;i++){
-				if(CmdList[i].PackNum==dataList.PackNum)
+				if(CmdList[i].cmd.PackNum==dataList.PackNum)
 				{
-					if(CmdList[i].type=="关机中")
-					{
-						var resetNum=parseInt(CmdList[i].type);
-						alert(resetNum);
-						$("._padding").eq(resetNum-1).children("p").children("._float_right").html("100%");
-						$("._padding").eq(resetNum-1).children(".progress").children(".progress-bar").width("100%");
-					}
-					
 					CmdList.splice(i,1);
 					break;
 				}
 			}
+            identify=0;
+            ajson={
+                "DeviceID":deviceId,
+                "PackType":"Select",
+                "Vison":0,
+            };
+            websoket.send(JSON.stringify(ajson));
+
 		}
 		
-	}
+	}	
+			
+			
+			//复位按钮操作
+			$('._btn').click(function(){
+				var _this=$(this).text();
+				var ajson;//数据对象
+				//判断操作类型
+				if(filterName==""){
+					layui.use('layer', function(){
+					  var layer = layui.layer;
+					  layer.msg('请选择要复位的滤芯项');
+					});
+				} else {
+					var tipsText = "确定要"+ _this + "<a>滤芯" + filterName +"</a>吗";
+					//弹框提示
+					layui.use('layer', function(){
+						var layer = layui.layer;
+						layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
+							layer.close(index);
+							ajson={
+								"DeviceID":deviceId,
+								"PackType":"SetData",
+								"Vison":0,
+								"PackNum":PackNum,
+								"curTime":0,
+							};
+							var type=0;
+							ajson['ReFlowFilter'+filterNumber]="100";
+							ajson['ReDayFilter'+filterNumber]="100";
+                            ajson['type']='复位中';
+							type=filterNumber;
+							//发送数据
+                            console.log(ajson);
+							websoket.send(JSON.stringify(ajson));
+							CmdList.push({
+								cmd:ajson,
+								type:type
+							});
+                            identify=1;
+							timer=setTimeout(function(){
+                                if(identify==1){
+                                    layui.use('layer', function(){
+                                        var layer = layui.layer;
+                                        layer.msg('复位超时！');
+                                    });
+
+                                    identify=0;
+                                }
+                            },10000)
+						});
+					});
+				}
+
+			});
+});
+
 	</script>
 </body>
 </html>

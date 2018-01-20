@@ -357,7 +357,6 @@ $(function(){
 		{
 			
 			for(var i=0;i<CmdList.length;i++){
-			//console.log(CmdList[i].cmd.PackNum);
 				if(CmdList[i].cmd.PackNum==dataList.PackNum)
 				{
 					if(CmdList[i].cmd.type=="关机中")
@@ -366,19 +365,11 @@ $(function(){
 					}
 					else if(CmdList[i].cmd.type=="开机中")
 					{
-						machineStatus();
-						alert(dataList.DeviceStause);
+
 					}
 					else if(CmdList[i].cmd.type=="冲洗中")
 					{
 						wash();
-					}
-					else 
-					{	
-						var resetNum=parseInt(CmdList[i].type);
-						//alert(resetNum);
-						$("._padding").eq(resetNum-1).children("p").children("._float_right").html("100%");
-						$("._padding").eq(resetNum-1).children(".progress").children(".progress-bar").width("100%");
 					}
 					
 					CmdList.splice(i,1);
@@ -472,7 +463,6 @@ $(function(){
 					ajson['DeviceStause']=8;
 					ajson['type']='开机中';
 					thisT.html("开机中");
-					//type="开机中";
 
 				}else if(_this=="关机"){
 					ajson['DeviceStause']=7;
