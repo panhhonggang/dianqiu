@@ -16,13 +16,21 @@ class ShopController extends CommonController
         if($uid){
             // 查询用户绑定设备使用的套餐产品
             // remodel:充值模式 money:套餐金额 flow:套餐流量/时长 describe:套餐描述
-            $setmeallist = M('Setmeal')->field('pub_setmeal.id,remodel,money,flow,describe')
-            // 当前设备表
-            ->join('pub_current_devices ON  pub_current_devices.uid='.$uid)
-            // 连接设备表
-            ->join('pub_devices ON pub_devices.id =pub_current_devices.did')
-            // 查询一条
-            ->select();
+            // $setmeallist = M('Setmeal')->field('pub_setmeal.id,remodel,money,flow,describe')
+            // // 当前设备表
+            // ->join('pub_current_devices ON  pub_current_devices.uid='.$uid)
+            // // 连接设备表
+            // ->join('pub_devices ON pub_devices.id =pub_current_devices.did')
+            // // 查询一条
+            // ->select();
+
+            $setmeallist = M('Setmeal')
+                ->alias('s')
+                ->where('cd.uid='.$uid)
+                ->join('__DEVICES__ d ON s.tid=d.type_id','LEFT')
+                ->join('__CURRENT_DEVICES__ cd ON d.id=cd.did','LEFT')
+                ->select();
+
 
             $Model = M('Filters');
             // 查询用户绑定设备使用的滤芯产品

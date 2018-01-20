@@ -158,6 +158,7 @@ class XZCloudStandard
     }
     public static function input($recv_buffer, TcpConnection $connection)
     {
+        file_put_contents('filename', $recv_buffer);
         $decodeData=unpack('nHeader/CPackNum/CVison/nLenth/nDataCmd', $recv_buffer);
         if(($decodeData['Header']==0xddaa)||($decodeData['Header']==0xddBB))
         {
