@@ -114,8 +114,11 @@
 
 <script type="text/javascript">
 //变量定义
-//var deviceId=data.deviceid;//设备id
-var deviceId=112233445566778;//设备id
+var data=JSON.parse($(".status").val());
+//console.log(data);
+var res=JSON.parse($('.res').val());
+var deviceId=data.deviceid;//设备id
+//var deviceId=112233445566778;//设备id
 var filterName="";//获取选择滤芯的名称
 var filterNumber=0;//获取选择滤芯的索引
 $('._line').css({left:($('._ul li').eq(0).offset().left+$('._ul li').eq(0).innerWidth()/2-25)+'px'});
@@ -152,9 +155,7 @@ window.onbeforeunload=function(){
 
 
 
-var data=JSON.parse($(".status").val());
-console.log(data);
-var res=JSON.parse($('.res').val());
+
 // 存放膜、滤芯、滤芯简介的遍历的标签
 var moHTML = '',lvxinHTML = '',lvxinIntroduceHTML = '';
 var filtermode = data.filtermode;
@@ -752,7 +753,7 @@ $(function(){
                             ajson['type']='复位中';
 							type=filterNumber;
 							//发送数据
-                            console.log(ajson);
+                            //console.log(ajson);
 							websoket.send(JSON.stringify(ajson));
 							CmdList.push({
 								cmd:ajson,

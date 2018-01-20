@@ -81,10 +81,10 @@
 var data=JSON.parse($(".status").val());
 var res=JSON.parse($('.res').val());
 var deviceInfo=JSON.parse($(".deviceInfo").val());
-//var deviceId=data.deviceid;//设备id
-var deviceId=112233445566778;//设备id
+var deviceId=data.deviceid;//设备id
+//var deviceId=112233445566778;//设备id
 var devicestause=data.devicestause;//设备状态
-console.log(data);
+//console.log(data);
 
 // 设备状态页面js动画
 const c = document.getElementById('canvas');
@@ -327,7 +327,7 @@ $(function(){
 		var leasingmode = dataList.LeasingMode;
 		//console.log(dataList.LeasingMode);
 		machineStatus();//执行水机状态方法
-		console.log(dataList);
+		//console.log(dataList);
 		
 		if(dataList.PackType=="Select")//返回查询数据类型数据
 		{
@@ -477,8 +477,6 @@ $(function(){
 					cmd:ajson,
 					type:type
 				});
-				console.log(CmdList);
-				//window.location.reload();
 			});
 		});
 	});
