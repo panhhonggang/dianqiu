@@ -9,7 +9,7 @@
             <h1 class="text-center __user">当前用户：</h1>
             <input type="hidden" value='{{$user}}' class="_inp">
             <input type="hidden" value='{{$flow}}' class="_inp">
-            <input type="hidden" value='{{$consume}}' class="_inp">
+            <input type="hidden" value='{{$userinfo}}' class="_inp">
             <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
     border-bottom:  1px #CCCCCC solid">
                 <h3>用户基础信息</h3>
@@ -67,24 +67,7 @@
             }
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
-                console.log(data)
                 $('.__user').append(data.nickname)
-                var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
-                var addtime = data.addtime?new Date(Number(data.addtime)*1000).toLocaleString():'--'
-                var installaddress = data.address?data.address:'--'
-                var html = '<tr>'+
-                                '<td>'+data.name+'</td>'+
-                                '<td>'+data.phone+'</td>'+
-                                '<td>'+installaddress+'</td>'+
-                                '<td>'+data.device_code+'</td>'+
-                                '<td>'+data.balance+'</td>'+
-                                '<td>'+login_time+'</td>'+
-                                '<td>'+data.login_ip+'</td>'+
-                                '<td>'+addtime+'</td>'+
-                                '<td>'+userStatus[data.user_status]+'</td>'+
-                                '<td><a class="unb" did="'+data.device_code+'" href="javascript:;">解绑</a></td>'+
-                            '</tr>'
-                $('._user_').append(html)
             })
             flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
@@ -101,27 +84,36 @@
                                     '<td>'+currentbalance+'</td>'+
                                     '<td>'+time.trim()+'</td>'+
                                 '</tr>'
+                                console.log(ordernumber);
                     $('._flow').append(html)
                 }) 
             })
 
             consume.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
+
                 data.forEach(function(el,i,arr){
-                    var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
-                    var icid = el.icid?el.icid:'--'
-                    var address = el.address?el.address:'--'
+                    var login_time = data[i].login_time?new Date(Number(data[i].login_time)*1000).toLocaleString():'--'
+                    var addtime = data[i].addtime?new Date(Number(data[i].addtime)*1000).toLocaleString():'--'
+                    var installaddress= data[i].address?data[i].address:'--';
                     var html = '<tr>'+
-                                    '<td>'+el.did+'</td>'+
-                                    '<td>'+el.id+'</td>'+
-                                    '<td>'+icid+'</td>'+
-                                    '<td>'+el.flow+'</td>'+
-                                    '<td>'+address+'</td>'+
-                                    '<td>'+time+'</td>'+
-                                '</tr>'
-                    $('._consume').append(html)
+                        '<td>'+data[i].name+'</td>'+
+                        '<td>'+data[i].phone+'</td>'+
+                        '<td>'+installaddress+'</td>'+
+                        '<td>'+data[i].device_code+'</td>'+
+                        '<td>'+data[i].balance+'</td>'+
+                        '<td>'+login_time+'</td>'+
+                        '<td>'+data[i].login_ip+'</td>'+
+                        '<td>'+addtime+'</td>'+
+                        '<td>'+userStatus[data[i].user_status]+'</td>'+
+                        '<td><a class="unb" did="'+data[i].device_code+'" href="javascript:;">解绑</a></td>'+
+                    '</tr>'
+                    if(data[i].device_code != null){
+                        $('._user_').append(html)
+                    } else {
+                        $('._user_').append('<tr><td>暂无绑定设备</td></tr>')
+                    }
                 })
-                
                                 
             })
 
@@ -133,10 +125,8 @@
                     dataType:"json",
                     type: 'post',
                     success:function(res){
-                        
-                        if(res.code==203){
-                            alert(111);
-                        }
+                        location.reload();
+                        alert(res.msg);
                     }
                 });
             })
