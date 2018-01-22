@@ -76,13 +76,13 @@
                                 '<td>'+data.name+'</td>'+
                                 '<td>'+data.phone+'</td>'+
                                 '<td>'+installaddress+'</td>'+
-                                '<td>已绑定的设备放这里</td>'+
+                                '<td>'+data.device_code+'</td>'+
                                 '<td>'+data.balance+'</td>'+
                                 '<td>'+login_time+'</td>'+
                                 '<td>'+data.login_ip+'</td>'+
                                 '<td>'+addtime+'</td>'+
                                 '<td>'+userStatus[data.user_status]+'</td>'+
-                                '<td><a href="javascript:;">解绑</a></td>'+
+                                '<td><a class="unb" did="'+data.device_code+'" href="javascript:;">解绑</a></td>'+
                             '</tr>'
                 $('._user_').append(html)
             })
@@ -123,6 +123,10 @@
                 })
                 
                                 
+            })
+
+            $('._user_').on("click",".unb",function(){
+                console.log($(this).attr("did"))
             })
         </script>
         <!-- footer part -->
