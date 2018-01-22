@@ -40,6 +40,15 @@
     </div>
 </div>
 <script>
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+        console.log($(this));
+        $(".nav").children("li").eq(3).attr("class","open");
+        $(".nav").children("li").eq(3).find(".submenu").show();
+    }
+</script>
+<script>
     var filter="",textareaHtml1="";
     var b=0; 
     //验证

@@ -73,6 +73,14 @@
     </div>  
 </div>
 <script type="text/javascript">
+
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+        console.log($(this));
+        $(".nav").children("li").eq(0).attr("class","open");
+        $(".nav").children("li").eq(0).find(".submenu").show();
+    }
     $('.remove').click(function(){
         var a=$(this).attr('device_id');
         tip('确定解除绑定？','提示',function(){

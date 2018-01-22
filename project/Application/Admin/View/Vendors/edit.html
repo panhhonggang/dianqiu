@@ -59,6 +59,15 @@
     </div>
 </div>
 <script>
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+        console.log($(this));
+        $(".nav").children("li").eq(1).attr("class","open");
+        $(".nav").children("li").eq(1).find(".submenu").show();
+    }
+</script>
+<script>
 $(function(){
     //城市三级联动
     _init_area();

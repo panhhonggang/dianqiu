@@ -5,7 +5,7 @@
             <empty name="v['_data']">
             <else />
                 <li>
-                    <a href="#" class="dropdown-toggle">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="menu-text">
                             {{$v['name']}}
                         </span>
@@ -14,7 +14,7 @@
                         <foreach name="v['_data']" item="n">
                             <li>
                                 <switch name="n.id">
-                                    <default /><a href="{{:U($n['mca'])}}"><i class="icon-double-angle-right"></i>{{$n['name']}}</a>
+                                    <default /><a href="{{:U($n['mca'])}}" ><i class="icon-double-angle-right"></i>{{$n['name']}}</a>
                                 </switch>
                             </li>
                         </foreach>
