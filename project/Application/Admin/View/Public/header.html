@@ -26,6 +26,19 @@
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css">
     <script src="__PUBLIC__/Admin/js/adminPublic.js"></script>
     <style type="text/css">
+        .logo:link {
+            color: #fff;
+        }
+        .logo:visited {
+            color: #fff;
+        }
+        .logo:hover {
+            color: #ddd;
+            text-decoration: none;
+        }
+        .logo:active {
+            color: #fff;
+        }
         div.pagel{
             margin-top: 20px;
             margin-right: 10px;
@@ -62,7 +75,7 @@
 </head>
 <body class="bodyBg">
     <div class="row-fluid" id="header">
-        <div class="headerLeft fl">点球后台</div>
+        <div class="headerLeft fl"><a class="logo" href="{{:U('Admin/Index/index')}}">点球后台</a></div>
         <div class="headerRight fr">
             <p class="hintTxt"></p> 
             <div>

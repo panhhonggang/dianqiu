@@ -11,43 +11,75 @@
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 		<style> 
+			body {
+				min-height: 100vh;
+			}
+			#infor,
+			#infor>form,
+			#container {
+				height: 100%;
+				min-height: 100vh;
+			}
 			#char-list {
-				margin-bottom: 6vh;
+				margin-bottom: 30vh;
+			}
+			.savediv {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				position: fixed;
+    			bottom: 8%;
+				left: 0;
 			}
 			#save {
-				bottom: 0;
-    			margin: 3vh 0;
+				width: 90%;
+				position: relative;
+				left: 0;
 			}
 		</style>
 	</head>
 
 	<body>
 		<div id="infor">
-			<form action="{{:U('Home/Users/personalInformation')}}" method="post" pos>
+			<form action="{{:U('Home/Users/personalInformation')}}" method="post" >
 			<div id="container">
 				<h3>个人信息</h3>
 				<div id="char-list">
 					<label for="name">
-						
-						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name"> 
+						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name" value="{{$_GET['name']}}"> 
 					    </div>
 					</label>
 					<label for="tel">
 						
-						<div class="spac"><i class="iconfont icon-dianhuahaoma spac-tel"></i><p>电话号码：</p><input id="tel" type="text" name="phone"></div><br>
+						<div class="spac"><i class="iconfont icon-dianhuahaoma spac-tel"></i><p>电话号码：</p><input id="tel" type="text" name="phone" value="{{$_GET['phone']}}"></div><br>
 					</label>
 					<label for="addr">
 					
-					<div class="spac"><i class="iconfont iconfont icon-dizhi"></i>  <p>安装地址：</p><input id="addr" type="text" name="Installaddress"></div>
+					<div class="spac"><i class="iconfont iconfont icon-dizhi"></i>  <p>安装地址：</p><input id="addr" type="text" name="Installaddress" value="{{$_GET['address']}}"></div>
 					</label>
 				</div>
-				<input id="save" type="submit" value="保存">
+				<div class="savediv"><input id="save" type="submit" value="保存"></div>
+
 			</div>
 			</form>
 		</div>
 		<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 		<script>
+			var oHeight = $(document).height(); //浏览器当前的高度
+	   
+		    $(window).resize(function(){
+ 				
+		        if($(document).height() < oHeight){
+		         
+			        $(".savediv").css("position","static");
+			    }else{
+			         
+			        $(".savediv").css("position","absolute");
+			    }
+		        
+		   });
+
 			$("#save").click(function(){
 				if($("#name").val()==""||$("#tel").val()==""||$("#addr").val()==""){
 					layui.use('layer', function(){

@@ -1,4 +1,5 @@
 <include file="Public/header" />
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 	* {
 		margin: 0;
@@ -17,6 +18,9 @@
 	a:active {
 		color: #999;
 	}
+	.content {
+		background: #ecf0f5;
+	}
 	.content .welcomePage {
 		width: auto;
 	    height: auto;
@@ -33,12 +37,14 @@
 	}
 	/*数字*/
 	.h1 {
-		font-size: 2rem;
+		font-size: 3rem;
 		padding: 0 4%;
+		font-weight: bold;
 	}
 	#hTop>div {
 		width: 24%;
 		display: inline-block;
+		padding-top: 1%;
 		margin: 0 2%;
 		color: #FFF;    
 		border-radius: 3px;
@@ -59,7 +65,7 @@
 	#hTop>div>p {
 		padding: 0 4%;
 		margin: 10px 0;
-		font-size: 1rem;
+		font-size: 1.4rem;
 	}
 	/*更多*/
 	#hTop>div>a {
@@ -103,7 +109,7 @@
 		width: 100%;
 		height: 48%;
 		position: relative;
-		background: #eee;
+		background: #fff !important
 	}
 	#bottomLeft>div:nth-of-type(2){
 		position: absolute;
@@ -114,7 +120,7 @@
 	/*右侧地图*/
 	#map {
 		float: right;
-		background: #eee;
+		background: #fff;
 	}
 
 	#map:after {
@@ -124,6 +130,19 @@
 		line-height: 1;
 		visibility: hidden;
 	}
+	/*标题*/
+	#map>h5 {
+		width: 100%;
+		padding: 0% 2%;
+	}
+	/*百度地图*/
+	#allmap {
+		width: 100%;
+		height: 95%;
+		overflow: hidden;
+		margin: 0;
+		font-family:"微软雅黑";
+	}
 </style>
 <!-- content part -->
 <div class="content">
@@ -132,24 +151,24 @@
 	<!-- 内容顶部tab -->
 	<div id="hTop">
 		<div>
-			<span class="h1">0</span>￥
-			<p>当日收入环比0%</p>
-			<a href="javascript:;">更多</a>
-		</div>
-		<div>
-			<span class="h1">0.35</span>￥
+			<span class="h1" id="allincome">0</span>￥
 			<p>总收入</p>
-			<a href="javascript:;">更多</a>
+			<a href="{{:U('Admin/Users/flow')}}">更多</a>
 		</div>
 		<div>
-			<span class="h1">45</span>
-			<p>总设备数</p>
-			<a href="javascript:;">更多</a>
+			<span class="h1" id="orderNum">0</span>￥
+			<p>订单数量</p>
+			<a href="{{:U('Admin/Orders/index')}}">更多</a>
 		</div>
 		<div>
-			<span class="h1">84</span>
-			<p>总经销商</p>
-			<a href="javascript:;">更多</a>
+			<span class="h1" id="repaire">0</span>
+			<p>客户报修</p>
+			<a href="{{:U('Admin//Feeds/repairlist')}}">更多</a>
+		</div>
+		<div>
+			<span class="h1" id="feeds">0</span>
+			<p>客户建议</p>
+			<a href="{{:U('Admin/Feeds/feedslist')}}">更多</a>
 		</div>
 	</div>
 	<div id="hBottom">
@@ -161,21 +180,32 @@
 			<div id="newMoreDevice"></div>
 		</div>
 		<!-- 地图 -->
-		<div id="map"></div>
+		<div id="map">
+			<h5>
+				<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+				水机分布图
+			</h5>
+			<div id="allmap"></div>
+		</div>
 	</div>
 	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuzP"></script>
 	<script>
+	
 		// 收入
         var income = echarts.init(document.getElementById('income'));
         // 新增设备
         var newMoreDevice = echarts.init(document.getElementById('newMoreDevice'));
 
-
-        var getOption = function(_subtext, yAxis_data){
+        var getOption = function(_subtext,legend_data, yAxis_data, series_data, markName){
 			return option = {
 			    title: {
 			        text: '',
 			        subtext: _subtext
+			    },
+			    color: '#00c0ef',
+			    legend: {
+			        data: [legend_data]
 			    },
 			    tooltip: {
 			        trigger: 'axis',
@@ -185,6 +215,7 @@
 			    },
 			    toolbox: {
 			        show: true,
+			        right: '5%',
 			        feature: {
 			            dataView: {readOnly: false},
 			            magicType: {type: ['line', 'bar']},
@@ -195,10 +226,16 @@
 			    xAxis:  {
 			        type: 'category',
 			        boundaryGap: false,
-			        data: [ '', '','2017-12-11', '', '', '2017-12-14', '', '', '2017-12-18']	//x轴坐标数据
+			        interval: 1,
+			        axisLabel: {
+			        	align: 'left',
+			        	interval: 0
+			        },
+			        data: ['2017-12-11', '','2017-12-14', '','2017-12-18', '', ]	//x轴坐标数据
 			    },
 			    yAxis: {
-			        type: 'category',
+			        type: 'value',
+			        offset: 1,
 			        boundaryGap: false,
 			        data: yAxis_data,	//y轴坐标数据
 			        axisPointer: {
@@ -230,10 +267,9 @@
 			    },
 			    series: [
 			        {
-			            name:'收入',
+			            name: markName,
 			            type:'line',
-			            smooth: true,
-			            data: [.3, .28, .25, .26, .27, .3, .55, .5, .4],
+			            data: series_data,
 			            markArea: {
 			                data: [ [{
 			                    name: '早高峰',
@@ -245,14 +281,82 @@
 			        }
 			    ]
 			};
-		} 
+		}
+		var legend_data = ['收入','新增设备'];
 		// y轴坐标数据
-		var yAxis_data = [['','',''],[ '1台', '2台', '3台']];
-		//收入 折线图显示
-        income.setOption(getOption('金额',yAxis_data[0]));
+		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
+		// 要显示的数据
+		var series_data = [[],[]];
+		$.post(
+			"{{:U('Admin/Index/index')}}",
+			function(res){
+				// 存放总收入，总订单数量，总报修数量，总建议数量
+				var allincome = 0, orderNum = 0, repaire = 0, feeds = 0;
 
-		//新增设备 折线图显示
-        newMoreDevice.setOption(getOption('新增设备',yAxis_data[1]));
+				for(var i=0; i<res.flows.length; i++){
+					// 遍历总收入
+					allincome += parseInt(res.flows[i].money);
+
+					// 遍历订单数量
+					orderNum += parseInt(res.flows[i].num);
+				}
+				// 总收入
+				$("#allincome").text(allincome);
+				// 报修数量
+				$("#orderNum").text(orderNum);
+				// 报修数量
+				$("#repaire").text(res.$repairs.list.length);
+				// 建议数量
+				$("#feeds").text(res.feeds.list.length);
+			}
+		)
+		// 请求后台数据
+		$.ajax({
+			url: "{{:U('Admin/Index/index')}}",
+			type: 'post',
+			async: false,
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+				for(var i=0; i<res.flows.length; i++){
+					// 遍历总收入
+					series_data[0].push(parseInt(res.flows[i].money));
+
+					// 遍历订单数量
+					orderNum += parseInt(res.flows[i].num);
+				}
+				for(var i in res.order_filters){
+					// 遍历新增设备数量
+					series_data[1].push(parseInt(res.order_filters[i].total_num));
+				}
+			},
+			error: function(res){
+				console.log('错误 ',res)
+			}
+		})
+		console.log(series_data)
+		if(series_data[0].length){
+
+			//收入 折线图显示
+	        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
+			//新增设备 折线图显示
+	        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		}
+		/*************************  地图  **************************/
+        // 百度地图API功能
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		map.centerAndZoom(new BMap.Point(113.404, 23.115), 9);  // 初始化地图,设置中心点坐标和地图级别
+		//添加地图类型控件
+		map.addControl(new BMap.MapTypeControl({
+			mapTypes:[
+	            BMAP_NORMAL_MAP,
+	            BMAP_HYBRID_MAP
+	        ]}));	  
+		map.setCurrentCity("广州");          // 设置地图显示的城市 此项是必须设置的
+		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+		var marker = new BMap.Marker(new BMap.Point(116.404, 39.915)); // 创建点
+
 	</script>
 </div>
 <include file="Public/footer" />

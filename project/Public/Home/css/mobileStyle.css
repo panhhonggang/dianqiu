@@ -164,6 +164,9 @@ h4{
         -webkit-transform: rotate(-1turn);
     }
 }
+#lvxinReset{
+	width:100%；
+}
 .avatar{
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -357,7 +360,6 @@ h4{
 
 /*滤芯详情页面*/
 #_box{
-    display: none;
     width: 100%;
     height: 100%;
 }
@@ -411,7 +413,7 @@ h3{
     position: relative;
 }
 ._padding p{
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 ._padding p .filtername{
     padding-left: 10vw;

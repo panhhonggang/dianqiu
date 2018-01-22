@@ -16,9 +16,9 @@ class UsersController extends CommonController
         ->find();
 
         // dump(session());
-        if(empty($userInfo['name']) || empty($userInfo['phone']) || empty($userInfo['address'])){
-            $this->redirect('personalinformation');
-        }
+        // if(empty($userInfo['name']) || empty($userInfo['phone']) || empty($userInfo['address'])){
+        //     $this->redirect('personalinformation');
+        // }
         // 分配数据到模板
         $this->assign('userInfo',$userInfo);
        
