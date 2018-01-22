@@ -151,7 +151,7 @@
 	<!-- 内容顶部tab -->
 	<div id="hTop">
 		<div>
-			<span class="h1" id="allincome">0</span>￥
+			<span class="h1" id="allincome">0</span>元
 			<p>总收入</p>
 			<a href="{{:U('Admin/Users/flow')}}">更多</a>
 		</div>
@@ -206,6 +206,9 @@
 			    color: '#00c0ef',
 			    legend: {
 			        data: [legend_data]
+			    },
+			    grid: {
+			    	containLabel: true
 			    },
 			    tooltip: {
 			        trigger: 'axis',
@@ -287,32 +290,31 @@
 		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
 		// 要显示的数据
 		var series_data = [[],[]];
-		$.post(
-			"{{:U('Admin/Index/index')}}",
-			function(res){
-				// 存放总收入，总订单数量，总报修数量，总建议数量
-				var allincome = 0, orderNum = [], repaire = 0, feeds = 0;
+		$.ajax({
+			url: "{{:U('Admin/Index/index')}}", 
+			type: 'post',
+			success: function(res){
+				console.log(res);
+				// 存放收入
+				var allincome = 0;
 
-				for(var i=0; i<res.flows.length; i++){
-					// 遍历总收入
-					allincome += parseInt(res.flows[i].money);
-				}
-				// 遍历订单数量
-				for(var i=0; i<res.order_filters.length; i++){
-					if(orderNum.indexOf(res.order_filters[i].order_id) == -1){
-						orderNum.push(res.order_filters[i].order_id)
+				// 当月收入
+				for(var i in res.flows){
+					if(res.flows[i]){
+						allincome += parseInt(res.flows[i].money)/100
 					}
+					
 				}
 				// 总收入
 				$("#allincome").text(allincome);
 				// 订单数量
-				$("#orderNum").text(orderNum.length);
+				$("#orderNum").text(res.order_filters.total);
 				// 报修数量
-				$("#repaire").text(res.$repairs.list.length);
+				$("#repaire").text(res.repairs.total);
 				// 建议数量
-				$("#feeds").text(res.feeds.list.length);
+				$("#feeds").text(res.feeds.total);
 			}
-		)
+		})
 		// 请求后台数据
 		$.ajax({
 			url: "{{:U('Admin/Index/index')}}",
@@ -320,10 +322,12 @@
 			async: false,
 			dataType: 'json',
 			success: function(res){
-				console.log(res);
-				for(var i=0; i<res.flows.length; i++){
-					// 遍历总收入
-					series_data[0].push(parseInt(res.flows[i].money));
+				// 当月收入
+				for(var i in res.flows){
+					if(res.flows[i]){
+						series_data[0].push(parseInt(res.flows[i].money))
+					}
+					
 				}
 				for(var i in res.order_filters){
 					// 遍历新增设备数量
