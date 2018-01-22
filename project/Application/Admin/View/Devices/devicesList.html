@@ -14,6 +14,7 @@
                         <tr class="danger">
                             <td>编号</td>
                             <td>设备编号</td>
+                            <td>绑定的用户</td>
                             <td>经销商名称</td>
                             <td>绑定的用户</td>
                             <td>设备类型(滤芯)</td>
@@ -25,6 +26,7 @@
                         <empty name="deviceInfo['data']">
                             <tr><td colspan="8">暂无设备信息</td></tr>
                         <else />
+                        <!-- {{:dump($deviceInfo['data'])}} -->
                     <foreach name="deviceInfo['data']" item="data" key="key">
 
                                 <tr>
@@ -33,6 +35,7 @@
                                         <a class="btn-link detail" href="__URL__/devices_detail.html#{{$data.device_code}}">{{$data.device_code}}
                                         </a>
                                     </td>
+                                    <td>{{$data.dname}}</td>
                                     <td>{{$data.name}}</td>
                                     <td>{{$data.dname}}</td>
                                     <td>{{$data.typename}}</td>
