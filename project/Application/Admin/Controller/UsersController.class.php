@@ -42,7 +42,7 @@ class UsersController extends CommonController
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
-        dump($userlist);
+        // dump($userlist);
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
