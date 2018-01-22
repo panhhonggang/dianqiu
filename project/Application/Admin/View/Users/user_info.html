@@ -82,7 +82,7 @@
                                 '<td>'+data.login_ip+'</td>'+
                                 '<td>'+addtime+'</td>'+
                                 '<td>'+userStatus[data.user_status]+'</td>'+
-                                '<td><a href="javascript:;">解绑</a></td>'+
+                                '<td><a class="unb" did="'+data.device_code+'" href="javascript:;">解绑</a></td>'+
                             '</tr>'
                 $('._user_').append(html)
             })
@@ -123,6 +123,10 @@
                 })
                 
                                 
+            })
+
+            $('._user_').on("click",".unb",function(){
+                console.log($(this).attr("did"))
             })
         </script>
         <!-- footer part -->
