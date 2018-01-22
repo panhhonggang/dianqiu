@@ -155,6 +155,15 @@ aria-hidden="true">
     </div>
 </div>
 <script>
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+        console.log($(this));
+        $(".nav").children("li").eq(7).attr("class","open");
+        $(".nav").children("li").eq(7).find(".submenu").show();
+    }
+</script>
+<script>
     // 添加菜单
     function add() {
         $("input[name='title'],input[name='name']").val('');
