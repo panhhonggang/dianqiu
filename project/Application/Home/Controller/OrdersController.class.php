@@ -101,7 +101,7 @@ class OrdersController extends CommonController
             $this->assign('orderTake',$orderTake);
 
             // 已完成订单
-            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_ship`=1 AND `is_recharge`=1")->select();
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price,express,mca')->where("`user_id`={$uid} AND `is_ship`=1 AND `is_recharge`=1")->select();
             // 准备数组装待收货订单信息
             $orderFulfil = array();
 
@@ -116,6 +116,10 @@ class OrdersController extends CommonController
                 $orderFulfil["{$value['order_id']}"]['total_num'] = $value['total_num'];
                 // 订单金额
                 $orderFulfil["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                // 快递名称
+                $orderFulfil["{$value['order_id']}"]['express'] = $value['express'];
+                // 快递单号
+                $orderFulfil["{$value['order_id']}"]['mca'] = $value['mca'];
                 // 获取订单套餐明细
                 $orderFulfil["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
                 // 获取订单滤芯明细

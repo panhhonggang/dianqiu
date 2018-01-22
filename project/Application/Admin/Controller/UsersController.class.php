@@ -16,33 +16,18 @@ class UsersController extends CommonController
      */
     public function index()
     {	
-        // 查询条件
+        // 根据用户昵称进行搜索
         $map = '';
-        // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['d.name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['d.phone'] = array('like',"%{$_GET['value']}%");                  
-                    break;
-                case '3':
-                    $map['d.address'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
-            }
-        }
+    	if(!empty($_GET['nickname'])) $map['nickname'] = array('like',"%{$_GET['nickname']}%");
 
         $user = D('users');
         $total = $user
             ->where($map)
             ->alias('u')
+            ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('u.*,d.device_code,d.name,d.address,d.phone')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*')
             ->count();
         $page  = new \Think\Page($total,10);
         $pageButton =$page->show();
@@ -50,9 +35,10 @@ class UsersController extends CommonController
         $userlist = $user
             ->where($map)
             ->alias('u')
+            ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('u.*,d.device_code,d.name,d.address,d.phone')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
@@ -104,78 +90,33 @@ class UsersController extends CommonController
 
     public function user_info()
     {
-        $map['u.id'] = I('get.id');
+        $map['open_id'] = I('get.open_id');
+        // 微信用户信息
+        $user = M('wechat')->where($map)->find();
 
-        // 用户信息
-        $user = M('users')
+        // 显示用户基础信息
+        $userinfo = M('users')
             ->alias('u')
             ->where($map)
-            ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
-            ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->find();
-
-        $maps['u.id'] = $user['uid'];
+            ->join('__DEVICES__ d ON u.id=d.uid', 'LEFT')
+            ->select();
 
         // 充值记录
-        $flow = M('flow')
-            ->alias('f')
-            ->where($maps)
-            ->join('__DEVICES__ d ON f.did=d.id', 'LEFT')
-            ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->field('f.*,d.*')
-            ->select();
-
+        $did = array();
+        foreach ($userinfo as $key => $value) {
+            $did[] = $value['id'];
+        }
+        $flow = M('flow')->where(['did' => ['in',$did]])->select();
+        dump($userinfo);
+        // 分配数据
         $assign = [
-            'user' => json_encode($user),
-            'flow' => json_encode($flow),
-            // 'consume' => json_encode($consume),
-            'show' => $show,
+            'userinfo'        => json_encode($userinfo),
+            'user'            => json_encode($user),
+            'flow'            => json_encode($flow),
         ];
-        /*
-         * 用户及设备绑定和当前绑定详情
-         * 
-         * */
-        // 用户详情
-        $id = $maps['u.id'];
-
-        $userinfo = M('users')
-            ->find($id);
-        // 用户当前绑定设备
-        $current_devices = M('current_devices')
-            ->where('cd.uid='.$id)
-            ->alias('cd')
-            ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.*')
-            ->limit($page->firstRow.','.$page->listRows)
-            ->select();
-        // 用户绑定设备信息
-        $devices = M('devices')
-            ->where('uid='.$id)
-            ->select();
-        foreach ($devices as $key => $value) {
-            $device_codes[] = $value['device_code'];
-        }
-
-        // 用户绑定设备信息详情
-        $device_statu = M('devices_statu')
-            ->where(['DeviceID' => ['in',$device_codes]])
-            ->alias('ds')
-            ->field('ds.*')
-            ->limit($page->firstRow.','.$page->listRows)
-            ->select();
-        $data['userinfo'] = $userinfo;
-        $data['userinfo']['devices'] = $devices;
-        $data['userinfo']['current_devices'] = $current_devices;
-        foreach ($data['userinfo']['devices'] as $key => $value) {
-            foreach ($device_statu as $key2 => $value2) {
-                if ($value['device_code'] == $value2['deviceid']) {
-                   $data['userinfo']['devices']["$key"]['device_statu'] = $device_statu["$key2"];
-                }
-            }            
-        }
-        $assign['userinfo'] = json_encode($data);
         $this->assign($assign);
         $this->display();
+
     }
 
 
@@ -226,43 +167,34 @@ class UsersController extends CommonController
         $this->display();        
     }
 
-    /**
-     * 用户消费记录列表
-     * @author 潘宏钢 <619328391@qq.com>
-     */
-    // public function consume()
-    // {
-    //     // 根据用户昵称进行搜索
-    //     $map = '';
-    //     if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
-
-    //     $consume = M('consume');
-    //     $total = $consume->where($map)
-    //         ->alias('c')
-    //         ->where($map)
-    //         ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
-    //         ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-    //         ->count();
-    //     $page  = new \Think\Page($total,8);
-    //     $pageButton =$page->show();
-
-    //     $list = $consume->where($map)->limit($page->firstRow.','.$page->listRows)
-    //         ->alias('c')
-    //         ->where($map)
-    //         ->join('__DEVICES__ d ON c.did=d.id', 'LEFT')
-    //         ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-    //         ->select();
-    //     // dump($list);die;
-    //     $this->assign('list',$list);
-    //     $this->assign('button',$pageButton);
-    //     $this->display();        
-    // }  
     
     // 解除用户绑定
     public function unbind()
     {
-        $id = I('get.id');
-        // M()
+        $code['device_code'] = I('post.device_code');
+        $msg = "";
+        $data = [
+            'uid' => null,
+            'name' => null,
+            'address' => null,
+            'phone' => null,
+        ];
+        $device = M('devices');
+        $did = $device->where($code)->find()['id'];
+        $current_device = M('current_devices')->where('did='.$did)->find();
+        $device->startTrans();
+        if(!empty($current_device)){
+            $res = M('current_devices')->where('did='.$did)->delete();
+            $msg = '当前设备';
+        }
+        $result = M('devices')->where($code)->save($data);
+        if($res && $result){
+            $device->commit();
+            $this->ajaxReturn(['code' => 200, 'msg' => $msg.'解除绑定成功']);
+        } else {
+            $device->rollback();
+            $this->ajaxReturn(['code' => 202, 'msg' => '解除绑定失败']);
+        }
     }  
 
 

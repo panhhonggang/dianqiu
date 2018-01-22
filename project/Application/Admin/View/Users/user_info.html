@@ -68,7 +68,7 @@
             user.replace(/({.+})/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
                 console.log(data)
-                $('.__user').append(data.name)
+                $('.__user').append(data.nickname)
                 var login_time = data.login_time?new Date(Number(data.login_time)*1000).toLocaleString():'--'
                 var addtime = data.addtime?new Date(Number(data.addtime)*1000).toLocaleString():'--'
                 var installaddress = data.address?data.address:'--'
@@ -126,7 +126,19 @@
             })
 
             $('._user_').on("click",".unb",function(){
-                console.log($(this).attr("did"))
+                var dcode = $(this).attr("did");
+                $.ajax({
+                    url:"unbind",
+                    data:{"device_code":dcode},
+                    dataType:"json",
+                    type: 'post',
+                    success:function(res){
+                        
+                        if(res.code==203){
+                            alert(111);
+                        }
+                    }
+                });
             })
         </script>
         <!-- footer part -->
