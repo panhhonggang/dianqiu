@@ -42,7 +42,6 @@ class OrdersController extends CommonController
                       ->field('pub_orders.*,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
                       ->limit($page->firstRow.','.$page->listRows)
                       ->select();
-
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

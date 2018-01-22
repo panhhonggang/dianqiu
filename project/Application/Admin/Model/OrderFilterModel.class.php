@@ -26,16 +26,12 @@ class OrderFilterModel extends Model
        $total = $this
     				->where($maps)
                     ->count();
-        $page  = new \Think\Page($total,8);
-        D('devices')->getPageConfig($page);
-        $pageButton =$page->show();
        $orderFilters = $this
                       ->join('LEFT JOIN pub_orders ON pub_order_filter.order_id = pub_orders.order_id')
                       ->where($maps)
                       ->field('pub_orders.*,pub_order_filter.*')
-                      ->limit($page->firstRow.','.$page->listRows)
                       ->select();
-        $data = ['page'=>$pageButton,'list'=>$list];            
+        $data = ['total'=>$total,'list'=>$list];            
        return $orderFilters;       
     }
 }

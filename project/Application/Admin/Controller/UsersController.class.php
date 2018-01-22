@@ -163,7 +163,7 @@ class UsersController extends CommonController
             ->field('ds.*')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
-        $data = ['userinfo'=>$userinfo];
+        $data['userinfo'] = $userinfo;
         $data['userinfo']['devices'] = $devices;
         $data['userinfo']['current_devices'] = $current_devices;
         foreach ($data['userinfo']['devices'] as $key => $value) {
@@ -173,11 +173,9 @@ class UsersController extends CommonController
                 }
             }            
         }
-        
         $assign['userinfo'] = json_encode($data);
         $this->assign($assign);
         $this->display();
-
     }
 
 
