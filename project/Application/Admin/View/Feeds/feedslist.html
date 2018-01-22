@@ -51,6 +51,11 @@
                 </ul>
             </div>
             <script>
+                // 搜索
+                if(window.location.search){
+                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
+                }
+
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
                 //提示
