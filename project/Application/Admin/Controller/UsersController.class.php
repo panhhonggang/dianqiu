@@ -16,9 +16,25 @@ class UsersController extends CommonController
      */
     public function index()
     {	
-        // 根据用户昵称进行搜索
+        // 查询条件
         $map = '';
-    	if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+        // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['d.name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['d.phone'] = array('like',"%{$_GET['value']}%");                  
+                    break;
+                case '3':
+                    $map['d.address'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
 
         $user = D('users');
         $total = $user
@@ -26,7 +42,7 @@ class UsersController extends CommonController
             ->alias('u')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,u.*')
+            ->field('u.*,d.device_code,d.name,d.address,d.phone')
             ->count();
         $page  = new \Think\Page($total,10);
         $pageButton =$page->show();
@@ -36,7 +52,7 @@ class UsersController extends CommonController
             ->alias('u')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,u.*')
+            ->field('u.*,d.device_code,d.name,d.address,d.phone')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
@@ -147,7 +163,7 @@ class UsersController extends CommonController
             ->field('ds.*')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
-        $data = ['userinfo'=>$userinfo];
+        $data['userinfo'] = $userinfo;
         $data['userinfo']['devices'] = $devices;
         $data['userinfo']['current_devices'] = $current_devices;
         foreach ($data['userinfo']['devices'] as $key => $value) {
@@ -157,11 +173,9 @@ class UsersController extends CommonController
                 }
             }            
         }
-        
         $assign['userinfo'] = json_encode($data);
         $this->assign($assign);
         $this->display();
-
     }
 
 

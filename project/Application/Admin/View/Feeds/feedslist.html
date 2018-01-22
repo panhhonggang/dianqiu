@@ -5,8 +5,14 @@
         <div class="tableBox">
             <div class="titleBar">建议及报修/<span>建议列表</span></div>
             <form class="form-search fr" action="__URL__/feedslist" method="get">
-                <input type="text" name="name" class="input-medium" placeholder="请输入用户昵称...">
-                <button type="submit" class="btn">搜索</button>
+                <span class="select-box">
+                  <select class="select" size="1" name="key" style="width: 100px;">
+                    <option value="1" selected>昵称</option>
+                    <option value="2">手机</option>
+                  </select>
+                </span>
+                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
+                <button type="submit" class="btn">查找</button>
             </form>
 
             <table class="table table-striped table-bordered">
@@ -51,6 +57,11 @@
                 </ul>
             </div>
             <script>
+                // 搜索
+                if(window.location.search){
+                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
+                }
+
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
                 //提示

@@ -17,7 +17,23 @@ class DevicesController extends CommonController
     {
         // 查询条件
         $map = '';
-        if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
+        // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '0':
+                    $map['device_code'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '1':
+                    $map['vendors.name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['type.typename'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $devices = D('Devices')->getDevicesInfo($map);   
         $assign = [
             'deviceInfo' => $devices,
