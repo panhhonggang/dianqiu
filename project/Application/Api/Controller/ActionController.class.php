@@ -97,7 +97,7 @@ class ActionController extends Controller
         ];
         $devices_id = M('devices')->where("device_code={$message['DeviceID']}")->getField('id');
         $status_id  = M('devices_statu')->where("DeviceID={$message['DeviceID']}")->getField('id');
-        
+        Log::write(json_encode($message), '登陆数据');
         if( empty($status_id) ){
             $res = $this->saveData($data);
             if($res){
@@ -126,7 +126,7 @@ class ActionController extends Controller
             'FilerNum'     => $message['FilerNum'],
             'LeasingMode'  => $message['LeasingMode'],
         ];
-
+        Log::write(json_encode($message), '查询数据');
         if( $message['FilerNum'] != null ){
             $res = $this->filterAction($message);
 
@@ -142,6 +142,7 @@ class ActionController extends Controller
     public function saveData($data)
     {
         $data['addtime'] = time();
+        Log::write(json_encode($data), '存储数据');
         return M('devices_statu')->add($data);
     }
 
@@ -149,6 +150,7 @@ class ActionController extends Controller
     public function updateData($id, $data)
     {
         $data['updatetime'] = time();
+        Log::write(json_encode($data), '更新数据');
         return M('devices_statu')->where("id={$id}")->save($data);
     }
 

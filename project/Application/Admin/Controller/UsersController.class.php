@@ -242,5 +242,25 @@ class UsersController extends CommonController
     //     $this->assign('list',$list);
     //     $this->assign('button',$pageButton);
     //     $this->display();        
-    // }   
+    // }  
+    
+    // 解除用户绑定
+    public function unbind()
+    {
+        $id = I('get.id');
+        // M()
+    }  
+
+
+    // $(".unb").click(function(){
+    //     var userId = $(this).attr('userId');
+    //     layui.use('layer', function(){
+    //         var layer = layui.layer;
+    //         layer.confirm('确定解除绑定?', {icon: 3, title:'温馨提示'}, function(index){
+    //             window.location.href='?id='+userId;
+    //             layer.close(index);
+                
+    //         });
+    //     });
+    // });
 }

@@ -75,7 +75,7 @@ class OrdersController extends CommonController
             $this->assign('orderSend',$orderSend);
 
             // 待收货订单
-             $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_receipt`=1 AND `is_ship`=0")->select();
+             $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price,express,mca')->where("`user_id`={$uid} AND `is_receipt`=1 AND `is_ship`=0")->select();
             // 准备数组装待收货订单信息
             $orderTake = array();
             // 遍历订单未支付订单号
@@ -88,6 +88,10 @@ class OrdersController extends CommonController
                 $orderTake["{$value['order_id']}"]['total_num'] = $value['total_num'];
                 // 订单金额
                 $orderTake["{$value['order_id']}"]['total_price'] = $value['total_price'];
+                // 快递名称
+                $orderTake["{$value['order_id']}"]['express'] = $value['express'];
+                // 快递单号
+                $orderTake["{$value['order_id']}"]['mca'] = $value['mca'];
                 // 获取订单套餐明细
                 $orderTake["{$value['order_id']}"]['orderSetmeal'] = $orderSetmeal->where("`order_id`='{$value['order_id']}'")->select();
                 // 获取订单滤芯明细
@@ -120,7 +124,7 @@ class OrdersController extends CommonController
 
             // 包含滤芯产品已已收货
             // 已完成订单
-            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_ship`=1")->select();
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price,express,mca')->where("`user_id`={$uid} AND `is_ship`=1")->select();
 
             // 包含滤芯产品
             // 遍历订单已收货和已收货订单号
@@ -133,6 +137,10 @@ class OrdersController extends CommonController
                     $orderFulfil["{$value['order_id']}"]['created_at'] = $value['created_at'];
                     // 订单数量
                     $orderFulfil["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                    // 订单数量
+                    $orderFulfil["{$value['order_id']}"]['express'] = $value['express'];
+                    // 订单数量
+                    $orderFulfil["{$value['order_id']}"]['mca'] = $value['mca'];
                     // 订单金额
                     $orderFulfil["{$value['order_id']}"]['total_price'] = $value['total_price'];
                     // 获取订单滤芯明细
@@ -294,7 +302,7 @@ class OrdersController extends CommonController
 
         if($uid){
             // 查询用户全部未支付订单号
-            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_receipt`=1 AND `is_ship`=0")->select();
+            $orders = M('Orders')->order('id desc')->field('id,order_id,created_at,total_num,total_price,express,mca')->where("`user_id`={$uid} AND `is_receipt`=1 AND `is_ship`=0")->select();
             // 实例化订单滤芯对象
             $orderFilter = M('OrderFilter');
             // 实例化订单套餐对象
@@ -310,6 +318,10 @@ class OrdersController extends CommonController
                 $ordersData["{$value['order_id']}"]['created_at'] = $value['created_at'];
                 // 订单数量
                 $ordersData["{$value['order_id']}"]['total_num'] = $value['total_num'];
+                // 快递名称
+                $ordersData["{$value['order_id']}"]['express'] = $value['express'];
+                // 快递单号
+                $ordersData["{$value['order_id']}"]['mca'] = $value['mca'];
                 // 订单金额
                 $ordersData["{$value['order_id']}"]['total_price'] = $value['total_price'];
                 // 获取订单套餐明细
@@ -359,5 +371,10 @@ class OrdersController extends CommonController
         }else{
             echo -1;
         }
+    }
+
+    public function index()
+    {
+        $this->display();
     }
 }

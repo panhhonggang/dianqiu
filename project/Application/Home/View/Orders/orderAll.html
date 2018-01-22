@@ -58,7 +58,10 @@
 			<div id="all-information">
 				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
 				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><br>
-				<b class="order-number"> 顺丰快递单号：89563230</b><br>
+				<empty name="value.express">
+				<else />
+					<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
+				</empty>
 			</div>
 		</div>
 
@@ -244,6 +247,7 @@
 				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
 				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">卖家已发货</span>
 				</b>
+				<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
 				
 			</div>
 		</div>

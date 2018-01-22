@@ -27,7 +27,7 @@
                     <tr>
                         <td>{{$vo.id}}</td>
                         <td>{{$vo.name}}</td>
-                        <td>{{$vo.flow}}</td>
+                        <td>{{$vo['flow']*$vo['num']}}</td>
                         <td>{{$vo.currentflow}}</td>
                         <td>
                             <switch name="vo.mode">

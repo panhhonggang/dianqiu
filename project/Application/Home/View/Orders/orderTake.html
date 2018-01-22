@@ -50,6 +50,7 @@
 			<div id="all-information">
 				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
 				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><b class="paied">卖家已发货</b><br>
+				<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
 				<div style="clear:both;"></div>			
 			</div>
 		</div>
