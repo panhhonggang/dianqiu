@@ -156,7 +156,7 @@
 			<a href="{{:U('Admin/Users/flow')}}">更多</a>
 		</div>
 		<div>
-			<span class="h1" id="orderNum">0</span>￥
+			<span class="h1" id="orderNum">0</span>台
 			<p>订单数量</p>
 			<a href="{{:U('Admin/Orders/index')}}">更多</a>
 		</div>
@@ -291,19 +291,22 @@
 			"{{:U('Admin/Index/index')}}",
 			function(res){
 				// 存放总收入，总订单数量，总报修数量，总建议数量
-				var allincome = 0, orderNum = 0, repaire = 0, feeds = 0;
+				var allincome = 0, orderNum = [], repaire = 0, feeds = 0;
 
 				for(var i=0; i<res.flows.length; i++){
 					// 遍历总收入
 					allincome += parseInt(res.flows[i].money);
-
-					// 遍历订单数量
-					orderNum += parseInt(res.flows[i].num);
+				}
+				// 遍历订单数量
+				for(var i=0; i<res.order_filters.length; i++){
+					if(orderNum.indexOf(res.order_filters[i].order_id) == -1){
+						orderNum.push(res.order_filters[i].order_id)
+					}
 				}
 				// 总收入
 				$("#allincome").text(allincome);
-				// 报修数量
-				$("#orderNum").text(orderNum);
+				// 订单数量
+				$("#orderNum").text(orderNum.length);
 				// 报修数量
 				$("#repaire").text(res.$repairs.list.length);
 				// 建议数量
@@ -321,9 +324,6 @@
 				for(var i=0; i<res.flows.length; i++){
 					// 遍历总收入
 					series_data[0].push(parseInt(res.flows[i].money));
-
-					// 遍历订单数量
-					orderNum += parseInt(res.flows[i].num);
 				}
 				for(var i in res.order_filters){
 					// 遍历新增设备数量

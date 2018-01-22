@@ -20,6 +20,7 @@
                 <tr>
                     <th>用户ID</th>
                     <th>姓名</th>
+                    <th>设备ID</th>
                     <th>手机</th>
                     <th>地址</th>
                     <!-- <th>账户余额</th> -->
@@ -36,6 +37,7 @@
                     <tr>
                         <td>{{$vo.id}}</td>
                         <td><a href="__URL__/user_info?id={{$vo.id}}">{{$vo.name}}</a></td>
+                        <td>{{$vo.device_code}}</td>
                         <td>{{$vo.phone}}</td>
                         <td>{{$vo.address}}</td>
                         <td>{{$vo.login_time|date='Y-m-d H:i:s',###}}</td>
