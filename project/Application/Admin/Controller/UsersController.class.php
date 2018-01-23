@@ -181,34 +181,22 @@ class UsersController extends CommonController
         ];
         $device = M('devices');
         $did = $device->where($code)->find()['id'];
-        $current_device = M('current_devices')->where('did='.$did)->find();
         $device->startTrans();
-        if(empty($current_device)){
-            $result = M('devices')->where($code)->save($data);
-        }
+
+        $current_device = M('current_devices')->where('did='.$did)->find();
+        $result = M('devices')->where($code)->save($data);
+
         $res = M('current_devices')->where('did='.$did)->delete();
-        if($res){
-            $msg = '当前设备';
+        if($current_device){
+            $this->ajaxReturn(['code' => 203, 'msg' => '当前绑定设备，不可解除绑定']);
         }
-        if($result){
+        if($result && $res){
             $device->commit();
-            $this->ajaxReturn(['code' => 200, 'msg' => $msg.'解除绑定']);
+            $this->ajaxReturn(['code' => 200, 'msg' => '解除绑定']);
         } else {
             $device->rollback();
             $this->ajaxReturn(['code' => 202, 'msg' => '解除绑定失败']);
         }
     }  
 
-
-    // $(".unb").click(function(){
-    //     var userId = $(this).attr('userId');
-    //     layui.use('layer', function(){
-    //         var layer = layui.layer;
-    //         layer.confirm('确定解除绑定?', {icon: 3, title:'温馨提示'}, function(index){
-    //             window.location.href='?id='+userId;
-    //             layer.close(index);
-                
-    //         });
-    //     });
-    // });
 }

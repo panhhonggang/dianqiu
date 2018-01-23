@@ -86,7 +86,7 @@
 		margin-left: 15%;
 		padding-top: 2%;
 	}
-
+ 
 	#hBottom>div {
 		width: 46%;
 		height: 100%;
@@ -156,7 +156,7 @@
 			<a href="{{:U('Admin/Users/flow')}}">更多</a>
 		</div>
 		<div>
-			<span class="h1" id="orderNum">0</span>台
+			<span class="h1" id="orderNum">0</span>单
 			<p>订单数量</p>
 			<a href="{{:U('Admin/Orders/index')}}">更多</a>
 		</div>
@@ -314,7 +314,7 @@
 				// 建议数量
 				$("#feeds").text(res.feeds.total);
 			}
-		})
+		}) 
 		// 请求后台数据
 		$.ajax({
 			url: "{{:U('Admin/Index/index')}}",
@@ -325,7 +325,7 @@
 				// 当月收入
 				for(var i in res.flows){
 					if(res.flows[i]){
-						series_data[0].push(parseInt(res.flows[i].money))
+						series_data[0].push(parseInt(res.flows[i].money)/100)
 					}
 					
 				}

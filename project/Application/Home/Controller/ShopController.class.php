@@ -29,6 +29,7 @@ class ShopController extends CommonController
                 ->where('cd.uid='.$uid)
                 ->join('__DEVICES__ d ON s.tid=d.type_id','LEFT')
                 ->join('__CURRENT_DEVICES__ cd ON d.id=cd.did','LEFT')
+                ->field('cd.*,d.*,s.*')
                 ->select();
 
 

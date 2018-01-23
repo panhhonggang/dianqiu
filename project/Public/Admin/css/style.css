@@ -360,3 +360,7 @@ a.addBtn{
 .nav >li>a{
 	font-size: 16px;
 }
+span.select-box{
+	display:inline-block;
+	height: auto;
+}
