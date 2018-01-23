@@ -208,7 +208,6 @@ class UsersController extends CommonController
     public function unbind()
     {
         $code['device_code'] = I('post.device_code');
-        $msg = "";
         $data = [
             'uid' => null,
             'name' => null,
@@ -216,23 +215,48 @@ class UsersController extends CommonController
             'phone' => null,
         ];
         $device = M('devices');
-        $did = $device->where($code)->find()['id'];
+        $current_devices = M('current_devices');
+
+        $deviceInfo = $device->where($code)->find();
+        $did = $deviceInfo['id'];
+        $uid = $deviceInfo['uid'];
         $device->startTrans();
+        $current_devices->startTrans();
 
-        $current_device = M('current_devices')->where('did='.$did)->find();
-        $result = M('devices')->where($code)->save($data);
-
-        $res = M('current_devices')->where('did='.$did)->delete();
-        if($current_device){
-            $this->ajaxReturn(['code' => 203, 'msg' => '当前绑定设备，不可解除绑定']);
+        $current_device = $current_devices->where('did='.$did)->find();
+        if(!empty($current_device)){
+            $bind_device = $device->where('uid='.$uid)->select();
+            if(count($bind_device) == 1){
+                $current_status = $current_devices->where('did='.$did)->delete();
+            } else {
+                foreach ($bind_device as $key => $value) {
+                    $device_tmp[$key] = $value['id'];
+                    if($value['id'] == $did){
+                        unset($device_tmp[$key]);
+                    }
+                }
+                $current_status = $current_devices->where('uid='.$uid)->save(['did'=>$device_tmp[0]]);
+            }
+            if($current_status){
+                $current_devices->commit();
+            } else {
+                $current_devices->rollback();
+                $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
+            }
         }
-        if($result && $res){
+
+        $status['status'] = 0;
+        M('orders')->where('device_id='.$deviceInfo['id'])->save($status);
+
+        $device_status = $device->where('id='.$deviceInfo['id'])->save($data);
+        
+        if($device_status){
             $device->commit();
-            $this->ajaxReturn(['code' => 200, 'msg' => '解除绑定']);
+            $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
         } else {
             $device->rollback();
-            $this->ajaxReturn(['code' => 202, 'msg' => '解除绑定失败']);
+            $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
         }
-    }  
+    }
 
 }

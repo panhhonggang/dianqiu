@@ -42,7 +42,4 @@ class UsersModel extends Model
         }
         return $list;
     }
-
-    
-
 }

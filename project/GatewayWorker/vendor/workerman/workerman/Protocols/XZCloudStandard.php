@@ -262,7 +262,7 @@ class XZCloudStandard
             $FilterDataStr = substr($recv_buffer,16);
             for($i=1; $i<=$decodeData[self::FilerNum]; $i++)
             {
-                $filterData                      = unpack('nReFlowFilter/nReDayFilter', $FilterDataStr);
+                $filterData                      = unpack('nReDayFilter/nReFlowFilter', $FilterDataStr);
                 $decodeData['ReFlowFilter' . $i] = $filterData['ReFlowFilter'] == 65535?-1:$filterData['ReFlowFilter'];
                 $decodeData['ReDayFilter' . $i]  = $filterData['ReDayFilter'] == 65535?-1:$filterData['ReDayFilter'];
                 $FilterDataStr                   = substr($FilterDataStr, 4);

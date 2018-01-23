@@ -15,7 +15,7 @@ class UsersController extends CommonController
         ->join('pub_devices ON pub_devices.id=pub_current_devices.did')
         ->find();
 
-        // dump(session());
+        dump(session());
         // if(empty($userInfo['name']) || empty($userInfo['phone']) || empty($userInfo['address'])){
         //     $this->redirect('personalinformation');
         // }
