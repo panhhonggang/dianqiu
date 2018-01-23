@@ -24,7 +24,6 @@ class OrdersController extends CommonController
       if(strlen($_GET['is_receipt'])) $map['is_receipt'] = array('like',"%{$_GET['is_receipt']}%");
       if(strlen($_GET['is_recharge'])) $map['is_recharge'] = array('like',"%{$_GET['is_recharge']}%");
         $order = M('orders');
-        $map['_query'] = "status=1";
         $total = $order->where($map)
                       ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
                       ->join('pub_users ON pub_orders.user_id = pub_users.id')
