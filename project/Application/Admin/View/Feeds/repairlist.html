@@ -86,8 +86,14 @@
         <include file="Public/footer" />
     </div>
     <script>
+       
+        // 搜索关键字保留
         if(window.location.search){
-            $('input[name=value]').val(decodeURI(window.location.search.slice(13)))
+            // 获取搜索关键字
+            var arr = window.location.search.split("&");
+            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
+            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
+            // console.log(arr)
         }
         // 显示当前页面所在的导航
         showNav();
