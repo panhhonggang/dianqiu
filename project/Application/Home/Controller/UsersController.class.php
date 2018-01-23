@@ -14,11 +14,10 @@ class UsersController extends CommonController
         ->join('pub_current_devices ON pub_current_devices.uid=pub_users.id')
         ->join('pub_devices ON pub_devices.id=pub_current_devices.did')
         ->find();
-
-        dump(session());
-        // if(empty($userInfo['name']) || empty($userInfo['phone']) || empty($userInfo['address'])){
-        //     $this->redirect('personalinformation');
-        // }
+        if(empty($userInfo)){
+            unset($_SESSION['homeuser']);
+            $this->redirect('devices/manage');
+        }
         // 分配数据到模板
         $this->assign('userInfo',$userInfo);
        

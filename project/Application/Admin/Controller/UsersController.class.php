@@ -122,7 +122,10 @@ class UsersController extends CommonController
         foreach ($userinfo as $key => $value) {
             $did[] = $value['id'];
         }
-        $flow = M('flow')->where(['did' => ['in',$did]])->select();
+        $where['_query'] = "status=1";
+        $where['did'] = array('in',$did);
+        $flow = M('flow')->where($where)->select();
+        // echo M('flow')->_sql();
         // 分配数据
         $assign = [
             'userinfo'        => json_encode($userinfo),
@@ -183,6 +186,7 @@ class UsersController extends CommonController
         }
 
         $flow = M('flow');
+        $map['_query'] = "status=1";
         $total = $flow->where($map)
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
@@ -222,7 +226,8 @@ class UsersController extends CommonController
         $uid = $deviceInfo['uid'];
         $device->startTrans();
         $current_devices->startTrans();
-
+        M('orders')->startTrans();
+        M('flow')->startTrans();
         $current_device = $current_devices->where('did='.$did)->find();
         if(!empty($current_device)){
             $bind_device = $device->where('uid='.$uid)->select();
@@ -246,10 +251,28 @@ class UsersController extends CommonController
         }
 
         $status['status'] = 0;
-        M('orders')->where('device_id='.$deviceInfo['id'])->save($status);
+        $orders_status = M('orders')->where('device_id='.$deviceInfo['id'])->save($status);
+        // 订单记录判断回滚
+        if($orders_status){
+            $M('orders')->commit();
+            $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
+        } else {
+            $M('orders')->rollback();
+            $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
+        }
+
+        $flow_status = M('flow')->where('did='.$deviceInfo['id'])->save($status);
+        // 充值记录判断回滚
+        if($flow_status){
+            $M('flow')->commit();
+            $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
+        } else {
+            $M('flow')->rollback();
+            $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
+        }
 
         $device_status = $device->where('id='.$deviceInfo['id'])->save($data);
-        
+        // 设备状态判断回滚
         if($device_status){
             $device->commit();
             $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);

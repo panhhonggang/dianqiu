@@ -24,7 +24,7 @@ class OrdersController extends CommonController
       if(strlen($_GET['is_receipt'])) $map['is_receipt'] = array('like',"%{$_GET['is_receipt']}%");
       if(strlen($_GET['is_recharge'])) $map['is_recharge'] = array('like',"%{$_GET['is_recharge']}%");
         $order = M('orders');
-
+        $map['_query'] = "status=1";
         $total = $order->where($map)
                       ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
                       ->join('pub_users ON pub_orders.user_id = pub_users.id')
@@ -83,11 +83,11 @@ class OrdersController extends CommonController
     {
 
         $orders = D("orders");
-         $order = $orders->where('pub_orders.order_id='.$order_id)->select();
-        $filter = $orders->where('pub_orders.order_id='.$order_id)->join('LEFT JOIN pub_order_filter ON pub_orders.order_id = pub_order_filter.order_id')
+         $order = $orders->where('pub_orders.order_id='.$order_id.' AND status=1')->select();
+        $filter = $orders->where('pub_orders.order_id='.$order_id.' AND status=1')->join('LEFT JOIN pub_order_filter ON pub_orders.order_id = pub_order_filter.order_id')
                       ->field('pub_order_filter.*')
                       ->select();
-        $setmeal = $orders->where('pub_orders.order_id='.$order_id)->join('LEFT JOIN pub_order_setmeal ON pub_orders.order_id = pub_order_setmeal.order_id')
+        $setmeal = $orders->where('pub_orders.order_id='.$order_id.' AND status=1')->join('LEFT JOIN pub_order_setmeal ON pub_orders.order_id = pub_order_setmeal.order_id')
                       ->field('pub_order_setmeal.*')
                       ->select();              
        
