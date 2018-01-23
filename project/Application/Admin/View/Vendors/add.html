@@ -62,6 +62,15 @@
 </div>
 <script src="__PUBLIC__/Home/js/public.js"></script>
 <script>
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+        console.log($(this));
+        $(".nav").children("li").eq(1).attr("class","open");
+        $(".nav").children("li").eq(1).find(".submenu").show();
+    }
+</script>
+<script>
 $(function(){
     //验证
     $('#_formTable').submit(function(){

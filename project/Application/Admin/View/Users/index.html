@@ -5,22 +5,15 @@
         <div class="tableBox">
             <div class="titleBar">用户管理/<span>用户列表</span></div>
             <form class="form-search fr" action="__URL__/index" method="get">
-                <span class="select-box">
-                  <select class="select" size="1" name="key" style="width: 100px;">
-                    <option value="1" selected>-- 姓名 --</option>
-                    <option value="2">手机</option>
-                    <option value="3">地址</option>
-                  </select>
-                </span>
-                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
-                <button type="submit" class="btn">查找</button>
+                <input type="text" name="nickname" class="input-medium" placeholder="请输入真实姓名...">
+                <button type="submit" class="btn">搜索</button>
             </form>
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>用户ID</th>
                     <th>姓名</th>
-                    <th>设备ID</th>
+                    <th>当前设备ID</th>
                     <th>手机</th>
                     <th>地址</th>
                     <!-- <th>账户余额</th> -->
@@ -36,14 +29,13 @@
                     <foreach name="list" item="vo" key="key">
                     <tr>
                         <td>{{$vo.id}}</td>
-                        <td><a href="__URL__/user_info?id={{$vo.id}}">{{$vo.name}}</a></td>
+                        <td><a href="__URL__/user_info?open_id={{$vo.open_id}}">{{$vo.nickname}}</a></td>
                         <td>{{$vo.device_code}}</td>
                         <td>{{$vo.phone}}</td>
                         <td>{{$vo.address}}</td>
                         <td>{{$vo.login_time|date='Y-m-d H:i:s',###}}</td>
                         <td>{{$vo.login_ip}}</td>
                         <td>{{$vo.created_at|date='Y-m-d H:i:s',###}}</td>
-                       
                     </tr>
                     </foreach>
                     <else />
@@ -65,10 +57,20 @@
                 if(window.location.search){
                     $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
                 }
+
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
+    <script>
+        // 显示当前页面所在的导航
+        showNav();
+        function showNav(){
+            console.log($(this));
+            $(".nav").children("li").eq(6).attr("class","open");
+            $(".nav").children("li").eq(6).find(".submenu").show();
+        }
+    </script>
 </div>
 
