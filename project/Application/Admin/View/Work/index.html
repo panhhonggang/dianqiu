@@ -81,10 +81,19 @@
         <include file="Public/footer" />
     </div>
     <script>
+        // 搜索关键字保留
+        if(window.location.search){
+            // 获取搜索关键字
+            var arr = window.location.search.split("&");
+            $('input[name=number]').val(decodeURI(arr[0].slice(arr[0].indexOf('=')+1)))
+            $('select[name="key"] option[value='+decodeURI(arr[1].slice(arr[1].indexOf('=')+1))+']').attr("selected", true);
+            $('input[name=value]').val(decodeURI(arr[2].slice(arr[2].indexOf('=')+1)))
+            // console.log(arr)
+        }
         // 显示当前页面所在的导航
         showNav();
         function showNav(){
-            console.log($(this));
+
             $(".nav").children("li").eq(5).attr("class","open");
             $(".nav").children("li").eq(5).find(".submenu").show();
         }
