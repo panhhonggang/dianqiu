@@ -314,7 +314,7 @@
 				// 建议数量
 				$("#feeds").text(res.feeds.total);
 			}
-		})
+		}) 
 		// 请求后台数据
 		$.ajax({
 			url: "{{:U('Admin/Index/index')}}",
@@ -325,7 +325,7 @@
 				// 当月收入
 				for(var i in res.flows){
 					if(res.flows[i]){
-						series_data[0].push(parseInt(res.flows[i].money))
+						series_data[0].push(parseInt(res.flows[i].money)/100)
 					}
 					
 				}
