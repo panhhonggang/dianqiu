@@ -9,12 +9,14 @@ class IndexController extends CommonController {
 	    	$flows = D('Flow')->getTotalByEveryDay();
 
 	    	// 滤芯订单数量（已发货及未发货数量->以发货及未发货列表）
-	    	$order_filters = D('OrderFilter')
+	    	$order_filters = D('Orders')
+	    						->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
 	    						->field('distinct(order_id)')
 	    	                    ->select();
-	    	$order_filter['total'] = count($order_filters); 	
+	    	$order_filter['total'] = count($order_filters); 
+
 	    	// 保修数量统计->保修列表  
-	    	$repairs['total'] = D('Repair')->count();
+	    	$repairs['total'] = D('Repair')->count();	    	
 
 	    	// 建议数量统计->建议列表
 	    	$feeds['total'] = D('Feeds')->count();

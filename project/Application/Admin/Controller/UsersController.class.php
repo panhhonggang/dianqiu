@@ -17,9 +17,24 @@ class UsersController extends CommonController
     public function index()
     {	
         // 根据用户昵称进行搜索
-        $map = '';
-    	if(!empty($_GET['nickname'])) $map['nickname'] = array('like',"%{$_GET['nickname']}%");
+         $map = '';
 
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['nickname'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['d.device_code'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '3':
+                    $map['phone'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $user = D('users');
         $total = $user
             ->where($map)
@@ -143,8 +158,29 @@ class UsersController extends CommonController
     public function flow()
     {
         // 根据用户昵称进行搜索
-        $map = '';
-        if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
+         $map = '';
+
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['d.name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    if ($_GET['value'] == '系统赠送') {
+                        $map['mode'] = '0';
+                    }
+                    if ($_GET['value'] == '微信') {
+                        $map['mode'] = '1';
+                    }
+                    if ($_GET['value'] == '支付宝') {
+                        $map['mode'] = '2';
+                    }
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
 
         $flow = M('flow');
         $total = $flow->where($map)
