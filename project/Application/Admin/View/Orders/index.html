@@ -67,13 +67,22 @@
                                 <switch name="vo.is_pay">
                                     <case value="0">未付款</case>
                                     <case value="1">已付款</case>
+                                    <case value="2">已取消</case>
                                     <default />
                                 </switch>
                             </td>
                             <!-- 需要一个弹窗  输入快递单号 -->
                             <td>
                                 <switch name="vo.is_receipt">
-                                    <case value="0"><a href="javascript:void(0)"><span style="color:red" class="_send">点击发货</span></a></case>
+                                    <case value="0">
+                                        <a href="javascript:void(0)">
+                                            <if condition="$vo.is_pay eq 1">
+                                                <span style="color:red" class="_send">点击发货</span>
+                                            <else/>
+                                                <span ></span>
+                                            </if>
+                                        </a>
+                                    </case>
                                     <case value="1">已发货</case>
                                     <default />
                                 </switch>
