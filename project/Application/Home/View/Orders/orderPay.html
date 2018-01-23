@@ -12,15 +12,48 @@
 
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
 		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 		<!-- 微信支付支持JS部分代码 -->
 		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+		<style>
+			#back2Home {
+			    width: 8vh;
+			    height: 8vh;
+			    display: -webkit-flex;
+			    display: -moz-flex;
+			    display: -ms-flex;
+			    display: -o-flex;
+			    display: flex;
+			    justify-content: center;
+			    -ms-align-items: center;
+			    align-items: center;
+			    position: absolute;
+			    right: 4px;
+			    top: 8vh;
+			    z-index: 999;
+			}
+			#back2Home:active {
+			    background: #ccc;
+			}
+			#back2Home>i {
+			    width: 5vh;
+			    height: 5vh;
+			    text-align: center;
+			    line-height: 5vh;
+			    color: #fff;
+				font-weight: 600;
+			    border-radius: 5vh;
+			    background: #039CE9;
+			}
+		</style>
 	</head>
 	<body>
 
 
-	<div id="contain" class="container">
+	<div id="contain" class="container">	
+		<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 	 <!-- order-all的头部开始 -->
 	 	<div id="order-all-header">
 	 		<ul>
@@ -83,8 +116,8 @@
 			<p class="franking clear">（含邮费¥0.00) </p>
 			 <!-- <div class="orderFootcon"></div> -->
 				<div id="order-all-foot" class="clearfix">
-					<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')">
-					<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')">
+					<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+					<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')" style="border:1px solid #039CE9">
 				</div>
 			<!-- <hr class="dai-pay-border">	 -->
 		</div>

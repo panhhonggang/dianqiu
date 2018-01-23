@@ -9,15 +9,36 @@
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
-		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-		<!-- <script src="__PUBLIC__/Home/js/public.js"></script> -->
-
-		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
-       <script src="__PUBLIC__/Admin/layui/layui.js"></script>
-		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
-		<!-- 微信支付支持JS部分代码 -->
-		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 		<style>
+		#back2Home {
+		    width: 8vh;
+		    height: 8vh;
+		    display: -webkit-flex;
+		    display: -moz-flex;
+		    display: -ms-flex;
+		    display: -o-flex;
+		    display: flex;
+		    justify-content: center;
+		    -ms-align-items: center;
+		    align-items: center;
+		    position: absolute;
+		    right: 0;
+		    top: 0;
+		}
+		#back2Home:active {
+		    background: #ccc;
+		}
+		#back2Home>i {
+		    width: 5vh;
+		    height: 5vh;
+		    text-align: center;
+		    line-height: 5vh;
+		    color: #fff;
+			font-weight: 600;
+		    border-radius: 5vh;
+		    background: #039CE9;
+		}
 			#sure-head {
 				width: 100%;
 				border-bottom: 8px solid #efefef;
@@ -25,6 +46,8 @@
 			#sure-head>input {
 				text-align: center;
 				border-radius: 0 6px 6px 0;
+				border: 1px solid #039CE9;
+			    background: #039CE9;
 			}
 			#information {
 				width: 98%;
@@ -50,6 +73,7 @@
 			}
 			#information>p>label>i {
 				top: 0;
+				color: #039CE9;
 			}
 			#information>p>input {
 				width: 68%;
@@ -99,11 +123,18 @@
 				font-size: 0.473333rem;
 				font-weight: bold;
 			}
+			#foot b:first-child {
+			    color: #039CE9;
+			}
+			#foot input:last-child {
+			    background: #039CE9;
+			}
 		</style>
 	</head>
 	<body> 
 
 	<div id="contain">
+		<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 		<div id="sure-head">
 			<input type="buttom" value="快递信息确认" readonly="readonly">
 			<div id="information">	
@@ -171,6 +202,14 @@
 			<input class="pinBtn" type="submit" value="去结算">
 		</div>	
 	</div>
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<!-- <script src="__PUBLIC__/Home/js/public.js"></script> -->
+
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
+   <script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<!-- 微信支付支持JS部分代码 -->
+	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 	<script type="text/javascript">
 		//layuiHint弹框提示封装
 		function layuiHint(text){

@@ -7,11 +7,47 @@
 	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_nl5nael9r049rudi.css">
 	<link rel="stylesheet" href="__PUBLIC__/Home/css/repair.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<script src="__PUBLIC__/Home/js/laydate.js"></script>
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
 	<style>
+		#back2Home {
+		    width: 8vh;
+		    height: 8vh;
+		    display: -webkit-flex;
+		    display: -moz-flex;
+		    display: -ms-flex;
+		    display: -o-flex;
+		    display: flex;
+		    justify-content: center;
+		    -ms-align-items: center;
+		    align-items: center;
+		    position: absolute;
+		    right: 0;
+		    top: 0;
+		    z-index: 999;
+		}
+		#back2Home:active {
+		    background: #ccc;
+		}
+		#back2Home>i {
+		    width: 5vh;
+		    height: 5vh;
+		    text-align: center;
+		    line-height: 5vh;
+		    color: #fff;
+			font-weight: 600;
+		    border-radius: 5vh;
+		    background: #039CE9;
+		}
+		#repair-main>i {
+			color: #51bdf3;
+		}
+		#repair-container>input {
+			background: #039CE9;
+		}
 		.timer-set>div {
 			width: 5.18555rem;
 			display: flex;
@@ -112,8 +148,8 @@
 	</style>
 </head>
 <body>
+	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 	<form action="{{:U('Home/Repair/index')}}" method="post" enctype="multipart/form-data" id="form">
-		
 		<div id="repair-all">
 			<div id="repair-container">
 				<div id="repair-timer">
