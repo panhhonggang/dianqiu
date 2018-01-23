@@ -10,8 +10,8 @@ class IndexController extends CommonController {
 
 	    	// 滤芯订单数量（已发货及未发货数量->以发货及未发货列表）
 	    	$order_filters = D('OrderFilter')
-	    									->field('distinct(order_id)')
-	    	                                ->select();
+	    						->field('distinct(order_id)')
+	    	                    ->select();
 	    	$order_filter['total'] = count($order_filters); 	
 	    	// 保修数量统计->保修列表  
 	    	$repairs['total'] = D('Repair')->count();
