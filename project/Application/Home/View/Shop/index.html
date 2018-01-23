@@ -9,12 +9,7 @@
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css">
 		<!-- layui.css -->
     	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-    	<!-- layui.js -->
-    	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
-		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
-		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-		<!-- 微信支付支持JS部分代码 -->
-		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 		<style type="text/css">
 			body {
 				font-size: .4rem !important;
@@ -51,6 +46,49 @@
 				border-radius: 8px;
 
 			}
+			._ul li:nth-of-type(1) {
+		        color: #039CE9;
+		        font-weight: normal;
+		    }
+		    
+		    ._ul li:nth-of-type(2) {
+		        color: #6F6F6F;
+		        font-weight: normal;
+		    }
+		    ._btn {
+		        background: #039CE9;
+		    }
+		    ._line {
+		        background: #039CE9;
+		    }
+		    #back2Home {
+		        width: 8vh;
+		        height: 8vh;
+		        display: -webkit-flex;
+		        display: -moz-flex;
+		        display: -ms-flex;
+		        display: -o-flex;
+		        display: flex;
+		        justify-content: center;
+		        -ms-align-items: center;
+		        align-items: center;
+		        position: absolute;
+		        right: 0;
+		        top: 0;
+		    }
+		    #back2Home:active {
+		        background: #ccc;
+		    }
+		    #back2Home>i {
+		        width: 5vh;
+		        height: 5vh;
+		        text-align: center;
+		        line-height: 5vh;
+		        color: #fff;
+				font-weight: 600;
+		        border-radius: 5vh;
+		        background: #039CE9;
+		    }
 			._ul{
 				width: 100vw;
 				height: 8vh;
@@ -82,7 +120,13 @@
 				text-decoration: none;
 			}
 			#foot>input {
+				color: #039CE9;
 				font-size: 0.426667rem;
+			}
+			#foot input:last-child {
+			    color: #fff;
+			    font-weight: 600;
+			    background: #039CE9;
 			}
 			#ro1 {
 				height: 16vh;
@@ -131,6 +175,7 @@
 				<li>滤芯</li>
 			</ul>
 			<div id="lineDiv" class="_line"></div>
+			<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 		</div>
  
 		<div class="contentBox">
@@ -179,6 +224,12 @@
 		</div>
 		
 	</div>
+	<!-- layui.js -->
+	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<!-- 微信支付支持JS部分代码 -->
+	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script>
 		// console.log('lineRight: ',sessionStorage.getItem("lineRight"));
 		// console.log('lineMove: ',sessionStorage.getItem("lineMove"));
@@ -226,6 +277,9 @@
 		$('._line').css({left:($('._ul > li').eq(0).offset().left+$('._ul > li').eq(0).innerWidth()/2 - 25)+'px'});
 		//点击事件
 		$('._ul > li').click( function () {
+			// 选中和不选中的状态
+		    $(this).css({color: "#039CE9"});
+		    $(this).siblings("li").css({color: "#6F6F6F"});
 			// 左边偏移量
 			var $left = $(this).offset().left+$(this).innerWidth()/2 - 25;
 			// // 显示当前的内容盒子
@@ -241,7 +295,7 @@
 			// 找到所有的充值套餐，设置默认样式
 			$('#liuliang>input').css({'background': 'rgba(0,0,0,0)','color':'#585858'});
 			// 被选中的充值套餐改变样式
-			$(this).css({'background': '#7D7FCE','color':'#FFF'});
+			$(this).css({'background': '#039CE9','color':'#FFF'});
 			// 清除所有的class属性sid值
 			$('#liuliang>input').removeClass("sid");
 			// 给被选中的套餐添加class属性sid值

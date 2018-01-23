@@ -152,7 +152,7 @@
 	<div id="hTop">
 		<div>
 			<span class="h1" id="allincome">0</span>元
-			<p>总收入</p>
+			<p>当月总收入</p>
 			<a href="{{:U('Admin/Users/flow')}}">更多</a>
 		</div>
 		<div>
@@ -234,7 +234,7 @@
 			        	align: 'left',
 			        	interval: 0
 			        },
-			        data: ['2017-12-11', '','2017-12-14', '','2017-12-18', '', ]	//x轴坐标数据
+			        data: ['01','','','','05','','','','','10','', '','','','15','', '','', '','20','','','','','25','','','','','30','']	//x轴坐标数据
 			    },
 			    yAxis: {
 			        type: 'value',
@@ -314,7 +314,7 @@
 				// 建议数量
 				$("#feeds").text(res.feeds.total);
 			}
-		}) 
+		})
 		// 请求后台数据
 		$.ajax({
 			url: "{{:U('Admin/Index/index')}}",
@@ -326,19 +326,24 @@
 				for(var i in res.flows){
 					if(res.flows[i]){
 						series_data[0].push(parseInt(res.flows[i].money)/100)
+					}else {
+						series_data[0].push(0);
 					}
 					
 				}
 				for(var i in res.order_filters){
 					// 遍历新增设备数量
-					series_data[1].push(parseInt(res.order_filters[i].total_num));
+					if(res.order_filters[i]){
+						series_data[1].push(parseInt(res.order_filters[i].total_num));
+					}else {
+						series_data[1].push(0);
+					}
 				}
 			},
 			error: function(res){
 				console.log('错误 ',res)
 			}
 		})
-		console.log(series_data)
 		if(series_data[0].length){
 
 			//收入 折线图显示

@@ -9,13 +9,14 @@
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<script src="__PUBLIC__/Home/js/flexible.js"></script> 
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<title>滤芯详情</title>
 	<style>
 	#ulDiv {
-	height: 10vh;
-	position: fixed;
-	background: #fff;
-	z-index: 999;
+    	height: 10vh;
+    	position: fixed;
+    	background: #fff;
+    	z-index: 999;
     }
     #ulDiv>ul>li {
         height: 9vh;
@@ -23,8 +24,24 @@
         vertical-align: middle;
         font-size: .5rem;
     }
+    ._ul li:nth-of-type(1) {
+        color: #039CE9;
+        font-weight: normal;
+    }
+    
+    ._ul li:nth-of-type(2) {
+        color: #6F6F6F;
+        font-weight: normal;
+    }
+    ._btn {
+        background: #039CE9;
+    }
+    ._line {
+        background: #039CE9;
+    }
+    
     #back2Home {
-        width: 10vh;
+        width: 8vh;
         height: 8vh;
         display: -webkit-flex;
         display: -moz-flex;
@@ -35,11 +52,21 @@
         -ms-align-items: center;
         align-items: center;
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0;
     }
     #back2Home:active {
         background: #ccc;
+    }
+    #back2Home>i {
+        width: 5vh;
+        height: 5vh;
+        text-align: center;
+        line-height: 5vh;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 5vh;
+        background: #039CE9;
     }
 
     #_box {
@@ -85,7 +112,7 @@
             <li>滤芯复位</li>
         </ul>
         <div id="lineDiv" class="_line"></div>
-        <a id="back2Home" href="{{:U('Home/index/index')}}">《 返回</a>
+        <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
     </div>
     <div>
         <!-- 滤芯详情 -->
@@ -104,9 +131,7 @@
 			<ul id="lvxinReset">
 			</ul>
             <div class="_text_align">
-                <button class="_btn">
-                    复位
-                </button>
+                <button class="_btn">确认复位</button>
             </div>
         </div>
     </div>
@@ -132,12 +157,16 @@ $('._ul > li').click(function(){
     // 下划线动画
     $('._line').animate({left:$left+'px'});
 	$(".layui-layer-move").hide();
+    // 选中和不选中的状态
+    $(this).css({color: "#039CE9"});
+    $(this).siblings("li").css({color: "#6F6F6F"});
 	//滤芯选中状态样式
 	$("#lvxinReset").on("click","li",function(){
 		$(this).children(".progress").children(".checkbox").children(".chBox").css({"visibility":"visible"});
 		$(this).siblings().children(".progress").children(".checkbox").children(".chBox").css({"visibility":"hidden"});
 		filterName=$(this).children("p").children().eq(0).text();
 		filterNumber=$(this).index()+1;
+
 	});
 	
 })
