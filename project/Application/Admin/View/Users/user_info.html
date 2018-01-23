@@ -71,6 +71,7 @@
             })
             flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
+                console.log(data)
                 data.forEach(function(el,i,arr){
                     var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
                     var ordernumber = el.order_id?el.order_id:'--'
@@ -91,7 +92,6 @@
 
             consume.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
-
                 data.forEach(function(el,i,arr){
                     var login_time = data[i].login_time?new Date(Number(data[i].login_time)*1000).toLocaleString():'--'
                     var addtime = data[i].addtime?new Date(Number(data[i].addtime)*1000).toLocaleString():'--'
@@ -139,7 +139,7 @@
     // 显示当前页面所在的导航
     showNav();
     function showNav(){
-        console.log($(this));
+       
         $(".nav").children("li").eq(6).attr("class","open");
         $(".nav").children("li").eq(6).find(".submenu").show();
     }

@@ -89,9 +89,9 @@
                                 var html = '<tr>'
                                 html += '<td><img width=50 src="__PUBLIC__'+data.filter[i].picpath+'"></td>'+
                                         '<td>'+data.filter[i].filtername+'&nbsp;(&nbsp;'+data.filter[i].alias+'&nbsp;)&nbsp;</td>'+
-                                        '<td>'+(data.filter[i].price?data.filter[i].price/100:'--')+'</td>'+
-                                        '<td>'+(data.filter[i].goods_num?data.filter[i].goods_num:'--')+'</td>'+
-                                        '<td>'+(data.filter[i].goods_price?data.filter[i].goods_price/100:'--')+'</td>'
+                                        '<td>'+(data.filter[i].price?data.filter[i].price/100:'--')+'元</td>'+
+                                        '<td>'+(data.filter[i].goods_num?data.filter[i].goods_num:'--')+'个</td>'+
+                                        '<td>'+(data.filter[i].goods_price?data.filter[i].goods_price/100:'--')+'元</td>'
                                 html += '</tr>'
                                 $('#_tbody').append(html)
                             }
@@ -107,10 +107,10 @@
                                 var html2 = '<tr>'
                                 var str = Number(data.setmeal[j].remodel)?'(小时)':'(L)'
                                 html2 += '<td>'+(data.setmeal[j].describe?data.setmeal[j].describe:'--')+'</td>'+
-                                         '<td>'+(data.setmeal[j].money?data.setmeal[j].money/100:'--')+'</td>'+
-                                         '<td>'+(data.setmeal[j].goods_num?data.setmeal[j].goods_num:'--')+'</td>'+
-                                         '<td>'+(data.setmeal[j].flow?data.setmeal[j].flow:'--')+str+'</td>'+
-                                         '<td>'+(data.setmeal[j].goods_price?data.setmeal[j].goods_price/100:'--')+'</td>'
+                                         '<td>'+(data.setmeal[j].money?data.setmeal[j].money/100:'--')+'元</td>'+
+                                         '<td>'+(data.setmeal[j].goods_num?data.setmeal[j].goods_num:'--')+'个</td>'+
+                                         '<td>'+(data.setmeal[j].flow?data.setmeal[j].flow:'--')+str+'L</td>'+
+                                         '<td>'+(data.setmeal[j].goods_price?data.setmeal[j].goods_price/100:'--')+'元</td>'
                                 html2 += '</tr>'
                                 $('#_tbody2').append(html2)
                             }
@@ -119,8 +119,8 @@
                         $('#_tbody2').append('暂无购买产品')
                     }
                     var $span = $('#_fn span')
-                    $span.eq(0).append('订单总价：'+data.order[0].total_price/100)
-                    $span.eq(1).append('订单数量：'+data.order[0].total_num)
+                    $span.eq(0).append('订单总价：'+data.order[0].total_price/100 + '元')
+                    $span.eq(1).append('订单数量：'+data.order[0].total_num + '单')
                     $span.eq(2).append(data.order[0].express?('快递：'+data.order[0].express):'快递：暂无快递')
                 }
                })
