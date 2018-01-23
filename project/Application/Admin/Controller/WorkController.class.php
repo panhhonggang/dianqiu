@@ -19,9 +19,24 @@ class WorkController extends CommonController
     public function index()
     {	
        // 根据名称进行搜索
-        $map = '';
-        if(!empty($_GET['name'])) $map['name'] = array('like',"%{$_GET['name']}%");
-
+         $map = '';
+      if(strlen($_GET['number'])) $map['number'] = array('like',"%{$_GET['number']}%");
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['name'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    $map['phone'] = array('like',"%{$_GET['value']}%");                  
+                    break;
+                case '3':
+                    $map['address'] = array('like',"%{$_GET['value']}%");
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }      
         $type = D('work');
         
         $total =$type->where($map)->count();

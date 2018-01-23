@@ -20,13 +20,13 @@ class DevicesController extends CommonController
         // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
         if (!empty($_GET['key']) && !empty($_GET['value'])) {
             switch ($_GET['key']) {
-                case '0':
+                case '1':
                     $map['device_code'] = array('like',"%{$_GET['value']}%");
                     break;
-                case '1':
+                case '2':
                     $map['vendors.name'] = array('like',"%{$_GET['value']}%");
                     break;
-                case '2':
+                case '3':
                     $map['type.typename'] = array('like',"%{$_GET['value']}%");
                     break;
                 default:

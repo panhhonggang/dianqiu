@@ -238,6 +238,9 @@ class VendorsController extends CommonController
                 case '2':
                     $map['pub_vendors.phone'] = array('like',"%{$_GET['value']}%");
                     break;
+                case '3':
+                    $map['pub_devices.device_code'] = array('like',"%{$_GET['value']}%");
+                    break;
                 default:
                     # code...
                     break;
@@ -259,7 +262,6 @@ class VendorsController extends CommonController
                                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                                 ->field('pub_binding.*,pub_vendors.name,pub_vendors.phone,pub_devices.device_code')
                                 ->select();
-        echo $binding->_sql();
 
         $this->assign('list',$bindinglist);
         $this->assign('button',$pageButton);
