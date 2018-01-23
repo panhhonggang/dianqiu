@@ -70,6 +70,9 @@
         <include file="Public/footer" />
     </div>
     <script>
+        if(window.location.search){
+            $('input[name=value]').val(decodeURI(window.location.search.slice(13)))
+        }
         // 显示当前页面所在的导航
         showNav();
         function showNav(){

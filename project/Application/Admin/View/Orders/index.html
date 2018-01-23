@@ -8,7 +8,7 @@
                 <div class="input-group">                   
                 <span class="input-group-addon" id="basic-addon">订单编号</span>
                    <input type="text" class="form-control" placeholder="用户昵称" aria-describedby="basic-addon1" name="orderid">
-                  <span class="input-group-addon" id="basic-addon1">用户昵称</span>
+                  <span class="input-group-addon" id="basic-addon1">下单用户</span>
                   <input type="text" class="form-control" placeholder="用户昵称" aria-describedby="basic-addon1" name="nickname">                    
                 <span class="select-box">
                   <select class="select" size="1" name="is_pay" style="width: 100px;height: 32px;margin-top: 2px;">
@@ -211,19 +211,28 @@
                         return false;
                      }
                 });
-                if(window.location.search){
-                    $('input[name=order_id]').val(window.location.search.slice(10))
-                }
+               
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
     <script>
+        // 搜索关键字保留
+        if(window.location.search){
+            // 获取搜索关键字
+            var arr = window.location.search.split("&");
+            $('input[name=orderid]').val(decodeURI(arr[0].slice(arr[0].indexOf('=')+1)))
+            $('input[name=nickname]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
+            $('select[name="is_pay"] option[value='+decodeURI(arr[2].slice(arr[2].indexOf('=')+1))+']').attr("selected", true);
+            $('select[name="is_receipt"] option[value='+decodeURI(arr[3].slice(arr[3].indexOf('=')+1))+']').attr("selected", true);
+            $('select[name="is_recharge"] option[value='+decodeURI(arr[4].slice(arr[4].indexOf('=')+1))+']').attr("selected", true);
+            // console.log(arr)
+        }
         // 显示当前页面所在的导航
         showNav();
         function showNav(){
-            console.log($(this));
+            
             $(".nav").children("li").eq(4).attr("class","open");
             $(".nav").children("li").eq(4).find(".submenu").show();
         }
