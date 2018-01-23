@@ -1,0 +1,312 @@
+*{
+	padding: 0;
+	margin:0;
+}
+ul>li{
+	list-style: none;
+}
+a{
+text-decoration:none;
+}
+a:link{
+text-decoration:none;
+}
+a:visited{
+text-decoration:none;
+}
+a:hover{
+text-decoration:none;
+}
+a:active{
+text-decoration:none;
+}
+body{
+	font-size: 0.7rem;
+	background: #A8E2FF;
+}
+.clearfix:after{content:"";
+	height:0;line-height:0;
+	display:block;
+	visibility:hidden;
+	clear:both
+}
+.bg1{
+	background: red;
+}
+.bg2{
+	background:green;
+}
+.bg3{
+	background:yellow;
+}
+.bg4{
+	background:pink;
+}
+.contain{
+	width: 100vw;
+	height: 100vh;
+}
+.contain>.containTop{
+	box-sizing: border-box;
+	width: 100vw;
+	height: 58vh;
+	padding-top:4vh;
+	background:url("../images/yun_01.png") no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+
+}
+.centerHuan{
+	position: relative;
+	height: 65vw;
+	width: 65vw;
+	margin:0 auto;
+	border-radius: 50vw;
+	overflow: hidden;
+	background: #5AC8FF;
+}
+.xuanhuan{
+	height: 65vw;
+	width: 65vw;
+	box-sizing: border-box;
+
+	background: url("../images/yuan_02.png") no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+	position: relative;
+	z-index: 4;
+}
+.bolang{
+	height: 14.5vh;
+	width: 65vw;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	background: url("../images/bolang_01.png") repeat-x;
+	background-size: 100% 100%;
+	z-index: 3;
+	-webkit-animation:bolang 6.5s linear infinite;
+	animation:bolang 6.5s linear infinite;
+}
+.bolang1{
+	height: 14.5vh;
+	width: 65vw;
+	position: absolute;
+	left:-0vw;
+	bottom: 0;
+	background: url("../images/bolang_01.png") repeat-x;
+	background-size: 100% 100%;
+	z-index: 3;
+	-webkit-animation:bolang1 6.5s linear infinite;
+	animation:bolang1 6.5s linear infinite;
+}
+
+
+/*水的动画*/
+@keyframes bolang{
+			0%{left:0;}
+			100%{left:65vw;}
+}
+/*水的动画*/
+@keyframes bolang1{
+			0%{left:-65vw;}
+			100%{left:0;}
+}
+.containTxt{
+	width: 55vw;
+    height: 28vh;
+    /*border: 1px solid #F00;*/
+    z-index: 5;
+    margin: 0 auto;
+    position: absolute;
+    top: 10.5vh;
+    left: 22.5vw;
+    text-align: center;
+
+}
+.shuiliangOne>b{
+    font-size: 5rem;
+    font-weight: 750;
+    color: #005179;
+}
+
+.shuiliangOne>span{
+	font-size: 1.4rem;
+	color:#FFF;
+}
+.chunshui{
+	font-size: 1.2rem;
+    color: #FFF;
+    line-height: 1.6rem;
+    margin: -0.9rem 0 0.2rem;
+}
+.shuiliangTwo>b{
+	font-size: 2.0rem;
+    color: #024E74;
+    
+}
+.shuiliangTwo>span{
+	font-size: 1rem;
+	color:#FFF;
+}
+.yuanshui{
+	font-size: 0.7rem;
+	color:#FFF;
+}
+.shuibolang{
+	width: 100vw;
+    height: 12vh;
+    margin-top: 0vh;
+    position: relative;
+    overflow: hidden;
+	padding-bottom: -5vw;
+}
+.shuibolang1{
+	width: 100vw;
+    height: 15vh;
+    position: absolute;
+    left:0;
+    background: url("../images/bolang_01.png") repeat-x;
+	background-size: 100% 100%;
+    -webkit-animation:shuibolang1 6s linear infinite;
+	animation:shuibolang1 6s linear infinite;
+}
+.shuibolang2{
+	width: 100vw;
+    height: 15vh;
+    position: absolute;
+    left:-100vw;
+    background: url("../images/bolang_01.png") repeat-x;
+	background-size: 100% 100%;
+    -webkit-animation:shuibolang2 6s linear infinite;
+	animation:shuibolang2 6s linear infinite;
+}
+.statusZhishui,fullWaters{
+	position: relative;
+	top:0vh;
+	left: 0;
+	display: inline-block;
+}
+
+.statusZhishui>p,.statusShuiman>p,.fullWaters>p{
+	line-height: 0.1rem;
+	padding-left: 3vw;
+}
+.fullWaters>p>i{
+	color:#039CE9;
+}
+
+.fullWaters>p>i{
+	font-size: 2.5rem;
+}
+.statusZhishui>p>i,.statusShuiman>p>i{
+	font-size: 2.5rem;
+	-webkit-animation:aImg3 3s linear infinite;
+	animation:aImg3 3s linear infinite;
+}
+
+.statusZhishui>span,.statusShuiman>span,.fullWaters>span{
+	font-size: 1rem;
+    padding: 0 1rem;
+}
+/*水满*/
+.statusShuiman{
+	float: right;
+}
+/*水的动画*/
+@keyframes shuibolang1{
+			0%{left:0;}
+			100%{left:100vw;}
+}
+/*水的动画*/
+@keyframes shuibolang2{
+			0%{left:-100vw;}
+			100%{left:0;}
+}
+.icon-zhishui,icon-shuiman{
+	color:#039CE9;
+}
+.icon-chongxi{
+	color:#D98C34;
+}
+.icon-jianxiu,icon-queshui{
+	color:#DF2426;
+}
+#statusBox > div{
+	display: none;
+}
+.shengyu{
+	position: relative;
+	top:-7vh;
+
+}
+
+.shengyu>p{
+	display: inline-block;
+    font-size: 1rem;
+    color: #FFF;
+    padding:0vw 3vh;
+}
+.shengyu>p:nth-child(1){
+	float: left;
+}
+.shengyu>p:nth-child(2){
+	float: right;
+}
+.shengyu>p>span{
+	font-size: 1rem;
+	padding:0 0.4rem 0;
+}
+.bottAll{
+	display: flex;
+	width: 100vw;
+	margin-top: -5rem;
+}
+.bottAll>ul>li{
+	display: inline-block;
+	width: 33.3%;
+	text-align: center;
+	padding:-0 3vw 1vw 3vw;
+	box-sizing: border-box;
+	float: left;
+
+}
+.bottAll>ul>li:nth-child(4),
+.bottAll>ul>li:nth-child(5),
+.bottAll>ul>li:nth-child(6){
+	padding-bottom: 0vh;
+}
+
+.bottAll>ul>li>a>p{
+	padding-bottom: 1vh;
+	font-size: 2.5rem;
+}
+.bottAll>ul>li>a>span{
+	font-size: 0.8rem;
+}
+/*底部图标颜色*/
+.icon-lvxin1{
+	color: #217D64;
+}
+.icon-kaiguan{
+	color: #E72534;
+}
+.icon-chongxi1{
+	color: #039CE9;
+}
+.icon-chongzhi1{
+	color: #D99241;
+}
+.icon-wode1{
+	color: #0A56A3;
+}
+.icon-chongzhi{
+	color: #217D64;
+}
+@keyframes aImg3{
+	0%{opacity: 1;}
+	50%{opacity: 0;}
+	100%{opacity: 1;}
+}
+
+

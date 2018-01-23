@@ -1,312 +1,188 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1" >
-<!-- layui.js -->
-<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
-<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
-<title>点球共享水</title>
-<style>
-
- 
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>净水物联网</title>
+	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 </head>
 <body>
-<!-- 设备状态显示页面 -->
-<section class="DeviceStausePage">
-    <input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
-    <input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
-    <input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
-	<input type="hidden" value="">
-    <section class="btnList"> 
-        <ul> 
-            <li>
-                <a class="washBtn">
-                    <i class="i1"></i>
-                    <span>冲洗</span>
-                </a>
-            </li>
-            <li>
-                <a class="filterBtn">
-				<a href="{{:U('Home/Index/filter')}}">
-                    <i class="i2"></i>
-                    滤芯
-                </a>
-            </li>
-            <li>
-                <a href="{{:U('Home/Shop/index')}}">
-                    <i class="i3"></i>
-                    商城
-                </a>
-            </li>
-            <li>
-                <a href="{{:U('Home/Users/mine')}}">
-                    <i class="i4"></i>
-                    我的
-                </a>
-            </li>
-        </ul>
-    </section>
-    <section class="canvasBox">
-        <section class="ring-inside"></section>
-        <canvas id="canvas"></canvas>
-        <section class="wash"><img src="__PUBLIC__/Home/images/wash.png"></section><!--冲洗-->
-        <section class="service avatar">
-            <img src="__PUBLIC__/Home/images/service.png">
-        </section><!--检修-->
-        <section class="addwater"></section><!-- 制水 -->
-         <section class="ring-out" ></section><!--外环 -->
-        <img class="dripping dripping1" src="__PUBLIC__/Home/images/dripping.png">
-        <img class="dripping dripping2" src="__PUBLIC__/Home/images/dripping.png">
-        <div class="status_text_father">
-            <section class="status_text"></section>
-        </div>
-        <div id="waterDetial" >
-        </div>
-    </section> 
-    <footer id="footer">
-        <div class="footerBtn">
-            <div class="controlBtn clickBtn">开机</div>
-        </div>
-    </footer>
-</section>
+<input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
+<input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
+<input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
+	<div class="contain">
+		<div class="containTop bg1">
+			<div class="centerHuan bg4">
+				<div class="xuanhuan bg3"></div>
+				<div class="bolang bg4"></div>
+				<div class="bolang1 bg4"></div>
+			</div>
+			<div class="containTxt">
+				<div class="shuiliangOne"><b id="rawtdsVal"></b><span>ppm</span>
+					<p class="chunshui">纯水</p>
+				</div>
 
+				<div class="shuiliangTwo"><b id="puretdsVal"></b><span>&nbsp;ppm</span>
+					<p class="yuanshui">原水</p>
+				</div>
 
+			</div>
+			
+			<div class="allStatus clearfix" id="statusBox">
+				<div class="statusZhishui addwater"><!--制水-->
+					<p><i class="iconfont icon-zhishui"></i></p>
+					<span>制水</span>
+				</div>
+				<div class="fullWaters"><!--水满-->
+					<p><i class="iconfont icon-shuiman"></i></p>
+					<span>水满</span>
+				</div>
+				<div class="statusShuiman service"><!--检修-->
+					<p><i class="iconfont icon-jianxiu"></i></p>
+					<span>检修</span>
+				</div>
+				<div class="statusShuiman lessWaters"><!--缺水-->
+					<p><i class="iconfont icon-queshui"></i></p>
+					<span>缺水</span>
+				</div>
+				<div class="statusShuiman wash"><!--冲洗-->
+					<p><i class="iconfont icon-chongxi"></i></p>
+					<span>冲洗</span>
+				</div>
+				<div class="statusShuiman showDown"><!--关机-->
+					<p><i class="iconfont icon-shuiman"></i></p>
+					<span>关机</span>
+				</div>
+				<div class="statusShuiman outLine"><!--离线-->
+					<p><i class="iconfont icon-shuiman"></i></p>
+					<span>离线</span>
+				</div>
+			</div>
+			
+			
+
+			<div class="shuibolang">
+				<div class="shuibolang1"></div>
+				<div class="shuibolang2"></div>
+			</div>
+			<div class="shengyu clearfix">
+				<p id="surplusVal"></p>
+				<p id="alreadyUsedVal"></p>
+			</div>
+		</div>
+		<!--按钮列表-->
+		<div class="containBott">
+			<div class="bottAll">
+				<ul>
+					<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
+					<li><a href="#" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText"></span></a></li>
+					<li><a href="#" class="washBtn"><p class="iconfont icon-chongxi1"></p><span>冲洗</span class="washText"></a></li>
+					<li><a href="{{:U('Home/Shop/index')}}" class=""><p class="iconfont icon-chongzhi1"></p><span>充值</span></a></li>
+					<li><a href="{{:U('Home/Users/mine')}}"><p class="iconfont icon-wode1"></p><span>我的</span></a></li>
+					<li><a href="{{:U('Home/Shop/index')}}"><p class="iconfont icon-chongzhi"></p><span>商城</span></a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
 <script>
-//变量定义
-var data=JSON.parse($(".status").val());
-var res=JSON.parse($('.res').val());
-var deviceInfo=JSON.parse($(".deviceInfo").val());
-var deviceId=data.deviceid;//设备id
-//var deviceId=112233445566778;//设备id
-var devicestause=data.devicestause;//设备状态
-//console.log(data);
 
-// 设备状态页面js动画
-const c = document.getElementById('canvas');
-const g = c.getContext('2d');
-const omega = 200;//值越大，波浪速度越慢
-var widthC=$(window).width()*.55;//设置波浪动画宽度
-c.width=widthC;
-c.height=widthC;
-function addCanvas(color1,color2,waterYield){
-    class Point {
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-        fromPolar(radius, angle) {
-            this.x = radius * Math.cos(angle);
-            this.y = radius * Math.sin(angle);
-            return this;
-        }
-        add(p) {
-            this.x += p.x;
-            this.y += p.y;
-            return this;
-        }
-    }
-    const center = new Point(canvas.width / 2, canvas.height / 2);
-    const arc = (r, theta) => {
-        r -= 1;
-        g.arc(center.x, center.y, r, 0 - theta, Math.PI + theta);
-
-        return {
-            end: new Point().fromPolar(r, -theta).add(center),
-            start: new Point().fromPolar(r, Math.PI + theta).add(center)
-        };
-    }
-    const update = () => {
-        //外圆环
-        c.width = c.width;
-        g.lineCap='round';//画线头样式
-        g.lineWidth = 0;
-        g.beginPath();
-        var gradient=g.createLinearGradient(0,0,0,c.width);
-        // gradient.addColorStop("0","#7112fb");
-        // gradient.addColorStop("1","#1dd4fe");
-        g.strokeStyle = gradient;
-        g.arc(c.width*0.5, c.width*0.5, c.width, -37*Math.PI/180, 217* Math.PI/180,false);
-        g.stroke();
-        //第一波浪
-        g.fillStyle =color1;
-        g.beginPath();
-        let sides = arc(c.width*0.5, waterYield);
-        let dx = sides.end.x - sides.start.x;
-        let xo = 0;
-        for (var x = sides.start.x; x < sides.end.x; xo++, x++) {
-            const envelope = xo / dx * (1 - (xo / dx)) * 1;
-            g.lineTo(x, sides.start.y + 65 * envelope * Math.cos(Date.now() / omega + xo / dx * 3));//波浪高度
-        }
-        g.fill();
-        //第二波浪
-        g.fillStyle = color2;
-        g.beginPath();
-        sides = arc(c.width*0.5, waterYield);
-        dx = sides.end.x - sides.start.x;
-        xo = 0;
-        for (var x = sides.start.x; x < sides.end.x; xo++, x++) {
-            const envelope = xo / dx * (1 - (xo / dx)) * 1;
-            g.lineTo(x, sides.start.y + 65 * envelope * Math.sin(Date.now() / omega + xo / dx * 3));//波浪高度
-        }
-        g.fill();
-        requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-}
-// 设备状态页面数据渲染
-
-
-
-function machineStatus(){
-	if(devicestause==0){//制水
-		addwater();
-	}else if(devicestause==1){//冲洗
-		wash();
-	}else if(devicestause==2){//水满
-		//fullWaters();
-	}else if(devicestause==3){//缺水
-		lessWaters();
-	}else if(devicestause==5){//检修
-		service();
-	}else if(devicestause==7){ //关机
-		showDown();
-	}else if(devicestause==8){//开机
-		
-	}
-}
-
-
-//判断水机状态方法
-//关闭所有
-function shutAll(){
-	$(".addwater").hide();
-    $(".dripping").hide();
-    $(".ring-inside").hide();
-	$(".wash").hide();
-    $(".ring-out").hide();
-	$(".service").hide();
-	$("#canvas").hide();
-	$(".canvasBox").css({filter:'grayscale(0%)'});
-    $(".btnList").css({filter:'grayscale(0%)'});
-}
-//制水
-function addwater(){
-	shutAll();
-    addCanvas("#37BBD4","#87E8FD",-0.83);
-    $(".status_text").html("制水");
-    $(".controlBtn").html("关机");
-    $(".addwater").show();
-    $(".dripping").show();
-    $(".ring-inside").show();
-	$("#canvas").show();
-	$("#canvas").show();
-}
-//冲洗
-function wash(){
-	shutAll();
-    addCanvas("#37BBD4","#87E8FD",-0.83);
-    $(".status_text").html("冲洗");
-    $(".controlBtn").html("关机");
-    $(".wash").show();
-    $(".ring-inside").show();
-    $(".ring-out").show();
-}
-//缺水
-function lessWaters(){
-	shutAll();
-    addCanvas("#D34656","#FD8795",-0.83);
-    $(".status_text").html("缺水");
-    $(".controlBtn").html("关机");
-    $(".ring-inside").show();
-    $(".ring-out").show();
-	$("#canvas").show();
-}
-//水满
-function fullWaters(){
-	shutAll();
-    addCanvas("#37BBD4","#87E8FD",0.65);
-    $(".status_text").html("水满");
-    $(".controlBtn").html("关机");
-    $(".ring-inside").show();
-    $(".ring-out").show();
-	$("#canvas").show();
-}
-//检修
-function service(){
-	shutAll();
-    addCanvas("#37BBD4","#87E8FD",0.65);
-    $(".status_text").html("检修");
-    $(".controlBtn").html("关机");
-    $(".service").show();
-    $(".ring-inside").show();
-    $(".ring-out").show();
-	$("#canvas").show();
-}
-//关机
-function showDown(){
-	shutAll();
-    $(".status_text").html("关机状态");
-    $(".controlBtn").html("开机");
-    $(".canvasBox").css({filter:'grayscale(100%)'});
-    $(".btnList").css({filter:'grayscale(100%)'});
-}
-//离线
-function outLine(){
-	shutAll();
-    $(".status_text").html("离线");
-    $(".controlBtn").html("开机").css("background","#ccc");
-
-    $(".btnList").css({filter:'grayscale(100%)'});
-}
-machineStatus();//执行水机状态方法
-	var deviceInfoHtml='';//存放设备状态页面设备信息的标签
-	var reText="";//剩余流量文本
-	var usedText="";//已用流量文本
-	var renumber="";//剩余数值
-	var usednumber="";//已用数值
-	var unit="";//单位显示
-	if(data.leasingmode=="1"){//判断租赁模式
-		reText="剩余流量";
-		usedText="已用流量";
-		renumber=data.reflow;
-		usednumber=(parseInt(data.sumflow)-parseInt(data.reflow));
-		unit="L";
-	}else{//当有第三中模式时候，则要另外设置条件
-		reText="剩余天数";
-		usedText="已用天数";
-		renumber=data.reday;
-		usednumber=(parseInt(data.sumday)-parseInt(data.reday));
-		unit="天";
-	}
-	deviceInfoHtml='<div>'+
-						'<span>'+
-							'<img src="__PUBLIC__/Home/images/4_47.png" alt="">&nbsp;纯水&nbsp;'+
-							'<span class="rawtdsVal">'+(data.rawtds-0)+'ppm</span>'+
-						'</span>'+
-						'<span class="spanTow">'+
-							'<img src="__PUBLIC__/Home//images/4_43.png" alt="">&nbsp;原水&nbsp;'+
-							'<span class="puretdsVal">'+(data.puretds-0)+'ppm</span>'+
-						'</span>'+
-					'</div>'+
-					'<div>'+
-						'<span>'+reText+'&nbsp;'+
-							'<span class="reflowVal">'+renumber+unit+'</span>'+
-						'</span>'+
-						'<span class="spanTow">'+usedText+'&nbsp;'+
-							'<span class="sumflowVal">'+usednumber+unit+'</span>'+
-						'</span>'+
-					'</div>';
-	$("#waterDetial").html(deviceInfoHtml);
-
-	
-	
 //页面加载时执行
 $(function(){
+    //变量定义
+    var data=JSON.parse($(".status").val());
+    var res=JSON.parse($('.res').val());
+    var deviceInfo=JSON.parse($(".deviceInfo").val());
+    //var deviceId=data.deviceid;//设备id
+    var deviceId=112233445566778;//设备id
+    var devicestause=data.devicestause;//设备状态
+    console.log(data);
+
+
+
+
+    function machineStatus(){
+        if(devicestause=="0"){//制水
+            addwater();
+        }else if(devicestause=="1"){//冲洗
+            wash();
+        }else if(devicestause=="2"){//水满
+            fullWaters();
+        }else if(devicestause=="3"){//缺水
+            lessWaters();
+        }else if(devicestause=="5"){//检修
+            service();
+        }else if(devicestause=="7"){ //关机
+            showDown();
+        }else if(devicestause=="7"){//开机
+
+        }
+    }
+
+    //制水
+    function addwater(){
+        $(".switchText").html("关机");
+        $(".addwater").show().siblings().hide();
+    }
+    //冲洗
+    function wash(){
+        $(".switchText").html("关机");
+        $(".wash").show().siblings().hide();
+    }
+    //缺水
+    function lessWaters(){
+        $(".switchText").html("关机");
+        $(".lessWaters").show().siblings().hide();
+    }
+    //水满
+    function fullWaters(){
+        $(".switchText").html("关机");
+        $(".fullWaters").show().siblings().hide();
+    }
+    //检修
+    function service(){
+        $(".switchText").html("关机");
+        $(".service").show().siblings().hide();
+    }
+    //关机
+    function showDown(){
+        $(".switchText").html("开机");
+        $(".showDown").show().siblings().hide();
+    }
+    //离线
+    function outLine(){
+        $(".switchText").html("开机");
+        $(".outLine").show().siblings().hide();
+    }
+    machineStatus();//执行水机状态方法
+    var deviceInfoHtml='';//存放设备状态页面设备信息的标签
+    var reText="";//剩余流量文本
+    var usedText="";//已用流量文本
+    var renumber="";//剩余数值
+    var usednumber="";//已用数值
+    var unit="";//单位显示
+    if(data.leasingmode=="1"){//判断租赁模式
+        reText="剩余流量";
+        usedText="已用流量";
+        renumber=data.reflow;
+        usednumber=(parseInt(data.sumflow)-parseInt(data.reflow));
+        unit="L";
+    }else{//当有第三中模式时候，则要另外设置条件
+        reText="剩余天数";
+        usedText="已用天数";
+        renumber=data.reday;
+        usednumber=(parseInt(data.sumday)-parseInt(data.reday));
+        unit="天";
+    }
+    $("#rawtdsVal").html(data.rawtds-0);
+    $("#puretdsVal").html(data.puretds-0);
+    $("#surplusVal").html("<span>"+reText+"</span><b>"+renumber+unit+"</b>");
+    $("#alreadyUsedVal").html("<span>"+usedText+"</span><b>"+usednumber+unit+"</b>");
+
 	//websoket
 	var websoket=new WebSocket("ws://120.27.12.1:6001");
 	var PackNum=0;//包数据
@@ -324,38 +200,37 @@ $(function(){
 	websoket.onmessage=function(data)
 	{
 		var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
-		var leasingmode = dataList.LeasingMode;
-		//console.log(dataList.LeasingMode);
+		var leasingmode = dataList.LeasingMode;//租赁模式
+		console.log(dataList.LeasingMode);
 		machineStatus();//执行水机状态方法
-		//console.log(dataList);
-		
+		console.log(dataList);
+
 		if(dataList.PackType=="Select")//返回查询数据类型数据
 		{
-		//1.设备状态页面数据显示
+			//1.设备状态页面数据显示
 			$(".deviceStause").text(dataList.deviceStause);//设置设备状态
-			$(".puretdsVal").text(dataList.PureTDS+"ppm");//设置当前设备原水值
-			$(".rawtdsVal").text(dataList.RawTDS+"ppm");//设置当前设备纯水值
-			
-			if(leasingmode=="1"){//根据租赁模式判断显示流量值还是套餐值
-				$(".reflowVal").text(dataList.ReFlow);//设置当前设备剩余流量
-				$(".sumflowVal").text(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow));//设置当前设备已用流量
-			}else if(leasingmode=="2"){
-				
+			$("#rawtdsVal").text(dataList.PureTDS);//设置当前设备原水值
+			$("#puretdsVal").text(dataList.RawTDS);//设置当前设备纯水值
+			if(leasingmode=="1"){//显示流量值
+				$("#surplusVal").html("<span>剩余流量</span><b>"+dataList.ReFlow+"L</b>");
+				$("#alreadyUsedVal").html("<span>已用流量</span><b>"+parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow)+"L</b>");
+			}else if(leasingmode=="2"){//套餐值
+
 				if(dataList.Reday){//设置当前设备剩余天数
 					$(".reflowVal").text(dataList.Reday+"天");
-				}else{
-					$(".reflowVal").text(0+"天");
-				}
-				if(dataList.SumDay){//设置当前设备已用天数
 					$(".sumflowVal").text(parseInt(dataList.SumDay)-parseInt(dataList.Reday)+"天");
+
+					$("#surplusVal").html("<span>剩余天数</span><b>"+dataList.Reday+"天</b>");
+					$("#alreadyUsedVal").html("<span>已用天数</span><b>"+parseInt(dataList.SumDay)-parseInt(dataList.Reday)+"天</b>");
 				}else{
-					$(".sumflowVal").text(0+"天");
-				}				
+					$("#surplusVal").html("<span>剩余天数</span><b>0天</b>");
+					$("#alreadyUsedVal").html("<span>已用天数</span><b>0天</b>");
+				}
 			}
 		}
 		else if(dataList.PackType=="SetData")//设置数据类型数据
 		{
-			
+
 			for(var i=0;i<CmdList.length;i++){
 				if(CmdList[i].cmd.PackNum==dataList.PackNum)
 				{
@@ -371,7 +246,7 @@ $(function(){
 					{
 						wash();
 					}
-					
+
 					CmdList.splice(i,1);
 					break;
 				}
@@ -392,7 +267,7 @@ $(function(){
 			}else if(dataList.DeviceStause=="7"){ //关机
 				showDown();
 			}else if(dataList.DeviceStause=="8"){//开机
-				
+
 			}
 		}
 	}
@@ -402,8 +277,8 @@ $(function(){
 		var thisT=$(this);
 		if(data.deviceStause==7){
 			layui.use('layer', function(){
-			  var layer = layui.layer;
-			  layer.msg('设备已关机，不能冲洗');
+				var layer = layui.layer;
+				layer.msg('设备已关机，不能冲洗');
 			});
 			return false;
 		}else{
@@ -440,7 +315,7 @@ $(function(){
 	});
 	//开机/关机按钮操作
 	$('.clickBtn').click(function(){
-		var _this=$(this).text();
+		var _this=$(this).children("span").html();
 		var thisT=$(this);
 		var ajson;//数据对象
 		//判断操作类型
@@ -462,16 +337,15 @@ $(function(){
 				if(_this=="开机"){
 					ajson['DeviceStause']=8;
 					ajson['type']='开机中';
-					thisT.html("开机中");
+					thisT.children("span").html("开机中");
 
 				}else if(_this=="关机"){
 					ajson['DeviceStause']=7;
 					ajson['type']='关机中';
-					thisT.html("关机中");
+					thisT.children("span").html("关机中");
 
 				}
 				//发送数据
-				//console.log(ajson);
 				websoket.send(JSON.stringify(ajson));
 				CmdList.push({
 					cmd:ajson,
@@ -480,8 +354,8 @@ $(function(){
 			});
 		});
 	});
-	
-	
+
+
 })
 //页面加载时执行结束
 
