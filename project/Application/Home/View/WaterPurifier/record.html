@@ -18,6 +18,7 @@
 		html, body {
 			width: 100% !important;
 			height: 100%;
+			background: #fff;
 		}
 		#dateSelect{
 			width: 40%;
@@ -177,9 +178,6 @@
 		    top: 4px;
 		    z-index: 999;
 		}
-		#back2Home:active {
-		    background: #ccc;
-		}
 		#back2Home>i {
 		    width: 5vh;
 		    height: 5vh;
@@ -193,7 +191,7 @@
 	</style>
 </head>
 <body>
-	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
+	<a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont icon-zhuye"></i></a>
 	<div id="dateSelect">
 		<input name="date" type="button" class="in-first layui-input" id="chooseMonth" value="">
 	</div>

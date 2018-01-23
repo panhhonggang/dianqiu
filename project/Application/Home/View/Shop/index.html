@@ -76,9 +76,6 @@
 		        right: 0;
 		        top: 0;
 		    }
-		    #back2Home:active {
-		        background: #ccc;
-		    }
 		    #back2Home>i {
 		        width: 5vh;
 		        height: 5vh;
@@ -122,10 +119,10 @@
 			#foot>input {
 				color: #039CE9;
 				font-size: 0.426667rem;
+			    font-weight: 600;
 			}
 			#foot input:last-child {
 			    color: #fff;
-			    font-weight: 600;
 			    background: #039CE9;
 			}
 			#ro1 {
@@ -392,9 +389,9 @@
 		 */
 		$('#foot>input').mouseenter(function(){
 			// 将所有的input恢复默认样式
-			$(this).parents('#foot').find('input').css({'background':'rgba(0,0,0,0)','color':'#15164c'});
+			$(this).parents('#foot').find('input').css({'background':'rgba(0,0,0,0)','color':'#039CE9'});
 			// 设置当前的按钮样式
-			$(this).css({'background':'#353659','color':'#FFF'});
+			$(this).css({'background':'#039CE9','color':'#FFF'});
 
 		});
 

@@ -24,13 +24,10 @@
 		    justify-content: center;
 		    -ms-align-items: center;
 		    align-items: center;
-		    position: absolute;
+		    position: fixed;
 		    right: 0;
 		    top: 0;
 		    z-index: 999;
-		}
-		#back2Home:active {
-		    background: #ccc;
 		}
 		#back2Home>i {
 		    width: 5vh;
@@ -148,7 +145,7 @@
 	</style>
 </head>
 <body>
-	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
+	<a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont icon-zhuye"></i></a>
 	<form action="{{:U('Home/Repair/index')}}" method="post" enctype="multipart/form-data" id="form">
 		<div id="repair-all">
 			<div id="repair-container">
