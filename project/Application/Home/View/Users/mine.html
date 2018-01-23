@@ -14,8 +14,15 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 <title>个人信息</title>
 <style>
+	#mine-first-top>.mine-pic>p {
+		color: #039CE9;
+		font-weight: 600;
+	}
 	#mine-first-all {
 	    padding-top: 8vh;
+	}
+	.bgTop {
+   		background: url(__PUBLIC__/Home/images/mine-first-02.png) no-repeat;
 	}
 	#mine-first-container {
 		margin: 0rem 0.4rem 0.0rem 0.4rem;
@@ -75,13 +82,13 @@
 	.edit {
 		width: 100%;
 		position: absolute;
-		bottom: -8px;
+		bottom: 8px;
 		text-align: center;
 	}
 	.infoBtn{
 		border-radius:5px; 
 		padding:2px 12px; 
-		border:1px solid #ccc;
+		border:1px solid #2eacec;
 	}
 	#m-f-list>ul>li>a>i {
 		color: #E69A3F;
@@ -118,7 +125,7 @@
 </style>
 </head> 
 <body>
-<div id="mine-first-all" class="mine-first-all" >
+<div id="mine-first-all" class="mine-first-all bgTop" >
 	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 	<div id="mine-first-container">
 		<div id="mine-first-top">

@@ -11,6 +11,7 @@ $(function(){
 		$(this).css('display','none');
 		$('.mine-name').css('display','none');
 		$('.xia').css('display','block');
+		$('#mine-first-all').addClass('bgTop');
 		$('#mine-first-all').removeClass('mine-first-all')
 	});
 });
@@ -20,6 +21,7 @@ $(function(){
 		$(this).css('display','none');
 		$('.shang').css('display','block');
 		$('.mine-name').css('display','block')
+		$('#mine-first-all').removeClass('bgTop');
 		$('#mine-first-all').addClass('mine-first-all');
 	});
 });
