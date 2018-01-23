@@ -27,7 +27,7 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did')
             ->count();
         $page  = new \Think\Page($total,10);
         $pageButton =$page->show();
@@ -38,10 +38,11 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
+        // dump($userlist);
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
@@ -107,7 +108,6 @@ class UsersController extends CommonController
             $did[] = $value['id'];
         }
         $flow = M('flow')->where(['did' => ['in',$did]])->select();
-        dump($userinfo);
         // 分配数据
         $assign = [
             'userinfo'        => json_encode($userinfo),
@@ -181,32 +181,22 @@ class UsersController extends CommonController
         ];
         $device = M('devices');
         $did = $device->where($code)->find()['id'];
-        $current_device = M('current_devices')->where('did='.$did)->find();
         $device->startTrans();
-        if(!empty($current_device)){
-            $res = M('current_devices')->where('did='.$did)->delete();
-            $msg = '当前设备';
-        }
+
+        $current_device = M('current_devices')->where('did='.$did)->find();
         $result = M('devices')->where($code)->save($data);
-        if($res && $result){
+
+        $res = M('current_devices')->where('did='.$did)->delete();
+        if($current_device){
+            $this->ajaxReturn(['code' => 203, 'msg' => '当前绑定设备，不可解除绑定']);
+        }
+        if($result && $res){
             $device->commit();
-            $this->ajaxReturn(['code' => 200, 'msg' => $msg.'解除绑定成功']);
+            $this->ajaxReturn(['code' => 200, 'msg' => '解除绑定']);
         } else {
             $device->rollback();
             $this->ajaxReturn(['code' => 202, 'msg' => '解除绑定失败']);
         }
     }  
 
-
-    // $(".unb").click(function(){
-    //     var userId = $(this).attr('userId');
-    //     layui.use('layer', function(){
-    //         var layer = layui.layer;
-    //         layer.confirm('确定解除绑定?', {icon: 3, title:'温馨提示'}, function(index){
-    //             window.location.href='?id='+userId;
-    //             layer.close(index);
-                
-    //         });
-    //     });
-    // });
 }

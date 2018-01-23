@@ -41,6 +41,7 @@ class Db {
                 // 类没有定义
                 E(L('_NO_DB_DRIVER_').': ' . $class);
             }
+            
         }
         self::$_instance    =   self::$instance[$md5];
         return self::$_instance;

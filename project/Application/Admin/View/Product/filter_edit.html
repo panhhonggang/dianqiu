@@ -27,7 +27,7 @@
                     </div>
                     <div class="control-group">
                         <span>滤芯价格</span>
-                        <input type="text" name="price" placeholder="请输入滤芯价格..." value="{{$vo.price}}">
+                        <input type="text" class="priceNum" name="price" placeholder="请输入滤芯价格..." value={{$vo['price']/100}}>
                     </div>
                     <div class="control-group">
                         <span>滤芯图片</span>
@@ -69,6 +69,7 @@
             $(".nav").children("li").eq(3).attr("class","open");
             $(".nav").children("li").eq(3).find(".submenu").show();
         }
+
     </script>
     <!-- footer part -->
     <!-- <include file="Public/footer" /> -->

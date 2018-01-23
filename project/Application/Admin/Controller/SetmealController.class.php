@@ -18,10 +18,27 @@ class SetmealController extends CommonController
      */
     public function index()
     {	
-       // 根据名称进行搜索
+        // if(!empty($_GET['typename'])) $map['typename'] = array('like',"%{$_GET['typename']}%");
+        // 查询条件
         $map = '';
-        if(!empty($_GET['typename'])) $map['typename'] = array('like',"%{$_GET['typename']}%");
-
+        // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
+        if (!empty($_GET['key']) && !empty($_GET['value'])) {
+            switch ($_GET['key']) {
+                case '1':
+                    $map['typename'] = array('like',"%{$_GET['value']}%");
+                    break;
+                case '2':
+                    if ($_GET['value'] == '流量') {
+                        $map['remodel'] = '0';     
+                    } elseif ($_GET['value'] == '时长') {
+                        $map['remodel'] = 1;
+                    }                 
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $type = M('setmeal');
         
         $total =$type->where($map)

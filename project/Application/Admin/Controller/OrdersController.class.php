@@ -18,6 +18,7 @@ class OrdersController extends CommonController
     {	
         // 根据用户昵称进行搜索
         $map = '';
+      if(strlen($_GET['order_id'])) $map['order_id'] = array('like',"%{$_GET['order_id']}%");
     	if(strlen($_GET['nickname'])) $map['nickname'] = array('like',"%{$_GET['nickname']}%");
       if(strlen($_GET['is_pay'])) $map['is_pay'] = array('like',"%{$_GET['is_pay']}%");
       if(strlen($_GET['is_receipt'])) $map['is_receipt'] = array('like',"%{$_GET['is_receipt']}%");
