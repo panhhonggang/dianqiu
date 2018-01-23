@@ -6,10 +6,16 @@
             <div class="titleBar">建议及报修/<span>建议列表</span></div>
             <form class="form-search fr" action="__URL__/feedslist" method="get">
                 <span class="select-box">
-                  <select class="select" size="1" name="key" style="width: 100px;">
-                    <option value="1" selected>昵称</option>
+                  <select class="select" size="1" name="key" style="width: 100px;height: 32px;margin-top: 2px;">
+                    <option value="1" selected style="height: 32px;">昵称</option>
                     <option value="2">手机</option>
                   </select>
+                    <style>
+
+                        select option {
+                            width: 100px;height: 32px;
+                        }
+                    </style>
                 </span>
                 <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
                 <button type="submit" class="btn">查找</button>
