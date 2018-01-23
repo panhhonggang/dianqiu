@@ -11,8 +11,22 @@
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <script src="__PUBLIC__/Home/js/mine-first.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Home/css/mine-first.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 <title>个人信息</title>
 <style>
+	#mine-first-top>.mine-pic>p {
+		color: #039CE9;
+		font-weight: 600;
+	}
+	#mine-first-all {
+	    padding-top: 5vh;
+	}
+	.bgTop {
+   		background: url(__PUBLIC__/Home/images/mine-first-02.png) no-repeat;
+	}
+	#mine-first-container {
+		margin: 0rem 0.4rem 0.0rem 0.4rem;
+	}
 	#deviceManage>a,
 	#clearLog>a,
 	#proposal>a,
@@ -60,26 +74,56 @@
 		position: relative;
 	}
 	.mine-name>section {
-		width: 66%;
+		width: 74%;
 	    position: relative;
 	    left: 50%;
-	    margin-left: -33%;
+	    margin-left: -37%;
 	}
 	.edit {
 		width: 100%;
 		position: absolute;
-		bottom: -8px;
+		bottom: 8px;
 		text-align: center;
 	}
 	.infoBtn{
 		border-radius:5px; 
 		padding:2px 12px; 
-		border:1px solid #ccc;
+		border:1px solid #2eacec;
+	}
+	#m-f-list>ul>li>a>i {
+		color: #E69A3F;
+	}
+	#back2Home {
+	    width: 8vh;
+	    height: 8vh;
+	    display: -webkit-flex;
+	    display: -moz-flex;
+	    display: -ms-flex;
+	    display: -o-flex;
+	    display: flex;
+	    justify-content: center;
+	    -ms-align-items: center;
+	    align-items: center;
+	    position: absolute;
+	    right: 0;
+	    top: 8px;
+	    z-index: 999;
+	}
+	#back2Home>i {
+	    width: 5vh;
+	    height: 5vh;
+	    text-align: center;
+	    line-height: 5vh;
+	    color: #fff;
+		font-weight: 600;
+	    border-radius: 5vh;
+	    background: #039CE9;
 	}
 </style>
 </head> 
 <body>
-<div id="mine-first-all" class="mine-first-all" >
+<div id="mine-first-all" class="mine-first-all bgTop" >
+	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 	<div id="mine-first-container">
 		<div id="mine-first-top">
 			<div class="mine-pic">
@@ -103,7 +147,7 @@
 			 		<p>
 				 		<span class="mineAddr">
 				 			<em>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</em>
-				 			<span>{{$userInfo['address']}}</span>
+				 			<span>{{$userInfo['address']}}个梵蒂冈多</span>
 				 		</span>
 				 		<span class="userPhone">
 				 			<em>手机号码：</em>

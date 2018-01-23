@@ -7,10 +7,7 @@
 		<title>购物车</title>
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
-		<!-- 微信支付支持JS部分代码 -->
-		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 		<style>
 			* {
 				margin: 0;
@@ -93,12 +90,46 @@
 			     border: none; 
 			     text-align: center;
 			}
+			#back2Home {
+			    width: 8vh;
+			    height: 8vh;
+			    display: -webkit-flex;
+			    display: -moz-flex;
+			    display: -ms-flex;
+			    display: -o-flex;
+			    display: flex;
+			    justify-content: center;
+			    -ms-align-items: center;
+			    align-items: center;
+			    position: absolute;
+			    right: 0;
+			    top: 0;
+			    z-index: 999;
+			}
+			#back2Home>i {
+			    width: 5vh;
+			    height: 5vh;
+			    text-align: center;
+			    line-height: 5vh;
+			    color: #fff;
+				font-weight: 600;
+			    border-radius: 5vh;
+			    background: #039CE9;
+			}
+			#foot {
+				color: #039CE9;
+			}
+			#foot input:last-child {
+			    background: #039CE9;
+			    color: #fff;
+			}
 		</style>
 	</head>
 	<body>
 
 	<div id="contain">
 		
+		<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 		<!-- 滤芯开始 -->
 		<div id="mo">
 
@@ -155,6 +186,10 @@
 	</div>
 	
 	</body>
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<!-- 微信支付支持JS部分代码 -->
+	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 <script>
 		/**
 		 * 初始化样式

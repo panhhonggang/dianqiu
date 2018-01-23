@@ -44,7 +44,7 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
      border-bottom: 2px solid #EEEEEE;
 }
 #order-all-header>ul>li>a.headOne{
-	 border-bottom: 4px solid #2E2F55;
+	 border-bottom: 4px solid #039CE9;
 
 }
 /*#order-all-header>.slip
@@ -73,10 +73,10 @@ a:active{text-decoration:none!important;}/* 指正在点的链接*/
 	
 }
 .fini-change{
-	border: 1px solid #353659;
+	border: 1px solid #039CE9;
     border-radius: 0 0.093333rem 0.093333rem 0;
     width:2.533333rem; 
-    background: #353659;
+    background: #039CE9;
     color: #fff;
     font-size: 0.533333rem;
     margin-top:0.7rem;

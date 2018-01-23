@@ -13,13 +13,46 @@
 
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<style>
+
+			#order-all-header>ul>li:nth-of-type(3)>a{
+				color: #039CE9;
+			}
+			#back2Home {
+			    width: 8vh;
+			    height: 8vh;
+			    display: -webkit-flex;
+			    display: -moz-flex;
+			    display: -ms-flex;
+			    display: -o-flex;
+			    display: flex;
+			    justify-content: center;
+			    -ms-align-items: center;
+			    align-items: center;
+			    position: absolute;
+			    right: 4px;
+			    top: 8vh;
+			    z-index: 999;
+			}
+			#back2Home>i {
+			    width: 5vh;
+			    height: 5vh;
+			    text-align: center;
+			    line-height: 5vh;
+			    color: #fff;
+				font-weight: 600;
+			    border-radius: 5vh;
+			    background: #039CE9;
+			}
+		</style>
 <!-- 		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
 	</head>
 	<body>
 
-
 	<div id="contain" class="container">
+	<a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont icon-zhuye"></i></a>
 	 <!-- order-all的头部开始 -->
 	 	<div id="order-all-header">
 	 		<ul>
@@ -87,7 +120,7 @@
 
 		<!-- 滤芯结束 -->
         <div id="order-all-foot">
-			<input type="submit" id="ord-btn2"  value="提醒发货" onclick="onClickBtn(0)">
+			<input type="submit" id="ord-btn2"  value="提醒发货" onclick="onClickBtn(0)" style="border:1px solid #039CE9">
 		</div>
 		</foreach>	
 	</div>
