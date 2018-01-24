@@ -36,34 +36,6 @@
 		align-items: center;
 		z-index: 999;
 	}
-	#back2Home {
-	    width: 50vw;
-	    height: 8vh;
-	    display: -webkit-flex;
-	    display: -moz-flex;
-	    display: -ms-flex;
-	    display: -o-flex;
-	    display: flex;
-	    justify-content: center;
-	    -ms-align-items: center;
-	    align-items: center;
-	    position: fixed;
-	    left: 50%;
-	    margin-left: -25vw;
-	    bottom: 10vh;
-	    z-index: 999;
-	}
-	#back2Home>span {
-	    width: 80%;
-	    height: 5vh;
-	    text-align: center;
-	    line-height: 5vh;
-	    color: #fff;
-		font-weight: 600;
-		font-size: 16px;
-	    border-radius: 5vh;
-	    background: #039CE9;
-	}
 </style>
 <script>	
 		$(function(){
@@ -97,7 +69,6 @@
 </head>
 <body>
 <div id="devices-all">
-	<a id="back2Home" href="{{:U('Home/Users/mine')}}"><span>确定</span></a>
 	<div id="devices-container">
 		<div id="devices-list">
 			<h3>所有设备</h3>
@@ -169,6 +140,9 @@
 		});
 	});
 
+	$("#devices-list>ul>li").click(function(){
+		location.href = "{{:U('Home/Users/mine')}}";
+	})
 </script>
 
 </body>
