@@ -41,6 +41,7 @@
                             <td>用户ID</td>
                             <td>充值方式</td>
                             <td>订单号码</td>
+                            <td>充值金额/元</td>
                             <td>充值流量/L</td>
                             <td>当前流量/L</td>
                             <td>充值时间</td>
@@ -71,21 +72,21 @@
             })
             flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
-                console.log(data)
                 data.forEach(function(el,i,arr){
                     var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
                     var ordernumber = el.order_id?el.order_id:'--'
                     var currentbalance = el.currentflow?el.currentflow:'--'
-                    var money = el.flow?el.flow:'--'
+                    var flow = el.flow?el.flow:'--'
+                    var money = el.money?el.money:'--'
                     var html = '<tr>'+
                                     '<td>'+el.id+'</td>'+
                                     '<td>'+mode[el.mode]+'</td>'+
                                     '<td>'+ordernumber+'</td>'+
                                     '<td>'+money+'</td>'+
+                                    '<td>'+flow+'</td>'+
                                     '<td>'+currentbalance+'</td>'+
                                     '<td>'+time.trim()+'</td>'+
                                 '</tr>'
-                                console.log(ordernumber);
                     $('._flow').append(html)
                 }) 
             })
