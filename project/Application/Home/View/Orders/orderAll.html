@@ -18,6 +18,20 @@
 		<!-- 微信支付支持JS部分代码 -->
 		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 		<style>
+			#contain {
+			    margin: 0.4rem 0.4rem 0rem 0.4rem;
+			}
+			.orderFulfil {
+			    width: 9.2rem;
+			    margin: 0;
+			    padding: 0 0 10vh 0;
+			    border-bottom: 6px solid #EBEBEB;
+			}
+			.nopay-kuai {
+			    border-top: 0px solid #EBEBEB;
+			    /* margin-top: 2.7rem; */
+			    margin: 1rem 0.4rem 0rem 0.4rem;
+			}
 			#order-all-header>ul>li:nth-of-type(1)>a{
 				color: #039CE9;
 			}
@@ -31,7 +45,7 @@
 				position: relative;
 				margin-left: 5vw;
 			}
-			#ord-btn2 {
+			#ord-btn1, #ord-btn2 {
 				border: 1px solid #353659;
 				border-radius: 6px;
 				font-size: .36rem;
@@ -68,8 +82,6 @@
 		</style>
 	</head>
 	<body>
-
-
 	<div id="contain" class="container">
 		<a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont icon-zhuye"></i></a>
 	 <!-- order-all的头部开始 -->
@@ -84,67 +96,69 @@
 	 	</div>
 	 <!-- order-all的头部开始 -->
 	 <!-- <div class="all-kuai"> -->
+	 <!-- {{$orderFulfil|dump}} -->
 	<notempty name="orderFulfil">
-	<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+	 <div class="orderFulfil">
+		<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+		 	<foreach name="orderFulfil" item="value">
+			<div id="all-sure-head">
+				<div id="all-information">
+					<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+					<b class="order-timer">订单时间：{{:date("Y年m月d日h时m分s秒",$value['created_at'])}}</b><br>
+					<empty name="value.express">
+					<else />
+						<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
+					</empty>
+				</div>
+			</div>
+
+			<!-- 滤芯开始 -->
+			<div id="mo">
+				<foreach name="value['orderFilter']" item="orderFilter">
+				<div id="ro1" class="ro1">
+					<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+					<div id="ro-right">
+						<div class="top">
+							<h3>{{$orderFilter['filtername']}}</h3>
+							<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+						</div>
+						<div class="bott">
+						 <b>￥{{$orderFilter['price']/100}}</b>
+						 <p>X{{$orderFilter['goods_num']}}</p>
+						</div>
+					</div>
+				</div>
+				<hr>
+				</foreach>
+				<foreach name="value['orderSetmeal']" item="orderSetmeal">
+				<div id="mo2">
+					<div id="mo-right">
+						<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+					</div>
+					<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+				</div>
+				<hr>
+				</foreach>
+				<div id="mo2">
+					<div id="mo-right2">
+						<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
+					</div>
+				</div>
+				<hr>
+				<p class="franking">（含邮费¥0.00) </p>
+			</div>
+			</foreach>
+		</div>
 	</notempty>
-	 	<foreach name="orderFulfil" item="value">
-		<div id="all-sure-head">
-			<div id="all-information">
-				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><br>
-				<empty name="value.express">
-				<else />
-					<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
-				</empty>
-			</div>
-		</div>
-
-		<!-- 滤芯开始 -->
-		<div id="mo">
-			<foreach name="value['orderFilter']" item="orderFilter">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$orderFilter['filtername']}}</h3>
-						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
-					</div>
-					<div class="bott">
-					 <b>￥{{$orderFilter['price']/100}}</b>
-					 <p>X{{$orderFilter['goods_num']}}</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			</foreach>
-			<foreach name="value['orderSetmeal']" item="orderSetmeal">
-			<div id="mo2">
-				<div id="mo-right">
-					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
-				</div>
-				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
-			</div>
-			<hr>
-			</foreach>
-			<div id="mo2">
-				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
-				</div>
-			</div>
-			<hr>
-
-			<p class="franking">（含邮费¥0.00) </p>
-		</div>
-		</foreach>
 	</div>
 <!-- =========未支付开始啦========= -->
+	<notempty name="orderPay">
 	<div class="nopay-kuai .clearfix">
-		<notempty name="orderPay">
 		<div class="nopay-top .clearfix">	
 			<input class="fini-change" type="buttom" value="未支付" readonly="readonly">
 		</div>
-		</notempty>
 		<div order-cont></div>
+	</notempty>
 		<foreach name="orderPay" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="未支付" readonly="readonly"> -->
@@ -204,12 +218,12 @@
 
 
 <!-- ==============================代发货 -->
+	<notempty name="orderSend">
 	<div class="nopay-kuai daifahuo">
-		<notempty name="orderSend">
 		<div class="nopay-top .clearfix">
 			 <input class="fini-change" type="buttom" value="待发货" readonly="readonly">
 		</div>
-		</notempty>
+	</notempty>
 		<foreach name="orderSend" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="代发货" readonly="readonly"> -->
@@ -268,12 +282,12 @@
 	</div>
 
 <!-- =========================代付款开始 -->
+	<notempty name="orderTake">
 	<div class="nopay-kuai">
-		<notempty name="orderTake">
 		<div class="nopay-top .clearfix">
 			 <input class="fini-change" type="buttom" value="待收货" readonly="readonly">
 		</div>
-		</notempty>
+	</notempty>
 		<foreach name="orderTake" item="value">
 		<div id="all-sure-head" class="no-pay">
 			<!-- <input type="buttom" value="待收货" readonly="readonly"> -->
@@ -397,11 +411,10 @@
 		}
 
 		// 头部的下划线显示
-		
-	
 		$('#order-all-header>ul>li').bind('click',function(){
 			
-			$(this).children().eq(0).css('borderBottom','4px solid #2E2F55');
+			$(this).siblings("li").children("a").css({color: '#000',borderBottom: 'none'})
+			$(this).children().eq(0).css({borderBottom:'4px solid #039CE9',color: '#039CE9'});
 		})
 
 	</script>

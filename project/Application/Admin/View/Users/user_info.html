@@ -10,6 +10,7 @@
             <input type="hidden" value='{{$user}}' class="_inp">
             <input type="hidden" value='{{$flow}}' class="_inp">
             <input type="hidden" value='{{$userinfo}}' class="_inp">
+            <input type="hidden" value='{{$balance}}' class="balance">
             <div class="_tb _user" style="border-top: 4px #5ED0F4 solid;
     border-bottom:  1px #CCCCCC solid">
                 <h3>用户基础信息</h3>
@@ -20,7 +21,7 @@
                             <td>手机</td>
                             <td>安装地址</td>
                             <td>已绑定的设备</td>
-                            <td>剩余流量</td>
+                            <td>剩余流量/L</td>
                             <td>最后登录时间</td>
                             <td>登录IP</td>
                             <td>关注日期</td>
@@ -41,6 +42,7 @@
                             <td>用户ID</td>
                             <td>充值方式</td>
                             <td>订单号码</td>
+                            <td>充值金额/元</td>
                             <td>充值流量/L</td>
                             <td>当前流量/L</td>
                             <td>充值时间</td>
@@ -55,7 +57,8 @@
             var _inp = $('._inp')
             var user = _inp.eq(0).val()
             var flow = _inp.eq(1).val()
-            var consume = _inp.eq(2).val()
+            var consume = _inp.eq(2).val();
+            var balance = JSON.parse($(".balance").val());
             var userStatus = {
                 '0':'禁用',
                 '1':'启用'
@@ -71,21 +74,21 @@
             })
             flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
-                console.log(data)
                 data.forEach(function(el,i,arr){
                     var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
                     var ordernumber = el.order_id?el.order_id:'--'
                     var currentbalance = el.currentflow?el.currentflow:'--'
-                    var money = el.flow?el.flow:'--'
+                    var flow = el.flow?el.flow:'--'
+                    var money = el.money?el.money:'--'
                     var html = '<tr>'+
                                     '<td>'+el.id+'</td>'+
                                     '<td>'+mode[el.mode]+'</td>'+
                                     '<td>'+ordernumber+'</td>'+
-                                    '<td>'+money+'</td>'+
+                                    '<td>'+money/100+'</td>'+
+                                    '<td>'+flow+'</td>'+
                                     '<td>'+currentbalance+'</td>'+
                                     '<td>'+time.trim()+'</td>'+
                                 '</tr>'
-                                console.log(ordernumber);
                     $('._flow').append(html)
                 }) 
             })
@@ -100,8 +103,8 @@
                         '<td>'+data[i].name+'</td>'+
                         '<td>'+data[i].phone+'</td>'+
                         '<td>'+installaddress+'</td>'+
-                        '<td>'+data[i].device_code+'</td>'+
-                        '<td>'+data[i].balance+'</td>'+
+                        '<td class="device_code">'+data[i].device_code+'</td>'+
+                        '<td class="balance"></td>'+
                         '<td>'+login_time+'</td>'+
                         '<td>'+data[i].login_ip+'</td>'+
                         '<td>'+addtime+'</td>'+
@@ -130,6 +133,20 @@
                     }
                 });
             })
+            // 遍历剩余流量
+            for(var i=0; i<balance.length; i++){
+                // console.log($(".device_code").eq(i).text())
+                // console.log(balance[i].deviceid)
+                if($(".device_code").eq(i).text() == balance[i].deviceid){
+
+                    if(!balance[i].reflow){
+                        $(".device_code").eq(i).siblings(".balance").text(0)
+                    }else{
+                        $(".device_code").eq(i).siblings(".balance").text(balance[i].reflow)
+                    }
+                }
+                
+            }
         </script>
         <!-- footer part -->
         <include file="Public/footer" />

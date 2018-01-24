@@ -119,18 +119,24 @@ class UsersController extends CommonController
 
         // 充值记录
         $did = array();
+        $code = array();
         foreach ($userinfo as $key => $value) {
-            $did[] = $value['id'];
+            $did[]  = $value['id'];
+            $code[] = $value['device_code'];
         }
         $where['_query'] = "status=1";
-        $where['did'] = array('in',$did);
-        $flow = M('flow')->where($where)->select();
-        // echo M('flow')->_sql();
+        $where['did']    = array('in',$did);
+        $flow    = M('flow')->where($where)->select();
+        $balance = M('devices_statu')
+            ->where(['DeviceID' => ['in',$code]])
+            ->field('DeviceID,ReFlow')
+            ->select();
         // 分配数据
         $assign = [
-            'userinfo'        => json_encode($userinfo),
-            'user'            => json_encode($user),
-            'flow'            => json_encode($flow),
+            'userinfo' => json_encode($userinfo),
+            'user'     => json_encode($user),
+            'flow'     => json_encode($flow),
+            'balance'  => json_encode($balance),
         ];
         $this->assign($assign);
         $this->display();

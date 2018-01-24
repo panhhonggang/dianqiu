@@ -167,11 +167,11 @@ ul li{
 }
 .content .formBox form div span{
 	width: 150px;
-	height: 40px;
+	height: 100%;
 	text-align: right;
 	margin-right: 30px;
 	display:inline-block;
-	
+	vertical-align: top;
 	color: #585858;
 }
 .content .tableBox{
@@ -235,7 +235,6 @@ ul li{
 	left:0;
 	top:0;
 	bottom:0;
-
 	display:none
 }
 .textareaBox{width: 215px; min-height: 110px; border: 1px solid #ccc;}
@@ -252,10 +251,12 @@ ul li{
     border-radius: 7px;
 }
 .info{
+	width: 43%;
 	display: inline-block;
 }
 .info select{
-	width: 63px;
+	width: 100%;
+    display: block;
 }
 .selects{
     width: 210px;
