@@ -21,11 +21,13 @@ class CommonController extends Controller
         // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
             // 实例化微信JSSDK对象
-            $weixin = new WeixinJssdk;
+            $weixin      = new WeixinJssdk;
             // 获取用户open_id
-            $openId = $weixin->GetOpenid();
-            // $openId = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
-
+            $openId      = $weixin->GetOpenid();
+            $openId_ifno = $weixin->getSignPackage();
+            // $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
+            session('weixin',[$openId,$openId_ifno]);
+            dump(session());
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
             

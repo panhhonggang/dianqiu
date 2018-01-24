@@ -346,9 +346,9 @@ class XZCloudStandard
             else if($data['PackType']=='SetData')
             {
                 $data['DataCmd']=3;
-                $i=28;
+                $i=count(XZCloudStandard::$TableSetCmd);
                 $cmd=XZCloudStandard::$TableSetCmd;
-                for($i=28;$i>=0;$i--)
+                for(;$i>=0;$i--)
                 {
                     if(isset($data[$cmd[$i][0]]))
                     {
