@@ -536,6 +536,7 @@ h3{
         justify-content: center;
         align-items: center;
         position: absolute;
+        top: -4vw;
         left: 0;
         margin-left: -6vh;
         right: 15px;
