@@ -8,9 +8,14 @@
                 <span class="select-box">
                   <select class="select" size="1" name="key" style="width: 100px;height: 32px;margin-top: 2px;">
                     <option value="1" selected>用户昵称</option>
-                    <option value="2">充值方式</option>
                   </select>
-                  <input type="text" name="value" class="input-medium" placeholder="请输入真实姓名...">      
+                  <input type="text" name="value" class="input-medium" placeholder="请输入真实姓名...">
+                  <select class="select" size="1" name="mode" style="width: 100px;height: 32px;margin-top: 2px;">
+                    <option value="" selected>-- 充值方式 --</option>
+                    <option value="0">系统赠送</option>
+                    <option value="1">微信</option>
+                    <option value="2">支付宝</option>
+                  </select>      
                 </span>
                 <button type="submit" class="btn">搜索</button>
             </form>

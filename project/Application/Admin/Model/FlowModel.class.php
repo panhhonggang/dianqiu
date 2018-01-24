@@ -46,17 +46,19 @@ class FlowModel extends Model
         $firstDayOfMonth = $date->firstDayOfMonth();
         $startat = strtotime($firstDayOfMonth);
         $result = [];
+
         for ($i=0; $i < $maxDayOfMonth; $i++) { 
           foreach ($data as $key => $value) {
             if ($value['addtime'] >= $startat && $value['addtime'] <= $startat+24*60*60) {
               $result["$i"+1]['count'] += 1;
               $result["$i"+1]['money'] += $value['money'];
               $result["$i"+1]['num']  += $value['num'];
-              $result["$i"+1]['flow'] += $value['currentflow'];
+              $result["$i"+1]['flow'] += $value['currentflow'];            
             }else{
-              $result["$i"+1] = null;
+              if (!array_key_exists($i+1,$result)) {
+                $result["$i"+1] = null;
+              }
             }
-
           }
           $startat = $startat+24*60*60;
         }

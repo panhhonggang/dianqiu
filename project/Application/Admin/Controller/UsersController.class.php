@@ -163,28 +163,12 @@ class UsersController extends CommonController
         // 根据用户昵称进行搜索
          $map = '';
 
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['d.name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    if ($_GET['value'] == '系统赠送') {
-                        $map['mode'] = '0';
-                    }
-                    if ($_GET['value'] == '微信') {
-                        $map['mode'] = '1';
-                    }
-                    if ($_GET['value'] == '支付宝') {
-                        $map['mode'] = '2';
-                    }
-                    break;
-                default:
-                    # code...
-                    break;
-            }
+        if (!empty($_GET['key']) && $_GET['key'] === 1) {
+            $map['d.name'] = array('like',"%{$_GET['value']}%");
         }
-
+        if (strlen($_GET['mode'])) {
+           $map['mode'] = $_GET['mode'];
+        }
         $flow = M('flow');
         $map['_query'] = "status=1";
         $total = $flow->where($map)
