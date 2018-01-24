@@ -287,7 +287,11 @@
 				var reader =new FileReader();
 				reader.readAsDataURL(files[0]);
 				reader.onload =function(e){
-					
+					var mb = (e.total/1024)/1024;
+					if(mb>= 4){
+						alert('文件大小大于4M');
+						return;
+					}
 					img[0].src = this.result;
 					img[0].width = "100%";
 					img[0].height = "90%";
