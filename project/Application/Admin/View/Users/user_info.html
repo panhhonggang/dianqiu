@@ -122,15 +122,24 @@
 
             $('._user_').on("click",".unb",function(){
                 var dcode = $(this).attr("did");
-                $.ajax({
-                    url:"unbind",
-                    data:{"device_code":dcode},
-                    dataType:"json",
-                    type: 'post',
-                    success:function(res){
-                        location.reload();
-                        alert(res.msg);
-                    }
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.confirm('点击确定解绑！',function(){
+
+                        $.ajax({
+                            url:"unbind",
+                            data:{"device_code":dcode},
+                            dataType:"json",
+                            type: 'post',
+                            success:function(res){
+                                location.reload();
+                                 layui.use('layer', function(){
+                                    var layer = layui.layer;
+                                    layer.msg('解绑成功！');
+                                });
+                            }
+                        });
+                    });
                 });
             })
             // 遍历剩余流量
