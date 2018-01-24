@@ -6,7 +6,7 @@ class IndexController extends CommonController
     public function index()
     {
     	$userInfo = $_SESSION['homeuser'];
-
+        dump(session());
     	if($userInfo){
 	        // 获取用户当前设备
 	        $did = $userInfo['did'];
