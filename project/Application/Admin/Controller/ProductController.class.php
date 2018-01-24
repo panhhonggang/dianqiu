@@ -151,9 +151,9 @@ class ProductController extends CommonController
 
             $picpath = $this->upload();
             $_POST['picpath'] = $picpath[0];
-            if ($picpath) {
-              unlink("./Public".$_POST['oldpicpath']);    
-            }
+            // if ($picpath) {
+            //   unlink("./Public".$_POST['oldpicpath']);    
+            // }
             if (!$picpath) {
                 // 如果没有上传新的图片，那么就取原来的老图片，也就是隐藏域的值
                 $picpath = $_POST['oldpicpath'];

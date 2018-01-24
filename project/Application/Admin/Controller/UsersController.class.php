@@ -216,8 +216,6 @@ class UsersController extends CommonController
         $uid = $deviceInfo['uid'];
         $device->startTrans();
         $current_devices->startTrans();
-        M('orders')->startTrans();
-        M('flow')->startTrans();
         $current_device = $current_devices->where('did='.$did)->find();
         if(!empty($current_device)){
             $bind_device = $device->where('uid='.$uid)->select();
@@ -241,29 +239,24 @@ class UsersController extends CommonController
         }
 
         $status['status'] = 0;
-        $orders_status = M('orders')->where('device_id='.$deviceInfo['id'])->save($status);
+        $orders = M('orders')->where('device_id='.$deviceInfo['id'])->find();
+        $flow = M('flow')->where('did='.$deviceInfo['id'])->find();
         // 订单记录判断回滚
-        if($orders_status){
-            $M('orders')->commit();
-            $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
+        if($order){
+            $orders_status = M('orders')->where('device_id='.$deviceInfo['id'])->save($status);
         } else {
-            $M('orders')->rollback();
-            $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
+            $orders_status = true;
         }
 
-        $flow_status = M('flow')->where('did='.$deviceInfo['id'])->save($status);
-        // 充值记录判断回滚
-        if($flow_status){
-            $M('flow')->commit();
-            $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
+        if($flow){
+            $flow_status = M('flow')->where('did='.$deviceInfo['id'])->save($status);
         } else {
-            $M('flow')->rollback();
-            $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
+            $flow_status = true;
         }
 
         $device_status = $device->where('id='.$deviceInfo['id'])->save($data);
         // 设备状态判断回滚
-        if($device_status){
+        if($device_status && $orders_status && $flow_status){
             $device->commit();
             $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
         } else {

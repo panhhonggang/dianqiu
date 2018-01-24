@@ -25,6 +25,7 @@
                 <tr>
                     <th>充值流水ID</th>
                     <th>用户昵称</th>
+                    <th>充值金额</th>
                     <th>充值流量</th>
                     <th>账户流量</th>
                     <th>充值方式</th>
@@ -38,6 +39,7 @@
                     <tr>
                         <td>{{$vo.id}}</td>
                         <td>{{$vo.name}}</td>
+                        <td>{{$vo['money']/100}}</td>
                         <td>{{$vo['flow']*$vo['num']}}</td>
                         <td>{{$vo.currentflow}}</td>
                         <td>
