@@ -156,6 +156,7 @@
             function outLine(){
                 $(".switchText").html("开机");
                 $(".outLine").show().siblings().hide();
+                $(".content").css({filter:'grayscale(100%)'});
             }
             machineStatus();//执行水机状态方法
             var usednumberFlow=(parseInt(data.sumflow)-parseInt(data.reflow));//已用数值
@@ -163,19 +164,18 @@
             $("#rawtdsVal").html(data.rawtds);
             $("#puretdsVal").html(data.puretds);
             if(data.leasingmode=="0"){//零售
-                $("#surplusVal").html("<span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b>");
-                $("#alreadyUsedVal").html("<span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b>");
+                $(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
+                $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p>");
             }else if(data.leasingmode=="1"){//按流量
-                $("#surplusVal").html("<span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b>");
-                $("#alreadyUsedVal").html("<span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b>");
+                $(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
+                $(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
             }else if(data.leasingmode=="2"){//按时间
-                $("#surplusVal").html("<span>剩余天数</span><b>"+(data.reday?data.reday:0)+"天</b>");
-                $("#alreadyUsedVal").html("<span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b>");
+                $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:0)+"天</b></p>");
+                $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p>");
             }else if(data.leasingmode=="3"){//时间/流量
-                $("#surplusVal").html("<span>剩余天数</span><b>"+(data.reday?data.reday:0)+"天</b>");
-                $("#alreadyUsedVal").html("<span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b>");
-                $(".textLeft").append("<p><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
-                $(".textRight").append("<p><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
+                $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:0) + "天</b></p><p><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
+                $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p><p><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+ "L</b></p>");
+
             }
 
 
@@ -186,6 +186,7 @@
             var CmdList=[];//命令队列
             var timer=null;
             var identify=0;
+            var numAdd=0;
             websoket.onopen=function(){
                 //包数据
                 ajson={
@@ -205,7 +206,7 @@
             }
             //实时接收数据
             websoket.onmessage=function(data)
-            {
+            {	numAdd=0;
                 var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
                 var leasingmode = dataList.LeasingMode;//租赁模式
                 console.log(dataList.LeasingMode);
@@ -216,23 +217,20 @@
                 {
 
                     //1.设备状态页面数据显示
-                    // $(".deviceStause").text(dataList.deviceStause);//设置设备状态
                     $("#rawtdsVal").text(dataList.PureTDS);//设置当前设备原水值
                     $("#puretdsVal").text(dataList.RawTDS);//设置当前设备纯水值
                     if(leasingmode=="0"){//零售
-                        $("#surplusVal").html("<span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b>");
-                        $("#alreadyUsedVal").html("<span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b>");
+                        $(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b></p>");
+                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p>");
                     }else if(leasingmode=="1"){//显示流量值
-                        $("#surplusVal").html("<span>剩余流量</span><b>"+dataList.ReFlow+"L</b>");
-                        $("#alreadyUsedVal").html("<span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b>");
+                        $(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
+                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b></p>");
                     }else if(leasingmode=="2"){//套餐值
-                        $("#surplusVal").html("<span>剩余天数</span><b>"+dataList.Reday+"天</b>");
-                        $("#alreadyUsedVal").html("<span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b>");
+                        $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p>");
+                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p>");
                     }else if(leasingmode=="3"){//套餐&流量
-                        $("#surplusVal").html("<span>剩余天数</span><b>"+dataList.Reday+"天</b>");
-                        $("#alreadyUsedVal").html("<span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b>");
-                        $(".textLeft").append("<p><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
-                        $(".textRight").append("<p><span>已用流量</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"L</b></p>");
+                        $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p><p><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
+                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p><p><span>已用流量</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"L</b></p>");
                     }
                 }
                 else if(dataList.PackType=="SetData")//设置数据类型数据
@@ -278,6 +276,12 @@
                     }
                 }
             }
+            setTimeout(function () {//3分钟后判断设备是否离线
+				numAdd++;
+                if(i == 180){
+                    outLine();
+                }
+            },1000);
 
             //冲洗按钮操作
             $('.washBtn').click(function(){
