@@ -227,6 +227,7 @@ class UsersController extends CommonController
                     if($value['id'] == $did){
                         unset($device_tmp[$key]);
                     }
+                    $device_tmp[0] = $device_tmp[$key];
                 }
                 $current_status = $current_devices->where('uid='.$uid)->save(['did'=>$device_tmp[0]]);
             }
