@@ -104,7 +104,7 @@ $(function(){
         '0':'零售型',
         '1':'按流量计费',
         '2':'按时间计费',
-        '3':'时长和流量套餐',
+        '3':'时长和流量计费',
         '4':'商务型'
     }
     var filtermode = {//滤芯模式列表
@@ -391,22 +391,14 @@ $(function(){
 
 
 
-                    $(".H1devicestause").text(dataList.DeviceStause);//设置设备状态
-                    $(".tdDeviceStause").text(dataList.DeviceStause);//设置设备状态
+                    $(".H1devicestause").text(devicestause[dataList.DeviceStause]?devicestause[dataList.DeviceStause]:'--');//设置设备状态
+                    $(".tdDeviceStause").text(devicestause[dataList.DeviceStause]?devicestause[dataList.DeviceStause]:'--');//设置设备状态
                     $(".originalWater").text(dataList.PureTDS);//设置当前设备原水值
                     $(".tdOriginalWater").text(dataList.PureTDS);
                     $(".cleanWater").text(dataList.RawTDS);//设置当前设备纯水值
                     $(".tdCleanWater").text(dataList.RawTDS);//设置当前设备纯水值
-                    $(".leaseMode").text(dataList.LeasingMode);//设置当前设备租赁模式
-                    if(dataList.LeasingMode=="1"){
-                        //console.log(typeof(dataList.LeasingMode));
-                        $(".tdLeaseMode").text("按流量");//设置当前设备租赁模式
-                    }else if(dataList.LeasingMode=="2"){
-                        $(".tdLeaseMode").text("按时长");//设置当前设备租赁模式
-                    }else if(dataList.LeasingMode=="3"){
-                        $(".tdLeaseMode").text("按流量/时长");//设置当前设备租赁模式
-                    }
-
+                    $(".leaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
+                    $(".tdLeaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
                     $(".tdFilterMode").text(filterMode);//设置当前设备滤芯模式
                     $(".reflow").text(dataList.ReFlow);//设置当前设备剩余流量
                     $(".reday").text(dataList.Reday);//设置当前设备剩余天数

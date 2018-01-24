@@ -81,320 +81,316 @@
 <script type="text/javascript" src="__PUBLIC__/Home/js/flexible.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-	<script>
+<script>
 
-        //页面加载时执行
-        $(function(){
-            //变量定义
-            var data=JSON.parse($(".status").val());
-            var res=JSON.parse($('.res').val());
-            var deviceInfo=JSON.parse($(".deviceInfo").val());
-            var deviceId=data.deviceid;//设备id
-            // var deviceId=162753445596778;//设备id
-            // var deviceId=112233445566778;//设备id
-            var devicestause=data.devicestause;//设备状态
-            console.log(data);
-
-
-
-
-            function machineStatus(){
-                if(devicestause=="0"){//制水
-                    addwater();
-                }else if(devicestause=="1"){//冲洗
-                    wash();
-                }else if(devicestause=="2"){//水满
-                    fullWaters();
-                }else if(devicestause=="3"){//缺水
-                    lessWaters();
-                }else if(devicestause=="5"){//检修
-                    service();
-                }else if(devicestause=="7"){ //关机
-                    showDown();
-                }else if(devicestause=="8"){//开机
-
-                }
-            }
-
-            //制水
-            function addwater(){
-                $(".switchText").html("关机");
-                $(".addwater").show().siblings().hide();
-                $(".content").css({filter:'grayscale(0%)'});
-            }
-            //冲洗
-            function wash(){
-                $(".switchText").html("关机");
-                $(".wash").show().siblings().hide();
-                $(".content").css({filter:'grayscale(0%)'});
-            }
-            //缺水
-            function lessWaters(){
-                $(".switchText").html("关机");
-                $(".lessWaters").show().siblings().hide();
-                $(".content").css({filter:'grayscale(0%)'});
-            }
-            //水满
-            function fullWaters(){
-                $(".switchText").html("关机");
-                $(".fullWaters").show().siblings().hide();
-                $(".content").css({filter:'grayscale(0%)'});
-            }
-            //检修
-            function service(){
-                $(".switchText").html("关机");
-                $(".service").show().siblings().hide();
-                $(".content").css({filter:'grayscale(0%)'});
-            }
-            //关机
-            function showDown(){
-                $(".switchText").html("开机");
-                $(".showDown").show().siblings().hide();
-                $(".content").css({filter:'grayscale(100%)'});
-            }
-            //离线
-            function outLine(){
-                $(".switchText").html("开机");
-                $(".outLine").show().siblings().hide();
-                $(".content").css({filter:'grayscale(100%)'});
-            }
-            machineStatus();//执行水机状态方法
-            var usednumberFlow=(parseInt(data.sumflow)-parseInt(data.reflow));//已用数值
-            var usednumberDay=(parseInt(data.sumday)-parseInt(data.reday));//已用数值
-            $("#rawtdsVal").html(data.rawtds);
-            $("#puretdsVal").html(data.puretds);
-            if(data.leasingmode=="0"){//零售
-                $(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
-                $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p>");
-            }else if(data.leasingmode=="1"){//按流量
-                $(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
-                $(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
-            }else if(data.leasingmode=="2"){//按时间
-                $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:0)+"天</b></p>");
-                $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p>");
-            }else if(data.leasingmode=="3"){//时间/流量
-                $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:0) + "天</b></p><p><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
-                $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p><p><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+ "L</b></p>");
-
-            }
+	//页面加载时执行
+	$(function(){
+		//变量定义
+		var data=JSON.parse($(".status").val());
+		var res=JSON.parse($('.res').val());
+		var deviceInfo=JSON.parse($(".deviceInfo").val());
+		var deviceId=data.deviceid;//设备id
+		// var deviceId=162753445596778;//设备id
+		// var deviceId=112233445566778;//设备id
+		var devicestause=data.devicestause;//设备状态
+		//console.log(data);
 
 
 
-            //websoket
-            var websoket=new WebSocket("ws://120.27.12.1:6001");
-            var PackNum=0;//包数据
-            var CmdList=[];//命令队列
-            var timer=null;
-            var identify=0;
-            var numAdd=0;
-            websoket.onopen=function(){
-                //包数据
-                ajson={
-                    "DeviceID":deviceId,
-                    "PackType":"login",
-                    "Vison":0,
-                };
-                websoket.send(JSON.stringify(ajson));
-                setTimeout(function(){
-                    ajson.PackType="Select";
-                    websoket.send(JSON.stringify(ajson));
-                    setInterval(function(){
-                        websoket.send(JSON.stringify(ajson));
-                    },10000);
-                },1000);
 
-            }
-            //实时接收数据
-            websoket.onmessage=function(data)
-            {	numAdd=0;
-                var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
-                var leasingmode = dataList.LeasingMode;//租赁模式
-                console.log(dataList.LeasingMode);
-                machineStatus();//执行水机状态方法
-                console.log(dataList);
+		function machineStatus(){
+			if(devicestause=="0"){//制水
+				addwater();
+			}else if(devicestause=="1"){//冲洗
+				wash();
+			}else if(devicestause=="2"){//水满
+				fullWaters();
+			}else if(devicestause=="3"){//缺水
+				lessWaters();
+			}else if(devicestause=="5"){//检修
+				service();
+			}else if(devicestause=="7"){ //关机
+				showDown();
+			}else if(devicestause=="8"){//开机
 
-                if(dataList.PackType=="Select")//返回查询数据类型数据
-                {
+			}
+		}
 
-                    //1.设备状态页面数据显示
-                    $("#rawtdsVal").text(dataList.PureTDS);//设置当前设备原水值
-                    $("#puretdsVal").text(dataList.RawTDS);//设置当前设备纯水值
-                    if(leasingmode=="0"){//零售
-                        $(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b></p>");
-                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p>");
-                    }else if(leasingmode=="1"){//显示流量值
-                        $(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
-                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b></p>");
-                    }else if(leasingmode=="2"){//套餐值
-                        $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p>");
-                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p>");
-                    }else if(leasingmode=="3"){//套餐&流量
-                        $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p><p><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
-                        $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p><p><span>已用流量</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"L</b></p>");
-                    }
-                }
-                else if(dataList.PackType=="SetData")//设置数据类型数据
-                {
-                    identify=0;
-                    for(var i=0;i<CmdList.length;i++){
-                        if(CmdList[i].cmd.PackNum==dataList.PackNum)
-                        {
-                            if(CmdList[i].cmd.type=="关机中")
-                            {
-                                showDown();
-                            }
-                            else if(CmdList[i].cmd.type=="开机中")
-                            {
-                                machineStatus();
-                            }
-                            else if(CmdList[i].cmd.type=="冲洗中")
-                            {
-                                wash();
-                            }
+		//制水
+		function addwater(){
+			$(".switchText").html("关机");
+			$(".addwater").show().siblings().hide();
+			$(".content").css({filter:'grayscale(0%)'});
+		}
+		//冲洗
+		function wash(){
+			$(".switchText").html("关机");
+			$(".wash").show().siblings().hide();
+			$(".content").css({filter:'grayscale(0%)'});
+		}
+		//缺水
+		function lessWaters(){
+			$(".switchText").html("关机");
+			$(".lessWaters").show().siblings().hide();
+			$(".content").css({filter:'grayscale(0%)'});
+		}
+		//水满
+		function fullWaters(){
+			$(".switchText").html("关机");
+			$(".fullWaters").show().siblings().hide();
+			$(".content").css({filter:'grayscale(0%)'});
+		}
+		//检修
+		function service(){
+			$(".switchText").html("关机");
+			$(".service").show().siblings().hide();
+			$(".content").css({filter:'grayscale(0%)'});
+		}
+		//关机
+		function showDown(){
+			$(".switchText").html("开机");
+			$(".showDown").show().siblings().hide();
+			$(".content").css({filter:'grayscale(100%)'});
+		}
+		//离线
+		function outLine(){
+			$(".switchText").html("开机");
+			$(".outLine").show().siblings().hide();
+			$(".content").css({filter:'grayscale(100%)'});
+		}
+		machineStatus();//执行水机状态方法
+		var usednumberFlow=(parseInt(data.sumflow)-parseInt(data.reflow));//已用数值
+		var usednumberDay=(parseInt(data.sumday)-parseInt(data.reday));//已用数值
+		$("#rawtdsVal").html(data.rawtds);
+		$("#puretdsVal").html(data.puretds);
+		if(data.leasingmode=="0"){//零售
+			$(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p>");
+		}else if(data.leasingmode=="1"){//按流量
+			$(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+"L</b></p>");
+		}else if(data.leasingmode=="2"){//按时间
+			$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:0)+"天</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p>");
+		}else if(data.leasingmode=="3"){//时间/流量
+			$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:0) + "天</b></p><p><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:0)+"天</b></p><p><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+ "L</b></p>");
 
-                            CmdList.splice(i,1);
-                            break;
-                        }
-                    }
-                }
-                //显示当前设备状态
-                function machineStatus(){
-                    if(dataList.DeviceStause=="0"){//制水
-                        addwater();
-                    }else if(dataList.DeviceStause=="1"){//冲洗
-                        wash();
-                    }else if(dataList.DeviceStause=="2"){//水满
-                        fullWaters();
-                    }else if(dataList.DeviceStause=="3"){//缺水
-                        lessWaters();
-                    }else if(dataList.DeviceStause=="5"){//检修
-                        service();
-                    }else if(dataList.DeviceStause=="7"){ //关机
-                        showDown();
-                    }else if(dataList.DeviceStause=="8"){//开机
-
-                    }
-                }
-            }
-            setTimeout(function () {//3分钟后判断设备是否离线
-				numAdd++;
-                if(i == 180){
-                    outLine();
-                }
-            },1000);
-
-            //冲洗按钮操作
-            $('.washBtn').click(function(){
-                var thisT=$(".washText");
-                if($(".switchText").html()!="关机"){
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.msg('设备已关机，不能冲洗');
-                    });
-                    return false;
-                }else{
-                    var ajson;//数据对象
-                    var type="";
-                    //判断操作类型
-                    //弹框提示
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.confirm("确定要冲洗"+deviceId+"水机吗？", {icon: 3, title:'温馨提示'}, function(index){
-                            layer.close(index);
-                            ajson={
-                                "DeviceID":deviceId,
-                                "PackType":"SetData",
-                                "Vison":0,
-                                "PackNum":PackNum,
-                                "curTime":0,
-                            };
-                            //根据当前设备状态设置按钮文本
-                            ajson['DeviceStause']=1;
-                            ajson['type']='冲洗中';
-                            //发送数据
-                            websoket.send(JSON.stringify(ajson));
-                            CmdList.push({
-                                cmd:ajson,
-                                type:"冲洗中"
-                            });
-                            identify=1;
-                            timer=setTimeout(function(){
-                                if(identify==1){
-                                    layui.use('layer', function(){
-                                        var layer = layui.layer;
-                                        // layer.msg('操作超时！');
-                                        thisT.html('冲洗')
-                                    });
-                                    identify=0;
-                                }
-                            },10000)
-                        });
-                    });
-                }
-
-            });
-            //开机/关机按钮操作
-            $('.clickBtn').click(function(){
-                var _this=$(this).children("span").html();
-                var ajson;//数据对象
-                //判断操作类型
-                var tipsText = "确定要"+ _this + deviceId +"吗？";
-                //弹框提示
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
-                        layer.close(index);
-                        ajson={
-                            "DeviceID":deviceId,
-                            "PackType":"SetData",
-                            "Vison":0,
-                            "PackNum":PackNum,
-                            "curTime":0,
-                        };
-                        //根据当前设备状态设置按钮文本
-                        var type=0;
-                        if(_this=="开机"){
-                            ajson['DeviceStause']=8;
-                            ajson['type']='开机中';
-                            $(".switchText").html("开机中");
-
-                        }else if(_this=="关机"){
-                            ajson['DeviceStause']=7;
-                            ajson['type']='关机中';
-                            $(".switchText").html("关机中");
-
-                        }
-                        //发送数据
-                        websoket.send(JSON.stringify(ajson));
-                        CmdList.push({
-                            cmd:ajson,
-                            type:type
-                        });
-                        identify=1;
-                        timer=setTimeout(function(){
-                            if(identify==1){
-                                layui.use('layer', function(){
-                                    var layer = layui.layer;
-                                    // layer.msg('操作超时！');
-                                    if($(".switchText").html=='开机中'){
-                                        $(".switchText").html('开机')
-                                    }else if($('.switchText').html()=='关机中'){
-                                        $('.switchText').html('关机');
-                                    }
-
-                                });
-                                identify=0;
-                            }
-                        },10000)
-                    });
-                });
-            });
+		}
 
 
-        })
-        //页面加载时执行结束
 
+		//websoket
+		var websoket=new WebSocket("ws://120.27.12.1:6001");
+		var PackNum=0;//包数据
+		var CmdList=[];//命令队列
+		var timer=null;
+		var identify=0;
+		var numAdd=0;
+		websoket.onopen=function(){
+			//包数据
+			ajson={
+				"DeviceID":deviceId,
+				"PackType":"login",
+				"Vison":0,
+			};
+			websoket.send(JSON.stringify(ajson));
+			setTimeout(function(){
+				ajson.PackType="Select";
+				websoket.send(JSON.stringify(ajson));
+				setInterval(function(){
+					websoket.send(JSON.stringify(ajson));
+				},10000);
+			},1000);
 
-	</script>
+		}
+		//实时接收数据
+		websoket.onmessage=function(data)
+		{	numAdd=0;
+			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
+			var leasingmode = dataList.LeasingMode;//租赁模式
+			//console.log(dataList.LeasingMode);
+			machineStatus();//执行水机状态方法
+			//console.log(dataList);
+
+			if(dataList.PackType=="Select")//返回查询数据类型数据
+			{
+
+				//1.设备状态页面数据显示
+				$("#rawtdsVal").text(dataList.PureTDS);//设置当前设备原水值
+				$("#puretdsVal").text(dataList.RawTDS);//设置当前设备纯水值
+				if(leasingmode=="0"){//零售
+					$(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b></p>");
+					$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p>");
+				}else if(leasingmode=="1"){//显示流量值
+					$(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
+					$(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow))+"L</b></p>");
+				}else if(leasingmode=="2"){//套餐值
+					$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p>");
+					$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p>");
+				}else if(leasingmode=="3"){//套餐&流量
+					$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p><p><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
+					$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"天</b></p><p><span>已用流量</span><b>"+(parseInt(dataList.SumDay)-parseInt(dataList.Reday))+"L</b></p>");
+				}
+			}
+			else if(dataList.PackType=="SetData")//设置数据类型数据
+			{
+				identify=0;
+				for(var i=0;i<CmdList.length;i++){
+					if(CmdList[i].cmd.PackNum==dataList.PackNum)
+					{
+						if(CmdList[i].cmd.type=="关机中")
+						{
+							showDown();
+						}
+						else if(CmdList[i].cmd.type=="开机中")
+						{
+							machineStatus();
+						}
+						else if(CmdList[i].cmd.type=="冲洗中")
+						{
+							wash();
+						}
+
+						CmdList.splice(i,1);
+						break;
+					}
+				}
+			}
+			//显示当前设备状态
+			function machineStatus(){
+				if(dataList.DeviceStause=="0"){//制水
+					addwater();
+				}else if(dataList.DeviceStause=="1"){//冲洗
+					wash();
+				}else if(dataList.DeviceStause=="2"){//水满
+					fullWaters();
+				}else if(dataList.DeviceStause=="3"){//缺水
+					lessWaters();
+				}else if(dataList.DeviceStause=="5"){//检修
+					service();
+				}else if(dataList.DeviceStause=="7"){ //关机
+					showDown();
+				}else if(dataList.DeviceStause=="8"){//开机
+
+				}
+			}
+		}
+		setTimeout(function () {//3分钟后判断设备是否离线
+			numAdd++;
+			if(numAdd == 180){
+				outLine();
+			}
+		},1000);
+
+		//冲洗按钮操作
+		$('.washBtn').click(function(){
+			var thisT=$(".washText");
+			if($(".switchText").html()!="关机"){
+				layui.use('layer', function(){
+					var layer = layui.layer;
+					layer.msg('设备已关机，不能冲洗');
+				});
+				return false;
+			}else{
+				var ajson;//数据对象
+				var type="";
+				//判断操作类型
+				//弹框提示
+				layui.use('layer', function(){
+					var layer = layui.layer;
+					layer.confirm("确定要冲洗"+deviceId+"水机吗？", {icon: 3, title:'温馨提示'}, function(index){
+						layer.close(index);
+						ajson={
+							"DeviceID":deviceId,
+							"PackType":"SetData",
+							"Vison":0,
+							"PackNum":PackNum,
+							"curTime":0,
+						};
+						//根据当前设备状态设置按钮文本
+						ajson['DeviceStause']=1;
+						ajson['type']='冲洗中';
+						//发送数据
+						websoket.send(JSON.stringify(ajson));
+						CmdList.push({
+							cmd:ajson,
+							type:"冲洗中"
+						});
+						identify=1;
+						timer=setTimeout(function(){
+							if(identify==1){
+								layui.use('layer', function(){
+									var layer = layui.layer;
+									// layer.msg('操作超时！');
+									thisT.html('冲洗')
+								});
+								identify=0;
+							}
+						},10000)
+					});
+				});
+			}
+
+		});
+		//开机/关机按钮操作
+		$('.clickBtn').click(function(){
+			var _this=$(this).children("span").html();
+			var ajson;//数据对象
+			//判断操作类型
+			var tipsText = "确定要"+ _this + deviceId +"吗？";
+			//弹框提示
+			layui.use('layer', function(){
+				var layer = layui.layer;
+				layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
+					layer.close(index);
+					ajson={
+						"DeviceID":deviceId,
+						"PackType":"SetData",
+						"Vison":0,
+						"PackNum":PackNum,
+						"curTime":0,
+					};
+					//根据当前设备状态设置按钮文本
+					var type=0;
+					if(_this=="开机"){
+						ajson['DeviceStause']=8;
+						ajson['type']='开机中';
+						$(".switchText").html("开机中");
+
+					}else if(_this=="关机"){
+						ajson['DeviceStause']=7;
+						ajson['type']='关机中';
+						$(".switchText").html("关机中");
+
+					}
+					//发送数据
+					websoket.send(JSON.stringify(ajson));
+					CmdList.push({
+						cmd:ajson,
+						type:type
+					});
+					identify=1;
+					timer=setTimeout(function(){
+						if(identify==1){
+							layui.use('layer', function(){
+								var layer = layui.layer;
+								// layer.msg('操作超时！');
+								if($(".switchText").html=='开机中'){
+									$(".switchText").html('开机')
+								}else if($('.switchText').html()=='关机中'){
+									$('.switchText').html('关机');
+								}
+
+							});
+							identify=0;
+						}
+					},10000)
+				});
+			});
+		});
+	})
+	//页面加载时执行结束
+</script>
 
 </body>
