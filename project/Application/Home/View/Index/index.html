@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 </head>
-<body>
+<body> 
 <input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
 <input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
 <input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
@@ -71,9 +71,9 @@
 					<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
 					<li><a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText">开机</span></a></li>
 					<li><a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a></li>
-					<li><a href="{{:U('Home/Shop/index')}}" class=""><p class="iconfont icon-chongzhi1"></p><span>充值</span></a></li>
+					<li><a class="charge" href="{{:U('Home/Shop/index')}}" class=""><p class="iconfont icon-chongzhi1"></p><span>充值</span></a></li>
 					<li><a href="{{:U('Home/Users/mine')}}"><p class="iconfont icon-wode1"></p><span>我的</span></a></li>
-					<li><a href="{{:U('Home/Shop/index')}}"><p class="iconfont icon-chongzhi"></p><span>商城</span></a></li>
+					<li><a class="mall" href="{{:U('Home/Shop/index')}}"><p class="iconfont icon-chongzhi"></p><span>商城</span></a></li>
 				</ul>
 		</div>
 	</div>
@@ -82,7 +82,13 @@
 <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 <script>
-
+	// 记录是从充值进入商城还是点击商城进入商城
+	$(".mall").click(function(){
+		sessionStorage.setItem("shopFrom",'mall');
+	})
+	$(".charge").click(function(){
+		sessionStorage.setItem("shopFrom",'charge');
+	})
 	//页面加载时执行
 	$(function(){
 		//变量定义

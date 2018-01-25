@@ -228,28 +228,66 @@
 	<!-- 微信支付支持JS部分代码 -->
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script>
+		// 点击立即购买清除本地session某些项目
+		$("#foot a").click(function(){
+			sessionStorage.setItem('lineMove', '');
+			sessionStorage.setItem('lineRight', '');
+			sessionStorage.setItem('lineLeft', '');
+			sessionStorage.setItem('shopFrom', '');
+		})
+		// 点击返回首页清除本地session某些项目
+		$("#back2Home").click(function(){
+			sessionStorage.setItem('lineMove', '');
+			sessionStorage.setItem('lineRight', '');
+			sessionStorage.setItem('lineLeft', '');
+		})
 		// console.log('lineRight: ',sessionStorage.getItem("lineRight"));
 		// console.log('lineMove: ',sessionStorage.getItem("lineMove"));
 
 		var lineMove = sessionStorage.getItem("lineMove");	//判断上次选择的是充值还是滤芯
 		var lineRight = sessionStorage.getItem("lineRight"),
-			lineLeft = sessionStorage.getItem("lineRight");
+			lineLeft = sessionStorage.getItem("lineLeft"),
+			shopFrom = sessionStorage.getItem("shopFrom");		//判断从充值进入商城还是点击商城进入商城
+		if(shopFrom == 'charge'){	//从首页‘充值’进来
 
-		if(lineMove == lineLeft && lineMove && lineLeft ){	//上次选择的是充值
-			$("#lineDiv").css({left: lineLeft + 'px'});
+			// 左边偏移量
+			var $left = $("._ul").children("li").eq(0).offset().left+$("._ul").children("li").eq(0).innerWidth()/2 - 25;
+			// 下划线动画
+			$('._line').css({left:$left+'px'});
 
+			$("._ul").children("li").eq(0).css({color: '#039CE9'});
+			$("._ul").children("li").eq(1).css({color: '#6F6F6F'});
+
+		}else if(shopFrom == 'mall'){	//从首页‘商城’进来
+			// 左边偏移量
+			var $left = $("._ul").children("li").eq(1).offset().left+$("._ul").children("li").eq(1).innerWidth()/2 - 25;
+			$('._line').animate({left: $left});
+
+			$("._ul").children("li").eq(0).css({color: '#6F6F6F'});
+			$("._ul").children("li").eq(1).css({color: '#039CE9'});
+			console.log('mall')
 			// // 显示当前的内容盒子
 			$(".contentBox").children('div').eq(1).slideDown().siblings().slideUp();
+		}
+		// 加入购物车时的界面
+		if(lineMove == lineLeft && lineMove && lineLeft ){	//上次选择的是充值
+			
+			$("._ul").children("li").eq(0).css({color: '#039CE9'});
+			$("._ul").children("li").eq(1).css({color: '#6F6F6F'});
+			// // 显示当前的内容盒子
+			$(".contentBox").children('div').eq(0).slideDown().siblings().slideUp();
 			// 下划线动画
 			$('._line').animate({left:lineLeft+'px'});
 
 		}else if(lineMove == lineRight && lineMove && lineRight){	//上次选择的是滤芯
 			$("#lineDiv").css({left: lineRight + 'px'});
+			$("._ul").children("li").eq(0).css({color: '#6F6F6F'});
+			$("._ul").children("li").eq(1).css({color: '#039CE9'});
 
 			// // 显示当前的内容盒子
 			$(".contentBox").children('div').eq(1).slideDown().siblings().slideUp();
 			// 下划线动画
-			$('._line').animate({left: lineRight+'px'});
+			$('._line').animate({left:lineRight+'px'});
 		}
 		$("#ro-right>.top>p").click(function(){
 			layuiHint( $(this).text() )
