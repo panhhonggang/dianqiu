@@ -2,14 +2,17 @@
 	微信分享接口设置
 */
 //微信接口
-(function(){
-	// console.log('ok,wxjssdk')
+var wxShare = function(appId,timestamp,appsignatureId,timestamp){
+	// if(appId && timestamp && appsignatureId && timestamp){
+
+	// 	console.log(appId,timestamp,appsignatureId,timestamp)
+	// }
 	wx.config({
 	    debug: false,
-	    appId: '{{$info["appId"]}}',
-	    timestamp: '{{$info["timestamp"]}}',
-	    nonceStr: '{{$info["nonceStr"]}}',
-	    signature: '{{$info["signature"]}}',
+	    appId: appId,
+	    timestamp: timestamp,
+	    nonceStr: nonceStr,
+	    signature: appsignatureId,
 	    jsApiList: [
 			// 所有要调用的 API 都要加到这个列表中
 			'onMenuShareTimeline',
@@ -117,4 +120,4 @@
 			}
 		});
 	}
-})()
+}
