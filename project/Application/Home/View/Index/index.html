@@ -113,7 +113,7 @@
 		var deviceInfo=JSON.parse($(".deviceInfo").val());
 		var deviceId=data.deviceid;//设备id
 		// var deviceId=162753445596778;//设备id
-		var deviceId=112233445566778;//设备id
+		// var deviceId=112233445566778;//设备id
 		var devicestause=data.devicestause;//设备状态
 		console.log(data);
 
@@ -181,8 +181,8 @@
 			$(".content").css({filter:'grayscale(100%)'});
 		}
 		machineStatus();//执行水机状态方法
-		var usednumberFlow=(parseInt(data.sumflow)-parseInt(data.reflow));//已用数值
-		var usednumberDay=(parseInt(data.sumday)-parseInt(data.reday));//已用数值
+		var usednumberFlow=parseInt(data.sumflow);//已用数值
+		var usednumberDay=parseInt(data.sumday);//已用数值
 		// console.log(usednumberFlow);
 		$("#rawtdsVal").html(data.rawtds?data.rawtds:'0');
 		$("#puretdsVal").html(data.puretds?data.puretds:'0');
@@ -238,8 +238,8 @@
 
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{
-				var usedFlow=(parseInt(dataList.SumFlow)-parseInt(dataList.ReFlow));
-				var usedDay=(parseInt(dataList.SumDay)-parseInt(dataList.Reday));
+				var usedFlow=parseInt(dataList.SumFlow);
+				var usedDay=parseInt(dataList.SumDay);
 
 				//1.设备状态页面数据显示
 				$("#rawtdsVal").text(dataList.PureTDS?dataList.PureTDS:'0');//设置当前设备原水值
