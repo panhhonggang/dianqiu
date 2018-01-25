@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" >
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache">      
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">      <meta HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">      
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
@@ -22,7 +25,7 @@
 	    padding-top: 5vh;
 	}
 	.bgTop {
-   		background: url(__PUBLIC__/Home/images/mine-first-02.jpg) no-repeat;
+   		background: url('__PUBLIC__/Home/images/mine-first-02.jpg') no-repeat;
 	}
 	#mine-first-container {
 		margin: 0rem 0.4rem 0.0rem 0.4rem;
@@ -122,6 +125,9 @@
 </style>
 </head> 
 <body>
+<div style="display: none">
+	<img src="__PUBLIC__/Home/images/mine-first-01.png" alt="">
+</div>
 <div id="mine-first-all" class="mine-first-all bgTop" >
 	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
 	<div id="mine-first-container">
@@ -230,5 +236,13 @@
 	
 </div>
 	
+	<script>
+		// 禁止页面缓存
+		if(!window.name){         
+		var str = Math.random().toString(36).substr(2);		//随机字符串
+		    window.location.href += '?S='+ str;		//兼容微信浏览器刷新
+		    window.name = 'isreload';     
+		}
+	</script>
 </body>
 </html>
