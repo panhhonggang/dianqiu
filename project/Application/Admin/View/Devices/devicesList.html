@@ -22,6 +22,7 @@
                             <td>编号</td>
                             <td>设备编号</td>
                             <td>经销商名称</td>
+                            <td>是否已被绑定</td>
                             <td>绑定的用户</td>
                             <td>设备类型(滤芯)</td>
                             <td>最近更新时间</td>
@@ -42,6 +43,11 @@
                                         </a>
                                     </td>
                                     <td>{{$data.name}}</td>
+                                    <if condition="$data['uid']">
+                                        <td>是</td>
+                                        <else />
+                                        <td>否</td>
+                                    </if>
                                     <td>{{$data.dname}}</td>
                                     <td>{{$data.typename}}</td>
                                     <if condition="$data['updatetime'] == null ">
