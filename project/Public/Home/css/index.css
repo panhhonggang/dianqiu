@@ -30,7 +30,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 /*重置样式结束*/
 .top{
 	width:10rem;
-	background: url("../images/yun_01.png") no-repeat;
+	background: url("../images/yun_01.jpg") no-repeat;
 	background-size: 100% 100%;
 	border-top:1px solid #fff;
 	margin-top:-1px;
