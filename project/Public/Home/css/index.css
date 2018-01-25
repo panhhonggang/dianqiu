@@ -1,7 +1,33 @@
-a{text-decoration:none;color: #000;}
-a:link{text-decoration:none}   /* 指正常的未被访问过的链接*/
-a:visited{text-decoration:none;} /*指已经访问过的链接*/
-a:active{text-decoration:none;}/* 指正在点的链接*/
+@charset "utf-8";
+/*重置样式开始*/
+html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html
+																										  *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}
+input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,
+																					 img{border:0}abbr,acronym{border:0;font-variant:normal}
+del{text-decoration:line-through}
+address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500;}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}
+q:before,q:after{content:''}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}sub{bottom:-.25em}
+ins,a{text-decoration:none!important;color: #000;}
+a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
+a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
+a:hover{text-decoration:none!important;}/*指鼠标在链接*/
+a:active{text-decoration:none!important;}/* 指正在点的链接*/
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none;
+}
+.clearfix:after{content:"";height:0;line-height:0;display:block;visibility:hidden;clear:both}
+.clearfix{zoom:1;}/*为了兼容IE*/
+.clear{clear:both;}
+/*重置样式结束*/
 .top{
 	width:10rem;
 	background: url("../images/yun_01.png") no-repeat;
@@ -41,8 +67,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	position: absolute;
 	left:0;
 	bottom: 0;
-	background: url("../images/bolang_01.png") repeat-x;
-	background-size: 100% 100%;
+	background: url("../images/bolang_01.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
 	-webkit-animation:bolang 6.5s linear infinite;
 	animation:bolang 6.5s linear infinite;
 }
@@ -52,8 +79,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	position: absolute;
 	left:-0vw;
 	bottom: 0;
-	background: url("../images/bolang_01.png") repeat-x;
-	background-size: 100% 100%;
+	background: url("../images/bolang_01.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
 	-webkit-animation:bolang1 6.5s linear infinite;
 	animation:bolang1 6.5s linear infinite;
 }
@@ -118,7 +146,6 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 
 .allStatus{
-	background-color: red;
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
 }
@@ -171,8 +198,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     height: 2rem;
     position: absolute;
     left:0;
-    background: url("../images/bolang_01.png") repeat-x;
-	background-size: 100% 100%;
+	background: url("../images/bolang_05.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
     -webkit-animation:shuibolang1 6s linear infinite;
 	animation:shuibolang1 6s linear infinite;
 }
@@ -181,8 +209,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     height: 2rem;
     position: absolute;
     left:-100vw;
-    background: url("../images/bolang_01.png") repeat-x;
-	background-size: 100% 100%;
+	background: url("../images/bolang_05.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
     -webkit-animation:shuibolang2 6s linear infinite;
 	animation:shuibolang2 6s linear infinite;
 }
@@ -201,6 +230,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 
 .textRight{
 	position: absolute;
+	height: 2rem;
 	top:0.8rem;
 	right:0.5rem;
 	z-index: 11;
@@ -230,7 +260,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	font-size: 1.1rem;
 }
 .bottom ul li span{
-	font-size:0.6rem;
+	font-size:0.4rem;
 }
 
 /*底部图标颜色*/
@@ -257,38 +287,38 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 /*水的动画*/
 @-webkit-keyframes bolang{
 			0%{left:0;}
-			100%{left:6.4rem;}
+			100%{left:64vw;}
 }
 @keyframes bolang{
 			0%{left:0;}
-			100%{left:6.4rem;}
+			100%{left:64vw;}
 }
 /*水的动画*/
 @-webkit-keyframes bolang1{
-			0%{left:-6.4rem;}
+			0%{left:-64vw;}
 			100%{left:0;}
 }
 @keyframes bolang1{
-			0%{left:-6.4rem;}
+			0%{left:-64vw;}
 			100%{left:0;}
 }
 
 /*水的动画*/
 @-webkit-keyframes shuibolang1{
 			0%{left:0;}
-			100%{left:10rem;}
+			100%{left:100vw;}
 }
 @keyframes shuibolang1{
 			0%{left:0;}
-			100%{left:10rem;}
+			100%{left:100vw;}
 }
 /*水的动画*/
 @-webkit-keyframes shuibolang2{
-			0%{left:-10rem;}
+			0%{left:-100vw;}
 			100%{left:0;}
 }
 @keyframes shuibolang2{
-			0%{left:-10rem;}
+			0%{left:-100vw;}
 			100%{left:0;}
 }
 

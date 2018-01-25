@@ -1,3 +1,9 @@
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none;
+}
 #contain {
 	width: 10.0rem;
 	background: url(../images/bg_1_04.png);

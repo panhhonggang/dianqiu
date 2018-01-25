@@ -1,4 +1,10 @@
 /*===============支付成功===============*/
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none;
+}
 #pay-succeed-all{
 	width:10.0rem;
 }

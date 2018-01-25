@@ -6,8 +6,13 @@ a{
 a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
 a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
 a:hover{text-decoration:none!important;}/*指鼠标在链接*/
-a:active{text-decoration:none!important;}/* 指正在点的链接*/ 
-
+a:active{text-decoration:none!important;}/* 指正在点的链接*/
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none;
+}
 #mine-first-all {
 	width: 10.0rem;
 	background-size: contain;
