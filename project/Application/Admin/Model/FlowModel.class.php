@@ -35,7 +35,7 @@ class FlowModel extends Model
        return $data;
     }
 
-    // 当月每一天的数据条数every day
+    // 当月每一天的数据条数
     public function getTotalByEveryDay($data=[])
     {
         if (count($data) == 0) {

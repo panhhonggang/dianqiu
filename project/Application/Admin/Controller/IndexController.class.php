@@ -5,7 +5,7 @@ use Admin\Controller\CommonController;
 class IndexController extends CommonController {
     public function index(){
     	if (IS_AJAX) {
-    		// 充值数额统计数量（本月列表显示）
+    		// 充值数额统计数量 （本月列表显示）
 	    	$flows = D('Flow')->getTotalByEveryDay();
 
 	    	// 滤芯订单数量（已发货及未发货数量->以发货及未发货列表）
