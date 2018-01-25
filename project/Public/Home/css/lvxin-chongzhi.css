@@ -120,11 +120,11 @@ font-size: 0.426667rem;
 	height:1.2rem;  /*90*/
 	margin-top: 0.346667rem; /*26*/
 	margin-left: 0.84rem; /*126/2=63*/
-
 	border: 1px solid #ddd;
+	border-radius: 5px;
 	color: #585858;
-	background: #039CE9;
-	-webkit-background: #039CE9;
+	background: #fff;
+	-webkit-background: #fff;
 }
 /*==========<!-- 滤芯开始 -->============*/
 #mo{

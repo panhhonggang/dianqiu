@@ -339,7 +339,7 @@ $(function(){
                                 '</div>'+
                                 '<span style="display:block;text-align:center">还剩'+persent2+'%</span>'+
                                 '</td>'+
-                                '<td>'+ReFlowFilter+'/'+el.timelife+'</td>'+
+                                '<td>'+ReDayFilter+'/'+el.timelife+'</td>'+
                                 '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
                                 '</tr>';
 
@@ -356,7 +356,7 @@ $(function(){
                                 '</div>'+
                                 '<span style="display:block;text-align:center">还剩'+persent1+'%</span>'+
                                 '</td>'+
-                                '<td>'+ReDayFilter+'/'+el.timelife+'</td>'+
+                                '<td>'+ReFlowFilter+'/'+el.timelife+'</td>'+
                                 '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
                                 '</tr>';
 
@@ -400,8 +400,8 @@ $(function(){
                     $(".leaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
                     $(".tdLeaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
                     $(".tdFilterMode").text(filterMode);//设置当前设备滤芯模式
-                    $(".reflow").text(dataList.ReFlow);//设置当前设备剩余流量
-                    $(".reday").text(dataList.Reday);//设置当前设备剩余天数
+                    $(".reflow").text((dataList.ReFlow=='-1')?0:dataList.ReFlow);//设置当前设备剩余流量
+                    $(".reday").text(dataList.Reday=='-1'?0:dataList.ReFlow);//设置当前设备剩余天数
                     $(".filtermode").text(dataList.filtermode);//设置当前设备滤芯模式
                     $(".temperature").text(dataList.Temperature);//设置当前设备温度
                     //$(".updatetime").text(dataList.updatetime);//设置当前设备更新时间
