@@ -283,6 +283,7 @@ $(function(){
             //websoket
             //1.建立连接
             var timer=null;
+            var numAdd=0;
             var identify=0;
             var websoket=new WebSocket("ws://120.27.12.1:6001");
             var PackNum=0;//包数据
@@ -305,10 +306,12 @@ $(function(){
             }
             //实时接收数据
             websoket.onmessage=function(res){
+                numAdd=0;
                 var dataList=JSON.parse(res.data);
 
                 if(dataList.PackType=="Select")
                 {
+                    numAdd=0;
                     $_table.html("");
                     var filterMode='';
                     console.log(dataList);
@@ -442,8 +445,20 @@ $(function(){
                     }
                 }
 
-            } 
-
+            }
+            //3分钟后判断设备是否离线
+            setInterval(function(){
+                numAdd++;
+                if(numAdd ==180){
+                    $(".H1devicestause").text("离线");
+                    $(".tdDeviceStause").text("离线");
+                    $(".switchText").text("开机");
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('该设备已离线');
+                    });
+                }
+            },1000);
             //按钮操作
             $(".btnBox").on("click",".clickBtn",function(){
                 var thisT=$(this);

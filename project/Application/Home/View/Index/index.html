@@ -209,7 +209,6 @@
 		var websoket=new WebSocket("ws://120.27.12.1:6001");
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列
-		var timer=null;
 		var identify=0;
 		var numAdd=0;
 		websoket.onopen=function(){
@@ -231,7 +230,7 @@
 		}
 		//实时接收数据
 		websoket.onmessage=function(data)
-		{	numAdd=0;
+		{
 			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
 			var leasingmode = dataList.LeasingMode;//租赁模式
 			//console.log(dataList.LeasingMode);
@@ -240,6 +239,7 @@
 
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{
+                numAdd=0;
 				var usedFlow=parseInt(dataList.SumFlow);
 				var usedDay=parseInt(dataList.SumDay);
 
@@ -303,12 +303,14 @@
 				}
 			}
 		}
-		setTimeout(function () {//3分钟后判断设备是否离线
-			numAdd++;
-			if(numAdd == 180){
-				outLine();
-			}
-		},1000);
+
+        //3分钟后判断设备是否离线
+        setInterval(function(){
+            numAdd++;
+            if(numAdd ==180){
+                outLine();
+            }
+        }, 1000);
 
 		//冲洗按钮操作
 		$('.washBtn').click(function(){
@@ -316,7 +318,7 @@
 			if($(".switchText").html()!="关机"){
 				layui.use('layer', function(){
 					var layer = layui.layer;
-					layer.msg('设备已关机，不能冲洗');
+					layer.msg('设备不在线，不能冲洗');
 				});
 				return false;
 			}else{
@@ -345,7 +347,7 @@
 							type:"冲洗中"
 						});
 						identify=1;
-						timer=setTimeout(function(){
+						setTimeout(function(){
 							if(identify==1){
 								layui.use('layer', function(){
 									var layer = layui.layer;
@@ -398,7 +400,7 @@
 						type:type
 					});
 					identify=1;
-					timer=setTimeout(function(){
+					setTimeout(function(){
 						if(identify==1){
 							layui.use('layer', function(){
 								var layer = layui.layer;
