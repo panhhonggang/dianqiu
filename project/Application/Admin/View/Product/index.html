@@ -23,6 +23,7 @@
                     <th>七级滤芯</th>
                     <th>八级滤芯</th>
                     <th>创建时间</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,7 @@
                             <td>{{$vo.filter7}}</td>
                             <td>{{$vo.filter8}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
+                            <td><a href="{{:U('Admin/product/device_type_edit',array('id'=>$vo['id']))}}">编辑</a></td>
                         </tr>
                         </foreach>
                     <else />

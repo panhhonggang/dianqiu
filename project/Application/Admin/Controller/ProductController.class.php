@@ -36,6 +36,20 @@ class ProductController extends CommonController
         $this->display();
     }
 
+    public function device_type_edit()
+    {
+        if (IS_POST) {
+            
+        } else {
+            $id = I('get.id');
+            $device_type = M('device_type');
+            $data = $device_type->find($id);
+            // dump($data);
+            $this->assign('data',$data);
+            $this->display();
+        }
+    }
+
     public function add()
     {
         if (IS_POST) {
