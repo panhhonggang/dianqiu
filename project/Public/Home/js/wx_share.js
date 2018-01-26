@@ -20,7 +20,7 @@ var wxShare = function(appId,nonceStr,signature,timestamp){
 			'onMenuShareQQ',
 			'onMenuShareWeibo',
 			'onMenuShareQZone'
-	    ]
+	    ] 
 	});
 	var title = '净水物联网',
 		link = location.href,
