@@ -12,7 +12,7 @@ class ShopController extends CommonController
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         $did = $_SESSION['homeuser']['did'];
-        $device = M('device')->where('id='.$did)->find();
+        $device = M('devices')->where('id='.$did)->find();
         // 获取用户绑定设备充值套餐
         if($uid){
             // 查询用户绑定设备使用的套餐产品
