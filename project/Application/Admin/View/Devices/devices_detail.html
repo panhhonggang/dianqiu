@@ -170,7 +170,7 @@ $(function(){
                         '<span style="display:block;text-align:center">还剩'+persent2+'%</span>'+
                         '</td>'+
                         '<td>'+Number(data.statu[('redayfilter'+(i+1))])+'/'+el.timelife+'</td>'+
-                        '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
+                        '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                         '</tr>';
                 }else if(data.statu.filtermode=="1"){
                     //按流量
@@ -184,7 +184,7 @@ $(function(){
                         '<span style="display:block;text-align:center">还剩'+persent1+'%</span>'+
                         '</td>'+
                         '<td>'+Number(data.statu[('reflowfilter'+(i+1))])+'/'+el.flowlife+'</td>'+
-                        '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
+                        '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                         '</tr>';
                 }else if(data.statu.filtermode=="2"){
                     //按流量/流量
@@ -198,7 +198,7 @@ $(function(){
                         '<span style="display:block;text-align:center">还剩'+width.toFixed(2)+'%</span>'+
                         '</td>'+
                         '<td>'+(_bool?Number(data.statu[('reflowfilter'+(i+1))]):Number(data.statu[('redayfilter'+(i+1))]))+'/'+(_bool?el.flowlife:el.timelife)+'</td>'+
-                        '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
+                        '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                         '</tr>';
                 }
                 $_table.append(html);
@@ -338,7 +338,7 @@ $(function(){
                         }else{
                             persent1=persent1;
                         };
-                        if(persent2>100){ 
+                        if(persent2>100){
                             persent2=100;
                         }else{
                             persent2=persent2;
@@ -362,7 +362,7 @@ $(function(){
                                 '<span style="display:block;text-align:center">还剩'+persent2+'%</span>'+
                                 '</td>'+
                                 '<td>'+ReDayFilter+'/'+el.timelife+'</td>'+
-                                '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
+                                '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                                 '</tr>';
 
                         }else if(parseInt(dataList['ReFlowFilter1'])>0 && parseInt(dataList['ReDayFilter1'])<=0){
@@ -379,7 +379,7 @@ $(function(){
                                 '<span style="display:block;text-align:center">还剩'+persent1+'%</span>'+
                                 '</td>'+
                                 '<td>'+ReFlowFilter+'/'+el.timelife+'</td>'+
-                                '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
+                                '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                                 '</tr>';
 
                         }else if(parseInt(dataList['ReFlowFilter1'])>0 && parseInt(dataList['ReDayFilter1'])>0){
@@ -395,7 +395,7 @@ $(function(){
                                 '<span style="display:block;text-align:center">还剩'+width.toFixed(2)+'%</span>'+
                                 '</td>'+
                                 '<td>'+(_bool?ReFlowFilter:ReDayFilter)+'/'+(_bool?el.flowlife:el.timelife)+'</td>'+
-                                '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button>'+'</td>'+
+                                '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                                 '</tr>';
 
                         }else{
@@ -430,7 +430,7 @@ $(function(){
                 }else if(dataList.PackType=="SetData")//设置数据类型数据
                 {
                     identify=0;
-
+                    console.log(dataList);
                     for(var i=0;i<CmdList.length;i++){
                         console.log(CmdList[i]);
                         if(CmdList[i].cmd.PackNum==dataList.PackNum)
@@ -472,6 +472,7 @@ $(function(){
             $(".btnBox").on("click",".clickBtn",function(){
                 var thisT=$(this);
                 var _this=$(this).html();//获取按钮文本
+                var thisIndex=parseInt($(this).siblings("input").val());
                 var filterN = $(this).attr('name');
                 var ajson;//数据对象
                 var ajsonSelect;
@@ -506,8 +507,10 @@ $(function(){
                             type="关机中";
 
                         }else if(_this=="复位"){
-                            ajson['ReFlowFilter'+filterN]=100;
-                            ajson['ReDayFilter'+filterN]=100;
+                            ajson['ReFlowFilter'+(thisIndex+1)]=data.filterInfo[thisIndex].flowlife;
+                            ajson['ReDayFilter'+(thisIndex+1)]=data.filterInfo[thisIndex].timelife;
+                            ajson['FlowLifeFilter'+(thisIndex+1)]=data.filterInfo[thisIndex].flowlife;
+                            ajson['DayLifeFiter'+(thisIndex+1)]=data.filterInfo[thisIndex].timelife;
                             ajson['type']='复位中';
                             thisT.html("复位中");
                             type=filterN;

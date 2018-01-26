@@ -143,10 +143,10 @@
 var data=JSON.parse($(".status").val());
 
 var res=JSON.parse($('.res').val());
-// console.log(res);
+console.log(data);
 // console.log(res);
 var deviceId=data.deviceid;//设备id
-//var deviceId=112233445566778;//设备id
+// var deviceId=112233445566778;//设备id
 var filterName="";//获取选择滤芯的名称
 var filterNumber=0;//获取选择滤芯的索引
 $('._line').css({left:($('._ul li').eq(0).offset().left+$('._ul li').eq(0).innerWidth()/2-25)+'px'});
@@ -168,7 +168,7 @@ $('._ul > li').click(function(){
 		$(this).children(".progress").children(".checkbox").children(".chBox").css({"visibility":"visible"});
 		$(this).siblings().children(".progress").children(".checkbox").children(".chBox").css({"visibility":"hidden"});
 		filterName=$(this).children("p").children().eq(0).text();
-		filterNumber=$(this).index()+1;
+		filterNumber=$(this).index();
 
 	});
 	
@@ -731,6 +731,7 @@ $(function(){
 		}
 		else if(dataList.PackType=="SetData")//设置数据类型数据
 		{
+		    console.log(dataList);
             identify=0;
 			for(var i=0;i<CmdList.length;i++){
 				if(CmdList[i].cmd.PackNum==dataList.PackNum)
@@ -774,11 +775,12 @@ $(function(){
 								"PackType":"SetData",
 								"Vison":0,
 								"PackNum":PackNum,
-								"curTime":0,
 							};
 							var type=0;
-							ajson['ReFlowFilter'+filterNumber]="100";
-							ajson['ReDayFilter'+filterNumber]="100";
+                            ajson['ReFlowFilter'+(filterNumber+1)]=res[filterNumber].flowlife;
+                            ajson['ReDayFilter'+(filterNumber+1)]=res[filterNumber].timelife;
+                            ajson['FlowLifeFilter'+(filterNumber+1)]=res[filterNumber].flowlife;
+                            ajson['DayLifeFiter'+(filterNumber+1)]=res[filterNumber].timelife;
                             ajson['type']='复位中';
 							type=filterNumber;
 							//发送数据

@@ -558,7 +558,7 @@ h3{
         border: none;
         outline: none;
         border-radius: 2.2vh;
-        background: #7D7FCE;
+        background: #039CE9;;
         visibility: hidden;
     }
     .progress>.checkbox>input[type="checkbox"]:checked {
