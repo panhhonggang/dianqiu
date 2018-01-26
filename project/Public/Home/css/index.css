@@ -28,9 +28,13 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 .clearfix{zoom:1;}/*为了兼容IE*/
 .clear{clear:both;}
 /*重置样式结束*/
+html,body {
+	height: 100vh;
+	overflow: hidden;
+}
 .top{
 	width:10rem;
-	height: 61vh;
+	/*height: 61vh;*/
 	background: url("../images/yun_01.jpg") no-repeat;
 	background-size: 100% 100%;
 	border-top:1px solid #fff;
@@ -147,6 +151,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 }
 
 .allStatus{
+	height: 8vh;
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
 }
@@ -237,8 +242,8 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	z-index: 11;
 }
 
-.bottom{
-	height: 39vh;
+.bottom{    
+	height: 8.1rem;
 	background: #A8E2FF;
 }
 .bottom ul{
@@ -253,11 +258,19 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	text-align: center;
 	margin-top: 0.8rem;
 }
+.bottom ul li:after {
+	content: '';
+	display: block;
+	clear: both;
+}
 
 .bottom ul li:nth-child(4),.bottom ul li:nth-child(5),.bottom ul li:nth-child(6){
 	margin-top: 1.4rem;
 }
 
+.bottom ul li a {
+	display: inline-block;
+}
 .bottom ul li p{
 	font-size: 1.1rem;
 }
