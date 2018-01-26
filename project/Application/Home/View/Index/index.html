@@ -425,6 +425,10 @@
 				});
 			});
 		});
+        //页面关闭后关闭websoket;
+        window.onunload=function(){
+            websoket.close();
+        };
 	})
 	//页面加载时执行结束
 </script>

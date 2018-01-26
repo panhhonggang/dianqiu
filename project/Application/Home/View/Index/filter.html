@@ -144,7 +144,7 @@ var data=JSON.parse($(".status").val());
 
 var res=JSON.parse($('.res').val());
 console.log(data);
-// console.log(res);
+console.log(res);
 var deviceId=data.deviceid;//设备id
 // var deviceId=112233445566778;//设备id
 var filterName="";//获取选择滤芯的名称
@@ -478,11 +478,11 @@ $(function(){
 					//按时间
 					// 遍历膜的详情, 不存在则不遍历
 					if(res[i].filtername){
-						if(parseInt(dataList['ReDayFilter'+(i+1)])){
-						parseInt(dataList['ReDayFilter'+(i+1)])=parseInt(dataList['ReDayFilter'+(i+1)])
-						}else{
-							parseInt(dataList['ReDayFilter'+(i+1)])=0
-						}
+						// if(parseInt(dataList['ReDayFilter'+(i+1)])){
+						// parseInt(dataList['ReDayFilter'+(i+1)])=parseInt(dataList['ReDayFilter'+(i+1)])
+						// }else{
+						// 	parseInt(dataList['ReDayFilter'+(i+1)])=0
+						// }
 						moHTML += '<li class="_padding">'+
 										'<p><span class="">'+ res[i].filtername +
 										'</span><span class="_float_right">'+
@@ -776,6 +776,7 @@ $(function(){
 								"Vison":0,
 								"PackNum":PackNum,
 							};
+							//alert(res[filterNumber].flowlife);
 							var type=0;
                             ajson['ReFlowFilter'+(filterNumber+1)]=res[filterNumber].flowlife;
                             ajson['ReDayFilter'+(filterNumber+1)]=res[filterNumber].timelife;
@@ -806,6 +807,10 @@ $(function(){
 				}
 
 			});
+            //页面关闭后关闭websoket;
+            window.onunload=function(){
+                websoket.close();
+            };
 });
 
 	</script>
