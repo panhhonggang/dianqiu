@@ -8,7 +8,7 @@ var wxShare = function(appId,nonceStr,signature,timestamp){
 	// 	console.log(appId,nonceStr,signature,timestamp)
 	// }
 	wx.config({
-	    debug: true,
+	    debug: false,
 	    appId: appId,
 	    timestamp: timestamp,
 	    nonceStr: nonceStr,
@@ -20,10 +20,11 @@ var wxShare = function(appId,nonceStr,signature,timestamp){
 			'onMenuShareQQ',
 			'onMenuShareWeibo',
 			'onMenuShareQZone'
-	    ] 
+	    ]
 	});
+	console.log(encodeURI(location.href.split('#')[0]))
 	var title = '净水物联网',
-		link = location.href,
+		link = encodeURI(location.href.split('#')[0]),
 		desc = '欢迎使用点球净水物联网',
 		img = 'http://pub.dianqiukj.com/Public/Home/images/logo.png';  //图标需要绝对路径
 
