@@ -143,6 +143,16 @@ $(function(){
                 var persent1 = Number(data.statu[('reflowfilter'+(i+1))])/Number(el.flowlife)*100;
                 //按时间计算百分比值
                 var persent2 = Number(data.statu[('redayfilter'+(i+1))])/Number(el.timelife)*100;
+                if(persent1>100){
+                    persent1=100;
+                }else{
+                    persent1=persent1;
+                };
+                if(persent2>100){
+                    persent2=100;
+                }else{
+                    persent2=persent2;
+                }
                 var persent = Math.min(persent1,persent2);
                 //比较大小
                 var _bool = persent == persent1?true:false;
