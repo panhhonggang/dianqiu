@@ -122,17 +122,16 @@
 
             $('._user_').on("click",".unb",function(){
                 var dcode = $(this).attr("did");
-                alert(dcode);
                 layui.use('layer', function(){
                     var layer = layui.layer;
                     layer.confirm('点击"确定"解绑！',function(){
-
                         $.ajax({
                             url:"unbind",
                             data:{"device_code":dcode},
                             dataType:"json",
                             type: 'post',
                             success:function(res){
+                                console.log(res);
                                 location.reload();
                                  layui.use('layer', function(){
                                     var layer = layui.layer;

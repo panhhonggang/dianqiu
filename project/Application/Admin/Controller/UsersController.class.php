@@ -257,7 +257,7 @@ class UsersController extends CommonController
 
         $device_status = $device->where('id='.$deviceInfo['id'])->save($data);
         // 设备状态判断回滚
-        if($device_status && $orders_status && $flow_status){
+        if($device_status && $orders_status){
             $device->commit();
             $this->ajaxReturn(['code'=>200,'msg'=>'解绑成功']);
         } else {
@@ -265,5 +265,4 @@ class UsersController extends CommonController
             $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
         }
     }
-
 }

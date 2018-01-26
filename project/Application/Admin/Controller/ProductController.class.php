@@ -39,7 +39,26 @@ class ProductController extends CommonController
     public function device_type_edit()
     {
         if (IS_POST) {
-            dump(I('post.'));
+            $id = I('post.id');
+            $data = array(
+                'typename' => I('post.typename'),
+                'filter1' => I('post.filter1'),
+                'filter2' => I('post.filter2'),
+                'filter3' => I('post.filter3'),
+                'filter4' => I('post.filter4'),
+                'filter5' => I('post.filter5'),
+                'filter6' => I('post.filter6'),
+                'filter7' => I('post.filter7'),
+                'filter8' => I('post.filter8'),
+            );
+            $data = array_filter($data);
+            $device_type = M('device_type');
+            $res = $device_type->where('id='.$id)->save($data);
+            if ($res) {
+                $this->success('修改成功啦！',U('Admin/Product/index'));
+            }else{
+                $this->error('修改失败！');
+            }
         } else {
             $id = I('get.id');
             $device_type = M('device_type');
