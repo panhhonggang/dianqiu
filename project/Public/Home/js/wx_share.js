@@ -2,13 +2,13 @@
 	微信分享接口设置
 */
 //微信接口
-var wxShare = function(appId,timestamp,appsignatureId,timestamp){
-	// if(appId && timestamp && appsignatureId && timestamp){
+var wxShare = function(appId,nonceStr,appsignatureId,timestamp){
+	if(appId && nonceStr && appsignatureId && timestamp){
 
-	// 	console.log(appId,timestamp,appsignatureId,timestamp)
-	// }
+		// console.log(appId,nonceStr,appsignatureId,timestamp)
+	}
 	wx.config({
-	    debug: true,
+	    debug: false,
 	    appId: appId,
 	    timestamp: timestamp,
 	    nonceStr: nonceStr,
@@ -46,7 +46,7 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 		wx.onMenuShareTimeline({
 		    title: '欢迎使用点球净水物联网', // 分享标题
 		    link: 'pub.dianqiukj.com/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-		    imgUrl: '__PUBLIC__/Home/dianqiu.jpg', // 分享图标
+		    imgUrl: '__PUBLIC__/Home/images/dianqiu.jpg', // 分享图标
 		    success: function () {
 		    // 用户确认分享后执行的回调函数
 			}
@@ -58,7 +58,7 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 			title: '欢迎使用点球净水物联网', // 分享标题
 			desc: '欢迎使用点球净水物联网', // 分享描述
 			link: 'pub.dianqiukj.com/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-			imgUrl: '__PUBLIC__/Home/dianqiu.jpg', // 分享图标
+			imgUrl: '__PUBLIC__/Home/images/dianqiu.jpg', // 分享图标
 			type: '', // 分享类型,music、video或link，不填默认为link
 			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 			success: function () {
@@ -75,7 +75,7 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 			title: '欢迎使用点球净水物联网', // 分享标题
 			desc: '欢迎使用点球净水物联网', // 分享描述
 			link: 'pub.dianqiukj.com/', // 分享链接
-			imgUrl: '__PUBLIC__/Home/dianqiu.jpg', // 分享图标
+			imgUrl: '__PUBLIC__/Home/images/dianqiu.jpg', // 分享图标
 			success: function () {
 			// 用户确认分享后执行的回调函数
 			},
@@ -90,7 +90,7 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 			title: '欢迎使用点球净水物联网', // 分享标题
 			desc: '欢迎使用点球净水物联网', // 分享描述
 			link: 'pub.dianqiukj.com/', // 分享链接
-			imgUrl: '__PUBLIC__/Home/dianqiu.jpg', // 分享图标
+			imgUrl: '__PUBLIC__/Home/images/dianqiu.jpg', // 分享图标
 			success: function () {
 			// 用户确认分享后执行的回调函数
 			},
@@ -105,7 +105,7 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 			title: '欢迎使用点球净水物联网', // 分享标题
 			desc: '欢迎使用点球净水物联网', // 分享描述
 			link: 'pub.dianqiukj.com/', // 分享链接
-			imgUrl: '__PUBLIC__/Home/dianqiu.jpg', // 分享图标
+			imgUrl: '__PUBLIC__/Home/images/dianqiu.jpg', // 分享图标
 			success: function () {
 			// 用户确认分享后执行的回调函数
 			},

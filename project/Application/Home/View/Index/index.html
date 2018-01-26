@@ -10,8 +10,8 @@
 <body>
 <input type="hidden" value="{{$_SESSION['weixin'][1]['appId']}}" id="appId">
 <input type="hidden" value="{{$_SESSION['weixin'][1]['nonceStr']}}" id="nonceStr">
-<input type="hidden" value="{{$_SESSION['weixin'][1]['nonceStr']}}" id="signature">
-<input type="hidden" value="{{$_SESSION['weixin'][1]['signature']}}" id="timestamp">
+<input type="hidden" value="{{$_SESSION['weixin'][1]['signature']}}" id="signature">
+<input type="hidden" value="{{$_SESSION['weixin'][1]['timestamp']}}" id="timestamp">
 <input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
 <input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
 <input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
@@ -95,18 +95,20 @@
 	$(".charge").click(function(){
 		sessionStorage.setItem("shopFrom",'charge');
 	})
-	// 获取微信JSSDK所需的数据
-	var appId = $("#appId").val(),
-		nonceStr = $("#nonceStr").val(),
-		appsignatureId = $("#signature").val(),
-		timestamp = $("#timestamp").val();
-
-	// 调用微信分享
-	wxShare(appId,nonceStr,appsignatureId,timestamp);
-	// console.log(appId,timestamp,appsignatureId,timestamp)
 	
 	//页面加载时执行
 	$(function(){
+
+		// 获取微信JSSDK所需的数据
+		var appId = $("#appId").val(),
+			nonceStr = $("#nonceStr").val(),
+			appsignatureId = $("#signature").val(),
+			timestamp = $("#timestamp").val();
+
+		// 调用微信分享
+		wxShare(appId,nonceStr,appsignatureId,timestamp);
+		// console.log(appId,nonceStr,appsignatureId,timestamp)
+		
 		//变量定义
 		var data=JSON.parse($(".status").val());
 		var res=JSON.parse($('.res').val());
