@@ -144,43 +144,50 @@
 		function addwater(){
 			$(".switchText").html("关机");
 			$(".addwater").show().siblings().hide();
-			$(".content").css({filter:'grayscale(0%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//冲洗
 		function wash(){
 			$(".switchText").html("关机");
 			$(".wash").show().siblings().hide();
-			$(".content").css({filter:'grayscale(0%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//缺水
 		function lessWaters(){
 			$(".switchText").html("关机");
 			$(".lessWaters").show().siblings().hide();
-			$(".content").css({filter:'grayscale(0%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//水满
 		function fullWaters(){
 			$(".switchText").html("关机");
 			$(".fullWaters").show().siblings().hide();
-			$(".content").css({filter:'grayscale(0%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//检修
 		function service(){
 			$(".switchText").html("关机");
 			$(".service").show().siblings().hide();
-			$(".content").css({filter:'grayscale(0%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//关机
 		function showDown(){
 			$(".switchText").html("开机");
 			$(".showDown").show().siblings().hide();
-			$(".content").css({filter:'grayscale(100%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(100%)'});
 		}
 		//离线
 		function outLine(){
 			$(".switchText").html("开机");
 			$(".outLine").show().siblings().hide();
-			$(".content").css({filter:'grayscale(100%)'});
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(100%)'});
 		}
 		machineStatus();//执行水机状态方法
 		var usednumberFlow=parseInt(data.sumflow);//已用数值
