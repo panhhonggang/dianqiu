@@ -102,12 +102,12 @@
 		// 获取微信JSSDK所需的数据
 		var appId = $("#appId").val(),
 			nonceStr = $("#nonceStr").val(),
-			appsignatureId = $("#signature").val(),
+			signature = $("#signature").val(),
 			timestamp = $("#timestamp").val();
 
 		// 调用微信分享
-		wxShare(appId,nonceStr,appsignatureId,timestamp);
-		// console.log(appId,nonceStr,appsignatureId,timestamp)
+		wxShare(appId,nonceStr,signature,timestamp);
+		// console.log(appId,nonceStr,signature,timestamp)
 		
 		//变量定义
 		var data=JSON.parse($(".status").val());
