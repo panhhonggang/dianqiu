@@ -39,7 +39,7 @@ class ProductController extends CommonController
     public function device_type_edit()
     {
         if (IS_POST) {
-            
+            dump(I('post.'));
         } else {
             $id = I('get.id');
             $device_type = M('device_type');
