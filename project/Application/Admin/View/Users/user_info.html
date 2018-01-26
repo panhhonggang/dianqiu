@@ -122,6 +122,7 @@
 
             $('._user_').on("click",".unb",function(){
                 var dcode = $(this).attr("did");
+                alert(dcode);
                 layui.use('layer', function(){
                     var layer = layui.layer;
                     layer.confirm('点击"确定"解绑！',function(){
