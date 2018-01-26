@@ -169,7 +169,7 @@ class UsersController extends CommonController
         // 根据用户昵称进行搜索
          $map = '';
 
-        if (!empty($_GET['key']) && $_GET['key'] === 1) {
+        if (!empty($_GET['key']) && $_GET['key'] == 1 && strlen($_GET['value'])) {
             $map['d.name'] = array('like',"%{$_GET['value']}%");
         }
         if (strlen($_GET['mode'])) {
