@@ -12,6 +12,7 @@ class ShopController extends CommonController
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         $did = $_SESSION['homeuser']['did'];
+        $device = M('device')->where('id='.$did)->find();
         // 获取用户绑定设备充值套餐
         if($uid){
             // 查询用户绑定设备使用的套餐产品
@@ -73,6 +74,7 @@ class ShopController extends CommonController
             // 分配数据到模板
             $this->assign('setmeallist',$setmeallist);
             $this->assign('filtersList',$filtersList);
+            $this->assign('device',$device);
             $this->assign('cartNum',$cartNum);
         }
 
