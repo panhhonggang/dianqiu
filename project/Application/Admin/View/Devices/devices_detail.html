@@ -167,7 +167,7 @@ $(function(){
                         '<div class="_progress_" style="width: '+persent2+'%;background-color:'+_color[i%_color.length]+'">'+
                         '</div>'+
                         '</div>'+
-                        '<span style="display:block;text-align:center">还剩'+persent2+'%</span>'+
+                        '<span style="display:block;text-align:center">还剩'+persent2.toFixed(2)+'%</span>'+
                         '</td>'+
                         '<td>'+Number(data.statu[('redayfilter'+(i+1))])+'/'+el.timelife+'</td>'+
                         '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
@@ -181,7 +181,7 @@ $(function(){
                         '<div class="_progress_" style="width: '+persent1+'%;background-color:'+_color[i%_color.length]+'">'+
                         '</div>'+
                         '</div>'+
-                        '<span style="display:block;text-align:center">还剩'+persent1+'%</span>'+
+                        '<span style="display:block;text-align:center">还剩'+persent1.toFixed(2)+'%</span>'+
                         '</td>'+
                         '<td>'+Number(data.statu[('reflowfilter'+(i+1))])+'/'+el.flowlife+'</td>'+
                         '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
@@ -356,10 +356,10 @@ $(function(){
                                 '<td style="width:10%;">'+el.filtername+'</td>'+
                                 '<td style="width:70%">'+
                                 '<div class="_progress">'+
-                                '<div class="_progress_" style="width: '+persent2+'%;background-color:'+_color[i%_color.length]+'">'+
+                                '<div class="_progress_" style="width: '+persent2.toFixed(2)+'%;background-color:'+_color[i%_color.length]+'">'+
                                 '</div>'+
                                 '</div>'+
-                                '<span style="display:block;text-align:center">还剩'+persent2+'%</span>'+
+                                '<span style="display:block;text-align:center">还剩'+persent2.toFixed(2)+'%</span>'+
                                 '</td>'+
                                 '<td>'+ReDayFilter+'/'+el.timelife+'</td>'+
                                 '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
@@ -373,10 +373,10 @@ $(function(){
                                 '<td style="width:10%;">'+el.filtername+'</td>'+
                                 '<td style="width:70%">'+
                                 '<div class="_progress">'+
-                                '<div class="_progress_" style="width: '+persent1+'%;background-color:'+_color[i%_color.length]+'">'+
+                                '<div class="_progress_" style="width: '+persent1.toFixed(2)+'%;background-color:'+_color[i%_color.length]+'">'+
                                 '</div>'+
                                 '</div>'+
-                                '<span style="display:block;text-align:center">还剩'+persent1+'%</span>'+
+                                '<span style="display:block;text-align:center">还剩'+persent1.toFixed(2)+'%</span>'+
                                 '</td>'+
                                 '<td>'+ReFlowFilter+'/'+el.timelife+'</td>'+
                                 '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
