@@ -25,7 +25,7 @@ var wxShare = function(appId,nonceStr,signature,timestamp){
 	var title = '净水物联网',
 		link = location.href,
 		desc = '欢迎使用点球净水物联网',
-		img = 'http://pub.dianqiukj.com/Public/Home/images/dianqiu.jpg';  //图标需要绝对路径
+		img = 'http://pub.dianqiukj.com/Public/Home/images/logo.png';  //图标需要绝对路径
 
 	wx.ready(function(){
 		//分享到朋友圈
