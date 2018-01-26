@@ -8,7 +8,7 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 	// 	console.log(appId,timestamp,appsignatureId,timestamp)
 	// }
 	wx.config({
-	    debug: false,
+	    debug: true,
 	    appId: appId,
 	    timestamp: timestamp,
 	    nonceStr: nonceStr,
@@ -26,25 +26,19 @@ var wxShare = function(appId,timestamp,appsignatureId,timestamp){
 	// 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
 	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
 	    // 发送给好友
-	    WeixinJSBridge.on('menu:share:appmessage', function(argv){
-	        shareFriend();
-	    });
+	    shareFriend();
+
 	    // 分享到朋友圈
-	    WeixinJSBridge.on('menu:share:timeline', function(argv){
-	        shareTimeline();
-	    });
+	    shareTimeline();
+
 	    // 分享到QQ
-	    WeixinJSBridge.on('menu:share:weibo', function(argv){
-	        shareQQ();
-	    });
+	    shareQQ();
+
 	    // 分享到QQ空间
-	    WeixinJSBridge.on('menu:share:weibo', function(argv){
-	        shareQQZone();
-	    });
+	    shareQQZone();
+
 	    // 分享到微博
-	    WeixinJSBridge.on('menu:share:weibo', function(argv){
-	        shareWeibo();
-	    });
+	    shareWeibo();
 	}, false);
 
 	//分享到朋友圈
