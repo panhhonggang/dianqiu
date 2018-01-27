@@ -377,7 +377,7 @@
                         if(res.status==1){
                             // 添加购物车成功跳转
                             // 异步提交请求支付系统
-                            if(offStause)
+                            if(offStause==0)
                             {
                                 layuiHint('设备离线，不能充值！');
                             }
