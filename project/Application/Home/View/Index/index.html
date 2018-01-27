@@ -88,6 +88,7 @@
 <script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 <script src="__PUBLIC__/Home/js/wx_share.js"></script>	
 <script>
+
 	// 记录是从充值进入商城还是点击商城进入商城
 	$(".mall").click(function(){
 		sessionStorage.setItem("shopFrom",'mall');
@@ -118,9 +119,6 @@
 		// var deviceId=112233445566778;//设备id
 		var devicestause=data.devicestause;//设备状态
 		console.log(data);
-
-
-
 
 		function machineStatus(){
 			if(devicestause=="0"){//制水
@@ -244,6 +242,10 @@
 			machineStatus();//执行水机状态方法
 			//console.log(dataList);
 
+			// 获取设备租赁模式
+			if(data.leasingmode){
+				sessionStorage.setItem("leaseMode",data.leasingmode);
+			}
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{
                 numAdd=0;
