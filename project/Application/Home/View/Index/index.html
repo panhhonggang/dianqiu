@@ -53,6 +53,10 @@
 					<p><i class="iconfont "></i></p>
 					<span>已关机</span>
 				</div>
+				<div class="statusShuiman arrearage right"><!--欠费-->
+					<p><i class="iconfont "></i></p>
+					<span>已欠费</span>
+				</div>
 				<div class="statusShuiman outLine right"><!--离线-->
 					<p><i class="iconfont "></i></p>
 					<span>已离线</span>
@@ -131,6 +135,8 @@
 				lessWaters();
 			}else if(devicestause=="5"){//检修
 				service();
+            }else if(devicestause=="6"){//欠费
+                arrearage();
 			}else if(devicestause=="7"){ //关机
 				showDown();
 			}else if(devicestause=="8"){//开机
@@ -172,6 +178,13 @@
 			$(".service").show().siblings().hide();
 			$(".content").css({height: '100vh'});
 			$("body").css({height:'100vh',filter:'grayscale(0%)'});
+		}
+		//欠费
+		function arrearage(){
+            $(".switchText").html("关机");
+            $(".arrearage").show().siblings().hide();
+            $(".content").css({height: '100vh'});
+            $("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//关机
 		function showDown(){
@@ -305,6 +318,8 @@
 					lessWaters();
 				}else if(dataList.DeviceStause=="5"){//检修
 					service();
+                }else if(dataList.DeviceStause=="6"){//欠费
+                    arrearage();
 				}else if(dataList.DeviceStause=="7"){ //关机
 					showDown();
 				}else if(dataList.DeviceStause=="8"){//开机
