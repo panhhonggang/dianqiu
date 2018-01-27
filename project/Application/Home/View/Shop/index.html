@@ -165,7 +165,6 @@
 		</style>
 	</head> 
 	<body>
-		{{:dump($device)}}
 	<div id="contain">
 		<input type="hidden" value={{$device['device_code']}}  id="device">
 		<div id="ulDiv">
@@ -239,7 +238,7 @@
 		}
 		$(function(){
 			var offStause=0;//设备离线状态
-			var leaseMode=1;//获取租赁模式
+			var leaseMode=sessionStorage.getItem("leaseMode");//获取租赁模式
 			var flowNum=0;//当前选中的流量值
 			var dayNum=0;//当前选中的天数
 			var deviceId=$("#device").val();
