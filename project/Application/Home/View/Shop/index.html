@@ -238,16 +238,19 @@
 		}
 		$(function(){
 			var offStause=0;//设备离线状态：（1是离线）
+			var Stause='';//设备状态
+            var Cts = "0123456";//设备状态集合
 			var leaseMode=sessionStorage.getItem("leaseMode");//获取租赁模式
 			var flowNum=0;//当前选中的流量值
 			var dayNum=0;//当前选中的天数
-			var deviceId=$("#device").val();
+			// var deviceId=$("#device").val();
+            var deviceId=228733445596778;
 
             var websoket=new WebSocket("ws://120.27.12.1:6001");
             var PackNum=0;//包数据
             var CmdList=[];//命令队列
             var offLine=0;//离线标志位1
-
+			console.log(sessionStorage);
 
 			/**
 			 *  选中的套餐类型
@@ -257,12 +260,12 @@
 				// 获取充值的流量或套餐
 				if($(this).val().indexOf('流量') > -1){
 					dayNum = 0;
-					flowNum = $(this).val().split('元')[1].split('流量')[0];
-					// console.log(flowNum)
+					flowNum = parseInt($(this).val());
+					console.log(parseInt($(this).val()))
 				}else if($(this).val().indexOf('时长') > -1){
 					flowNum = 0;
-					dayNum = $(this).val().split('元')[1].split('时长')[0];
-					// console.log(dayNum)
+					dayNum = parseInt($(this).val());
+					console.log(dayNum)
 				}
 			});
             websoket.onopen=function(){
@@ -276,13 +279,13 @@
                 setTimeout(function(){
                     ajson.PackType="Select";
                     websoket.send(JSON.stringify(ajson));
-                    offLine=1;
-                    setTimeout(function(){
-                        if(offLine)
-                        {
-                            offStause = 1;
-                        }
-                    },3000);
+                    // offLine=1;
+                    // setTimeout(function(){
+                    //     if(offLine)
+                    //     {
+                    //         offStause = 1;
+                    //     }
+                    // },3000);
                     setInterval(function(){
                         websoket.send(JSON.stringify(ajson));
                     },10000);
@@ -292,31 +295,29 @@
             websoket.onmessage=function(data)
             {
                 offLine=0;
+
                 var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
+                Stause=dataList.DeviceStause;
+
                 if(dataList.PackType=="Select")//返回查询数据类型数据
                 {
-
-
                 }
                 else if(dataList.PackType=="SetData")//设置数据类型数据
                 {
-					console.log(dataList);
+                    if((dataList.PackNum==100))
+					{
+					    if((dataList.isSuccess==1))
+						{
+                            location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+						}
+						else
+						{
+						    layuiHint("充值异常，请联系客服");
+						}
+					}
 
-                    $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-                        if(res==2){
-                            // 套餐确认
-                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-                        }else if(res==3){
-                            // 快递确认
-                            window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-                        }else {
 
-                            weixinPay(res);
-                        }
-                    });
                 }
-
-
             }
             /**
              * 立即购买操作
@@ -325,13 +326,14 @@
 
                 var ajson;//数据对象
                 //判断操作类型
-                console.log(flowNum, dayNum);
+                // console.log(flowNum, dayNum);
 
                 ajson={
                     "DeviceID":deviceId,
                     "PackType":"SetData",
                     "Vison":0,
-                    "PackNum":PackNum,
+                    "PackNum":100,
+
 
 
                 };
@@ -372,35 +374,38 @@
                     var date = JSON.stringify(data)
                     // 异步提交
                     $.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
-						console.log(res.status);
+						// console.log(res.status);
                         // 判断购物车是否添加成功
                         if(res.status==1){
                             // 添加购物车成功跳转
                             // 异步提交请求支付系统
-                            if(offStause==1)
+                            if(Stause=='')
                             {
                                 layuiHint('设备离线，不能充值！');
                             }
                             else
                             {
-                                // 立即付款
+
+								if(leaseMode=="0"){//零售型
+									layuiHint("您的设备不需要充值");
+								}
+								else
+								{
+                                    // 立即付款
+                                    $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+                                        if(res==2){
+                                            // 套餐确认
+                                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+                                        }else if(res==3){
+                                            // 快递确认
+                                            window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+                                        }else {
+                                            weixinPay(res);
+                                        }
+                                    });
+								}
 
 
-                                if(leaseMode=="0"){//零售型
-                                    layuiHint("您的设备不需要充值");
-                                }else if(leaseMode=="1") {//按流量计费
-                                    ajson["ReFlow"]=flowNum;
-                                }else if(leaseMode=="2"){//按时间计费
-                                    ajson["Reday"]=dayNum;
-                                }else if(leaseMode=="3"){//时长和流量套餐
-                                    ajson["ReFlow"]=flowNum;
-                                    ajson["Reday"]=dayNum;
-                                }
-                                websoket.send(JSON.stringify(ajson));
-                                CmdList.push({
-                                    cmd:ajson,
-                                    type:type
-                                });
                             }
                         }
                     })
@@ -470,7 +475,7 @@
 
 			$("._ul").children("li").eq(0).css({color: '#6F6F6F'});
 			$("._ul").children("li").eq(1).css({color: '#039CE9'});
-			console.log('mall')
+			// console.log('mall')
 			// // 显示当前的内容盒子
 			$(".contentBox").children('div').eq(1).slideDown().siblings().slideUp();
 		}
@@ -554,7 +559,7 @@
 		    });
 		}
 		$('.minus').next('input').on('blur',function(){
-			console.log($(this).val().trim())
+			// console.log($(this).val().trim())
 			if(/[^\d]+/.test($(this).val().trim())){
 				layuiHint('请输入数字')
 				$(this).val('0') 
@@ -710,7 +715,7 @@
 				}
 			}else{
 				// 用户未添加产品
-				alert('请先选择产品！');
+				layuiHint('请先选择产品！');
 			}
 			
 		});
@@ -802,8 +807,24 @@
 		        JSON.parse(res),
 		        function(res){
 		            if (res.err_msg.substr(-2) == 'ok') {
+                        if(leaseMode=="1") {//按流量计费
+                            ajson["ReFlow"]=flowNum;
+                        }else if(leaseMode=="2"){//按时间计费
+                            ajson["Reday"]=dayNum;
+                        }else if(leaseMode=="3"){//时长和流量套餐
+                            ajson["ReFlow"]=flowNum;
+                            ajson["Reday"]=dayNum;
+                        }
+                        console.log(leaseMode);
+                        console.log(JSON.stringify(ajson));
+                        websoket.send(JSON.stringify(ajson));
+                        CmdList.push({
+                            cmd:ajson,
+                            type:type
+                        });
+                        
 		                // 付款成功，跳转前台主页
-		                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+		              //  location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
 		            } else if (res.err_msg.substr(-6) == 'cancel') {
 		                    // 取消付款
 		                    // 跳转到待付款订单页面

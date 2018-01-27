@@ -256,11 +256,11 @@
 			//console.log(dataList);
 
 			// 获取设备租赁模式
-			if(data.leasingmode){
-				sessionStorage.setItem("leaseMode",data.leasingmode);
+			if(dataList.LeasingMode){
+				sessionStorage.setItem("leaseMode",dataList.LeasingMode);
 			}
 			if(dataList.PackType=="Select")//返回查询数据类型数据
-			{
+			{	console.log(dataList);
                 numAdd=0;
 				var usedFlow=parseInt(dataList.SumFlow);
 				var usedDay=parseInt(dataList.SumDay);
@@ -327,7 +327,6 @@
 				}
 			}
 		}
-
         //3分钟后判断设备是否离线
         setInterval(function(){
             numAdd++;
