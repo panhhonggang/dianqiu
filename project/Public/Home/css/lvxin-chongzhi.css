@@ -1,5 +1,6 @@
 body {
 	color: #585858;
+	font-size: .4rem !important;
 }
 
 #contain{
@@ -255,6 +256,154 @@ font-size: 0.426667rem;
 	color:#fff;
 }
 
+#contain{
+	margin-top: 0;
+}
+#ulDiv {
+	height: 10vh;
+	position: fixed;
+	background: #fff;
+	z-index: 999;
+}
+.contentBox {
+	position: relative;
+	top: 10vh;
+}
+#lineDiv {
+	margin: 0;
+	top: auto;
+	bottom: 0;
+	margin-bottom: 1vh;
+}
+._line{
+	width: 100%;
+	border-top: 1px solid #EFEFEF;
+	margin: 15px 0;
+	position: absolute;
+	left: 85px;
+	top: 36px;
+	background-color: #24254D;
+	width: 50px;
+	height: 6px;
+	border-radius: 8px;
+
+}
+._ul li:nth-of-type(1) {
+	color: #039CE9;
+	font-weight: normal;
+}
+
+._ul li:nth-of-type(2) {
+	color: #6F6F6F;
+	font-weight: normal;
+}
+._btn {
+	background: #039CE9;
+}
+._line {
+	background: #039CE9;
+}
+#back2Home {
+	width: 8vh;
+	height: 8vh;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#back2Home>i {
+	width: 5vh;
+	height: 5vh;
+	text-align: center;
+	line-height: 5vh;
+	color: #fff;
+	font-weight: 600;
+	border-radius: 5vh;
+	background: #039CE9;
+}
+._ul{
+	width: 100vw;
+	height: 8vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #FFFFFF;
+	text-align: center;
+	position: relative;
+	border-bottom: 1vh solid #ccc;
+}
+._ul li{
+	display: inline-block;
+	padding: 0 30px;
+	cursor: pointer;
+	font-weight: 600;
+	color: #555673;
+	font-size: .5rem;
+}
+#ro-right input{
+	color: #9E9E9E;
+	font-style: normal;
+}
+#ro-right input:nth-child(2){
+	color: #7D7D7D;
+	font-size:20px;
+}
+#foot>a:active {
+	text-decoration: none;
+}
+#foot>input {
+	color: #039CE9;
+	font-size: 0.426667rem;
+	font-weight: 600;
+}
+#foot input:last-child {
+	color: #fff;
+	background: #039CE9;
+}
+#ro1 {
+	height: 16vh;
+	margin-top: 0.853333rem;
+	margin-bottom: 0.853333rem;
+}
+#ro-right {
+	height: auto;
+}
+#ro-right .bott {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+#ro-right .bott i{
+	width: 40%;
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-left: 6px;
+}
+#ro-right .bott i input {
+	width: 33.33% !important;
+	padding: 0;
+	background: #fff;
+	border: 1px solid;
+	border-radius: 6px;
+	appearance: none;
+	-webkit-appearance: none;
+	text-align: center;
+}
+#ro-right .top p {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
 
 
 
