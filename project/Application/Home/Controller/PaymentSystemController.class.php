@@ -836,7 +836,7 @@ class PaymentSystemController extends Controller
                                 // 充值后流量应剩余天数
                                 $Flow['ReDay'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);  
                             } else {
-                              // 充值后流量应剩余流量
+                                // 充值后流量应剩余流量
                                 $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
                             }
                             
