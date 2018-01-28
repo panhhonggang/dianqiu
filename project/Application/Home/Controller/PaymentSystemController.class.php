@@ -827,10 +827,19 @@ class PaymentSystemController extends Controller
                         foreach ($orderSetmealData as $value) {
                             //show($value);die;
                             // 查询设备当前剩余流量
-                            $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
+                            $devicesStatus = $devicesStatu->where($deviceCode)->find();
+                            // $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
+                            $devicesStatuReFlow = $devicesStatus['reflow'];
+                            $devicesStatuReDay = $devicesStatus['reday'];
 
-                            // 充值后流量应剩余流量
-                            $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
+                            if ($value['remodel'] === 1) {
+                                // 充值后流量应剩余天数
+                                $Flow['ReDay'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);  
+                            } else {
+                              // 充值后流量应剩余流量
+                                $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
+                            }
+                            
 
                             // 修改设备剩余流量
                             $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
@@ -841,6 +850,7 @@ class PaymentSystemController extends Controller
                             // 用户ID
                             $flowData['did']            = $did;
                             // 充值金额
+                            // 
                             $flowData['money']          = $value['money'];
                             // 充值方式
                             $flowData['mode']           = 1;
