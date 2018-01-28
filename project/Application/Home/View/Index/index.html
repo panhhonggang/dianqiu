@@ -111,7 +111,7 @@
 			timestamp = $("#timestamp").val();
 
 		// 调用微信分享
-		wxShare(appId,nonceStr,signature,timestamp);
+		//wxShare(appId,nonceStr,signature,timestamp);
 		// console.log(appId,nonceStr,signature,timestamp)
 		
 		//变量定义
@@ -207,7 +207,7 @@
 		$("#rawtdsVal").html(data.rawtds?data.rawtds:'0');
 		$("#puretdsVal").html(data.puretds?data.puretds:'0');
 		if(data.leasingmode=="0"){//零售
-			$(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+usednumberFlow?usednumberFlow:'0'+"L</b></p>");
+			$(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:'0')+"L</b></p>");
 			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p>");
 		}else if(data.leasingmode=="1"){//按流量
 			$(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+(data.reflow?data.reflow:'0')+"L</b></p>");
