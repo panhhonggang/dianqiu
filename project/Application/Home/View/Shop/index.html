@@ -29,10 +29,8 @@
 					<input type="button" value="{{$vo['describe']}}" sid="{{$vo['id']}}"><br>
 				</foreach>
 			</div>
-
 			<!-- 滤芯开始 -->
 			<div id="mo" class="contentbox">
-				
 				<foreach name="filtersList" item="v" key="k">
 				<div class="item" state="0">
 					<div id="ro1" class="ro1">
@@ -55,8 +53,6 @@
 				</foreach>	
 			</div>
 		</div>
-			
-
 		<!-- 滤芯结束 -->
         <div id="foot">
 			<a class="shopCart"><i class="iconfont icon-gouwuche">
@@ -66,7 +62,6 @@
 			</i></a>
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
 		</div>
-		
 	</div>
 	<!-- layui.js -->
 	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
@@ -87,12 +82,10 @@
 		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列
-
 		/**
 		 *  选中的套餐类型
 		 */
 		$('#liuliang>input').click(function(){
-
 			// 获取充值的流量或套餐
 			if($(this).val().indexOf('流量') > -1){
 				dayNum = 0;
@@ -125,7 +118,7 @@
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{
 				offLine=0;
-				console.log(123,offLine,offStause);
+				//console.log(123,offLine,offStause);
 			}
 			else if(dataList.PackType=="SetData")//设置数据类型数据
 			{
@@ -161,63 +154,56 @@
         });
 		//立即购买操作
 		$('#buy').click(function(){
-			console.log(123,offLine,offStause);
-			var ajson;//数据对象
-			//判断操作类型
-			ajson={
-				"DeviceID":deviceId,
-				"PackType":"SetData",
-				"Vison":0,
-				"PackNum":100//设备充值命令：100
-			};
-			var type=0;
-			// 获取购物车产品数量，隐转数值
-			var cartNun = $('#cartNun').html()-0;
-			// 创建空数组，将来装套餐和产品
-			var data = [];
-			// 初始化下标
-			var index = 0;
-			// 获取被选中的套餐
-			var sid = $('input.sid').attr('sid');
-
-
-			if(sid !== undefined){
-				// 设置套餐ID为数组
-				data = [
-					{'sid':sid-0,'num':1}
-				];
-			}
-
-
-			// 获取被选中的滤芯产品
-			var fid = $('input.fid');
-			if(fid.length>0){
-				for(var i=fid.length-1;i>=0;i--){
-					// 设置产品ID为数组
-					data.push(
-						{'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
-					);
-				}
-			}
-
-
-			// 检测是否选择产品
-			if(data.length>0){
-				// ajax请求添加购物车
-				var date = JSON.stringify(data)
-				// 异步提交
-				$.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
-					// 判断购物车是否添加成功
-					if(res.status==1){
-						// 添加购物车成功跳转
-						// 异步提交请求支付系统
-						if(offStause)
-						{
-							layuiHint('设备离线，不能充值！');
-						}
-						else
-						{
-
+            if(offStause)
+            {
+                layuiHint('设备离线，不能充值！');
+            }
+            else
+            {
+                // console.log(123,offLine,offStause);
+                var ajson;//数据对象
+                //判断操作类型
+                ajson={
+                    "DeviceID":deviceId,
+                    "PackType":"SetData",
+                    "Vison":0,
+                    "PackNum":100//设备充值命令：100
+                };
+                var type=0;
+                // 获取购物车产品数量，隐转数值
+                var cartNun = $('#cartNun').html()-0;
+                // 创建空数组，将来装套餐和产品
+                var data = [];
+                // 初始化下标
+                var index = 0;
+                // 获取被选中的套餐
+                var sid = $('input.sid').attr('sid');
+                if(sid !== undefined){
+                    // 设置套餐ID为数组
+                    data = [
+                        {'sid':sid-0,'num':1}
+                    ];
+                }
+                // 获取被选中的滤芯产品
+                var fid = $('input.fid');
+                if(fid.length>0){
+                    for(var i=fid.length-1;i>=0;i--){
+                        // 设置产品ID为数组
+                        data.push(
+                            {'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
+                        );
+                    }
+                }
+                // 检测是否选择产品
+                if(data.length>0){
+                    // ajax请求添加购物车
+                    var date = JSON.stringify(data)
+                    // 异步提交
+                    $.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
+                        // 判断购物车是否添加成功
+                        if(res.status==1){
+                            // 添加购物车成功跳转
+                            // 异步提交请求支付系统
 							if(leaseMode=="0"){//零售型
 								layuiHint("您的设备不需要充值");
 							}
@@ -236,33 +222,31 @@
 									}
 								});
 							}
-
-
-						}
-					}
-				})
-			}else{
-				// 购物车有产品
-				if(cartNun>0){
-					// 直接跳转到购买页面
-					//window.location.href='{{:U("PaymentSystem/action")}}';
-					// 异步提交
-					$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-						if(res==2){
-							// 套餐确认
-							window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-						}else if(res==3){
-							// 快递确认
-							window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-						}else{
-							// 立即付款
-							weixinPay(res);
-						}
-					});
-				}else{
-					// 请先选择产品
-					layuiHint('请先选择产品!');
-				}
+                        }
+                    })
+                }else{
+                    // 购物车有产品
+                    if(cartNun>0){
+                        // 直接跳转到购买页面
+                        //window.location.href='{{:U("PaymentSystem/action")}}';
+                        // 异步提交
+                        $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+                            if(res==2){
+                                // 套餐确认
+                                window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+                            }else if(res==3){
+                                // 快递确认
+                                window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+                            }else{
+                                // 立即付款
+                                weixinPay(res);
+                            }
+                        });
+                    }else{
+                        // 请先选择产品
+                        layuiHint('请先选择产品!');
+                    }
+                }
 			}
 		})
 
@@ -560,8 +544,8 @@
                             ajson["ReFlow"]=flowNum;
                             ajson["Reday"]=dayNum;
                         }
-                        console.log(leaseMode);
-                        console.log(JSON.stringify(ajson));
+                        //console.log(leaseMode);
+                        //console.log(JSON.stringify(ajson));
                         websoket.send(JSON.stringify(ajson));
                         CmdList.push({
                             cmd:ajson,
