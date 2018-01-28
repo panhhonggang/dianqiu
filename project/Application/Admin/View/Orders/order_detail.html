@@ -105,11 +105,11 @@
                         for(var j in data.setmeal){
                             if(data.setmeal[j].goods_price){
                                 var html2 = '<tr>'
-                                var str = Number(data.setmeal[j].remodel)?'(小时)':'(L)'
+                                var str = Number(data.setmeal[j].remodel)?'(天)':'(L)'
                                 html2 += '<td>'+(data.setmeal[j].describe?data.setmeal[j].describe:'--')+'</td>'+
                                          '<td>'+(data.setmeal[j].money?data.setmeal[j].money/100:'--')+'元</td>'+
                                          '<td>'+(data.setmeal[j].goods_num?data.setmeal[j].goods_num:'--')+'个</td>'+
-                                         '<td>'+(data.setmeal[j].flow?data.setmeal[j].flow:'--')+str+'L</td>'+
+                                         '<td>'+(data.setmeal[j].flow?data.setmeal[j].flow:'--')+str+'</td>'+
                                          '<td>'+(data.setmeal[j].goods_price?data.setmeal[j].goods_price/100:'--')+'元</td>'
                                 html2 += '</tr>'
                                 $('#_tbody2').append(html2)
