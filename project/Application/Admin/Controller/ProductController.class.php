@@ -63,7 +63,6 @@ class ProductController extends CommonController
             $id = I('get.id');
             $device_type = M('device_type');
             $data = $device_type->find($id);
-            // dump($data);
             $this->assign('data',$data);
             $this->display();
         }
