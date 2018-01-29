@@ -465,7 +465,7 @@ $(function(){
 	{
 		var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
 		var leasingmode = dataList.LeasingMode;
-		
+		console.log(dataList);
 		if(dataList.PackType=="Select")//返回查询数据类型数据
 		{			
 			// 存放膜、滤芯、滤芯简介的遍历的标签

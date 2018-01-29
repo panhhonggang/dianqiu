@@ -455,10 +455,10 @@ $(function(){
                 }
 
             }
-            //3分钟后判断设备是否离线
+            //90秒后判断设备是否离线
             setInterval(function(){
                 numAdd++;
-                if(numAdd ==180){
+                if(numAdd ==90){
                     $(".H1devicestause").text("离线");
                     $(".tdDeviceStause").text("离线");
                     $(".switchText").text("开机");

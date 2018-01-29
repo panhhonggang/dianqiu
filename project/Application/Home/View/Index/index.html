@@ -244,7 +244,6 @@
 					websoket.send(JSON.stringify(ajson));
 				},10000);
 			},1000);
-
 		}
 		//实时接收数据
 		websoket.onmessage=function(data)
@@ -327,10 +326,10 @@
 				}
 			}
 		}
-        //3分钟后判断设备是否离线
+        //90秒后判断设备是否离线
         setInterval(function(){
             numAdd++;
-            if(numAdd ==180){
+            if(numAdd ==90){
                 outLine();
             }
         }, 1000);

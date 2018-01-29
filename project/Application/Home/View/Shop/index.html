@@ -74,7 +74,7 @@
 		var offStause=0;//设置离线状态:0为在线1为离线
 		var offLine=0;//离线标志位1
 		var Stause='';//设备状态
-		var leaseMode=sessionStorage.getItem("leaseMode");//获取租赁模式
+		var leaseMode;//获取租赁模式
 		var flowNum=0;//当前选中的流量值
 		var dayNum=0;//当前选中的天数
 		var deviceId=$("#device").val();
@@ -115,6 +115,7 @@
 		websoket.onmessage=function(data)
 		{
 			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
+            leaseMode = dataList.LeasingMode;//租赁模式
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{
 				offLine=0;
@@ -137,7 +138,7 @@
 		}
 		setInterval(function(){//判断设备是否离线：offStause==1是离线；0是在线
 			offLine++;
-			if(offLine >= 3){
+			if(offLine >= 90){
 				offStause=1;
 			}else{
 				offStause=0;
