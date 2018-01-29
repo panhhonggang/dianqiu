@@ -1,0 +1,73 @@
+<!-- header part -->
+<include file="Public/header" />
+<!-- content part -->
+<div class="content">
+    <!-- nav part-->
+    <include file="Public/nav" />
+    <!-- from part-->
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">产品管理/<span>编辑产品类型</span></div>
+            <div class="formBox">
+                <form class="form-horizontal " action="" method="post" id="_formTable">
+                    <input type="hidden" name="id" value="{{$data.id}}">
+                    <div class="groupBox control-group">
+                        <span>产品类型名称<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" value="{{$data.typename}}" class="control" name="typename" placeholder="请输入类型名称" style="width:210px;">
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>一级滤芯</span>
+                        <input type="text" name="filter1" value="{{$data.filter1}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>二级滤芯</span>
+                        <input type="text" name="filter2" value="{{$data.filter2}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>三级滤芯</span>
+                        <input type="text" name="filter3" value="{{$data.filter3}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>四级滤芯</span>
+                        <input type="text" name="filter4" value="{{$data.filter4}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>五级滤芯</span>
+                        <input type="text" name="filter5" value="{{$data.filter5}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>六级滤芯</span>
+                        <input type="text" name="filter6" value="{{$data.filter6}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>七级滤芯</span>
+                        <input type="text" name="filter7" value="{{$data.filter7}}" class="control selects" />
+                    </div>
+                    <div class="groupBox control-group">
+                        <span>八级滤芯</span>
+                        <input type="text" name="filter8" value="{{$data.filter8}}" class="control selects" />
+                    </div>
+
+                    <div class=" btn-groups">
+                        <button class="btns reset btn-primary" type="reset">重置</button>
+                        <button class="subbtn btns btn-primary" type="submit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- footer part -->
+        <include file="Public/footer"/>
+    </div>
+</div>
+<script>
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+        $(".nav").children("li").eq(3).attr("class","open");
+        $(".nav").children("li").eq(3).find(".submenu").show();
+        $(".nav").children("li").eq(3).find(".submenu li a").eq(2).css({color: '#1963aa'});
+    }
+</script>
+<script>
+   
+</script>
