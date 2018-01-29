@@ -126,7 +126,7 @@ class UsersController extends CommonController
         }
         $where['_query'] = "status=1";
         $where['did']    = array('in',$did);
-        $flow    = M('flow')->where($where)->select();
+        $flow    = M('flow')->where($where)->order('addtime desc')->select();
         $balance = M('devices_statu')
             ->where(['DeviceID' => ['in',$code]])
             ->field('DeviceID,ReFlow')

@@ -25,13 +25,12 @@ class CommonController extends Controller
             // 获取用户open_id
             //$openId      = $weixin->GetOpenid();
             $openId_ifno = $weixin->getSignPackage();
-            $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
+            // $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
+            $openId   = 'oXwY4t1qkexB2gLIT7kcg3zxxLQQ';
             $weixinInfo = [$openId,$openId_ifno];
             session('weixin',$weixinInfo);
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
-            
-
             
             // 判断用户是否存在
             if($info){
@@ -43,6 +42,7 @@ class CommonController extends Controller
             }else{
                 // 用户不存在
                 redirect(U('/Home/Wechat/follow'), 2, '请先关注微信公众号...');
+                
             }
         }
     }

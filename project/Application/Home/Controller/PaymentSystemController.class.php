@@ -832,13 +832,13 @@ class PaymentSystemController extends Controller
                             $devicesStatuReFlow = $devicesStatus['reflow'];
                             $devicesStatuReDay = $devicesStatus['reday'];
 
-                            if ($value['remodel'] === 1) {
-                                // 充值后流量应剩余天数
-                                $Flow['ReDay'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);  
-                            } else {
+                            // if ($value['remodel'] == 1) {
+                            //     // 充值后流量应剩余天数
+                            //     $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']);  
+                            // } else {
                                 // 充值后流量应剩余流量
                                 $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
-                            }
+                            // }
                             
 
                             // 修改设备剩余流量

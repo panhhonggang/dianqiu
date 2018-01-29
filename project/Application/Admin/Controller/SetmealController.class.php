@@ -28,11 +28,11 @@ class SetmealController extends CommonController
                     $map['typename'] = array('like',"%{$_GET['value']}%");
                     break;
                 case '2':
-                    if ($_GET['value'] == '流量') {
-                        $map['remodel'] = '0';     
-                    } elseif ($_GET['value'] == '时长') {
-                        $map['remodel'] = 1;
-                    }                 
+                    // if ($_GET['value'] == '流量') {
+                    //     $map['remodel'] = '0';     
+                    // } elseif ($_GET['value'] == '时长') {
+                    //     $map['remodel'] = 1;
+                    // }                 
                     break;
                 default:
                     # code...

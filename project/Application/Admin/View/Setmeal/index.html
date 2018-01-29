@@ -8,7 +8,7 @@
                 <span class="select-box">
                   <select class="select" size="1" name="key" style="width: 100px;">
                     <option value="1" selected>产品类型</option>
-                    <option value="2">套餐模式</option>
+                    <!-- <option value="2">套餐模式</option> -->
                   </select>
                 </span>
                 <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
@@ -20,9 +20,9 @@
                 <tr>
                     <th>套餐编号</th>
                     <th>产品类型</th>
-                    <th>套餐模式</th>
+                    <!-- <th>套餐模式</th> -->
                     <th>套餐金额</th>
-                    <th>套餐量</th>
+                    <th>套餐量（天）</th>
                     <th>套餐名称</th>
                     <th>创建时间</th>
                     <th>操作</th>
@@ -34,13 +34,13 @@
                     <tr>
                         <td>{{$vo.id}}</td>
                         <td>{{$vo.typename}}</td>
-                        <td>
+<!--                         <td>
                             <switch name="vo.remodel">
                                 <case value="0">流量</case>
                                 <case value="1">时长</case>
                                 <default />
                             </switch>
-                        </td>
+                        </td> -->
                         <td>{{$vo['money']/100}}</td>
                         <td>{{$vo.flow}}</td>
                         <td>{{$vo.describe}}</td>
