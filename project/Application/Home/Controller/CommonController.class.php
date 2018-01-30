@@ -26,7 +26,7 @@ class CommonController extends Controller
             //$openId      = $weixin->GetOpenid();
             $openId_ifno = $weixin->getSignPackage();
             // $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
-            $openId   = 'oXwY4t1qkexB2gLIT7kcg3zxxLQQ';
+            // $openId   = 'oXwY4t1qkexB2gLIT7kcg3zxxLQQ';
             $weixinInfo = [$openId,$openId_ifno];
             session('weixin',$weixinInfo);
             // 查询用户信息
