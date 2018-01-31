@@ -87,6 +87,7 @@ class DevicesController extends CommonController
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+            ->field("statu.*,bind.*,vendors.*,type.*,d.*")
             ->find();
 
         // 滤芯信息
@@ -106,7 +107,6 @@ class DevicesController extends CommonController
             ->join('__VENDORS__ v ON bind.vid=v.id', 'LEFT')
             ->field('v.*')
             ->find();
-
         // 获取使用记录
         // $data['list'] = D('devices')
         //     ->where($map)
