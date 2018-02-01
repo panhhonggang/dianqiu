@@ -36,7 +36,7 @@ class ProductController extends CommonController
         $this->display();
     }
 
-    public function device_type_edit()
+    public function edit()
     {
         if (IS_POST) {
             $id = I('post.id');

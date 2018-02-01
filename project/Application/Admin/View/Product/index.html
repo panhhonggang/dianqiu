@@ -41,7 +41,7 @@
                             <td>{{$vo.filter7}}</td>
                             <td>{{$vo.filter8}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
-                            <td><a href="{{:U('Admin/product/device_type_edit',array('id'=>$vo['id']))}}">编辑</a></td>
+                            <td><a href="{{:U('Admin/product/edit',array('id'=>$vo['id']))}}">编辑</a></td>
                         </tr>
                         </foreach>
                     <else />
