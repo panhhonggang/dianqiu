@@ -140,9 +140,9 @@ $(function(){
             var _color = ['#05CE3E','#005384','#DD4B39','#337AB7','#5CB85C','#77E1FB'];
             data.filterInfo.forEach(function(el,i){
                 //按流量计算百分比值
-                var persent1 = Number(data.statu[('reflowfilter'+(i+1))])/Number(el.flowlife)*100;
+                var persent1 = Number(data.statu[('reflowfilter'+(i+1))])/Number(el.flowlife?el.flowlife:0)*100;
                 //按时间计算百分比值
-                var persent2 = Number(data.statu[('redayfilter'+(i+1))])/Number(el.timelife)*100;
+                var persent2 = Number(data.statu[('redayfilter'+(i+1))])/Number(el.timelife?el.timelife:0)*100;
                 if(persent1>100){
                     persent1=100;
                 }else{
