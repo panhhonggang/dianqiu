@@ -63,7 +63,11 @@ class ProductController extends CommonController
             $id = I('get.id');
             $device_type = M('device_type');
             $data = $device_type->find($id);
+            $filters = M('filters');
+            $info = $filters->select();
+            // dump($data);
             $this->assign('data',$data);
+            $this->assign('list',$info);
             $this->display();
         }
     }
@@ -180,7 +184,6 @@ class ProductController extends CommonController
     public function filter_edit($id)
     {
         if(IS_POST){
-echo 'hello yi qun sb';
             $picpath = $this->upload();
             $_POST['picpath'] = $picpath[0];
             // if ($picpath) {

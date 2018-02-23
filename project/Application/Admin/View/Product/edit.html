@@ -17,35 +17,107 @@
                     </div>
                     <div class="groupBox control-group">
                         <span>一级滤芯</span>
-                        <input type="text" name="filter1" value="{{$data.filter1}}" class="control selects" />
+                        <select name="filter1">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter1'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>二级滤芯</span>
-                        <input type="text" name="filter2" value="{{$data.filter2}}" class="control selects" />
+                        <select name="filter2">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter2'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>三级滤芯</span>
-                        <input type="text" name="filter3" value="{{$data.filter3}}" class="control selects" />
+                        <select name="filter3">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter3'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>四级滤芯</span>
-                        <input type="text" name="filter4" value="{{$data.filter4}}" class="control selects" />
+                        <select name="filter4">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter4'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>五级滤芯</span>
-                        <input type="text" name="filter5" value="{{$data.filter5}}" class="control selects" />
+                        <select name="filter5">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter5'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>六级滤芯</span>
-                        <input type="text" name="filter6" value="{{$data.filter6}}" class="control selects" />
+                        <select name="filter6">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter6'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>七级滤芯</span>
-                        <input type="text" name="filter7" value="{{$data.filter7}}" class="control selects" />
+                        <select name="filter7">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter7'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
                     <div class="groupBox control-group">
                         <span>八级滤芯</span>
-                        <input type="text" name="filter8" value="{{$data.filter8}}" class="control selects" />
+                        <select name="filter8">
+                                    <option value=""></option>
+                            <foreach name="list" item="vo">                                   
+                                <if condition="$data['filter8'] eq $vo['filtername'].'-'.$vo['alias'] ">
+                                    <option selected="" value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                    <else />
+                                    <option value="{{$vo.filtername}}-{{$vo.alias}}">{{$vo.filtername}}-{{$vo.alias}}</option>
+                                </if>
+                            </foreach>
+                        </select>
                     </div>
 
                     <div class=" btn-groups">
