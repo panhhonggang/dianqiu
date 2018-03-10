@@ -262,12 +262,13 @@ font-size: 0.426667rem;
 #ulDiv {
 	height: 10vh;
 	position: fixed;
+	top: 40px;
 	background: #fff;
 	z-index: 999;
 }
 .contentBox {
 	position: relative;
-	top: 10vh;
+	top: 16vh;
 }
 #lineDiv {
 	margin: 0;

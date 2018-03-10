@@ -1,17 +1,16 @@
 	<!DOCTYPE html>
 <html lang="en">
-
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-		<title>订单确认</title>
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
-		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
-    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
-		<style>
-		#back2Home {
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>订单确认</title>
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+	<style>
+		/*#back2Home {
 		    width: 8vh;
 		    height: 8vh;
 		    display: -webkit-flex;
@@ -35,7 +34,7 @@
 			font-weight: 600;
 		    border-radius: 5vh;
 		    background: #039CE9;
-		}
+		}*/
 			#sure-head {
 				width: 100%;
 				border-bottom: 8px solid #efefef;
@@ -127,11 +126,11 @@
 			    background: #039CE9;
 			}
 		</style>
-	</head>
+</head>
+	<input type="hidden" value={{$device['device_code']}}  id="device">
 	<body> 
-
 	<div id="contain">
-		<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
+		<!-- <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a> -->
 		<div id="sure-head">
 			<input type="buttom" value="快递信息确认" readonly="readonly">
 			<div id="information">	
@@ -200,14 +199,73 @@
 		</div>	
 	</div>
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
-	<!-- <script src="__PUBLIC__/Home/js/public.js"></script> -->
-
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
    <script src="__PUBLIC__/Admin/layui/layui.js"></script>
 	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 	<!-- 微信支付支持JS部分代码 -->
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 	<script type="text/javascript">
+	$(function(){
+		var offStause=0;//设置离线状态:0为在线1为离线
+		var offLine=0;//离线标志位1
+		var Stause='';//设备状态
+		var leaseMode;//获取租赁模式
+		var flowNum=0;//当前选中的流量值
+		var dayNum=0;//当前选中的天数
+		var deviceId=$("#device").val();
+		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
+		var PackNum=0;//包数据
+		var CmdList=[];//命令队列
+		websoket.onopen=function(){
+			//包数据
+			ajson={
+				"DeviceID":deviceId,
+				"PackType":"login",
+				"Vison":0
+			};
+			websoket.send(JSON.stringify(ajson));//发送登录包
+			setTimeout(function(){//页面加载发送一次查询包
+				ajson.PackType="Select";
+				websoket.send(JSON.stringify(ajson));
+				setInterval(function(){//此后每隔10s发送一次查询包
+					websoket.send(JSON.stringify(ajson));
+				},10000);
+			},1);
+		}
+		//实时接收数据
+		websoket.onmessage=function(data)
+		{
+			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
+            leaseMode = dataList.LeasingMode;//租赁模式
+			if(dataList.PackType=="Select")//返回查询数据类型数据
+			{
+				offLine=0;
+				//console.log(123,offLine,offStause);
+			}
+			else if(dataList.PackType=="SetData")//设置数据类型数据
+			{
+				if((dataList.PackNum==100))
+				{
+					if((dataList.isSuccess==1))
+					{
+						location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+					}
+					else
+					{
+						layuiHint("充值异常，请联系客服");
+					}
+				}
+			}
+		}
+		setInterval(function(){//判断设备是否离线：offStause==1是离线；0是在线
+			offLine++;
+			if(offLine >= 90){
+				offStause=1;
+			}else{
+				offStause=0;
+			}
+		}, 1000);
+	});
 		//layuiHint弹框提示封装
 		function layuiHint(text){
 		    layui.use('layer', function(){
@@ -283,8 +341,21 @@
 		        JSON.parse(res),
 		        function(res){
 		            if (res.err_msg.substr(-2) == 'ok') {
+		            	if(leaseMode=="1") {//按流量计费
+                            ajson["ReFlow"]=flowNum;
+                        }else if(leaseMode=="2"){//按时间计费
+                            ajson["Reday"]=dayNum;
+                        }else if(leaseMode=="3"){//时长和流量套餐
+                            ajson["ReFlow"]=flowNum;
+                            ajson["Reday"]=dayNum;
+                        }
+                        websoket.send(JSON.stringify(ajson));
+                        CmdList.push({
+                            cmd:ajson,
+                            type:type
+                        });
 		                // 付款成功，跳转前台主页
-		                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+		                // location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
 		            } else if (res.err_msg.substr(-6) == 'cancel') {
 		                    // 取消付款
 		                    // 跳转到待付款订单页面

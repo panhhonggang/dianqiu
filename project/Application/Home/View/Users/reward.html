@@ -92,8 +92,8 @@
            </div>
         </div>
         <div class="rewardFoot">
-          <ul v-for='item in data'>
-            <li>
+          <ul>
+            <li v-for='item in data'>
               <span>{{ item.name }}</span>
               <span>{{ item.time }}</span>
             </li>
@@ -133,27 +133,46 @@
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<data.length; i++){
 
-                console.log('before-->>data['+i+'].time: ',data[i].time);
                 data[i].time = that.getLocaltime(data[i].time);
-                console.log('after-->>data['+i+'].time: ',data[i].time);
-
               }
+              // 将数据更新到 data 
               that.data = data;
               console.log(that.data);
             },
             error: function(res){
               console.log('请求失败！', res);
-            }
+            } 
           })
         },
         methods: {
-          getLocaltime: function (time) {
-            time = ~~time;
-            // time 时间戳（ms）
-            var localetime = new Date(time).toLocaleString();
+          getLocaltime: function (_time) {
+            /*
+                _time 时间戳（ms）,
+                个位数时加 '0', 统一位数
+             */ 
+            _time = Number(_time);
+            console.log('_time: ',_time);
+            var localetime = new Date(_time);
+            var year = localetime.getFullYear(),
+                month = (localetime.getMonth()+'').length == 1 
+                  ? '0' + localetime.getMonth() 
+                  : localetime.getMonth(),
+                date = (localetime.getDate()+'').length == 1
+                  ? '0' + localetime.getDate()
+                  : localetime.getDate(),
+                hour = (localetime.getHours()+'').length == 1
+                  ? '0' + localetime.getHours()
+                  : localetime.getHours(),
+                minute = (localetime.getMinutes()+'').length == 1
+                  ? '0' + localetime.getMinutes()
+                  : localetime.getMinutes(),
+                second = (localetime.getSeconds()+'').length == 1
+                  ? '0' + localetime.getSeconds()
+                  : localetime.getSeconds();
 
-            console.log('localetime: ',localetime);
-            return localetime;
+            var normal = year + '/' + month + '/'  + date + '\t'  + hour + ':'  + minute;
+            // console.log('year + month + day + hour + minute: ', normal);
+            return normal;
           }
        }
       });

@@ -9,9 +9,8 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
-<script src="__PUBLIC__/Admin/layui/layui.js"></script>
-<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
 <link rel="stylesheet" href="__PUBLIC__/Home/css/advice.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/linkSet.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 <title>建议</title>
 <style>
@@ -20,31 +19,7 @@
 		padding: 0;
 		box-sizing: border-box;
 	}
-	#back2Home {
-	    width: 8vh;
-	    height: 8vh;
-	    display: -webkit-flex;
-	    display: -moz-flex;
-	    display: -ms-flex;
-	    display: -o-flex;
-	    display: flex;
-	    justify-content: center;
-	    -ms-align-items: center;
-	    align-items: center;
-	    position: absolute;
-	    right: 0;
-	    top: 0;
-	}
-	#back2Home>i {
-	    width: 5vh;
-	    height: 5vh;
-	    text-align: center;
-	    line-height: 5vh;
-	    color: #fff;
-		font-weight: 600;
-	    border-radius: 5vh;
-	    background: #039CE9;
-	}
+	
 	body {
 		width: 100vw;
 		height: 100vh;
@@ -55,7 +30,7 @@
 	#advice-container {
 	    width: 100vw;
 	    height: 100vh;
-	    padding: 0.4rem 0.4rem 0.4rem 0.4rem;
+	    padding: 0 0.4rem 0.4rem 0.4rem;
 	    margin: 0;
 	}
 	#advice-container input {
@@ -76,7 +51,6 @@
 </style>
 </head> 
 	<body>
-		<a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont icon-zhuye"></i></a>
 		<div id="advice-all">
 			<div id="advice-container">
 				<h3>请写下您对设备的宝贵建议<b>*</b></h3>
@@ -86,12 +60,12 @@
 					<input type="button" value="提交" type="button">
 				</form>
 			</div>
-
 		</div>
-
 	</body>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
+	<script type="text/javascript" src="__PUBLIC__/Home/js/linkSet.js"></script>
 	<script>
-
 	var oHeight = $(document).height(); //浏览器当前的高度
     $(window).resize(function(){
         if($(document).height() < oHeight){

@@ -4,15 +4,45 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">套餐管理/<span>套餐列表</span></div>
-            <form class="form-search fr" action="__URL__/index" method="get">
-                <span class="select-box">
-                  <select class="select" size="1" name="key" style="width: 100px;">
+            <form class="form-search" action="__URL__/index" method="post">
+                <span class="select-box">产品类型:
+<!--                     <select class="select" size="1" name="typename" style="width: 100px;">
                     <option value="1" selected>产品类型</option>
-                    <!-- <option value="2">套餐模式</option> -->
-                  </select>
+                    <option value="2">套餐模式</option>
+                    </select> -->
+                    <input type="text" class="input-medium" name="typename" placeholder="请输入产品类型" / >
                 </span>
-                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
-                <button type="submit" class="btn">查找</button>
+                <span class="select-box">套餐金额:
+                    <input type="text" class="input-medium" name="money" placeholder="请输入查询条件" / >
+                </span>
+                <span class="select-box">套餐量（天）:
+                    <input type="text" class="input-medium" name="flow" placeholder="请输入查询条件" / >
+                </span>
+                <span class="select-box">套餐名称:
+                    <input type="text" class="input-medium" name="describe" placeholder="请输入查询条件" / >
+                </span>
+<!--                 <span class="select-box">产品类型:
+                    <select class="select" size="1" name="typename" style="width: 100px;">
+                    <option value="1" selected>产品类型</option>
+                    <option value="2">套餐模式</option>
+                    </select>
+                </span>
+                <span class="select-box">查询条件:
+                    <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / >
+                </span>
+                <span class="select-box">产品类型:
+                    <select class="select" size="1" name="key" style="width: 100px;">
+                    <option value="1" selected>产品类型</option>
+                    <option value="2">套餐模式</option>
+                    </select>
+                </span>
+                <span class="select-box">查询条件:
+                    <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / >
+                </span> -->
+                <div class="submitBtn">
+                     <button type="reset" class="btn fr" style="background-color: #eee;">重置</button>
+                    <button type="submit" class="btn fr" style="background-color: #eee;">查找</button>
+                </div>               
             </form>
 
             <table class="table table-striped table-bordered">
