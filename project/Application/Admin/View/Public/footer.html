@@ -10,64 +10,78 @@
 	//设置nav高度
     var windowh=$(window).height();
     var navH=$("#nav").height(windowh-70);
+    $(function(){
+	    /*
+	    	设置导航栏当前位置 高亮 选中
+	     */
+	    var href = location.href, nowPos;   // nowPos：当前文件地址
+	    if(href.indexOf('html') > -1){
+	        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
+	    }else{
+			nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
+	    }
+	    console.log('nowPos: ',nowPos);
+	    // 导航下的所有连接
+	    var alink = $(".nav a");
+	    // console.log('alink: ',alink)
+	    // 高亮 选择当前地址的导航
+	    for(var i=0; i<alink.length; i++){
+	    	// console.log(alink[i].getAttribute('href'))
+	    	// 初始化
+	        alink[i].style.color = '#585858';
+	        if(alink[i].className == 'item'){	// 当前 a 标签是子项时生效
+	        	alink[i].parentNode.parentNode.style.display = 'none';
+	        }
 
-    /*
-    	设置导航栏当前位置 高亮 选中
-     */
-    var href = location.href, nowPos;   // nowPos：当前文件地址
-    if(href.indexOf('html') > -1){
-        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
-    }else{
-		nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
-    }
-    console.log('nowPos: ',nowPos);
-    // 导航下的所有连接
-    var alink = $(".nav a");
-    // console.log('alink: ',alink)
-    // 高亮 选择当前地址的导航
-    for(var i=0; i<alink.length; i++){
-    	// console.log(alink[i].getAttribute('href'))
-        alink[i].style.color = '#585858';
-    	// 当前分类
-    	var _thisCate = alink[i].parentNode.parentNode.parentNode;
-    	// 当前菜单
-    	var _thisMenu = alink[i].parentNode.parentNode.parentNode.children[1];
-    	// 当前子项
-    	var _thisItem = alink[i];
-        if(alink[i].getAttribute('href').indexOf(nowPos) > -1){
+	    	// 当前分类
+	    	var _thisCate = alink[i].parentNode.parentNode.parentNode;
+	    	// 当前菜单
+	    	var _thisMenu = _thisCate.children[1];
+	    	// 当前子项
+	    	var _thisItem = alink[i];
+	        // 只有 index 一个
+	        var onlyIndex = nowPos.substring(1, nowPos.lastIndexOf('/'))
+	        // console.log(onlyIndex);
+	        // 编辑
+	        var edit = nowPos.substring(0, nowPos.indexOf('/'));
+	        console.log(edit);
+	        if(alink[i].getAttribute('href').indexOf(nowPos) > -1){
 
-        	_thisCate.setAttribute('class', 'open');
-        	_thisMenu.style.display = 'block';
+	        	_thisCate.setAttribute('class', 'open');
+	        	_thisMenu.style.display = 'block';
 
-        	// 当前分类 标题
-        	_thisCate.children[0].style.color = '#1963aa';
-        	_thisItem.style.color = '#1963aa';
+	        	// 当前分类 标题
+	        	_thisCate.children[0].style.color = '#1963aa';
+	        	_thisItem.style.color = '#1963aa';
+	        	
+		       	console.log('_thisCate1: ', _thisCate);
+		       	console.log('_thisMenu1: ', _thisMenu);
+		        console.log('_thisItem1: ', _thisItem);
 
-        }
-        // 只有 index 一个
-        var onlyIndex = nowPos.substring(1, nowPos.lastIndexOf('/'))
-        // console.log(onlyIndex);
-        if(alink[i].getAttribute('href').indexOf(onlyIndex) > -1 && _thisMenu.children.length === 1){
+	        }else if(alink[i].getAttribute('href').indexOf(onlyIndex) > -1 && _thisMenu.children.length === 1){
 
-        	_thisCate.setAttribute('class', 'open');
-        	_thisMenu.style.display = 'block';
+	        	_thisCate.setAttribute('class', 'open');
+	        	_thisMenu.style.display = 'block';
 
-        	// 当前分类 标题
-        	_thisCate.children[0].style.color = '#1963aa';
-        	_thisItem.style.color = '#1963aa';
-        }
-        // 编辑
-        var edit = nowPos.substring(1, nowPos.indexOf('/'));
-        if(alink[i].getAttribute('href').indexOf(edit) > -1){
-        	// console.log('edit');
-        	_thisCate.setAttribute('class', 'open');
-        	// 当前分类 标题
-        	_thisCate.children[0].style.color = '#1963aa';
-        	_thisMenu.style.display = 'block';
+	        	// 当前分类 标题
+	        	_thisCate.children[0].style.color = '#1963aa';
+	        	_thisItem.style.color = '#1963aa';
 
-           	// console.log('_thisCate: ',_thisCate);
-           	// console.log('_thisMenu: ',_thisMenu);
-            // console.log('_thisItem: ',_thisItem);
-        }
-    }
+		       	console.log('_thisCate2: ', _thisCate);
+		       	console.log('_thisMenu2: ', _thisMenu);
+		        console.log('_thisItem2: ', _thisItem);
+
+	        }else if(alink[i].getAttribute('href').indexOf(edit) > -1){
+	        	// console.log('edit');
+	        	_thisCate.setAttribute('class', 'open');
+	        	// 当前分类 标题
+	        	_thisCate.children[0].style.color = '#1963aa';
+	        	_thisMenu.style.display = 'block';
+
+		       	console.log('_thisCate3: ', _thisCate);
+		       	console.log('_thisMenu3: ', _thisMenu);
+		        console.log('_thisItem3: ', _thisItem);
+	        }
+	    }
+	});
 </script>
