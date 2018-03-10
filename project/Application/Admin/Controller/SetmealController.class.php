@@ -18,27 +18,23 @@ class SetmealController extends CommonController
      */
     public function index()
     {	
-        // if(!empty($_GET['typename'])) $map['typename'] = array('like',"%{$_GET['typename']}%");
-        // 查询条件
-        $map = '';
-        // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['typename'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    // if ($_GET['value'] == '流量') {
-                    //     $map['remodel'] = '0';     
-                    // } elseif ($_GET['value'] == '时长') {
-                    //     $map['remodel'] = 1;
-                    // }                 
-                    break;
-                default:
-                    # code...
-                    break;
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        $map = array(
+            'typename' => trim(I('post.typename')),
+            'money' => trim(I('post.money'))*100,
+            'flow' => trim(I('post.flow')),
+            'describe' => trim(I('post.describe'))
+        );
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
             }
-        }
+            return false;
+        });
+        
         $type = M('setmeal');
         
         $total =$type->where($map)
