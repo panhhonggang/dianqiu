@@ -20,7 +20,7 @@
                 <tr>
                     <th>套餐编号</th>
                     <th>产品类型</th>
-                    <!-- <th>套餐模式</th> -->
+                    <th>套餐模式</th>
                     <th>套餐金额</th>
                     <th>套餐量（天）</th>
                     <th>套餐名称</th>
@@ -34,13 +34,13 @@
                     <tr>
                         <td>{{$vo.id}}</td>
                         <td>{{$vo.typename}}</td>
-<!--                         <td>
+                        <td>
                             <switch name="vo.remodel">
                                 <case value="0">流量</case>
                                 <case value="1">时长</case>
                                 <default />
                             </switch>
-                        </td> -->
+                        </td>
                         <td>{{$vo['money']/100}}</td>
                         <td>{{$vo.flow}}</td>
                         <td>{{$vo.describe}}</td>
