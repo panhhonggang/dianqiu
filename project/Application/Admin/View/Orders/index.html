@@ -228,15 +228,7 @@
             $('select[name="is_receipt"] option[value='+decodeURI(arr[3].slice(arr[3].indexOf('=')+1))+']').attr("selected", true);
             $('select[name="is_recharge"] option[value='+decodeURI(arr[4].slice(arr[4].indexOf('=')+1))+']').attr("selected", true);
             // console.log(arr)
-        }
-        // 显示当前页面所在的导航
-        showNav();
-        function showNav(){
-            
-            $(".nav").children("li").eq(4).attr("class","open");
-            $(".nav").children("li").eq(4).find(".submenu").show();
-            $(".nav").children("li").eq(4).find(".submenu li a").eq(0).css({color: '#1963aa'});
-        }
+        } 
     </script>
 </div>
 

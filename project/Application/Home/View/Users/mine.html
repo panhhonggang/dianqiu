@@ -112,7 +112,7 @@
 	    top: 8px;
 	    z-index: 999;
 	}
-	#back2Home>i {
+	#back2Home>span {
 	    width: 5vh;
 	    height: 5vh;
 	    text-align: center;
@@ -129,7 +129,7 @@
 	<img src="__PUBLIC__/Home/images/mine-first-01.png" alt="">
 </div>
 <div id="mine-first-all" class="mine-first-all bgTop" >
-	<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
+	<a id="back2Home" href="{{:U('Home/index/index')}}"><span>首页</span></a>
 	<div id="mine-first-container">
 		<div id="mine-first-top">
 			<div class="mine-pic">
@@ -212,6 +212,13 @@
 						<a href="{{:U('Home/WaterPurifier/record')}}">
 							<i class="iconfont icon-jilu num-two"></i>
 							<b>净水记录</b>
+							<i class="iconfont icon-dayuhao right "></i>
+						</a>
+					</li>
+					<li id="clearLog">
+						<a href="{{:U('Home/Users/reward')}}">
+							<i class="iconfont icon-jilu num-two"></i>
+							<b>服务记录</b>
 							<i class="iconfont icon-dayuhao right "></i>
 						</a>
 					</li>

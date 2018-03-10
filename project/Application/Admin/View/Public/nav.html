@@ -14,7 +14,7 @@
                         <foreach name="v['_data']" item="n">
                             <li>
                                 <switch name="n.id">
-                                    <default /><a href="{{:U($n['mca'])}}" ><i class="icon-double-angle-right"></i>{{$n['name']}}</a>
+                                    <default /><a class="item" href="{{:U($n['mca'])}}" ><i class="icon-double-angle-right"></i>{{$n['name']}}</a>
                                 </switch>
                             </li>
                         </foreach>
