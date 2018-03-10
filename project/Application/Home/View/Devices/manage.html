@@ -10,6 +10,7 @@
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 <link rel="stylesheet" href="__PUBLIC__/Home/css/all-devices.css">
+
 <script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 <title>绑定指引</title>
 <style>
@@ -76,9 +77,9 @@
 				<foreach name="devices"	item="value">				
 					<if condition="$currentDevices['did'] == $value['id'] ">
 							<!-- 用户当前设备 -->
-							<b></b><li title="{{$value['device_code']}}">设备型号:{{$value['device_code']}}<i class="iconfont icon-chenggong"></i></li><br>
+							<b></b><li title="{{$value['device_code']}}">设备编码:{{$value['device_code']}}<i class="iconfont icon-chenggong"></i></li><br>
 					    <else />
-					    	<b></b><li title="{{$value['device_code']}}">设备型号:{{$value['device_code']}}<i></i></li><br>
+					    	<b></b><li title="{{$value['device_code']}}">设备编码:{{$value['device_code']}}<i></i></li><br>
 					</if>
 				</foreach>
 			</ul>

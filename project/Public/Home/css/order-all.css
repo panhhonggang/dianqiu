@@ -22,7 +22,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 /*<!-- order-all的头部开始 -->*/
 #order-all-header>ul
 {
-	width: 9.2rem;
+	width: 100vw;
 	height:0.98rem;
 	position: relative;
 }
@@ -30,18 +30,12 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 {
    float: left;
 	display: inline-block;
-	width: 2.293333rem;
+	width: 25vw;
 	height:0.88rem;
 	font-size: 0.426667rem;
-	text-align: right;
+	text-align: center;
 	line-height: 0.88rem;
 	border-bottom: 4px solid #EEEEEE;
-}
-/*返回箭头*/
-.fanindex{
-	position: absolute;
-	top: 0.18rem;
-	left:0.2rem;	
 }
 #order-all-header>ul>li>a{
     padding-bottom: 0.22rem;

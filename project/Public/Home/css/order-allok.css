@@ -5,8 +5,8 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	-webkit-appearance: none;
 }
 #contain{
-	width:9.2rem; 
-	margin:0.4rem 0.4rem 2rem 0.4rem;
+	width:100vw; 
+	margin:0.4rem 0 2rem 0;
 }
 
 

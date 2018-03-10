@@ -6,6 +6,11 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
+	<style type="text/css">
+		.linkBox{
+			display: none !important;
+		}
+	</style>
 </head>
 <body>
 <input type="hidden" value="{{$_SESSION['weixin'][1]['appId']}}" id="appId">
@@ -103,7 +108,6 @@
 	
 	//页面加载时执行
 	$(function(){
-
 		// 获取微信JSSDK所需的数据
 		var appId = $("#appId").val(),
 			nonceStr = $("#nonceStr").val(),
@@ -119,8 +123,7 @@
 		var res=JSON.parse($('.res').val());
 		var deviceInfo=JSON.parse($(".deviceInfo").val());
 		var deviceId=data.deviceid;//设备id
-		// var deviceId=162753445596778;//设备id
-		// var deviceId=112233445566778;//设备id
+		sessionStorage.setItem("deviceId",dataList.deviceid);
 		var devicestause=data.devicestause;//设备状态
 		console.log(data);
 
@@ -206,23 +209,8 @@
 		// console.log(usednumberFlow);
 		$("#rawtdsVal").html(data.rawtds?data.rawtds:'0');
 		$("#puretdsVal").html(data.puretds?data.puretds:'0');
-		// if(data.leasingmode=="0"){//零售
-		// 	$(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:'0')+"L</b></p>");
-		// 	$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p>");
-		// }else if(data.leasingmode=="1"){//按流量
-		// 	$(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+(data.reflow?data.reflow:'0')+"L</b></p>");
-		// 	$(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:'0')+"L</b></p>");
-		// }else if(data.leasingmode=="2"){//按时间
-		// 	$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
-		// 	$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p>");
-		// }else if(data.leasingmode=="3"){//时间/流量
-		// 	$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0') + "天</b></p><p><span>剩余流量</span><b>"+(data.reflow?data.reflow:0)+"L</b></p>");
-		// 	$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p><p><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:0)+ "L</b></p>");
-
-		// }
-
-			$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reflow?data.reflow:'0')+"天</b></p>");
-			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
+		$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reflow?data.reflow:'0')+"天</b></p>");
+		$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
 
 		//websoket
 		var websoket=new WebSocket("ws://120.27.12.1:6001");
@@ -260,7 +248,7 @@
 				sessionStorage.setItem("leaseMode",dataList.LeasingMode);
 			}
 			if(dataList.PackType=="Select")//返回查询数据类型数据
-			{	console.log(dataList);
+			{	//console.log(dataList);
                 numAdd=0;
 				var usedFlow=parseInt(dataList.SumFlow);
 				var usedDay=parseInt(dataList.SumDay);
