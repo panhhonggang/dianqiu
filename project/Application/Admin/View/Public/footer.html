@@ -10,4 +10,47 @@
 	//设置nav高度
     var windowh=$(window).height();
     var navH=$("#nav").height(windowh-70);
+
+    var href = location.href, nowPos;   // nowPos：当前文件地址
+        nowPos = href.substring(href.lastIndexOf('Admin/')+5, href.indexOf('html')+4);
+        console.log('nowPos: ',nowPos);
+    // 导航下的所有连接
+    var alink = $(".nav a");
+    // console.log('alink: ',alink)
+    // 高亮 选择当前地址的导航
+    for(var i=0; i<alink.length; i++){
+    	// console.log(alink[i].getAttribute('href'))
+        alink[i].style.color = '#585858';
+    	// 当前分类
+    	var _thisCate = alink[i].parentNode.parentNode.parentNode;
+    	// 当前菜单
+    	var _thisMenu = alink[i].parentNode.parentNode.parentNode.children[1];
+    	// 当前子项
+    	var _thisItem = alink[i];
+        if(alink[i].getAttribute('href').indexOf(nowPos) > -1){
+
+        	_thisCate.setAttribute('class', 'open');
+        	_thisMenu.style.display = 'block';
+
+        	// 当前分类 标题
+        	_thisCate.children[0].style.color = '#1963aa';
+        	_thisItem.style.color = '#1963aa';
+
+           	console.log('_thisCate: ',_thisCate);
+           	console.log('_thisMenu: ',_thisMenu);
+            console.log('_thisItem: ',_thisItem);
+        }
+        // 只有 index 一个
+        var onlyIndex = nowPos.substring(1, nowPos.lastIndexOf('/'))
+        // console.log(onlyIndex);
+        if(alink[i].getAttribute('href').indexOf(onlyIndex) > -1 && _thisMenu.children.length === 1){
+
+        	_thisCate.setAttribute('class', 'open');
+        	_thisMenu.style.display = 'block';
+
+        	// 当前分类 标题
+        	_thisCate.children[0].style.color = '#1963aa';
+        	_thisItem.style.color = '#1963aa';
+        }
+    }
 </script>

@@ -84,16 +84,6 @@
 </div>
 <script src="__PUBLIC__/Home/js/public.js"></script>
 <script>
-    // 显示当前页面所在的导航
-    showNav();
-    function showNav(){
-        
-        $(".nav").children("li").eq(5).attr("class","open");
-        $(".nav").children("li").eq(5).find(".submenu").show();
-        $(".nav").children("li").eq(5).find(".submenu li a").eq(0).css({color: '#1963aa'});
-    }
-</script>
-<script>
 //表单验证
 function zero(num){
     return Number(num)<10?'0'+num:num

@@ -90,14 +90,6 @@
             $('input[name=value]').val(decodeURI(arr[2].slice(arr[2].indexOf('=')+1)))
             // console.log(arr)
         }
-        // 显示当前页面所在的导航
-        showNav();
-        function showNav(){
-
-            $(".nav").children("li").eq(5).attr("class","open");
-            $(".nav").children("li").eq(5).find(".submenu").show();
-            $(".nav").children("li").eq(5).find(".submenu li a").eq(1).css({color: '#1963aa'});
-        }
     </script>
 </div>
 

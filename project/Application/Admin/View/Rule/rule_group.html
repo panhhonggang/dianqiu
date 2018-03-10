@@ -164,16 +164,7 @@ aria-hidden="true">
             </div>
         </div>
     </div>
-</div>
-<script>
-    // 显示当前页面所在的导航
-    showNav();
-    function showNav(){
-        console.log($(this));
-        $(".nav").children("li").eq(7).attr("class","open");
-        $(".nav").children("li").eq(7).find(".submenu").show();
-    }
-</script>
+</div> 
 <script>
     function checkAll(obj) {
         $(obj).parents('.b-group').eq(0).find("input[type='checkbox']").prop('checked', $(obj).prop('checked'));
