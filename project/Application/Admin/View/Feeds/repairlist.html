@@ -53,7 +53,7 @@
                             </td>
                             <td>
                                 <switch name="vo.status">
-                                    <case value="0"><a href="__URL__/edit/id/{{$vo.id}}/status/1">派人处理</a></case>
+                                    <case value="0"><a href="{{:U('Work/add',['id'=>$vo['id']])}}">派人处理</a></case>
                                     <default />
                                 </switch>
                             </td>

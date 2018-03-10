@@ -41,7 +41,7 @@ class RepairController extends CommonController
                     'picpath' => $picpath[0],
                     'did' => $_SESSION['homeuser']['did']
                 );
-
+                dump(I('post'));die;
             }else{
                 $this->error('您没有上传图片，请重新上传');
             }

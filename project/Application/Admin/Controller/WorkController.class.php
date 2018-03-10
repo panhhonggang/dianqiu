@@ -74,6 +74,9 @@ class WorkController extends CommonController
             }
 
         }else{
+            $map['id'] = I('id');
+            $data = M('Repair')->where($map)->find();
+            dump($data);
             $this->display();
         }
     }
