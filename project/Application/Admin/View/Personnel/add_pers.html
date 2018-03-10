@@ -1,0 +1,95 @@
+<include file="Public/header" />
+<div class="content">
+    <include file="Public/nav" />
+    <div class="row-fluid fl" id="main">
+        <div class="tableBox">
+            <div class="titleBar">安装人员管理/<span>安装人员添加</span></div>
+            <div class="formBox">
+                <form class="" action="__URL__/add_pers" method="post" id="_formTable">
+
+                    <div class="control-group">
+                        <span>手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" name="phone" placeholder="请输入手机号码...">
+                    </div>
+                    <div class="control-group">
+                        <span>用户名字<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" name="name" placeholder="请输入用户昵称...">
+                        <div style="font-size: 12px;text-indent: 38%;margin-top:-10px;color: red">(用户昵称将不可修改，请确认后再提交)</div>
+                    </div>
+                    <div class="control-group">
+                        <span>密码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="password" name="password" placeholder="请输入登录密码...">
+                        <div style="font-size: 12px;text-indent: 38%;margin-top:-10px;color: red">(密码最少六位)</div>
+                    </div>
+                    <div class="control-group">
+                        <span>确认密码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="password" name="repassword" placeholder="请再次输入密码...">
+                    </div>
+
+
+
+
+
+                    <div class="btn-groups">
+                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <include file="Public/footer" />
+    </div>
+</div>
+<script src="__PUBLIC__/Home/js/public.js"></script>
+<script>
+    // 显示当前页面所在的导航
+    showNav();
+    function showNav(){
+
+        $(".nav").children("li").eq(1).attr("class","open");
+        $(".nav").children("li").eq(1).find(".submenu").show();
+        $(".nav").children("li").eq(1).find(".submenu li a").eq(0).css({color: '#1963aa'});
+    }
+</script>
+<script>
+$(function() {
+    //验证
+
+    $('#_formTable').submit(function(){
+
+//        var name = $('input[name=name]').val();
+//        var phone = $('input[name=phone]').val();
+//        var myreg = /1[3,4,5,6,7,8]\d{9}$/;
+//        var password = $('input[name=password]').val();
+//        var repassword  = $('input[name=repassword]').val();
+//        if(!myreg.test(phone)) {
+//            layuiHint('手机号码有误')
+//            return false
+//        }
+//        if(name){
+//            if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(name)){
+//                layuiHint('用户昵称不能输入特殊字符')
+//                return false
+//            }
+//        }else{
+//            layuiHint('用户昵称不能为空')
+//            return false;
+//        }
+//        if(password=='') {
+//            layuiHint('密码不能为空')
+//            return false;
+//        }
+//        if (password.length<6) {
+//            layuiHint('密码最少6位')
+//            return false;
+//        }
+//        if(password !=repassword) {
+//            layuiHint('两次密码不一致')
+//            return false;
+//        }
+    })
+
+
+});
+    //城市三级联动
+
+</script>
