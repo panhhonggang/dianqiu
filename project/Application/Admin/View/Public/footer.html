@@ -11,9 +11,16 @@
     var windowh=$(window).height();
     var navH=$("#nav").height(windowh-70);
 
+    /*
+    	设置导航栏当前位置 高亮 选中
+     */
     var href = location.href, nowPos;   // nowPos：当前文件地址
-        nowPos = href.substring(href.lastIndexOf('Admin/')+5, href.indexOf('html')+4);
-        console.log('nowPos: ',nowPos);
+    if(href.indexOf('html') > -1){
+        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
+    }else{
+		nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
+    }
+    console.log('nowPos: ',nowPos);
     // 导航下的所有连接
     var alink = $(".nav a");
     // console.log('alink: ',alink)
@@ -36,9 +43,6 @@
         	_thisCate.children[0].style.color = '#1963aa';
         	_thisItem.style.color = '#1963aa';
 
-           	console.log('_thisCate: ',_thisCate);
-           	console.log('_thisMenu: ',_thisMenu);
-            console.log('_thisItem: ',_thisItem);
         }
         // 只有 index 一个
         var onlyIndex = nowPos.substring(1, nowPos.lastIndexOf('/'))
@@ -51,6 +55,19 @@
         	// 当前分类 标题
         	_thisCate.children[0].style.color = '#1963aa';
         	_thisItem.style.color = '#1963aa';
+        }
+        // 编辑
+        var edit = nowPos.substring(1, nowPos.indexOf('/'));
+        if(alink[i].getAttribute('href').indexOf(edit) > -1){
+        	// console.log('edit');
+        	_thisCate.setAttribute('class', 'open');
+        	// 当前分类 标题
+        	_thisCate.children[0].style.color = '#1963aa';
+        	_thisMenu.style.display = 'block';
+
+           	// console.log('_thisCate: ',_thisCate);
+           	// console.log('_thisMenu: ',_thisMenu);
+            // console.log('_thisItem: ',_thisItem);
         }
     }
 </script>
