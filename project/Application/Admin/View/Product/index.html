@@ -23,7 +23,11 @@
                     <th>七级滤芯</th>
                     <th>八级滤芯</th>
                     <th>创建时间</th>
-                    <th>操作</th>
+                    <if condition="$_SESSION['adminuser']['leavel'] lt 1">
+                        <th>操作</th>
+                    </if>
+                    
+                    {{:dump($_SESSION['adminuser']['leavel'])}}
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +45,10 @@
                             <td>{{$vo.filter7}}</td>
                             <td>{{$vo.filter8}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
+                        <if condition="$_SESSION['adminuser']['leavel'] lt 1">
                             <td><a href="{{:U('Admin/product/edit',array('id'=>$vo['id']))}}">编辑</a></td>
+                        </if>
+                            
                         </tr>
                         </foreach>
                     <else />

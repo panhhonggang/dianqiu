@@ -92,24 +92,29 @@ class FeedsController extends CommonController
                     break;
             }
         }
+
+        if($this->get_level()){
+            $map['bd.vid'] = $_SESSION['adminuser']['id'];//数据关系待分析 后续完善 
+        }
         $user = M('repair');
         $total = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->join('pub_binding bd ON  d.id = bd.did', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime,f.picpath')
                         ->order('f.addtime desc')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
-
         $userlist = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->join('pub_binding bd ON  d.id = bd.did', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime,f.picpath,f.status')
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
-        //dump($userlist);die;                
+        // dump($userlist);die;                
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display(); 

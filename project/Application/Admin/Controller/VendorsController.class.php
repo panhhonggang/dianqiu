@@ -246,6 +246,9 @@ class VendorsController extends CommonController
                     break;
             }
         }
+        if($this->get_level()){
+            $map['pub_vendors.id'] = $_SESSION['adminuser']['id'];
+        }
         $binding = M('binding');
         
         $total =$binding->where($map)

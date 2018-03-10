@@ -10,6 +10,22 @@ use Think\Controller;
 
 class UsersController extends CommonController 
 {
+    public function get_map()
+    {
+        if($this->get_level()){
+            $ma['bd.vid'] = $_SESSION['adminuser']['id'];
+            $users=M('devices')
+            ->where($ma)
+            ->alias('d')
+            ->join('pub_binding bd ON d.id=bd.did', 'LEFT')
+            ->field('d.uid')
+            ->select();
+            $ids = array_column($users,'uid');
+            $ids = empty($ids)?['-1']:$ids;
+            return ['u.id'=> ['in',$ids]];
+        }
+    }
+
 	/**
      * 前台用户列表
      * @author 潘宏钢 <619328391@qq.com>
@@ -17,8 +33,8 @@ class UsersController extends CommonController
     public function index()
     {	
         // 根据用户昵称进行搜索
-         $map = '';
-
+        $map = [];
+        $map=array_merge($map,$this->get_map());
         if (!empty($_GET['key']) && !empty($_GET['value'])) {
             switch ($_GET['key']) {
                 case '1':
@@ -36,6 +52,7 @@ class UsersController extends CommonController
             }
         }
         $user = D('users');
+
         $total = $user
             ->where($map)
             ->alias('u')
@@ -167,7 +184,8 @@ class UsersController extends CommonController
     public function flow()
     {
         // 根据用户昵称进行搜索
-         $map = '';
+        $map = [];
+        $map=array_merge($map,$this->get_map());
 
         if (!empty($_GET['key']) && $_GET['key'] == 1 && strlen($_GET['value'])) {
             $map['d.name'] = array('like',"%{$_GET['value']}%");

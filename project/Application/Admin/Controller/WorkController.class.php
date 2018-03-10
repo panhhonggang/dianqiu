@@ -38,7 +38,9 @@ class WorkController extends CommonController
             }
         }      
         $type = D('work');
-        
+        if($this->get_level()){
+            //$map['pub_binding.vid'] = $_SESSION['adminuser']['id']; //缺少数据字段 后续维护
+        }
         $total =$type->where($map)->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();

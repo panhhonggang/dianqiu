@@ -18,6 +18,9 @@ class OrdersController extends CommonController
     {	
         // 根据用户昵称进行搜索
         $map = '';
+        if($this->get_level()){
+            $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
+        }
       if(strlen($_GET['orderid'])) $map['order_id'] = array('like',"%{$_GET['orderid']}%");
     	if(strlen($_GET['nickname'])) $map['nickname'] = array('like',"%{$_GET['nickname']}%");
       if(strlen($_GET['is_pay'])) $map['is_pay'] = array('like',"%{$_GET['is_pay']}%");
@@ -26,6 +29,7 @@ class OrdersController extends CommonController
         $order = M('orders');
         $total = $order->where($map)
                       ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
+                      ->join('pub_binding ON pub_devices.id = pub_binding.did ')
                       ->join('pub_users ON pub_orders.user_id = pub_users.id')
                       ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
                       ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
@@ -36,12 +40,14 @@ class OrdersController extends CommonController
 
         $list = $order->where($map)
                       ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
+                      ->join('pub_binding ON pub_devices.id = pub_binding.did ')
                       ->join('pub_users ON pub_orders.user_id = pub_users.id')
                       ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
                       ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
-                      ->field('pub_orders.*,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
+                      ->field('pub_orders.*,pub_binding.vid,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
                       ->limit($page->firstRow.','.$page->listRows)
                       ->select();
+
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

@@ -44,4 +44,13 @@ class CommonController extends Controller
         $name = MODULE_NAME."/".CONTROLLER_NAME."/".ACTION_NAME;
         return $auth->check($name, $uid);
     }
+
+    // 经销商权限 
+    public function get_level()
+    {
+        if($_SESSION['adminuser']['leavel'] > 0){
+            return true;
+        }
+        return false;
+    }
 }

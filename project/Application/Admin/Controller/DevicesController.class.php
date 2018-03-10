@@ -15,6 +15,7 @@ class DevicesController extends CommonController
      */
     public function devicesList()
     {
+
         // 查询条件
         $map = '';
         // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
@@ -34,10 +35,14 @@ class DevicesController extends CommonController
                     break;
             }
         }
+        if($this->get_level()){
+            $map['vendors.id'] = $_SESSION['adminuser']['id'];
+        }
         $devices = D('Devices')->getDevicesInfo($map);   
         $assign = [
             'deviceInfo' => $devices,
         ];
+        
         $this->assign($assign);
         $this->display('devicesList');
     }
