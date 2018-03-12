@@ -24,26 +24,40 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	line-height: 0.8rem;
 }
 
-#devices-list>ul>b {
-	display: inline-block;
-	height: 1.28rem;
-	width: 1.28rem;
-	background: #353659;
-	border-radius: 0.933333rem;
-}
+
 
 #devices-list>ul>li {
 	display: inline-block;
-	margin: 0.133333rem;
-	width: 6.933333rem;
+	width: 100%;
 	font-size: 0.373333rem;
-	border-bottom: 1px solid #CCC;
+	border-bottom: 1px dashed #CCC;
+	margin-top: .4rem;
+	padding-bottom: .2rem;
 }
 
-#devices-list>ul>li>i {
-	float: right;
-	font-size: 0.56rem;
-	color: #1FBC5A;
+#devices-list>ul> li p {
+	display: inline-block;
+	height: .7rem;
+	width: .7rem;
+	/*background: #039CE9;*/
+	border-radius:50%;
+	border: 1px solid #039CE9;
+	margin-right: 1rem;
+	position: relative;
+	top: .05rem;
+}
+#devices-list>ul> li p span{
+	width: .4rem;
+	height: .4rem;
+	position: absolute;
+	display: inline-block;
+	margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #039CE9;
+	border-radius: 50%;
 }
 
 #devices-add {

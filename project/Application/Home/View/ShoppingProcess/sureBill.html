@@ -10,31 +10,6 @@
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<style>
-		/*#back2Home {
-		    width: 8vh;
-		    height: 8vh;
-		    display: -webkit-flex;
-		    display: -moz-flex;
-		    display: -ms-flex;
-		    display: -o-flex;
-		    display: flex;
-		    justify-content: center;
-		    -ms-align-items: center;
-		    align-items: center;
-		    position: absolute;
-		    right: 0;
-		    top: 0;
-		}
-		#back2Home>i {
-		    width: 5vh;
-		    height: 5vh;
-		    text-align: center;
-		    line-height: 5vh;
-		    color: #fff;
-			font-weight: 600;
-		    border-radius: 5vh;
-		    background: #039CE9;
-		}*/
 			#sure-head {
 				width: 100%;
 				border-bottom: 8px solid #efefef;
@@ -74,14 +49,14 @@
 			#information>p>input {
 				width: 68%;
 				padding: 1%;
-			    border: 1px solid;
+			    border: 1px dashed rgba(12, 93, 134, 1);
 			    border-radius: 3px;
 			}
 			#information>p>textarea {
 			    width: 68%;
 			    position: relative;
 			    padding: 1%;
-			    border: 1px solid;
+			    border: 1px dashed rgba(12, 93, 134, 1);
 			    border-radius: 3px;
 			}
 			#ro-right .bott {
@@ -127,7 +102,6 @@
 			}
 		</style>
 </head>
-	<input type="hidden" value={{$device['device_code']}}  id="device">
 	<body> 
 	<div id="contain">
 		<!-- <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a> -->
@@ -212,7 +186,8 @@
 		var leaseMode;//获取租赁模式
 		var flowNum=0;//当前选中的流量值
 		var dayNum=0;//当前选中的天数
-		var deviceId=$("#device").val();
+		var deviceId=sessionStorage.getItem("deviceId");//设备编号设置本地存储
+		console.log(deviceId);
 		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列

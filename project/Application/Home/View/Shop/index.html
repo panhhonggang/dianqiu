@@ -32,7 +32,7 @@
 			<div id="liuliang" class="contentbox">
 				<h3><b>选择套餐</b></h3>
 				<foreach name="setmeallist" item="vo" key="ke">
-					<input type="button" value="{{$vo['describe']}}" sid="{{$vo['id']}}"><br>
+					<input type="button" value="{{$vo['describe']}}" dayNum="150" flowNum="200" sid="{{$vo['id']}}"><br>
 				</foreach>
 			</div>
 			<!-- 滤芯开始 -->
@@ -85,6 +85,7 @@
 		var dayNum=0;//当前选中的天数
 		var deviceId=$("#device").val();
 		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
+		// sessionStorage.setItem(deviceId,deviceId);
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列
 		/**
@@ -94,10 +95,10 @@
 			// 获取充值的流量或套餐
 			if($(this).val().indexOf('流量') > -1){
 				dayNum = 0;
-				flowNum = parseInt($(this).val());
-			}else if($(this).val().indexOf('时长') > -1){
+				flowNum = $(this).attr("flowNum");
+			}else if($(this).val().indexOf('时') > -1){
 				flowNum = 0;
-				dayNum = parseInt($(this).val());
+				dayNum = $(this).attr("dayNum");
 			}
 		});
 		websoket.onopen=function(){
@@ -238,9 +239,11 @@
                         // 异步提交
                         $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
                             if(res==2){
+                            	alert(11111);
                                 // 套餐确认
                                 window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
                             }else if(res==3){
+                            	alert(222);
                                 // 快递确认
                                 window.location.href='{{:U("ShoppingProcess/sureBill")}}';
                             }else{
@@ -270,6 +273,8 @@
 		// 	sessionStorage.setItem('lineLeft', '');
 		// })
 		var lineMove = sessionStorage.getItem("lineMove");	//判断上次选择的是充值还是滤芯
+		var deviceId = sessionStorage.getItem("deviceId");	//判断上次选择的是充值还是滤芯
+		console.log(deviceId);
 		var lineRight = sessionStorage.getItem("lineRight"),
 			lineLeft = sessionStorage.getItem("lineLeft"),
 			shopFrom = sessionStorage.getItem("shopFrom");		//判断从充值进入商城还是点击商城进入商城
@@ -536,7 +541,7 @@
 		});
 
 		// 微信支付方法
-		function weixinPay(res){alert(flowNum);
+		function weixinPay(res){
 		    WeixinJSBridge.invoke(
 		        'getBrandWCPayRequest',
 		        JSON.parse(res),

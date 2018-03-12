@@ -123,10 +123,8 @@
 		var res=JSON.parse($('.res').val());
 		var deviceInfo=JSON.parse($(".deviceInfo").val());
 		var deviceId=data.deviceid;//设备id
-		sessionStorage.setItem("deviceId",dataList.deviceid);
+		sessionStorage.setItem("deviceId",deviceId);//设备编号设置本地存储
 		var devicestause=data.devicestause;//设备状态
-		console.log(data);
-
 		function machineStatus(){
 			if(devicestause=="0"){//制水
 				addwater();
@@ -209,7 +207,7 @@
 		// console.log(usednumberFlow);
 		$("#rawtdsVal").html(data.rawtds?data.rawtds:'0');
 		$("#puretdsVal").html(data.puretds?data.puretds:'0');
-		$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reflow?data.reflow:'0')+"天</b></p>");
+		$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
 		$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
 
 		//websoket
