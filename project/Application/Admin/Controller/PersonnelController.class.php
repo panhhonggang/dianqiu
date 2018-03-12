@@ -38,8 +38,8 @@ class PersonnelController extends CommonController
             $personnel = D('personnel');
             $info = $personnel->create();
             if ($info) {
-                $map['name'] = I('post.name','','strip_tags');;
-                $map['phone'] = I('post.phone','','strip_tags');;
+                $map['name'] = I('post.name','','strip_tags');
+                $map['phone'] = I('post.phone','','strip_tags');
                 $map['_logic'] = 'or';
                 //查询用户名和手机是否存在
                 $get_info = $personnel->getInfo($map);
@@ -47,9 +47,9 @@ class PersonnelController extends CommonController
                     $this->error($get_info);
                 }
                 $data['v_id'] = $uid;
-                $data['name'] = I('post.name','','strip_tags');;
-                $data['phone'] = I('post.phone','','strip_tags');;
-                $data['password'] = MD5($password);
+                $data['name'] = I('post.name','','strip_tags');
+                $data['phone'] = I('post.phone','','strip_tags');
+                $data['password'] = MD5(I('post.password','','strip_tags'));
                 $data['create_time'] = date('Y-m-d H:i:s');
                 $res = $personnel->add($data);
                 if ($res) {
