@@ -9,17 +9,23 @@
 		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css">
     	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
     	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+    	<style type="text/css">
+		.linkBox{
+			position: fixed;
+			top:0;
+		}
+    	</style>
 	</head> 
 	<body>
 	<div id="contain">
 		<input type="hidden" value={{$device['device_code']}}  id="device">
 		<div id="ulDiv">
 			<ul class="_ul _position">
-				<li>充值</li>
-				<li>滤芯</li>
+				<li>套餐</li>
+				<li>产品</li>
 			</ul>
 			<div id="lineDiv" class="_line"></div>
-			<a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
+			<!-- <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a> -->
 		</div>
  
 		<div class="contentBox">
@@ -78,7 +84,6 @@
 		var flowNum=0;//当前选中的流量值
 		var dayNum=0;//当前选中的天数
 		var deviceId=$("#device").val();
-		// var deviceId=228733445596778;
 		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列
@@ -259,11 +264,11 @@
 			sessionStorage.setItem('shopFrom', '');
 		})
 		// 点击返回首页清除本地session某些项目
-		$("#back2Home").click(function(){
-			sessionStorage.setItem('lineMove', '');
-			sessionStorage.setItem('lineRight', '');
-			sessionStorage.setItem('lineLeft', '');
-		})
+		// $("#back2Home").click(function(){
+		// 	sessionStorage.setItem('lineMove', '');
+		// 	sessionStorage.setItem('lineRight', '');
+		// 	sessionStorage.setItem('lineLeft', '');
+		// })
 		var lineMove = sessionStorage.getItem("lineMove");	//判断上次选择的是充值还是滤芯
 		var lineRight = sessionStorage.getItem("lineRight"),
 			lineLeft = sessionStorage.getItem("lineLeft"),
@@ -531,7 +536,7 @@
 		});
 
 		// 微信支付方法
-		function weixinPay(res){
+		function weixinPay(res){alert(flowNum);
 		    WeixinJSBridge.invoke(
 		        'getBrandWCPayRequest',
 		        JSON.parse(res),
@@ -545,8 +550,6 @@
                             ajson["ReFlow"]=flowNum;
                             ajson["Reday"]=dayNum;
                         }
-                        //console.log(leaseMode);
-                        //console.log(JSON.stringify(ajson));
                         websoket.send(JSON.stringify(ajson));
                         CmdList.push({
                             cmd:ajson,

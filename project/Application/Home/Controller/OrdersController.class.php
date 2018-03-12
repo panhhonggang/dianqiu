@@ -128,7 +128,7 @@ class OrdersController extends CommonController
 
             // 包含滤芯产品已已收货
             // 已完成订单
-            $orders = M('Orders')->order('created_atid desc')->field('id,order_id,created_at,total_num,total_price,express,mca')->where("`user_id`={$uid} AND `is_ship`=1 AND `status`=1")->select();
+            $orders = M('Orders')->order('created_at desc')->field('id,order_id,created_at,total_num,total_price,express,mca')->where("`user_id`={$uid} AND `is_ship`=1 AND `status`=1")->select();
 
             // 包含滤芯产品
             // 遍历订单已收货和已收货订单号
@@ -154,7 +154,7 @@ class OrdersController extends CommonController
 
 
             // 已完成充值
-            $orders = M('Orders')->order('created_atid desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_recharge`=1 AND `status`=1")->select();
+            $orders = M('Orders')->order('created_at desc')->field('id,order_id,created_at,total_num,total_price')->where("`user_id`={$uid} AND `is_recharge`=1 AND `status`=1")->select();
 
             // 不包含滤芯产品
             // 遍历订单已充值订单号

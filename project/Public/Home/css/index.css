@@ -38,7 +38,6 @@ html,body {
 	background: url("../images/yun_01.jpg") no-repeat;
 	background-size: 100% 100%;
 	border-top:1px solid #fff;
-	margin-top:-1px;
 }
 
 .topcontent{
@@ -166,13 +165,6 @@ html,body {
 	float: right;
 }
 
-.allStatus>div.statusZhishui{
-	display: block;
-}
-
-.allStatus>div.service{
-	display: block;
-}
 .allStatus>div>p>i{
 	font-size: 1.6rem;
 	line-height: 0.05rem;

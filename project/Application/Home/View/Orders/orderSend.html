@@ -20,39 +20,11 @@
 			#order-all-header>ul>li:nth-of-type(3)>a{
 				color: #039CE9;
 			}
-			#back2Home {
-			    width: 8vh;
-			    height: 8vh;
-			    display: -webkit-flex;
-			    display: -moz-flex;
-			    display: -ms-flex;
-			    display: -o-flex;
-			    display: flex;
-			    justify-content: center;
-			    -ms-align-items: center;
-			    align-items: center;
-			    position: absolute;
-			    right: 4px;
-			    top: 8vh;
-			    z-index: 999;
-			}
-			#back2Home>i {
-			    width: 5vh;
-			    height: 5vh;
-			    text-align: center;
-			    line-height: 5vh;
-			    color: #fff;
-				font-weight: 600;
-			    border-radius: 5vh;
-			    background: #039CE9;
-			}
 		</style>
-<!-- 		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
 	</head>
 	<body>
 
 	<div id="contain" class="container">
-	<a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont icon-zhuye"></i></a>
 	 <!-- order-all的头部开始 -->
 	 	<div id="order-all-header">
 	 		<ul>
@@ -61,7 +33,6 @@
 	 			<li><a class="headOne" href="{{:U('Orders/orderSend')}}">待发货</a></li>
 	 			<li><a href="{{:U('Orders/orderTake')}}">待收货</a></li>
 	 		</ul>
-	 		<a href="{{:U('Home/Users/mine')}}" class="fanindex"><i class="iconfont icon-xiangzuojiantou "></i></a>
 	 		<div class="slip send-slip"></div>
 	 	</div>
 	
@@ -124,7 +95,7 @@
 		</div>
 		</foreach>	
 	</div>
-	<!-- layui.js -->
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
     <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<script type="text/javascript">

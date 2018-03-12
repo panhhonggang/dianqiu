@@ -6,12 +6,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/linkSet.css">
 	<title>滤芯详情</title>
 	<style>
+        .linkBox{
+            position: fixed;
+            top:0;
+        }
     	#ulDiv {
         	height: 10vh;
         	position: fixed;
-            top: 0;
+            top: 7.5vh;
         	background: #fff;
         	z-index: 999;
         }
@@ -40,39 +45,12 @@
         ._line {
             background: #039CE9;
         }
-    
-        #back2Home {
-            width: 8vh;
-            height: 8vh;
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: -ms-flex;
-            display: -o-flex;
-            display: flex;
-            justify-content: center;
-            -ms-align-items: center;
-            align-items: center;
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-        #back2Home>i {
-            width: 5vh;
-            height: 5vh;
-            text-align: center;
-            line-height: 5vh;
-            color: #fff;
-            font-weight: 600;
-            border-radius: 5vh;
-            background: #039CE9;
-        }
-
         #_box {
             height: 100vh;
         }
         #_box>div:nth-of-type(2) {
             position: relative;
-            top: 10vh;
+            top: 18vh;
         }
         /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
         ::-webkit-scrollbar  
@@ -110,7 +88,6 @@
             <li>滤芯复位</li>
         </ul>
         <div id="lineDiv" class="_line"></div>
-        <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a>
     </div>
     <div>
         <!-- 滤芯详情 -->
@@ -188,7 +165,6 @@ for(var i=0; i<res.length; i++){
 		//按时间
         // 遍历膜的详情, 不存在则不遍历
         if(res[i].filtername){
-
             moHTML += '<li class="_padding">'+
                 '<p><span class="">'+ res[i].filtername +
                 '</span><span class="_float_right">'+
@@ -204,13 +180,10 @@ for(var i=0; i<res.length; i++){
                 '</p>'+
             '</li>';
         }
-
         //滤芯简介
         if(res[i].introduce){
-
             res[i].timelife = !res[i].timelife ? 0 : res[i].timelife;
             data['redayfilter'+(i+1)] = !data['redayfilter'+(i+1)] ? 0 : data['redayfilter'+(i+1)];
-
             lvxinIntroduceHTML += '<div>'+
                 '<h3>'+
                     res[i].filtername +
