@@ -25,39 +25,73 @@
             <div class="titleBar">工单管理/<span>工单添加</span></div>
             <div class="formBox">
                 <form class="" action="__URL__/add" method="post" id="_formTable">
+                    
+                    <input type="hidden" name="repair_id" value="{{$repairId}}">
                     <div class="control-group">
                         <span>工单号<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <!-- 需加数字验证 -->
                         <input type="text" class="control" name="number" placeholder="请输入工单号..." style="width:210px;">
                     </div>
                     <div class="control-group">
-                        <span>处理人<sub style="color:red;margin-left: 5px;">*</sub></span>
-                        <input type="text" class="control" name="name" placeholder="请输入处理人姓名..." style="width:210px;">
+
+                        <span>设备编码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <!-- 需加数字验证 -->
+                        <empty name="_GET">
+                            <input type="text" class="control" name="dcode" placeholder="请输入设备编码" style="width:210px;">
+                        <else />
+                            <input type="text" readonly="" name="dcode" value="{{$repairData['device_code']}}">
+                        </empty>
                     </div>
                     <div class="control-group">
-                        <span>处理人手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
-                        <input type="text" class="control" name="phone" placeholder="请输入处理人电话..." style="width:210px;">
+                        <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <select name="personnel_id">
+                            <option>--请选择--</option>
+                            <volist name="personnelData" id='v'>
+                                <option value="{{$v.id}}">{{$v.name}}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
                     </div>
                     <div class="control-group">
                         <span>维护类型</span>
-                        <input type="radio" class="control" name="type" value="0" checked>安装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" class="control" name="type" value="1">维修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <empty name="_GET">
+                            <input type="radio" class="control" name="type" value="0" checked>安装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="control" name="type" value="1">维修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <else />
+                            <input type="radio" class="control" name="type" value="0">安装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="control" name="type" value="1" checked>维修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </empty>
                         <input type="radio" class="control" name="type" value="2">维护&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="control-group">
                         <span>工作内容<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <textarea name="content" cols="30" rows="5" class="_textarea"></textarea>
                     </div>
-                    <div class="control-group">
-                        <span>地址<sub style="color:red;margin-left: 5px;">*</sub></span>
-                        <div class="info">
-                            <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
-                            <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
-                            <select id="s_county" name="s_county"></select>
+                    <empty name="_GET">
+                        <div class="control-group">
+                            <span>报修地址<sub style="color:red;margin-left: 5px;">*</sub></span>
+                            <div class="info">
+                                <select id="s_province" name="s_province"></select>&nbsp;&nbsp;
+                                <select id="s_city" name="s_city" ></select>&nbsp;&nbsp;
+                                <select id="s_county" name="s_county"></select>
+                            </div>
+                            <input type="hidden" name="address" class="addressValue">
+                            <!-- 此处需要三级联动 -->
                         </div>
-                        <input type="hidden" name="address" class="addressValue">
-                        <!-- 此处需要三级联动 -->
-                    </div>
+                        <div class="control-group">
+                            <span>详细地址<sub style="color:red;margin-left: 5px;">*</sub></span>
+                            <input type="text" class="control" name="add_ress" placeholder="请输入详细地址..." style="width:210px;">
+                        </div>
+                    <else />
+                        <div class="control-group">
+                            <span>详细地址</span>
+                            <input type="text" class="control" name="address" value="{{$repairData['address']}}" style="width:210px;">
+                        </div>
+                    </empty>
+                    
                     <div class="control-group">
                         <span>处理结果</span>
                         <input type="radio" class="control" name="result" value="0" checked>未处理&nbsp;&nbsp;&nbsp;
@@ -162,6 +196,21 @@ $(function(){
         }else{
             $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         } 
+    });
+
+    
+})
+
+$("select").change('option',function(e){
+    var id = $(this).val();
+    console.log(id);
+    $.ajax({
+        url:"{{:U('personnel')}}",
+        type:'post',
+        data:{'id':id},
+        success:function(res){
+            $("input[name='phone']").val(res);
+        }
     });
 })
 

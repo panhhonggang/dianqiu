@@ -57,11 +57,15 @@ class WorkController extends CommonController
         if (IS_POST) {
             // dump($_POST);die;
             $device_type = D('work');
+            $data = I('post.');
+            $data['address'] = $data['address'].$data['add_ress'];
             $info = $device_type->create();
-           
             if($info){
-
-                $res = $device_type->add();
+                if($data['type'] == 1){
+                    $status = ['status'=>2];
+                    M('repair')->where('id='.$data['repair_id'])->save($status);
+                }
+                $res = $device_type->add($data);
                 if ($res) {
                     $this->success('工单添加成功啦！！！',U('work/index'));
                 } else {
@@ -75,10 +79,16 @@ class WorkController extends CommonController
 
         }else{
             $map['id'] = I('id');
-            $repairData = M('Repair')->where($map)->find();
+            $repairData = M('Repair')->where($map)->field('device_code,address')->find();
             $where['v_id'] = session('adminuser.id');
-            $personnelData = M('personnel')->where($where)->select();
-            // dump($personnelData);
+            $personnelData = M('personnel')->where($where)->field('id,name,phone')->select();
+            // dump($repairData);
+            $assign = [
+                'repairId' => $map['id'],
+                'repairData' => $repairData,
+                'personnelData' => $personnelData,
+            ];
+            $this->assign($assign);
             $this->display();
         }
     }
@@ -86,10 +96,19 @@ class WorkController extends CommonController
     public function edit($id,$result)
     {
         $work = M("work");
+        $repair = M('repair');
         $data['result'] = $_GET['result'];
         $res = $work->where('id='.$id)->save($data); 
         if ($res) {
-             $this->redirect('work/index');
+            $repair_id = $work->where('id='.$res)->getField('repair_id');
+            $status = ['status'=>1];
+            $res_repair = $repair->where('id='.$repair_id)->save($status);
+            // echo $repair->_sql();
+            // dump($res_repair);die;
+            if($res_repair){
+                $this->redirect('work/index');
+            }
+            // echo 1111;
         } else {
             $this->error('修改失败啦！');
         }
@@ -106,6 +125,19 @@ class WorkController extends CommonController
 
     }
 
-    
+    public function personnel()
+    {
+        try {
+            $map['id'] = I('post.id');
+            $phone = M('Personnel')->where($map)->getField('phone');
+            echo $phone;
+        } catch (\Exception $e) {
+            $err = [
+                'code' => $e->getCode(),
+                'msg' => $e->getMessage(),
+            ];
+            $this->ajaxReturn($err);
+        }
+    }
 
 }
