@@ -78,7 +78,7 @@ class WorkController extends CommonController
             $repairData = M('Repair')->where($map)->find();
             $where['v_id'] = session('adminuser.id');
             $personnelData = M('personnel')->where($where)->select();
-            dump($personnelData);
+            // dump($personnelData);
             $this->display();
         }
     }
