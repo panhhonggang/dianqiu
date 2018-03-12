@@ -7,6 +7,7 @@ class IndexController extends CommonController
     {
     	$userInfo = $_SESSION['homeuser'];
 
+
     	if($userInfo){
 	        // 获取用户当前设备
 	        $did = $userInfo['did'];
@@ -24,6 +25,7 @@ class IndexController extends CommonController
 	        	->find();
                 // 滤芯详情
                 $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
+
                 $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->find();
                 $type = M('device_type')->where("id={$code['type_id']}")->find();
                 unset($type['id'], $type['typename'], $type['addtime']);
