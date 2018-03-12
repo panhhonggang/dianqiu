@@ -30,7 +30,7 @@
         height: 100%;
       }
       .iconReward{
-        margin: 0.933333rem 0;
+        margin: 0.933333rem 0 0;
         color: #fff;
       }
       .iconReward span{
@@ -38,7 +38,7 @@
       }
       .iconReward span b em{
         font-size: 0.7rem;
-        padding:0 0.2rem;
+        padding: 0 0.2rem;
       }
       .iconReward span p{
         display: inline-block;
@@ -47,7 +47,7 @@
         margin-left: 1.5rem;
       }
       .iconReward>p {
-        width: 30%;
+        width: 36%;
         display: inline-block;
       }
       .adviceFoot ul{
@@ -91,8 +91,8 @@
              <p>服务记录</p>
              <div class="iconReward">
                 <span>累计：</span>
-                <p>报装</p>
-                <p>维修</p>
+                <p>报装&nbsp;{{ num[0] }}</p>
+                <p>维修&nbsp;{{ num[1] }}</p>
              </div>
            </div>
         </div>
@@ -117,7 +117,8 @@
         el: '._reward',
         data() {
           return {
-            data: ''
+            data: '',
+            num: [0, 0]
           }
         },
         computed: {},
@@ -130,15 +131,23 @@
             type: 'post',
             success: function(res){
               var data = [
-              {name:'报装',status:'0',time:'1520649911778'},
-              {name:'维修',status:'1',time:'1520649241778'},
-              {name:'报装',status:'0',time:'1520649921778'},
-              {name:'维修',status:'1',time:'1520641941778'}]
+              {name:'报装',status:'0',time:'1520649911'},
+              {name:'维修',status:'1',time:'1520649241'},
+              {name:'报装',status:'0',time:'1520649921'},
+              {name:'维修',status:'1',time:'1520641941'}]
               console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<data.length; i++){
-
                 data[i].time = that.getLocaltime(data[i].time);
+
+                // 统计报装， 维修数量
+                if(data[i].status == 0){
+                  that.num[0]++;
+
+                }else if(data[i].status == 1){
+                  that.num[1]++;
+
+                }
               }
               // 将数据更新到 data 
               that.data = data;
@@ -152,11 +161,11 @@
         methods: {
           getLocaltime: function (_time) {
             /*
-                _time 时间戳（ms）,
+                _time 时间戳（ms）,后台传来的单位是s，需要乘1000
                 个位数时加 '0', 统一位数
              */ 
-            _time = Number(_time);
-            console.log('_time: ',_time);
+            _time = Number(_time)*1000;
+            // console.log('_time: ',_time);
             var localetime = new Date(_time);
             var year = localetime.getFullYear(),
                 month = (localetime.getMonth()+'').length == 1 
