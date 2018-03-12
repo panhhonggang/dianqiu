@@ -67,13 +67,4 @@
         <!-- footer part -->
         <include file="Public/footer"/>
     </div>
-    <script>
-        // 显示当前页面所在的导航
-        showNav();
-        function showNav(){
-            console.log($(this));
-            $(".nav").children("li").eq(9).attr("class","open");
-            $(".nav").children("li").eq(9).find(".submenu").show();
-        }
-    </script>
 </div>

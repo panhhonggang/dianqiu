@@ -3,14 +3,47 @@
             <p>©2017 - 2018 点球电子 </p>
         </div>
     </div>
-
 </body>
 </html>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
 	//设置nav高度
     var windowh=$(window).height();
     var navH=$("#nav").height(windowh-70);
     $(function(){
+    	var newdate = new Date(),
+    	year = newdate.getFullYear(),
+    	month = (newdate.getMonth()+'').length == 1 
+                  ? '0' + (newdate.getMonth()+1)
+                  : newdate.getMonth()-0+1,
+        date = (newdate.getDate()+'').length == 1 
+                  ? '0' + newdate.getDate()
+                  : newdate.getDate();
+    	var now = year +'-'+ month +'-'+ date;
+    	// console.log(year, month, date);
+    	$("#date-start").val(now);
+    	 // 起始时间
+        var startdate = $("#date-start").datetimepicker({  
+            format: 'YYYY-MM-DD',  
+            locale: moment.locale('zh-cn'),
+            maxDate: now
+        });  
+        
+        //结束时间
+		var enddate = $("#date-end").datetimepicker({  
+            format: 'YYYY-MM-DD',  
+            locale: moment.locale('zh-cn'),
+            maxDate: now
+        }); 
+         //动态设置最小值  
+	    startdate.on('dp.change', function (e) {  
+	        enddate.data('DateTimePicker').minDate(e.date);  
+	    });  
+	    //动态设置最大值  
+	    enddate.on('dp.change', function (e) {  
+	        startdate.data('DateTimePicker').maxDate(e.date);  
+	    });
 	    /* 
 	    	设置导航栏当前位置 高亮 选中
 	     */
@@ -48,7 +81,7 @@
 	        // console.log(onlyIndex);
 	        // 编辑
 	        var edit = nowPos.substring(0, nowPos.indexOf('/'));
-	        console.log(edit);
+	        // console.log(edit);
 	        if(alink[i].getAttribute('href').indexOf(nowPos) > -1){
 
 	        	_thisCate.setAttribute('class', 'open');
@@ -58,9 +91,9 @@
 	        	_thisCate.children[0].style.color = '#1963aa';
 	        	_thisItem.style.color = '#1963aa';
 	        	
-		       	console.log('_thisCate1: ', _thisCate);
-		       	console.log('_thisMenu1: ', _thisMenu);
-		        console.log('_thisItem1: ', _thisItem);
+		       	// console.log('_thisCate1: ', _thisCate);
+		       	// console.log('_thisMenu1: ', _thisMenu);
+		        // console.log('_thisItem1: ', _thisItem);
 
 	        }else if(alink[i].getAttribute('href').indexOf(onlyIndex) > -1 && _thisMenu.children.length === 1){
 
@@ -71,9 +104,9 @@
 	        	_thisCate.children[0].style.color = '#1963aa';
 	        	_thisItem.style.color = '#1963aa';
 
-		       	console.log('_thisCate2: ', _thisCate);
-		       	console.log('_thisMenu2: ', _thisMenu);
-		        console.log('_thisItem2: ', _thisItem);
+		       	// console.log('_thisCate2: ', _thisCate);
+		       	// console.log('_thisMenu2: ', _thisMenu);
+		        // console.log('_thisItem2: ', _thisItem);
 
 	        }else if(alink[i].getAttribute('href').indexOf(edit) > -1){
 	        	// console.log('edit');
@@ -82,9 +115,9 @@
 	        	_thisCate.children[0].style.color = '#1963aa';
 	        	_thisMenu.style.display = 'block';
 
-		       	console.log('_thisCate3: ', _thisCate);
-		       	console.log('_thisMenu3: ', _thisMenu);
-		        console.log('_thisItem3: ', _thisItem);
+		       	// console.log('_thisCate3: ', _thisCate);
+		       	// console.log('_thisMenu3: ', _thisMenu);
+		        // console.log('_thisItem3: ', _thisItem);
 	        }
 	    }
 	});
