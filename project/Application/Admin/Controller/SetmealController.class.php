@@ -21,12 +21,21 @@ class SetmealController extends CommonController
         require_once VENDOR_PATH.'PHPExcel.php';
         $phpExcel = new \PHPExcel();
         // dump($phpExcel);
+        // 搜索功能
         $map = array(
             'typename' => trim(I('post.typename')),
-            'money' => trim(I('post.money'))*100,
+            'remodel' => trim(I('post.remodel')),
             'flow' => trim(I('post.flow')),
             'describe' => trim(I('post.describe'))
         );
+        $minmoney = trim(I('post.minmoney'))?:0;
+        $maxmoney = trim(I('post.maxmoney'))?:-1;
+        if (is_numeric($maxmoney)) {
+            $map['money'] = array(array('egt',$minmoney*100),array('elt',$maxmoney*100));
+        }
+        if ($maxmoney < 0) {
+            $map['money'] = array(array('egt',$minmoney*100));      
+        }       
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
