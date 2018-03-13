@@ -100,6 +100,7 @@
             <li v-for='item in data'>
               <span v-if='item.type == 0'>安装</span>
               <span v-else-if='item.type == 1'>报修</span>
+              <span v-else-if='item.type == 2'>维护</span>
               <span>{{ item.time }}</span>
             </li>
           </ul>
