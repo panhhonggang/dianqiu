@@ -44,6 +44,18 @@
 	    enddate.on('dp.change', function (e) {  
 	        startdate.data('DateTimePicker').maxDate(e.date);  
 	    });
+	    // 添加时分秒
+	    $('#date-start').on("blur", function(){
+	    	var val = $("#date-start").val();
+	    	$("#date-start").val(val + '\t00:00:00');
+	    	// console.log($("#date-start").val())
+	    })
+	    // 添加时分秒
+	    $('#date-end').on("blur", function(){
+	    	var val = $("#date-end").val();
+	    	$("#date-end").val(val + '\t00:00:00');
+	    	// console.log($("#date-end").val())
+	    })
 	    /* 
 	    	设置导航栏当前位置 高亮 选中
 	     */
