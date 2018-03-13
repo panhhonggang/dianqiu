@@ -34,14 +34,25 @@ class PersonnelController extends Controller
      */
     public function index()
     {
-        //个人资料
-        $info = M('personnel')->where('id', '=', session('pid'))->find();
 
-        $this->assign('info', $info);
-        $this->display('serviceChoice');
+        $this->display('index');
 
     }
-
+    /*
+     * 点击安装之后页面
+     */
+    public function personal(){
+        //个人资料
+        $user= M('personnel')->field('name,phone')->where('id', '=',23)->find();
+        $this->assign('user', $user);
+        $this->display();
+    }
+    /*
+     * 安装设备列表
+     */
+    public function dutyList(){
+        $this->display();
+    }
     /*
      * 安装设备添加
      */
