@@ -25,8 +25,8 @@ class PersonnelController extends Controller
                 session('pid', $get_info['data']['id']);
                 $this->success($get_info['message']);
             }
-
         }
+        $this->display();
     }
 
     /*
@@ -38,6 +38,7 @@ class PersonnelController extends Controller
         $info = M('personnel')->where('id', '=', session('pid'))->find();
 
         $this->assign('info', $info);
+        $this->display('serviceChoice');
 
     }
 
