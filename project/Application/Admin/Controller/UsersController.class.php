@@ -206,18 +206,71 @@ class UsersController extends CommonController
      */
     public function flow()
     {
-        // 根据用户昵称进行搜索
-        $map = [];
-        $map=array_merge($map,$this->get_map());
+        // if (IS_POST) {
+        //     dump($_POST);die;
+        // }
+        
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
 
-        if (!empty($_GET['key']) && $_GET['key'] == 1 && strlen($_GET['value'])) {
-            $map['d.name'] = array('like',"%{$_GET['value']}%");
+        // 搜索功能
+        $map = array(
+            'f.id' => trim(I('post.id')),
+            'd.name' => trim(I('post.name')),
+            'f.flow' => trim(I('post.flow')),
+            'f.mode' => trim(I('post.mode')),
+            '_query' => "status=1",
+        );
+        $minmoney = trim(I('post.minmoney'))?:0;
+        $maxmoney = trim(I('post.maxmoney'))?:-1;
+        if (is_numeric($maxmoney)) {
+            $map['f.money'] = array(array('egt',$minmoney*100),array('elt',$maxmoney*100));
         }
-        if (strlen($_GET['mode'])) {
-           $map['mode'] = $_GET['mode'];
+        if ($maxmoney < 0) {
+            $map['f.money'] = array(array('egt',$minmoney*100));      
         }
+        $minflow = trim(I('post.minflow'))?:0;
+        $maxflow = trim(I('post.maxflow'))?:-1;
+        if (is_numeric($maxflow)) {
+            $map['f.flow'] = array(array('egt',$minflow),array('elt',$maxflow));
+        }
+        if ($maxflow < 0) {
+            $map['f.flow'] = array(array('egt',$minflow));      
+        }
+        $mincurrentflow = trim(I('post.mincurrentflow'))?:0;
+        $maxcurrentflow = trim(I('post.maxcurrentflow'))?:-1;
+        if (is_numeric($maxcurrentflow)) {
+            $map['f.currentflow'] = array(array('egt',$mincurrentflow),array('elt',$maxcurrentflow));
+        }
+        if ($maxcurrentflow < 0) {
+            $map['f.currentflow'] = array(array('egt',$mincurrentflow));      
+        }  
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
+
         $flow = M('flow');
-        $map['_query'] = "status=1";
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $flow->where($map)
+                ->alias('f')
+                ->join('__DEVICES__ d ON f.did=d.id','LEFT')
+                ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+                ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
+                ->select();
+            $filename = '充值记录数据';
+            $title = '充值记录';
+            $cellName = ['充值流水id','用户昵称','充值金额','充值流量（天）','账户余量（天）','充值方式','充值时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }       
+        
         $total = $flow->where($map)
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
