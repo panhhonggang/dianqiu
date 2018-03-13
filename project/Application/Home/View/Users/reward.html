@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+
   <title>服务记录</title>
   <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
   <style>
@@ -124,7 +125,6 @@
         computed: {},
         mounted() {
           var that = this;
-
           // 请求数据
           $.ajax({
             url: '{{:U("Users/reward")}}',
@@ -133,13 +133,10 @@
               console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
-                
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
-
                 }else if(res[i].type == 1){// 统计维修数量
                   that.num[1]++;
-
                 }
                 // 将数据更新到 data 
                 that.data.push(res[i]);

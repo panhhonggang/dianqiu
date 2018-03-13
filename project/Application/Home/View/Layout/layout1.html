@@ -1,5 +1,4 @@
  {__CONTENT__}
- <!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/iconfont/iconfont.css"> -->
  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 <style type="text/css">
 	/*首页键*/
@@ -7,16 +6,13 @@
 		width: 100%;
 		height: 7.5vh;
 		line-height: 7.5vh;
-		z-index: 100000000000000;
 		background:rgba(12, 93, 134, 1);
 		font-size: .5rem !important;
 		font-family: "微软雅黑";
-		
+		z-index:1000000;
 	}
 	.linkBox a{
-		color: #fff;
-		display: inline-block;
-		
+		color: #fff;		
 	}
 	.linkBox a:hover{
 		text-decoration: none !important;
@@ -29,8 +25,6 @@
 		padding: 0 20px;
 	}
 	.linkBox .icon-zuo{
-		display: inline-block;
-		color: #fff;
 		margin-left: .2rem;
 	}
 </style>
@@ -38,8 +32,8 @@
 
     // 公版项目“首页”、“返回”按钮
     !function(){
-    var aHtml='<div class="linkBox"><i class="iconfont icon-zuo"></i>'+
-            '<a class="returnBtn" href="javascript:history.go(-1);">返回</a>'+
+    var aHtml='<div class="linkBox">'+
+            '<a class="returnBtn" href="javascript:history.go(-1);"><i class="iconfont icon-zuo"></i>返回</a>'+
             '<a class="indexBtn" href="{{:U('/Home/index')}}">首页</a>'+
             '</div>';
     $("body").prepend(aHtml);
