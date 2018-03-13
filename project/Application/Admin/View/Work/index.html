@@ -50,8 +50,8 @@
                         <td>{{$vo.time}}</td>
                         <td>
                             <switch name="vo.result">
-                                <case value="未处理"><a href="__URL__/edit/id/{{$vo.id}}/result/1">正在处理</a></case>
-                                <case value="正在处理"><a href="__URL__/edit/id/{{$vo.id}}/result/2">已处理</a></case>
+                                <case value="未处理"><a href="__URL__/edit/id/{{$vo.id}}/result/1">正在进行中</a></case>
+                                <case value="正在处理"><a href="__URL__/edit/id/{{$vo.id}}/result/2">任务完成</a></case>
                                 <default />
                             </switch>
                         </td>

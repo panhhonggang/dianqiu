@@ -149,15 +149,21 @@
 					<p>联系方式</p>
 					<p>
 						<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-						<input name="name" id="name" class="name" type="text" placeholder="请输入您的姓名">
+						<!-- <input name="name" id="name" class="name" type="text" placeholder="请输入您的姓名"> -->
+                        <input name="name" id="name" class="name" type="text" value="{{$code['name']}}" placeholder="请输入您的姓名">
+
 					</p>
 					<p>
 						<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
-						<input name="phone" id="name" class="phone" type="text" placeholder="请输入手机号码">
+						<!-- <input name="phone" id="name" class="phone" type="text" placeholder="请输入手机号码"> -->
+                        <input name="phone" id="name" class="phone" type="text" value="{{$code['phone']}}" placeholder="请输入手机号码">
+
 					</p>
 					<p>
 						<label for="name">维修地址：</label>
-						<input name="address" id="name" class="address" type="text" placeholder="请输入您的详细地址">
+						<!-- <input name="address" id="name" class="address" type="text" placeholder="请输入您的详细地址"> -->
+                    	<input name="address" id="name" class="address" type="text" value="{{$code['address']}}" placeholder="请输入您的详细地址">
+
 					</p>
 					<p>
 						<label for="name" style="padding-top: 10px;">客服电话：<a href="tel:4000000" class="telephone">400-800-7851</a></label>
