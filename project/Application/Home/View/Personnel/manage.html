@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1" >
+
+<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/all-devices.css">
+
+<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
+<title>绑定指引</title>
+<style>
+	#devices-list>h3,
+	#devices-list>ul>li,
+	#devices-add>p {
+		font-size: 0.473333rem;
+	}
+	#devices-add>p {
+		color: #039CE9 !important;
+	}
+	#devices-add {
+		width: 100%;
+		height: 8%;
+		display: flex;
+		color: #039CE9 !important;
+		align-items: center;
+		z-index: 999;
+	}
+	.logoBg{
+
+	}
+</style>
+<script>	
+		$(function(){
+			$('#devices-list li').bind('click',function(){
+				var device_code = $(this).attr('title');
+				var _this = this;
+				$.post('{{:U("Home/Devices/setNowDevices")}}',{ 'device_code':device_code }, function(res){
+					// 判断购物车是否添加成功
+					if(res==1){
+						$('#devices-list ul li b').removeClass('iconfont icon-chenggong');
+						$(_this).children('b').addClass('iconfont icon-chenggong');	
+					}
+				});
+	
+			});	
+		});
+
+		$(function(){
+			$('#devices-add').bind({
+				'mouseover' : function () { 
+
+				$(this).css('color','#FF8600');
+				},
+				'mouseout' : function () {
+				$(this).css('color','#ccc');
+				}
+			});
+		});
+	</script>
+
+</head>
+<body>
+<div id="devices-all">
+	<div id="devices-container">
+		<div id="devices-list">
+			<h3>所有设备</h3>
+			<ul>
+				<foreach name="devices"	item="value">				
+					<if condition="$currentDevices['did'] == $value['id'] ">
+							<!-- 用户当前设备 -->
+							<li title="{{$value['device_code']}}"><p><span></span></p>设备编码:{{$value['device_code']}}</li>
+					    <else />
+					    	<li title="{{$value['device_code']}}"><p></p>设备编码:{{$value['device_code']}}</li>
+					</if>
+				</foreach>
+			</ul>
+		</div>	
+	</div>
+	<div id="devices-add" style="color: #000;background: #F1F1F1">
+		<i class="iconfont icon-jiahao"></i><p>添加设备</p>
+	</div>
+</div>
+<script>
+	//微信接口
+	wx.config({
+	    debug: false,
+	    appId: '{{$info["appId"]}}',
+	    timestamp: '{{$info["timestamp"]}}',
+	    nonceStr: '{{$info["nonceStr"]}}',
+	    signature: '{{$info["signature"]}}',
+	    jsApiList: [
+	      // 所有要调用的 API 都要加到这个列表中
+	      'configWXDeviceWiFi', 
+	      'scanQRCode'
+	    ]
+	});	
+	// 扫码绑定设备
+	$("#devices-add").click(function(){
+		wx.scanQRCode({
+		    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+		    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+		    success: function (res) {
+		    	if (res.errMsg === "scanQRCode:ok"){
+			    	// 当needResult 为 1 时，扫码返回的结果
+				    $.ajax({
+				    	url:"{{:U('Home/Devices/bind')}}",
+				    	type:"post",
+				    	data:{device_code:res.resultStr},
+				    	dataType:'json',
+				    	success:function(data){
+				    		if(data==1){
+				    			// 绑定成功，跳转到填写用户安装信息
+				    			window.location.href = "{{:U('Home/Users/personalinformation')}}?"+new Date().getTime();
+				    		}else if(data==-1){
+				    			alert('设备不存在！');
+				    		}else if(data==-2){
+				    			alert('设备已被绑定！');
+				    		}else{
+				    			alert('设备绑定失败！');
+				    		}
+	
+				    	},
+				    	error:function(jqXHR, textStatus, errorThrown){
+		    				alert("绑定失败" + jqXHR.status + textStatus + errorThrown);
+				    		//console.log(jqXHR.status);
+				    	}
+				    });
+				    //alert(res.resultStr);
+			    }
+			}
+		});
+	});
+
+	$("#devices-list>ul>li").click(function(){
+		location.href = "{{:U('Home/Users/mine')}}";
+	})
+</script>
+
+</body>
+</html>
