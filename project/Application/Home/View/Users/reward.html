@@ -73,7 +73,6 @@
       .rewardFoot ul li span b{
         margin-left: 0.26rem
       }
-      /*我的金币没有相关记录*/
       .noRewardFoot {
         margin: 8.0rem auto 0;
         width: 40%;
@@ -91,20 +90,18 @@
              <p>服务记录</p>
              <div class="iconReward">
                 <span>累计：</span>
-                <p>报装&nbsp;{{ num[0] }}</p>
+                <p>安装&nbsp;{{ num[0] }}</p>
                 <p>维修&nbsp;{{ num[1] }}</p>
              </div>
            </div>
         </div>
         <div class="rewardFoot">
           <ul>
-            <!-- <volist name="data" id="v"> -->
-              <li v-for='item in data'>
-                <!-- <span>{{$v.type}}</span> -->
-                <span>啊啊啊啊啊啊啊啊啊</span>
-                <!-- <span>{{$v.time}}</span> -->
-              </li>
-            <!-- </volist> -->
+            <li v-for='item in data'>
+              <span v-if='item.type == 0'>安装</span>
+              <span v-else-if='item.type == 1'>报修</span>
+              <span>{{ item.time }}</span>
+            </li>
           </ul>
         </div>
        
@@ -115,12 +112,11 @@
   <script src="__PUBLIC__/Home/js/vue.min.js"></script>
   <script>
     $(function(){
-      var url = '{{:U("Users/reward")}}';
       var app = new Vue({
         el: '._reward',
         data() {
           return {
-            data: '',
+            data: [],
             num: [0, 0]
           }
         },
@@ -130,31 +126,25 @@
 
           // 请求数据
           $.ajax({
-            url: '{{:U("")}}',
+            url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              var data = [
-              {name:'报装',status:'0',time:'1520649911'},
-              {name:'维修',status:'1',time:'1520649241'},
-              {name:'报装',status:'0',time:'1520649921'},
-              {name:'维修',status:'1',time:'1520641941'}]
               console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
-              for(var i=0; i<data.length; i++){
-                data[i].time = that.getLocaltime(data[i].time);
-
-                // 统计报装， 维修数量
-                if(data[i].status == 0){
+              for(var i=0; i<res.length; i++){
+                
+                if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
 
-                }else if(data[i].status == 1){
+                }else if(res[i].type == 1){// 统计维修数量
                   that.num[1]++;
 
                 }
+                // 将数据更新到 data 
+                that.data.push(res[i]);
               }
-              // 将数据更新到 data 
-              that.data = data;
               console.log(that.data);
+              console.log(that.num)
             },
             error: function(res){
               console.log('请求失败！', res);
