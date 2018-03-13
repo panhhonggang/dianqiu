@@ -1,0 +1,50 @@
+ {__CONTENT__}
+ <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont/iconfont.css">
+ <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+<style type="text/css">
+	/*首页键*/
+	.linkBox{
+		width: 100%;
+		height: 7.5vh;
+		line-height: 7.5vh;
+		z-index: 100000000000000;
+		background:rgba(12, 93, 134, 1);
+		font-size: .5rem !important;
+		font-family: "微软雅黑";
+		
+	}
+	.linkBox a{
+		color: #fff;
+		display: inline-block;
+		padding: 0 20px;
+	}
+	.linkBox a:hover{
+		text-decoration: none !important;
+	}
+	.linkBox a:first-child{
+		float: left;
+	}
+	.linkBox a:last-child{
+		float:right;
+	}
+	.linkBox .icon-fanhuitubiao{
+		width: 25px;
+		height: 25px;
+		display: block;
+		background:#f00;
+	}
+	.linkBox .icon-fanhuitubiao:before { content: "\e62e"; }
+</style>
+<script type="text/javascript">
+
+    // 公版项目“首页”、“返回”按钮
+    !function(){//alert('我是隔壁老王');
+    	// console.log({{:U('/Home/index')}});
+    	// alert("{{:U('/Home/index')}}");
+    var aHtml='<div class="linkBox">'+
+            '<a class="returnBtn" href="javascript:history.go(-1);">返回</a><i class=".icon-fanhuitubiao"></i>'+
+            '<a class="indexBtn" href="{{:U('/Home/index')}}">首页</a>'+
+            '</div>';
+    $("body").prepend(aHtml);
+    }()
+</script>
