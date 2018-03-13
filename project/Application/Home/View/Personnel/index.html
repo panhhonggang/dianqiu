@@ -52,27 +52,40 @@
 		.installFunction > div:last-child > p:last-child {
 			background-color:rgb(201,144,91);
 		}
-
+		.error {
+			display: block;
+		}
 	</style>
 </head>
 <body>
-	<div id="contain">
-		<div class="install">
-			<h5>请选择需要执行的命令</h5>
-			<div class="installFunction clearfix">
-				<div style="background-color:rgb(129,185,230)">
-					<p><img src="__PUBLIC__/Home/images/icon_ins@2x.png" alt=""></p>
-					<p>安装设备</p>
-				</div>
-				<div style="background-color:rgb(237,184,133)">
-					<p><img src="__PUBLIC__/Home/images/icon_charge@2x.png" alt=""></p>
-					<p>代充入口</p>
-				</div>
+<div id="contain">
+	<div class="install">
+		<h5>请选择需要执行的命令</h5>
+		<div class="installFunction clearfix" id="div1">
+
+			<div style="background-color:rgb(129,185,230)">
+				<p><img src="__PUBLIC__/Home/images/icon_ins@2x.png" alt=""></p>
+				<p>安装设备</p>
 			</div>
+
+
+
+			<div style="background-color:rgb(237,184,133)"  onclick="window.location.href="{{:U('Home/Personnel/personal')}}">
+			<p><img src="__PUBLIC__/Home/images/icon_charge@2x.png" alt=""></p>
+			<p>代充入口</p>
 		</div>
+
+
 	</div>
+</div>
+</div>
 </body>
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <script src="__PUBLIC__/Admin/layui/layui.js"></script>
 <script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+    $('#div1').click(function(){
+        location.href = "{{:U('Home/Personnel/personal')}}";
+    })
+</script>
 </html>
