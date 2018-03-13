@@ -96,13 +96,13 @@
 			var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
 			console.log(srearchInfo)
 			$('input[name="typename"]').val(srearchInfo['type']);
-		    remodel = $('select>option:selected').val(srearchInfo['remodel']);
-		    minmoney = $('input[name="minmoney"]').val(srearchInfo['minmoney']);
-		    maxmoney = $('input[name="maxmoney"]').val(srearchInfo['maxmoney']);
-		    flow = $('input[name="flow"]').val(srearchInfo['flow']);
-		    describe = $('input[name="describe"]').val(srearchInfo['describe']);
-		    mintime = $('input[name="mintime"]').val(srearchInfo['mintime']);
-		    maxtime = $('input[name="maxtime"]').val(srearchInfo['maxtime']);
+		    $('select>option').eq(srearchInfo['remodel'])[0].selected = true;
+		    $('input[name="minmoney"]').val(srearchInfo['minmoney']);
+		    $('input[name="maxmoney"]').val(srearchInfo['maxmoney']);
+		    $('input[name="flow"]').val(srearchInfo['flow']);
+		    $('input[name="describe"]').val(srearchInfo['describe']);
+		    $('input[name="mintime"]').val(srearchInfo['mintime']);
+		    $('input[name="maxtime"]').val(srearchInfo['maxtime']);
 		}
 	    /**************** 搜索关键字保留 -- 结束 ******************/
 
@@ -158,4 +158,5 @@
 	    /********** 设置导航栏当前位置 高亮 选中 -- 结束 ***********/
 
 	});
+
 </script>
