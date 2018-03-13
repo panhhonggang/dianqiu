@@ -20,7 +20,7 @@ html, body {
 ul li{
 	list-style: none;
 }
-
+ 
 /*order_detail css*/
 @media screen and (min-width: 1399px) {
     ._float_left {
@@ -402,4 +402,12 @@ span.select-box select,span.select-box input{
 .submitBtn button:hover{
 	background-color: #eee !important;
 	color:#555 !important;
+}
+body .mbtn {
+	color: #fff !important;
+	background-color: #0088cc !important;
+}
+body .mbtn:hover {
+	color: #fff !important;
+	background-color: #0f5994 !important;
 }

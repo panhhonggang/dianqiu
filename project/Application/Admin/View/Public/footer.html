@@ -12,99 +12,150 @@
     var windowh=$(window).height();
     var navH=$("#nav").height(windowh-70);
     $(function(){
-    	var newdate = new Date(),
-    	year = newdate.getFullYear(),
-    	month = (newdate.getMonth()+'').length == 1 
-                  ? '0' + (newdate.getMonth()+1)
-                  : newdate.getMonth()-0+1,
-        date = (newdate.getDate()+'').length == 1 
-                  ? '0' + newdate.getDate()
-                  : newdate.getDate();
-    	var now = year +'-'+ month +'-'+ date;
-    	// console.log(year, month, date);
-    	// $("#date-start").val(now);
-    	 // 起始时间
-        var startdate = $("#date-start").datetimepicker({  
-            format: 'YYYY-MM-DD',  
-            locale: moment.locale('zh-cn'),
-            maxDate: now
-        });  
-        
-        //结束时间
-		var enddate = $("#date-end").datetimepicker({  
-            format: 'YYYY-MM-DD',  
-            locale: moment.locale('zh-cn'),
-            maxDate: now
-        }); 
-         //动态设置最小值  
-	    startdate.on('dp.change', function (e) {  
-	        enddate.data('DateTimePicker').minDate(e.date);  
-	    });  
-	    //动态设置最大值  
-	    enddate.on('dp.change', function (e) {  
-	        startdate.data('DateTimePicker').maxDate(e.date);  
-	    });
-	    // 添加时分秒
-	    $('#date-start').on("blur", function(){
-	    	var val = $("#date-start").val();
-	    	$("#date-start").val(val+'\t00:00:00');
-	    	// console.log($("#date-start").val())
-	    })
-	    // 添加时分秒
-	    $('#date-end').on("blur", function(){
-	    	var val = $("#date-end").val();
-	    	$("#date-end").val(val+'\t00:00:00');
-	    	// console.log($("#date-end").val())
-	    })
-	    /* 
-	    	设置导航栏当前位置 高亮 选中
+ 
+	    /**************** 按时间搜索 -- 开始 ******************/
+	    	var newdate = new Date(),
+	    	year = newdate.getFullYear(),
+	    	month = (newdate.getMonth()+'').length == 1 
+	                  ? '0' + (newdate.getMonth()+1)
+	                  : newdate.getMonth()-0+1,
+	        date = (newdate.getDate()+'').length == 1 
+	                  ? '0' + newdate.getDate()
+	                  : newdate.getDate();
+	    	var now = year +'-'+ month +'-'+ date;
+	    	// console.log(year, month, date);
+	    	// $("#date-start").val(now);
+	    	 // 起始时间
+	    	
+	        var startdate = $("#date-start").datetimepicker({  
+	            format: 'YYYY-MM-DD',  
+	            locale: moment.locale('zh-cn')
+	        });  
+	        
+	        //结束时间
+			var enddate = $("#date-end").datetimepicker({
+	            format: 'YYYY-MM-DD',  
+	            locale: moment.locale('zh-cn')
+	        }); 
+	         //动态设置最小值  
+		    startdate.on('dp.change', function (e) {  
+		        enddate.data('DateTimePicker').minDate(e.date);  
+		    });  
+		    //动态设置最大值  
+		    enddate.on('dp.change', function (e) {  
+		        startdate.data('DateTimePicker').maxDate(e.date);  
+		    });
+		    // 添加时分秒
+		    $('#date-start').on("blur", function(){
+		    	var val = $("#date-start").val();
+		    	$("#date-start").val(val+'\t00:00:00');
+		    	// console.log($("#date-start").val())
+		    })
+		    // 添加时分秒
+		    $('#date-end').on("blur", function(){
+		    	var val = $("#date-end").val();
+		    	$("#date-end").val(val+'\t00:00:00');
+		    	// console.log($("#date-end").val())
+		    })
+
+	    /**************** 按时间搜索 -- 结束 ******************/
+
+	    /**************** 搜索关键字保留 -- 开始 ******************/
+	    var srearchInfo = {};
+	    var type, remodel, minmoney, maxmoney, 
+	    	flow, describe, mintime, maxtime;
+	    /**
+	     * type: 产品类型, remodel：套餐模式, 
+	     * minmoney：最小金额, maxmoney：最大金额, 
+	     * flow：套餐量, describe：套餐名称, 
+	     * mintime：开始时间, maxtime：结束时间
 	     */
-	    var href = location.href, nowPos;   // nowPos：当前文件地址
-	    if(href.indexOf('html') > -1){
-	        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
-	    }else{
-			nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
-	    }
-	  	// console.log('nowPos: ',nowPos);
-	    // 导航下的所有连接
-	    var alink = $(".item");
-	    // console.log('alink: ',alink)
-	    // 高亮 选择当前地址的导航
-	    if(nowPos == 'Index/index.html'){
-	    	return
-	    	// 以下代码不在首页生效
-	    }
-	    for(var i=0; i<alink.length; i++){
-	    	alink[i].onclick = function(){
-	    		sessionStorage.setItem('nav_now', this.getAttribute("href"));
-	    		
-	    	}
-	    }
-	    if(sessionStorage.getItem('nav_now')){
-	    	var thisModule, thisMenu, thisSelect;		// 当前模块， 当前菜单
-	    	var nowurl = sessionStorage.getItem('nav_now'),
-	    		now = nowurl.substring(nowurl.lastIndexOf('/Admin/')+7, nowurl.indexOf('html')+4);
-	    	// console.log(now, nowurl);
-	    	for(var i=0; i<alink.length; i++){
-	    		if(now == 'Index/index.html'){
-			    	return
-			    	// 以下代码不在首页生效
-			    }
-	    		if(alink[i].getAttribute('href').indexOf(now) > -1){
-	    			thisSelect = alink[i];
-	    			thisMenu = alink[i].parentNode.parentNode;
-	    			thisModule = alink[i].parentNode.parentNode.parentNode;
+		// 点击搜索
+		$("button[name='search']").click(function(){
+			type = $('input[name="typename"]').val(),
+		    remodel = $('select>option:selected').val(),
+		    minmoney = $('input[name="minmoney"]').val(),
+		    maxmoney = $('input[name="maxmoney"]').val(),
+		    flow = $('input[name="flow"]').val(),
+		    describe = $('input[name="describe"]').val(),
+		    mintime = $('input[name="mintime"]').val(),
+		    maxtime = $('input[name="maxtime"]').val();
 
-	    			thisSelect.style.color = '#1963aa';
-	    			thisMenu.style.display = 'block';
-	    			thisModule.setAttribute('class', 'open');
+			srearchInfo['type'] = type;
+			srearchInfo['remodel'] = remodel;
+			srearchInfo['minmoney'] = minmoney;
+			srearchInfo['maxmoney'] = maxmoney;
+			srearchInfo['flow'] = flow;
+			srearchInfo['describe'] = describe;
+			srearchInfo['mintime'] = mintime;
+			srearchInfo['maxtime'] = maxtime;
+			sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+		})
+		// 搜索关键字保留
+		if(sessionStorage.getItem('search')){
+			var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+			console.log(srearchInfo)
+			$('input[name="typename"]').val(srearchInfo['type']);
+		    remodel = $('select>option:selected').val(srearchInfo['remodel']);
+		    minmoney = $('input[name="minmoney"]').val(srearchInfo['minmoney']);
+		    maxmoney = $('input[name="maxmoney"]').val(srearchInfo['maxmoney']);
+		    flow = $('input[name="flow"]').val(srearchInfo['flow']);
+		    describe = $('input[name="describe"]').val(srearchInfo['describe']);
+		    mintime = $('input[name="mintime"]').val(srearchInfo['mintime']);
+		    maxtime = $('input[name="maxtime"]').val(srearchInfo['maxtime']);
+		}
+	    /**************** 搜索关键字保留 -- 结束 ******************/
 
-	    			// console.log('thisSelect: ', thisSelect);
-	    			// console.log('thisMenu: ', thisMenu);
-	    			// console.log('thisModule: ', thisModule);
-	    		}
-	    	}
-	    }
+	    /********** 设置导航栏当前位置 高亮 选中 -- 开始 ***********/
+
+		    var href = location.href, nowPos;   // nowPos：当前文件地址
+		    if(href.indexOf('html') > -1){
+		        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
+		    }else{
+				nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
+		    }
+		  	// console.log('nowPos: ',nowPos);
+		    // 导航下的所有连接
+		    var alink = $(".item");
+		    // console.log('alink: ',alink)
+		    // 高亮 选择当前地址的导航
+		    if(nowPos == 'Index/index.html'){
+		    	return;
+		    	// 以下代码不在首页生效
+		    }
+		    for(var i=0; i<alink.length; i++){
+		    	alink[i].onclick = function(){
+		    		sessionStorage.setItem('nav_now', this.getAttribute("href"));
+		    		
+		    	}
+		    }
+		    if(sessionStorage.getItem('nav_now')){
+		    	var thisModule, thisMenu, thisSelect;		// 当前模块， 当前菜单
+		    	var nowurl = sessionStorage.getItem('nav_now'),
+		    		now = nowurl.substring(nowurl.lastIndexOf('/Admin/')+7, nowurl.indexOf('html')+4);
+		    	// console.log(now, nowurl);
+		    	for(var i=0; i<alink.length; i++){
+		    		if(now == 'Index/index.html'){
+				    	return
+				    	// 以下代码不在首页生效
+				    }
+		    		if(alink[i].getAttribute('href').indexOf(now) > -1){
+		    			thisSelect = alink[i];
+		    			thisMenu = alink[i].parentNode.parentNode;
+		    			thisModule = alink[i].parentNode.parentNode.parentNode;
+
+		    			thisSelect.style.color = '#1963aa';
+		    			thisMenu.style.display = 'block';
+		    			thisModule.setAttribute('class', 'open');
+
+		    			// console.log('thisSelect: ', thisSelect);
+		    			// console.log('thisMenu: ', thisMenu);
+		    			// console.log('thisModule: ', thisModule);
+		    		}
+		    	}
+		    }
+
+	    /********** 设置导航栏当前位置 高亮 选中 -- 结束 ***********/
 
 	});
 </script>
