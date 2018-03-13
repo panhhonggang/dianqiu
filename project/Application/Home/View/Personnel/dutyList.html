@@ -80,76 +80,23 @@
 <body>
 	<div id="contain">
 		<ul class="userDetail">
-			<li>
-				<a href="####">
-					<ol class="detailInfo clearfix">
-						<li>
-							<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
-						</li>
-						<li>
-							<p>工单号：<span>111111111111</span></p>
-							<p>设备编码：<span>13556429872</span></p>
-						</li>
-						<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
-					</ol>
-				</a>
-			</li>
-			<li>
-				<a href="####">
-					<ol class="detailInfo clearfix">
-						<li>
-							<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
-						</li>
-						<li>
-							<p>用户：<span>李四</span></p>
-							<p>联系电话：<span>13556429872</span></p>
-						</li>
-						<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
-					</ol>
-				</a>
-			</li>
-			<li>
-				<a href="####">
-					<ol class="detailInfo clearfix">
-						<li>
-							<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
-						</li>
-						<li>
-							<p>用户：<span>李四</span></p>
-							<p>联系电话：<span>13556429872</span></p>
-						</li>
-						<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
-					</ol>
-				</a>
-			</li>
-			<li>
-				<a href="####">
-					<ol class="detailInfo clearfix">
-						<li>
-							<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
-						</li>
-						<li>
-							<p>用户：<span>李四</span></p>
-							<p>联系电话：<span>13556429872</span></p>
-						</li>
-						<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
-					</ol>
-				</a>
-			</li>
-			<li>
-				<a href="####">
-					<ol class="detailInfo clearfix">
-						<li>
-							<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
-						</li>
-						<li>
-							<p>用户：<span>李四</span></p>
-							<p>联系电话：<span>13556429872</span></p>
-						</li>
-						<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
-					</ol>
-				</a>
-			</li>
+			<foreach name="list" item="vo">
+				<li>
+					<a href="####">
+						<ol class="detailInfo clearfix">
+							<li>
+								<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
+							</li>
+							<li>
+								<p>工单号：<span>{{$vo.number}}</span></p>
+								<p>设备编码：<span>{{$vo.dcode}}</span></p>
+							</li>
+							<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
+						</ol>
+					</a>
+				</li>	
+			</foreach>
+			
 		</ul>
 	</div>
 </body>
