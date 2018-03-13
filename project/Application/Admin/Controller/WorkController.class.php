@@ -18,26 +18,52 @@ class WorkController extends CommonController
      */
     public function index()
     {	
-       // 根据名称进行搜索
-         $map = '';
-      if(strlen($_GET['number'])) $map['number'] = array('like',"%{$_GET['number']}%");
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['phone'] = array('like',"%{$_GET['value']}%");                  
-                    break;
-                case '3':
-                    $map['address'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
+        /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'number' => trim(I('post.number')),
+            'name' => trim(I('post.name')),
+            'phone' => trim(I('post.phone')),
+            'type' => trim(I('post.type')),
+            'address' => trim(I('post.address')),
+            'result' => trim(I('post.result')),
+        );
+        // $mintime = trim(I('post.mintime'))?:0;
+        // $maxtime = trim(I('post.maxtime'))?:-1;
+        // if (is_numeric($maxtime)) {
+        //     $map['time'] = array(array('egt',$mintime),array('elt',$maxtime));
+        // }
+        // if ($maxtime < 0) {
+        //     $map['time'] = array(array('egt',$mintime));      
+        // }       
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
             }
-        }      
+            return false;
+        });
+
         $type = D('work');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $type->where($map)
+                    ->getAll();
+            $filename = '工单列表数据';
+            $title = '工单列表';
+            $cellName = ['id','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','处理时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
+        
         if($this->get_level()){
             //$map['pub_binding.vid'] = $_SESSION['adminuser']['id']; //缺少数据字段 后续维护
         }
