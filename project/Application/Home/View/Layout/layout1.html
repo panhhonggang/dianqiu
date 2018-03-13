@@ -1,6 +1,6 @@
  {__CONTENT__}
- <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont/iconfont.css">
- <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+ <!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/iconfont/iconfont.css"> -->
+ <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 <style type="text/css">
 	/*首页键*/
 	.linkBox{
@@ -16,7 +16,7 @@
 	.linkBox a{
 		color: #fff;
 		display: inline-block;
-		padding: 0 20px;
+		
 	}
 	.linkBox a:hover{
 		text-decoration: none !important;
@@ -26,23 +26,20 @@
 	}
 	.linkBox a:last-child{
 		float:right;
+		padding: 0 20px;
 	}
-	.linkBox .icon-fanhuitubiao{
-		width: 25px;
-		height: 25px;
-		display: block;
-		background:#f00;
+	.linkBox .icon-zuo{
+		display: inline-block;
+		color: #fff;
+		margin-left: .2rem;
 	}
-	.linkBox .icon-fanhuitubiao:before { content: "\e62e"; }
 </style>
 <script type="text/javascript">
 
     // 公版项目“首页”、“返回”按钮
-    !function(){//alert('我是隔壁老王');
-    	// console.log({{:U('/Home/index')}});
-    	// alert("{{:U('/Home/index')}}");
-    var aHtml='<div class="linkBox">'+
-            '<a class="returnBtn" href="javascript:history.go(-1);">返回</a><i class=".icon-fanhuitubiao"></i>'+
+    !function(){
+    var aHtml='<div class="linkBox"><i class="iconfont icon-zuo"></i>'+
+            '<a class="returnBtn" href="javascript:history.go(-1);">返回</a>'+
             '<a class="indexBtn" href="{{:U('/Home/index')}}">首页</a>'+
             '</div>';
     $("body").prepend(aHtml);
