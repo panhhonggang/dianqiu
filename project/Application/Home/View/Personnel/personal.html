@@ -114,16 +114,19 @@
 			</ul>
 		</div>
 		<div class="infoSet">
-			<a href="{{:U('Home/Personnel/dutyList')}}">
-			<div class="download clearfix">
-				<p><span class="installIcon"><img src="__PUBLIC__/Home/images/login_icon_ins@2x.png" alt=""></span>待安装</p>
-				<p><i style="background-color:rgb(249,88,107);">5</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
-			</div>
-				</a>
-			<div class="download clearfix">
-				<p><span class="installIcon "><img src="__PUBLIC__/Home/images/login_icon_fin@2x.png" alt=""></span>已完成</p>
-				<p><i style="background-color:rgb(50,201,124);">5</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
-			</div>
+
+			<a href="{{:U('Home/Personnel/dutyList',array('result'=>0))}}">
+				<div class="download clearfix">
+					<p><span class="installIcon"><img src="__PUBLIC__/Home/images/login_icon_ins@2x.png" alt=""></span>待安装</p>
+					<p><i style="background-color:rgb(249,88,107);">{{$not_install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
+				</div>
+			</a>
+			<a href="{{:U('Home/Personnel/dutyList',array('result'=>2))}}">
+				<div class="download clearfix">
+					<p><span class="installIcon "><img src="__PUBLIC__/Home/images/login_icon_fin@2x.png" alt=""></span>已完成</p>
+					<p><i style="background-color:rgb(50,201,124);">{{$install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
+				</div>
+			</a>
 		</div>
 	</div>
 </body>

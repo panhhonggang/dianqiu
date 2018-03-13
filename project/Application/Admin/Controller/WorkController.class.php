@@ -99,12 +99,19 @@ class WorkController extends CommonController
         $repair = M('repair');
         $data['result'] = $_GET['result'];
         $res = $work->where('id='.$id)->save($data); 
+        // dump($id);
         if ($res) {
-            $repair_id = $work->where('id='.$res)->getField('repair_id');
-            $status = ['status'=>1];
+            $repair_id = $work->where('id='.$id)->getField('repair_id');
+            // dump($repair_id);
+            if($result == 1){
+                $status = ['status'=>3];
+            } elseif($result == 2) {
+                $status = ['status'=>1];
+            } else {
+                $status = ['status'=>2];
+            }
             $res_repair = $repair->where('id='.$repair_id)->save($status);
-            // echo $repair->_sql();
-            // dump($res_repair);die;
+            dump($res_repair);
             if($res_repair){
                 $this->redirect('work/index');
             }

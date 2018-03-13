@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-
+use Common\Controller\MYExcel;
 /**
  * 充值套餐控制器
  * 后台用来设置充值套餐和浏览充值套餐的控制器
@@ -18,6 +18,9 @@ class SetmealController extends CommonController
      */
     public function index()
     {	
+        /*
+            Excel导出
+         */
         require_once VENDOR_PATH.'PHPExcel.php';
         $phpExcel = new \PHPExcel();
         // dump($phpExcel);
@@ -43,8 +46,22 @@ class SetmealController extends CommonController
             }
             return false;
         });
-        
+
         $type = M('setmeal');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $type->where($map)
+                    ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
+                    ->field('pub_setmeal.id,remodel,money,flow,describe,pub_device_type.typename,pub_setmeal.addtime')
+                    ->select();
+            $filename = '套餐列表';
+            $title = '套餐列表';
+            $cellName = ['id','充值模式','套餐金额','套餐流量/时长','套餐描述','设备','添加时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
         
         $total =$type->where($map)
                     ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
@@ -59,7 +76,8 @@ class SetmealController extends CommonController
                     ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
                     ->field('pub_setmeal.*,pub_device_type.typename')
                     ->select();
-        // dump($list);die;
+        //dump($list);die;
+        
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();
@@ -109,8 +127,16 @@ class SetmealController extends CommonController
         } else {
             $this->error("删除失败");
         }
+    }    
+
+    public function test()
+    {
+        $filename = '套餐列表';
+        $title = '套餐列表1';
+        $cellName = ['id','工单编号','工单标题','电话','类型','内容','地址','结果','时间'];
+        $data = D('work')->select();
+        // dump($data);die;
+        $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+        $myexcel->output();
     }
-
-    
-
 }

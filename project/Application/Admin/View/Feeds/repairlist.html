@@ -46,15 +46,16 @@
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                             <td>
                                 <switch name="vo.status">
-                                    <case value="0">未处理</case>
-                                    <case value="1">已处理</case>
+                                    <case value="0">待处理</case>
+                                    <case value="1">已处理完成</case>
                                     <case value="2">正在处理中</case>
+                                    <case value="3">任务进行中</case>
                                     <default />
                                 </switch>
                             </td>
                             <td>
                                 <switch name="vo.status">
-                                    <case value="0"><a href="{{:U('Work/add',['id'=>$vo['id']])}}">派人处理</a></case>
+                                    <case value="0"><a href="{{:U('Work/add',['id'=>$vo['id']])}}">生成工单</a></case>
                                     <default />
                                 </switch>
                             </td>

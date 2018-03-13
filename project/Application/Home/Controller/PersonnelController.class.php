@@ -44,13 +44,27 @@ class PersonnelController extends Controller
     public function personal(){
         //个人资料
         $user= M('personnel')->field('name,phone')->where('id', '=',23)->find();
+        //未安装统计
+        $not_install= M('work')->where(['result'=>0,'type'=>0,'personnel_id'=>23])->count();
+        //安装统计
+        $install= M('work')->where(['result'=>1,'type'=>0,'personnel_id'=>23])->count();
         $this->assign('user', $user);
+        $this->assign('not_install', $not_install);
+        $this->assign('install', $install);
         $this->display();
     }
     /*
      * 安装设备列表
      */
     public function dutyList(){
+        //处理结果(0：未处理 1：正在处理 2：已处理)
+        $where['result'] = I('get.result');
+        //工单类型(0：安装 1：维修 2：维护)
+        $where['type'] = 0;
+        //安装人
+        $where['personnel_id'] = 23;
+        $list = M('work')->field('number,dcode')->where($where)->select();
+        $this->assign('list', $list);
         $this->display();
     }
     /*
