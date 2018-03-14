@@ -7,19 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 	<style type="text/css">
-		.linkBox{
-			display: none !important;
-		}
-	</style>
+	.linkBox{
+		display: none !important;
+	}
+</style>
 </head>
 <body>
-<input type="hidden" value="{{$_SESSION['weixin'][1]['appId']}}" id="appId">
-<input type="hidden" value="{{$_SESSION['weixin'][1]['nonceStr']}}" id="nonceStr">
-<input type="hidden" value="{{$_SESSION['weixin'][1]['signature']}}" id="signature">
-<input type="hidden" value="{{$_SESSION['weixin'][1]['timestamp']}}" id="timestamp">
-<input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
-<input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
-<input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
+	<input type="hidden" value="{{$_SESSION['weixin'][1]['appId']}}" id="appId">
+	<input type="hidden" value="{{$_SESSION['weixin'][1]['nonceStr']}}" id="nonceStr">
+	<input type="hidden" value="{{$_SESSION['weixin'][1]['signature']}}" id="signature">
+	<input type="hidden" value="{{$_SESSION['weixin'][1]['timestamp']}}" id="timestamp">
+	<input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
+	<input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
+	<input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
 	<div class="content">
 		<div class="top">
 			<div class="topcontent">
@@ -79,24 +79,35 @@
 			</div>
 		</div>
 		<div class="bottom">
-				<ul class="clearfix">
-					<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
-					<li><a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText">开机</span></a></li>
-					<li><a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a></li>
-					<li><a class="charge" href="{{:U('Home/Shop/index')}}" class=""><p class="iconfont icon-chongzhi1"></p><span>充值</span></a></li>
-					<li><a href="{{:U('Home/Users/mine')}}"><p class="iconfont icon-wode1"></p><span>我的</span></a></li>
-					<li><a class="mall" href="{{:U('Home/Shop/index')}}"><p class="iconfont icon-chongzhi"></p><span>商城</span></a></li>
-				</ul>
+			<ul class="clearfix">
+				<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
+				<li><a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText">开机</span></a></li>
+				<li><a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a></li>
+				<li><a class="charge" href="{{:U('Home/Shop/index')}}" class=""><p class="iconfont icon-chongzhi1"></p><span>充值</span></a></li>
+				<li><a href="{{:U('Home/Users/mine')}}"><p class="iconfont icon-wode1"></p><span>我的</span></a></li>
+				<li><a class="mall" href="{{:U('Home/Shop/index')}}"><p class="iconfont icon-chongzhi"></p><span>商城</span></a></li>
+			</ul>
 		</div>
 	</div>
-<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Home/js/flexible.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
-<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-<!-- 微信JSSDK -->
-<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
-<script src="__PUBLIC__/Home/js/wx_share.js"></script>	
-<script>
+	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/flexible.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
+	<!-- 微信JSSDK -->
+	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
+	<script src="__PUBLIC__/Home/js/wx_share.js"></script>	
+	<script>
+	// 获取窗口高度
+	var docCH = document.documentElement.clientHeight;
+	console.log(docCH)
+	
+	var topH = document.getElementsByClassName("top")[0].offsetHeight;
+	console.log(topH)
+
+	var botH = docCH - topH;
+	console.log(botH)
+
+	// $(".bottom").css("height", botH);
 	// 记录是从充值进入商城还是点击商城进入商城
 	$(".mall").click(function(){
 		sessionStorage.setItem("shopFrom",'mall');
@@ -109,9 +120,9 @@
 	$(function(){
 		// 获取微信JSSDK所需的数据
 		var appId = $("#appId").val(),
-			nonceStr = $("#nonceStr").val(),
-			signature = $("#signature").val(),
-			timestamp = $("#timestamp").val();
+		nonceStr = $("#nonceStr").val(),
+		signature = $("#signature").val(),
+		timestamp = $("#timestamp").val();
 
 		// 调用微信分享
 		//wxShare(appId,nonceStr,signature,timestamp);
@@ -136,7 +147,7 @@
 			}else if(devicestause=="5"){//检修
 				service();
             }else if(devicestause=="6"){//欠费
-                arrearage();
+            	arrearage();
 			}else if(devicestause=="7"){ //关机
 				showDown();
 			}else if(devicestause=="8"){//开机
@@ -181,16 +192,17 @@
 		}
 		//欠费
 		function arrearage(){
-            $(".switchText").html("关机");
-            $(".arrearage").show().siblings().hide();
-            $(".content").css({height: '100vh'});
-            $("body").css({height:'100vh',filter:'grayscale(0%)'});
+			$(".switchText").html("关机");
+			$(".arrearage").show().siblings().hide();
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//关机
 		function showDown(){
 			$(".switchText").html("开机");
 			$(".showDown").show().siblings().hide();
 			$(".content").css({height: '100vh'});
+			$("html").css("background", "rgba(194,194,194,.5)");
 			$("body").css({height:'100vh',filter:'grayscale(100%)'});
 		}
 		//离线
@@ -198,6 +210,7 @@
 			$(".switchText").html("开机");
 			$(".outLine").show().siblings().hide();
 			$(".content").css({height: '100vh'});
+			$("html").css("background", "rgba(194,194,194,.5)");
 			$("body").css({height:'100vh',filter:'grayscale(100%)'});
 		}
 		machineStatus();//执行水机状态方法
@@ -246,7 +259,7 @@
 			}
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{	//console.log(dataList);
-                numAdd=0;
+				numAdd=0;
 				var usedFlow=parseInt(dataList.SumFlow);
 				var usedDay=parseInt(dataList.SumDay);
 
@@ -304,7 +317,7 @@
 				}else if(dataList.DeviceStause=="5"){//检修
 					service();
                 }else if(dataList.DeviceStause=="6"){//欠费
-                    arrearage();
+                	arrearage();
 				}else if(dataList.DeviceStause=="7"){ //关机
 					showDown();
 				}else if(dataList.DeviceStause=="8"){//开机
@@ -314,10 +327,10 @@
 		}
         //90秒后判断设备是否离线
         setInterval(function(){
-            numAdd++;
-            if(numAdd ==90){
-                outLine();
-            }
+        	numAdd++;
+        	if(numAdd ==90){
+        		outLine();
+        	}
         }, 1000);
 
 		//冲洗按钮操作
@@ -428,9 +441,9 @@
 		});
         //页面关闭后关闭websoket;
         window.onunload=function(){
-            websoket.close();
+        	websoket.close();
         };
-	})
+    })
 	//页面加载时执行结束
 </script>
 
