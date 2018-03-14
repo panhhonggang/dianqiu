@@ -1,4 +1,17 @@
 <include file="Public/header" />
+<style type="text/css">
+    select{
+        height: 33px;
+        width: 215px;
+    }
+    .editDealerList{
+        width: 215px;
+        background: #ccc;
+    }
+    .editDealerList a{
+        display: inline-block;
+    }   
+</style>
 <div class="content">
     <include file="Public/nav" />
     <div class="row-fluid fl" id="main">
@@ -17,13 +30,14 @@
                                     <else />
                                     <option value="0">查无数据</option>
                                 </notempty>
-                            </select>
+                            </select><a class="addBtn" href="javascript:void(0);">批量添加</a>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">请选择设备：</label>
+                        <label class="control-label">设备编号：</label>
                         <div class="controls">
-                            <select name="did" id="">
+                            <input type="hidden" class="deviceList" value={{$devices|JSON_encode}} name="">
+                            <!-- <select name="did" id="">
                                 <notempty name="devices">
                                     <foreach name="devices" item="vv" key="key">
                                         <option value="{{$vv.id}}" tip='1'>{{$vv.device_code}}</option>
@@ -31,7 +45,9 @@
                                     <else />
                                     <option value="0" tip='0'>查无数据</option>
                                 </notempty>
-                            </select>
+                            </select> -->
+                            <input class="deviceID" oninput="dealerFn('.deviceID','.editDealerList')" type="text" name="" placeholder="请输入设备编号">
+                            <div class="editDealerList" style="left: 380px;"></div> 
                         </div>
                     </div>
                     <div class="btn-groups">
@@ -39,17 +55,96 @@
                     </div>
                 </form>
             </div>
+            <!-- 批量添加弹框 -->
+            <div class="addBatch">
+                <form method="post" action="upload" enctype="multipart/form-data">
+                    <div class="control-group">
+                        <label class="control-label">请选择经销商：</label>
+                        <div class="controls">
+                            <select name="vid" id="">
+                                <notempty name="user">
+                                    <foreach name="user" item="vo" key="key">
+                                        <option value="{{$vo.id}}">{{$vo.name}}</option>
+                                    </foreach>
+                                    <else />
+                                    <option value="0">查无数据</option>
+                                </notempty>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">请选择添加文件：</label>
+                        <div class="controls">
+                            <input type="file" name="file" class="filename">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <button class="btn add_device">添加</button>
+                    </div>
+                    <!-- <input type="file" name="file" class="filename"> -->
+                    <!-- <button class="btn add_device">添加</button> -->
+                </form>
+            </div>
             <script src="__PUBLIC__/Home/js/public.js"></script>
             <script type='text/javascript'>
+                $(".addBtn").click(function(){
+                    //显示充值弹框
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.open({
+                            type: 1, 
+                            title: ['批量添加', 'font-size:18px;'],
+                            area: ['500px', '500px'],
+                            content: $(".addBatch")
+                        }); 
+                    });
+                });
                 $('#_formTable').submit(function(event) {
-                    var bool = $('select[name=did] option').attr('tip').trim()
+                    // var bool = $('select[name=did] option').attr('tip').trim()
+                    var bool = $(".deviceID").val();
                     if(Number(bool)){
                         return true
                     }else{
-                        layuiHint('设备号为空，请到&nbsp;“&nbsp;设备管理>>设备添加&nbsp;”&nbsp;里进行添加')
+                        // layuiHint('设备号为空，请到&nbsp;“&nbsp;设备管理>>设备添加&nbsp;”&nbsp;里进行添加')
+                        layuiHint('设备编号不能为空，请输入设备编号');
                         return false
                     }
                 });
+                var data = JSON.parse($(".deviceList").val());
+                //输入框改变值时候查询符合条件的值
+                function dealerFn(dealer,dealerList){
+                    $(dealerList).show();
+                    if(data.length>0){
+                        var content = '';
+                        var aDealers=[];
+                        for(var i=0;i<data.length;i++){
+                            content = content+'<a>'+data[i].device_code+'</a>';
+                            aDealers[i]=data[i].device_code;
+                        };
+                        var kw = jQuery.trim($(dealer).val());
+                        if(kw==""){
+                            $(dealerList).html(content);
+                        }else{
+                            var html = "";
+                            for (var j = 0; j <data.length; j++) {
+                                if (aDealers[j].indexOf(kw) >= 0) {
+                                    html = html+'<a>'+aDealers[j]+'</a><br/>'
+                                }
+                            }
+                            $(dealerList).html(html);
+                        }
+                        $(dealerList).children("a").unbind('click').click(function(){
+                            $(dealer).val($(this).html());
+                            $(dealerList).hide();
+                        });
+                        $("body").unbind('click').click(function()
+                        {
+                            $(dealerList).hide();
+                        });
+                    }else{
+                        alert(data.status.message);
+                    }
+                }
             </script>
         </div>
         <include file="Public/footer" />
