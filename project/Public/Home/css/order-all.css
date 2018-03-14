@@ -1,4 +1,4 @@
-ins,a{text-decoration:none!important;color: #000;}
+ins,a{text-decoration:none!important;color: #333;}
 a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
 a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
 a:hover{text-decoration:none!important;}/*指鼠标在链接*/}
