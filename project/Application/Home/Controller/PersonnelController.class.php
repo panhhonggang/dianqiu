@@ -7,14 +7,14 @@ use \Org\Util\WeixinJssdk;
  */
 class PersonnelController extends Controller
 {
-//
-//    function _initialize(){
-//
-//        if (session('pid') == null) {
-//            $this->error('你未登陆',U('home/users/login'),2);
-//        }
-//
-//    }
+
+    function _initialize(){
+
+        if (session('pid') == null) {
+            $this->error('你未登陆',U('home/users/login'),2);
+        }
+
+    }
 
 
     /*
