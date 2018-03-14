@@ -24,7 +24,7 @@ class Cx extends TagLib {
         'if'        =>  array('attr'=>'condition','level'=>2),
         'elseif'    =>  array('attr'=>'condition','close'=>0),
         'else'      =>  array('attr'=>'','close'=>0),
-        'switch'    =>  array('attr'=>'name','level'=>2),
+        'switch'    =>  array('attr'=>'name','level'=>3),
         'case'      =>  array('attr'=>'value,break'),
         'default'   =>  array('attr'=>'','close'=>0),
         'compare'   =>  array('attr'=>'name,value,type','level'=>3,'alias'=>'eq,equal,notequal,neq,gt,lt,egt,elt,heq,nheq'),

@@ -45,10 +45,11 @@
                     <th>收货人电话</th>
                     <th>收货地址</th>
                     <th>下单时间</th>
-                    <th>是否付款</th>
+                    <th>订单状态</th>
+                    <!-- <th>是否付款</th>
                     <th>是否发货</th>
                     <th>是否收货</th>
-                    <th>是否充值</th>
+                    <th>是否充值</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -64,44 +65,18 @@
                             <td>{{$vo.addres}}</td>
                             <td>{{$vo.created_at|date='Y-m-d H:i:s',###}}</td>
                             <td>
-                                <switch name="vo.is_pay">
-                                    <case value="0">未付款</case>
-                                    <case value="1">已付款</case>
-                                    <case value="2">已取消</case>
-                                    <default />
-                                </switch>
-                            </td>
-                            <!-- 需要一个弹窗  输入快递单号 -->
-                            <td>
-                                <switch name="vo.is_receipt">
-                                    <case value="0">
-                                        <a href="javascript:void(0)">
-                                            <if condition="$vo.is_pay eq 1">
-                                                <span style="color:red" class="_send">点击发货</span>
-                                            <else/>
-                                                <span ></span>
-                                            </if>
-                                        </a>
-                                    </case>
-                                    <case value="1">已发货</case>
-                                    <default />
-                                </switch>
+                                <if condition="$vo['is_pay'] eq 0 "> 待付款
+                                <elseif condition="$vo['is_pay'] eq 2 "/>订单已取消
+                                <elseif condition="$vo['is_receipt'] eq 0 "/>
+                                    <a href="javascript:void(0)">
+                                        <span style="color:red" class="_send">待发货</span>
+                                    </a>
+                                <elseif condition="$vo['is_ship'] eq 0 "/>待收货
+                                <elseif condition="$vo['is_ship'] eq 1 "/>已收货
+                                <else /> 订单完成
+                                </if>
                                 <input type="hidden" name="order_id" value="{{$vo.order_id}}">
                                 <input type="hidden" name="is_receipt" value="1">
-                            </td>
-                            <td>
-                                <switch name="vo.is_ship">
-                                    <case value="0">未收货</case>
-                                    <case value="1">已收货</case>
-                                    <default />
-                                </switch>
-                            </td>
-                            <td>
-                                <switch name="vo.is_recharge">
-                                    <case value="0">未充值</case>
-                                    <case value="1">已充值</case>
-                                    <default />
-                                </switch>
                             </td>
                         </tr>
                         </foreach>

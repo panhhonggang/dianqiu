@@ -84,16 +84,25 @@ class ActionController extends Controller
     // 登陆数据处理
     public function loginAction($message)
     {
+        $ReFlow = "";
+        $Reday = "";
+        $result = sysnc_info($message['DeviceID']);
+        if(!empty($result)){
+            $ReFlow = $result['ReFlow'];
+            $Reday = $result['Reday'];
+        }
         $data = [
-            'DataCmd'      => $message['DataCmd'],
-            'Device'       => $message['Device'],
-            'PackType'     => $message['PackType'],
-            'AliveStause'  => $message['AliveStause'],
-            'DeviceType'   => $message['DeviceType'],
-            'DeviceID'     => $message['DeviceID'],
-            'ICCID'        => $message['ICCID'],
-            'CSQ'          => $message['CSQ'],
-            'Loaction'     => $message['Loaction']
+            'DataCmd'     => $message['DataCmd'],
+            'Device'      => $message['Device'],
+            'PackType'    => $message['PackType'],
+            'AliveStause' => $message['AliveStause'],
+            'DeviceType'  => $message['DeviceType'],
+            'DeviceID'    => $message['DeviceID'],
+            'ICCID'       => $message['ICCID'],
+            'CSQ'         => $message['CSQ'],
+            'Loaction'    => $message['Loaction']
+            'Reday'       => $Reday,
+            'ReFlow'      => $ReFlow,
         ];
         $devices_id = M('devices')->where("device_code={$message['DeviceID']}")->getField('id');
         $status_id  = M('devices_statu')->where("DeviceID={$message['DeviceID']}")->getField('id');
@@ -163,6 +172,14 @@ class ActionController extends Controller
             $data['ReFlowFilter' . $i]   = $message['ReFlowFilter' . $i];
             $data['ReDayFilter' . $i]    = $message['ReDayFilter' . $i];
         }
+        return $data;
+    }
+
+    // 同步数据库的流量剩余信息
+    public function sysnc_info($dcode)
+    {
+        $map['DeviceID'] = $dcode;
+        $data = M('devices_statu')->where($map)->field('ReFlow,Reday')->find();
         return $data;
     }
 
