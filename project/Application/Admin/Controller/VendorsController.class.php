@@ -15,29 +15,57 @@ class VendorsController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function index()
-    {	
-        /// 查询条件
-        $map = '';
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['user'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '3':
-                    $map['email'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '4':                   
-                    $map['phone'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
+    {
+        /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'id' => trim(I('post.id')),
+            'user' => trim(I('post.user')),
+            'name' => trim(I('post.name')),
+            'phone' => trim(I('post.phone')),
+            'email' => trim(I('post.email')),
+            'address' => trim(I('post.address')),
+            'idcard' => trim(I('post.idcard')),
+            'leavel' => trim(I('post.leavel')),
+        );
+        // $minaddtime = trim(I('post.minaddtime'))?:0;
+        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
+        // if (is_numeric($maxaddtime)) {
+        //     $map['money'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        // }
+        // if ($maxaddtime < 0) {
+        //     $map['money'] = array(array('egt',$minaddtime));
+        // }
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
             }
-        }
+            return false;
+        });
+
         $user = D('vendors');
+        // PHPExcel 导出数据
+        if (I('output') == 1) {
+            $data = $user->where($map)
+                        ->field('id,user,name,phone,email,address,idcard,leavel,addtime')
+                        ->select();
+            $filename = '经销商列表数据';
+            $title = '经销商列表';
+            $cellName = ['用户Id','账号','昵称','手机号','邮箱','地址','身份证号','管理级别','最新添加时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
+
+
         $total = $user->where($map)->count();
         $page  = new \Think\Page($total,8);
         D('devices')->getPageConfig($page);
@@ -227,29 +255,57 @@ class VendorsController extends CommonController
      */
     public function bindinglist()
     {
-       // 根据用户昵称进行搜索
-        /// 查询条件
-        $map = '';
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['pub_vendors.name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['pub_vendors.phone'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '3':
-                    $map['pub_devices.device_code'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
-            }
-        }
         if($this->get_level()){
             $map['pub_vendors.id'] = $_SESSION['adminuser']['id'];
         }
+        /*
+             Excel导出
+          */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'pub_binding.vid' => trim(I('post.vid')),
+            'pub_binding.did' => trim(I('post.did')),
+            'pub_devices.device_code' => trim(I('post.device_code')),
+            'pub_vendors.phone' => trim(I('post.phone')),
+            'pub_vendors.name' => trim(I('post.name'))
+        );
+        // $minaddtime = trim(I('post.minaddtime'))?:0;
+        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
+        // if (is_numeric($maxaddtime)) {
+        //     $map['pub_binding.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        // }
+        // if ($maxaddtime < 0) {
+        //     $map['pub_binding.addtime'] = array(array('egt',$minaddtime));
+        // }
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
+
         $binding = M('binding');
+        // PHPExcel 导出数据
+        if (I('output') == 1) {
+            $data = $binding->where($map)
+                ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
+                ->join('pub_devices ON pub_binding.did = pub_devices.id')
+                ->field('pub_vendors.id,pub_binding.did,pub_devices.device_code,pub_vendors.name,pub_vendors.phone,pub_binding.addtime')
+                ->select();
+            $filename = '设备归属列表数据';
+            $title = '设备归属列表';
+            $cellName = ['经销商id','设备id','设备编码','经销商姓名','经销商手机','添加时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
+
         
         $total =$binding->where($map)
                     ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
@@ -265,7 +321,7 @@ class VendorsController extends CommonController
                                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                                 ->field('pub_binding.*,pub_vendors.name,pub_vendors.phone,pub_devices.device_code')
                                 ->select();
-
+//        dump($map);
         $this->assign('list',$bindinglist);
         $this->assign('button',$pageButton);
         $this->display(); 
