@@ -48,11 +48,19 @@ class WorkController extends CommonController
             }
             return false;
         });
+        if($this->get_level()){
+            $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
+
+        }
+
+
 
         $type = D('work');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
             $data = $type->where($map)
+                ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+                ->join('pub_binding ON pub_devices.id = pub_binding.did ')
                     ->getAll();
             $filename = '工单列表数据';
             $title = '工单列表';
@@ -63,16 +71,15 @@ class WorkController extends CommonController
             return ;
         }
 
-        
-        if($this->get_level()){
-            //$map['pub_binding.vid'] = $_SESSION['adminuser']['id']; //缺少数据字段 后续维护
-        }
         $total =$type->where($map)->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->getAll();
-        // dump($list);die;
+        $list = $type->where($map)
+            ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+            ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+            ->limit($page->firstRow.','.$page->listRows)->getAll();
+//         dump($list);
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

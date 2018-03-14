@@ -165,8 +165,13 @@
                     	<input name="address" id="name" class="address" type="text" value="{{$code['address']}}" placeholder="请输入您的详细地址">
 
 					</p>
-					<p>
-						<label for="name" style="padding-top: 10px;">客服电话：<a href="tel:4000000" class="telephone">400-800-7851</a></label>
+					<p>	
+						<if condition="$phone['csphone']">
+						<label for="name" style="padding-top: 10px;">客服电话：<a href="tel:{{$phone['csphone']}}" class="telephone">{{$phone['csphone']}}</a></label>
+						<else />
+						<label for="name" style="padding-top: 10px;">客服电话：<a href="tel:{{$phone['phone']}}" class="telephone">{{$phone['phone']}}</a></label>
+						</if>
+						
 						
 					</p>
 				</div>
