@@ -18,11 +18,54 @@ class ProductController extends CommonController
      */
     public function index()
     {	
-       // 根据类型名称进行搜索
-        $map = '';
-        if(!empty($_GET['typename'])) $map['typename'] = array('like',"%{$_GET['typename']}%");
+       /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'id' => trim(I('post.id')),
+            'typename' => trim(I('post.typename')),
+            'filter1' => trim(I('post.filter1')),
+            'filter2' => trim(I('post.filter2')),
+            'filter3' => trim(I('post.filter3')),
+            'filter4' => trim(I('post.filter4')),
+            'filter5' => trim(I('post.filter5')),
+            'filter6' => trim(I('post.filter6')),
+            'filter7' => trim(I('post.filter7')),
+            'filter8' => trim(I('post.filter8')),
+        );
+        // $minaddtime = trim(I('post.minaddtime'))?:0;
+        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
+        // if (is_numeric($maxaddtime)) {
+        //     $map['money'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        // }
+        // if ($maxaddtime < 0) {
+        //     $map['money'] = array(array('egt',$minaddtime));      
+        // }       
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
 
         $type = M('device_type');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $type->where($map)->select();
+            $filename = '产品类型列表数据';
+            $title = '产品类型列表';
+            $cellName = ['id','产品类型','一级滤芯','二级滤芯','三级滤芯','四级滤芯','五级滤芯','六级滤芯','七级滤芯','八级滤芯','添加时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
         
         $total =$type->where($map)->count();
         $page  = new \Think\Page($total,8);
@@ -157,12 +200,80 @@ class ProductController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function filterlist()
-    {
-       // 根据用户昵称进行搜索
-        $map = '';
-        if(!empty($_GET['filtername'])) $map['filtername'] = array('like',"%{$_GET['filtername']}%");
+    {       
+        /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'id' => trim(I('post.id')),
+            'filtername' => trim(I('post.filtername')),
+            'alias' => trim(I('post.alias')),
+            'url' => trim(I('post.url'))
+        );
+
+        $minprice = trim(I('post.minprice'))?:0;
+        $maxprice = trim(I('post.maxprice'))?:-1;
+        if (is_numeric($maxprice)) {
+            $map['price'] = array(array('egt',$minprice*100),array('elt',$maxprice*100));
+        }
+        if ($maxprice < 0) {
+            $map['price'] = array(array('egt',$minprice*100));      
+        }
+
+        $mintimelife= trim(I('post.mintimelife'))?:0;
+        $maxtimelife = trim(I('post.maxtimelife'))?:-1;
+        if (is_numeric($maxtimelife)) {
+            $map['timelife'] = array(array('egt',$mintimelife),array('elt',$maxtimelife));
+        }
+        if ($maxtimelife  < 0) {
+            $map['timelife'] = array(array('egt',$mintimelife));       
+        } 
+
+        $minflowlife = trim(I('post.minflowlife'))?:0;
+        $maxflowlife = trim(I('post.maxflowlife'))?:-1;
+        if (is_numeric($maxflowlife)) {
+            $map['flowlife'] = array(array('egt',$minflowlife),array('elt',$maxflowlife));
+        }
+        if ($maxflowlife < 0) {
+            $map['flowlife'] = array(array('egt',$minflowlife));      
+        } 
+
+        // $minaddtime = trim(I('post.minaddtime'))?:0;
+        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
+        // if (is_numeric($maxaddtime)) {
+        //     $map['addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        // }
+        // if ($maxaddtime < 0) {
+        //     $map['addtime'] = array(array('egt',$minaddtime));      
+        // }       
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
 
         $filter = M('filters');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $filter->where($map)
+                            ->field('id,filtername,alias,price,timelife,flowlife,introduce,url,addtime')
+                            ->select();
+            $filename = '滤芯列表数据';
+            $title = '滤芯列表';
+            $cellName = ['滤芯id','滤芯名称','滤芯别名','滤芯价格','时间寿命','流量寿命','滤芯简介','购买网址','最新添加时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
+        
         
         $total =$filter->where($map)->count();
         $page  = new \Think\Page($total,8);
