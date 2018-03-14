@@ -30,7 +30,7 @@
                                     <else />
                                     <option value="0">查无数据</option>
                                 </notempty>
-                            </select>
+                            </select><a class="addBtn" href="javascript:void(0);">批量添加</a>
                         </div>
                     </div>
                     <div class="control-group">
@@ -55,8 +55,27 @@
                     </div>
                 </form>
             </div>
+            <!-- 批量添加弹框 -->
+            <div class="addBatch">
+                <form method="post" action="upload" enctype="multipart/form-data">
+                    <input type="file" name="batch" class="filename">
+                    <button class="btn add_device">添加</button>
+                </form>
+            </div>
             <script src="__PUBLIC__/Home/js/public.js"></script>
             <script type='text/javascript'>
+                $(".addBtn").click(function(){
+                    //显示充值弹框
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.open({
+                            type: 1, 
+                            title: ['批量添加', 'font-size:18px;'],
+                            area: ['500px', '300px'],
+                            content: $(".addBatch")
+                        }); 
+                    });
+                });
                 $('#_formTable').submit(function(event) {
                     // var bool = $('select[name=did] option').attr('tip').trim()
                     var bool = $(".deviceID").val();
