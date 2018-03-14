@@ -16,17 +16,77 @@ class OrdersController extends CommonController
      */
     public function index()
     {	
-        // 根据用户昵称进行搜索
+
         $map = '';
         if($this->get_level()){
             $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
         }
-      if(strlen($_GET['orderid'])) $map['order_id'] = array('like',"%{$_GET['orderid']}%");
-    	if(strlen($_GET['nickname'])) $map['nickname'] = array('like',"%{$_GET['nickname']}%");
-      if(strlen($_GET['is_pay'])) $map['is_pay'] = array('like',"%{$_GET['is_pay']}%");
-      if(strlen($_GET['is_receipt'])) $map['is_receipt'] = array('like',"%{$_GET['is_receipt']}%");
-      if(strlen($_GET['is_recharge'])) $map['is_recharge'] = array('like',"%{$_GET['is_recharge']}%");
+
+      /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'pub_orders.order_id' => trim(I('post.order_id')),
+            'pub_wechat.nickname' => trim(I('post.nickname')),
+            'pub_orders.total_num' => trim(I('post.total_num')),
+            'pub_express_information.name' => trim(I('post.name')),
+            'pub_express_information.phone' => trim(I('post.phone')),
+            'pub_express_information.addres' => trim(I('post.addres')),
+            'pub_orders.is_pay' => trim(I('post.is_pay')),
+            'pub_orders.is_receipt' => trim(I('post.is_receipt')),
+            'pub_orders.is_ship' => trim(I('post.is_ship')),
+            'pub_orders.is_recharge' => trim(I('post.is_recharge'))
+        );
+        $mintotal_price = trim(I('post.mintotal_pricet'))?:0;
+        $maxtotal_price = trim(I('post.maxtotal_price'))?:-1;
+        if (is_numeric($maxtotal_price)) {
+            $map['pub_orders.total_price'] = array(array('egt',$mintotal_price),array('elt',$maxtotal_price));
+        }
+        if ($maxtotal_price < 0) {
+            $map['pub_orders.total_price'] = array(array('egt',mintotal_price));      
+        }
+        // $mincreated_at = trim(I('post.mincreated_at'))?:0;
+        // $maxcreated_at = trim(I('post.maxcreated_at'))?:-1;
+        // if (is_numeric($maxcreated_at)) {
+        //     $map['pub_orders.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
+        // }
+        // if ($maxcreated_at < 0) {
+        //     $map['pub_orders.created_at'] = array(array('egt',$mincreated_at));      
+        // }       
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
+
         $order = M('orders');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $order->where($map)
+                      ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
+                      ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+                      ->join('pub_users ON pub_orders.user_id = pub_users.id')
+                      ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
+                      ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
+                      ->field('pub_orders.order_id,pub_wechat.nickname,pub_orders.total_num,pub_orders.total_price,pub_express_information.name,pub_express_information.phone,pub_express_information.addres,pub_orders.is_pay,pub_orders.is_receipt,pub_orders.is_ship,pub_orders.is_recharge,pub_orders.created_at')
+                      ->select();
+            $filename = '订单列表数据';
+            $title = '订单列表';
+            $cellName = ['订单编号','下单用户','购买商品数量','购买总额','收货人','收货人电话','收货地址','是否付款','是否发货','是否收获','是否充值','下单时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
+
+        
         $total = $order->where($map)
                       ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
                       ->join('pub_binding ON pub_devices.id = pub_binding.did ')
