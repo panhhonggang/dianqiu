@@ -78,8 +78,8 @@
 				<div class="shuibolang2"></div>
 			</div>
 		</div>
-		<div class="bottom clearfix">
-				<ul>
+		<div class="bottom">
+				<ul class="clearfix">
 					<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
 					<li><a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText">开机</span></a></li>
 					<li><a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a></li>
@@ -97,7 +97,6 @@
 <script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 <script src="__PUBLIC__/Home/js/wx_share.js"></script>	
 <script>
-
 	// 记录是从充值进入商城还是点击商城进入商城
 	$(".mall").click(function(){
 		sessionStorage.setItem("shopFrom",'mall');
