@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>物联网云平台</title>
     <!-- jquery -->
     <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
     <!-- bootstrap css -->
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css" />
     <!--响应式特性 css-->
     <link href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css" rel="stylesheet">
- 
+    <link rel="stylesheet" href="__PUBLIC__/Home/js/theme/default/laydate.css">
     <!-- bootstrap.js -->
     <script type="text/javascript" src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
     <!-- layui.js -->
@@ -25,6 +25,7 @@
     <script src="__PUBLIC__/Admin/js/ace.min.js"></script>
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/ace.min.css">
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"  rel="stylesheet">
     <script src="__PUBLIC__/Admin/js/adminPublic.js"></script>
     <style type="text/css">
         .logo:link {
@@ -60,7 +61,7 @@
             text-decoration: none;
             border-radius: 3px;
         }
-
+ 
         div.pagel span.current{
             background: lightblue none repeat scroll 0 0 !important;
             border-color: lightblue;
@@ -74,12 +75,15 @@
         div.pagel a.prev,div.pagel a.next{
             padding: 3px 4px;
         }
+        .bootstrap-datetimepicker-widget.dropdown-menu {
+            width: auto !important;
+        }
     </style>
     
 </head>
 <body class="bodyBg">
     <div class="row-fluid" id="header">
-        <div class="headerLeft fl"><a class="logo" href="{{:U('Admin/Index/index')}}">点球后台</a></div>
+        <div class="headerLeft fl"><a class="logo" href="{{:U('Admin/Index/index')}}">物联网云平台</a></div>
         <div class="headerRight fr">
             <p class="hintTxt"></p> 
             <div>

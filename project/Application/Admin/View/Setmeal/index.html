@@ -6,28 +6,30 @@
             <div class="titleBar">套餐管理/<span>套餐列表</span></div>
             <form class="form-search" action="__URL__/index" method="post">
                 <span class="select-box">产品类型:
-<!--                     <select class="select" size="1" name="typename" style="width: 100px;">
-                    <option value="1" selected>产品类型</option>
-                    <option value="2">套餐模式</option>
-                    </select> -->
-                    <input type="text" class="input-medium" name="typename" placeholder="请输入产品类型" / >
+                    <input type="text" class="input-medium" name="typename" placeholder="请输入产品类型" style="width: 70px;"/ >
                 </span>
-                <span class="select-box">套餐金额:
-                    <input type="text" class="input-medium" name="money" placeholder="请输入查询条件" / >
-                </span>
-                <span class="select-box">套餐量（天）:
-                    <input type="text" class="input-medium" name="flow" placeholder="请输入查询条件" / >
-                </span>
-                <span class="select-box">套餐名称:
-                    <input type="text" class="input-medium" name="describe" placeholder="请输入查询条件" / >
-                </span>
-<!--                 <span class="select-box">产品类型:
-                    <select class="select" size="1" name="typename" style="width: 100px;">
-                    <option value="1" selected>产品类型</option>
-                    <option value="2">套餐模式</option>
+                <span class="select-box">套餐模式:
+                    <select class="select" size="1" name="remodel" style="width: 100px;">
+                    <option value="" selected>- 套餐模式 -</option>
+                    <option value="0">流量</option>
+                    <option value="1">时长</option>
                     </select>
                 </span>
-                <span class="select-box">查询条件:
+                <span class="select-box">套餐金额:
+                    <input type="text" class="input-medium" name="minmoney" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium" name="maxmoney" placeholder="" style="width: 60px;" / >
+                </span>
+                <span class="select-box">套餐量（天）:
+                    <input type="text" class="input-medium" name="flow" placeholder="请输入查询条件" style="width: 70px;" / >
+                </span>
+                <span class="select-box">套餐名称:
+                    <input type="text" class="input-medium" name="describe" placeholder="请输入查询条件" style="width: 70px;" / >
+                </span>
+                <span class="select-box time" style="display: inline-block;position:relative">时间:
+                    <input type="text" id="date-start" class="input-medium form-control" name="mintime" placeholder="请选择时间" style="width: 76px;"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxtime" placeholder="请选择时间" style="width:76px;"/ >
+                </span>
+                
+                <!-- <span class="select-box">查询条件:
                     <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / >
                 </span>
                 <span class="select-box">产品类型:
@@ -38,11 +40,12 @@
                 </span>
                 <span class="select-box">查询条件:
                     <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / >
-                </span> -->
+                </span> --> 
                 <div class="submitBtn">
-                     <button type="reset" class="btn fr" style="background-color: #eee;">重置</button>
-                    <button type="submit" class="btn fr" style="background-color: #eee;">查找</button>
-                </div>               
+                    <button type="submit" name="output" value="1" class="btn fr mbtn" style="float: left;color: #fff;background-color: #1c82d4;"><i class="layui-icon">&#xe62f;</i> 导出</button>
+                    <button type="reset" class="btn fr mbtn" style="color: #fff;background-color: #1c82d4;"><i class="layui-icon">&#x1002;</i> 重置</button>
+                    <button type="submit" name="search" value="1" class="btn fr mbtn" style="color: #fff;background-color: #1c82d4;"><i class="layui-icon">&#xe615;</i> 查找</button>
+                </div>
             </form>
 
             <table class="table table-striped table-bordered">
@@ -100,22 +103,17 @@
     </div>
 </div>
 <script>
-    // 搜索关键字保留
-    if(window.location.search){
-        // 获取搜索关键字
-        var arr = window.location.search.split("&");
-        $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-        $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-        // console.log(arr)
-    }
-    // 显示当前页面所在的导航
-    showNav();
-    function showNav(){
-        
-        $(".nav").children("li").eq(9).attr("class","open");
-        $(".nav").children("li").eq(9).find(".submenu").show();
-        $(".nav").children("li").eq(9).find(".submenu li a").eq(1).css({color: '#1963aa'});
-    }
+    $(function(){
+        // 搜索关键字保留
+        if(window.location.search){
+            // 获取搜索关键字
+            var arr = window.location.search.split("&");
+            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
+            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
+            // console.log(arr)
+        }
+
+    })
 </script>
 <script type="text/javascript">
     
@@ -131,4 +129,33 @@
         });
     });
 
+    $(".outputExcel").click(function(){
+        var remodel = '<?php echo $_POST["remodel"]; ?>',
+            typename = '<?php echo $_POST["typename"]; ?>',
+            minmoney = '<?php echo $_POST["minmoney"]; ?>',
+            maxmoney = '<?php echo $_POST["maxmoney"]; ?>',
+            flow = '<?php echo $_POST["flow"]; ?>',
+            describe = '<?php echo $_POST["describe"]; ?>',
+            mintime = '<?php echo $_POST["mintime"]; ?>',
+            maxtime = '<?php echo $_POST["maxtime"]; ?>';
+        $.ajax({
+           type: "POST",
+           url: "index",
+           async: false,
+           data: {
+                'remodel':remodel,
+                'typename':typename,
+                'minmoney':minmoney,
+                'maxmoney':maxmoney,
+                'flow':flow,
+                'describe':describe,
+                'mintime':mintime,
+                'maxtime':maxtime,
+                'outputExcel':1
+           },
+           success:function(res){
+                console.log(res);
+           }        
+        });
+    })
 </script>

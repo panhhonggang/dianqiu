@@ -34,7 +34,7 @@
 	#clearLog>a,
 	#proposal>a,
 	#deviceRepair>a {
-		width: 92%;
+		width: 98%;
 	    height: 1.3rem;
 	    display: block;
 	    position: absolute;
@@ -103,7 +103,7 @@
 	<img src="__PUBLIC__/Home/images/mine-first-01.png" alt="">
 </div>
 <div id="mine-first-all" class="mine-first-all bgTop" >
-	<!-- <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a> -->
+	<input type="hidden" id="refreshed" value="no">
 	<div id="mine-first-container">
 		<div id="mine-first-top">
 			<div class="mine-pic">
@@ -218,12 +218,13 @@
 </div>
 	
 	<script>
-		// 禁止页面缓存
-		if(!window.name){         
-		var str = Math.random().toString(36).substr(2);		//随机字符串
-		    window.location.href += '?S='+ str;		//兼容微信浏览器刷新
-		    window.name = 'isreload';     
+		if(window.name != 'hasload'){
+			location.reload();
+			window.name = 'hasload';
+		}else{
+			window.name = '';
 		}
+
 	</script>
 </body>
 </html>

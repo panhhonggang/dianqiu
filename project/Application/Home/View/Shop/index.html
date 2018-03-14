@@ -6,7 +6,7 @@
 		<title>滤芯---充值 </title>
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/lvxin-chongzhi.css">
 		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css">
+		<!-- <link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css"> -->
     	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
     	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
     	<style type="text/css">
@@ -32,7 +32,7 @@
 			<div id="liuliang" class="contentbox">
 				<h3><b>选择套餐</b></h3>
 				<foreach name="setmeallist" item="vo" key="ke">
-					<input type="button" value="{{$vo['describe']}}" sid="{{$vo['id']}}"><br>
+					<input type="button" value="{{$vo['describe']}}" dayNum="150" flowNum="200" sid="{{$vo['id']}}"><br>
 				</foreach>
 			</div>
 			<!-- 滤芯开始 -->
@@ -77,183 +77,101 @@
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script>
 	$(function(){
-		var offStause=0;//设置离线状态:0为在线1为离线
-		var offLine=0;//离线标志位1
-		var Stause='';//设备状态
-		var leaseMode;//获取租赁模式
-		var flowNum=0;//当前选中的流量值
-		var dayNum=0;//当前选中的天数
+		var leaseMode = sessionStorage.getItem("leaseMode");	//判断上次选择的是充值还是滤芯
 		var deviceId=$("#device").val();
-		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
-		var PackNum=0;//包数据
-		var CmdList=[];//命令队列
-		/**
-		 *  选中的套餐类型
-		 */
+		//  选中的套餐类型
 		$('#liuliang>input').click(function(){
+			// 被选中的充值套餐改变样式// 找到所有的充值套餐，设置默认样式
+			$(this).css({'background': '#039CE9','color':'#FFF'}).siblings().css({'background': 'rgba(0,0,0,0)','color':'#585858'});
+			// 给被选中的套餐添加class属性sid值// 清除所有的class属性sid值
+			$(this).addClass("sid").siblings().removeClass("sid");
 			// 获取充值的流量或套餐
 			if($(this).val().indexOf('流量') > -1){
 				dayNum = 0;
-				flowNum = parseInt($(this).val());
-			}else if($(this).val().indexOf('时长') > -1){
+				flowNum = $(this).attr("flowNum");
+			}else if($(this).val().indexOf('时') > -1){
 				flowNum = 0;
-				dayNum = parseInt($(this).val());
+				dayNum = $(this).attr("dayNum");
 			}
 		});
-		websoket.onopen=function(){
-			//包数据
-			ajson={
-				"DeviceID":deviceId,
-				"PackType":"login",
-				"Vison":0
-			};
-			websoket.send(JSON.stringify(ajson));//发送登录包
-			setTimeout(function(){//页面加载发送一次查询包
-				ajson.PackType="Select";
-				websoket.send(JSON.stringify(ajson));
-				setInterval(function(){//此后每隔10s发送一次查询包
-					websoket.send(JSON.stringify(ajson));
-				},10000);
-			},1);
-		}
-		//实时接收数据
-		websoket.onmessage=function(data)
-		{
-			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
-            leaseMode = dataList.LeasingMode;//租赁模式
-			if(dataList.PackType=="Select")//返回查询数据类型数据
-			{
-				offLine=0;
-				//console.log(123,offLine,offStause);
-			}
-			else if(dataList.PackType=="SetData")//设置数据类型数据
-			{
-				if((dataList.PackNum==100))
-				{
-					if((dataList.isSuccess==1))
-					{
-						location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
-					}
-					else
-					{
-						layuiHint("充值异常，请联系客服");
-					}
-				}
-			}
-		}
-		setInterval(function(){//判断设备是否离线：offStause==1是离线；0是在线
-			offLine++;
-			if(offLine >= 90){
-				offStause=1;
-			}else{
-				offStause=0;
-			}
-		}, 1000);
         //进入购物车
         $(".shopCart").click(function(ev){
-            if(offStause){
-                layuiHint("设备已离线，等会再去结算吧");
-                ev.preventDefault();
-            }else{
-                window.location.href="{{:U('ShoppingCart/shopBill')}}";
-            }
+            window.location.href="{{:U('ShoppingCart/shopBill')}}";
         });
 		//立即购买操作
 		$('#buy').click(function(){
-            if(offStause)
-            {
-                layuiHint('设备离线，不能充值！');
+            var type=0;      
+            var cartNun = $('#cartNun').html()-0;// 获取购物车产品数量，隐转数值
+            var data = [];// 创建空数组，将来装套餐和产品
+            var index = 0;// 初始化下标
+            var sid = $('input.sid').attr('sid');// 获取被选中的套餐
+            if(sid !== undefined){
+                // 设置套餐ID为数组
+                data = [
+                    {'sid':sid-0,'num':1,'deviceId':deviceId}
+                ];
             }
-            else
-            {
-                // console.log(123,offLine,offStause);
-                var ajson;//数据对象
-                //判断操作类型
-                ajson={
-                    "DeviceID":deviceId,
-                    "PackType":"SetData",
-                    "Vison":0,
-                    "PackNum":100//设备充值命令：100
-                };
-                var type=0;
-                // 获取购物车产品数量，隐转数值
-                var cartNun = $('#cartNun').html()-0;
-                // 创建空数组，将来装套餐和产品
-                var data = [];
-                // 初始化下标
-                var index = 0;
-                // 获取被选中的套餐
-                var sid = $('input.sid').attr('sid');
-                if(sid !== undefined){
-                    // 设置套餐ID为数组
-                    data = [
-                        {'sid':sid-0,'num':1}
-                    ];
+            // 获取被选中的滤芯产品
+            var fid = $('input.fid');
+            if(fid.length>0){
+                for(var i=fid.length-1;i>=0;i--){
+                    // 设置产品ID为数组
+                    data.push(
+                        {'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
+                    );
                 }
-                // 获取被选中的滤芯产品
-                var fid = $('input.fid');
-                if(fid.length>0){
-                    for(var i=fid.length-1;i>=0;i--){
-                        // 设置产品ID为数组
-                        data.push(
-                            {'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
-                        );
+            }
+            // 检测是否选择产品
+            if(data.length>0){
+                // ajax请求添加购物车
+                var date = JSON.stringify(data)
+                // 异步提交
+                $.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
+                    // 判断购物车是否添加成功
+                    if(res.status==1){
+                        // 添加购物车成功跳转
+                        // 异步提交请求支付系统
+						if(leaseMode=="0"){//零售型
+							layuiHint("您的设备不需要充值");
+						}else{
+							// 立即付款
+							$.post('{{:U("PaymentSystem/action")}}',{ 'data':1, }, function(res){
+								if(res==2){
+									// 套餐确认
+									window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+								}else if(res==3){
+									// 快递确认
+									window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+								}else {
+									weixinPay(res);
+								}
+							});
+						}
                     }
-                }
-                // 检测是否选择产品
-                if(data.length>0){
-                    // ajax请求添加购物车
-                    var date = JSON.stringify(data)
+                })
+            }else{
+                // 购物车有产品
+                if(cartNun>0){
+                    // 直接跳转到购买页面
+                    //window.location.href='{{:U("PaymentSystem/action")}}';
                     // 异步提交
-                    $.post('{{:U("ShoppingCart/shopAdd")}}',{ 'data':date }, function(res){
-                        // 判断购物车是否添加成功
-                        if(res.status==1){
-                            // 添加购物车成功跳转
-                            // 异步提交请求支付系统
-							if(leaseMode=="0"){//零售型
-								layuiHint("您的设备不需要充值");
-							}
-							else
-							{
-								// 立即付款
-								$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-									if(res==2){
-										// 套餐确认
-										window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-									}else if(res==3){
-										// 快递确认
-										window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-									}else {
-										weixinPay(res);
-									}
-								});
-							}
+                    $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+                        if(res==2){
+                            // 套餐确认
+                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+                        }else if(res==3){
+                            // 快递确认
+                            window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+                        }else{
+                            // 立即付款
+                            weixinPay(res);
                         }
-                    })
+                    });
                 }else{
-                    // 购物车有产品
-                    if(cartNun>0){
-                        // 直接跳转到购买页面
-                        //window.location.href='{{:U("PaymentSystem/action")}}';
-                        // 异步提交
-                        $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-                            if(res==2){
-                                // 套餐确认
-                                window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-                            }else if(res==3){
-                                // 快递确认
-                                window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-                            }else{
-                                // 立即付款
-                                weixinPay(res);
-                            }
-                        });
-                    }else{
-                        // 请先选择产品
-                        layuiHint('请先选择产品!');
-                    }
+                    // 请先选择产品
+                    layuiHint('请先选择产品!');
                 }
-			}
+            }
 		})
 
 		// 点击立即购买清除本地session某些项目
@@ -270,6 +188,8 @@
 		// 	sessionStorage.setItem('lineLeft', '');
 		// })
 		var lineMove = sessionStorage.getItem("lineMove");	//判断上次选择的是充值还是滤芯
+		var deviceId = sessionStorage.getItem("deviceId");	//判断上次选择的是充值还是滤芯
+		console.log(deviceId);
 		var lineRight = sessionStorage.getItem("lineRight"),
 			lineLeft = sessionStorage.getItem("lineLeft"),
 			shopFrom = sessionStorage.getItem("shopFrom");		//判断从充值进入商城还是点击商城进入商城
@@ -347,22 +267,6 @@
 			// 下划线动画
 			$('._line').animate({left:$left+'px'});
 		});
-
-		/**
-		 *  套餐被选中效果
-		 */
-		$('#liuliang>input').click(function(){
-			// 找到所有的充值套餐，设置默认样式
-			$('#liuliang>input').css({'background': 'rgba(0,0,0,0)','color':'#585858'});
-			// 被选中的充值套餐改变样式
-			$(this).css({'background': '#039CE9','color':'#FFF'});
-			// 清除所有的class属性sid值
-			$('#liuliang>input').removeClass("sid");
-			// 给被选中的套餐添加class属性sid值
-			$(this).addClass("sid");
-
-		});
-
 		/**
 		 *  减号按钮让产品购买数量自减
 		 */
@@ -374,22 +278,16 @@
 		    });
 		}
 		$('.minus').next('input').on('blur',function(){
-			// console.log($(this).val().trim())
 			if(/[^\d]+/.test($(this).val().trim())){
 				layuiHint('请输入数字')
 				$(this).val('0')
 			}
 		})
-		$('.minus').click(function(){
-			// 点击减号按钮获取当前产品的value值,隐式转数值型
+		$('.minus').click(function(){// 点击减号按钮获取当前产品的value值,隐式转数值型
 			var num = $(this).next('input').val()-0;
-
-			// 判断产品数量大于0
-			if(num>0){
-				// 产品数量自减
-				$(this).next('input').val(--num);
-				// 如果产品数量等于0
-				if(num==0){
+			if(num>0){// 判断产品数量大于0
+				$(this).next('input').val(--num);// 产品数量自减
+				if(num==0){// 如果产品数量等于0
 					// 找祖先元素.item下面的子元素hr设置样式
 					$(this).parents('.item').find("hr").css({'border':'1px solid #CCC'});
 					// 找祖先元素.item设置样式
@@ -398,16 +296,11 @@
 					$(this).next('input').removeClass("fid");
 				}
 			}
-
 		});
-
-		/**
-		 *  加号按钮让产品购买数量自增
-		 */
+		//加号按钮让产品购买数量自增
 		$('.plus').click(function(){
 			// 点击加号按钮获取当前产品的value值,隐式转数值型
 			var num = $(this).prev('input').val()-0;
-
 			// 判断产品数量小于库存
 			if(true){
 				// 产品数量自增
@@ -536,11 +429,12 @@
 		});
 
 		// 微信支付方法
-		function weixinPay(res){alert(flowNum);
+		function weixinPay(res){
 		    WeixinJSBridge.invoke(
 		        'getBrandWCPayRequest',
 		        JSON.parse(res),
 		        function(res){
+		        	alert(deviceId);
 		            if (res.err_msg.substr(-2) == 'ok') {
                         if(leaseMode=="1") {//按流量计费
                             ajson["ReFlow"]=flowNum;
@@ -550,14 +444,8 @@
                             ajson["ReFlow"]=flowNum;
                             ajson["Reday"]=dayNum;
                         }
-                        websoket.send(JSON.stringify(ajson));
-                        CmdList.push({
-                            cmd:ajson,
-                            type:type
-                        });
-
 		                // 付款成功，跳转前台主页
-		              //  location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+		               location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
 		            } else if (res.err_msg.substr(-6) == 'cancel') {
 		                    // 取消付款
 		                    // 跳转到待付款订单页面

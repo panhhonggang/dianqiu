@@ -1,4 +1,4 @@
-ins,a{text-decoration:none!important;color: #000;}
+ins,a{text-decoration:none!important;color: #333;}
 a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
 a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
 a:hover{text-decoration:none!important;}/*指鼠标在链接*/}
@@ -73,7 +73,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 }
 .fini-change{
 	border: 1px solid #039CE9;
-    border-radius: 0 0.093333rem 0.093333rem 0;
+    border-radius: 0 0.3rem 0.3rem 0;
     width:2.533333rem; 
     background: #039CE9;
     color: #fff;

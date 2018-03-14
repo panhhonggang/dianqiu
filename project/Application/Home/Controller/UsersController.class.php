@@ -98,4 +98,46 @@ class UsersController extends CommonController
         return false; 
         return preg_match($match,$v);
     }
+
+
+    // 显示服务记录
+    public function reward()
+    {
+        if(IS_POST){
+            $work = M('work');
+            $map['dcode'] = M('devices')->where('id='.session('homeuser.did'))->getField('device_code');
+            $data = $work->where($map)->field('type,time')->select();
+            $this->ajaxReturn($data);
+        }
+        $this->display();
+    }
+    /*
+    * 安装人员登录页面
+    */
+    public function login()
+    {
+        if (IS_POST) {
+            $where['phone'] = I('post.phone', '', 'strip_tags');
+            $where['password'] = MD5(I('post.password', '', 'strip_tags'));
+
+            $perSonnel = D('Personnel');
+            if(!$perSonnel->create()){
+                return $this->ajaxReturn(['code'=>400,'message'=>$perSonnel->getError()]);
+
+            };
+            $get_info = $perSonnel->getInfo($where);
+            if ($get_info['code'] == 403) {
+                return $this->ajaxReturn(['code'=>403,'meeeage'=>'登陆失败']);
+            }
+            if ($get_info['code'] == 200) {
+
+                session('pid', $get_info['data']['id']);
+                return $this->ajaxReturn(['code'=>200,'meeeage'=>'登陆成功']);
+//                $this->success($get_info['message'],U('Personnel/index'),2);
+            }
+        } else {
+            $this->display();
+        }
+
+    }
 }

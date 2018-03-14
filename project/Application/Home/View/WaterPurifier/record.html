@@ -2,11 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1" >
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
-	<link rel="stylesheet" href="__PUBLIC__/Home/css/mui.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+	<!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/mui.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css"> -->
 	<style>
 		* {
 			margin: 0;
@@ -44,7 +43,7 @@
 		    align-items: center;
 			margin-bottom: 0;
 			border: none;
-			font-size: 1.8rem;
+			font-size: .5rem;
 			padding: 0 25%;
 			z-index: 1001;
 			text-align: center;
@@ -160,37 +159,9 @@
 			align-items: center;
 			justify-content: center;
 		}
-		/*#back2Home {
-		    width: 8vh;
-		    height: 8vh;
-		    display: -webkit-flex;
-		    display: -moz-flex;
-		    display: -ms-flex;
-		    display: -o-flex;
-		    display: flex;
-		    justify-content: center;
-		    -ms-align-items: center;
-		    align-items: center;
-		    position: absolute;
-		    right: 0;
-		    top: 4px;
-		    z-index: 999;
-		}
-		#back2Home>i {
-		    width: 5vh;
-		    height: 5vh;
-		    text-align: center;
-		    line-height: 5vh;
-		    color: #fff;
-			font-weight: 600;
-		    border-radius: 5vh;
-		    background: #039CE9;
-		    font-size: .4rem;
-		}*/
 	</style>
 </head>
 <body>
-	<!-- <a id="back2Home" href="{{:U('Home/Users/mine')}}"><i class="iconfont ">首页</i></a> -->
 	<div id="dateSelect">
 		<input name="date" type="button" class="in-first layui-input" id="chooseMonth" value="">
 	</div>
@@ -217,21 +188,20 @@
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<script src="__PUBLIC__/Home/js/laydate.js"></script>
 	<script src="__PUBLIC__/Home/js/echarts.min.js"></script>
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<script>
 	$(function(){
-
 		// 页面加载就给月份赋值
 		$("#chooseMonth").val(new Date().getFullYear()+ '-' + new Date().getMonth()+1);
 
 		$("#dateSelect").click(function(){
 			//年月范围选择
 			laydate.render({ 
-				  elem: '#chooseMonth',
-				  show: true,
-				  type: 'month',
-				  max: new Date().getTime()
-				});
-			// console.log($(".layui-laydate").html())
+			  elem: '#chooseMonth',
+			  show: true,
+			  type: 'month',
+			  max: new Date().getTime()
+			});
 		})
 
 	})
@@ -289,18 +259,13 @@
 	var byId = function(id) {
 		return document.getElementById(id);
 	};
-
 	var yAxisData = [[400],[2000]];
-
 	var seriesData = [[20,70,40,70,100,70,40,70],
 		[200,300,400,700,900,700,800,700,1000,1100,1200,900,800,800,700,900,1300,1200,1000,1100,900,800,700]];
-
 	var lineChart1 = echarts.init(byId('lineChart1'));
 	lineChart1.setOption(getOption('line', yAxisData[0], seriesData[0], '纯水', '#74c2ad'));
-	
 	var lineChart2 = echarts.init(byId('lineChart2'));
 	lineChart2.setOption(getOption('line', yAxisData[1], seriesData[1], '原水', '#f75151'));
-
 	</script>
 </body>
 </html>

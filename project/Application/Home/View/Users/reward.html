@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+
   <title>服务记录</title>
   <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
   <style>
@@ -30,7 +31,7 @@
         height: 100%;
       }
       .iconReward{
-        margin: 0.933333rem 0;
+        margin: 0.933333rem 0 0;
         color: #fff;
       }
       .iconReward span{
@@ -38,7 +39,7 @@
       }
       .iconReward span b em{
         font-size: 0.7rem;
-        padding:0 0.2rem;
+        padding: 0 0.2rem;
       }
       .iconReward span p{
         display: inline-block;
@@ -47,7 +48,7 @@
         margin-left: 1.5rem;
       }
       .iconReward>p {
-        width: 30%;
+        width: 36%;
         display: inline-block;
       }
       .adviceFoot ul{
@@ -73,7 +74,6 @@
       .rewardFoot ul li span b{
         margin-left: 0.26rem
       }
-      /*我的金币没有相关记录*/
       .noRewardFoot {
         margin: 8.0rem auto 0;
         width: 40%;
@@ -91,15 +91,17 @@
              <p>服务记录</p>
              <div class="iconReward">
                 <span>累计：</span>
-                <p>报装</p>
-                <p>维修</p>
+                <p>安装&nbsp;{{ num[0] }}</p>
+                <p>维修&nbsp;{{ num[1] }}</p>
              </div>
            </div>
         </div>
         <div class="rewardFoot">
           <ul>
             <li v-for='item in data'>
-              <span>{{ item.name }}</span>
+              <span v-if='item.type == 0'>安装</span>
+              <span v-else-if='item.type == 1'>报修</span>
+              <span v-else-if='item.type == 2'>维护</span>
               <span>{{ item.time }}</span>
             </li>
           </ul>
@@ -112,37 +114,35 @@
   <script src="__PUBLIC__/Home/js/vue.min.js"></script>
   <script>
     $(function(){
-      var url = '{{:U("Users/reward")}}';
       var app = new Vue({
         el: '._reward',
         data() {
           return {
-            data: ''
+            data: [],
+            num: [0, 0]
           }
         },
         computed: {},
         mounted() {
           var that = this;
-
           // 请求数据
           $.ajax({
-            url: '{{:U("")}}',
+            url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              var data = [
-              {name:'报装',status:'0',time:'1520649911778'},
-              {name:'维修',status:'1',time:'1520649241778'},
-              {name:'报装',status:'0',time:'1520649921778'},
-              {name:'维修',status:'1',time:'1520641941778'}]
               console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
-              for(var i=0; i<data.length; i++){
-
-                data[i].time = that.getLocaltime(data[i].time);
+              for(var i=0; i<res.length; i++){
+                if(res[i].type == 0){// 统计报装数量
+                  that.num[0]++;
+                }else if(res[i].type == 1){// 统计维修数量
+                  that.num[1]++;
+                }
+                // 将数据更新到 data 
+                that.data.push(res[i]);
               }
-              // 将数据更新到 data 
-              that.data = data;
               console.log(that.data);
+              console.log(that.num)
             },
             error: function(res){
               console.log('请求失败！', res);
@@ -152,11 +152,11 @@
         methods: {
           getLocaltime: function (_time) {
             /*
-                _time 时间戳（ms）,
+                _time 时间戳（ms）,后台传来的单位是s，需要乘1000
                 个位数时加 '0', 统一位数
              */ 
-            _time = Number(_time);
-            console.log('_time: ',_time);
+            _time = Number(_time)*1000;
+            // console.log('_time: ',_time);
             var localetime = new Date(_time);
             var year = localetime.getFullYear(),
                 month = (localetime.getMonth()+'').length == 1 

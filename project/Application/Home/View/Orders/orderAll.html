@@ -19,7 +19,7 @@
 		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
 		<style>
 			#contain {
-			    margin: 0.4rem 0.4rem 0rem 0.4rem;
+			    margin: 0.4rem 0 0rem 0.4rem;
 			}
 			.orderFulfil {
 			    width: 9.2rem;
@@ -52,26 +52,33 @@
 			}
 			.fini-change {
 				background: #039CE9;
+				height: .8rem;
+				line-height: .8rem;
+			}
+			#order-all-header{
+				margin-top:.4rem;
 			}
 		</style>
 	</head>
 	<body>
+	<div id="order-all-header">  
+ 		<ul>
+ 			<li><a class="headOne" href="{{:U('Orders/orderAll')}}">全部</a></li>
+ 			<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
+ 			<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
+ 			<li><a href="{{:U('Orders/orderTake')}}">待收货</a></li>
+ 		</ul>
+ 	</div>
+ 	<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
 	<div id="contain" class="container">
 	 <!-- order-all的头部开始 -->
-	 	<div id="order-all-header">  
-	 		<ul>
-	 			<li><a class="headOne" href="{{:U('Orders/orderAll')}}">全部</a></li>
-	 			<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
-	 			<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
-	 			<li><a href="{{:U('Orders/orderTake')}}">待收货</a></li>
-	 		</ul>
-	 	</div>
+	 	
 	 <!-- order-all的头部开始 -->
 	 <!-- <div class="all-kuai"> -->
 	 <!-- {{$orderFulfil|dump}} -->
 	<notempty name="orderFulfil">
 	 <div class="orderFulfil">
-		<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+		
 		 	<foreach name="orderFulfil" item="value">
 			<div id="all-sure-head">
 				<div id="all-information">

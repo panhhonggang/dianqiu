@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>服务人员登录</title>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	
+	
+	<style>
+		#contain{
+			font-family:microsoftYaHei;
+			color:rgb(255,255,255);
+			/*background:blue;*/
+			overflow:hidden;
+			background:url("__PUBLIC__/Home/images/bg.png") no-repeat 100% 100%;
+		}	
+		.login-title{
+			font-size:.7rem;
+			text-align:center;
+			margin:2rem 0 1.2rem 0;
+		}
+		.inputStyle{
+			font-size:.55rem;
+			width:85%;
+			margin:0 auto;
+			border-bottom:1px solid white;
+			margin-bottom:1rem;
+			padding-bottom:.2rem;
+		}
+		.inputStyle > input{
+			border:none;
+			background-color:transparent;
+			color:rgb(255,255,255);
+		}
+		input::-webkit-input-placeholder{
+			color:rgba(255,255,255,.8);
+		}
+		input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+			color:rgba(255,255,255,.8);
+		}
+		input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+			color:rgba(255,255,255,.8);
+		}
+		input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+			color:rgba(255,255,255,.8);
+		}
+		.inputSubmit{
+			width:80%;
+			margin:0 auto;
+			display:block;
+			height:1.2rem;
+			font-size:.6rem;
+			background-color:rgb(3, 156, 233);
+			border:none;
+			border-radius:5px;
+			color:white;
+		}
+	</style>
+</head>
+<body>
+	<div id="contain">
+		<h1 class="login-title">物联网云平台</h1>
+		<form action="" method="" enctype="multipart/form-data">
+			<p class="inputStyle">
+				<label for="">账号:</label>	
+				<input type="text" placeholder="请输入账号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入账号'">
+			</p>
+				
+			<p class="inputStyle">
+				<label for="">密码:</label>	
+				<input type="password" placeholder="请输入密码"  onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'">
+			</p>
+			<p>
+				<input type="button" class="inputSubmit" value="登录">
+			</p>
+		</form>
+	</div>	
+
+</body>
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+<script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+	window.onload = function() {
+		$(".inputSubmit").on("click", function() {
+			// 获取用户名和密码
+			var userVal = $(".inputStyle>input[type=text]").val();
+			var passVal = $(".inputStyle>input[type=password]").val();
+			
+			if(userVal) {
+				var userReg = /^[\u4E00-\u9FA5\uF900-\uFA2D0-9a-zA-Z]{2,}$/;
+				if(!userReg.test(userVal)){
+			        layuiHint("账号只能由中文、数字或字母组成");
+			    }else{
+			    	if(passVal) {
+			    		var passReg = /^[0-9a-zA-Z]{6,12}$/;
+			    		if(!passReg.test(passVal)) {
+			    			layuiHint("密码只能由6-12位数字或字母组成");
+			    		}else{
+			    			layuiHint("登录成功");
+			    		}
+			    	}else{
+			    		layuiHint("请输入密码");
+			    	}
+			    }
+			}else{
+				layuiHint("请输入账号");
+			}
+		})
+	}
+
+</script>
+</html>
