@@ -55,8 +55,10 @@ class RepairController extends CommonController
             }
         }else{
             // 查出该用户昵称和地址等信息显示在页面
-
+            $vid = M('binding')->where('did='.$_SESSION['homeuser']['did'])->field('vid')->find()['vid'];
+            $phone=M('vendors')->where('id='.$vid)->field('phone,csphone')->find();
             $this->assign('code',$device_code);
+            $this->assign('phone',$phone);
             $this->display();
         }
     }
