@@ -58,8 +58,31 @@
             <!-- 批量添加弹框 -->
             <div class="addBatch">
                 <form method="post" action="upload" enctype="multipart/form-data">
-                    <input type="file" name="batch" class="filename">
-                    <button class="btn add_device">添加</button>
+                    <div class="control-group">
+                        <label class="control-label">请选择经销商：</label>
+                        <div class="controls">
+                            <select name="vid" id="">
+                                <notempty name="user">
+                                    <foreach name="user" item="vo" key="key">
+                                        <option value="{{$vo.id}}">{{$vo.name}}</option>
+                                    </foreach>
+                                    <else />
+                                    <option value="0">查无数据</option>
+                                </notempty>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">请选择添加文件：</label>
+                        <div class="controls">
+                            <input type="file" name="file" class="filename">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <button class="btn add_device">添加</button>
+                    </div>
+                    <!-- <input type="file" name="file" class="filename"> -->
+                    <!-- <button class="btn add_device">添加</button> -->
                 </form>
             </div>
             <script src="__PUBLIC__/Home/js/public.js"></script>
@@ -71,7 +94,7 @@
                         layer.open({
                             type: 1, 
                             title: ['批量添加', 'font-size:18px;'],
-                            area: ['500px', '300px'],
+                            area: ['500px', '500px'],
                             content: $(".addBatch")
                         }); 
                     });
