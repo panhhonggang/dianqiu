@@ -70,7 +70,7 @@ class UsersController extends CommonController
             $saveData['id'] = $_SESSION['homeuser']['did'];
             
             $user = M('Devices')->where($saveData)->find();
-            
+            $this->assign('user',$user);
             $this->display();              
         }
 
