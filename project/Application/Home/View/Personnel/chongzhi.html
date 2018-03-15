@@ -34,17 +34,13 @@
 </head>
 <body>
 	<div id="contain">
-		<form action="" method="" class="chongzhiForm">
+		<form action="" method="" id="form1"class="chongzhiForm">
 			<p>
 				<label for="">设备编码：</label>
-				<input type="text">
+				<input type="text" name="dcode">
 			</p>
 			<p>
-				<label for="">充值金额：</label>
-				<input type="text">
-			</p>
-			<p>
-				<input type="button" value="确认充值">
+				<input id='top-up' type="button" value="进入充值">
 			</p>
 		</form>
 	</div>
@@ -52,4 +48,35 @@
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <script src="__PUBLIC__/Admin/layui/layui.js"></script>
 <script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+    $("#top-up").click(function() {//button的click事件
+        var dcode = $("input[name='dcode']").val()
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{{:U('Home/Personnel/dcode')}}" ,//url
+            data: $('#form1').serialize(),
+            success: function (result) {
+                if (result.code == 200) {
+
+						location.href="{{:U('Home/Shop/index')}}"+"?dcode="+dcode
+
+
+                } else {
+                    layuiHint(result.message);
+                }
+
+            },
+            error : function() {
+                layuiHint('异常');
+            }
+        });
+
+
+
+
+
+    })
+</script>
 </html>
