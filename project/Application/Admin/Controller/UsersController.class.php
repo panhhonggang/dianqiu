@@ -92,7 +92,7 @@ class UsersController extends CommonController
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->join('__BINDING__ bd ON d.id = bd.did ')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
             ->count();
         $page  = new \Think\Page($total,10);
         $pageButton =$page->show();
@@ -105,7 +105,7 @@ class UsersController extends CommonController
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->join('__BINDING__ bd ON d.id = bd.did ')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,bd.vid')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();

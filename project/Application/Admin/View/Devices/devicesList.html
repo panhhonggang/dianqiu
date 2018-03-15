@@ -7,38 +7,38 @@
                 <div class="titleBar">设备管理/<span>设备列表</span></div>
                 <form class="form-search" action="__URL__/devicesList" method="post">
                     <span class="select-box">设备编号:
-                        <input type="text" class="input-medium" name="device_code" placeholder="请输入设备编号 style="width: 100px;"/ >
+                        <input type="text" class="input-medium device_code" name="device_code" placeholder="请输入设备编号" style="width: 100px;"/ >
                     </span>
                         <span class="select-box">经销商名称:
-                        <input type="text" class="input-medium" name="name" placeholder="请输入经销商名称" style="width: 100px;"/ >
+                        <input type="text" class="input-medium name" name="name" placeholder="请输入经销商名称" style="width: 100px;"/ >
                     </span>
                     <span class="select-box">是否绑定:
-                        <select class="select" size="1" name="is_bind" style="width: 100px;">
+                        <select class="select is_bind" size="1" name="is_bind" style="width: 100px;">
                             <option value="" selected>- 是否绑定 -</option>
-                        <option value="0">是</option>
-                        <option value="1">否</option>
+                            <option value="0">是</option>
+                            <option value="1">否</option>
                         </select>
                     </span>
                     <span class="select-box">绑定的用户:
-                        <input type="text" class="input-medium" name="dname" placeholder="请输入用户名" style="width: 100px;"/ >
+                        <input type="text" class="input-medium dname" name="dname" placeholder="请输入用户名" style="width: 100px;"/ >
                     </span>
                     <span class="select-box">设备类型(滤芯):
-                        <input type="text" class="input-medium" name="typename" placeholder="请输入设备类型" style="width: 100px;"/ >
+                        <input type="text" class="input-medium typename" name="typename" placeholder="请输入设备类型" style="width: 100px;"/ >
                     </span>
                      <span class="select-box" style="display: inline-block;position:relative">时间:
                         <input type="text" id="date-start" class="input-medium form-control" name="minupdatetime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxupdatetime" placeholder="请选择时间" style="width:76px;right: 0"/ >
                     </span>
                     <span class="select-box">设备状态:
-                        <select class="select" size="1" name="status" style="width: 100px;">
+                        <select class="select status" size="1" name="status" style="width: 100px;">
                             <option value="" selected>- 设备状态 -</option>
                         <option value="0">已激活</option>
                         <option value="1">未激活</option>
                         </select>
                     </span>
                     <div class="submitBtn">
-                        <button type="submit" name="output" value="1" class="btn fr" style="float: left;color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe62f;</i> 导出</button>
-                        <button type="reset" class="btn fr" style="color: #8f0911;background-color: #eee;"><i class="layui-icon">&#x1002;</i> 重置</button>
-                        <button type="submit" name="search" value="1" class="btn fr" style="color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe615;</i> 查找</button>
+                        <button type="submit" name="output" value="1" class="btn fr mbtn" style="float: left;color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe62f;</i> 导出</button>
+                        <button type="reset" class="btn fr mbtn" style="color: #8f0911;background-color: #eee;"><i class="layui-icon">&#x1002;</i> 重置</button>
+                        <button type="submit" name="search" value="1" class="btn fr mbtn" style="color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe615;</i> 查找</button>
                     </div>
                 </form>
                 <table class="table table-bordered table-hover text-center" >
@@ -145,26 +145,68 @@
                 if(window.location.search){
                     $('input[name=value]').val(decodeURI(window.location.search.slice(13)))
                 }
+
+                /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var device_code, name, is_bind, dname, 
+                    typename, date_start, date_end, status;
+                    /**
+                     * type: 产品类型, remodel：套餐模式, 
+                     * minmoney：最小金额, maxmoney：最大金额, 
+                     * flow：套餐量, describe：套餐名称, 
+                     * mintime：开始时间, maxtime：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        device_code = $('.device_code').val(),
+                        name = $('.name').val(),
+                        is_bind = Number($('.is_bind>option:selected').val())+1,
+                        status = Number($('.status>option:selected').val())+1,
+                        dname = $('.dname').val(),
+                        typename = $('.typename').val(),
+                        date_start = $('#date-start').val(),
+                        date_end = $('#date-end').val();
+
+                        srearchInfo['device_code'] = device_code;
+                        srearchInfo['name'] = name;
+                        srearchInfo['is_bind'] = is_bind;
+                        srearchInfo['status'] = status;
+                        srearchInfo['dname'] = dname;
+                        srearchInfo['typename'] = typename;
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+                        srearchInfo['status'] = status;
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            $('.device_code').val(srearchInfo['device_code']);
+                            $('.is_bind>option').eq(srearchInfo['is_bind'])[0].selected = true;
+                            $('.status>option').eq(srearchInfo['status'])[0].selected = true;
+                            
+                            $('.name').val(srearchInfo['name']);
+
+                            $('.dname').val(srearchInfo['dname']);
+                            $('.typename').val(srearchInfo['typename']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+
+                $('.remove').click(function(){
+                    var a=$(this).attr('device_id');
+                    tip('确定解除绑定？','提示',function(){
+                        window.location.href = "{{:U('remove')}}"+"?device_code="+a;
+                    })
+                    return false;
+                })
             </script>
         </div>
         <include file="Public/footer" />
     </div>  
 </div>
-<script type="text/javascript">
-
-    // 搜索关键字保留
-    if(window.location.search){
-        // 获取搜索关键字
-        var arr = window.location.search.split("&");
-        $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-        $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-        // console.log(arr)
-    } 
-    $('.remove').click(function(){
-        var a=$(this).attr('device_id');
-        tip('确定解除绑定？','提示',function(){
-            window.location.href = "{{:U('remove')}}"+"?device_code="+a;
-        })
-        return false;
-    })
-</script>
