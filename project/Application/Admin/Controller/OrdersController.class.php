@@ -18,9 +18,7 @@ class OrdersController extends CommonController
     {	
 
         $map = '';
-        if($this->get_level()){
-            $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
-        }
+
 
       /*
             Excel导出
@@ -41,6 +39,11 @@ class OrdersController extends CommonController
             'pub_orders.is_ship' => trim(I('post.is_ship')),
             'pub_orders.is_recharge' => trim(I('post.is_recharge'))
         );
+
+        if($this->get_level()){
+            $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
+        }
+
         $mintotal_price = trim(I('post.mintotal_pricet'))?:0;
         $maxtotal_price = trim(I('post.maxtotal_price'))?:-1;
         if (is_numeric($maxtotal_price)) {
