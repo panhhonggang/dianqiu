@@ -48,12 +48,20 @@ class WorkController extends CommonController
             }
             return false;
         });
+        if($this->get_level()){
+            $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
+
+        }
+
+
 
         $type = D('work');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
             $data = $type->where($map)
-                    ->getAll();
+                ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+                ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+                ->getAll();
             $filename = '工单列表数据';
             $title = '工单列表';
             $cellName = ['id','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','处理时间'];
@@ -63,16 +71,16 @@ class WorkController extends CommonController
             return ;
         }
 
-        
-        if($this->get_level()){
-            //$map['pub_binding.vid'] = $_SESSION['adminuser']['id']; //缺少数据字段 后续维护
-        }
         $total =$type->where($map)->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->getAll();
-        // dump($list);die;
+        $list = $type->where($map)
+            ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+            ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+            ->order('result asc,id')
+            ->limit($page->firstRow.','.$page->listRows)->getAll();
+//         dump($list);
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

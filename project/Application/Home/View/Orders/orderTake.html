@@ -1,115 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-		<title>我的订单-待收货</title>
-		<!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css"> -->
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/order-allok.css">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>我的订单-待收货</title>
+	<!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css"> -->
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/order-allok.css">
 
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/order-all.css">
-		
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/order-all.css">
+	
 
-		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
-    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
-		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-<!-- 		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
-		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
-		<style>
+	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<!-- 		<script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<style>
 
-			#order-all-header>ul>li:nth-of-type(4)>a{
-				color: #039CE9;
-			}
-			#ord-btn2 {
-				border: 1px solid #353659;
-				border-radius: 6px;
-				font-size: .36rem;
-			}
-		</style>
-	</head>
-	<body>
+	#order-all-header>ul>li:nth-of-type(4)>a{
+		color: #039CE9;
+	}
+	#ord-btn2 {
+		border: 1px solid #353659;
+		border-radius: 6px;
+		font-size: .36rem;
+	}
+</style>
+</head>
+<body>
 
 
 	<div id="contain" class="container">
-	 <!-- order-all的头部开始 -->
-	 	<div id="order-all-header">
-	 		<ul>
-	 			<li><a href="{{:U('Orders/orderAll')}}">全部</a></li>
-	 			<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
-	 			<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
-	 			<li><a class="headOne" href="{{:U('Orders/orderTake')}}">待收货</a></li>
-	 		</ul>
-	 		<div class="slip take-slip"></div>
-	 	</div>
-	
+		<!-- order-all的头部开始 -->
+		<div id="order-all-header">
+			<ul>
+				<li><a href="{{:U('Orders/orderAll')}}">全部</a></li>
+				<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
+				<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
+				<li><a class="headOne" href="{{:U('Orders/orderTake')}}">待收货</a></li>
+			</ul>
+			<div class="slip take-slip"></div>
+		</div>
+		
 		
 		
 		<foreach name="ordersData" item="value">
 
-		<!-- =========未支付开始啦========= -->
-		<div id="all-sure-head" class="order-send">
-			<div id="all-information">
-				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><b class="paied">卖家已发货</b><br>
-				<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
-				<div style="clear:both;"></div>			
+			<!-- =========未支付开始啦========= -->
+			<div id="all-sure-head" class="order-send">
+				<div id="all-information">
+					<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+					<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><b class="paied">卖家已发货</b><br>
+					<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
+					<div style="clear:both;"></div>			
+				</div>
 			</div>
-		</div>
-		
-		<!-- 滤芯开始 -->
-		<div id="mo">
 			
-			<!-- 滤芯产品遍历开始 -->
-			<foreach name="value['orderFilter']" item="orderFilter">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$orderFilter['filtername']}}</h3>
-						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+			<!-- 滤芯开始 -->
+			<div id="mo">
+				
+				<!-- 滤芯产品遍历开始 -->
+				<foreach name="value['orderFilter']" item="orderFilter">
+					<div id="ro1" class="ro1">
+						<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+						<div id="ro-right">
+							<div class="top">
+								<h3>{{$orderFilter['filtername']}}</h3>
+								<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+							</div>
+							<div class="bott">
+								<b>￥{{$orderFilter['price']/100}}</b>
+								<p>X{{$orderFilter['goods_num']}}</p>
+							</div>
+						</div>
 					</div>
-					<div class="bott">
-					 <b>￥{{$orderFilter['price']/100}}</b>
-					 <p>X{{$orderFilter['goods_num']}}</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			</foreach>
-			<!-- 滤芯产品遍历结束 -->
+					<hr>
+				</foreach>
+				<!-- 滤芯产品遍历结束 -->
 
-			<!-- 套餐产品遍历开始 -->
-			<foreach name="value['orderSetmeal']" item="orderSetmeal">
-			<div id="mo2">
-				<div id="mo-right">
-					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+				<!-- 套餐产品遍历开始 -->
+				<foreach name="value['orderSetmeal']" item="orderSetmeal">
+					<div id="mo2">
+						<div id="mo-right">
+							<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+						</div>
+						<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+					</div>
+					<hr>
+				</foreach>
+				<!-- 套餐产品遍历结束 -->
+				<div id="mo2">
+					<!-- <input type="text" value="—"> -->
+					<div id="mo-right2">
+						<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+					</div>
 				</div>
-				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
-			</div>
-			<hr>
-			</foreach>
-			<!-- 套餐产品遍历结束 -->
-			<div id="mo2">
-				<!-- <input type="text" value="—"> -->
-				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+				<hr>
+				<p class="franking">（含邮费¥0.00) </p>
+				<div style="clear:both;"></div>	
+				<!-- 滤芯结束 -->
+				<!-- <div id="order-all-foot"> -->
+					<div class="order-all-foot">
+						<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+					</div>
 				</div>
 			</div>
-			<hr>
-			<p class="franking">（含邮费¥0.00) </p>
-			<div style="clear:both;"></div>	
-			<!-- 滤芯结束 -->
-	        <!-- <div id="order-all-foot"> -->
-	        <div class="order-all-foot">
-				<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
-			</div>
-		</div>
 		</foreach>
-	</div>
-	<script type="text/javascript">
+		<script type="text/javascript">
 		// 确认收货
 		function confirm(oid){
 			$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
@@ -124,6 +124,6 @@
 			});
 		}
 	</script>
-	</body>
+</body>
 
 </html>

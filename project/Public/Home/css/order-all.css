@@ -24,7 +24,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 {
 	width: 100vw;
 	height:0.98rem;
-	position: relative;
+	/*position: relative;*/
 }
 #order-all-header>ul>li
 {
@@ -36,16 +36,17 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	text-align: center;
 	line-height: 0.88rem;
 	border-bottom: 4px solid #EEEEEE;
+	position:relative;
 }
 #order-all-header>ul>li>a{
     padding-bottom: 0.22rem;
     border-radius: 0.05rem;
      border-bottom: 2px solid #EEEEEE;
 }
-#order-all-header>ul>li>a.headOne{
+/*#order-all-header>ul>li>a.headOne{
 	 border-bottom: 4px solid #039CE9;
 
-}
+}*/
 /*#order-all-header>.slip
 {
 	width:1.3rem;

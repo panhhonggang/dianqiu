@@ -16,23 +16,54 @@ class FeedsController extends CommonController
      */
     public function feedslist()
     {	
-        /// 查询条件
-        $map = '';
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['d.name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['d.phone'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
+        /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'id' => trim(I('post.id')),
+            'uid' => trim(I('post.uid')),
+            'name' => trim(I('post.name')),
+            'phone' => trim(I('post.phone')),
+        );
+
+        // $minaddtime = trim(I('post.minaddtime'))?:0;
+        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
+        // if (is_numeric($maxaddtime)) {
+        //     $map['money'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        // }
+        // if ($maxaddtime < 0) {
+        //     $map['money'] = array(array('egt',$minaddtime));      
+        // }   
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
             }
-        }
+            return false;
+        });
 
         $user = M('feeds');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $user->where($map)
+                        ->alias('f')
+                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->field('f.id,f.uid,d.name,d.phone,f.content,f.addtime')
+                        ->order('f.addtime desc')
+                        ->select();
+            $filename = '建议列表数据';
+            $title = '建议列表';
+            $cellName = ['建议id','用户id','用户昵称','手机','反馈内容','报修时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
         $total = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
@@ -74,23 +105,55 @@ class FeedsController extends CommonController
      */
     public function repairlist()
     {
-         /// 查询条件
-        $map = '';
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['d.name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['d.phone'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '3':
-                    $map['d.address'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
+         /*
+            Excel导出
+         */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'uid' => trim(I('post.uid')),
+            'device_code' => trim(I('post.device_code')),
+            'name' => trim(I('post.name')),
+            'phone' => trim(I('post.phone')),
+            'address' => trim(I('post.address')),
+            'status' => trim(I('post.status')),
+        );
+
+        // $minaddtime = trim(I('post.minaddtime'))?:0;
+        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
+        // if (is_numeric($maxaddtime)) {
+        //     $map['money'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        // }
+        // if ($maxaddtime < 0) {
+        //     $map['money'] = array(array('egt',$minaddtime));      
+        // }   
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
             }
+            return false;
+        });
+
+        $user = M('repair');
+        // PHPExcel 导出数据 
+        if (I('output') == 1) {
+            $data = $user->where($map)
+                        ->alias('f')
+                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
+                        ->join('pub_binding bd ON  d.id = bd.did', 'LEFT')
+                        ->field('f.uid,d.device_code,d.name,d.phone,f.content,f.address,f.status,f.addtime')
+                        ->order('f.addtime desc')
+                        ->select();
+            $filename = '报修列表数据';
+            $title = '报修列表';
+            $cellName = ['用户id','设备编码','用户昵称','经销商手机','报修内容','报修地址','状态','报修时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
         }
 
         if($this->get_level()){

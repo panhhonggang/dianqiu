@@ -147,25 +147,25 @@
 				<h3>我的订单</h3>
 				<ul>
 					<li>
-						<a href="{{:U('Home/Orders/orderAll')}}" >
+						<a href="{{:U('Home/Orders/orderAll')}}?index=0" >
 							<i class="iconfont icon-quanbudingdan iconfont2"></i><br>
 							<p>全部订单</p>
 						</a>
 					</li>
 					<li>
-						<a href="{{:U('Home/Orders/orderPay')}}">
+						<a href="{{:U('Home/Orders/orderAll')}}?index=1">
 							<i class="iconfont icon-icon_daifukuan"></i><br>
 							<p>待付款</p>
 						</a>
 					</li>                 
 					<li>
-						<a href="{{:U('Home/Orders/orderSend')}}">
+						<a href="{{:U('Home/Orders/orderAll')}}?index=2">
 							<i class="iconfont icon-daifahuo3"></i><br>
 							<p>待发货</p>
 						</a>
 					</li>
 					<li>
-						<a href="{{:U('Home/Orders/orderTake')}}">
+						<a href="{{:U('Home/Orders/orderAll')}}?index=3">
 							<i class="iconfont icon-daifahuo2"></i><br>
 							<p>待收货</p>
 						</a>

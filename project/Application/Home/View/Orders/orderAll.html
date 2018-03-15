@@ -1,403 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-		<title>我的订单-全部</title>
-		<!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css"> -->
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/order-allok.css">
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/order-all.css">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>我的订单-全部</title>
+	<!-- <link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css"> -->
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/order-allok.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/order-all.css">
 
-		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
-    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
-		<script src="__PUBLIC__/Home/js/flexible.js"></script>
-		<!-- <script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
-		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
-		<!-- 微信支付支持JS部分代码 -->
-		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
-		<style>
-			#contain {
-			    margin: 0.4rem 0 0rem 0.4rem;
-			}
-			.orderFulfil {
-			    width: 9.2rem;
-			    margin: 0;
-			    padding: 0 0 10vh 0;
-			    border-bottom: 6px solid #EBEBEB;
-			}
-			.nopay-kuai {
-			    border-top: 0px solid #EBEBEB;
-			    /* margin-top: 2.7rem; */
-			    margin: 1rem 0.4rem 0rem 0.4rem;
-			}
-			#order-all-header>ul>li:nth-of-type(1)>a{
-				color: #039CE9;
-			}
-			#all-information {
-				margin-top: 1rem;
-			}
-			#ro-right .bott {
-				text-align: right;
-			}
-			.bott p {
-				position: relative;
-				margin-left: 5vw;
-			}
-			#ord-btn1, #ord-btn2 {
-				border: 1px solid #353659;
-				border-radius: 6px;
-				font-size: .36rem;
-			}
-			.fini-change {
-				background: #039CE9;
-				height: .8rem;
-				line-height: .8rem;
-			}
-			#order-all-header{
-				margin-top:.4rem;
-			}
-		</style>
-	</head>
-	<body>
+	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
+	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<!-- <script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<!-- 微信支付支持JS部分代码 -->
+	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+	<style>
+	.orderFulfil {
+		width: 9.2rem;
+		padding: 0 0 10vh 0;
+		border-bottom: 6px solid #EBEBEB;
+	}
+	.nopay-kuai {
+		border-top: 0px solid #EBEBEB;
+		margin: 1rem 0.4rem 0rem 0rem;
+	}
+	#order-all-header>ul>li:nth-of-type(1)>a{
+		color: #039CE9;
+	}
+	#all-information {
+		margin-top: 1rem;
+	}
+	#ro-right .bott {
+		text-align: right;
+	}
+	.bott p {
+		position: relative;
+		margin-left: 5vw;
+	}
+	#ord-btn1, #ord-btn2 {
+		border: 1px solid #353659;
+		border-radius: 6px;
+		font-size: .36rem;
+	}
+	.fini-change {
+		background: #039CE9;
+		height: .8rem;
+		line-height: .8rem;
+	}
+	#order-all-header{
+		margin-top:.4rem;
+	}
+	.suojin, .becomePay, .becomeSend, .becomeAccept{
+		padding-left:.4rem;
+	}
+	.slideLine {
+		position:absolute;
+		bottom:-1vh;
+		width:8vh;
+		left:4.2vh;
+		height:1vh;
+		border-radius:2px;
+		background-color:#039CE9;
+	}
+</style>
+</head>
+<body>
 	<div id="order-all-header">  
- 		<ul>
- 			<li><a class="headOne" href="{{:U('Orders/orderAll')}}">全部</a></li>
- 			<li><a href="{{:U('Orders/orderPay')}}">待付款</a></li>
- 			<li><a href="{{:U('Orders/orderSend')}}">待发货</a></li>
- 			<li><a href="{{:U('Orders/orderTake')}}">待收货</a></li>
- 		</ul>
- 	</div>
- 	<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+		<ul>
+			<li index="0" class="headOne">全部 <span class="slideLine"></span></li>
+			<li index="1">待付款 <span></span></li>
+			<li index="2">待发货 <span></span></li>
+			<li index="3">待收货 <span></span></li>
+			<!-- <div class="slideLine"></div> -->
+		</ul>
+	</div>
+	
 	<div id="contain" class="container">
-	 <!-- order-all的头部开始 -->
-	 	
-	 <!-- order-all的头部开始 -->
-	 <!-- <div class="all-kuai"> -->
-	 <!-- {{$orderFulfil|dump}} -->
-	<notempty name="orderFulfil">
-	 <div class="orderFulfil">
+		<!-- order-all的头部开始 -->
 		
-		 	<foreach name="orderFulfil" item="value">
-			<div id="all-sure-head">
-				<div id="all-information">
-					<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
-					<b class="order-timer">订单时间：{{:date("Y年m月d日h时m分s秒",$value['created_at'])}}</b><br>
-					<empty name="value.express">
-					<else />
-						<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
-					</empty>
-				</div>
-			</div>
+		<!-- order-all的头部开始 -->
+		<!-- <div class="all-kuai"> -->
+			<!-- 交易完成 -->
+			<div class="finishPay">
+				<notempty name="orderFulfil">
+					<div class="orderFulfil">
+						<div class="nopay-kuai .clearfix">
+							<div class="nopay-top .clearfix">	
+								<input class="fini-change" type="buttom" value="交易完成" readonly="readonly">
+							</div>
+							<div order-cont></div>
+						</div>
+						<div class="suojin">
+							<foreach name="orderFulfil" item="value">
+								<div id="all-sure-head">
+									<div id="all-information">
+										<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+										<b class="order-timer">订单时间：{{:date("Y年m月d日h时m分s秒",$value['created_at'])}}</b><br>
+										<empty name="value.express">
+											<else />
+											<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
+										</empty>
+									</div>
+								</div>
+								<!-- 滤芯开始 -->
+								<div id="mo">
+									<foreach name="value['orderFilter']" item="orderFilter">
+										<div id="ro1" class="ro1">
+											<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+											<div id="ro-right">
+												<div class="top">
+													<h3>{{$orderFilter['filtername']}}</h3>
+													<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+												</div>
+												<div class="bott">
+													<b>￥{{$orderFilter['price']/100}}</b>
+													<p>X{{$orderFilter['goods_num']}}</p>
+												</div>
+											</div>
+										</div>
+										<hr>
+									</foreach>
+									<foreach name="value['orderSetmeal']" item="orderSetmeal">
+										<div id="mo2">
+											<div id="mo-right">
+												<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+											</div>
+											<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+										</div>
+										<hr>
+									</foreach>
+									<div id="mo2">
+										<div id="mo-right2">
+											<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
+										</div>
+									</div>
+									<hr>
+									<p class="franking">（含邮费¥0.00) </p>
+								</div>
+							</foreach>
+						</div>
+						
+					</div>
+				</notempty>
+				<!-- =========未支付开始啦========= -->
+				<notempty name="orderPay">
+					<div class="nopay-kuai .clearfix">
+						<div class="nopay-top .clearfix">	
+							<input class="fini-change" type="buttom" value="未支付" readonly="readonly">
+						</div>
+						<div order-cont></div>
+					</div>
+					<div class="suojin">
+						<foreach name="orderPay" item="value">
+							<div id="all-sure-head" class="no-pay">
+								<!-- <input type="buttom" value="未支付" readonly="readonly"> -->
+								<div id="all-information">
+									<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+									<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><br>
 
-			<!-- 滤芯开始 -->
-			<div id="mo">
-				<foreach name="value['orderFilter']" item="orderFilter">
-				<div id="ro1" class="ro1">
-					<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
-					<div id="ro-right">
-						<div class="top">
-							<h3>{{$orderFilter['filtername']}}</h3>
-							<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+								</div>
+							</div>
+
+							<!-- 滤芯开始 -->
+							<div id="mo">
+
+								<foreach name="value['orderFilter']" item="orderFilter">
+									<div id="ro1" class="ro1">
+										<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+										<div id="ro-right">
+											<div class="top">
+												<h3>{{$orderFilter['filtername']}}</h3>
+												<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+											</div>
+											<div class="bott">
+												<b>￥{{$orderFilter['price']/100}}</b>
+												<p>X{{$orderFilter['goods_num']}}</p>
+											</div>
+										</div>
+									</div>
+									<hr>
+								</foreach>
+
+								<foreach name="value['orderSetmeal']" item="orderSetmeal">
+									<div id="mo2">
+										<div id="mo-right">
+											<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+										</div>
+										<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+									</div>
+									<hr>
+								</foreach>
+
+								<div id="mo2">
+									<div id="mo-right2">
+										<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
+									</div>
+								</div>
+								<hr>
+								<p class="franking">（含邮费¥0.00) </p>
+							</div>
+
+							<!-- 滤芯结束 -->
+							<div id="order-all-foot">
+								<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+								<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+							</div>
+						</foreach>	
+					</div>
+				</notempty>
+				<!-- ==============================待发货 -->
+				<notempty name="orderSend">
+					<div class="nopay-kuai daifahuo">
+						<div class="nopay-top .clearfix">
+							<input class="fini-change" type="buttom" value="待发货" readonly="readonly">
 						</div>
-						<div class="bott">
-						 <b>￥{{$orderFilter['price']/100}}</b>
-						 <p>X{{$orderFilter['goods_num']}}</p>
+						<div class="suojin">
+							<foreach name="orderSend" item="value">
+								<div id="all-sure-head" class="no-pay">
+									<!-- <input type="buttom" value="代发货" readonly="readonly"> -->
+									<div id="all-information">
+										<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+										<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">买家已付款</span>
+										</b>
+
+									</div>
+								</div>
+								<!-- 代发货 -->
+								<!-- 滤芯开始 -->
+								<div id="mo">
+
+									<foreach name="value['orderFilter']" item="orderFilter">
+										<div id="ro1" class="ro1">
+											<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+											<div id="ro-right">
+												<div class="top">
+													<h3>{{$orderFilter['filtername']}}</h3>
+													<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+												</div>
+												<div class="bott">
+													<b>￥{{$orderFilter['price']/100}}</b>
+													<p>X{{$orderFilter['goods_num']}}</p>
+												</div>
+											</div>
+										</div>
+										<hr>
+									</foreach>
+
+									<foreach name="value['orderSetmeal']" item="orderSetmeal">
+										<div id="mo2">
+											<div id="mo-right">
+												<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+											</div>
+											<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+										</div>
+										<hr>
+									</foreach>
+
+									<div id="mo2">
+										<div id="mo-right2">
+											<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
+										</div>
+									</div>
+									<hr>
+									<p class="franking">（含邮费¥0.00) </p>
+								</div>
+								<!-- 滤芯结束 -->
+								<div id="order-all-foot">
+
+									<input type="submit" id="ord-btn2"  value="提醒发货" onclick="onClickBtn()" style="border:1px solid #039CE9">
+								</div>
+							</foreach>
 						</div>
 					</div>
-				</div>
-				<hr>
-				</foreach>
-				<foreach name="value['orderSetmeal']" item="orderSetmeal">
-				<div id="mo2">
-					<div id="mo-right">
-						<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+				</notempty>
+				<!-- =========================代付款开始 -->
+				<notempty name="orderTake">
+					<div class="nopay-kuai">
+						<div class="nopay-top .clearfix">
+							<input class="fini-change" type="buttom" value="待收货" readonly="readonly">
+						</div>
 					</div>
-					<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
-				</div>
-				<hr>
-				</foreach>
-				<div id="mo2">
-					<div id="mo-right2">
-						<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
+					<div class="suojin">
+						<foreach name="orderTake" item="value">
+							<div id="all-sure-head" class="no-pay">
+								<!-- <input type="buttom" value="待收货" readonly="readonly"> -->
+								<div id="all-information">
+									<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+									<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">卖家已发货</span>
+									</b> q
+									<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
+
+								</div>
+							</div>
+							<!-- 代发货 -->
+							<!-- 滤芯开始 -->
+							<div id="mo">
+								<foreach name="value['orderFilter']" item="orderFilter">
+									<div id="ro1" class="ro1">
+										<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+										<div id="ro-right">
+											<div class="top">
+												<h3>{{$orderFilter['filtername']}}</h3>
+												<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+											</div>
+											<div class="bott">
+												<b>￥{{$orderFilter['price']/100}}</b>
+												<p>X{{$orderFilter['goods_num']}}</p>
+											</div>
+										</div>
+									</div>
+									<hr>
+								</foreach>
+
+								<foreach name="value['orderSetmeal']" item="orderSetmeal">
+									<div id="mo2">
+										<div id="mo-right">
+											<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+										</div>
+										<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+									</div>
+									<hr>
+								</foreach>
+
+								<div id="mo2">
+									<div id="mo-right2">
+										<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
+									</div>
+								</div>
+								<hr>
+								<p class="franking">（含邮费¥0.00) </p>
+							</div>
+							<!-- 滤芯结束 -->
+							<div id="order-all-foot">
+
+								<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+							</div>
+						</foreach>
 					</div>
-				</div>
-				<hr>
-				<p class="franking">（含邮费¥0.00) </p>
+				</notempty>
+				<!-- 代付款结束 -->
 			</div>
-			</foreach>
-		</div>
-	</notempty>
-	</div>
-<!-- =========未支付开始啦========= -->
-	<notempty name="orderPay">
-	<div class="nopay-kuai .clearfix">
-		<div class="nopay-top .clearfix">	
-			<input class="fini-change" type="buttom" value="未支付" readonly="readonly">
-		</div>
-		<div order-cont></div>
-	</notempty>
-		<foreach name="orderPay" item="value">
-		<div id="all-sure-head" class="no-pay">
-			<!-- <input type="buttom" value="未支付" readonly="readonly"> -->
-			<div id="all-information">
-				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}</b><br>
-				
+			<!-- 待付款 -->
+			<div class="becomePay">
+				<!-- 遍历开始 -->
+				<foreach name="orderPay" item="value">
+					<!-- order-all的头部开始 -->
+					<div id="all-sure-head">
+						<div id="all-information">
+							<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+							<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
+						</div>
+					</div>
+					<!-- 滤芯开始 -->
+					<div id="mo">
+						<!-- 滤芯产品遍历开始 -->
+						<foreach name="value['orderFilter']" item="orderFilter">
+							<div id="ro1" class="ro1">
+								<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+								<div id="ro-right">
+									<div class="top">
+										<h3>{{$orderFilter['filtername']}}</h3>
+										<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+									</div>
+									<div class="bott">
+										<b>￥{{$orderFilter['price']/100}}</b>
+										<p>X{{$orderFilter['goods_num']}}</p>
+									</div>
+								</div>
+							</div>
+							<hr>
+						</foreach>
+						<!-- 滤芯产品遍历结束 -->
+
+						<!-- 套餐产品遍历开始 -->
+						<foreach name="value['orderSetmeal']" item="orderSetmeal">
+							<div id="mo2">
+								<div id="mo-right">
+									<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+								</div>
+								<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+							</div>
+							<hr>
+						</foreach>
+						<!-- 套餐产品遍历结束 -->
+						<div id="mo2">
+							<div id="mo-right2">
+								<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+							</div>
+						</div>
+						<hr>
+						<p class="franking clear">（含邮费¥0.00) </p>
+						<!-- <div class="orderFootcon"></div> -->
+						<div id="order-all-foot" class="clearfix">
+							<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+							<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+						</div>
+						<!-- <hr class="dai-pay-border">	 -->
+					</div>
+					<!-- 遍历结束 -->
+				</foreach>
+			</div>
+			<!-- 待发货 -->
+			<div class="becomeSend">
+				<!-- 遍历开始 -->
+				<foreach name="orderSend" item="value">
+					<!-- order-all的头部开始 -->
+					<div id="all-sure-head">
+						<div id="all-information">
+							<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+							<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><br>
+							
+						</div>
+					</div>
+					
+					<!-- 滤芯开始 -->
+					<div id="mo">
+						<!-- 滤芯产品遍历开始 -->
+						<foreach name="value['orderFilter']" item="orderFilter">
+							<div id="ro1" class="ro1">
+								<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+								<div id="ro-right">
+									<div class="top">
+										<h3>{{$orderFilter['filtername']}}</h3>
+										<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+									</div>
+									<div class="bott">
+										<b>￥{{$orderFilter['price']/100}}</b>
+										<p>X{{$orderFilter['goods_num']}}</p>
+									</div>
+								</div>
+							</div>
+							<hr>
+						</foreach>
+						<!-- 滤芯产品遍历结束 -->
+
+						<!-- 套餐产品遍历开始 -->
+						<foreach name="value['orderSetmeal']" item="orderSetmeal">
+							<div id="mo2">
+								<div id="mo-right">
+									<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+								</div>
+								<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+							</div>
+							<hr>
+						</foreach>
+						<!-- 套餐产品遍历结束 -->
+						<div id="mo2">
+							<!-- <input type="text" value="—"> -->
+							<div id="mo-right2">
+								<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+							</div>
+						</div>
+						<hr>
+						<p class="franking">（含邮费¥0.00) </p>
+					</div>
+
+					<!-- 滤芯结束 -->
+					<div id="order-all-foot">
+						<input type="submit" id="ord-btn2"  value="提醒发货" onclick="onClickBtn(0)" style="border:1px solid #039CE9">
+					</div>
+				</foreach>	
+			</div>
+			<!-- 待收货 -->
+			<div class="becomeAccept">
+				<foreach name="orderTake" item="value">
+					<!-- =========未支付开始啦========= -->
+					<div id="all-sure-head" class="order-send">
+						<div id="all-information">
+							<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
+							<b class="order-timer">订单时间：{{:date("Y年m月d日 H:i:s",$value['created_at'])}}</b><b class="paied">卖家已发货</b><br>
+							<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
+							<div style="clear:both;"></div>			
+						</div>
+					</div>
+					<!-- 滤芯开始 -->
+					<div id="mo">
+						
+						<!-- 滤芯产品遍历开始 -->
+						<foreach name="value['orderFilter']" item="orderFilter">
+							<div id="ro1" class="ro1">
+								<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
+								<div id="ro-right">
+									<div class="top">
+										<h3>{{$orderFilter['filtername']}}</h3>
+										<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
+									</div>
+									<div class="bott">
+										<b>￥{{$orderFilter['price']/100}}</b>
+										<p>X{{$orderFilter['goods_num']}}</p>
+									</div>
+								</div>
+							</div>
+							<hr>
+						</foreach>
+						<!-- 滤芯产品遍历结束 -->
+
+						<!-- 套餐产品遍历开始 -->
+						<foreach name="value['orderSetmeal']" item="orderSetmeal">
+							<div id="mo2">
+								<div id="mo-right">
+									<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
+								</div>
+								<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
+							</div>
+							<hr>
+						</foreach>
+						<!-- 套餐产品遍历结束 -->
+						<div id="mo2">
+							<!-- <input type="text" value="—"> -->
+							<div id="mo-right2">
+								<b>共{{$value['total_num']}}件商品：小计：</b><p>￥{{$value['total_price']/100}}</p>
+							</div>
+						</div>
+						<hr>
+						<p class="franking">（含邮费¥0.00) </p>
+						<div style="clear:both;"></div>	
+						<!-- 滤芯结束 -->
+						<!-- <div id="order-all-foot"> -->
+							<div class="order-all-foot">
+								<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+							</div>
+						</div>
+					</div>
+				</foreach>
 			</div>
 		</div>
 		
-		<!-- 滤芯开始 -->
-		<div id="mo">
+</body>
+<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+<script>
+	
+	var parameter = window.location.search;
+	if(parameter.indexOf("?") != -1) {
+		var paraIndex = parameter.substr(7,1);
+	}else{
+		var paraIndex = 0;
+	}
+	// 默认第一个完成交易显示
+	$(".container>div").css("display", "none").eq(paraIndex).css("display", "block");
+	// 默认第一个字体颜色
+	$("#order-all-header>ul>li").eq(paraIndex).css("color", "#039CE9");
+	// 选项卡
+	$("#order-all-header>ul>li").on("click", function(e) {
+		var selectIndex = $(this).attr("index");
+		// 默认第一个完成交易显示
+		$(".container>div").css("display", "none").eq(selectIndex).css("display", "block");
+		$("#order-all-header>ul>li").css("color", "black").eq(selectIndex).css("color", "#039CE9");
+	});
+	
+	//微信接口
+	wx.config({
+		debug: false,
+		appId: '{{$info["appId"]}}',
+		timestamp: '{{$info["timestamp"]}}',
+		nonceStr: '{{$info["nonceStr"]}}',
+		signature: '{{$info["signature"]}}',
+		jsApiList: [
+	      // 所有要调用的 API 都要加到这个列表中
+	      'chooseWXPay'
+	      ]
+	  });
 
-			<foreach name="value['orderFilter']" item="orderFilter">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$orderFilter['filtername']}}</h3>
-						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
-					</div>
-					<div class="bott">
-					 <b>￥{{$orderFilter['price']/100}}</b>
-					 <p>X{{$orderFilter['goods_num']}}</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			</foreach>
+	// 微信支付方法
+	function weixinPay(res){
+		WeixinJSBridge.invoke(
+			'getBrandWCPayRequest',
+			JSON.parse(res),
+			function(res){
+				if (res.err_msg.substr(-2) == 'ok') {
+	                // 付款成功，跳转前台主页
+	                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+	            } else if (res.err_msg.substr(-6) == 'cancel') {
+	                    // 取消付款
+	                    // 跳转到待付款订单页面
+	                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+	                }else{
+	                    // 付款失败
+	                    // 跳转到待付款订单页面
+	                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+	                }
+	            }
+	            );
+	};
+	// 取消订单
+	function cancel(oid){
+		$.post('{{:U("Orders/cancel")}}',{ 'oid':oid }, function(res){
 
-			<foreach name="value['orderSetmeal']" item="orderSetmeal">
-			<div id="mo2">
-				<div id="mo-right">
-					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
-				</div>
-				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
-			</div>
-			<hr>
-			</foreach>
-
-			<div id="mo2">
-				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
-				</div>
-			</div>
-			<hr>
-			<p class="franking">（含邮费¥0.00) </p>
-		</div>
-
-		<!-- 滤芯结束 -->
-        <div id="order-all-foot">
-			<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')" style="border:1px solid #039CE9">
-			<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')" style="border:1px solid #039CE9">
-		</div>
-		</foreach>	
-	</div>
-
-
-<!-- ==============================代发货 -->
-	<notempty name="orderSend">
-	<div class="nopay-kuai daifahuo">
-		<div class="nopay-top .clearfix">
-			 <input class="fini-change" type="buttom" value="待发货" readonly="readonly">
-		</div>
-	</notempty>
-		<foreach name="orderSend" item="value">
-		<div id="all-sure-head" class="no-pay">
-			<!-- <input type="buttom" value="代发货" readonly="readonly"> -->
-			<div id="all-information">
-				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">买家已付款</span>
-				</b>
-				
-			</div>
-		</div>
-		<!-- 代发货 -->
-		<!-- 滤芯开始 -->
-		<div id="mo">
-
-			<foreach name="value['orderFilter']" item="orderFilter">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$orderFilter['filtername']}}</h3>
-						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
-					</div>
-					<div class="bott">
-					 <b>￥{{$orderFilter['price']/100}}</b>
-					 <p>X{{$orderFilter['goods_num']}}</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			</foreach>
-			
-			<foreach name="value['orderSetmeal']" item="orderSetmeal">
-			<div id="mo2">
-				<div id="mo-right">
-					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
-				</div>
-				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
-			</div>
-			<hr>
-			</foreach>
-
-			<div id="mo2">
-				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
-				</div>
-			</div>
-			<hr>
-			<p class="franking">（含邮费¥0.00) </p>
-		</div>
-		<!-- 滤芯结束 -->
-        <div id="order-all-foot">
-			
-			<input type="submit" id="ord-btn2"  value="提醒发货" style="border:1px solid #039CE9">
-		</div>
-		</foreach>	
-	</div>
-
-<!-- =========================代付款开始 -->
-	<notempty name="orderTake">
-	<div class="nopay-kuai">
-		<div class="nopay-top .clearfix">
-			 <input class="fini-change" type="buttom" value="待收货" readonly="readonly">
-		</div>
-	</notempty>
-		<foreach name="orderTake" item="value">
-		<div id="all-sure-head" class="no-pay">
-			<!-- <input type="buttom" value="待收货" readonly="readonly"> -->
-			<div id="all-information">
-				<b class="order-timer">订单编号：{{$value['order_id']}}</b><br>
-				<b class="order-timer">订单时间：{{:date("Y年m月d日",$value['created_at'])}}<span class="readyedpay">卖家已发货</span>
-				</b>
-				<b class="order-number"> {{$value['express']}}快递单号：{{$value['mca']}}</b><br>
-				
-			</div>
-		</div>
-		<!-- 代发货 -->
-		<!-- 滤芯开始 -->
-		<div id="mo">
-			<foreach name="value['orderFilter']" item="orderFilter">
-			<div id="ro1" class="ro1">
-				<div id="ro-left"><img src="__PUBLIC__/{{$orderFilter['picpath']}}" alt=""></div>
-				<div id="ro-right">
-					<div class="top">
-						<h3>{{$orderFilter['filtername']}}</h3>
-						<p>{{$orderFilter['introduce']|msubstr=0,45,'utf-8'}}</p>
-					</div>
-					<div class="bott">
-					 <b>￥{{$orderFilter['price']/100}}</b>
-					 <p>X{{$orderFilter['goods_num']}}</p>
-					</div>
-				</div>
-			</div>
-			<hr>
-			</foreach>
-			
-			<foreach name="value['orderSetmeal']" item="orderSetmeal">
-			<div id="mo2">
-				<div id="mo-right">
-					<b>{{$orderSetmeal['describe']}}</b><p>￥{{$orderSetmeal['money']/100}}</p>
-				</div>
-				<p class="bill">X{{$orderSetmeal['goods_num']}}</p>
-			</div>
-			<hr>
-			</foreach>
-			
-			<div id="mo2">
-				<div id="mo-right2">
-					<b>共{{$value['total_num']}}件商品</b><p><span>小计：</span>￥{{$value['total_price']/100}}</p>
-				</div>
-			</div>
-			<hr>
-			<p class="franking">（含邮费¥0.00) </p>
-		</div>
-		<!-- 滤芯结束 -->
-        <div id="order-all-foot">
-			
-			<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
-		</div>
-		</foreach>	
-	</div>
-		<!-- 代付款结束 -->
-</div>
-	<script>
-		//微信接口
-		wx.config({
-		    debug: false,
-		    appId: '{{$info["appId"]}}',
-		    timestamp: '{{$info["timestamp"]}}',
-		    nonceStr: '{{$info["nonceStr"]}}',
-		    signature: '{{$info["signature"]}}',
-		    jsApiList: [
-		      // 所有要调用的 API 都要加到这个列表中
-		      'chooseWXPay'
-		    ]
+			// 订单取消成功
+			if(res==1){
+				// 刷新页面
+				location.reload();
+			}
 		});
+	}
+	// 支付订单
+	function payOrder(oid){
+		$.post('{{:U("PaymentSystem/payOrder")}}',{ 'oid':oid }, function(res){
+			weixinPay(res);
+		});
+	}
+	// 确认收货
+	function confirm(oid){
+		$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
 
-		// 微信支付方法
-		function weixinPay(res){
-		    WeixinJSBridge.invoke(
-		        'getBrandWCPayRequest',
-		        JSON.parse(res),
-		        function(res){
-		            if (res.err_msg.substr(-2) == 'ok') {
-		                // 付款成功，跳转前台主页
-		                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
-		            } else if (res.err_msg.substr(-6) == 'cancel') {
-		                    // 取消付款
-		                    // 跳转到待付款订单页面
-		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
-		            }else{
-		                    // 付款失败
-		                    // 跳转到待付款订单页面
-		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
-		            }
-		        }
-		    );
-		};
-		// 取消订单
-		function cancel(oid){
-			$.post('{{:U("Orders/cancel")}}',{ 'oid':oid }, function(res){
+			// 订单取消成功
+			if(res==1){
+				// 刷新页面
+				location.reload();
+			}
+		});
+	}
+	// 待完善
+	function onClickBtn(){
+		layui.use('layer', function(){
+			var layer = layui.layer;
+			layer.msg("已经提醒卖家了，亲请放心！");
+		}); 
+	};
 
-				// 订单取消成功
-				if(res==1){
-					// 刷新页面
-					location.reload();
-				}
-			});
-		}
-		// 支付订单
-		function payOrder(oid){
-			$.post('{{:U("PaymentSystem/payOrder")}}',{ 'oid':oid }, function(res){
-				weixinPay(res);
-			});
-		}
-		// 确认收货
-		function confirm(oid){
-			$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
+	// 头部的下划线显示
+	$('#order-all-header>ul>li').eq(paraIndex).siblings().children().removeClass("slideLine").end().end().children().addClass("slideLine");
+	// // 选项卡
+	$('#order-all-header>ul>li').bind('click',function(){
+		$(this).siblings().children().removeClass("slideLine").end().end().children().addClass("slideLine");
+	})
 
-				// 订单取消成功
-				if(res==1){
-					// 刷新页面
-					location.reload();
-				}
-			});
-		}
-
-		// 头部的下划线显示
-		$('#order-all-header>ul>li').bind('click',function(){
-			
-			$(this).siblings("li").children("a").css({color: '#000',borderBottom: 'none'})
-			$(this).children().eq(0).css({borderBottom:'4px solid #039CE9',color: '#039CE9'});
-		})
-
-	</script>
-	</body>
-	<!-- $(".div_2").children().eq(0)#EEEEEE -->
-
+</script>
 </html>
