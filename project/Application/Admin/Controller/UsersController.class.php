@@ -146,6 +146,7 @@ class UsersController extends CommonController
 
     public function user_info()
     {
+//        dump(I(''));die;
         $map['open_id'] = I('get.open_id');
         // 微信用户信息
         $user = M('wechat')->where($map)->find();

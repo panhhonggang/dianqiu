@@ -48,7 +48,16 @@
                             <td>设备编号</td>
                             <td>经销商名称</td>
                             <td>是否已被绑定</td>
+                            <td>ICCID</td>
                             <td>绑定的用户</td>
+                            <td>电话</td>
+                            <td>地址</td>
+                            <td>计费模式</td>
+                            <td>剩余天数</td>
+                            <td>剩余流量</td>
+                            <td>工作状态</td>
+                            <td>网络状态</td>
+                            <td>滤芯模式</td>
                             <td>设备类型(滤芯)</td>
                             <td>最近更新时间</td>
                             <td>设备状态</td>
@@ -73,7 +82,45 @@
                                         <else />
                                         <td>否</td>
                                     </if>
-                                    <td>{{$data.dname}}</td>
+                                    <td>{{$data.iccid}}</td>
+                                    <td><a class="btn-link detail" href="{{:U('admin/users/user_info',array('open_id'=>$data['open_id']))}}">{{$data.dname}}
+                                    </a></td>
+                                    <td>{{$data.phone}}</td>
+                                    <td>{{$data.address}}</td>
+                                    <td>
+                                        <switch name="data.leasingmode">
+                                            <case value="0">零售型</case>
+                                            <case value="1">按流量计费</case>
+                                            <case value="2">按时间计费</case>
+                                            <case value="3">时长和流量套餐</case>
+                                            <default />
+                                        </switch>
+                                    </td>
+                                    <td>{{$data.reday}}</td>
+                                    <td>{{$data.reflow}}</td>
+                                    <td>
+                                        <switch name="data.devicestause">
+                                            <case value="0">制水</case>
+                                            <case value="1">冲洗</case>
+                                            <case value="2">水满</case>
+                                            <case value="3">缺水</case>
+                                            <case value="4">漏水</case>
+                                            <case value="5">检修</case>
+                                            <case value="6">欠费停机</case>
+                                            <case value="7">关机</case>
+                                            <case value="8">开机</case>
+                                            <default />
+                                        </switch>
+                                    </td>
+                                    <td>{{$data.csq}}</td>
+                                    <td>
+                                        <switch name="data.filtermode">
+                                            <case value="0">按时长</case>
+                                            <case value="1">按流量</case>
+                                            <case value="2">时长和流量</case>
+                                            <default />
+                                        </switch>
+                                    </td>
                                     <td>{{$data.typename}}</td>
                                     <if condition="$data['updatetime'] == null ">
                                         <td></td>
