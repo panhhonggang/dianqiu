@@ -153,22 +153,22 @@
 		<div>
 			<span class="h1" id="allincome">0</span>元
 			<p>当月总收入</p>
-			<a href="{{:U('Admin/Users/flow')}}">更多</a>
+			<a href="{{:U('Admin/Users/flow')}}" class="headlink">更多</a>
 		</div>
 		<div>
 			<span class="h1" id="orderNum">0</span>单
 			<p>订单数量</p>
-			<a href="{{:U('Admin/Orders/index')}}">更多</a>
+			<a href="{{:U('Admin/Orders/index')}}" class="headlink">更多</a>
 		</div>
 		<div>
 			<span class="h1" id="repaire">0</span>
 			<p>客户报修</p>
-			<a href="{{:U('Admin//Feeds/repairlist')}}">更多</a>
+			<a href="{{:U('Admin//Feeds/repairlist')}}" class="headlink">更多</a>
 		</div>
 		<div>
 			<span class="h1" id="feeds">0</span>
 			<p>客户建议</p>
-			<a href="{{:U('Admin/Feeds/feedslist')}}">更多</a>
+			<a href="{{:U('Admin/Feeds/feedslist')}}" class="headlink">更多</a>
 		</div>
 	</div>
 	<div id="hBottom">
@@ -191,7 +191,16 @@
 	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuzP"></script>
 	<script>
-	
+		sessionStorage.setItem('nav_now', '');
+		var headlink = $('.headlink');
+		// 设置首页点击后的导航定位，高亮
+		for(var i=0; i<headlink.length; i++){
+			console.log(headlink[i])
+			$('.headlink').eq(i).click(function(){
+				console.log($(this))
+				sessionStorage.setItem('nav_now', this.getAttribute("href"));
+			})
+		}
 		// 收入
         var income = echarts.init(document.getElementById('income'));
         // 新增设备
