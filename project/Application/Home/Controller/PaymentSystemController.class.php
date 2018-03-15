@@ -237,6 +237,33 @@ class PaymentSystemController extends Controller
                     if($cartSetmealRes){
                         $delSetmealNumIndex++;
                     }
+
+                    // /**
+                    //  *  将充值的数量存到数据库中
+                    //  */
+                    // // 查询数据库当前量
+                    // $device_code = $orderSetmeal
+                    //     ->alias('os')
+                    //     ->where('order_id='.$setmealData['order_id'])
+                    //     ->join('__ORDERS__ o ON os.ordere_id=o.order_id', 'LEFT')
+                    //     ->join('__DEVICES__ d ON o.device_id=d.id', 'LEFT')
+                    //     ->join('__DEVICE_STATU__ ds ON d.device_code=ds.DeviceID')
+                    //     ->field('ds.ReFlow,ds.Reday')
+                    //     ->find();
+                    // $setmeal_type = $orderSetmeal
+                    //     ->alias('os')
+                    //     ->where('order_id='.$setmealData['order_id'])
+                    //     ->join('__SETMEAL__ s ON os.setmeal_id=s.id', 'LEFT')
+                    //     ->field('remodel')
+                    //     ->find();
+
+                    // if($setmeal_type['remodel']){
+                    //     $statu['Reday'] = $device_code['Reday'] + $setmealData['flow'];
+                    // } else {
+                    //     $statu['ReFlow'] = $device_code['ReFlow'] + $setmealData['flow'];
+                    // }
+                    // $addStatu = self::addStatu($orderSetmeal,$order_id);
+
                     // 拼接订单描述
                     $contentstr .= $setmealData['describe'].'X'.$setmealData['goods_num'].'  ';
                 }
@@ -992,4 +1019,41 @@ class PaymentSystemController extends Controller
         return $result;
     }   
 
+
+    /**
+     * [addStatu 将充值的流量存储到状态表中]
+     * @param [object] $orderSetmeal [订单套餐实例]
+     * @param [string] $order_id     [订单ID]
+     */
+    public static function addStatu($orderSetmeal,$order_id)
+    {
+        // 查询数据库当前量
+        $device_code = $orderSetmeal
+            ->alias('os')
+            ->where('order_id='.$order_id)
+            ->join('__ORDERS__ o ON os.ordere_id=o.order_id', 'LEFT')
+            ->join('__DEVICES__ d ON o.device_id=d.id', 'LEFT')
+            ->join('__DEVICE_STATU__ ds ON d.device_code=ds.DeviceID')
+            ->field('ds.ReFlow,ds.Reday,ds.DeviceID')
+            ->find();
+        $setmeal_type = $orderSetmeal
+            ->alias('os')
+            ->where('order_id='.$order_id)
+            ->join('__SETMEAL__ s ON os.setmeal_id=s.id', 'LEFT')
+            ->field('remodel')
+            ->find();
+
+        if($setmeal_type['remodel']){
+            $statu['Reday'] = $device_code['Reday'] + $setmealData['flow'];
+        } else {
+            $statu['ReFlow'] = $device_code['ReFlow'] + $setmealData['flow'];
+        }
+
+        $res = M('device_statu')->where('DeviceID='.$device_code['DeviceID'])->save($statu);
+        if($res){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
