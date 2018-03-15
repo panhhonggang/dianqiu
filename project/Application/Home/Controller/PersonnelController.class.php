@@ -15,8 +15,16 @@ class PersonnelController extends Controller
         }
 
     }
+    public function dcode() {
+        $data = I('post.');
 
-
+        $info = M('devices')->where(['devices_code'=>$data['dcode']])->find();
+        if ($info) {
+            return $this->ajaxReturn(['code'=>200]);
+        } else {
+            return $this->ajaxReturn(['code'=>404,'message'=>'查询不到该设备']);
+        }
+    }
     /*
      * 安装人员登录成功首页
      */
@@ -94,8 +102,11 @@ class PersonnelController extends Controller
             $this->display();
         }
 
-
-
-
+    }
+    /*
+     * 充值
+     */
+    public function topup() {
+        $this->display('chongzhi');
     }
 }

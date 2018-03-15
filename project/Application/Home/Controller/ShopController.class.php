@@ -9,6 +9,7 @@ class ShopController extends CommonController
     // 商城充值套餐和滤芯产品filterElement
     public function index()
     {
+
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         $did = $_SESSION['homeuser']['did'];

@@ -70,7 +70,7 @@
 
 
 
-			<div style="background-color:rgb(237,184,133)"  onclick="window.location.href="{{:U('Home/Personnel/personal')}}">
+			<div style="background-color:rgb(237,184,133)"  id="div2"">
 			<p><img src="__PUBLIC__/Home/images/icon_charge@2x.png" alt=""></p>
 			<p>代充入口</p>
 		</div>
@@ -86,6 +86,9 @@
 <script>
     $('#div1').click(function(){
         location.href = "{{:U('Home/Personnel/personal')}}";
+    })
+    $('#div1').click(function(){
+        location.href = "{{:U('Home/Personnel/topup')}}";
     })
 </script>
 </html>
