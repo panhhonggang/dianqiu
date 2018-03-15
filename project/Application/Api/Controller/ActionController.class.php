@@ -25,6 +25,23 @@ class ActionController extends Controller
         }
     }
 
+    /**
+     * [sendMsg 向设备发送信息 信息推送]
+     * @param  [type] $device_code [设备码]
+     * @param  [type] $message     [信息串]
+     * @return [type]              [description]
+     */
+    public function sendMsg($device_code,$message)
+    {
+        $client_id = Gateway::getClientIdByUid($device_code);
+
+        $client_id = array_pop($client_id);
+
+        Log::write(json_encode($message), '服务器推送消息');
+
+        Gateway::sendToClient($client_id,$message);
+    }
+
     // 设备消息处理
     public function gettcp($client_id, $message)
     {
