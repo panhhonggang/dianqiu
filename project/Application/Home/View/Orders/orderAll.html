@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<!-- <script src="__PUBLIC__/Home/js/lvxinDetail.js"></script> -->
 	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
@@ -60,7 +61,7 @@
 		position:absolute;
 		bottom:-1vh;
 		width:8vh;
-		left:4.8vh;
+		left:4.2vh;
 		height:1vh;
 		border-radius:2px;
 		background-color:#039CE9;
@@ -270,7 +271,7 @@
 								<!-- 滤芯结束 -->
 								<div id="order-all-foot">
 
-									<input type="submit" id="ord-btn2"  value="提醒发货" style="border:1px solid #039CE9">
+									<input type="submit" id="ord-btn2"  value="提醒发货" onclick="onClickBtn()" style="border:1px solid #039CE9">
 								</div>
 							</foreach>
 						</div>
@@ -530,11 +531,15 @@
 		</div>
 		
 </body>
+<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 <script>
+	
 	var parameter = window.location.search;
 	if(parameter.indexOf("?") != -1) {
 		var paraIndex = parameter.substr(7,1);
-	} 
+	}else{
+		var paraIndex = 0;
+	}
 	// 默认第一个完成交易显示
 	$(".container>div").css("display", "none").eq(paraIndex).css("display", "block");
 	// 默认第一个字体颜色
