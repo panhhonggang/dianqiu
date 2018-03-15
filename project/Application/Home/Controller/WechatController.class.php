@@ -120,6 +120,18 @@ class WechatController extends Controller
 
         $jsonmenu = '{
             "button":[{
+                "name":"代缴费",
+                "type":"view",
+                
+                "url":"http://pub.dianqiukj.com/"
+            }],
+            "button":[{
+                "name":"安装人员",
+                "type":"view",
+                
+                "url":"http://pub.dianqiukj.com/home/users/login.html"
+            }],
+            "button":[{
                 "name":"我的水机",
                 "type":"view",
                 
