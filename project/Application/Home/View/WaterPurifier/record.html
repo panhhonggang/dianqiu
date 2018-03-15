@@ -191,8 +191,11 @@
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<script>
 	$(function(){
+		var month = ((new Date().getMonth()+1)+'').length == 1
+					? '0' + (new Date().getMonth()+1)
+					: (new Date().getMonth()+1)
 		// 页面加载就给月份赋值
-		$("#chooseMonth").val(new Date().getFullYear()+ '-' + new Date().getMonth()+1);
+		$("#chooseMonth").val(new Date().getFullYear()+ '-' + month);
 
 		$("#dateSelect").click(function(){
 			//年月范围选择
