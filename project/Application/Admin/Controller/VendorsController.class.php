@@ -180,13 +180,12 @@ class VendorsController extends CommonController
     public function devices_add()
     {
         if (IS_POST) {
-            if ($_POST['did']) {
-
+            $did = M('devices')->where('device_code='.$_POST['dcode'])->field('id')->find();
+            if ($did) {
                 if ($_POST['vid']) {
-                   
                     $arr = array(
                         'vid' => I('vid'),
-                        'did' => I('did'),
+                        'did' => $did['id'],
                         'operator' => $_SESSION['adminuser']['name'],
                         'addtime' => time(),
                     );
@@ -196,7 +195,7 @@ class VendorsController extends CommonController
                     if ($binding->add($arr)) {
                         // 更改设备的绑定状态
                         $devices = M('devices');  
-                        $devices->where('id='.$_POST['did'])->setField('binding_statu','1');
+                        $devices->where($did)->setField('binding_statu','1');
 
                         $this->success('添加成功',U('bindinglist'));
                     }else{
