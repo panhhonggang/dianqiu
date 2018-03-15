@@ -22,7 +22,7 @@ class CommonController extends Controller
 
         $bool = $this->rule_check(session('adminuser.id'));
         if(!$bool){
-            $this->error('权限不足');
+            redirect('Login/login',5,'权限不足');
         }
 
         // 分配菜单权限

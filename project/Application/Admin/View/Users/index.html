@@ -43,7 +43,7 @@
                     <!-- <th>账户余额</th> -->
                     <th>最后登录</th>
                     <th>登录IP</th>
-                    <th>关注日期</th>
+                    <th>更新日期</th>
                     <!-- <th>状态</th> -->
                     <!-- <th>操作</th> -->
                 </tr>
@@ -59,7 +59,13 @@
                         <td>{{$vo.address}}</td>
                         <td>{{$vo.login_time|date='Y-m-d H:i:s',###}}</td>
                         <td>{{$vo.login_ip}}</td>
-                        <td>{{$vo.created_at|date='Y-m-d H:i:s',###}}</td>
+                        <td>
+                            <empty name="vo.updatetime">
+                                
+                                <else />
+                                {{$vo.updatetime|date='Y-m-d H:i:s',###}}
+                            </empty>
+                        </td>
                     </tr>
                     </foreach>
                     <else />

@@ -82,7 +82,7 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
             ->count();
         $page  = new \Think\Page($total,10);
         $pageButton =$page->show();
@@ -93,7 +93,7 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did')
+            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
