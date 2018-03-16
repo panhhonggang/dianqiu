@@ -23,6 +23,9 @@
 			.iconfont {
 				color: #039CE9;
 			}
+			.returnBtn .iconfont{
+				color: #fff;
+			}
 			#char-list {
 				margin-bottom: 30vh;
 			}
@@ -50,16 +53,16 @@
 				<h3>个人信息</h3>
 				<div id="char-list">
 					<label for="name">
-						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name" value="{{$_GET['name']}}"> 
+						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name" value="{{$user['name']}}"> 
 					    </div>
 					</label>
 					<label for="tel">
 						
-						<div class="spac"><i class="iconfont icon-dianhuahaoma spac-tel"></i><p>电话号码：</p><input id="tel" type="text" name="phone" value="{{$_GET['phone']}}"></div><br>
+						<div class="spac"><i class="iconfont icon-dianhuahaoma spac-tel"></i><p>电话号码：</p><input id="tel" type="text" name="phone" value="{{$user['phone']}}"></div><br>
 					</label>
 					<label for="addr">
 					
-					<div class="spac"><i class="iconfont iconfont icon-dizhi"></i>  <p>安装地址：</p><input id="addr" type="text" name="Installaddress" value="{{$_GET['address']}}"></div>
+					<div class="spac"><i class="iconfont iconfont icon-dizhi"></i>  <p>安装地址：</p><input id="addr" type="text" name="Installaddress" value="{{$user['address']}}"></div>
 					</label>
 				</div>
 				<div class="savediv"><input id="save" type="submit" value="保存"></div>

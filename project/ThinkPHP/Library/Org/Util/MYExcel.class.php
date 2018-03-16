@@ -65,6 +65,8 @@ class MYExcel
 		// 引入PHPExcel
 		require_once VENDOR_PATH.'PHPExcel.php';
 		$this->objPHPExcel = new \PHPExcel();
+		// 设置默认样式
+        $this->setDefualtStyle();
 	}
 
     /**
@@ -80,18 +82,19 @@ class MYExcel
         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(18);
         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        
+
         for ($i=0; $i < count($this->cellName); $i++) { 
             $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$i].$this->topNumber, $this->cellName[$i]);
             $this->objPHPExcel->getActiveSheet()->freezePane($this->cellKey[$i].($this->topNumber+1));//冻结窗口
             $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$i].$this->topNumber)->getFont()->setBold(true);//设置是否加粗
             $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$i].$this->topNumber)->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);//垂直居中
-            
+            $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$i].$this->topNumber)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         }
         foreach ($this->data as $key => $value) {
             $j = 0;
             foreach ($value as $k => $v) {
                 $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$j].($key+$this->topNumber+1), $v);
+                $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$j].($key+$this->topNumber+1))->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 $j++;
             }           
         }
@@ -111,4 +114,24 @@ class MYExcel
         $objWriter = new \PHPExcel_Writer_Excel5($this->objPHPExcel);
         $objWriter->save('php://output');
     }
+
+    /**
+     * 设置默认样式
+     */
+    public  function  setDefualtStyle()
+    {
+       // 写在处理的前面（了解表格基本知识，已测试）
+         $this->objPHPExcel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(20);//所有单元格（行）默认高度
+         $this->objPHPExcel->getActiveSheet()->getDefaultColumnDimension()->setWidth(20);//所有单元格（列）默认宽度
+         $this->objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(30);//设置行高度
+         $this->objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(30);//设置列宽度
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(18);//设置文字大小
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);//设置是否加粗
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->getColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);// 设置文字颜色
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);//设置文字居左（HORIZONTAL_LEFT，默认值）中（HORIZONTAL_CENTER）右（HORIZONTAL_RIGHT）
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);//垂直居中
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);//设置填充颜色
+         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFill()->getStartColor()->setARGB('FF7F24');//设置填充颜色
+    }
+
 }

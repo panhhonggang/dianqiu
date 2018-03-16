@@ -67,6 +67,10 @@ class UsersController extends CommonController
             //show($data);die;
         }else{
             // 显示模板
+            $saveData['id'] = $_SESSION['homeuser']['did'];
+            
+            $user = M('Devices')->where($saveData)->find();
+            $this->assign('user',$user);
             $this->display();              
         }
 

@@ -61,20 +61,17 @@
 <div id="contain">
 	<div class="install">
 		<h5>请选择需要执行的命令</h5>
-		<div class="installFunction clearfix" id="div1">
+		<div class="installFunction clearfix">
 
-			<div style="background-color:rgb(129,185,230)">
+			<div style="background-color:rgb(129,185,230)" id="div1">
 				<p><img src="__PUBLIC__/Home/images/icon_ins@2x.png" alt=""></p>
 				<p>安装设备</p>
 			</div>
 
-
-
-			<div style="background-color:rgb(237,184,133)"  onclick="window.location.href="{{:U('Home/Personnel/personal')}}">
+			<div style="background-color:rgb(237,184,133)"  id="div2">
 			<p><img src="__PUBLIC__/Home/images/icon_charge@2x.png" alt=""></p>
 			<p>代充入口</p>
 		</div>
-
 
 	</div>
 </div>
@@ -86,6 +83,9 @@
 <script>
     $('#div1').click(function(){
         location.href = "{{:U('Home/Personnel/personal')}}";
+    })
+    $('#div2').click(function(){
+        location.href = "{{:U('Home/Personnel/topup')}}";
     })
 </script>
 </html>

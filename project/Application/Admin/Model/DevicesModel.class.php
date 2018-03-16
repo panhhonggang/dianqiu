@@ -43,6 +43,7 @@ class DevicesModel extends Model
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+            ->join('__USERS__ u ON u.id=d.uid', 'LEFT')
             ->field("statu.*,bind.*,d.id,d.device_code,type.*,vendors.*,d.name dname,d.phone,d.address,d.uid")
             ->order('d.id asc')
             ->limit($page->firstRow.','.$page->listRows)
@@ -60,8 +61,9 @@ class DevicesModel extends Model
             ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
-            ->field("statu.*,bind.*,d.device_code,type.*,vendors.*,d.name dname,d.phone,d.address,d.id,d.uid")
-            ->order('d.id asc')
+            ->join('__USERS__ u ON u.id=d.uid', 'LEFT')
+            ->field("statu.*,bind.*,d.device_code,type.*,vendors.*,d.name dname,d.phone,d.address,d.id,d.uid,u.open_id")
+            ->order('d.addtime desc')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
         // 分配返回数据

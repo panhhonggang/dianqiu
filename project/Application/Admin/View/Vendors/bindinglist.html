@@ -4,16 +4,30 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">后台管理/<span>设备归属列表</span></div>
-            <form class="form-search fr" action="__URL__/bindinglist" method="get">
-                <span class="select-box">
-                  <select class="select" size="1" name="key" style="width: 100px;height: 32px;margin-top: 2px;">
-                    <option value="1" selected>经销商</option>
-                    <option value="2">手机</option>
-                    <option value="3">设备编码</option>
-                  </select>
+            <form class="form-search" action="__URL__/bindinglist" method="post">
+                <span class="select-box">经销商ID:
+                    <input type="text" class="input-medium" name="vid" placeholder="请输入经销商ID" style="width: 100px;"/ >
                 </span>
-                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件" / > 
-                <button type="submit" class="btn">查找</button>
+                <span class="select-box">设备ID:
+                    <input type="text" class="input-medium" name="did" placeholder="设备ID" style="width: 100px;"/ >
+                </span>
+                <span class="select-box">设备编码:
+                    <input type="text" class="input-medium" name="device_code" placeholder="请输入设备编码" style="width: 100px;"/ >
+                </span>
+                <span class="select-box">经销商姓名:
+                    <input type="text" class="input-medium" name="name" placeholder="请输入经销商姓名" style="width: 100px;"/ >
+                </span>
+                <span class="select-box">经销商手机:
+                    <input type="text" class="input-medium" name="phone" placeholder="请输入经销商手机" style="width: 100px;"/ >
+                </span>
+                <span class="select-box" style="display: inline-block;position:relative">时间:
+                    <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
+                </span>
+                <div class="submitBtn">
+                    <button type="submit" name="output" value="1" class="btn fr mbtn" style="float: left;color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe62f;</i> 导出</button>
+                    <button type="reset" class="btn fr mbtn" style="color: #8f0911;background-color: #eee;"><i class="layui-icon">&#x1002;</i> 重置</button>
+                    <button type="submit" name="search" value="1" class="btn fr mbtn" style="color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe615;</i> 查找</button>
+                </div>
             </form>
             <table class="table table-striped table-bordered">
                 <thead>

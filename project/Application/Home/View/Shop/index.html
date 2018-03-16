@@ -14,6 +14,14 @@
 			position: fixed;
 			top:0;
 		}
+		input{
+			appearance:none;
+			-moz-appearance:none; /* Firefox */
+			-webkit-appearance:none; /* Safari and Chrome */
+		}
+		.shopCart input{
+			border-radius:0;
+		}
     	</style>
 	</head> 
 	<body>
@@ -77,6 +85,10 @@
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script>
 	$(function(){
+		if(window.name != "") {
+			window.location.reload();
+			window.name = "";
+		}
 		var leaseMode;	//判断上次选择的是充值还是滤芯
 		var flowNum=0;
 		var dayNum=0;
@@ -102,6 +114,7 @@
         //进入购物车
         $(".shopCart").click(function(ev){
             window.location.href="{{:U('ShoppingCart/shopBill')}}";
+            window.name = "bencale";
         });
 		//立即购买操作
 		$('#buy').click(function(){
@@ -402,7 +415,6 @@
 						// for(var i in res.msg){
 						// 	$("#cartNun").val($("#cartNun").val() + res.msg.num)
 						// }
-
 					}
 				});
 				// 选中滤芯

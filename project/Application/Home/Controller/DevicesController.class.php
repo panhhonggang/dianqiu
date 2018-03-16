@@ -84,6 +84,7 @@ class DevicesController extends CommonController
             echo -1;
             exit;
         }else{
+            $data['updatetime'] = time();
             // 绑定设备
             $res = M('Devices')->where("`device_code`={$device_code}")->save($data);
 
