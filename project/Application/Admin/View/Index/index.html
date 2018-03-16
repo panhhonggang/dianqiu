@@ -1,149 +1,6 @@
 <include file="Public/header" />
 <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-<style>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	a:link {
-		color: #fff;
-	}
-	a:visited {
-		color: #aaa;
-	}
-	a:hover {
-		color: #ddd;
-	}
-	a:active {
-		color: #999;
-	}
-	.content {
-		background: #ecf0f5;
-	}
-	.content .welcomePage {
-		width: auto;
-	    height: auto;
-	    margin: auto auto;
-	    font-size: 40px;
-	}
-	/*内容头部*/
-	#hTop {
-		width: 85%;
-		display: inline-flex;
-		position: relative;
-		left: 0;
-		margin-top: 2%;
-	}
-	/*数字*/
-	.h1 {
-		font-size: 3rem;
-		padding: 0 4%;
-		font-weight: bold;
-	}
-	#hTop>div {
-		width: 24%;
-		display: inline-block;
-		padding-top: 1%;
-		margin: 0 2%;
-		color: #FFF;    
-		border-radius: 3px;
-	}
-	#hTop>div:nth-of-type(1) {
-		background: #00C0EF;
-	}
-	#hTop>div:nth-of-type(2) {
-		background: #00A65A;
-	}
-	#hTop>div:nth-of-type(3) {
-		background: #F39C12;
-	}
-	#hTop>div:nth-of-type(4) {
-		background: #DD4B39;
-	}
-	/*描述*/
-	#hTop>div>p {
-		padding: 0 4%;
-		margin: 10px 0;
-		font-size: 1.4rem;
-	}
-	/*更多*/
-	#hTop>div>a {
-		width: 100%;
-		display: block;
-		margin-top: 6px;
-		text-align: center;
-		background: rgba(0,0,0,.1);
-		border-radius: 3px;
-	}
-	/*底部统计图、地图*/
-	#hBottom {
-		width: 85%;
-		height: 75vh;
-		position: relative;
-		top: 0;
-		left: 0;
-		margin-left: 15%;
-		padding-top: 2%;
-	}
- 
-	#hBottom>div {
-		width: 46%;
-		height: 100%;
-		display: inline-block;
-		position: relative;
-		margin: 0 2%;
-	}
-	/*左侧折线图*/
-	#bottomLeft {
-		float: left;
-	}
-	#bottomLeft:after {
-		content: '';
-		display: block;
-		clear: both;
-		line-height: 1;
-		visibility: hidden;
-	}
-	#bottomLeft>div {
-		width: 100%;
-		height: 48%;
-		position: relative;
-		background: #fff !important
-	}
-	#bottomLeft>div:nth-of-type(2){
-		position: absolute;
-		left: 0;
-		bottom: 0;
-	}
-	
-	/*右侧地图*/
-	#map {
-		float: right;
-		background: #fff;
-	}
-
-	#map:after {
-		content: '';
-		display: block;
-		clear: both;
-		line-height: 1;
-		visibility: hidden;
-	}
-	/*标题*/
-	#map>h5 {
-		width: 100%;
-		padding: 0% 2%;
-	}
-	/*百度地图*/
-	#allmap {
-		width: 100%;
-		height: 95%;
-		overflow: hidden;
-		margin: 0;
-		font-family:"微软雅黑";
-	}
-</style>
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/index/index.css">
 <!-- content part -->
 <div class="content">
 <include file="Public/nav" />
@@ -191,6 +48,63 @@
 	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuzP"></script>
 	<script>
+		var series_data = [[],[]];
+		$.ajax({
+			url: "{{:U('Admin/Index/index')}}", 
+			type: 'post',
+			success: function(res){
+				console.log(res);
+				// 存放收入
+				var allincome = 0;
+
+				// 当月收入
+				for(var i in res.flows){
+					if(res.flows[i]){
+						allincome += parseInt(res.flows[i].money)/100
+					}
+					
+				}
+				// 总收入
+				$("#allincome").text(allincome.toFixed(2));
+				// 订单数量
+				$("#orderNum").text(Number(res.order_filters.total).toFixed(2));
+				// 报修数量
+				$("#repaire").text(Number(res.repairs.total).toFixed(2));
+				// 建议数量
+				$("#feeds").text(Number(res.feeds.total).toFixed(2));
+			}
+		})
+		// 请求后台数据
+		$.ajax({
+			url: "{{:U('Admin/Index/index')}}",
+			type: 'post',
+			async: false,
+			dataType: 'json',
+			success: function(res){
+				// 当月收入
+				for(var i in res.flows){
+					if(res.flows[i]){
+						series_data[0].push(parseInt(res.flows[i].money)/100)
+					}else {
+						series_data[0].push(0);
+					}
+					
+				}
+				for(var i in res.order_filters){
+					// 遍历新增设备数量
+					if(res.order_filters[i]){
+						series_data[1].push(parseInt(res.order_filters[i].total_num));
+					}else {
+						series_data[1].push(0);
+					}
+				}
+			},
+			error: function(res){
+				console.log('错误 ',res)
+			}
+		})
+	</script>
+	<script>
 		sessionStorage.setItem('nav_now', '');
 		var headlink = $('.headlink');
 		// 设置首页点击后的导航定位，高亮
@@ -202,11 +116,11 @@
 			})
 		}
 		// 收入
-        var income = echarts.init(document.getElementById('income'));
-        // 新增设备
-        var newMoreDevice = echarts.init(document.getElementById('newMoreDevice'));
+		var income = echarts.init(document.getElementById('income'));
+		// 新增设备
+		var newMoreDevice = echarts.init(document.getElementById('newMoreDevice'));
 
-        var getOption = function(_subtext,legend_data, yAxis_data, series_data, markName){
+		var getOption = function(_subtext,legend_data, yAxis_data, series_data, markName){
 			return option = {
 			    title: {
 			        text: '',
@@ -298,91 +212,36 @@
 		// y轴坐标数据
 		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
 		// 要显示的数据
-		var series_data = [[],[]];
-		$.ajax({
-			url: "{{:U('Admin/Index/index')}}", 
-			type: 'post',
-			success: function(res){
-				console.log(res);
-				// 存放收入
-				var allincome = 0;
 
-				// 当月收入
-				for(var i in res.flows){
-					if(res.flows[i]){
-						allincome += parseInt(res.flows[i].money)/100
-					}
-					
-				}
-				// 总收入
-				$("#allincome").text(allincome);
-				// 订单数量
-				$("#orderNum").text(res.order_filters.total);
-				// 报修数量
-				$("#repaire").text(res.repairs.total);
-				// 建议数量
-				$("#feeds").text(res.feeds.total);
-			}
-		})
-		// 请求后台数据
-		$.ajax({
-			url: "{{:U('Admin/Index/index')}}",
-			type: 'post',
-			async: false,
-			dataType: 'json',
-			success: function(res){
-				// 当月收入
-				for(var i in res.flows){
-					if(res.flows[i]){
-						series_data[0].push(parseInt(res.flows[i].money)/100)
-					}else {
-						series_data[0].push(0);
-					}
-					
-				}
-				for(var i in res.order_filters){
-					// 遍历新增设备数量
-					if(res.order_filters[i]){
-						series_data[1].push(parseInt(res.order_filters[i].total_num));
-					}else {
-						series_data[1].push(0);
-					}
-				}
-			},
-			error: function(res){
-				console.log('错误 ',res)
-			}
-		})
 		if(series_data[0].length){
 
 			//收入 折线图显示
-	        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
+		    income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
 			//新增设备 折线图显示
-	        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		    newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
 		}else{ 
 			//这里是假数据
 			yAxis_data = [[0],[0]];
 			series_data = [[0],[0]];
 			//收入 折线图显示
-	        income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
+		    income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
 			//新增设备 折线图显示
-	        newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		    newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
 		}
 		/*************************  地图  **************************/
-        // 百度地图API功能
+		// 百度地图API功能
 		var map = new BMap.Map("allmap");    // 创建Map实例
 		map.centerAndZoom(new BMap.Point(113.404, 23.115), 9);  // 初始化地图,设置中心点坐标和地图级别
 		//添加地图类型控件
 		map.addControl(new BMap.MapTypeControl({
 			mapTypes:[
-	            BMAP_NORMAL_MAP,
-	            BMAP_HYBRID_MAP
-	        ]}));	  
+		        BMAP_NORMAL_MAP,
+		        BMAP_HYBRID_MAP
+		    ]}));	  
 		map.setCurrentCity("广州");          // 设置地图显示的城市 此项是必须设置的
 		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 
 		var marker = new BMap.Marker(new BMap.Point(116.404, 39.915)); // 创建点
-
 	</script>
 </div>
 <include file="Public/footer" />
