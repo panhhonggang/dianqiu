@@ -6,19 +6,19 @@
             <div class="titleBar">用户管理/<span>用户列表</span></div>
             <form class="form-search" action="__URL__/index" method="post">
                 <span class="select-box">姓名:
-                    <input type="text" class="input-medium" name="nickname" placeholder="请输入姓名" style="width: 70px;"/ >
+                    <input type="text" class="input-medium nickname" name="nickname" placeholder="请输入姓名" style="width: 70px;"/ >
                 </span>
                 <span class="select-box">设备ID:
-                    <input type="text" class="input-medium" name="device_code" placeholder="请输入设备ID" style="width: 100px;"/ >
+                    <input type="text" class="input-medium device_code" name="device_code" placeholder="请输入设备ID" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">手机:
-                    <input type="text" class="input-medium" name="phone" placeholder="请输入手机号" style="width: 100px;"/ >
+                    <input type="text" class="input-medium phone" name="phone" placeholder="请输入手机号" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">地址:
-                    <input type="text" class="input-medium" name="address" placeholder="请输入地址" style="width: 100px;"/ >
+                    <input type="text" class="input-medium address" name="address" placeholder="请输入地址" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">登录IP:
-                    <input type="text" class="input-medium" name="login_ip" placeholder="请输入IP地址" style="width: 100px;"/ >
+                    <input type="text" class="input-medium login_ip" name="login_ip" placeholder="请输入IP地址" style="width: 100px;"/ >
                 </span>                
                 <span class="select-box" style="display: inline-block;position:relative">时间:
                     <input type="text" id="date-start" class="input-medium form-control" name="mincreated_at" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxcreated_at" placeholder="请选择时间" style="width:76px;right: 0"/ >
@@ -81,24 +81,61 @@
                 
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
-                if(window.location.search){
-                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
-                }
+                
+                 /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var nickname, device_code, phone, address, login_ip, date_start,
+                    date_end;
+                    /**
+                     * nickname：昵称, device_code：设备编号, phone：手机号码, address：地址, 
+                     * login_ip：登录IP, date_start：开始时间, date_end：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        nickname = $('.nickname').val();
+                        device_code = $('.device_code').val();
+                        phone = $('.phone').val();
+                        address = $('.address').val();
+                        login_ip = $('.login_ip').val();
+                        date_start = $('#date-start').val();
+                        date_end = $('#date-end').val();
+                        
+                        srearchInfo['nickname'] = nickname;
+                        srearchInfo['device_code'] = device_code;
+                        srearchInfo['phone'] = phone;
+                        srearchInfo['address'] = address;
+                        srearchInfo['login_ip'] = login_ip;
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            $('.nickname').val(srearchInfo['nickname']);
+                            $('.device_code').val(srearchInfo['device_code']);
+                            $('.phone').val(srearchInfo['phone']);
+                            $('.address').val(srearchInfo['address']);
+                            $('.login_ip').val(srearchInfo['login_ip']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
 
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
-    <script>
-        // 搜索关键字保留
-        if(window.location.search){
-            // 获取搜索关键字
-            var arr = window.location.search.split("&");
-            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-            // console.log(arr)
-        }
-    </script>
 </div>
-

@@ -26,21 +26,21 @@ class WorkController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'pub_work.number' => array('like','%'.trim(I('post.number')).'%'),
-            'pub_work.name' => array('like','%'.trim(I('post.name')).'%'),
-            'pub_work.phone' => array('like','%'.trim(I('post.phone')).'%'),
             'pub_work.type' => trim(I('post.type')),
-            'pub_work.address' => array('like','%'.trim(I('post.address')).'%'),
             'pub_work.result' => trim(I('post.result')),
         );
-         $mintime = strtotime(trim(I('post.mintime')))?:0;
-         $maxtime = strtotime(trim(I('post.maxtime')))?:-1;
-         if (is_numeric($maxtime)) {
-             $map['time'] = array(array('egt',$mintime),array('elt',$maxtime));
-         }
-         if ($maxtime < 0) {
-             $map['time'] = array(array('egt',$mintime));
-         }    
+        $map['pub_work.number'] = trim(I('post.number')) ? array('like','%'.trim(I('post.number')).'%'): '';
+        $map['pub_work.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
+        $map['pub_work.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
+        $map['pub_work.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+//         $mintime = strtotime(trim(I('post.mintime')))?:0;
+//        $maxtime = strtotime(trim(I('post.maxtime')))?:-1;
+//        if (is_numeric($maxtime)) {
+//            $map['pub_work.time'] = array(array('egt',$mintime),array('elt',$maxtime));
+//        }
+//        if ($maxtime < 0) {
+//            $map['pub_work.time'] = array(array('egt',$mintime));
+//        }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -58,12 +58,14 @@ class WorkController extends CommonController
         // PHPExcel 导出数据 
         if (I('output') == 1) {
             $data = $type->where($map)
-                ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+                ->alias('w')
+                ->join('pub_devices ON w.dcode = pub_devices.device_code')
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+                ->field('w.id,w.dcode,w.number,w.name,w.phone,w.type,w.content,w.address,w.result,w.time')
                 ->getAll();
             $filename = '工单列表数据';
             $title = '工单列表';
-            $cellName = ['id','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','处理时间'];
+            $cellName = ['id','设备号','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','处理时间'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
@@ -77,12 +79,12 @@ class WorkController extends CommonController
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $list = $type->where($map)
-            ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code')
+            ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-            ->order('w.result asc,w.id')
-            ->limit($page->firstRow.','.$page->listRows)->getAll();
+            ->order('pub_work.id asc')
+            ->limit($page->firstRow.','.$page->listRows)->select();
         //exit();
+
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

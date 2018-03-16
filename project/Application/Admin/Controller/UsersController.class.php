@@ -40,17 +40,13 @@ class UsersController extends CommonController
         $phpExcel = new \PHPExcel();
         // dump($phpExcel);
         // 搜索功能
-        $map = array(
-            'w.nickname' => array('like','%'.trim(I('post.nickname')).'%'),
-            'd.device_code' => array('like','%'.trim(I('post.device_code')).'%'),
-            'd.phone' => trim(I('post.phone')),
-            'd.address' => array('like','%'.trim(I('post.address')).'%'),
-            'u.login_ip' => trim(I('post.login_ip'))
-        );
         if(trim(I('post.address'))){
             $map['d.address'] = array('like','%'.trim(I('post.address')).'%');
         }
-
+        trim(I('post.nickname')) ? $map['w.nickname'] = array('like','%'.trim(I('post.nickname')).'%'): '';
+        trim(I('post.device_code')) ? $map['d.device_code'] = array('like','%'.trim(I('post.device_code')).'%'): '';
+        trim(I('post.phone')) ? $map['d.phone'] = array('like','%'.trim(I('post.phone')).'%'): '';
+        trim(I('post.login_ip')) ? $map['u.login_ip'] = array('like','%'.trim(I('post.login_ip')).'%'): '';
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -58,19 +54,19 @@ class UsersController extends CommonController
             }
             return false;
         });
-
+        $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:0;
+        $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:-1;
+        if (empty($maxupdatetime) &&is_numeric($maxupdatetime)) {
+            $map['d.updatetime'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime));
+        }
+        if (empty($maxupdatetime) && $maxupdatetime < 0) {
+            $map['d.updatetime'] = array(array('egt',$minupdatetime));
+        }
         if($this->get_level()){
             $map['bd.vid'] = $_SESSION['adminuser']['id'];
 
         }
-        $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:0;
-        $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:-1;
-        if (is_numeric($maxcreated_at)) {
-            $map['u.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
-        }
-        if ($maxcreated_at < 0) {
-            $map['u.created_at'] = array(array('egt',$mincreated_at));
-        }
+
         $user = D('users');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -81,11 +77,11 @@ class UsersController extends CommonController
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->join('__BINDING__ bd ON d.id = bd.did ')
-            ->field('u.id,w.nickname,d.device_code,d.phone,d.address,u.login_time,u.login_ip,u.created_at')
+            ->field('u.id,w.nickname,d.device_code,d.phone,d.address,u.login_time,u.login_ip,u.created_at,d.updatetime')
             ->select();
             $filename = '用户列表数据';
             $title = '用户列表';
-            $cellName = ['用户id','姓名','当前设备id','手机号','地址','最后登录时间','登录IP','关注日期'];
+            $cellName = ['用户id','姓名','当前设备id','手机号','地址','最后登录时间','登录IP','关注日期','更新日期'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
@@ -241,12 +237,11 @@ class UsersController extends CommonController
 
         // 搜索功能
         $map = array(
-            'f.id' => trim(I('post.id')),
-            'd.name' => trim(I('post.name')),
-            'f.flow' => trim(I('post.flow')),
             'f.mode' => trim(I('post.mode')),
             '_query' => "status=1",
         );
+        $map['d.name'] = trim(I('post.name')) ? array('like','%'.trim(I('post.name')).'%'): '';
+        // 充值金额范围搜索
         $minmoney = trim(I('post.minmoney'))?:0;
         $maxmoney = trim(I('post.maxmoney'))?:-1;
         if (is_numeric($maxmoney)) {
@@ -255,6 +250,7 @@ class UsersController extends CommonController
         if ($maxmoney < 0) {
             $map['f.money'] = array(array('egt',$minmoney*100));      
         }
+        // 充值量搜索
         $minflow = trim(I('post.minflow'))?:0;
         $maxflow = trim(I('post.maxflow'))?:-1;
         if (is_numeric($maxflow)) {
@@ -263,6 +259,7 @@ class UsersController extends CommonController
         if ($maxflow < 0) {
             $map['f.flow'] = array(array('egt',$minflow));      
         }
+        // 当前余量搜索
         $mincurrentflow = trim(I('post.mincurrentflow'))?:0;
         $maxcurrentflow = trim(I('post.maxcurrentflow'))?:-1;
         if (is_numeric($maxcurrentflow)) {
@@ -270,7 +267,16 @@ class UsersController extends CommonController
         }
         if ($maxcurrentflow < 0) {
             $map['f.currentflow'] = array(array('egt',$mincurrentflow));      
-        }  
+        }
+        // 充值时间
+        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
+        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+        if (is_numeric($maxaddtime)) {
+            $map['f.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        }
+        if ($maxaddtime < 0) {
+            $map['f.addtime'] = array(array('egt',$minaddtime));
+        }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {

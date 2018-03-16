@@ -93,8 +93,20 @@ class ShopController extends CommonController
         $this->assign('info',$signPackage);
         $this->assign('openId',$openId);
         if ($dcode !='') {
-            $this->assign('dcode',$dcode);
-            $this->display('daichong');
+
+            if (empty(session('pid'))) {
+                $this->error('请登录');
+            }
+            $where['device_code'] = $dcode;
+            $where['uid'] = array('neq','');
+            $info_code = M('Devices')->where($where)->find()['id'];
+            if ($info_code) {
+                $this->assign('dcode',$dcode);
+                $this->display('daichong');
+            } else {
+                $this->error('该设备有误或者未绑定 请重新输入');
+            }
+
         } else {
             $this->display();
         }

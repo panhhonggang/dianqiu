@@ -53,6 +53,7 @@ class PersonnelController extends Controller
      * 安装设备列表
      */
     public function dutyList(){
+
         //处理结果(0：未处理 1：正在处理 2：已处理)
         $where['result'] = I('get.result');
         //工单类型(0：安装 1：维修 2：维护)
@@ -60,6 +61,7 @@ class PersonnelController extends Controller
         //安装人
         $where['personnel_id'] = session('pid');
         $list = M('work')->field('number,dcode,id')->where($where)->select();
+        $this->assign('where',$where);
         $this->assign('list', $list);
         $this->display();
     }
@@ -87,6 +89,8 @@ class PersonnelController extends Controller
             $data = I('post.');
             $data['pid'] = $map['personnel_id'];
             $data['vid'] = $vid;
+            $data['wid'] = $id;
+            $data['create_time'] = date('Y-m-d H:i:s');
             $add_info = M('install')->add($data);
             if ($add_info) {
                 $work_info = M('work')->where(['id'=>$map['id'],'personnel_id'=>$map['personnel_id']])->save(['dcode'=>$map['dcode'],'result'=>2]);
@@ -98,11 +102,28 @@ class PersonnelController extends Controller
                 }
             }
         } else {
+
             $this->assign('info',$info);
+
             $this->display();
         }
 
     }
+    /*
+     * 完成安装
+     */
+    public function success($id) {
+
+        $map['personnel_id'] = session('pid');
+        $map['id'] = $id;
+        $work_info = M('install')->where(['wid'=>$map['id'],'pid'=>$map['personnel_id']])->find();
+        if (!$work_info) {
+            $this->error('数据有误');
+        }
+        $this->assign('work_info',$work_info);
+        $this->display();
+    }
+
     /*
      * 充值
      */
