@@ -26,7 +26,7 @@ class PersonnelController extends CommonController
         $list =  M('personnel')->where($where)->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
-        $this->display();display
+        $this->display();
     }
     /*
      * 安装人员添加
