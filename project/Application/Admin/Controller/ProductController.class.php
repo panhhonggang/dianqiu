@@ -27,14 +27,6 @@ class ProductController extends CommonController
         // 搜索功能
         $map = array(
             'typename' =>  array('like','%'.trim(I('post.typename')).'%'),
-//            'filter1' => trim(I('post.filter1')),
-//            'filter2' => trim(I('post.filter2')),
-//            'filter3' => trim(I('post.filter3')),
-//            'filter4' => trim(I('post.filter4')),
-//            'filter5' => trim(I('post.filter5')),
-//            'filter6' => trim(I('post.filter6')),
-//            'filter7' => trim(I('post.filter7')),
-//            'filter8' => trim(I('post.filter8')),
         );
         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
@@ -44,13 +36,6 @@ class ProductController extends CommonController
         if ($maxaddtime < 0) {
             $map['addtime'] = array(array('egt',$minaddtime));
         }
-        // 删除数组中为空的值
-        $map = array_filter($map, function ($v) {
-            if ($v != "") {
-                return true;
-            }
-            return false;
-        });
 
         $type = M('device_type');
         // PHPExcel 导出数据 

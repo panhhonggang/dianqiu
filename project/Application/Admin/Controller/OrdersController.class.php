@@ -75,6 +75,28 @@ class OrdersController extends CommonController
                       ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
                       ->field('pub_orders.order_id,pub_wechat.nickname,pub_orders.total_num,pub_orders.total_price,pub_express_information.name,pub_express_information.phone,pub_express_information.addres,pub_orders.is_pay,pub_orders.is_receipt,pub_orders.is_ship,pub_orders.is_recharge,pub_orders.created_at')
                       ->select();
+            // 数组中枚举数值替换
+            $arr = [
+                'is_pay'=>[
+                    '0'=>'未付款',
+                    '1'=>'已付款',
+                    '2'=>'已取消'
+                ],
+                'is_receipt'=>[
+                    '0'=>'未发货',
+                    '1'=>'已发货'
+                ],
+                'is_ship'=>[
+                    '0'=>'未收货',
+                    '1'=>'已收货'
+                ],
+                'is_recharge'=>[
+                    '0'=>'未充值',
+                    '1'=>'已充值'
+                ],
+            ];
+            $data = replaceStrInData($data,$arr);
+
             $filename = '订单列表数据';
             $title = '订单列表';
             $cellName = ['订单编号','下单用户','购买商品数量','购买总额','收货人','收货人电话','收货地址','是否付款','是否发货','是否收获','是否充值','下单时间'];

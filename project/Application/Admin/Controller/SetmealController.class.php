@@ -68,6 +68,16 @@ class SetmealController extends CommonController
             $filename = '套餐列表';
             $title = '套餐列表';
             $cellName = ['id','充值模式','套餐金额','套餐流量/时长','套餐描述','设备','添加时间'];
+
+            // 数组中枚举数值替换
+            $arr = [
+                'remodel'=>[
+                    '0'=>'流量',
+                    '1'=>'时长'
+                ]
+            ];
+            $data = replaceStrInData($data,$arr);
+
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
