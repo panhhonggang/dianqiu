@@ -6,19 +6,19 @@
             <div class="titleBar">后台管理/<span>设备归属列表</span></div>
             <form class="form-search" action="__URL__/bindinglist" method="post">
                 <span class="select-box">经销商ID:
-                    <input type="text" class="input-medium" name="vid" placeholder="请输入经销商ID" style="width: 100px;"/ >
+                    <input type="text" class="input-medium vid" name="vid" placeholder="请输入经销商ID" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">设备ID:
-                    <input type="text" class="input-medium" name="did" placeholder="设备ID" style="width: 100px;"/ >
+                    <input type="text" class="input-medium did" name="did" placeholder="设备ID" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">设备编码:
-                    <input type="text" class="input-medium" name="device_code" placeholder="请输入设备编码" style="width: 100px;"/ >
+                    <input type="text" class="input-medium device_code" name="device_code" placeholder="请输入设备编码" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">经销商姓名:
-                    <input type="text" class="input-medium" name="name" placeholder="请输入经销商姓名" style="width: 100px;"/ >
+                    <input type="text" class="input-medium name" name="name" placeholder="请输入经销商姓名" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">经销商手机:
-                    <input type="text" class="input-medium" name="phone" placeholder="请输入经销商手机" style="width: 100px;"/ >
+                    <input type="text" class="input-medium phone" name="phone" placeholder="请输入经销商手机" style="width: 100px;"/ >
                 </span>
                 <span class="select-box" style="display: inline-block;position:relative">时间:
                     <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
@@ -72,38 +72,75 @@
             </div>
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
-                $('.pagination ul span').wrap('<li class="active"></li>')
-                if(window.location.search){
-                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
-                }
+                $('.pagination ul span').wrap('<li class="active"></li>');
+
+                $('.remove').click(function(){
+                    var id=$(this).attr('device_id');
+                    var did=$(this).attr('device_did');
+                    console.log(id);
+                    console.log(did);
+                    tip('确定解除绑定？','提示',function(){
+                        window.location.href = "{{:U('bindingdel')}}"+"?id="+id+"&did="+did;
+                    })
+                    return false;
+                })
+
+                /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var vid, did, device_code, name, phone, 
+                    date_start, date_end;
+                    /**
+                     * vid: 经销商ID, did：设备ID, 
+                     * device_code：设备编码, name：经销商姓名, 
+                     * phone：经销商手机, 
+                     * date_start：开始时间, date_end：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        vid = $('.vid').val(),
+                        did = $('.did').val(),
+                        device_code = $('.device_code').val(),
+                        name = $('.name').val(),
+                        phone = $('.phone').val(),
+                        date_start = $('#date-start').val(),
+                        date_end = $('#date-end').val();
+
+                        srearchInfo['vid'] = vid;
+                        srearchInfo['did'] = did;
+                        srearchInfo['device_code'] = device_code;
+                        srearchInfo['name'] = name;
+                        srearchInfo['phone'] = phone;
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+
+                            $('.vid').val(srearchInfo['vid']);
+                            $('.did').val(srearchInfo['did']);
+                            $('.device_code').val(srearchInfo['device_code']);
+                            $('.name').val(srearchInfo['name']);
+                            $('.phone').val(srearchInfo['phone']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
 </div>
-
-
-<script>
-    
-    // 搜索关键字保留
-    if(window.location.search){
-        // 获取搜索关键字
-        var arr = window.location.search.split("&");
-        $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-        $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-        // console.log(arr)
-    } 
-</script>
-<script type="text/javascript">
-    $('.remove').click(function(){
-        var id=$(this).attr('device_id');
-        var did=$(this).attr('device_did');
-        console.log(id);
-        console.log(did);
-        tip('确定解除绑定？','提示',function(){
-            window.location.href = "{{:U('bindingdel')}}"+"?id="+id+"&did="+did;
-        })
-        return false;
-    })
-</script>
