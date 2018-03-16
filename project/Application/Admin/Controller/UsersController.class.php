@@ -301,6 +301,10 @@ class UsersController extends CommonController
                 ->join('__BINDING__ bd ON d.id = bd.did ')
                 ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
                 ->select();
+            $arr = [
+                'mode' => ['系统赠送','微信','支付宝']
+            ];
+            ss($data,$arr);
             $filename = '充值记录数据';
             $title = '充值记录';
             $cellName = ['充值流水id','用户昵称','充值金额','充值流量（天）','账户余量（天）','充值方式','充值时间'];

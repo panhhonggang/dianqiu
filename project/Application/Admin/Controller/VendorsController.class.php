@@ -54,6 +54,10 @@ class VendorsController extends CommonController
             $data = $user->where($map)
                         ->field('id,user,name,phone,email,address,idcard,leavel,addtime')
                         ->select();
+            $arr = [
+                'leavel' => ['超级管理员','一级经销商','二级经销商']
+            ];
+            ss($data,$arr);
             $filename = '经销商列表数据';
             $title = '经销商列表';
             $cellName = ['用户Id','账号','昵称','手机号','邮箱','地址','身份证号','管理级别','最新添加时间'];

@@ -11,7 +11,7 @@ class PersonnelController extends CommonController
     {
         $map = [];
         $map = I('get.');
-        if ( !empty($map['key']) && !empty($map['value'] && $map['key'] =='name')) {
+        if ( !empty($map['key']) && !empty($map['value'])  && $map['key'] =='name') {
             $where['name'] =  array('like', '%'.$map['value'].'%');
         }
 
@@ -26,7 +26,7 @@ class PersonnelController extends CommonController
         $list =  M('personnel')->where($where)->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
-        $this->display();
+        $this->display();display
     }
     /*
      * 安装人员添加
