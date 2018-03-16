@@ -971,6 +971,7 @@ class PaymentSystemController extends Controller
                             //show($value);die;
                             // 查询设备当前剩余流量
                             $devicesStatus = $devicesStatu->where($deviceCode)->find();
+                            // file_put_contents("./aaaa.txt",jsosn_encode($devicesStatus),FILE_APPEND);
                             // $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
                             $devicesStatuReFlow = $devicesStatus['reflow'];
                             $devicesStatuReDay = $devicesStatus['reday'];
@@ -982,7 +983,6 @@ class PaymentSystemController extends Controller
                                 // 充值后流量应剩余流量
                                 $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
                             // }
-                            
 
                             // 修改设备剩余流量
                             $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);

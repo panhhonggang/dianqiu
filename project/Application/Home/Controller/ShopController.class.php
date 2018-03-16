@@ -153,5 +153,14 @@ class ShopController extends CommonController
             $this->display(); 
         } 
     }
+
+    // // 将套餐数据更新到数据库
+    // public function deviceStatu()
+    // {
+    //     $data = I("post.");
+    //     file_put_contents('./weixin.test',$data, FILE_APPEND);
+    //     // dump($data);
+    //     // $this->ajaxReturn( $data );
+    // }
 }
 
