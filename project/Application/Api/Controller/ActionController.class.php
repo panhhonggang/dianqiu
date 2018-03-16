@@ -18,11 +18,29 @@ class ActionController extends Controller
         unset($message['client_id']);
 
         // 判断数据传输的对象
-        if( $message['soure']=='TCP'){
+        if( $message['soure']=='Close')
+        {
+            $this->Close($message['DeviceID']);
+        }
+        else if( $message['soure']=='TCP'){
             $this->gettcp($client_id, $message);
+            $this->updateNetStase($message['DeviceID'],1);
         } else {
             $this->getws($client_id, $message);
         }
+    }
+    public function Close($DeviceID)
+    {
+        $this->updateNetStase($DeviceID,0);
+    }
+    public function updateNetStase($DeviceID,$NetStause)
+    {
+        $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
+
+        $data = [
+            'NetStause'   => $NetStause,
+        ];
+        $this->updateData($status_id, $data);
     }
 
     /**
