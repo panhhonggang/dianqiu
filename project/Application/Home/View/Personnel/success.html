@@ -114,11 +114,11 @@
 	<div  class="parameterSet">
 		<h1>参数设置</h1>
 		<form action=""  class="forms">
-			<p>设备编码：<span><input type="text" name="dcode" value="{{$info['data']['dcode']}}"></span></p>
+			<p>设备编码：<span><input type="text" name="dcode" value="{{$work_info['dcode']}}"></span></p>
 			<p class="selectCon">
 				<label for="">租赁模式：</label>
 				<select name="lease" id="" class="selects">
-					<option <?php echo ($cou ==1)?'selected':''; ?>  value=""></option>
+
 					<option <?php echo ($work_info['lease']===0)?'selected':''; ?> value="0">零售型</option>
 					<option <?php echo ($work_info['lease']==1)?'selected':''; ?> value="1">按流量计费</option>
 					<option <?php echo ($work_info['lease']==2)?'selected':''; ?> value="2">按时间计费</option>
@@ -131,16 +131,13 @@
 				<label for="">滤芯模式：</label>
 				<select name="filter" id="" class="selects">
 					<option value=""></option>
-					<option <?php echo ($work_info['filter']===0)?'selected':''; ?> value="0" >按时长</option>
+					<option <?php echo ($work_info['filter']==0)?'selected':''; ?> value="0" >按时长</option>
 					<option <?php echo ($work_info['filter']==1)?'selected':''; ?> value="1">按流量</option>
 					<option <?php echo ($work_info['filter']==2)?'selected':''; ?> value="2">时长和流量</option>
 				</select>
 				<span class="sugan"></span>
 			</p>
 
-				<p>
-					<input type="submit" value="完成安装" class="subBtn">
-				</p>
 
 		</form>
 	</div>

@@ -622,6 +622,7 @@ class PaymentSystemController extends Controller
      * 代充
      */
     public function dcpay_add() {
+
         $data = json_decode($_POST['data'],true);
 
         $uid = $_SESSION['homeuser']['id'];
@@ -633,6 +634,7 @@ class PaymentSystemController extends Controller
             return $this->ajaxReturn(['code'=>400,'msgerror'=>'寻找不到该套餐']);
         } else {
             if ($uid) {
+
                 // 情况一：购买套餐（1个套餐1件）
                 $where['device_code'] = $data[0]['dcode'];
                 $where['uid'] = array('neq','');
@@ -644,6 +646,7 @@ class PaymentSystemController extends Controller
                     $orderSetmeal = D('OrderSetmeal');
                     // 实例化购物车模型
                     $cartSetmeal = M('CartSetmeal');
+                    $pers = M('pers_charge');
                     // 开启事务
                     $orders->startTrans();
 
@@ -683,17 +686,29 @@ class PaymentSystemController extends Controller
                     $setmealData['goods_price'] = $setmeal_info['money'];
                     // 订单创建时间
                     $setmealData['created_at'] = $order['created_at'];
+                    /*
+                     * 创建代充人员记录
+                     */
 
+                    $perData['orderid'] = $order['order_id'];
+                    $perData['pid'] =  session('pid');
+                    $perData['device_id'] = $info_code['id'];
+                    $perData['total_num'] = 1;
+                    $perData['total_price'] = $setmeal_info['money'];
+                    $perData['setmeal_id'] = $setmeal_info['id'];
+                    $perData['type_id'] = $info_code['type_id'];
+                    $perData['money'] = $setmeal_info['money'];
+                    $perData['flow'] = $setmeal_info['flow'];
+                    $perData['create_time'] = date('Y-m-d H:i:s');
+                   
                     // 创建订单
                     $ordersRes = $orders->add($order);
                     // 创建订单套餐
                     $orderSetmealRes = $orderSetmeal->add($setmealData);
-
-
-
+                    //创建代充记录
+                    $persSetmealRes = $pers->add($perData);
                     // 判断订单是否创建成功
-                    if ($ordersRes && $orderSetmealRes) {
-
+                    if ($ordersRes && $orderSetmealRes && $persSetmealRes) {
                         // 执行事务
                         $orders->commit();
                         // 准备订单数据
@@ -728,6 +743,7 @@ class PaymentSystemController extends Controller
      */
     public function uniformOrder($money,$order_id,$content)
     {
+
         // $content = substr($content,0,80);
         // 将金额强转换整数
         //$money = I('money') * 100;

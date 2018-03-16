@@ -83,7 +83,12 @@
 			<foreach name="list" item="vo">
 				<li>
 
-					<a href="{{:U('home/Personnel/infoDetail',array('id'=>$vo['id']))}}">
+					<if condition="$where['result'] eq 0 ">
+						<a href="{{:U('home/Personnel/infoDetail',array('id'=>$vo['id']))}}">
+						<else />
+							<a href="{{:U('home/Personnel/success',array('id'=>$vo['id']))}}">
+					</if>
+
 						<ol class="detailInfo clearfix">
 							<li>
 								<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
@@ -95,9 +100,9 @@
 							<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
 						</ol>
 					</a>
-				</li>	
+				</li>
 			</foreach>
-			
+
 		</ul>
 	</div>
 </body>
