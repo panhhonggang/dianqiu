@@ -618,6 +618,106 @@ class PaymentSystemController extends Controller
         }
     }
 
+    /*
+     * 代充
+     */
+    public function dcpay_add() {
+        $data = json_decode($_POST['data'],true);
+
+        $uid = $_SESSION['homeuser']['id'];
+        //查找提交过来的套餐是否存在
+        $setmeal_info = M('setmeal')->where('id='.intval($data[0]['sid']))->find();
+
+
+        if (empty($setmeal_info)) {
+            return $this->ajaxReturn(['code'=>400,'msgerror'=>'寻找不到该套餐']);
+        } else {
+            if ($uid) {
+                // 情况一：购买套餐（1个套餐1件）
+                $where['device_code'] = $data[0]['dcode'];
+                $where['uid'] = array('neq','');
+                $info_code = M('Devices')->where($where)->find()['id'];
+                if ($info_code) {
+                    // 实例化订单模型
+                    $orders = D('Orders');
+                    // 实例化订单套餐模型
+                    $orderSetmeal = D('OrderSetmeal');
+                    // 实例化购物车模型
+                    $cartSetmeal = M('CartSetmeal');
+                    // 开启事务
+                    $orders->startTrans();
+
+                    // 准备数据
+                    // 唯一订单ID号
+                    $order['order_id'] = gerOrderId();
+                    // 用户ID号
+                    $order['user_id'] = $uid;
+                    // 关联的设备ID号
+                    $order['device_id'] = $info_code['id'];
+                    // 商品的购买总数量
+                    $order['total_num'] = 1;
+                    // 商品的购买总金额
+                    $order['total_price'] = $setmeal_info['money'];
+                    // 订单创建时间
+                    $order['created_at'] = time();
+
+
+                    // 准备数据
+                    // 关联订单ID号
+                    $setmealData['order_id'] = $order['order_id'];
+                    // 套餐ID
+                    $setmealData['setmeal_id'] = $setmeal_info['id'];
+                    // 产品类型ID
+                    $setmealData['type_id'] =$info_code['type_id'];
+                    // 充值模式
+                    $setmealData['remodel'] = $setmeal_info['remodel'];
+                    // 套餐价格
+                    $setmealData['money'] = $setmeal_info['money'];
+                    // 套餐流量/时长
+                    $setmealData['flow'] = $setmeal_info['flow'];
+                    // 套餐描述
+                    $setmealData['describe'] = $setmeal_info['describe'];
+                    // 商品的购买数量
+                    $setmealData['goods_num'] = 1;
+                    // 商品的购买金额
+                    $setmealData['goods_price'] = $setmeal_info['money'];
+                    // 订单创建时间
+                    $setmealData['created_at'] = $order['created_at'];
+
+                    // 创建订单
+                    $ordersRes = $orders->add($order);
+                    // 创建订单套餐
+                    $orderSetmealRes = $orderSetmeal->add($setmealData);
+
+
+
+                    // 判断订单是否创建成功
+                    if ($ordersRes && $orderSetmealRes) {
+
+                        // 执行事务
+                        $orders->commit();
+                        // 准备订单数据
+                        // 充值金额
+                        $money = $setmealData['goods_price'] - 0;
+                        // 订单号码
+                        $order_id = $order['order_id'];
+                        // 订单描述
+                        $contentstr = $setmealData['describe'];
+                        // 描述超长处理
+                        $content = msubstr($contentstr, 0, 100);
+                        // 订单创建成功，跳转到支付页面
+                        return $this->uniformOrder($money, $order_id, $content);
+                    } else {
+                        // 事务回滚
+                        $orders->rollback();
+                        $this->error('订单创建失败');
+                    }
+                }
+
+            }
+        }
+
+    }
 
     /**
      * 统一下单并返回数据
