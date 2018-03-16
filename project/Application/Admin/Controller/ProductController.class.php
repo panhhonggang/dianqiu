@@ -26,25 +26,24 @@ class ProductController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'id' => trim(I('post.id')),
-            'typename' => trim(I('post.typename')),
-            'filter1' => trim(I('post.filter1')),
-            'filter2' => trim(I('post.filter2')),
-            'filter3' => trim(I('post.filter3')),
-            'filter4' => trim(I('post.filter4')),
-            'filter5' => trim(I('post.filter5')),
-            'filter6' => trim(I('post.filter6')),
-            'filter7' => trim(I('post.filter7')),
-            'filter8' => trim(I('post.filter8')),
+            'typename' =>  array('like','%'.trim(I('post.typename')).'%'),
+//            'filter1' => trim(I('post.filter1')),
+//            'filter2' => trim(I('post.filter2')),
+//            'filter3' => trim(I('post.filter3')),
+//            'filter4' => trim(I('post.filter4')),
+//            'filter5' => trim(I('post.filter5')),
+//            'filter6' => trim(I('post.filter6')),
+//            'filter7' => trim(I('post.filter7')),
+//            'filter8' => trim(I('post.filter8')),
         );
-        // $minaddtime = trim(I('post.minaddtime'))?:0;
-        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
-        // if (is_numeric($maxaddtime)) {
-        //     $map['money'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
-        // }
-        // if ($maxaddtime < 0) {
-        //     $map['money'] = array(array('egt',$minaddtime));      
-        // }       
+        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
+        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+        if (is_numeric($maxaddtime)) {
+            $map['addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        }
+        if ($maxaddtime < 0) {
+            $map['addtime'] = array(array('egt',$minaddtime));
+        }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -209,10 +208,9 @@ class ProductController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'id' => trim(I('post.id')),
-            'filtername' => trim(I('post.filtername')),
-            'alias' => trim(I('post.alias')),
-            'url' => trim(I('post.url'))
+            'filtername' =>  array('like','%'.trim(I('post.filtername')).'%'),
+            'alias' => array('like','%'.trim(I('post.alias')).'%'),
+            'url' => array('like','%'.trim(I('post.url')).'%'),
         );
 
         $minprice = trim(I('post.minprice'))?:0;
@@ -242,14 +240,14 @@ class ProductController extends CommonController
             $map['flowlife'] = array(array('egt',$minflowlife));      
         } 
 
-        // $minaddtime = trim(I('post.minaddtime'))?:0;
-        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
-        // if (is_numeric($maxaddtime)) {
-        //     $map['addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
-        // }
-        // if ($maxaddtime < 0) {
-        //     $map['addtime'] = array(array('egt',$minaddtime));      
-        // }       
+         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
+         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+         if (is_numeric($maxaddtime)) {
+             $map['addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+         }
+         if ($maxaddtime < 0) {
+             $map['addtime'] = array(array('egt',$minaddtime));
+         }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
