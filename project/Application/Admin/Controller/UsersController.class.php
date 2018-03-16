@@ -41,10 +41,10 @@ class UsersController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'u.id' => trim(I('post.id')),
-            'w.nickname' => trim(I('post.nickname')),
-            'd.device_code' => trim(I('post.device_code')),
+            'w.nickname' => array('like','%'.trim(I('post.nickname')).'%'),
+            'd.device_code' => array('like','%'.trim(I('post.device_code')).'%'),
             'd.phone' => trim(I('post.phone')),
+            'd.address' => array('like','%'.trim(I('post.address')).'%'),
             'u.login_ip' => trim(I('post.login_ip'))
         );
         if(trim(I('post.address'))){
@@ -63,7 +63,14 @@ class UsersController extends CommonController
             $map['bd.vid'] = $_SESSION['adminuser']['id'];
 
         }
-
+        $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:0;
+        $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:-1;
+        if (is_numeric($maxcreated_at)) {
+            $map['u.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
+        }
+        if ($maxcreated_at < 0) {
+            $map['u.created_at'] = array(array('egt',$mincreated_at));
+        }
         $user = D('users');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -177,12 +184,19 @@ class UsersController extends CommonController
             $code[] = $value['device_code'];
         }
         $where['_query'] = "status=1";
-        $where['did']    = array('in',$did);
+        if(!empty($did)){
+            $where['did']    = array('in',$did);
+        }
         $flow    = M('flow')->where($where)->order('addtime desc')->select();
-        $balance = M('devices_statu')
+
+        $balance=[];
+        if(!empty($code)){
+             $balance = M('devices_statu')
             ->where(['DeviceID' => ['in',$code]])
             ->field('DeviceID,ReFlow')
             ->select();
+        }
+   
         // 分配数据
         $assign = [
             'userinfo' => json_encode($userinfo),

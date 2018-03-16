@@ -5,31 +5,28 @@
         <div class="tableBox">
             <div class="titleBar">用户管理/<span>充值记录</span></div>
             <form class="form-search" action="__URL__/flow" method="post">
-                <span class="select-box">充值流水ID:
-                    <input type="text" class="input-medium" name="id" placeholder="请输入充值ID" style="width: 70px;"/ >
-                </span>
                 <span class="select-box">用户昵称:
-                    <input type="text" class="input-medium" name="name" placeholder="请输入用户昵称" style="width: 70px;"/ >
+                    <input type="text" class="input-medium name" name="name" placeholder="请输入用户昵称" style="width: 70px;"/ >
                 </span>
 
                 <span class="select-box">充值金额:
-                    <input type="text" class="input-medium" name="minmoney" placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxmoney" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium minmoney" name="minmoney" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxmoney" name="maxmoney" placeholder="" style="width: 60px;" / >
                 </span>
                 <span class="select-box">充值量（天）:
-                    <input type="text" class="input-medium" name="minflow" placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxflow" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium minflow" name="minflow" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxflow" name="maxflow" placeholder="" style="width: 60px;" / >
                 </span>
                 <span class="select-box">账户余量（天）:
-                    <input type="text" class="input-medium" name="mincurrentflow" placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxcurrentflow" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium mincurrentflow" name="mincurrentflow" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxcurrentflow" name="maxcurrentflow" placeholder="" style="width: 60px;" / >
                 </span>
                 <span class="select-box">充值方式:
-                    <select class="select" size="1" name="mode" style="width: 100px;">
-                    <option value="" selected>- 充值方式 -</option>
-                    <option value="0">系统赠送</option>
-                    <option value="1">微信</option>
-                    <option value="2">支付宝</option>
+                    <select class="select mode" size="1" name="mode" style="width: 100px;">
+                        <option value="" selected>- 充值方式 -</option>
+                        <option value="0">系统赠送</option>
+                        <option value="1">微信</option>
+                        <option value="2">支付宝</option>
                     </select>
                 </span>               
                 <span class="select-box" style="display: inline-block;position:relative">充值时间:
@@ -91,23 +88,72 @@
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
 
-                if(window.location.search){
-                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
-                }
+                 /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var name, minmoney, maxmoney, minflow, maxflow, mode,
+                    mincurrentflow, maxcurrentflow, date_start, date_end;
+                    /**
+                     * phone：电话, minmoney：最小金额, maxmoney：最大金额, 
+                     * minflow：最小流量, maxflow：最大流量, mode：充值方式,
+                     * mincurrentflow：账户余量最小, maxcurrentflow：账户余量最大, 
+                     * date_start： 开始时间, date_end：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        name = $('.name').val();
+                        minmoney = $('.minmoney').val();
+                        maxmoney = $('.maxmoney').val();
+                        minflow = $('.minflow').val();
+                        maxflow = $('.maxflow').val();
+                        mode = Number($('.mode>option:selected').val())+1;
+                        mincurrentflow = $('.mincurrentflow').val();
+                        maxcurrentflow = $('.maxcurrentflow').val();
+                        date_start = $('#date-start').val();
+                        date_end = $('#date-end').val();
+                        
+                        srearchInfo['name'] = name;
+                        srearchInfo['minmoney'] = minmoney;
+                        srearchInfo['maxmoney'] = maxmoney;
+                        srearchInfo['minflow'] = minflow;
+                        srearchInfo['maxflow'] = maxflow;
+                        srearchInfo['mode'] = mode;
+                        srearchInfo['mincurrentflow'] = mincurrentflow;
+                        srearchInfo['maxcurrentflow'] = maxcurrentflow;
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            $('.name').val(srearchInfo['name']);
+                            $('.minmoney').val(srearchInfo['minmoney']);
+                            $('.maxmoney').val(srearchInfo['maxmoney']);
+                            $('.minflow').val(srearchInfo['minflow']);
+                            $('.maxflow').val(srearchInfo['maxflow']);
+                            $('.mincurrentflow').val(srearchInfo['mincurrentflow']);
+                            $('.maxcurrentflow').val(srearchInfo['maxcurrentflow']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+                            $('.mode>option').eq(srearchInfo['mode'])[0].selected = true;
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
-    <script>
-        // 搜索关键字保留
-        if(window.location.search){
-            // 获取搜索关键字
-            var arr = window.location.search.split("&");
-            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-            console.log(arr)
-        }
-    </script>
 </div>
 

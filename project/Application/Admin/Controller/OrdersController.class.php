@@ -28,16 +28,12 @@ class OrdersController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'pub_orders.order_id' => trim(I('post.order_id')),
-            'pub_wechat.nickname' => trim(I('post.nickname')),
+            'pub_orders.order_id' =>  array('like','%'.trim(I('post.order_id')).'%'),
+            'pub_wechat.nickname' => array('like','%'.trim(I('post.nickname')).'%'),
             'pub_orders.total_num' => trim(I('post.total_num')),
-            'pub_express_information.name' => trim(I('post.name')),
-            'pub_express_information.phone' => trim(I('post.phone')),
-            'pub_express_information.addres' => trim(I('post.addres')),
-            'pub_orders.is_pay' => trim(I('post.is_pay')),
-            'pub_orders.is_receipt' => trim(I('post.is_receipt')),
-            'pub_orders.is_ship' => trim(I('post.is_ship')),
-            'pub_orders.is_recharge' => trim(I('post.is_recharge'))
+            'pub_express_information.name' => array('like','%'.trim(I('post.name')).'%'),
+            'pub_express_information.phone' => array('like','%'.trim(I('post.phone')).'%'),
+            'pub_express_information.addres' => array('like','%'.trim(I('post.addres')).'%'),
         );
 
         if($this->get_level()){
@@ -52,14 +48,14 @@ class OrdersController extends CommonController
         if ($maxtotal_price < 0) {
             $map['pub_orders.total_price'] = array(array('egt',mintotal_price));      
         }
-        // $mincreated_at = trim(I('post.mincreated_at'))?:0;
-        // $maxcreated_at = trim(I('post.maxcreated_at'))?:-1;
-        // if (is_numeric($maxcreated_at)) {
-        //     $map['pub_orders.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
-        // }
-        // if ($maxcreated_at < 0) {
-        //     $map['pub_orders.created_at'] = array(array('egt',$mincreated_at));      
-        // }       
+        $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:0;
+         $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:-1;
+         if (is_numeric($maxcreated_at)) {
+             $map['pub_orders.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
+         }
+         if ($maxcreated_at < 0) {
+             $map['pub_orders.created_at'] = array(array('egt',$mincreated_at));
+         }       
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {

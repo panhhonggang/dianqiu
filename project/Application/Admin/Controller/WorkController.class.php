@@ -26,21 +26,21 @@ class WorkController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'number' => trim(I('post.number')),
-            'name' => trim(I('post.name')),
-            'phone' => trim(I('post.phone')),
-            'type' => trim(I('post.type')),
-            'address' => trim(I('post.address')),
-            'result' => trim(I('post.result')),
+            'pub_work.number' => array('like','%'.trim(I('post.number')).'%'),
+            'pub_work.name' => array('like','%'.trim(I('post.name')).'%'),
+            'pub_work.phone' => array('like','%'.trim(I('post.phone')).'%'),
+            'pub_work.type' => trim(I('post.type')),
+            'pub_work.address' => array('like','%'.trim(I('post.address')).'%'),
+            'pub_work.result' => trim(I('post.result')),
         );
-        // $mintime = trim(I('post.mintime'))?:0;
-        // $maxtime = trim(I('post.maxtime'))?:-1;
-        // if (is_numeric($maxtime)) {
-        //     $map['time'] = array(array('egt',$mintime),array('elt',$maxtime));
-        // }
-        // if ($maxtime < 0) {
-        //     $map['time'] = array(array('egt',$mintime));      
-        // }       
+         $mintime = strtotime(trim(I('post.mintime')))?:0;
+         $maxtime = strtotime(trim(I('post.maxtime')))?:-1;
+         if (is_numeric($maxtime)) {
+             $map['time'] = array(array('egt',$mintime),array('elt',$maxtime));
+         }
+         if ($maxtime < 0) {
+             $map['time'] = array(array('egt',$mintime));
+         }    
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {

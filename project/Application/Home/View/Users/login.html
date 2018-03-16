@@ -10,13 +10,23 @@
 	
 	
 	<style>
-		#contain{
+		.linkBox{
+			display: none;
+		}
+		body{
+			height:100vh;
 			font-family:microsoftYaHei;
 			color:rgb(255,255,255);
-			/*background:blue;*/
-			overflow:hidden;
 			background:url("__PUBLIC__/Home/images/bg.png") no-repeat 100% 100%;
 		}	
+		#contain {
+			border-top:1px solid #77D3FC;
+		}
+		input{ 
+			appearance:none;
+			-moz-appearance:none; /* Firefox */
+			-webkit-appearance:none; /* Safari and Chrome */
+		}
 		.login-title{
 			font-size:.7rem;
 			text-align:center;
@@ -31,6 +41,7 @@
 			padding-bottom:.2rem;
 		}
 		.inputStyle > input{
+			width: 60%;
 			border:none;
 			background-color:transparent;
 			color:rgb(255,255,255);
@@ -65,13 +76,11 @@
 		<h1 class="login-title">物联网云平台</h1>
 		<form action="" method="post" id="form1" enctype="multipart/form-data">
 			<p class="inputStyle">
-				<label for="">账号:</label>	
-				<input type="text" placeholder="请输入手机号" name="phone" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'">
+				账号: <input type="text" placeholder="请输入手机号" name="phone" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'">
 			</p>
 				
 			<p class="inputStyle">
-				<label for="">密码:</label>	
-				<input type="password" placeholder="请输入密码"  name="password" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'">
+				密码: <input type="password" placeholder="请输入密码"  name="password" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'">
 			</p>
 			<p>
 				<input type="button" class="inputSubmit" value="登录">

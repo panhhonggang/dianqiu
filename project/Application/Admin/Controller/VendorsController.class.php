@@ -24,23 +24,22 @@ class VendorsController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'id' => trim(I('post.id')),
-            'user' => trim(I('post.user')),
-            'name' => trim(I('post.name')),
-            'phone' => trim(I('post.phone')),
-            'email' => trim(I('post.email')),
-            'address' => trim(I('post.address')),
-            'idcard' => trim(I('post.idcard')),
+            'user' => array('like','%'.trim(I('post.user')).'%'),
+            'name' => array('like','%'.trim(I('post.name')).'%'),
+            'phone' => array('like','%'.trim(I('post.phone')).'%'),
+            'email' => array('like','%'.trim(I('post.email')).'%'),
+            'address' => array('like','%'.trim(I('post.address')).'%'),
+            'idcard' => array('like','%'.trim(I('post.idcard')).'%'),
             'leavel' => trim(I('post.leavel')),
         );
-        // $minaddtime = trim(I('post.minaddtime'))?:0;
-        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
-        // if (is_numeric($maxaddtime)) {
-        //     $map['money'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
-        // }
-        // if ($maxaddtime < 0) {
-        //     $map['money'] = array(array('egt',$minaddtime));
-        // }
+        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
+        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+        if (is_numeric($maxaddtime)) {
+            $map['addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+        }
+        if ($maxaddtime < 0) {
+            $map['addtime'] = array(array('egt',$minaddtime));
+        }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -263,23 +262,21 @@ class VendorsController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'pub_binding.vid' => trim(I('post.vid')),
-            'pub_binding.did' => trim(I('post.did')),
-            'pub_devices.device_code' => trim(I('post.device_code')),
-            'pub_vendors.phone' => trim(I('post.phone')),
-            'pub_vendors.name' => trim(I('post.name'))
+            'pub_devices.device_code' => array('like','%'.trim(I('post.device_code')).'%'),
+            'pub_vendors.phone' => array('like','%'.trim(I('post.phone')).'%'),
+            'pub_vendors.name' => array('like','%'.trim(I('post.name')).'%'),
         );
         if($this->get_level()){
             $map['pub_vendors.id'] = $_SESSION['adminuser']['id'];
         }
-        // $minaddtime = trim(I('post.minaddtime'))?:0;
-        // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
-        // if (is_numeric($maxaddtime)) {
-        //     $map['pub_binding.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
-        // }
-        // if ($maxaddtime < 0) {
-        //     $map['pub_binding.addtime'] = array(array('egt',$minaddtime));
-        // }
+         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
+         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+         if (is_numeric($maxaddtime)) {
+             $map['pub_binding.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+         }
+         if ($maxaddtime < 0) {
+             $map['pub_binding.addtime'] = array(array('egt',$minaddtime));
+         }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {

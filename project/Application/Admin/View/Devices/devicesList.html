@@ -142,35 +142,32 @@
                 </div>
             </div>
             <script>
-                if(window.location.search){
-                    $('input[name=value]').val(decodeURI(window.location.search.slice(13)))
-                }
-
                 /**************** 搜索关键字保留 -- 开始 ******************/
                     var srearchInfo = {};
                     var device_code, name, is_bind, dname, 
                     typename, date_start, date_end, status;
                     /**
-                     * type: 产品类型, remodel：套餐模式, 
-                     * minmoney：最小金额, maxmoney：最大金额, 
-                     * flow：套餐量, describe：套餐名称, 
+                     * device_code: 设备编号, name：经销商名称, 
+                     * is_bind：是否绑定, dname：绑定的用户, 
+                     * typename：设备类型, status：设备状态, 
                      * mintime：开始时间, maxtime：结束时间
                      */
                     // 点击搜索
                     $("button[name='search']").click(function(){
-                        device_code = $('.device_code').val(),
-                        name = $('.name').val(),
-                        is_bind = Number($('.is_bind>option:selected').val())+1,
-                        status = Number($('.status>option:selected').val())+1,
-                        dname = $('.dname').val(),
-                        typename = $('.typename').val(),
-                        date_start = $('#date-start').val(),
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        device_code = $('.device_code').val();
+                        name = $('.name').val();
+                        is_bind = Number($('.is_bind>option:selected').val())+1;
+                        status = Number($('.status>option:selected').val())+1;
+                        dname = $('.dname').val();
+                        typename = $('.typename').val();
+                        date_start = $('#date-start').val();
                         date_end = $('#date-end').val();
 
                         srearchInfo['device_code'] = device_code;
                         srearchInfo['name'] = name;
                         srearchInfo['is_bind'] = is_bind;
-                        srearchInfo['status'] = status;
                         srearchInfo['dname'] = dname;
                         srearchInfo['typename'] = typename;
                         srearchInfo['mintime'] = date_start;
@@ -193,6 +190,10 @@
                             $('.typename').val(srearchInfo['typename']);
                             $('#date-start').val(srearchInfo['mintime']);
                             $('#date-end').val(srearchInfo['maxtime']);
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
                         }
                     }
                     

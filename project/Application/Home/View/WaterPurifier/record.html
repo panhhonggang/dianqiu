@@ -162,12 +162,13 @@
 	</style>
 </head>
 <body>
+	<input type="hidden" class="datalist" value={{$data|json_encode}} name="">
 	<div id="dateSelect">
 		<input name="date" type="button" class="in-first layui-input" id="chooseMonth" value="">
 	</div>
 	</div>
 	<div class="echartDiv">
-		<h3 class="eChartTitle">纯水 <span>(平均值：82.66ppm)</span></h3><br />
+		<h3 class="eChartTitle">纯水 <span class="rawMean"></span></h3><br />
 		<div class="chart" id="lineChart1" _echarts_instance_="1513755345537" >
 			<div>
 				<div data-zr-dom-id="bg" ></div>
@@ -176,7 +177,7 @@
 		</div>
 	</div>
 	<div class="echartDiv">
-		<h3 class="eChartTitle">原水 <span>(平均值：1386.08ppm)</span></h3><br />
+		<h3 class="eChartTitle">原水 <span class="pureMean"></span></h3><br />
 		<div class="chart" id="lineChart2" _echarts_instance_="1513755345537" >
 			<div>
 				<div data-zr-dom-id="bg" ></div>
@@ -191,22 +192,65 @@
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
 	<script>
 	$(function(){
-		var month = ((new Date().getMonth()+1)+'').length == 1
-					? '0' + (new Date().getMonth()+1)
-					: (new Date().getMonth()+1)
+		var year = new Date().getFullYear();
+		var month = new Date().getMonth();
+	 	mustDate = new Date(year, month, 0).getDate();
+		var datalist=JSON.parse($(".datalist").val());//数据集
+		var yAxisData = [[400],[2000]];	//设置y轴最大值
+		console.log(datalist);
+		$("#dateSelect").text(year+'-'+month);//显示当前年月
 		// 页面加载就给月份赋值
-		$("#chooseMonth").val(new Date().getFullYear()+ '-' + month);
-
 		$("#dateSelect").click(function(){
-			//年月范围选择
 			laydate.render({ 
-			  elem: '#chooseMonth',
-			  show: true,
-			  type: 'month',
-			  max: new Date().getTime()
+			  	elem: '#dateSelect',
+				show: true,
+				type: 'month',
+				max: new Date().getTime(),
+				done: function(){
+					// 获取年月数值如：201802
+					var data = $(".layui-this").text().substring(1);
+					var num=["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
+					var monthstring = -1;
+					var yearstring=String(parseInt($(".laydate-set-ym span").html()));
+					$(".layui-this").attr("lay-ym");
+					for(var i=0;i<num.length;i++){
+						if(num[i]==data){
+							monthstring=parseInt(i+1)<10?"0"+(i+1):i;
+						}
+					}
+					console.log(yearstring+monthstring);
+					// 选中月份获取净水记录
+					$.ajax({
+						url:"getTds",
+						dataType:"json",
+						type:"post",
+						data:{
+							"month":yearstring+monthstring
+						},
+						success:function(res){
+							console.log(res);
+						}
+					});
+				}
 			});
 		})
+		var rawArray=[];//原水数据集
+		var pureArray=[];//净水数据集
+		var rawSum=0,pureSum=0;
+		for(var i=0;i<datalist.length;i++){//遍历原水值与净水值的数据
+			rawArray[i]=parseInt(datalist[i].raw);
+			pureArray[i]=parseInt(datalist[i].pure);
+			rawSum+=rawArray[i];
+			pureSum+=pureArray[i];
+		}
+		// 求平均值
+		$(".rawMean").html("(平均值："+(rawSum/rawArray.length).toFixed(2)+"ppm)");
+		$(".pureMean").html("(平均值："+(pureSum/pureArray.length).toFixed(2)+"ppm)");
+		var lineChart1 = echarts.init(byId('lineChart1'));
+		lineChart1.setOption(getOption('line', yAxisData[0], rawArray, '纯水', '#74c2ad'));
 
+		var lineChart2 = echarts.init(byId('lineChart2'));
+		lineChart2.setOption(getOption('line', yAxisData[1], pureArray, '原水', '#f75151'));
 	})
 	var getOption = function(_chartType, _yAxisData, _seriesData, _chartName, lineColor) {
 		var chartOption = {
@@ -262,13 +306,7 @@
 	var byId = function(id) {
 		return document.getElementById(id);
 	};
-	var yAxisData = [[400],[2000]];
-	var seriesData = [[20,70,40,70,100,70,40,70],
-		[200,300,400,700,900,700,800,700,1000,1100,1200,900,800,800,700,900,1300,1200,1000,1100,900,800,700]];
-	var lineChart1 = echarts.init(byId('lineChart1'));
-	lineChart1.setOption(getOption('line', yAxisData[0], seriesData[0], '纯水', '#74c2ad'));
-	var lineChart2 = echarts.init(byId('lineChart2'));
-	lineChart2.setOption(getOption('line', yAxisData[1], seriesData[1], '原水', '#f75151'));
+	
 	</script>
 </body>
 </html>

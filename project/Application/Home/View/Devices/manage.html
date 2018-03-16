@@ -14,24 +14,36 @@
 <script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 <title>绑定指引</title>
 <style>
+	body{
+		width: 100vw;
+		height: 100vh;
+	}
+
 	#devices-list>h3,
-	#devices-list>ul>li,
-	#devices-add>p {
+	#devices-list>ul>li{
 		font-size: 0.473333rem;
 	}
-	#devices-add>p {
-		color: #039CE9 !important;
-	}
-	#devices-add {
+	#devicesAdd {
 		width: 100%;
-		height: 8%;
-		display: flex;
+		height: 8vh;
+		line-height: 8vh;
+		position: absolute;
+		bottom: 0;
+		left: 0;
 		color: #039CE9 !important;
-		align-items: center;
-		z-index: 999;
+		font-size: 0.473333rem;
+		background:#F1F1F1;
+		font-family: "微软雅黑";
 	}
-	.logoBg{
-
+	#devicesAdd i{
+		font-size: .9rem;
+		margin: 0 .4rem;
+	}
+	#devicesAdd span{
+		display: inline-block;
+		font-size: .5rem;
+		float: right;
+		margin-right: 62vw;
 	}
 </style>
 <script>	
@@ -51,7 +63,7 @@
 		});
 
 		$(function(){
-			$('#devices-add').bind({
+			$('#devicesAdd').bind({
 				'mouseover' : function () { 
 
 				$(this).css('color','#FF8600');
@@ -65,7 +77,6 @@
 
 </head>
 <body>
-<div id="devices-all">
 	<div id="devices-container">
 		<div id="devices-list">
 			<h3>所有设备</h3>
@@ -81,10 +92,9 @@
 			</ul>
 		</div>	
 	</div>
-	<div id="devices-add" style="color: #000;background: #F1F1F1">
-		<i class="iconfont icon-jiahao"></i><p>添加设备</p>
+	<div id="devicesAdd">
+		<i class="iconfont icon-jiahao"></i><span>添加设备</span>
 	</div>
-</div>
 <script>
 	//微信接口
 	wx.config({
@@ -100,7 +110,7 @@
 	    ]
 	});	
 	// 扫码绑定设备
-	$("#devices-add").click(function(){
+	$("#devicesAdd").click(function(){
 		wx.scanQRCode({
 		    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
 		    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有

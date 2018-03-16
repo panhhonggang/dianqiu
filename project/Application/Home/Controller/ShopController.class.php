@@ -10,10 +10,12 @@ class ShopController extends CommonController
     public function index()
     {
 
+        $dcode = I('get.dcode');
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         $did = $_SESSION['homeuser']['did'];
         $device = M('devices')->where('id='.$did)->find();
+
         // 获取用户绑定设备充值套餐
         if($uid){
             // 查询用户绑定设备使用的套餐产品
@@ -90,8 +92,13 @@ class ShopController extends CommonController
         //分配数据        
         $this->assign('info',$signPackage);
         $this->assign('openId',$openId);
+        if ($dcode !='') {
+            $this->assign('dcode',$dcode);
+            $this->display('daichong');
+        } else {
+            $this->display();
+        }
 
-        $this->display();
     }
     // 套餐确认
     public function sureSetmeal()
@@ -129,7 +136,7 @@ class ShopController extends CommonController
             //分配数据        
             $this->assign('info',$signPackage);
             $this->assign('openId',$openId);
-            
+
             // 显示模板
             $this->display(); 
         } 
