@@ -95,7 +95,7 @@ class ShopController extends CommonController
         if ($dcode !='') {
 
             if (empty(session('pid'))) {
-                $this->errpr('请登录');
+                $this->error('请登录');
             }
             $where['device_code'] = $dcode;
             $where['uid'] = array('neq','');
