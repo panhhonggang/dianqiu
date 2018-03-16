@@ -55,7 +55,45 @@ class Events
             $message['client_id'] = $client_id;
             $message['soure'] = 'WS';
         }
+        sendMsg($message);
+        // $url = 'http://pub.dianqiukj.com/api/action/receive';
+        // $curlobj = curl_init();
+        // curl_setopt($curlobj,CURLOPT_URL,$url);
+        // curl_setopt($curlobj,CURLOPT_HEADER,0);     
+        // curl_setopt($curlobj,CURLOPT_RETURNTRANSFER,1);
+        // curl_setopt($curlobj,CURLOPT_POST,1);
+        // curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
+        // /*$res = */curl_exec($curlobj);
+        // // var_dump($res);
+    }
 
+    /**
+    * 当用户断开连接时触发
+    * @param int $client_id 连接id
+    */
+    public static function onClose($client_id) {
+        if($_SESSION['DeviceID']!=null)
+        {
+            $message['soure'] = 'Close';
+            $message['DeviceID'] = $_SESSION['DeviceID'];
+            sendMsg($message);
+            // $url = 'http://192.168.244.130/dianqiu/project/api/action/receive';
+            // $curlobj = curl_init();
+            // curl_setopt($curlobj,CURLOPT_URL,$url);
+            // curl_setopt($curlobj,CURLOPT_HEADER,0);     
+            // curl_setopt($curlobj,CURLOPT_RETURNTRANSFER,1);
+            // curl_setopt($curlobj,CURLOPT_POST,1);
+            // curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
+            // $res = curl_exec($curlobj);
+            // var_dump($res);
+        }
+    }
+
+    /**
+     * 数据抛出
+     */
+    public function sendMsg($message)
+    {
         $url = 'http://pub.dianqiukj.com/api/action/receive';
         $curlobj = curl_init();
         curl_setopt($curlobj,CURLOPT_URL,$url);
@@ -65,13 +103,5 @@ class Events
         curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
         /*$res = */curl_exec($curlobj);
         // var_dump($res);
-    }
-
-    /**
-    * 当用户断开连接时触发
-    * @param int $client_id 连接id
-    */
-    public static function onClose($client_id) {
-        // 
     }
 }
