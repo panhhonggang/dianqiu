@@ -120,10 +120,11 @@ class UsersController extends CommonController
     */
     public function login()
     {
+        $pid = session('pid');
         if (IS_POST) {
+
             $where['phone'] = I('post.phone', '', 'strip_tags');
             $where['password'] = MD5(I('post.password', '', 'strip_tags'));
-
             $perSonnel = D('Personnel');
             if(!$perSonnel->create()){
                 return $this->ajaxReturn(['code'=>400,'message'=>$perSonnel->getError()]);
@@ -140,6 +141,9 @@ class UsersController extends CommonController
 //                $this->success($get_info['message'],U('Personnel/index'),2);
             }
         } else {
+            if (!empty($pid)) {
+                $this->redirect('Home/Personnel/index');
+            }
             $this->display();
         }
 
