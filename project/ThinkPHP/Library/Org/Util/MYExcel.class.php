@@ -93,7 +93,7 @@ class MYExcel
         foreach ($this->data as $key => $value) {
             $j = 0;
             foreach ($value as $k => $v) {
-                $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$j].($key+$this->topNumber+1), $v);
+                $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueExplicit($this->cellKey[$j].($key+$this->topNumber+1), $v,\PHPExcel_Cell_DataType::TYPE_STRING);
                 $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$j].($key+$this->topNumber+1))->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 $j++;
             }           
