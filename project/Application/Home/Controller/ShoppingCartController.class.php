@@ -210,7 +210,20 @@ class ShoppingCartController extends CommonController
 	    	}
     	}
     }
+    /*
+     * 安装人员入口对设备码进行充值
+     */
+    public function pers_code_add() {
+        $data = json_decode($_POST['data'],true);
+        $uid = $_SESSION['homeuser']['id'];
 
+        //查找提交过来的套餐是否存在
+        $setmeal_info = M('setmeal')->where('id='.intval($data[0]['sid']))->find();
+        if (empty($setmeal_info)) {
+            return $this->ajaxReturn(['code'=>400,'msgerror'=>'寻找不到该套餐']);
+        }
+
+    }
     /**
      * [cartMinus 修改购物]
      * @return [type] [description]
