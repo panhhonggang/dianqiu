@@ -177,12 +177,19 @@ class UsersController extends CommonController
             $code[] = $value['device_code'];
         }
         $where['_query'] = "status=1";
-        $where['did']    = array('in',$did);
+        if(!empty($did)){
+            $where['did']    = array('in',$did);
+        }
         $flow    = M('flow')->where($where)->order('addtime desc')->select();
-        $balance = M('devices_statu')
+
+        $balance=[];
+        if(!empty($code)){
+             $balance = M('devices_statu')
             ->where(['DeviceID' => ['in',$code]])
             ->field('DeviceID,ReFlow')
             ->select();
+        }
+   
         // 分配数据
         $assign = [
             'userinfo' => json_encode($userinfo),
