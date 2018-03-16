@@ -118,6 +118,7 @@
         });
 		//立即购买操作
 		$('#buy').click(function(){
+			
             var type=0;      
             var cartNun = $('#cartNun').html()-0;// 获取购物车产品数量，隐转数值
             
@@ -176,18 +177,25 @@
                     // 直接跳转到购买页面
                     //window.location.href='{{:U("PaymentSystem/action")}}';
                     // 异步提交
-                    $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-                        if(res==2){
-                            // 套餐确认
-                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-                        }else if(res==3){
-                            // 快递确认
-                            window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-                        }else{
-                            // 立即付款
-                            weixinPay(res);
-                        }
-                    });
+                    $.ajax({
+                    	url:'{{:U("PaymentSystem/action")}}',
+                    	type:'post',
+                    	dataType:'json',
+                    	data:{ 'data':1 }, 
+                    	success:function(res){
+                    		console.log(res);
+	                        if(res==2){
+	                            // 套餐确认
+	                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+	                        }else if(res==3){
+	                            // 快递确认
+	                            window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+	                        }else{
+	                            // 立即付款
+	                            weixinPay(res);
+	                        }
+	                    }
+	                });
                 }else{
                     // 请先选择产品
                     layuiHint('请先选择产品!');
@@ -400,9 +408,9 @@
 					);
 				}
 			}
-
 			// 检测是否选择产品
 			if(data.length>0){
+
 				// ajax请求添加购物车
 				var date = JSON.stringify(data)
 				// 异步提交
@@ -457,6 +465,15 @@
                         //     ajson["ReFlow"]=flowNum;
                         //     ajson["Reday"]=dayNum;
                         // }
+                        // $.ajax({
+                        // 	url:"{{:U('deviceStatu')}}",
+                        // 	type:"post",
+                        // 	dataType:"json",
+                        // 	data:res,
+                        // 	success:function(data){
+                        // 		// alert();
+                        // 	}
+                        // })
 		                // 付款成功，跳转前台主页
 		               location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
 		            } else if (res.err_msg.substr(-6) == 'cancel') {
