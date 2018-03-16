@@ -254,9 +254,7 @@ class VendorsController extends CommonController
      */
     public function bindinglist()
     {
-        if($this->get_level()){
-            $map['pub_vendors.id'] = $_SESSION['adminuser']['id'];
-        }
+
         /*
              Excel导出
           */
@@ -271,6 +269,9 @@ class VendorsController extends CommonController
             'pub_vendors.phone' => trim(I('post.phone')),
             'pub_vendors.name' => trim(I('post.name'))
         );
+        if($this->get_level()){
+            $map['pub_vendors.id'] = $_SESSION['adminuser']['id'];
+        }
         // $minaddtime = trim(I('post.minaddtime'))?:0;
         // $maxaddtime = trim(I('post.maxaddtime'))?:-1;
         // if (is_numeric($maxaddtime)) {

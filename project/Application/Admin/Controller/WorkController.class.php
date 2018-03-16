@@ -48,12 +48,11 @@ class WorkController extends CommonController
             }
             return false;
         });
+
         if($this->get_level()){
             $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
 
         }
-
-
 
         $type = D('work');
         // PHPExcel 导出数据 
@@ -71,16 +70,19 @@ class WorkController extends CommonController
             return ;
         }
 
-        $total =$type->where($map)->count();
-        $page  = new \Think\Page($total,8);
-        $pageButton =$page->show();
-
-        $list = $type->where($map)
+        $total =$type->where($map)
             ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-            ->order('result asc,id')
+            ->count();
+        $page  = new \Think\Page($total,8);
+        $pageButton =$page->show();
+        $list = $type->where($map)
+            ->alias('w')
+            ->join('pub_devices ON w.dcode = pub_devices.device_code')
+            ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+            ->order('w.result asc,w.id')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
-//         dump($list);
+        //exit();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

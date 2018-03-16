@@ -6,7 +6,7 @@
             <div class="titleBar">套餐管理/<span>套餐列表</span></div>
             <form class="form-search" action="__URL__/index" method="post">
                 <span class="select-box">产品类型:
-                    <input type="text" class="input-medium" name="typename" placeholder="请输入产品类型" style="width: 70px;"/ >
+                    <input type="text" class="input-medium prodtype" name="typename" placeholder="请输入产品类型" style="width: 70px;"/ >
                 </span>
                 <span class="select-box">套餐模式:
                     <select class="select" size="1" name="remodel" style="width: 100px;">
@@ -16,17 +16,17 @@
                     </select>
                 </span>
                 <span class="select-box">套餐金额:
-                    <input type="text" class="input-medium" name="minmoney" placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxmoney" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium minmoney" name="minmoney" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxmoney" name="maxmoney" placeholder="" style="width: 60px;" / >
                 </span>
                 <span class="select-box">套餐量（天）:
-                    <input type="text" class="input-medium" name="flow" placeholder="请输入查询条件" style="width: 70px;" / >
+                    <input type="text" class="input-medium flow" name="flow" placeholder="请输入查询条件" style="width: 70px;" / >
                 </span>
                 <span class="select-box">套餐名称:
-                    <input type="text" class="input-medium" name="describe" placeholder="请输入查询条件" style="width: 70px;" / >
+                    <input type="text" class="input-medium describe" name="describe" placeholder="请输入查询条件" style="width: 70px;" / >
                 </span>
                 <span class="select-box" style="display: inline-block;position:relative">时间:
-                    <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
+                    <input type="text" id="date-start" class="input-medium form-control" name="mintime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
                 </span>
                 
                 <!-- <span class="select-box">查询条件:
@@ -95,67 +95,103 @@
             </div>
             <script>
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
-                $('.pagination ul span').wrap('<li class="active"></li>')
+                $('.pagination ul span').wrap('<li class="active"></li>');
+
+                /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var type, remodel, minmoney, maxmoney, 
+                        flow, describe, mintime, maxtime;
+                    /**
+                     * type: 产品类型, remodel：套餐模式, 
+                     * minmoney：最小金额, maxmoney：最大金额, 
+                     * flow：套餐量, describe：套餐名称, 
+                     * mintime：开始时间, maxtime：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        type = $('.prodtype').val(),
+                        remodel = Number($('select>option:selected').val())+1,
+                        minmoney = $('.minmoney').val(),
+                        maxmoney = $('.maxmoney').val(),
+                        flow = $('.flow').val(),
+                        describe = $('.describe').val(),
+                        mintime = $('#date-start').val(),
+                        maxtime = $('#date-end').val();
+
+                        srearchInfo['type'] = type;
+                        srearchInfo['remodel'] = remodel;
+                        srearchInfo['minmoney'] = minmoney;
+                        srearchInfo['maxmoney'] = maxmoney;
+                        srearchInfo['flow'] = flow;
+                        srearchInfo['describe'] = describe;
+                        srearchInfo['mintime'] = mintime;
+                        srearchInfo['maxtime'] = maxtime;
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            $('.prodtype').val(srearchInfo['type']);
+                            if($('select>option').eq(srearchInfo['remodel'])[0]){
+                                $('select>option').eq(srearchInfo['remodel'])[0].selected = true;
+                            }
+                            $('.minmoney').val(srearchInfo['minmoney']);
+                            $('.maxmoney').val(srearchInfo['maxmoney']);
+                            $('.flow').val(srearchInfo['flow']);
+                            $('.describe').val(srearchInfo['describe']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+                
+                $(".deletBnt").click(function(){
+                    var _this=$(this);
+                    var id = $(this).attr('ruleId');
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.confirm('确定删除?', {icon: 3, title:'提示'}, function(index){
+                            window.location.href='{{:U("Admin/Setmeal/del","","")}}?id='+id;
+                            layer.close(index);
+                        });
+                    });
+                });   
+
+                $(".outputExcel").click(function(){
+                    var remodel = '<?php echo $_POST["remodel"]; ?>',
+                        typename = '<?php echo $_POST["typename"]; ?>',
+                        minmoney = '<?php echo $_POST["minmoney"]; ?>',
+                        maxmoney = '<?php echo $_POST["maxmoney"]; ?>',
+                        flow = '<?php echo $_POST["flow"]; ?>',
+                        describe = '<?php echo $_POST["describe"]; ?>',
+                        mintime = '<?php echo $_POST["mintime"]; ?>',
+                        maxtime = '<?php echo $_POST["maxtime"]; ?>';
+                    $.ajax({
+                       type: "POST",
+                       url: "index",
+                       async: false,
+                       data: {
+                            'remodel':remodel,
+                            'typename':typename,
+                            'minmoney':minmoney,
+                            'maxmoney':maxmoney,
+                            'flow':flow,
+                            'describe':describe,
+                            'mintime':mintime,
+                            'maxtime':maxtime,
+                            'outputExcel':1
+                       },
+                       success:function(res){
+                            console.log(res);
+                       }        
+                    });
+                })
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
 </div>
-<script>
-    $(function(){
-        // 搜索关键字保留
-        if(window.location.search){
-            // 获取搜索关键字
-            var arr = window.location.search.split("&");
-            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-            // console.log(arr)
-        }
-
-    })
-</script>
-<script type="text/javascript">
-    
-    $(".deletBnt").click(function(){
-        var _this=$(this);
-        var id = $(this).attr('ruleId');
-        layui.use('layer', function(){
-            var layer = layui.layer;
-            layer.confirm('确定删除?', {icon: 3, title:'提示'}, function(index){
-                window.location.href='{{:U("Admin/Setmeal/del","","")}}?id='+id;
-                layer.close(index);
-            });
-        });
-    });   
-
-    $(".outputExcel").click(function(){
-        var remodel = '<?php echo $_POST["remodel"]; ?>',
-            typename = '<?php echo $_POST["typename"]; ?>',
-            minmoney = '<?php echo $_POST["minmoney"]; ?>',
-            maxmoney = '<?php echo $_POST["maxmoney"]; ?>',
-            flow = '<?php echo $_POST["flow"]; ?>',
-            describe = '<?php echo $_POST["describe"]; ?>',
-            mintime = '<?php echo $_POST["mintime"]; ?>',
-            maxtime = '<?php echo $_POST["maxtime"]; ?>';
-        $.ajax({
-           type: "POST",
-           url: "index",
-           async: false,
-           data: {
-                'remodel':remodel,
-                'typename':typename,
-                'minmoney':minmoney,
-                'maxmoney':maxmoney,
-                'flow':flow,
-                'describe':describe,
-                'mintime':mintime,
-                'maxtime':maxtime,
-                'outputExcel':1
-           },
-           success:function(res){
-                console.log(res);
-           }        
-        });
-    })
-</script>

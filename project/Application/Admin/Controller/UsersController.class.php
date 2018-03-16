@@ -45,9 +45,12 @@ class UsersController extends CommonController
             'w.nickname' => trim(I('post.nickname')),
             'd.device_code' => trim(I('post.device_code')),
             'd.phone' => trim(I('post.phone')),
-            'd.address' => array('like','%'.trim(I('post.address')).'%'),
             'u.login_ip' => trim(I('post.login_ip'))
-        );  
+        );
+        if(trim(I('post.address'))){
+            $map['d.address'] = array('like','%'.trim(I('post.address')).'%');
+        }
+
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -55,6 +58,11 @@ class UsersController extends CommonController
             }
             return false;
         });
+
+        if($this->get_level()){
+            $map['bd.vid'] = $_SESSION['adminuser']['id'];
+
+        }
 
         $user = D('users');
         // PHPExcel 导出数据 
@@ -65,6 +73,7 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
+            ->join('__BINDING__ bd ON d.id = bd.did ')
             ->field('u.id,w.nickname,d.device_code,d.phone,d.address,u.login_time,u.login_ip,u.created_at')
             ->select();
             $filename = '用户列表数据';
@@ -82,6 +91,7 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
+            ->join('__BINDING__ bd ON d.id = bd.did ')
             ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
             ->count();
         $page  = new \Think\Page($total,10);
@@ -90,14 +100,15 @@ class UsersController extends CommonController
         $userlist = $user
             ->where($map)
             ->alias('u')
+
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
+            ->join('__BINDING__ bd ON d.id = bd.did ')
             ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
-        // dump($userlist);
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
@@ -254,6 +265,12 @@ class UsersController extends CommonController
             return false;
         });
 
+        if($this->get_level()){
+            $map['bd.vid'] = $_SESSION['adminuser']['id'];
+
+        }
+
+
         $flow = M('flow');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -261,6 +278,7 @@ class UsersController extends CommonController
                 ->alias('f')
                 ->join('__DEVICES__ d ON f.did=d.id','LEFT')
                 ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+                ->join('__BINDING__ bd ON d.id = bd.did ')
                 ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
                 ->select();
             $filename = '充值记录数据';
@@ -271,11 +289,12 @@ class UsersController extends CommonController
             $myexcel->output();
             return ;
         }       
-        
+
         $total = $flow->where($map)
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+            ->join('__BINDING__ bd ON d.id = bd.did ')
             ->field('f.*,d.name,u.balance')
             ->count();
         $page  = new \Think\Page($total,8);
@@ -285,7 +304,8 @@ class UsersController extends CommonController
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->field('f.*,d.name,u.balance')
+            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->field('f.*,d.name,u.balance,bd.vid')
             ->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
