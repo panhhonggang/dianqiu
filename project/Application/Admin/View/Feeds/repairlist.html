@@ -96,7 +96,7 @@
             <script>
                 /**************** 搜索关键字保留 -- 开始 ******************/
                     var srearchInfo = {};
-                    var uid, device_code, name, phone, 
+                    var  device_code, name, phone, 
                     address, date_start, date_end, status;
                     /**
                      * device_code: 设备编号, name：经销商名称, 
@@ -108,7 +108,6 @@
                     $("button[name='search']").click(function(){
                         sessionStorage.setItem('search', '');   // 初始化
 
-                        uid = $('.uid').val();
                         device_code = $('.device_code').val();
                         name = $('.name').val();
                         phone = $('.phone').val();
@@ -132,7 +131,6 @@
                         var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
                         if($('.form-search').length){
                             // console.log(srearchInfo)
-                            $('.uid').val(srearchInfo['uid']);
                             $('.device_code').val(srearchInfo['device_code']);
                             $('.name').val(srearchInfo['name']);
                             

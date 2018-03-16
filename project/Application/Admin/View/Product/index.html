@@ -6,7 +6,7 @@
             <div class="titleBar">产品管理/<span>产品类型列表</span></div>
             <form class="form-search" action="__URL__/index" method="post">
                 <span class="select-box">产品类型名称:
-                    <input type="text" class="input-medium" name="typename" placeholder="请输入类型名称" style="width: 100px;"/ >
+                    <input type="text" class="input-medium typename" name="typename" placeholder="请输入类型名称" style="width: 100px;"/ >
                 </span>
                 <span class="select-box" style="display: inline-block;position:relative">时间:
                     <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
@@ -76,20 +76,49 @@
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
 
-                if(window.location.search){
-                    $('input[name=typename]').val(decodeURI(window.location.search.slice(10)))
-                }
+                 /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var typename, date_start, date_end;
+                    /**
+                     * typename：设备类型,  
+                     * mintime：开始时间, maxtime：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        typename = $('.typename').val();
+                        date_start = $('#date-start').val();
+                        date_end = $('#date-end').val();
+
+                        srearchInfo['typename'] = typename;
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            $('.typename').val(srearchInfo['typename']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
-    <script>
-        if(window.location.search){
-            $('input[name=value]').val(decodeURI(window.location.search.slice(13)))
-        }
- 
-    </script>
 </div>
 
 
