@@ -135,7 +135,7 @@ class ActionController extends Controller
             'DeviceID'    => $message['DeviceID'],
             'ICCID'       => $message['ICCID'],
             'CSQ'         => $message['CSQ'],
-            'Loaction'    => $message['Loaction']
+            'Loaction'    => $message['Loaction'],
             'Reday'       => $Reday,
             'ReFlow'      => $ReFlow,
         ];

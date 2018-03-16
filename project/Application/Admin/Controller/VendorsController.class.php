@@ -423,31 +423,33 @@ class VendorsController extends CommonController
 
     public function save_import($data)
     {   
-        dump($data);die;
-        $i = 0;
+        // dump($data);die;
+        $device = D('devices');
+        $bind = M('binding');
+        $device->startTrans();
+        $arr = I('post.');
+        $arr['operator'] = session('adminuser.name');
         foreach ($data as $key => $val) {
-            $_POST['device_code'] = $val['A'];
-            // $_POST['type_id'] = (string)$val['B'];
-            $datas['addtime'] = time();
-            $Devices = D('Devices'); 
-            $res = D('Devices')->getCate();
-            $info = $Devices->create();
-            $code = $Devices->where("device_code='{$_POST['device_code']}'")->find();
-            if(!empty($code)) $this->error( '已导入' . $i . '条数据<br>' . $_POST['device_code'] . '已存在');
-            if($info){
-                if(!in_array($_POST['type_id'], $res)){
-                    $this->error('已导入' . $i . '条数据<br>' . $_POST['device_code'] . '设备类型不存在');
-                }
-                $res = $Devices->add();
-                if (!$res) {
-                    
-                    $this->error('导入失败啦！');
-                }
+            $map['device_code'] = $val['A'];
+            $res = $device->where($map)->field('id,binding_statu')->find();
+            if(empty($res)){
+                $this->error($map['device_code'].'设备不存在，请检查后再重新设置');
             } else {
-                $this->error('已导入' . $i . '条数据<br>');
-            }   
-            $i ++;
+                $bind_res = $bind->where('did='.$res['id'])->find();
+                if( $res['binding_statu'] || $bind_res ) $this->error($map['device_code'].'已设置归属');
+            }
+            $arr['did'] = $res['id'];
+            $arr['addtime'] = time();
+            $statu['binding_statu'] = 1;
+            $bind->add($arr);
+            $device_statu = $device->where('id='.$arr['did'])->save($statu);
+            if( !$device_statu ) {
+                $device->rollback();
+                $this->error('设置失败');
+            }
         }
+        $device->commit();
+        $this->success('设置成功');
     }
 
     private function getExcel($fileName, $headArr, $data)
