@@ -239,8 +239,14 @@
 			pureSum+=pureArray[i];
 		}
 		// 求平均值
-		$(".rawMean").html("(平均值："+(rawSum/rawArray.length).toFixed(2)+"ppm)");
-		$(".pureMean").html("(平均值："+(pureSum/pureArray.length).toFixed(2)+"ppm)");
+		if(datalist.length !== 0) {
+			// 求平均值
+			$(".rawMean").html("(平均值："+(rawSum/rawArray.length).toFixed(2)+"ppm)");
+			$(".pureMean").html("(平均值："+(pureSum/pureArray.length).toFixed(2)+"ppm)");
+		}else{
+			$(".rawMean").html("(平均值："+0+"ppm)");
+			$(".pureMean").html("(平均值："+0+"ppm)");
+		}
 		var lineChart1 = echarts.init(byId('lineChart1'));
 		lineChart1.setOption(getOption('line', yAxisData[0], rawArray, '#74c2ad',mustDates));
 
