@@ -751,7 +751,7 @@ class PaymentSystemController extends Controller
         $money = $money;
         // 用户在公众号的唯一ID
         $openId = $_SESSION['homeuser']['open_id'];
-
+        dump($openId);exit;
 
         //微信examle的WxPay.JsApiPay.php
         vendor('WxPay.jsapi.WxPay#JsApiPay');
