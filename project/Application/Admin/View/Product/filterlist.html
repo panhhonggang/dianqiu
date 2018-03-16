@@ -5,29 +5,26 @@
         <div class="tableBox">
             <div class="titleBar">产品管理/<span>滤芯列表</span></div>
             <form class="form-search" action="__URL__/filterlist" method="post">
-                <span class="select-box">滤芯ID:
-                    <input type="text" class="input-medium" name="id" placeholder="请输入滤芯ID" style="width: 100px;"/ >
-                </span>
                 <span class="select-box">滤芯名称:
-                    <input type="text" class="input-medium" name="filtername" placeholder="请输入滤芯名称" style="width: 100px;"/ >  
+                    <input type="text" class="input-medium filtername" name="filtername" placeholder="请输入滤芯名称" style="width: 100px;"/ >  
                 </span>
                 <span class="select-box">滤芯别名:
-                    <input type="text" class="input-medium" name="alias" placeholder="请输入滤芯别名" style="width: 100px;"/ >
+                    <input type="text" class="input-medium alias" name="alias" placeholder="请输入滤芯别名" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">滤芯价格:
-                    <input type="text" class="input-medium" name="minprice placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxprice" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium minprice" name="minprice" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxprice" name="maxprice" placeholder="" style="width: 60px;" / >
                 </span>
                  <span class="select-box">时间寿命:
-                    <input type="text" class="input-medium" name="mintimelife placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxtimelife" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium mintimelife" name="mintimelife" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxtimelife" name="maxtimelife" placeholder="" style="width: 60px;" / >
                 </span>
                  <span class="select-box">流量寿命:
-                    <input type="text" class="input-medium" name="minflowlife" placeholder="" style="width: 60px;" / > ~ 
-                    <input type="text" class="input-medium" name="maxflowlife" placeholder="" style="width: 60px;" / >
+                    <input type="text" class="input-medium minflowlife" name="minflowlife" placeholder="" style="width: 60px;" / > ~ 
+                    <input type="text" class="input-medium maxflowlife" name="maxflowlife" placeholder="" style="width: 60px;" / >
                 </span>
                 <span class="select-box">购买网址:
-                    <input type="text" class="input-medium" name="url" placeholder="请输入购买网址" style="width: 100px;"/ >
+                    <input type="text" class="input-medium _url" name="url" placeholder="请输入购买网址" style="width: 100px;"/ >
                 </span>
                 <span class="select-box" style="display: inline-block;position:relative">时间:
                     <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
@@ -90,20 +87,83 @@
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
 
-                //input的value
-                if(window.location.search){
-                    $('input[name=filtername]').val(decodeURI(window.location.search.slice(12)))
-                }
+                 /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var fid, filtername, alias, minprice, maxprice,
+                    mintimelife, maxtimelife, minflowlife, maxflowlife, 
+                    _url, date_start, date_end;
+                    /**
+                     * device_code: 设备编号, name：经销商名称, 
+                     * address：地址, dname：绑定的用户, 
+                     * typename：设备类型, status：是否支付, 
+                     * mintime：开始时间, maxtime：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        fid = $('.fid').val();
+                        filtername = $('.filtername').val();
+                        alias = $('.alias').val();
+                        minprice = $('.minprice').val();
+                        maxprice = $('.maxprice').val();
+                        mintimelife = $('.mintimelife').val();
+                        maxtimelife = $('.maxtimelife').val();
+                        minflowlife = $('.minflowlife').val();
+                        maxflowlife = $('.maxflowlife').val();
+                        _url = $('._url').val();
+
+                        date_start = $('#date-start').val();
+                        date_end = $('#date-end').val();
+
+                        srearchInfo['fid'] = fid;
+                        srearchInfo['filtername'] = filtername;
+                        srearchInfo['alias'] = alias;
+                        srearchInfo['minprice'] = minprice;
+                        srearchInfo['maxprice'] = maxprice;
+                        srearchInfo['mintimelife'] = mintimelife;
+                        srearchInfo['maxtimelife'] = maxtimelife;
+                        srearchInfo['minflowlife'] = minflowlife;
+                        srearchInfo['maxflowlife'] = maxflowlife;
+                        srearchInfo['_url'] = _url;
+
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            
+                            $('.fid').val(srearchInfo['fid']);
+                            $('.filtername').val(srearchInfo['filtername']);
+                            $('.alias').val(srearchInfo['alias']);
+                            $('.minprice').val(srearchInfo['minprice']);
+                            $('.maxprice').val(srearchInfo['maxprice']);
+                            $('.mintimelife').val(srearchInfo['mintimelife']);
+                            $('.maxtimelife').val(srearchInfo['maxtimelife']);
+                            $('.minflowlife').val(srearchInfo['minflowlife']);
+                            $('.maxflowlife').val(srearchInfo['maxflowlife']);
+                            $('._url').val(srearchInfo['_url']);
+
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
-    <script>
-        if(window.location.search){
-            $('input[name=value]').val(decodeURI(window.location.search.slice(13)))
-        } 
-    </script>
 </div>
 
 

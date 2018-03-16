@@ -74,10 +74,6 @@
 		    var alink = $(".item");
 		    // console.log('alink: ',alink)
 		    // 高亮 选择当前地址的导航
-		    if(nowPos == 'Index/index.html'){
-		    	return
-		    	// 以下代码不在首页生效
-		    }
 		    for(var i=0; i<alink.length; i++){
 		    	alink[i].onclick = function(){
 		    		sessionStorage.setItem('nav_now', this.getAttribute("href"));

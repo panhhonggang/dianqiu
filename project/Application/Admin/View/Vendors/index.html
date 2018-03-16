@@ -5,36 +5,33 @@
         <div class="tableBox">
             <div class="titleBar">后台管理/<span>经销商列表</span></div>
             <form class="form-search" action="__URL__/index" method="post">
-                <span class="select-box">用户id:
-                    <input type="text" class="input-medium" name="id" placeholder="请输入用户id" style="width: 100px;"/ >
-                </span>
                 <span class="select-box">账号:
-                    <input type="text" class="input-medium" name="user" placeholder="请输入账号" style="width: 100px;"/ >
+                    <input type="text" class="input-medium user" name="user" placeholder="请输入账号" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">昵称:
-                    <input type="text" class="input-medium" name="name" placeholder="请输入昵称" style="width: 100px;"/ >
+                    <input type="text" class="input-medium name" name="name" placeholder="请输入昵称" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">手机号:
-                    <input type="text" class="input-medium" name="phone" placeholder="请输入手机号" style="width: 100px;"/ >
+                    <input type="text" class="input-medium phone" name="phone" placeholder="请输入手机号" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">邮箱:
-                    <input type="text" class="input-medium" name="email" placeholder="请输入邮箱" style="width: 100px;"/ >
+                    <input type="text" class="input-medium email" name="email" placeholder="请输入邮箱" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">地址:
-                    <input type="text" class="input-medium" name="address" placeholder="请输入地址" style="width: 100px;"/ >
+                    <input type="text" class="input-medium address" name="address" placeholder="请输入地址" style="width: 100px;"/ >
                 </span>
                 <span class="select-box">身份证号:
-                    <input type="text" class="input-medium" name="idcard" placeholder="身份证号" style="width: 100px;"/ >
+                    <input type="text" class="input-medium idcard" name="idcard" placeholder="身份证号" style="width: 100px;"/ >
                 </span>                
                 <span class="select-box" style="display: inline-block;position:relative">时间:
                     <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
                 </span>
                 <span class="select-box">管理级别:
-                    <select class="select" size="1" name="leavel" style="width: 100px;">
+                    <select class="select mglevel" size="1" name="leavel" style="width: 100px;">
                         <option value="" selected>- 管理级别 -</option>
-                    <option value="0">超级管理员</option>
-                    <option value="1">一级经销商</option>
-                    <option value="2">二级经销商</option>
+                        <option value="0">超级管理员</option>
+                        <option value="1">一级经销商</option>
+                        <option value="2">二级经销商</option>
                     </select>
                 </span>
                 <div class="submitBtn">
@@ -117,20 +114,73 @@
                     })
                     return false
                 })
+
+                /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var uid, user, name, phone, email, address, idcard,
+                    date_start, date_end, mglevel;
+                    /**
+                     * vid: 经销商ID, did：设备ID, 
+                     * device_code：设备编码, name：经销商姓名, 
+                     * phone：经销商手机, 
+                     * date_start：开始时间, date_end：结束时间
+                     */
+                    // 点击搜索
+                    $("button[name='search']").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        uid = $('.uid').val(),
+                        user = $('.user').val(),
+                        email = $('.email').val(),
+                        name = $('.name').val(),
+                        phone = $('.phone').val(),
+                        address = $('.address').val(),
+                        idcard = $('.idcard').val(),
+                        date_start = $('#date-start').val(),
+                        date_end = $('#date-end').val();
+                        mglevel = Number($('.mglevel>option:selected').val())+1;
+
+                        srearchInfo['uid'] = uid;
+                        srearchInfo['user'] = user;
+                        srearchInfo['email'] = email;
+                        srearchInfo['name'] = name;
+                        srearchInfo['phone'] = phone;
+                        srearchInfo['address'] = address;
+                        srearchInfo['idcard'] = idcard;
+                        srearchInfo['mintime'] = date_start;
+                        srearchInfo['maxtime'] = date_end;
+                        srearchInfo['mglevel'] = mglevel;
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+
+                            $('.uid').val(srearchInfo['uid']);
+                            $('.user').val(srearchInfo['user']);
+                            $('.email').val(srearchInfo['email']);
+                            $('.name').val(srearchInfo['name']);
+                            $('.phone').val(srearchInfo['phone']);
+                            $('.address').val(srearchInfo['address']);
+                            $('.idcard').val(srearchInfo['idcard']);
+                            $('#date-start').val(srearchInfo['mintime']);
+                            $('#date-end').val(srearchInfo['maxtime']);
+                            $('.mglevel>option').eq(srearchInfo['mglevel'])[0].selected = true;
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
-    <script>
-        // 搜索关键字保留
-        if(window.location.search){
-            // 获取搜索关键字
-            var arr = window.location.search.split("&");
-            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-            // console.log(arr)
-        } 
-    </script>
 </div>
 
