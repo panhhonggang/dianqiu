@@ -1,6 +1,6 @@
 ;( function() {
 	var doc = document.documentElement;
-	$("#contain").css({"height":doc.clientHeight, "width":doc.clientWidth});//获取窗口宽高
+	$("#contain").css({"height":doc.clientHeight});//获取窗口宽高
 
 	//layuiHint弹框提示封装
 	layuiHint = function(text){

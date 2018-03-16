@@ -14,14 +14,14 @@
 			display: none;
 		}
 		body{
-			width: 100vw;
-			height: 100vh;
+			height:100vh;
 			font-family:microsoftYaHei;
 			color:rgb(255,255,255);
-			/*background:blue;*/
-			overflow:hidden;
 			background:url("__PUBLIC__/Home/images/bg.png") no-repeat 100% 100%;
 		}	
+		#contain {
+			border-top:1px solid #77D3FC;
+		}
 		input{ 
 			appearance:none;
 			-moz-appearance:none; /* Firefox */
@@ -91,7 +91,7 @@
 </body>
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <script src="__PUBLIC__/Admin/layui/layui.js"></script>
-<!--<script src="__PUBLIC__/Home/js/comment.js"></script>-->
+<script src="__PUBLIC__/Home/js/comment.js"></script>
 <script>
 	window.onload = function() {
 		$(".inputSubmit").on("click", function() {
