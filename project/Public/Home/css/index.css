@@ -30,20 +30,21 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 /*重置样式结束*/
 html,body {
 	height: 100vh;
-	/*overflow: hidden;*/
+	overflow: hidden;
 }
 .top{
 	width:10rem;
-	/*height:55vh;*/
+	height:62vh;
+	position: relative;
+	padding-top: 5%;
 	background: url("../images/yun_01.jpg") no-repeat;
 	background-size: 100% 100%;
-	border-top:1px solid #fff;
 }
 
 .topcontent{
 	width:6.4rem;
 	height: 6.4rem;
-	margin:1rem auto 0;
+	margin: 0 auto;
 	background-color: #5AC8FF;
 	border-radius: 50%;
 	overflow: hidden;
@@ -167,6 +168,7 @@ html,body {
 }
 .allStatus>div.right{
 	float: right;
+	z-index: 999;
 }
 
 .allStatus>div>p>i{
@@ -189,7 +191,8 @@ html,body {
 	box-sizing: border-box;
 	width: 10rem;
 	height: 2rem;
-	position: relative;
+	position: absolute;
+	bottom: 0;
 	overflow: hidden;
 	/*padding-bottom: -5vw;*/
 	font-size: 0.4rem;
@@ -239,21 +242,25 @@ html,body {
 }
 
 .bottom{    
-	/*height: 8.1rem;*/
+	height: 36vh;
+	position: relative;
 	/*background: #A8E2FF;*/
 }
 .bottom ul{
 	width: 10rem;
+	height: 48%;
+	display: flex;
+	align-items: center;
 	/*background: #A8E2FF;*/
-	/*height:7rem;*/
 }
 .bottom ul li{
+	flex: 1;
 	display: block;
-	width: 3.333333rem;
-	height: 1rem;
+	width: 33.33%;
+	/*height: 1rem;*/
 	float: left;
 	text-align: center;
-	margin-top: 0.7rem;
+	/*margin-top: 0.7rem;*/
 }
 .bottom ul li:after {
 	content: '';
