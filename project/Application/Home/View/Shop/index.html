@@ -183,7 +183,7 @@
                     	dataType:'json',
                     	data:{ 'data':1 }, 
                     	success:function(res){
-                    		console.log(res);
+                    		// console.log(res);
                     		if(res==2){
 	                            // 套餐确认
 	                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
@@ -221,7 +221,6 @@
 		lineLeft = sessionStorage.getItem("lineLeft"),
 			shopFrom = sessionStorage.getItem("shopFrom");		//判断从充值进入商城还是点击商城进入商城
 		if(shopFrom == 'charge'){	//从首页‘充值’进来
-			console.log("充值");
 			// 左边偏移量
 			var $left = $("._ul").children("li").eq(0).offset().left+$("._ul").children("li").eq(0).innerWidth()/2 - 25;
 			// 下划线动画
@@ -231,7 +230,6 @@
 			$("._ul").children("li").eq(1).css({color: '#6F6F6F'});
 
 		}else if(shopFrom == 'mall'){	//从首页‘商城’进来
-			console.log("商城")
 			// 左边偏移量
 			var $left = ($("._ul").children("li").eq(1).offset().left+$("._ul").children("li").eq(1).innerWidth()/2 - 25 );
 
@@ -243,6 +241,9 @@
 			$(".contentBox").children('div').eq(0).hide();
 
 			$(".contentBox").children('div').eq(1).show();
+		}else{
+			var $left = $("._ul").children("li").eq(0).offset().left+$("._ul").children("li").eq(0).innerWidth()/2 - 25;
+			$('._line').css({left:$left+'px'});
 		}
 		// 加入购物车时的界面
 		if(lineMove == lineLeft && lineMove && lineLeft ){	//上次选择的是充值
