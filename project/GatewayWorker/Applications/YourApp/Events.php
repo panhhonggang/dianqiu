@@ -55,7 +55,7 @@ class Events
             $message['client_id'] = $client_id;
             $message['soure'] = 'WS';
         }
-        sendMsg($message);
+        self::sendMsg($message);
         // $url = 'http://pub.dianqiukj.com/api/action/receive';
         // $curlobj = curl_init();
         // curl_setopt($curlobj,CURLOPT_URL,$url);
@@ -76,7 +76,7 @@ class Events
         {
             $message['soure'] = 'Close';
             $message['DeviceID'] = $_SESSION['DeviceID'];
-            sendMsg($message);
+            self::sendMsg($message);
             // $url = 'http://192.168.244.130/dianqiu/project/api/action/receive';
             // $curlobj = curl_init();
             // curl_setopt($curlobj,CURLOPT_URL,$url);
@@ -93,7 +93,7 @@ class Events
     /**
      * 数据抛出
      */
-    public function sendMsg($message)
+    public static function sendMsg($message)
     {
         $url = 'http://pub.dianqiukj.com/api/action/receive';
         $curlobj = curl_init();

@@ -121,7 +121,7 @@ class ActionController extends Controller
     {
         $ReFlow = "";
         $Reday = "";
-        $result = sysnc_info($message['DeviceID']);
+        $result = $this->sysnc_info($message['DeviceID']);
         if(!empty($result)){
             $ReFlow = $result['ReFlow'];
             $Reday = $result['Reday'];
