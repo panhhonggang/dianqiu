@@ -83,8 +83,8 @@ class WorkController extends CommonController
         $list = $type->where($map)
             ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-            ->order('pub_work.id asc')
-            ->limit($page->firstRow.','.$page->listRows)->select();
+            ->order('pub_work.result asc')
+            ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
 
         $this->assign('list',$list);
