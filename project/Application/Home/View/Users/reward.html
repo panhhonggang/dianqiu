@@ -24,7 +24,7 @@
         </div>
         <div class="rewardFoot">
           <ul>
-            <li v-for='(item, index) in data' class="litem" :index='item.index'>
+            <li v-for='(item, index) in data' class="litem" :index='item.index' @click='showText($event)'>
               <span v-if='item.type == 0'>安装</span>
               <span v-else-if='item.type == 1'>报修</span>
               <span v-else-if='item.type == 2'>维护</span>
@@ -105,10 +105,6 @@
             } 
           })
 
-          // 点击查看详情
-          $('.rewardFoot').on('click','.litem',function(){
-            that.showText($(this));
-          })
         },
         methods: {
           getLocaltime: function (_time) {
@@ -145,20 +141,25 @@
              * 点击安装或报修项目显示详情
              */
             // e: 当前元素
+            // console.log(e)
             for(var i=0; i<$('.litem').length; i++){
               // console.log($('.litem').eq(i).find('.show'));
-              $('.litem').eq(i).find('.show').slideUp('fast');
+              $('.litem').eq(i).find('.show').hide();
               $('.litem').eq(i).css({background: '#fff'});
             }
-            if(this.isSameVal == e.attr('index')){
-              // 当前元素点击多次
-              e.find('.show').slideUp('fast');
-              this.isSameVal = '';
-              return
-            }
-            e.css({background: '#f6f6f6'});
-            e.find('.show').slideDown('fast');
-            this.isSameVal = e.attr('index');
+            e.target.style.background = '#f6f6f6';
+            e.target.children[2]
+            .setAttribute('style',"display: block;");
+
+            // if(this.isSameVal == e.attr('index')){
+            //   // 当前元素点击多次
+            //   e.find('.show').slideUp('fast');
+            //   this.isSameVal = '';
+            //   return
+            // }
+            // e.css({background: '#f6f6f6'});
+            // e.find('.show').slideDown('fast');
+            // this.isSameVal = e.attr('index');
             // console.log(this.isSameVal);
           }
        }
