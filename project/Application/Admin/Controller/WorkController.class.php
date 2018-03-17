@@ -63,6 +63,8 @@ class WorkController extends CommonController
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ')
                 ->field('w.id,w.dcode,w.number,w.name,w.phone,w.type,w.content,w.address,w.result,w.time')
                 ->getAll();
+            $arr = ['time'=>'Y-m-d H:i:s'];
+//            replace_value($data,$arr,'');
             $filename = '工单列表数据';
             $title = '工单列表';
             $cellName = ['id','设备号','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','处理时间'];

@@ -71,12 +71,13 @@ class SetmealController extends CommonController
 
             // 数组中枚举数值替换
             $arr = [
+                'addtime'=>'Y-m-d H:i:s',
                 'remodel'=>[
                     '0'=>'流量',
                     '1'=>'时长'
                 ]
             ];
-            $data = replaceStrInData($data,$arr);
+            replace_value($data,$arr);
 
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);

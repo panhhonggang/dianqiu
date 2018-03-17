@@ -149,6 +149,36 @@ function ss(&$data,$arr){
 };
 
 
+if(!function_exists('replace_value')){
+    /**
+     * 数据过滤 按照格式替换
+     * @param  array &$data 需要过滤的数据
+     * @param  array $arr   替换或添加的规则
+     * @param  string $suffix 替换后的数据下标后缀
+     * @return ''
+     *
+     * @Author 李振东 lzdong@foxmail.com 2018-03-17
+     */
+    function replace_value(array &$data, array $arr, $suffix="")
+    {
+        $arr=['arr'=>$arr, 'suffix'=>$suffix];
+        array_walk($data,function(&$v,$k,$arr){
+            $suffix='';
+            extract($arr);
+            foreach ($arr as $key=> $val) {
+                if(array_key_exists($key,$v)){
+                    if(is_array($val)){
+                        $v[$key.$suffix]=$val[$v[$key]];
+                    }else{
+                        $v[$key.$suffix]=date($val,$v[$key]);
+                    }
+                }
+            }
+
+        },$arr);
+    }
+}
+
 
 
 

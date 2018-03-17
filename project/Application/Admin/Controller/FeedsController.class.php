@@ -53,13 +53,14 @@ class FeedsController extends CommonController
         if (I('output') == 1) {
             $data = $user->where($map)
                         ->alias('f')
-                        ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
-                ->join('pub_binding bd ON bd.did = d.id')
-
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->field('f.id,f.uid,d.name,d.name,f.content,f.addtime')
+                        ->join('pub_binding ON pub_binding.did = d.id')
+                        ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
+                        ->field('f.id,f.uid,d.name,d.phone,f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->select();
+            $arr = ['addtime'=>'Y-m-d H:i:s'];
+            replace_value($data,$arr);
             $filename = '建议列表数据';
             $title = '建议列表';
             $cellName = ['建议id','用户id','用户昵称','手机','反馈内容','报修时间'];
@@ -157,6 +158,8 @@ class FeedsController extends CommonController
                         ->field('f.uid,d.device_code,d.name,d.phone,f.content,f.address,f.status,f.addtime')
                         ->order('f.addtime desc')
                         ->select();
+            $arr = ['addtime'=>'Y-m-d H:i:s'];
+            replace_value($data,$arr);
             $filename = '报修列表数据';
             $title = '报修列表';
             $cellName = ['用户id','设备编码','用户昵称','经销商手机','报修内容','报修地址','状态','报修时间'];

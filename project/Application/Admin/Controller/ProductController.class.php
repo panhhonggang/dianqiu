@@ -41,6 +41,8 @@ class ProductController extends CommonController
         // PHPExcel 导出数据 
         if (I('output') == 1) {
             $data = $type->where($map)->select();
+            $arr = ['addtime'=>'Y-m-d H:i:s'];
+            replace_value($data,$arr);
             $filename = '产品类型列表数据';
             $title = '产品类型列表';
             $cellName = ['id','产品类型','一级滤芯','二级滤芯','三级滤芯','四级滤芯','五级滤芯','六级滤芯','七级滤芯','八级滤芯','添加时间'];
@@ -247,6 +249,8 @@ class ProductController extends CommonController
             $data = $filter->where($map)
                             ->field('id,filtername,alias,price,timelife,flowlife,introduce,url,addtime')
                             ->select();
+            $arr = ['addtime'=>'Y-m-d H:i:s'];
+            replace_value($data,$arr);
             $filename = '滤芯列表数据';
             $title = '滤芯列表';
             $cellName = ['滤芯id','滤芯名称','滤芯别名','滤芯价格','时间寿命','流量寿命','滤芯简介','购买网址','最新添加时间'];

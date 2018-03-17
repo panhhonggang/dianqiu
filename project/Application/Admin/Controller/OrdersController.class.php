@@ -94,8 +94,9 @@ class OrdersController extends CommonController
                     '0'=>'未充值',
                     '1'=>'已充值'
                 ],
+                'created_at'=>'Y-m-d H:i:s',
             ];
-            $data = replaceStrInData($data,$arr);
+            replace_value($data,$arr);
 
             $filename = '订单列表数据';
             $title = '订单列表';

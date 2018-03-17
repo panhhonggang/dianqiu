@@ -79,6 +79,8 @@ class UsersController extends CommonController
             ->join('__BINDING__ bd ON d.id = bd.did ')
             ->field('u.id,w.nickname,d.device_code,d.phone,d.address,u.login_time,u.login_ip,u.created_at,d.updatetime')
             ->select();
+            $arr = ['updatetime'=>'Y-m-d H:i:s'];
+            replace_value($data,$arr);
             $filename = '用户列表数据';
             $title = '用户列表';
             $cellName = ['用户id','姓名','当前设备id','手机号','地址','最后登录时间','登录IP','关注日期','更新日期'];
@@ -302,9 +304,10 @@ class UsersController extends CommonController
                 ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
                 ->select();
             $arr = [
+                'addtime'=>'Y-m-d H:i:s',
                 'mode' => ['系统赠送','微信','支付宝']
             ];
-            ss($data,$arr);
+            replace_value($data,$arr);
             $filename = '充值记录数据';
             $title = '充值记录';
             $cellName = ['充值流水id','用户昵称','充值金额','充值流量（天）','账户余量（天）','充值方式','充值时间'];

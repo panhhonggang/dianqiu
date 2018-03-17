@@ -55,9 +55,10 @@ class VendorsController extends CommonController
                         ->field('id,user,name,phone,email,address,idcard,leavel,addtime')
                         ->select();
             $arr = [
+                'addtime'=>'Y-m-d H:i:s',
                 'leavel' => ['超级管理员','一级经销商','二级经销商']
             ];
-            ss($data,$arr);
+            replace_value($data,$arr);
             $filename = '经销商列表数据';
             $title = '经销商列表';
             $cellName = ['用户Id','账号','昵称','手机号','邮箱','地址','身份证号','管理级别','最新添加时间'];
@@ -297,6 +298,8 @@ class VendorsController extends CommonController
                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                 ->field('pub_vendors.id,pub_binding.did,pub_devices.device_code,pub_vendors.name,pub_vendors.phone,pub_binding.addtime')
                 ->select();
+            $arr = ['addtime'=>'Y-m-d H:i:s'];
+            replace_value($data,$arr);
             $filename = '设备归属列表数据';
             $title = '设备归属列表';
             $cellName = ['经销商id','设备id','设备编码','经销商姓名','经销商手机','添加时间'];
