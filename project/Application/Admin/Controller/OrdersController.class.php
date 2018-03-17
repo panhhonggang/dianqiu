@@ -126,7 +126,8 @@ class OrdersController extends CommonController
                       ->join('pub_users ON pub_orders.user_id = pub_users.id')
                       ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
                       ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
-                      ->field('pub_orders.*,pub_binding.vid,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
+                      ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
+                      ->field('pub_orders.*,pub_binding.vid,pub_vendors.name vname,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
                       ->limit($page->firstRow.','.$page->listRows)
                       ->select();
 
