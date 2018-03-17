@@ -887,11 +887,12 @@ class PaymentSystemController extends Controller
             //show($result);die;
             //$uid = M('Users')->where("open_id='{$result['']}'")->find()['id'];
             //file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
-            // $map = ['deviceid'=>155753845596778];
-            // $Flow = ['reday'=>400];
-            // $FlowRes = M('devices_statu')->where($map)->save($Flow);
-            // echo M('devices_statu')->_sql();
-            // dump($FlowRes);die;
+            $map = ['deviceid'=>155753845596778];
+            $Flow = ['reday'=>400];
+            $FlowRes = M('devices_statu')->where($map)->save($Flow);
+            echo M('devices_statu')->getDbError();
+            echo M('devices_statu')->_sql();
+            dump($FlowRes);die;
             // 如果订单号不为空
             if(!empty($result['out_trade_no'])){
                 $did = substr($result['out_trade_no'],15);
