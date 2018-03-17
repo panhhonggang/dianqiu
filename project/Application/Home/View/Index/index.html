@@ -219,8 +219,8 @@
 		var usednumberFlow=parseInt(data.sumflow);//已用数值
 		var usednumberDay=parseInt(data.sumday);//已用数值
 		// console.log(usednumberFlow);
-		$("#rawtdsVal").html(data.rawtds?data.rawtds:'0');
-		$("#puretdsVal").html(data.puretds?data.puretds:'0');
+		$("#puretdsVal").html(data.rawtds?data.rawtds:'0');
+		$("#rawtdsVal").html(data.puretds?data.puretds:'0');
 		$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
 		$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
 

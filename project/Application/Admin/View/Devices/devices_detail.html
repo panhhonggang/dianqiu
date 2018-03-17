@@ -224,11 +224,11 @@ $(function(){
                 '</tr>'+
                 '<tr>'+
                 '<td>'+'原水值(ppm)'+'</td>'+
-                '<td  class="tdOriginalWater">'+_puretds+'</td>'+
+                '<td  class="tdOriginalWater">'+_rawtds+'</td>'+
                 '</tr>'+
                 '<tr>'+
                 '<td>'+'纯水值(ppm)'+'</td>'+
-                '<td  class="tdCleanWater">'+_rawtds+'</td>'+
+                '<td  class="tdCleanWater">'+_puretds+'</td>'+
                 '</tr>'+
                 '<tr>'+
                 '<td>'+'剩余天数 (D)'+'</td>'+
@@ -409,10 +409,10 @@ $(function(){
 
                     $(".H1devicestause").text(devicestause[dataList.DeviceStause]?devicestause[dataList.DeviceStause]:'--');//设置设备状态
                     $(".tdDeviceStause").text(devicestause[dataList.DeviceStause]?devicestause[dataList.DeviceStause]:'--');//设置设备状态
-                    $(".originalWater").text(dataList.PureTDS);//设置当前设备原水值
-                    $(".tdOriginalWater").text(dataList.PureTDS);
-                    $(".cleanWater").text(dataList.RawTDS);//设置当前设备纯水值
-                    $(".tdCleanWater").text(dataList.RawTDS);//设置当前设备纯水值
+                    $(".originalWater").text(dataList.RawTDS);//设置当前设备原水值
+                    $(".tdOriginalWater").text(dataList.);
+                    $(".cleanWater").text(dataList.PureTDS);//设置当前设备纯水值
+                    $(".tdCleanWater").text(dataList.PureTDS);//设置当前设备纯水值
                     $(".leaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
                     $(".tdLeaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
                     $(".tdFilterMode").text(filterMode);//设置当前设备滤芯模式
