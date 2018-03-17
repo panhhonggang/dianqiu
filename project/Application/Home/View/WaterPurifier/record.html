@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1" >
-	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
 	<style>
 		* {
 			margin: 0;
@@ -129,8 +128,6 @@
 		.layui-laydate, .layui-laydate-main{
 			width: 98vw !important;
 			position: relative;
-			/*left: 50% !important;
-			transform: translateX(-49vw);*/
 		}
 		.laydate-footer-btns {
 			width: 50%;
@@ -197,7 +194,7 @@
 					: (new Date().getMonth()+1);//获取月份
 	 	var mustDateb = new Date(year, month, 0).getDate();//获取月份天数
 		var dataList=JSON.parse($(".datalist").val());//数据集
-		
+		console.log(dataList);
 		$("#dateSelect").text(year+'-'+month);//显示当前年月
 		// 页面加载就给月份赋值
 		getAvg(dataList,mustDateb);
@@ -218,6 +215,7 @@
 							"month":yearsMonth
 						},
 						success:function(res){
+							console.log(res);
 							year=yearsMonth.slice(0,4);
 							month=yearsMonth.slice(5,6);
 							mustDatea = new Date(year, month, 0).getDate();
