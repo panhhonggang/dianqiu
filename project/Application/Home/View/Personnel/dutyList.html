@@ -80,6 +80,7 @@
 <body>
 	<div id="contain">
 		<ul class="userDetail">
+			<if condition="$list neq null">
 			<foreach name="list" item="vo">
 				<li>
 
@@ -102,7 +103,9 @@
 					</a>
 				</li>
 			</foreach>
-
+				<else />
+				<div>暂无数据</div>
+			</if>
 		</ul>
 	</div>
 </body>
