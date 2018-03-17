@@ -862,24 +862,24 @@ class PaymentSystemController extends Controller
         $xml=file_get_contents('php://input', 'r');
         // file_put_contents('./wx_pay.txt',$xml."\r\n", FILE_APPEND);
         //echo 1;die;
-        $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
-<attach><![CDATA[3348930254834304]]></attach>
-<bank_type><![CDATA[CFT]]></bank_type>
-<cash_fee><![CDATA[1]]></cash_fee>
-<fee_type><![CDATA[CNY]]></fee_type>
-<is_subscribe><![CDATA[Y]]></is_subscribe>
-<mch_id><![CDATA[1394894802]]></mch_id>
-<nonce_str><![CDATA[7o8npfqaiqcir08sh7tmuaj2y45tuyoy]]></nonce_str>
-<openid><![CDATA[oXwY4txlP9OKwEDbVUMvUXP_7FhA]]></openid>
-<out_trade_no><![CDATA[5971653924322014]]></out_trade_no>
-<result_code><![CDATA[SUCCESS]]></result_code>
-<return_code><![CDATA[SUCCESS]]></return_code>
-<sign><![CDATA[4304C1E1631CDA64D1366A60F1227046]]></sign>
-<time_end><![CDATA[20180317091019]]></time_end>
-<total_fee>1</total_fee>
-<trade_type><![CDATA[JSAPI]]></trade_type>
-<transaction_id><![CDATA[4200000061201803170106895624]]></transaction_id>
-</xml>';
+//         $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
+// <attach><![CDATA[3348930254834304]]></attach>
+// <bank_type><![CDATA[CFT]]></bank_type>
+// <cash_fee><![CDATA[1]]></cash_fee>
+// <fee_type><![CDATA[CNY]]></fee_type>
+// <is_subscribe><![CDATA[Y]]></is_subscribe>
+// <mch_id><![CDATA[1394894802]]></mch_id>
+// <nonce_str><![CDATA[7o8npfqaiqcir08sh7tmuaj2y45tuyoy]]></nonce_str>
+// <openid><![CDATA[oXwY4txlP9OKwEDbVUMvUXP_7FhA]]></openid>
+// <out_trade_no><![CDATA[5971653924322014]]></out_trade_no>
+// <result_code><![CDATA[SUCCESS]]></result_code>
+// <return_code><![CDATA[SUCCESS]]></return_code>
+// <sign><![CDATA[4304C1E1631CDA64D1366A60F1227046]]></sign>
+// <time_end><![CDATA[20180317091019]]></time_end>
+// <total_fee>1</total_fee>
+// <trade_type><![CDATA[JSAPI]]></trade_type>
+// <transaction_id><![CDATA[4200000061201803170106895624]]></transaction_id>
+// </xml>';
         
         if($xml){
             //解析微信返回数据数组格式
@@ -970,7 +970,7 @@ class PaymentSystemController extends Controller
                             
                             // 修改设备剩余流量
                             $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
-
+                            file_put_contents('jfdsk',var_export($devicesStatu->_sql(), true),FILE_APPEND);
                             // 准备发送指令
                             if(empty($Flow['ReDay'])){
                                 $msg = [
@@ -1013,6 +1013,8 @@ class PaymentSystemController extends Controller
                             // 创建充值流水
                             $flowObjRes = $flowObj->add($flowData);
 
+                            // dump($orderData);
+                            // dump($flowObjRes);die;
 
                             // 判断流水是否创建成果
                             if($flowObjRes){
@@ -1027,7 +1029,7 @@ class PaymentSystemController extends Controller
                             }
                             
                         }
-
+                        file_put_contents('sssssss',$countNun .$num. $flownum);
                         // dump($countNun);
                         // dump($num);
                         // dump($msg);die;
@@ -1041,15 +1043,16 @@ class PaymentSystemController extends Controller
                         // 没有套餐默认值，状态设为1
                         $status = 1;
                     }
-                    
+                    // dump($status);die;
                     // show($msg);die;
-                    //file_put_contents('saaa',$isPayRes .'jfdslajfds'. $status);
+                    // file_put_contents('saaa',$isPayRes .'jfdslajfds'. $status);
                     if($isPayRes && $status){
                         
                         // 执行事务
                         $orders->commit();
 
-                        $sc=A("Action");
+                        $sc=A("Api/Action");
+                        // dump($sc);die;
                         $sc->sendMsg($msg['DeviceID'],json_encode($msg));
 
                         file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);

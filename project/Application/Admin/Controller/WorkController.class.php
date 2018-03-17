@@ -1,7 +1,8 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-
+use Org\Util\Date;
+use Org\Util\Strings;
 /**
  * 工单控制器
  * 用来添加工单，浏览工单列表等
@@ -99,6 +100,7 @@ class WorkController extends CommonController
             $device_type = D('work');
             $data = I('post.');
             $data['address'] = $data['address'].$data['add_ress'];
+            $data['number'] = $this->getWorkNumber();
             $info = $device_type->create();
             if($info){
                 if($data['type'] == 1){
@@ -187,4 +189,21 @@ class WorkController extends CommonController
         }
     }
 
+    /**
+     * 生成工单编号
+     * @return [type] [description]
+     */
+    protected function getWorkNumber()
+    {
+        $date = new Date(time());
+        $string = new Strings;
+
+        do {
+            $dateStr = $date->format("%Y%m%d%H%M");   // 根据时间戳生成的字符串
+            $str1 = $string->randString(3,0);   // 生成字母随机字符
+            $str2 = $string->randString(5,1);   // 生成数字随机字符
+            $workNumber = substr($dateStr,3,-1).$str2;
+        } while(D('work')->where('number='.$workNumber)->getField('id'));
+        return $workNumber;
+    }
 }

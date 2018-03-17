@@ -22,7 +22,7 @@ var wxShare = function(appId,nonceStr,signature,timestamp){
 			'onMenuShareQZone'
 	    ]
 	});
-	console.log(encodeURI(location.href.split('#')[0]))
+	// console.log(encodeURI(location.href.split('#')[0]))
 	var title = '净水物联网',
 		link = encodeURI(location.href.split('#')[0]),
 		desc = '欢迎使用点球净水物联网',

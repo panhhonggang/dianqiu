@@ -11,6 +11,7 @@
                 <span class="select-box">下单用户:
                     <input type="text" class="input-medium nickname" name="nickname" placeholder="请输入姓名" style="width: 100px;"/ >
                 </span>
+
                 <span class="select-box">购买商品数量:
                     <input type="text" class="input-medium total_num" name="total_num" placeholder="请输入商品数量" style="width: 100px;"/ >
                 </span>
@@ -41,6 +42,7 @@
                 <tr>
                     <th>订单编号</th>
                     <th>下单用户</th>
+                    <th>经销商名字</th>
                     <th>购买商品数量</th>
                     <th>购买总额</th>
                     <th>收货人</th>
@@ -60,6 +62,7 @@
                         <tr>
                             <td><a href="__URL__/order_detail.html#{{$vo.order_id}}">{{$vo.order_id}}</a></td>
                             <td>{{$vo.nickname}}</td>
+                            <td>{{$vo.vname}}</td>
                             <td>{{$vo.total_num}}</td>
                             <td>{{$vo['total_price']/100}}</td>
                             <td>{{$vo.name}}</td> 
