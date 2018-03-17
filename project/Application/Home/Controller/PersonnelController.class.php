@@ -71,14 +71,12 @@ class PersonnelController extends Controller
     public function infoDetail($id)
     {
         $map = I('post.');
-
         $map['personnel_id'] = session('pid');
         $map['id'] = $id;
-        //查询数据
         $perSonnel_info = D('Personnel');
         $info = $perSonnel_info->per_detail($map);
-
         if (IS_POST) {
+            //查询数据
 
             $status = $perSonnel_info->status($map);
             if ($status['code']==403) {
@@ -91,15 +89,24 @@ class PersonnelController extends Controller
             $data['vid'] = $vid;
             $data['wid'] = $id;
             $data['create_time'] = date('Y-m-d H:i:s');
-            $add_info = M('install')->add($data);
-            if ($add_info) {
-                $work_info = M('work')->where(['id'=>$map['id'],'personnel_id'=>$map['personnel_id']])->save(['dcode'=>$map['dcode'],'result'=>2]);
-                if ( $work_info) {
+            $work_info = M('work')->where(['id'=>$map['id'],'personnel_id'=>$map['personnel_id']])->save(['dcode'=>$map['dcode'],'result'=>2]);
+            if ($work_info) {
 
+                $add_info = M('install')->add($data);
+                if ( $add_info) {
+                    $device_status['DeviceID'] = $data['dcode'];
+                    $device_status['LeasingMode'] = $data['lease'];
+                    $device_status['FilterMode'] = $data['filter'];
+//                    $device_status['AliveStause'] = $data['dcode'];
+                    $device_status['addtime'] =  time();
+                    M('devices_statu')->add($device_status);
+                    M('devices')->where(['device_code'=>$data['dcode']])->save(['device_statu'=>2]);
                     $this->success('安装成功',U('home/Personnel/personal'),2);
                 } else {
                     $this->error('安装失败');
                 }
+            } else {
+                    $this->error('失败');
             }
         } else {
 
@@ -112,7 +119,7 @@ class PersonnelController extends Controller
     /*
      * 完成安装
      */
-    public function success($id) {
+    public function to_success($id) {
 
         $map['personnel_id'] = session('pid');
         $map['id'] = $id;
@@ -121,7 +128,7 @@ class PersonnelController extends Controller
             $this->error('数据有误');
         }
         $this->assign('work_info',$work_info);
-        $this->display();
+        $this->display('success');
     }
 
     /*
