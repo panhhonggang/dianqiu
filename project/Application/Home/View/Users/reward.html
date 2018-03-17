@@ -146,7 +146,7 @@
             url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              console.log('请求成功！', res);
+              // console.log('请求成功！', res);
               res = [
               {type: 0, time:'2017-2-12',name:'地方哈',status:'未完成'},
               {type: 1, time:'2017-5-26',name:'考虑好了哈',status:'未完成'},
@@ -163,17 +163,17 @@
                 // 将数据更新到 data 
                 that.data.push(res[i]);
               }
-              console.log(that.data);
-              console.log(that.num)
+              // console.log(that.data);
+              // console.log(that.num)
             },
             error: function(res){
-              console.log('请求失败！', res);
+              // console.log('请求失败！', res);
             } 
           })
 
           // 点击查看详情
           $('.rewardFoot').on('click','.litem',function(){
-            console.log('dsfd')
+            // console.log('dsfd')
             that.showText($(this));
           })
         },
@@ -209,7 +209,7 @@
           },
           showText: function(e){
             for(var i=0; i<$('.litem').length; i++){
-              console.log($('.litem').eq(i).find('.show'));
+              // console.log($('.litem').eq(i).find('.show'));
               $('.litem').eq(i).find('.show').slideUp('fast');
             }
             e.find('.show').slideDown('fast');
