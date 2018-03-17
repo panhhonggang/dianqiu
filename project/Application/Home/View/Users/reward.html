@@ -89,10 +89,22 @@
       /*显示*/
       ._reward .show {
         width: 100%;
-        height: 50px;
+        height: auto;
         display: none;
-        padding: 2% 3%;
+        padding: 2%;
+        border-top: 1px solid #ddd;
+        /*background: #fff;*/
+        z-index: 99;
       }
+      ._reward .show>span,
+      ._reward .show>div {
+        color: #000;
+      }
+      ._reward .show>span>span,
+      ._reward .show>div>span {
+        color: #444;
+      }
+       
   </style>
 </head>
 <body>
@@ -110,14 +122,22 @@
         </div>
         <div class="rewardFoot">
           <ul>
-            <li v-for='item in data' class="litem">
+            <li v-for='(item, index) in data' class="litem" :index='item.index'>
               <span v-if='item.type == 0'>安装</span>
               <span v-else-if='item.type == 1'>报修</span>
               <span v-else-if='item.type == 2'>维护</span>
               <span>{{ item.time }}</span>
               <div class="show">
-                <span>安装人：{{ item.name }}</span>
-                <span>安装进度：{{ item.status }}</span>
+                <span v-if='item.type == 0'><span>处理人：</span>{{ item.name }}</span>
+                <span v-if='item.type == 1'><span>处理人：</span>{{ item.name }}</span>
+                <span v-if='item.type == 2'><span>处理人：</span>{{ item.name }}</span>
+                <div><span>电话：</span>{{ item.phone }}</div>
+                <div v-if='item.type == 0'><span>安装进度：</span>{{ item.result }}</div>
+                <div v-if='item.type == 1'><span>报修进度：</span>{{ item.result }}</div>
+                <div v-if='item.type == 2'><span>维护进度：</span>{{ item.result }}</div>
+                <div v-if='item.type == 0'><span>安装地址：</span>{{ item.address }}</div>
+                <div v-if='item.type == 1'><span>报修地址：</span>{{ item.address }}</div>
+                <div v-if='item.type == 2'><span>维护地址：</span>{{ item.address }}</div>
               </div>
             </li>
           </ul>
@@ -135,7 +155,8 @@
         data() {
           return {
             data: [],
-            num: [0, 0]
+            num: [0, 0],
+            isSameVal: null
           }
         },
         computed: {},
@@ -146,13 +167,10 @@
             url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              // console.log('请求成功！', res);
-              res = [
-              {type: 0, time:'2017-2-12',name:'地方哈',status:'未完成'},
-              {type: 1, time:'2017-5-26',name:'考虑好了哈',status:'未完成'},
-              {type: 0, time:'2017-7-21',name:'官方快快快',status:'完成'}]
+              console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
+                res[i]['index'] = i;
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
 
@@ -160,20 +178,32 @@
                   that.num[1]++;
 
                 }
+                if(!res[i].phone){
+                  res[i].phone = '暂无电话';
+                }
+                if(res[i].result == 0){
+                  res[i].result = '未处理';
+
+                }if(res[i].result == 1){
+                  res[i].result = '正在处理';
+
+                }if(res[i].result == 2){
+                  res[i].result = '已处理';
+
+                }
                 // 将数据更新到 data 
                 that.data.push(res[i]);
               }
-              // console.log(that.data);
-              // console.log(that.num)
+              console.log(that.data);
+              console.log(that.num)
             },
             error: function(res){
-              // console.log('请求失败！', res);
+              console.log('请求失败！', res);
             } 
           })
 
           // 点击查看详情
           $('.rewardFoot').on('click','.litem',function(){
-            // console.log('dsfd')
             that.showText($(this));
           })
         },
@@ -208,11 +238,23 @@
             return normal;
           },
           showText: function(e){
+            
+            // e: 当前元素
             for(var i=0; i<$('.litem').length; i++){
               // console.log($('.litem').eq(i).find('.show'));
               $('.litem').eq(i).find('.show').slideUp('fast');
+              $('.litem').eq(i).css({background: '#fff'});
             }
+            if(this.isSameVal == e.attr('index')){
+              // 当前元素点击多次
+              e.find('.show').slideUp('fast');
+              this.isSameVal = '';
+              return
+            }
+            e.css({background: '#f6f6f6'});
             e.find('.show').slideDown('fast');
+            this.isSameVal = e.attr('index');
+            // console.log(this.isSameVal);
           }
        }
       });
