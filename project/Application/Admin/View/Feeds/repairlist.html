@@ -1,4 +1,45 @@
 <include file="Public/header" />
+<style>
+    /*点击报修的图片预览*/
+    #imgDiv {
+        width: 85%;
+        height: 100%;
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 999;
+        background: rgba(0,0,0,.8);
+    }
+    /*预览图片xx*/
+    #imgDiv>span {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 5%;
+        right: 5%;
+        border-radius: 50%;
+        color: red;
+        font-size: 20px;
+        background: #fff;
+    }
+    #imgDiv>span:hover {
+        cursor: pointer;
+    }
+    #imgDiv>span:active {
+        background: #aaa;
+    }
+    .showimg {
+        width: 80%;
+        height: auto;
+        position: relative;
+        top: 0;
+        margin: 0 auto;
+    }
+</style>
 <div class="content">
     <include file="Public/nav" />
     <div class="row-fluid fl" id="main">
@@ -61,7 +102,7 @@
                             <td>{{$vo.name}}</td>
                             <td>{{$vo.phone}}</td>
                             <td>{{$vo.content}}</td>
-                            <td><img width="40" src="__PUBLIC__{{$vo.picpath}}" alt=""></td>
+                            <td onclick='showImg(this)' data-src="__PUBLIC__{{$vo.picpath}}"><img width="40" src="__PUBLIC__{{$vo.picpath}}" alt=""></td>
                             <td>{{$vo.address}}</td>
                             <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
                             <td>
@@ -93,7 +134,26 @@
                     {{$button}}
                 </ul>
             </div>
+            <div id="imgDiv">
+                <span>X</span>
+            </div>
             <script>
+                function showImg(e){
+                    $('#imgDiv img').remove();
+                    var src = e.getAttribute('data-src');
+                    // console.log(e);
+                    var img = new Image();
+                    img.src = src;
+                    img.className = 'showimg';
+
+                    $('#imgDiv').fadeIn('fast');
+                    $('#imgDiv').append(img);
+                    return
+                }
+                // 关闭图片
+                $('#imgDiv>span').on('click',function(){
+                     $('#imgDiv').fadeOut('fast');
+                })
                 /**************** 搜索关键字保留 -- 开始 ******************/
                     var srearchInfo = {};
                     var  device_code, name, phone, 
