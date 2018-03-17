@@ -39,7 +39,7 @@ class PersonnelController extends Controller
      */
     public function personal(){
         //个人资料
-        $user= M('personnel')->field('name,phone')->where('id', '=',session('pid'))->find();
+        $user= M('personnel')->field('name,phone')->where(['id'=>session('pid')])->find();
         //未安装统计
         $not_install= M('work')->where(['result'=>0,'type'=>0,'personnel_id'=>session('pid')])->count();
         //安装统计
