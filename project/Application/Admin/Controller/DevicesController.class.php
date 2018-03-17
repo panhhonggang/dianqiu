@@ -38,10 +38,19 @@ class DevicesController extends CommonController
         if($this->get_level()){
             $map['vendors.id'] = $_SESSION['adminuser']['id'];
         }
-        $devices = D('Devices')->getDevicesInfo($map);   
+        $devices = D('Devices')->getDevicesInfo($map);
+
+        $arr = [
+            'netstause'=>['0'=>'未链接','1'=>'链接中','n'=>'未链接']
+        ];
+        replace_value($devices['data'],$arr);
+//
+
         $assign = [
             'deviceInfo' => $devices,
         ];
+
+        //dump($devices['data']);
         
         $this->assign($assign);
         $this->display('devicesList');
