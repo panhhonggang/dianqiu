@@ -887,12 +887,6 @@ class PaymentSystemController extends Controller
             //show($result);die;
             //$uid = M('Users')->where("open_id='{$result['']}'")->find()['id'];
             //file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
-            $map = ['deviceid'=>155753845596778];
-            $Flow = ['reday'=>400];
-            $FlowRes = M('devices_statu')->where($map)->save($Flow);
-            echo M('devices_statu')->getDbError();
-            echo M('devices_statu')->_sql();
-            dump($FlowRes);die;
             // 如果订单号不为空
             if(!empty($result['out_trade_no'])){
                 $did = substr($result['out_trade_no'],15);
@@ -906,6 +900,7 @@ class PaymentSystemController extends Controller
                 // dump($data);die;
                 // 1分钱测试数据
                 $orderData['total_price'] = 1;
+                // dump($data);die;
                 // 如果订单未处理，订单支付金额等于订单实际金额
                 if(empty($orderData['is_pay']) && $orderData['total_price'] == $result['total_fee']){
                     //file_put_contents('./wx_pay121.txt',$xml."\r\n", FILE_APPEND);
@@ -941,7 +936,7 @@ class PaymentSystemController extends Controller
                     }
 
                     $isPayRes = $orders->where($data)->save($isPay);
-                    // dump($isPayRes);die;
+                    // dump($orderSetmealData);die;
                     // 充值状态
                     $status = 0;
                     if($orderSetmealData){
@@ -1033,6 +1028,9 @@ class PaymentSystemController extends Controller
                             
                         }
 
+                        // dump($countNun);
+                        // dump($num);
+                        // dump($msg);die;
                         // 全部套餐充值完成
                         if($countNun == $num && $countNun == $flownum){
                             // 充值和流水完成，状态设为1
@@ -1047,6 +1045,7 @@ class PaymentSystemController extends Controller
                     // show($msg);die;
                     //file_put_contents('saaa',$isPayRes .'jfdslajfds'. $status);
                     if($isPayRes && $status){
+                        
                         // 执行事务
                         $orders->commit();
 
