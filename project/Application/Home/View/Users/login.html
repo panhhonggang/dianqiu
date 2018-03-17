@@ -7,8 +7,8 @@
 	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-	
-	
+
+
 	<style>
 		.linkBox{
 			display: none;
@@ -18,11 +18,12 @@
 			font-family:microsoftYaHei;
 			color:rgb(255,255,255);
 			background:url("__PUBLIC__/Home/images/bg.png") no-repeat 100% 100%;
-		}	
+			overflow:hidden;
+		}
 		#contain {
 			border-top:1px solid #77D3FC;
 		}
-		input{ 
+		input{
 			appearance:none;
 			-moz-appearance:none; /* Firefox */
 			-webkit-appearance:none; /* Safari and Chrome */
@@ -55,7 +56,7 @@
 		input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
 			color:rgba(255,255,255,.8);
 		}
-		input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+		input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 			color:rgba(255,255,255,.8);
 		}
 		.inputSubmit{
@@ -78,7 +79,7 @@
 			<p class="inputStyle">
 				账号: <input type="text" placeholder="请输入手机号" name="phone" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'">
 			</p>
-				
+
 			<p class="inputStyle">
 				密码: <input type="password" placeholder="请输入密码"  name="password" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'">
 			</p>
@@ -86,7 +87,7 @@
 				<input type="button" class="inputSubmit" value="登录">
 			</p>
 		</form>
-	</div>	
+	</div>
 
 </body>
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
