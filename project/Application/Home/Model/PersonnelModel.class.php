@@ -43,7 +43,7 @@ class PersonnelModel extends Model
         $info = M('personnel')->field('v_id')->where(['id'=>$map['personnel_id']])->find();
 
         $where['device_code'] = $map['dcode'];
-        
+
         $list = M('devices')->field('id')->where($where)->find();
         $binding_info = M('binding')->where(['did'=>$list['id'],'vid'=>$info['v_id']])->find();
 
