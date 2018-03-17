@@ -155,9 +155,13 @@ html,body {
 }
 
 .allStatus{
-	height: 6vh;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+	/*height: 6vh;*/
+/*	margin-left: 0.5rem;
+	margin-right: 0.5rem;*/
+	position:absolute;
+	bottom:15vh;
+	left:.5rem;
+	/*margin:-1vh .5rem 0 .5rem;*/
 }
 .allStatus>div{
 	display: none;

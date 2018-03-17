@@ -7,6 +7,7 @@
 	<title>服务人员登录</title>
 	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 	<style>
 		.displayInfo{
 			height:7rem;
@@ -41,6 +42,10 @@
 			height:.7rem;
 			line-height:.7rem;
 			margin-bottom:.5rem;
+
+		}
+		.userInfo > li > i{
+			font-style:normal;
 		}
 		/*清除浮动*/
 		.clearfix:after{
@@ -82,15 +87,15 @@
 		}
 		.iconNext {
 			position:absolute;
-			top:.1rem;
+			top:0;
 			right:.4rem;
 			width:.4rem;
 			height:.5rem;
 		}
-		.iconNext > img{
+		/*.iconNext > img{
 			width:100%;
 			height:100%;
-		}
+		}*/
 		.download > p > i{
 			width:.7rem;
 			height:.7rem;
@@ -122,13 +127,14 @@
 			<a href="{{:U('Home/Personnel/dutyList',array('result'=>0))}}">
 				<div class="download clearfix">
 					<p><span class="installIcon"><img src="__PUBLIC__/Home/images/login_icon_ins@2x.png" alt=""></span>待安装</p>
-					<p><i style="background-color:rgb(249,88,107);">{{$not_install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
+					<!-- <p><i style="background-color:rgb(249,88,107);">{{$not_install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p> -->
+					<p><i style="background-color:rgb(249,88,107);">{{$not_install}}</i><span class="iconfont icon-dayuhao right iconNext"></span></p>
 				</div>
 			</a>
 			<a href="{{:U('Home/Personnel/dutyList',array('result'=>2))}}">
 				<div class="download clearfix">
 					<p><span class="installIcon "><img src="__PUBLIC__/Home/images/login_icon_fin@2x.png" alt=""></span>已完成</p>
-					<p><i style="background-color:rgb(50,201,124);">{{$install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
+					<p><i style="background-color:rgb(50,201,124);">{{$install}}</i><span class="iconfont icon-dayuhao right iconNext"></span></p>
 				</div>
 			</a>
 		</div>

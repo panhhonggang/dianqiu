@@ -57,21 +57,26 @@
       .rewardFoot ul li{
         width: 100%;
         padding: 0 5%;
+        position: relative;
         display: block;
-        height: 2rem;
+        height: auto;
         line-height: 2rem;
         border-bottom: 1px solid #F6F6F6;
       }
-      .rewardFoot ul li span:last-child{
-        float: right;
+      .rewardFoot ul li>div {
+        display: inline-block;
+      }
+      .rewardFoot ul li span:nth-of-type(2){
+        position: absolute;
+        right: 5%;
         font-size: 0.7rem;
       }
-      .rewardFoot ul li span.iconBig{
+      .rewardFoot ul li div.iconBig{
         font-size: 0.7rem;
         font-weight: 400;
         letter-spacing: 0.02rem;
       }
-      .rewardFoot ul li span b{
+      .rewardFoot ul li div b{
         margin-left: 0.26rem
       }
       .noRewardFoot {
@@ -80,6 +85,13 @@
         height: 2rem;
         line-height: 2rem;
         text-align: center;
+      }
+      /*显示*/
+      ._reward .show {
+        width: 100%;
+        height: 50px;
+        display: none;
+        padding: 2% 3%;
       }
   </style>
 </head>
@@ -98,11 +110,15 @@
         </div>
         <div class="rewardFoot">
           <ul>
-            <li v-for='item in data'>
+            <li v-for='item in data' class="litem">
               <span v-if='item.type == 0'>安装</span>
               <span v-else-if='item.type == 1'>报修</span>
               <span v-else-if='item.type == 2'>维护</span>
               <span>{{ item.time }}</span>
+              <div class="show">
+                <span>安装人：{{ item.name }}</span>
+                <span>安装进度：{{ item.status }}</span>
+              </div>
             </li>
           </ul>
         </div>
@@ -131,12 +147,18 @@
             type: 'post',
             success: function(res){
               console.log('请求成功！', res);
+              res = [
+              {type: 0, time:'2017-2-12',name:'地方哈',status:'未完成'},
+              {type: 1, time:'2017-5-26',name:'考虑好了哈',status:'未完成'},
+              {type: 0, time:'2017-7-21',name:'官方快快快',status:'完成'}]
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
+
                 }else if(res[i].type == 1){// 统计维修数量
                   that.num[1]++;
+
                 }
                 // 将数据更新到 data 
                 that.data.push(res[i]);
@@ -147,6 +169,12 @@
             error: function(res){
               console.log('请求失败！', res);
             } 
+          })
+
+          // 点击查看详情
+          $('.rewardFoot').on('click','.litem',function(){
+            console.log('dsfd')
+            that.showText($(this));
           })
         },
         methods: {
@@ -178,6 +206,13 @@
             var normal = year + '/' + month + '/'  + date + '\t'  + hour + ':'  + minute;
             // console.log('year + month + day + hour + minute: ', normal);
             return normal;
+          },
+          showText: function(e){
+            for(var i=0; i<$('.litem').length; i++){
+              console.log($('.litem').eq(i).find('.show'));
+              $('.litem').eq(i).find('.show').slideUp('fast');
+            }
+            e.find('.show').slideDown('fast');
           }
        }
       });
