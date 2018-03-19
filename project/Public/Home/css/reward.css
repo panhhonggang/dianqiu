@@ -115,5 +115,5 @@ body{
 }
 
 .litem>div {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
