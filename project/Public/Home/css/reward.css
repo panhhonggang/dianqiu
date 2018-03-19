@@ -1,0 +1,98 @@
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td 
+{ margin: 0; padding: 0; } 
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+body{
+  font-size: .7rem;
+  font-size: 0.72rem;
+}
+.rewardTop{
+   width: 100%;
+   /*height: 2rem;*/
+   padding: 5%;
+   background: linear-gradient(to right, #3B90E1, #76F5E4); 
+   border-bottom: 6px solid #F6F6F6;
+   color: #fff;
+}
+.myReward{
+  width: 100%;
+  height: 100%;
+}
+.iconReward{
+  margin: 0.933333rem 0 0;
+  color: #fff;
+}
+.iconReward span{
+  font-size: 0.666667rem;
+}
+.iconReward span b em{
+  font-size: 0.7rem;
+  padding: 0 0.2rem;
+}
+.iconReward span p{
+  display: inline-block;
+}
+.iconReward>.spanRight{
+  margin-left: 1.5rem;
+}
+.iconReward>p {
+  width: 36%;
+  display: inline-block;
+}
+.adviceFoot ul{
+  width: 100%;
+}
+.rewardFoot ul li{
+  width: 100%;
+  padding: 0 5%;
+  position: relative;
+  display: block;
+  height: auto;
+  line-height: 2rem;
+  border-bottom: 1px solid #F6F6F6;
+}
+.rewardFoot ul li>div {
+  display: inline-block;
+}
+.rewardFoot ul li span:nth-of-type(2){
+  position: absolute;
+  right: 5%;
+  font-size: 0.7rem;
+}
+.rewardFoot ul li div.iconBig{
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+}
+.rewardFoot ul li div b{
+  margin-left: 0.26rem
+}
+.noRewardFoot {
+  margin: 8.0rem auto 0;
+  width: 40%;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+}
+/*显示*/
+._reward .show {
+  width: 100%;
+  height: auto;
+  display: none;
+  padding: 2%;
+  border-top: 1px solid #ddd;
+  /*background: #fff;*/
+  z-index: 99;
+}
+._reward .show>span,
+._reward .show>div {
+  color: #000;
+}
+._reward .show>span>span,
+._reward .show>div>span {
+  color: #444;
+}

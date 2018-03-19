@@ -101,13 +101,13 @@
 	<script>
 	// 获取窗口高度
 	var docCH = document.documentElement.clientHeight;
-	console.log(docCH)
+	// console.log(docCH)
 	
 	var topH = document.getElementsByClassName("top")[0].offsetHeight;
-	console.log(topH)
+	// console.log(topH)
 
 	var botH = docCH - topH;
-	console.log(botH)
+	// console.log(botH)
 
 	// $(".bottom").css("height", botH);
 	// 记录是从充值进入商城还是点击商城进入商城
@@ -118,6 +118,8 @@
 		sessionStorage.setItem("shopFrom",'charge');
 	})
 	
+	sessionStorage.setItem("lineRight",'');
+	sessionStorage.setItem("lineLeft",'');
 	//页面加载时执行
 	$(function(){
 		// 获取微信JSSDK所需的数据

@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-		<title>滤芯---充值 </title>
-		<link rel="stylesheet" href="__PUBLIC__/Home/css/lvxin-chongzhi.css">
-		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-		<!-- <link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css"> -->
-    	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
-    	<style type="text/css">
-		.linkBox{
-			position: fixed;
-			top:0;
-		}
-		input{
-			appearance:none;
-			-moz-appearance:none; /* Firefox */
-			-webkit-appearance:none; /* Safari and Chrome */
-		}
-		.shopCart input{
-			border-radius:0;
-		}
-    	</style>
-	</head> 
-	<body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>滤芯---充值 </title>
+	<link rel="stylesheet" href="__PUBLIC__/Home/css/lvxin-chongzhi.css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_xn0gpcbuksc92j4i.css"> -->
+	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
+	<style type="text/css">
+	.linkBox{
+		position: fixed;
+		top:0;
+	}
+	input{
+		appearance:none;
+		-moz-appearance:none; /* Firefox */
+		-webkit-appearance:none; /* Safari and Chrome */
+	}
+	.shopCart input{
+		border-radius:0;
+	}
+</style>
+</head> 
+<body>
 	<div id="contain">
 		<input type="hidden" value={{$device['device_code']}}  id="device">
 		<div id="ulDiv">
@@ -35,7 +35,7 @@
 			<div id="lineDiv" class="_line"></div>
 			<!-- <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a> -->
 		</div>
- 
+
 		<div class="contentBox">
 			<div id="liuliang" class="contentbox">
 				<h3><b>选择套餐</b></h3>
@@ -46,32 +46,32 @@
 			<!-- 滤芯开始 -->
 			<div id="mo" class="contentbox">
 				<foreach name="filtersList" item="v" key="k">
-				<div class="item" state="0">
-					<div id="ro1" class="ro1">
-						<div id="ro-left" index="{{$v}}"><img src="__PUBLIC__/{{$v['picpath']}}" alt=""></div>
-						<div id="ro-right">
-							<div class="top">
-								<h3>{{$v['filtername']}}</h3>
-								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
-							</div>
-							<div class="bott">
-							 <b>￥{{$v['price']/100}} </b>
-							 <i>
-							 	<input type="button" value="━" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input type="button" value="╋" class="plus">
-							 </i>
+					<div class="item" state="0">
+						<div id="ro1" class="ro1">
+							<div id="ro-left" index="{{$v}}"><img src="__PUBLIC__/{{$v['picpath']}}" alt=""></div>
+							<div id="ro-right">
+								<div class="top">
+									<h3>{{$v['filtername']}}</h3>
+									<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+								</div>
+								<div class="bott">
+									<b>￥{{$v['price']/100}} </b>
+									<i>
+										<input type="button" value="━" class="minus"><input fid="{{$v['id']}}" class="num" type="number" value="0"><input type="button" value="╋" class="plus">
+									</i>
+								</div>
 							</div>
 						</div>
+						<hr>
 					</div>
-					<hr>
-				</div>
 				</foreach>	
 			</div>
 		</div>
 		<!-- 滤芯结束 -->
-        <div id="foot">
+		<div id="foot">
 			<a class="shopCart"><i class="iconfont icon-gouwuche">
 				<notempty name="cartNum">
-				<span id="cartNun">{{$cartNum}}</span>
+					<span id="cartNun">{{$cartNum}}</span>
 				</notempty>	
 			</i></a>
 			<input id="cart" type="button" value="加入购物车"><input id="buy" type="button" value="立即购买">
@@ -84,11 +84,11 @@
 	<!-- 微信支付支持JS部分代码 -->
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script>
-	$(function(){
-		if(window.name != "") {
-			window.location.reload();
-			window.name = "";
-		}
+		$(function(){
+			if(window.name != "") {
+				window.location.reload();
+				window.name = "";
+			}
 		var leaseMode;	//判断上次选择的是充值还是滤芯
 		var flowNum=0;
 		var dayNum=0;
@@ -113,13 +113,13 @@
 		});
         //进入购物车
         $(".shopCart").click(function(ev){
-            window.location.href="{{:U('ShoppingCart/shopBill')}}";
-            window.name = "bencale";
+        	window.location.href="{{:U('ShoppingCart/shopBill')}}";
+        	window.name = "bencale";
         });
 		//立即购买操作
 		$('#buy').click(function(){
 			
-            var type=0;      
+			var type=0;      
             var cartNun = $('#cartNun').html()-0;// 获取购物车产品数量，隐转数值
             
             var index = 0;// 初始化下标
@@ -127,18 +127,18 @@
             if(sid !== undefined){
                 // 设置套餐ID为数组
                 data = [
-                    {'sid':sid-0,'num':1,'deviceId':deviceId,'flowNum':flowNum,'dayNum':dayNum}
+                {'sid':sid-0,'num':1,'deviceId':deviceId,'flowNum':flowNum,'dayNum':dayNum}
                 ];
             }
             
             // 获取被选中的滤芯产品
             var fid = $('input.fid');
             if(fid.length>0){
-                for(var i=fid.length-1;i>=0;i--){
+            	for(var i=fid.length-1;i>=0;i--){
                     // 设置产品ID为数组
                     data.push(
-                        {'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
-                    );
+                    	{'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
+                    	);
                 }
             }
 
@@ -169,8 +169,8 @@
 								}
 							});
 						}
-                    }
-                })
+					}
+				})
             }else{
                 // 购物车有产品
                 if(cartNun>0){
@@ -183,8 +183,8 @@
                     	dataType:'json',
                     	data:{ 'data':1 }, 
                     	success:function(res){
-                    		console.log(res);
-	                        if(res==2){
+                    		// console.log(res);
+                    		if(res==2){
 	                            // 套餐确认
 	                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
 	                        }else if(res==3){
@@ -201,7 +201,7 @@
                     layuiHint('请先选择产品!');
                 }
             }
-		})
+        })
 		// 点击立即购买清除本地session某些项目
 		$("#foot a").click(function(){
 			sessionStorage.setItem('lineMove', '');
@@ -218,11 +218,9 @@
 		var lineMove = sessionStorage.getItem("lineMove");	//判断上次选择的是充值还是滤芯
 		// var deviceId = sessionStorage.getItem("deviceId");	//判断上次选择的是充值还是滤芯
 		var lineRight = sessionStorage.getItem("lineRight"),
-			lineLeft = sessionStorage.getItem("lineLeft"),
+		lineLeft = sessionStorage.getItem("lineLeft"),
 			shopFrom = sessionStorage.getItem("shopFrom");		//判断从充值进入商城还是点击商城进入商城
-		
 		if(shopFrom == 'charge'){	//从首页‘充值’进来
-
 			// 左边偏移量
 			var $left = $("._ul").children("li").eq(0).offset().left+$("._ul").children("li").eq(0).innerWidth()/2 - 25;
 			// 下划线动画
@@ -233,13 +231,19 @@
 
 		}else if(shopFrom == 'mall'){	//从首页‘商城’进来
 			// 左边偏移量
-			var $left = $("._ul").children("li").eq(1).offset().left+$("._ul").children("li").eq(1).innerWidth()/2 - 25;
-			$('._line').animate({left: $left});
+			var $left = ($("._ul").children("li").eq(1).offset().left+$("._ul").children("li").eq(1).innerWidth()/2 - 25 );
+
+			$('._line').css({left:$left+'px'});
 
 			$("._ul").children("li").eq(0).css({color: '#6F6F6F'});
 			$("._ul").children("li").eq(1).css({color: '#039CE9'});
 			// // 显示当前的内容盒子
-			$(".contentBox").children('div').eq(1).slideDown().siblings().slideUp();
+			$(".contentBox").children('div').eq(0).hide();
+
+			$(".contentBox").children('div').eq(1).show();
+		}else{
+			var $left = $("._ul").children("li").eq(0).offset().left+$("._ul").children("li").eq(0).innerWidth()/2 - 25;
+			$('._line').css({left:$left+'px'});
 		}
 		// 加入购物车时的界面
 		if(lineMove == lineLeft && lineMove && lineLeft ){	//上次选择的是充值
@@ -266,27 +270,27 @@
 		})
 		//微信接口
 		wx.config({
-		    debug: false,
-		    appId: '{{$info["appId"]}}',
-		    timestamp: '{{$info["timestamp"]}}',
-		    nonceStr: '{{$info["nonceStr"]}}',
-		    signature: '{{$info["signature"]}}',
-		    jsApiList: [
+			debug: false,
+			appId: '{{$info["appId"]}}',
+			timestamp: '{{$info["timestamp"]}}',
+			nonceStr: '{{$info["nonceStr"]}}',
+			signature: '{{$info["signature"]}}',
+			jsApiList: [
 		      // 所有要调用的 API 都要加到这个列表中
 		      'chooseWXPay'
-		    ]
-		});
+		      ]
+		  });
 
 		/**
 		 * TAB切换
 		 * 找到充值和滤芯按钮并绑定点击事件
 		 */
-		$('._line').css({left:($('._ul > li').eq(0).offset().left+$('._ul > li').eq(0).innerWidth()/2 - 25)+'px'});
+		 // $('._line').css({left:($('._ul > li').eq(0).offset().left+$('._ul > li').eq(0).innerWidth()/2 - 25)+'px'});
 		//点击事件
 		$('._ul > li').click( function () {
 			// 选中和不选中的状态
-		    $(this).css({color: "#039CE9"});
-		    $(this).siblings("li").css({color: "#6F6F6F"});
+			$(this).css({color: "#039CE9"});
+			$(this).siblings("li").css({color: "#6F6F6F"});
 			// 左边偏移量
 			var $left = $(this).offset().left+$(this).innerWidth()/2 - 25;
 			// // 显示当前的内容盒子
@@ -298,18 +302,18 @@
 		 *  减号按钮让产品购买数量自减
 		 */
 		 //layuiHint弹框提示封装
-		function layuiHint(text){
-		    layui.use('layer', function(){
-		        var layer = layui.layer;
-		        layer.msg(text);
-		    });
-		}
-		$('.minus').next('input').on('blur',function(){
-			if(/[^\d]+/.test($(this).val().trim())){
-				layuiHint('请输入数字')
-				$(this).val('0')
-			}
-		})
+		 function layuiHint(text){
+		 	layui.use('layer', function(){
+		 		var layer = layui.layer;
+		 		layer.msg(text);
+		 	});
+		 }
+		 $('.minus').next('input').on('blur',function(){
+		 	if(/[^\d]+/.test($(this).val().trim())){
+		 		layuiHint('请输入数字')
+		 		$(this).val('0')
+		 	}
+		 })
 		$('.minus').click(function(){// 点击减号按钮获取当前产品的value值,隐式转数值型
 			var num = $(this).next('input').val()-0;
 			if(num>0){// 判断产品数量大于0
@@ -345,7 +349,7 @@
 		/**
 		 *  失去焦点事件检测产品购买数量设置样式
 		 */
-		$('.num').blur(function(){
+		 $('.num').blur(function(){
 			// 获取产品购买数量
 			var num = $(this).val()-0;
 			if(num<=0){
@@ -371,7 +375,7 @@
 		/**
 		 * 购买按钮和加入购物车按钮鼠标经过效果
 		 */
-		$('#foot>input').mouseenter(function(){
+		 $('#foot>input').mouseenter(function(){
 			// 将所有的input恢复默认样式
 			$(this).parents('#foot').find('input').css({'background':'rgba(0,0,0,0)','color':'#039CE9'});
 			// 设置当前的按钮样式
@@ -382,7 +386,7 @@
 		/**
 		 * 加入购物车操作
 		 */
-		$('#cart').click(function(){
+		 $('#cart').click(function(){
 
 
 			// 创建空数组，将来装套餐和产品
@@ -394,7 +398,7 @@
 			if(sid !== undefined){
 				// 设置套餐ID为数组
 				data = [
-					{'sid':sid-0,'num':1}
+				{'sid':sid-0,'num':1}
 				];
 			}
 
@@ -405,7 +409,7 @@
 					// 设置产品ID为数组
 					data.push(
 						{'fid':$(fid[i]).attr('fid')-0,'num':$(fid[i]).val()-0}
-					);
+						);
 				}
 			}
 			// 检测是否选择产品
@@ -430,6 +434,7 @@
 					sessionStorage.setItem("lineRight",
 						parseInt($("#lineDiv").offset().left+$("#lineDiv").innerWidth()/2 - 25)
 						)
+					sessionStorage.setItem("lineLeft",'')
 					//设置判断当前所在“充值”还是”滤芯“的判断值
 					sessionStorage.setItem("lineMove",
 						parseInt($("#lineDiv").offset().left+$("#lineDiv").innerWidth()/2 - 25)
@@ -440,6 +445,7 @@
 					sessionStorage.setItem("lineLeft",
 						parseInt($("#lineDiv").css("left"))
 						)
+					sessionStorage.setItem("lineRight",'')
 					sessionStorage.setItem("lineMove",
 						parseInt($("#lineDiv").offset().left+$("#lineDiv").innerWidth()/2 - 25)
 						)
@@ -452,11 +458,11 @@
 		});
 		// 微信支付方法
 		function weixinPay(res){
-		    WeixinJSBridge.invoke(
-		        'getBrandWCPayRequest',
-		        JSON.parse(res),
-		        function(res){
-		            if (res.err_msg.substr(-2) == 'ok') {
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',
+				JSON.parse(res),
+				function(res){
+					if (res.err_msg.substr(-2) == 'ok') {
                         // if(leaseMode=="1") {//按流量计费
                         //     ajson["ReFlow"]=flowNum;
                         // }else if(leaseMode=="2"){//按时间计费
@@ -475,21 +481,21 @@
                         // 	}
                         // })
 		                // 付款成功，跳转前台主页
-		               location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+		                location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
 		            } else if (res.err_msg.substr(-6) == 'cancel') {
 		                    // 取消付款
 		                    // 跳转到待付款订单页面
 		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
-		            }else{
+		                }else{
 		                    // 付款失败
 		                    // 跳转到待付款订单页面
 		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+		                }
 		            }
-		        }
-		    );
+		            );
 		};
 	})
-	</script>
-	</body>
+</script>
+</body>
 
 </html>

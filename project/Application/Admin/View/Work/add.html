@@ -44,8 +44,8 @@
                     </div>
                     <div class="control-group">
                         <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
-                        <select name="personnel_id">
-                            <option>--请选择--</option>
+                        <select name="personnel_id" class="personnel_id">
+                            <option value="">--请选择--</option>
                             <volist name="personnelData" id='v'>
                                 <option value="{{$v.id}}">{{$v.name}}</option>
                             </volist>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="btn-groups">
                         <button class="btns reset btn-primary" type="reset">重置</button>
-                        <button class="subbtn btns btn-primary" type="submit">提交</button>
+                        <button class="subbtn btns btn-primary submit" type="button">提交</button>
                     </div>
                     
 
@@ -143,33 +143,58 @@ time.val(str)
 time.click(function(){
     $(this).blur()
 })
-$('#_formTable').submit(function(event) {
-    var number = $('input[name=number]').val().trim()
-    var name = $('input[name=name]').val().trim()
+$('.submit').click(function(event) {
+    var numberReg = /[0-9]/;
+    var addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
+    var control = $('.control').val();  // 设备编号
+    // var number = $('input[name=number]').val().trim()
+    var _textarea = $('._textarea').val();
     var phoneNumber = $('input[name=phone]').val().trim()
-    if(number){
-        if(specail(number)||chinese(number)){
-            layuiHint('工单号不能为中文或特殊字符')
-            return false
-        }
+    var personnel_id = $('.personnel_id>option:selected').val()
+    var address = $("input[name='add_ress']").val();
+    console.log(addressReg.test(address))
+    if(!numberReg.test(control)){
+        layuiHint('请输入正确的设备编码！');
+        return false
+    }
+    if(!personnel_id){
+        layuiHint('请选择安装人员！');
+        return false
+    }
+    // if(number){
+    //     if(specail(number)||chinese(number)){
+    //         layuiHint('工单号不能为中文或特殊字符')
+    //         return false
+    //     }
+    // }else{
+    //     layuiHint('工单号不能空')
+    //     return false
+    // }
+    if(!chinese(_textarea)){
+        layuiHint('请填写工作内容！')
+        return false
+    }
+    // if(phoneNumber){
+    //     if(!phone(phoneNumber)){
+    //         layuiHint('请输入正确的处理人手机号码！')
+    //         return false
+    //     }
+    // }else{
+    //     layuiHint('处理人手机号码不能为空！')
+    //     return false
+    // }
+    if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
+        layuiHint('请把地址填写完整！');
+        return false
+
     }else{
-        layuiHint('工单号不能空')
+        $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
+    } 
+    if(!addressReg.test(address)){
+        layuiHint('请输入详细地址！');
         return false
     }
-    
-    if(!name){
-        layuiHint('处理人不能为空')
-        return false
-    }
-    if(phoneNumber){
-        if(!phone(phoneNumber)){
-            layuiHint('请输入正确的处理人手机号码')
-            return false
-        }
-    }else{
-        layuiHint('处理人手机号码不能为空')
-        return false
-    }
+    $('#_formTable').submit();
 });
 $(function(){
     //处理日期
@@ -182,19 +207,7 @@ $(function(){
     var showArea = function(){
         Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + Gid('s_city').value + " - 县/区" + Gid('s_county').value + "</h3>"
     }
-    $(".subbtn").click(function(ev){
-        if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('请把地址填写完整');
-            });    
-            ev.preventDefault();
-        }else{
-            $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
-        } 
-    });
 
-    
 })
 
 $("select").change('option',function(e){

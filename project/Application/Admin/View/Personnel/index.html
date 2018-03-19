@@ -6,13 +6,14 @@
             <div class="titleBar">安装人员管理/<span>安装人员列表</span></div>
             <form class="form-search fr" action="__URL__/index" method="get">
                 <span class="select-box">
-                  <select class="select" size="1" name="key" style="width: 100px;">
-                    <option value="name">昵称</option>
-                    <option value="phone">手机号</option>
+                  <select class="select key" size="1" name="key" style="width: 120px;">
+                    <option value="">- 请选择条件 -</option>
+                    <option value="name" index='1'>昵称</option>
+                    <option value="phone" index='2'>手机号</option>
                   </select>
                 </span>
-                <input type="text" class="input-medium" name="value" placeholder="请输入查询条件">
-                <button type="submit" class="btn">查找</button>
+                <input type="text" class="input-medium value" name="value" placeholder="请输入查询条件">
+                <button type="submit" class="btn search">查找</button>
             </form>
 
             <table class="table table-striped table-bordered">
@@ -53,14 +54,10 @@
             </div>
             <script src="__PUBLIC__/Home/js/public.js"></script>
             <script>
-
                 
                 $('.pagination ul a').unwrap('div').wrap('<li></li>');
                 $('.pagination ul span').wrap('<li class="active"></li>')
 
-                if(window.location.search){
-                    $('input[name=name]').val(decodeURI(window.location.search.slice(6)))
-                }
                 //del
                 //提示
                 function tip(tip,title,fn){
@@ -78,28 +75,43 @@
                     })
                     return false
                 })
+                /**************** 搜索关键字保留 -- 开始 ******************/
+                    var srearchInfo = {};
+                    var key, value;
+                    /**
+                     * key: 按手机号或昵称查询，value：查询关键字
+                     */
+                    // 点击搜索
+                    $(".search").click(function(){
+                        sessionStorage.setItem('search', '');   // 初始化
+
+                        key = Number($('.key>option:selected').attr('index'));
+                        value = $('.value').val();
+
+                        srearchInfo['key'] = key;
+                        srearchInfo['value'] = value;
+                        sessionStorage.setItem('search', JSON.stringify(srearchInfo));
+                    })
+                    // 搜索关键字保留
+                    if(sessionStorage.getItem('search')){
+                        var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
+                        if($('.form-search').length){
+                            // console.log(srearchInfo)
+                            $('.value').val(srearchInfo['value']);
+                            $('.key>option').eq(srearchInfo['key'])[0].selected = true;
+                            
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
+                        }
+                    }
+                    
+                /**************** 搜索关键字保留 -- 结束 ******************/
+
             </script>
         </div>
         <!-- footer part -->
         <include file="Public/footer" />
     </div>
-    <script>
-        // 搜索关键字保留
-        if(window.location.search){
-            // 获取搜索关键字
-            var arr = window.location.search.split("&");
-            $('select[name="key"] option[value='+decodeURI(arr[0].slice(arr[0].indexOf('=')+1))+']').attr("selected", true);
-            $('input[name=value]').val(decodeURI(arr[1].slice(arr[1].indexOf('=')+1)))
-            // console.log(arr)
-        }
-        // 显示当前页面所在的导航
-        showNav();
-        function showNav(){
-            
-            $(".nav").children("li").eq(1).attr("class","open");
-            $(".nav").children("li").eq(1).find(".submenu").show();
-            $(".nav").children("li").eq(1).find(".submenu li a").eq(3).css({color: '#1963aa'});
-        }
-    </script>
 </div>
 

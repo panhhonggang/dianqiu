@@ -20,9 +20,14 @@ class PersonnelController extends CommonController
         }
         $uid = $_SESSION['adminuser']['id'];
         $where['v_id'] = $uid;
+
+        if($this->get_level()){
+            $where['v_id'] = $_SESSION['adminuser']['id'];
+        }
         $total = M('personnel')->where($where)->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
+
         $list =  M('personnel')->where($where)->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);

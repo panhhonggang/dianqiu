@@ -167,11 +167,16 @@ if(!function_exists('replace_value')){
             extract($arr);
             foreach ($arr as $key=> $val) {
                 if(array_key_exists($key,$v)){
-                    if(is_array($val)){
-                        $v[$key.$suffix]=$val[$v[$key]];
+                    if($v[$key]==null){
+                        $v[$key.$suffix]=$val['n'];
                     }else{
-                        $v[$key.$suffix]=date($val,$v[$key]);
+                        if(is_array($val)){
+                            $v[$key.$suffix]=$val[$v[$key]];
+                        }else{
+                            $v[$key.$suffix]=date($val,$v[$key]);
+                        }
                     }
+
                 }
             }
 
