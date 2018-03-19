@@ -850,7 +850,7 @@ class PaymentSystemController extends Controller
      */
     public function notify()
     {
-        //dump($_SESSION);die;
+        // dump($_SESSION);die;
         // 实例化微信JSSDK类对象
         //$wxJSSDK = new \Org\Util\WeixinJssdk;
         // 獲取微信微信ID
@@ -959,34 +959,45 @@ class PaymentSystemController extends Controller
                             // $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
                             $devicesStatuReFlow = $devicesStatus['reflow'];
                             $devicesStatuReDay = $devicesStatus['reday'];
-
-                            if ($value['remodel'] == 1) {
-                                // 充值后流量应剩余天数
-                                $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']); 
-                            } else {
-                                // 充值后流量应剩余流量
-                                $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
+                            // file_put_contents('套餐模式',var_export($value['remodel'], true),FILE_APPEND);
+                            // if ($value['remodel'] == 1) {
+                            //     // 充值后流量应剩余天数
+                            //     $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']); 
+                            // } else {
+                            //     // 充值后流量应剩余流量
+                            //     $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
+                            // }
+                            switch ($value['remodel']) {
+                                case '0':
+                                    $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']); 
+                                    break;
+                                case '1':
+                                    $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
+                                    break;
+                                default:
+                                    # code...
+                                    break;
                             }
                             
                             // 修改设备剩余流量
                             $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
-                            file_put_contents('jfdsk',var_export($devicesStatu->_sql(), true),FILE_APPEND);
+                            // file_put_contents('jfdsk',var_export($devicesStatu->_sql(), true),FILE_APPEND);
                             // 准备发送指令
-                            if(empty($Flow['ReDay'])){
-                                $msg = [
-                                    'DeviceID'=>$deviceCode['DeviceID'], 
-                                    'PackType'=>'SetData',
-                                    'Vison'=>'0',
-                                    'ReFlow'=>$Flow['ReFlow'],
-                                ];
-                            } else {
-                                $msg = [
-                                    'DeviceID'=>$deviceCode['DeviceID'], 
-                                    'PackType'=>'SetData',
-                                    'Vison'=>'0',
-                                    'ReDay'=>$Flow['ReDay'],
-                                ];
-                            }
+                            // if(empty($Flow['ReDay'])){
+                            //     $msg = [
+                            //         'DeviceID'=>$deviceCode['DeviceID'], 
+                            //         'PackType'=>'SetData',
+                            //         'Vison'=>'0',
+                            //         'ReFlow'=>$Flow['ReFlow'],
+                            //     ];
+                            // } else {
+                            //     $msg = [
+                            //         'DeviceID'=>$deviceCode['DeviceID'], 
+                            //         'PackType'=>'SetData',
+                            //         'Vison'=>'0',
+                            //         'ReDay'=>$Flow['ReDay'],
+                            //     ];
+                            // }
                             // dump($msg);die;
 
                             // 写充值流水
@@ -1029,7 +1040,7 @@ class PaymentSystemController extends Controller
                             }
                             
                         }
-                        file_put_contents('sssssss',$countNun .$num. $flownum);
+                        // file_put_contents('sssssss',$countNun .$num. $flownum);
                         // dump($countNun);
                         // dump($num);
                         // dump($msg);die;
@@ -1053,13 +1064,15 @@ class PaymentSystemController extends Controller
 
                         $sc=A("Api/Action");
                         // dump($sc);die;
-                        $sc->sendMsg($msg['DeviceID'],json_encode($msg));
+                        // 
+                        // Log::write(json_encode($msg), 'PPPPPPPPPPPPPPPP');
+                        file_put_contents('./ssssssssssssssss/'.$deviceCode['DeviceID'],$deviceCode['DeviceID'], FILE_APPEND);
+                        $sc->sysnc_web($deviceCode['DeviceID']);
 
-                        file_put_contents('./wx_notifyYes.txt','订单号：'.$result['attach']."充值完成 \r\n", FILE_APPEND);
                     }else{
                         // 事务回滚
                         $orders->rollback();
-                        file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
+                        // file_put_contents('./wx_notifyEeor.txt','订单号：'.$result['attach']."充值失败 \r\n", FILE_APPEND);
                     }
                 }else{
                     // 充值金额不匹配
