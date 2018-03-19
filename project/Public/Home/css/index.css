@@ -122,7 +122,7 @@ html,body {
 }
 .queshui{
 	width: 6.4rem;
-	font-size: 0.7rem;
+	font-size: 0.4rem;
 	text-align: center;
 	position: relative;
 	margin-top: .3vh;
@@ -132,7 +132,7 @@ html,body {
 .dazi1{
 	width: 6.4rem;
 	font-size: 1rem;
-	margin-top: 0.2rem;
+	margin-top: 0.6rem;
 	text-align: center;
 	position: relative;
 	color: #004872;
@@ -141,8 +141,8 @@ html,body {
 	display: inline-block;
 	position: absolute;
 	bottom: .3rem;
-	right:2rem;
-	font-size: 0.25rem;
+	right:1.7rem;
+	font-size: 0.4rem;
 	color:#fff;
 }
 .queshui1{
@@ -155,13 +155,9 @@ html,body {
 }
 
 .allStatus{
-	/*height: 6vh;*/
-/*	margin-left: 0.5rem;
-	margin-right: 0.5rem;*/
 	position:absolute;
 	bottom:15vh;
 	left:.5rem;
-	/*margin:-1vh .5rem 0 .5rem;*/
 }
 .allStatus>div{
 	display: none;
