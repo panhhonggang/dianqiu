@@ -3,49 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-
   <title>服务记录</title>
   <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
   <link rel="stylesheet" href="__PUBLIC__/Home/css/reward.css">
-
 </head>
 <body>
   <div class="_reward">
-    <div class="rewardContainer">
-        <div class="rewardTop">
-           <div class="myReward">
-             <p>服务记录</p>
-             <div class="iconReward">
-                <span>累计：</span>
-                <p>安装&nbsp;{{ num[0] }}</p>
-                <p>维修&nbsp;{{ num[1] }}</p>
-             </div>
-           </div>
-        </div>
-        <div class="rewardFoot">
-          <ul>
-            <li v-for='(item, index) in data' class="litem" :index='item.index' @click='showText($event)'>
-              <span v-if='item.type == 0'>安装</span>
-              <span v-else-if='item.type == 1'>报修</span>
-              <span v-else-if='item.type == 2'>维护</span>
-              <span>{{ item.time }}</span>
-              <div class="show">
-                <span v-if='item.type == 0'><span>处理人：</span>{{ item.name }}</span>
-                <span v-if='item.type == 1'><span>处理人：</span>{{ item.name }}</span>
-                <span v-if='item.type == 2'><span>处理人：</span>{{ item.name }}</span>
-                <div><span>电话：</span>{{ item.phone }}</div>
-                <div v-if='item.type == 0'><span>安装进度：</span>{{ item.result }}</div>
-                <div v-if='item.type == 1'><span>报修进度：</span>{{ item.result }}</div>
-                <div v-if='item.type == 2'><span>维护进度：</span>{{ item.result }}</div>
-                <div v-if='item.type == 0'><span>安装地址：</span>{{ item.address }}</div>
-                <div v-if='item.type == 1'><span>报修地址：</span>{{ item.address }}</div>
-                <div v-if='item.type == 2'><span>维护地址：</span>{{ item.address }}</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-       
+    <div class="rewardTop">
+       <div class="myReward">
+         <p>服务记录</p>
+         <div class="iconReward">
+            <span>累计：</span>
+            <p>安装&nbsp;{{ num[0] }}</p>
+            <p>报修&nbsp;{{ num[1] }}</p>
+         </div>
+       </div>
     </div>
+    <ul class="rewardFoot">
+      <li>
+        <h4 @click='showModule($event)'>报修</h4>
+        <ul>
+          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 1' >
+            <p @click='showText($event)'>
+              <span>报修</span>
+              <span>{{ item.time }}</span>
+            </p>
+            <div class="show">
+              <span><span>处理人：</span>{{ item.name }}</span>
+              <div><span>电话：</span>{{ item.phone }}</div>
+              <div><span>报修进度：</span>{{ item.result }}</div>
+              <div><span>报修地址：</span>{{ item.address }}</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4 @click='showModule($event)'>安装</h4>
+        <ul>
+          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 0'>
+            <p @click='showText($event)'>
+              <span>安装</span>
+              <span>{{ item.time }}</span>
+            </p>
+            <div class="show">
+              <span><span>处理人：</span>{{ item.name }}</span>
+              <div><span>电话：</span>{{ item.phone }}</div>
+              <div><span>安装进度：</span>{{ item.result }}</div>
+              <div><span>安装地址：</span>{{ item.address }}</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4 @click='showModule($event)'>维护</h4>
+        <ul>
+          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 2'>
+            <p @click='showText($event)'>
+              <span>维护</span>
+              <span>{{ item.time }}</span>
+            </p>
+            <div class="show" >
+              <span><span>处理人：</span>{{ item.name }}</span>
+              <div><span>电话：</span>{{ item.phone }}</div>
+              <div><span>维护进度：</span>{{ item.result }}</div>
+              <div><span>维护地址：</span>{{ item.address }}</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
   <script src="__PUBLIC__/Home/js/jquery-1.10.1.js"></script>
   <script src="__PUBLIC__/Home/js/public.js"></script>
@@ -58,7 +84,9 @@
           return {
             data: [],
             num: [0, 0],
-            isSameVal: null
+            isSameEle: null,
+            liOffsetH: 0,
+            moduleIsShow: true
           }
         },
         computed: {},
@@ -69,7 +97,7 @@
             url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              console.log('请求成功！', res);
+              // console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
                 res[i]['index'] = i;
@@ -97,8 +125,8 @@
                 // 将数据更新到 data 
                 that.data.push(res[i]);
               }
-              console.log(that.data);
-              console.log(that.num)
+              // console.log(that.data);
+              // console.log(that.num);
             },
             error: function(res){
               console.log('请求失败！', res);
@@ -140,27 +168,48 @@
             /**
              * 点击安装或报修项目显示详情
              */
-            // e: 当前元素
-            // console.log(e)
-            for(var i=0; i<$('.litem').length; i++){
-              // console.log($('.litem').eq(i).find('.show'));
-              $('.litem').eq(i).find('.show').hide();
-              $('.litem').eq(i).css({background: '#fff'});
-            }
-            e.target.style.background = '#f6f6f6';
-            e.target.children[2]
-            .setAttribute('style',"display: block;");
+            // e: 当前元素(p标签)
+            var li = e.target.parentNode.parentNode.children;
+            var nowLi = e.target.parentNode;
+            // console.log('li: ',li);
+            // 初始化
+            for(var i=0; i<li.length; i++){
+              li[i].style.background = '#fff';
+              li[i].children[1].setAttribute('style','height:0;');
 
-            // if(this.isSameVal == e.attr('index')){
-            //   // 当前元素点击多次
-            //   e.find('.show').slideUp('fast');
-            //   this.isSameVal = '';
-            //   return
-            // }
-            // e.css({background: '#f6f6f6'});
-            // e.find('.show').slideDown('fast');
-            // this.isSameVal = e.attr('index');
-            // console.log(this.isSameVal);
+            }
+            // 展开当前元素
+            nowLi.style.background = '#f6f6f6';
+            nowLi.children[1].setAttribute('style','height: 200px;border-color:#ddd');
+            
+            // 当前元素点击多次
+            if(this.isSameEle == nowLi.getAttribute('index')){
+              nowLi.children[1].setAttribute('style',"height:0;");
+              this.isSameEle = '';
+              return
+            }
+            this.isSameEle = nowLi.getAttribute('index');
+            // console.log('index: ',nowLi.getAttribute('index'));
+            // console.log('same: ',this.isSameEle);
+          },
+          showModule: function(e){
+            /**
+             * 显示或隐藏模块
+             * @param {object} [e] [当前元素]
+             */
+            var ul = e.target.parentNode.children[1];
+            // console.log(ul);
+
+            // 如果当前模块显示则隐藏， 反之则显示
+            if(this.moduleIsShow){
+              ul.style.display = 'none';
+              this.moduleIsShow = false;
+
+            }else if(!this.moduleIsShow){
+              ul.style.display = 'block';
+              this.moduleIsShow = true;
+
+            }
           }
        }
       });
