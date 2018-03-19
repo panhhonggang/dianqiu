@@ -26,11 +26,11 @@
           <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 1' >
             <p @click='showText($event)'>
               <span>报修</span>
-              <span>{{ item.time }}</span>
+              <span @click='javascript:void(0);'>{{ item.time }}</span>
             </p>
             <div class="show">
               <span><span>处理人：</span>{{ item.name }}</span>
-              <div><span>电话：</span>{{ item.phone }}</div>
+              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
               <div><span>报修进度：</span>{{ item.result }}</div>
               <div><span>报修地址：</span>{{ item.address }}</div>
             </div>
@@ -43,11 +43,11 @@
           <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 0'>
             <p @click='showText($event)'>
               <span>安装</span>
-              <span>{{ item.time }}</span>
+              <span @click='javascript:void(0);'>{{ item.time }}</span>
             </p>
             <div class="show">
               <span><span>处理人：</span>{{ item.name }}</span>
-              <div><span>电话：</span>{{ item.phone }}</div>
+              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
               <div><span>安装进度：</span>{{ item.result }}</div>
               <div><span>安装地址：</span>{{ item.address }}</div>
             </div>
@@ -60,11 +60,11 @@
           <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 2'>
             <p @click='showText($event)'>
               <span>维护</span>
-              <span>{{ item.time }}</span>
+              <span @click='javascript:void(0);'>{{ item.time }}</span>
             </p>
             <div class="show" >
               <span><span>处理人：</span>{{ item.name }}</span>
-              <div><span>电话：</span>{{ item.phone }}</div>
+              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
               <div><span>维护进度：</span>{{ item.result }}</div>
               <div><span>维护地址：</span>{{ item.address }}</div>
             </div>
@@ -169,8 +169,8 @@
              * 点击安装或报修项目显示详情
              */
             // e: 当前元素(p标签)
-            var li = e.target.parentNode.parentNode.children;
-            var nowLi = e.target.parentNode;
+            var li = e.currentTarget.parentNode.parentNode.children;
+            var nowLi = e.currentTarget.parentNode;
             // console.log('li: ',li);
             // 初始化
             for(var i=0; i<li.length; i++){
@@ -197,7 +197,7 @@
              * 显示或隐藏模块
              * @param {object} [e] [当前元素]
              */
-            var ul = e.target.parentNode.children[1];
+            var ul = e.currentTarget.parentNode.children[1];
             // console.log(ul);
 
             // 如果当前模块显示则隐藏， 反之则显示
