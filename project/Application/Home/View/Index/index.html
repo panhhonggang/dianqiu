@@ -28,9 +28,9 @@
 				<div class="bolang1 bg4"></div>
 				<div class="containTxt">
 					<div class="dazi" ><b id="rawtdsVal"></b><span>ppm</span></div>
-					<div class="queshui">纯水</div>
+					<div class="queshui">纯水TDS</div>
 					<div class="dazi1"><b id="puretdsVal"></b><span>ppm</span></div>
-					<div class="queshui1">原水</div>
+					<div class="queshui1">原水TDS</div>
 				</div>
 			</div>
 			<div class="allStatus clearfix" id="statusBox">
@@ -221,8 +221,8 @@
 		var usednumberFlow=parseInt(data.sumflow);//已用数值
 		var usednumberDay=parseInt(data.sumday);//已用数值
 		// console.log(usednumberFlow);
-		$("#rawtdsVal").html(data.rawtds?data.rawtds:'0');
-		$("#puretdsVal").html(data.puretds?data.puretds:'0');
+		$("#puretdsVal").html(data.rawtds?data.rawtds:'0');
+		$("#rawtdsVal").html(data.puretds?data.puretds:'0');
 		$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
 		$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
 

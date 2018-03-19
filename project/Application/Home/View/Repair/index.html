@@ -295,8 +295,8 @@
 			});
 
 			// 点击上传的图片右上角的" x "，删除这张图片
-			$("#picShow>span").live("click", ".delPic", function(){
-				$(this).remove()
+			$(".delPic").live("click", ".delPic", function(){
+				$(this).parent().remove();
 			})
 
 			// 验证姓名，手机号，地址的正则
