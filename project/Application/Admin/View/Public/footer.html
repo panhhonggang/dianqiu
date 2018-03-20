@@ -52,13 +52,13 @@
 		    	// $("#date-start").val(now);
 		    	 // 开始时间
 		        var startdate = $("#date-start").datetimepicker({  
-		            format: 'YYYY-MM-DD',  
+		            format: 'YYYY-MM-DD hh:mm:ss',  
 		            locale: moment.locale('zh-cn')
 		        }); 
 		        
 		        //结束时间
 				var enddate = $("#date-end").datetimepicker({
-		            format: 'YYYY-MM-DD',  
+		            format: 'YYYY-MM-DD hh:mm:ss',  
 		            locale: moment.locale('zh-cn')
 		        }); 
 		         //动态设置最小值  
@@ -72,17 +72,17 @@
 			        
 			    });
 			    // 添加时分秒
-			    $('#date-start').on("blur", function(){
-			    	var val = $("#date-start").val();
-			    	$("#date-start").val(val+'\t00:00:00');
-			    	// console.log($("#date-start").val())
-			    })
-			    // 添加时分秒
-			    $('#date-end').on("blur", function(){
-			    	var val = $("#date-end").val();
-			    	$("#date-end").val(val+'\t00:00:00');
-			    	// console.log($("#date-end").val())
-			    })
+			    // $('#date-start').on("blur", function(){
+			    // 	var val = $("#date-start").val();
+			    // 	$("#date-start").val(val+'\t00:00:00');
+			    // 	// console.log($("#date-start").val())
+			    // })
+			    // // 添加时分秒
+			    // $('#date-end').on("blur", function(){
+			    // 	var val = $("#date-end").val();
+			    // 	$("#date-end").val(val+'\t00:00:00');
+			    // 	// console.log($("#date-end").val())
+			    // })
 
 		    /**************** 按时间搜索 -- 结束 ******************/
 
