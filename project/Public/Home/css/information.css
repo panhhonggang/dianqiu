@@ -6,12 +6,18 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 }
 #infor {
 	width: 10.0rem;
+	height: 80vh;
+	min-height: 400px;
 	margin-bottom: 1.466667rem;
 }
 
+#infor> form {
+	height: 100%;
+	transform: scale(1);
+}
 #container {
 	width: 8.933333rem;
-	height: 1.833333rem;
+	height: 100%;
 	margin: 0.0rem 0.533333rem;
 	position: relative;
 }

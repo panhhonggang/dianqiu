@@ -79,7 +79,13 @@
 </div>
 
 <script>
- 
+// 显示当前页面所在的导航
+showNav();
+function showNav(){
+    console.log($(this));
+    $(".nav").children("li").eq(0).attr("class","open");
+    $(".nav").children("li").eq(0).find(".submenu").show();
+}
 $(function(){
     //页面数据渲染
     var deviceId=0;
@@ -181,7 +187,7 @@ $(function(){
                         '<td>'+'<button class="btn btn-info clickBtn" name="'+ el.filtername+'">复位</button><input type="hidden" value='+i+'></td>'+
                         '</tr>';
                 }else if(data.statu.filtermode=="2"){
-                    //按流量/流量
+                    //按流量/时长
                     html+= '<tr>'+
                         '<td style="width:10%;">'+el.filtername+'</td>'+
                         '<td style="width:70%">'+
@@ -231,7 +237,7 @@ $(function(){
                 '<td  class="tdCleanWater">'+_puretds+'</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td>'+'剩余流量 (D)'+'</td>'+
+                '<td>'+'剩余流量 (L)'+'</td>'+
                 '<td class="reflow">'+_reflow+'</td>'+
                 '</tr>'+
                 '<tr>'+
@@ -377,7 +383,7 @@ $(function(){
                                 '</tr>';
 
                         }else if(parseInt(dataList['ReFlowFilter1'])>0 && parseInt(dataList['ReDayFilter1'])>0){
-                            //按流量/流量
+                            //按流量/时间
                             filterMode='按流量/时长';
                             html+= '<tr>'+
                                 '<td style="width:10%;">'+el.filtername+'</td>'+
@@ -417,7 +423,7 @@ $(function(){
                     $(".tdLeaseMode").text(leasingmode[dataList.LeasingMode]?leasingmode[dataList.LeasingMode]:'--');//设置当前设备租赁模式
                     $(".tdFilterMode").text(filterMode);//设置当前设备滤芯模式
                     $(".reflow").text((dataList.ReFlow=='-1')?0:dataList.ReFlow);//设置当前设备剩余流量
-                    $(".reday").text(dataList.Reday=='-1'?0:dataList.ReFlow);//设置当前设备剩余天数
+                    $(".reday").text(dataList.Reday=='-1'?0:dataList.Reday);//设置当前设备剩余天数
                     $(".filtermode").text(dataList.filtermode);//设置当前设备滤芯模式
                     $(".temperature").text(dataList.Temperature);//设置当前设备温度
                     //$(".updatetime").text(dataList.updatetime);//设置当前设备更新时间

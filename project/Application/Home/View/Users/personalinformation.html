@@ -39,19 +39,6 @@
 		<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 		<script>
-			var oHeight = $(document).height(); //浏览器当前的高度
-	   
-		    $(window).resize(function(){
- 				
-		        if($(document).height() < oHeight){
-		         
-			        $(".savediv").css("position","static");
-			    }else{
-			         
-			        $(".savediv").css("position","absolute");
-			    }
-		        
-		   });
 
 			$("#save").click(function(){
 				if($("#name").val()==""||$("#tel").val()==""||$("#addr").val()==""){
