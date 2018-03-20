@@ -118,12 +118,7 @@
         });
 		//立即购买操作
 		$('#buy').click(function(){
-<<<<<<< HEAD
             var type=0;      
-=======
-			
-			var type=0;      
->>>>>>> e3d7e849019c8c5babf032c0d1c3cea2948f8cfd
             var cartNun = $('#cartNun').html()-0;// 获取购物车产品数量，隐转数值
             
             var index = 0;// 初始化下标
@@ -181,20 +176,18 @@
                     // 直接跳转到购买页面
                     //window.location.href='{{:U("PaymentSystem/action")}}';
                     // 异步提交
-<<<<<<< HEAD
-                    $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
-                        if(res==2){
-                            // 套餐确认
-                            window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-                        }else if(res==3){
-                            // 快递确认
-                            window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-                        }else{
-                            // 立即付款
-                            weixinPay(res);
-                        }
-                    });
-=======
+                    // $.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+                    //     if(res==2){
+                    //         // 套餐确认
+                    //         window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+                    //     }else if(res==3){
+                    //         // 快递确认
+                    //         window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+                    //     }else{
+                    //         // 立即付款
+                    //         weixinPay(res);
+                    //     }
+                    // });
                     $.ajax({
                     	url:'{{:U("PaymentSystem/action")}}',
                     	type:'post',
@@ -214,7 +207,6 @@
 	                        }
 	                    }
 	                });
->>>>>>> e3d7e849019c8c5babf032c0d1c3cea2948f8cfd
                 }else{
                     // 请先选择产品
                     layuiHint('请先选择产品!');
