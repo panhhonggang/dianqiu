@@ -13,8 +13,19 @@ class ShopController extends CommonController
         $dcode = I('get.dcode');
     	// 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
-        $did = $_SESSION['homeuser']['did'];
-        $device = M('devices')->where('id='.$did)->find();
+        if ($dcode !='') {
+            $dcode = I('get.dcode');
+            $device = M('devices')->where('device_code='.$dcode)->find();
+            $did = $device['id'];
+
+        } else {
+            $did = $_SESSION['homeuser']['did'];
+            $device = M('devices')->where('id='.$did)->find();
+        }
+
+//        $device = M('devices')->where('id='.$did)->find();
+//        $device = M('devices')->where('device_code='.$did)->find();
+
 
         // 获取用户绑定设备充值套餐
         if($uid){
@@ -30,13 +41,13 @@ class ShopController extends CommonController
 
             $setmeallist = M('Setmeal')
                 ->alias('s')
-                ->where('cd.uid='.$uid)
+                ->where('cd.did='.$did)
                 ->join('__DEVICES__ d ON s.tid=d.type_id','LEFT')
                 ->join('__CURRENT_DEVICES__ cd ON d.id=cd.did','LEFT')
                 ->field('cd.*,d.*,s.*')
                 ->select();
 
-
+        
             $Model = M('Filters');
             // 查询用户绑定设备使用的滤芯产品
             $filters = $Model->field('filter1,filter2,filter3,filter4,filter5,filter6,filter7,filter8')
