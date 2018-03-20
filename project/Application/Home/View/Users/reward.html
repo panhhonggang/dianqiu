@@ -5,19 +5,106 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
   <title>服务记录</title>
   <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
-  <link rel="stylesheet" href="__PUBLIC__/Home/css/reward.css">
+  <style>
+      body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td 
+      { margin: 0; padding: 0; } 
+
+      * {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+      body{
+        font-size: .7rem;
+        font-size: 0.72rem;
+      }
+      .rewardTop{
+         width: 100%;
+         /*height: 2rem;*/
+         padding: 5%;
+         background: linear-gradient(to right, #3B90E1, #76F5E4); 
+         border-bottom: 6px solid #F6F6F6;
+         color: #fff;
+      }
+      .myReward{
+        width: 100%;
+        height: 100%;
+      }
+      .iconReward{
+        margin: 0.933333rem 0 0;
+        color: #fff;
+      }
+      .iconReward span{
+        font-size: 0.666667rem;
+      }
+      .iconReward span b em{
+        font-size: 0.7rem;
+        padding: 0 0.2rem;
+      }
+      .iconReward span p{
+        display: inline-block;
+      }
+      .iconReward>.spanRight{
+        margin-left: 1.5rem;
+      }
+      .iconReward>p {
+        width: 36%;
+        display: inline-block;
+      }
+      .adviceFoot ul{
+        width: 100%;
+      }
+      .rewardFoot ul li{
+        width: 100%;
+        padding: 0 5%;
+        display: block;
+        height: 2rem;
+        line-height: 2rem;
+        border-bottom: 1px solid #F6F6F6;
+      }
+      .rewardFoot ul li span:last-child{
+        float: right;
+        font-size: 0.7rem;
+      }
+      .rewardFoot ul li span.iconBig{
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.02rem;
+      }
+      .rewardFoot ul li span b{
+        margin-left: 0.26rem
+      }
+      .noRewardFoot {
+        margin: 8.0rem auto 0;
+        width: 40%;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+      }
+  </style>
 </head>
 <body>
   <div class="_reward">
-    <div class="rewardTop">
-       <div class="myReward">
-         <p>服务记录</p>
-         <div class="iconReward">
-            <span>累计：</span>
-            <p>安装&nbsp;{{ num[0] }}</p>
-            <p>报修&nbsp;{{ num[1] }}</p>
-         </div>
-       </div>
+    <div class="rewardContainer">
+        <div class="rewardTop">
+           <div class="myReward">
+             <p>服务记录</p>
+             <div class="iconReward">
+                <span>累计：</span>
+                <p>安装&nbsp;{{ num[0] }}</p>
+                <p>维修&nbsp;{{ num[1] }}</p>
+             </div>
+           </div>
+        </div>
+        <div class="rewardFoot">
+          <ul>
+            <li v-for='item in data'>
+              <span v-if='item.type == 0'>安装</span>
+              <span v-else-if='item.type == 1'>报修</span>
+              <span v-else-if='item.type == 2'>维护</span>
+              <span>{{ item.time }}</span>
+            </li>
+          </ul>
+        </div>
     </div>
     <ul class="rewardFoot">
       <li>
@@ -97,16 +184,13 @@
             url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              // console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
                 res[i]['index'] = i;
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
-
                 }else if(res[i].type == 1){// 统计维修数量
                   that.num[1]++;
-
                 }
                 if(!res[i].phone){
                   res[i].phone = '暂无电话';
@@ -132,7 +216,6 @@
               console.log('请求失败！', res);
             } 
           })
-
         },
         methods: {
           getLocaltime: function (_time) {

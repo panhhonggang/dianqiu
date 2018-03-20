@@ -752,3 +752,552 @@ Stack trace:
 2017-12-15 08:51:14 pid:9248 Workerman[start.php] start in DEBUG mode
 2017-12-15 17:18:57 pid:9248 Workerman[start.php] stopping ...
 2017-12-15 17:18:57 pid:9248 Workerman[start.php] has been stopped
+2018-03-17 11:54:26 pid:6313 Workerman[start.php] start in DAEMON mode
+2018-03-17 11:54:54 pid:6318 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #52)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2018-03-17 11:54:54 pid:6318 Worker[6318] process terminated
+2018-03-17 11:54:54 pid:6315 worker[YourAppBusinessWorker:6318] exit with status 64000
+2018-03-17 11:56:39 pid:6322 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #52)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#12 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#13 {main}
+2018-03-17 11:56:39 pid:6322 Worker[6322] process terminated
+2018-03-17 11:56:39 pid:6315 worker[YourAppBusinessWorker:6322] exit with status 64000
+2018-03-17 11:59:45 pid:6330 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #53)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#12 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#13 {main}
+2018-03-17 11:59:45 pid:6330 Worker[6330] process terminated
+2018-03-17 11:59:45 pid:6315 worker[YourAppBusinessWorker:6330] exit with status 64000
+2018-03-17 12:00:31 pid:6351 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #54)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#12 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#13 {main}
+2018-03-17 12:00:31 pid:6351 Worker[6351] process terminated
+2018-03-17 12:00:31 pid:6315 worker[YourAppBusinessWorker:6351] exit with status 64000
+2018-03-17 12:00:41 pid:6354 Workerman[start.php] stop 
+2018-03-17 12:00:41 pid:6354 Workerman[start.php] is stoping ...
+2018-03-17 12:00:41 pid:6315 Workerman[start.php] stopping ...
+2018-03-17 12:00:41 pid:6319 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2018-03-17 12:00:41 pid:6319 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 12:00:41 pid:6315 Workerman[start.php] has been stopped
+2018-03-17 12:00:41 pid:6354 Workerman[start.php] stop success
+2018-03-17 12:00:46 pid:6355 Workerman[start.php] start in DEBUG mode
+2018-03-17 12:00:51 pid:6358 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #49)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2018-03-17 12:00:51 pid:6358 Worker[6358] process terminated
+2018-03-17 12:00:51 pid:6355 worker[YourAppBusinessWorker:6358] exit with status 64000
+2018-03-17 12:02:39 pid:6355 Workerman[start.php] stopping ...
+2018-03-17 12:02:39 pid:6359 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2018-03-17 12:02:39 pid:6355 Workerman[start.php] has been stopped
+2018-03-17 12:02:44 pid:6388 Workerman[start.php] stop 
+2018-03-17 12:02:44 pid:6388 Workerman[start.php] not run
+2018-03-17 12:02:48 pid:6389 Workerman[start.php] start in DEBUG mode
+2018-03-17 12:02:55 pid:6392 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #49)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2018-03-17 12:02:55 pid:6392 Worker[6392] process terminated
+2018-03-17 12:02:55 pid:6389 worker[YourAppBusinessWorker:6392] exit with status 64000
+2018-03-17 12:02:57 pid:6396 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #49)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#12 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#13 {main}
+2018-03-17 12:02:57 pid:6396 Worker[6396] process terminated
+2018-03-17 12:02:57 pid:6389 worker[YourAppBusinessWorker:6396] exit with status 64000
+2018-03-17 12:03:02 pid:6397 Error: Call to undefined function sendMsg() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #50)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#12 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#13 {main}
+2018-03-17 12:03:02 pid:6397 Worker[6397] process terminated
+2018-03-17 12:03:02 pid:6389 worker[YourAppBusinessWorker:6397] exit with status 64000
+2018-03-17 12:03:56 pid:6389 Workerman[start.php] stopping ...
+2018-03-17 12:03:56 pid:6393 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2018-03-17 12:03:56 pid:6389 Workerman[start.php] has been stopped
+2018-03-17 12:04:01 pid:6406 Workerman[start.php] restart 
+2018-03-17 12:04:01 pid:6406 Workerman[start.php] is stoping ...
+2018-03-17 12:04:01 pid:6406 Workerman[start.php] stop success
+2018-03-17 12:04:09 pid:6409 Error: Using $this when not in object context in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #49)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2018-03-17 12:04:09 pid:6409 Worker[6409] process terminated
+2018-03-17 12:04:09 pid:6406 worker[YourAppBusinessWorker:6409] exit with status 64000
+2018-03-17 12:04:15 pid:6413 Error: Using $this when not in object context in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:58
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #50)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1225): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(447): Workerman\Worker::monitorWorkers()
+#12 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#13 {main}
+2018-03-17 12:04:15 pid:6413 Worker[6413] process terminated
+2018-03-17 12:04:15 pid:6406 worker[YourAppBusinessWorker:6413] exit with status 64000
+2018-03-17 12:05:36 pid:6406 Workerman[start.php] stopping ...
+2018-03-17 12:05:36 pid:6406 Workerman[start.php] has been stopped
+2018-03-17 12:05:38 pid:6415 Workerman[start.php] restart 
+2018-03-17 12:05:38 pid:6415 Workerman[start.php] is stoping ...
+2018-03-17 12:05:38 pid:6415 Workerman[start.php] stop success
+2018-03-17 12:07:02 pid:6415 Workerman[start.php] stopping ...
+2018-03-17 12:07:02 pid:6419 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 12:07:02 pid:6419 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 12:07:02 pid:6415 Workerman[start.php] has been stopped
+2018-03-17 12:07:04 pid:6438 Workerman[start.php] restart 
+2018-03-17 12:07:04 pid:6438 Workerman[start.php] is stoping ...
+2018-03-17 12:07:04 pid:6438 Workerman[start.php] stop success
+2018-03-17 12:10:19 pid:6480 Workerman[start.php] restart 
+2018-03-17 12:10:19 pid:6480 Workerman[start.php] is stoping ...
+2018-03-17 12:10:19 pid:6438 Workerman[start.php] stopping ...
+2018-03-17 12:10:19 pid:6442 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2018-03-17 12:10:19 pid:6438 Workerman[start.php] has been stopped
+2018-03-17 12:10:19 pid:6480 Workerman[start.php] stop success
+2018-03-17 12:49:56 pid:6583 Workerman[start.php] restart 
+2018-03-17 12:49:56 pid:6583 Workerman[start.php] is stoping ...
+2018-03-17 12:49:56 pid:6583 Workerman[start.php] stop success
+2018-03-17 14:06:43 pid:6698 Workerman[start.php] stop 
+2018-03-17 14:06:43 pid:6698 Workerman[start.php] not run
+2018-03-17 14:06:52 pid:6699 Workerman[start.php] start in DEBUG mode
+2018-03-17 14:31:15 pid:6699 Workerman[start.php] stopping ...
+2018-03-17 14:31:15 pid:6699 Workerman[start.php] has been stopped
+2018-03-17 14:31:28 pid:6845 Workerman[start.php] start in DAEMON mode
+2018-03-17 16:26:54 pid:7235 Workerman[start.php] stop 
+2018-03-17 16:26:54 pid:7235 Workerman[start.php] is stoping ...
+2018-03-17 16:26:54 pid:6847 Workerman[start.php] stopping ...
+2018-03-17 16:26:54 pid:6851 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:26:54 pid:6851 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:26:54 pid:6853 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:26:54 pid:6853 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:26:54 pid:6853 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:26:54 pid:6847 Workerman[start.php] has been stopped
+2018-03-17 16:26:54 pid:7235 Workerman[start.php] stop success
+2018-03-17 16:30:03 pid:7240 Workerman[start.php] start in DAEMON mode
+2018-03-17 16:30:18 pid:7251 Workerman[start.php] stop 
+2018-03-17 16:30:18 pid:7251 Workerman[start.php] is stoping ...
+2018-03-17 16:30:18 pid:7242 Workerman[start.php] stopping ...
+2018-03-17 16:30:18 pid:7246 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:30:18 pid:7246 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:30:18 pid:7248 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:30:18 pid:7242 Workerman[start.php] has been stopped
+2018-03-17 16:30:18 pid:7251 Workerman[start.php] stop success
+2018-03-17 16:30:22 pid:7252 Workerman[start.php] start in DEBUG mode
+2018-03-17 16:33:53 pid:7252 Workerman[start.php] stopping ...
+2018-03-17 16:33:53 pid:7256 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:33:53 pid:7256 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 16:33:53 pid:7252 Workerman[start.php] has been stopped
+2018-03-17 16:33:58 pid:7265 Workerman[start.php] start in DAEMON mode
+2018-03-17 17:20:50 pid:7438 Workerman[start.php] restart 
+2018-03-17 17:20:50 pid:7438 Workerman[start.php] is stoping ...
+2018-03-17 17:20:50 pid:7267 Workerman[start.php] stopping ...
+2018-03-17 17:20:50 pid:7273 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7273 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7273 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7273 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7273 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7271 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7271 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:50 pid:7267 Workerman[start.php] has been stopped
+2018-03-17 17:20:50 pid:7438 Workerman[start.php] stop success
+2018-03-17 17:20:55 pid:7438 Workerman[start.php] stopping ...
+2018-03-17 17:20:55 pid:7442 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:55 pid:7442 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:20:55 pid:7438 Workerman[start.php] has been stopped
+2018-03-17 17:20:59 pid:7445 Workerman[start.php] restart 
+2018-03-17 17:20:59 pid:7445 Workerman[start.php] is stoping ...
+2018-03-17 17:20:59 pid:7445 Workerman[start.php] stop success
+2018-03-17 17:35:01 pid:7546 Workerman[start.php] stop 
+2018-03-17 17:35:01 pid:7546 Workerman[start.php] is stoping ...
+2018-03-17 17:35:01 pid:7447 Workerman[start.php] stopping ...
+2018-03-17 17:35:01 pid:7453 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:35:01 pid:7447 Workerman[start.php] has been stopped
+2018-03-17 17:35:01 pid:7546 Workerman[start.php] stop success
+2018-03-17 17:35:07 pid:7547 Workerman[start.php] start in DEBUG mode
+2018-03-17 17:37:57 pid:7547 Workerman[start.php] stopping ...
+2018-03-17 17:37:57 pid:7551 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:37:57 pid:7551 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:37:57 pid:7547 Workerman[start.php] has been stopped
+2018-03-17 17:38:01 pid:7556 Workerman[start.php] restart 
+2018-03-17 17:38:01 pid:7556 Workerman[start.php] is stoping ...
+2018-03-17 17:38:01 pid:7556 Workerman[start.php] stop success
+2018-03-17 17:42:45 pid:7556 Workerman[start.php] stopping ...
+2018-03-17 17:42:45 pid:7560 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:42:45 pid:7560 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:42:45 pid:7556 Workerman[start.php] has been stopped
+2018-03-17 17:42:46 pid:7576 Workerman[start.php] restart 
+2018-03-17 17:42:46 pid:7576 Workerman[start.php] is stoping ...
+2018-03-17 17:42:46 pid:7576 Workerman[start.php] stop success
+2018-03-17 17:44:34 pid:7576 Workerman[start.php] stopping ...
+2018-03-17 17:44:34 pid:7580 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:44:34 pid:7580 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:44:34 pid:7576 Workerman[start.php] has been stopped
+2018-03-17 17:44:36 pid:7583 Workerman[start.php] restart 
+2018-03-17 17:44:36 pid:7583 Workerman[start.php] is stoping ...
+2018-03-17 17:44:36 pid:7583 Workerman[start.php] stop success
+2018-03-17 17:47:34 pid:7583 Workerman[start.php] stopping ...
+2018-03-17 17:47:34 pid:7587 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:47:34 pid:7587 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:47:34 pid:7583 Workerman[start.php] has been stopped
+2018-03-17 17:47:36 pid:7596 Workerman[start.php] restart 
+2018-03-17 17:47:36 pid:7596 Workerman[start.php] is stoping ...
+2018-03-17 17:47:36 pid:7596 Workerman[start.php] stop success
+2018-03-17 17:59:26 pid:7596 Workerman[start.php] stopping ...
+2018-03-17 17:59:26 pid:7600 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:59:26 pid:7600 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-17 17:59:26 pid:7596 Workerman[start.php] has been stopped
+2018-03-17 17:59:27 pid:7632 Workerman[start.php] restart 
+2018-03-17 17:59:27 pid:7632 Workerman[start.php] is stoping ...
+2018-03-17 17:59:27 pid:7632 Workerman[start.php] stop success
+2018-03-17 18:02:50 pid:7670 Workerman[start.php] restart 
+2018-03-17 18:02:50 pid:7670 Workerman[start.php] is stoping ...
+2018-03-17 18:02:50 pid:7670 Workerman[start.php] stop success
+2018-03-18 14:04:22 pid:8289 Workerman[start.php] stop 
+2018-03-18 14:04:22 pid:8289 Workerman[start.php] is stoping ...
+2018-03-18 14:04:22 pid:7672 Workerman[start.php] stopping ...
+2018-03-18 14:04:22 pid:7672 Workerman[start.php] has been stopped
+2018-03-18 14:04:22 pid:8289 Workerman[start.php] stop success
+2018-03-18 14:04:27 pid:8290 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:30:03 pid:8290 Workerman[start.php] stopping ...
+2018-03-18 14:30:03 pid:8294 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:30:03 pid:8290 Workerman[start.php] has been stopped
+2018-03-18 14:30:06 pid:8320 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:31:12 pid:8320 Workerman[start.php] stopping ...
+2018-03-18 14:31:12 pid:8324 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:31:12 pid:8320 Workerman[start.php] has been stopped
+2018-03-18 14:31:15 pid:8349 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:41:16 pid:8381 Workerman[start.php] stop 
+2018-03-18 14:41:16 pid:8381 Workerman[start.php] is stoping ...
+2018-03-18 14:41:16 pid:8349 Workerman[start.php] stopping ...
+2018-03-18 14:41:16 pid:8353 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:41:16 pid:8349 Workerman[start.php] has been stopped
+2018-03-18 14:41:16 pid:8381 Workerman[start.php] stop success
+2018-03-18 14:41:20 pid:8382 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:47:36 pid:8382 Workerman[start.php] stopping ...
+2018-03-18 14:47:36 pid:8388 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:47:36 pid:8388 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:47:36 pid:8382 Workerman[start.php] has been stopped
+2018-03-18 14:47:42 pid:8397 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:50:14 pid:8397 Workerman[start.php] stopping ...
+2018-03-18 14:50:14 pid:8401 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:50:14 pid:8401 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:50:14 pid:8397 Workerman[start.php] has been stopped
+2018-03-18 14:53:51 pid:8410 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:54:32 pid:8410 Workerman[start.php] stopping ...
+2018-03-18 14:54:32 pid:8416 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:54:32 pid:8414 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:54:32 pid:8410 Workerman[start.php] has been stopped
+2018-03-18 14:59:07 pid:8438 Workerman[start.php] start in DEBUG mode
+2018-03-18 14:59:30 pid:8438 Workerman[start.php] stopping ...
+2018-03-18 14:59:30 pid:8442 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 14:59:30 pid:8438 Workerman[start.php] has been stopped
+2018-03-18 15:02:21 pid:8465 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:03:17 pid:8465 Workerman[start.php] stopping ...
+2018-03-18 15:03:17 pid:8471 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:03:17 pid:8465 Workerman[start.php] has been stopped
+2018-03-18 15:03:22 pid:8474 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:06:05 pid:8474 Workerman[start.php] stopping ...
+2018-03-18 15:06:05 pid:8478 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:06:05 pid:8480 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:06:05 pid:8474 Workerman[start.php] has been stopped
+2018-03-18 15:06:06 pid:8485 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:07:40 pid:8485 Workerman[start.php] stopping ...
+2018-03-18 15:07:40 pid:8485 Workerman[start.php] has been stopped
+2018-03-18 15:13:04 pid:8501 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:13:58 pid:8501 Workerman[start.php] stopping ...
+2018-03-18 15:13:58 pid:8501 Workerman[start.php] has been stopped
+2018-03-18 15:15:34 pid:8529 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:16:08 pid:8529 Workerman[start.php] stopping ...
+2018-03-18 15:16:08 pid:8535 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:16:08 pid:8533 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:16:08 pid:8529 Workerman[start.php] has been stopped
+2018-03-18 15:19:02 pid:8538 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:20:52 pid:8538 Workerman[start.php] stopping ...
+2018-03-18 15:20:52 pid:8544 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:20:52 pid:8544 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:20:52 pid:8538 Workerman[start.php] has been stopped
+2018-03-18 15:20:59 pid:8549 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:28:39 pid:8549 Workerman[start.php] stopping ...
+2018-03-18 15:28:39 pid:8553 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:28:39 pid:8549 Workerman[start.php] has been stopped
+2018-03-18 15:28:44 pid:8572 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:32:13 pid:8572 Workerman[start.php] stopping ...
+2018-03-18 15:32:13 pid:8576 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:32:13 pid:8572 Workerman[start.php] has been stopped
+2018-03-18 15:32:14 pid:8583 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:37:01 pid:8583 Workerman[start.php] stopping ...
+2018-03-18 15:37:01 pid:8587 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:37:01 pid:8587 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:37:01 pid:8583 Workerman[start.php] has been stopped
+2018-03-18 15:37:02 pid:8596 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:43:12 pid:8596 Workerman[start.php] stopping ...
+2018-03-18 15:43:12 pid:8600 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:43:12 pid:8600 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:43:12 pid:8596 Workerman[start.php] has been stopped
+2018-03-18 15:43:23 pid:8619 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:51:08 pid:8619 Workerman[start.php] stopping ...
+2018-03-18 15:51:08 pid:8623 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:51:08 pid:8619 Workerman[start.php] has been stopped
+2018-03-18 15:51:11 pid:8645 Workerman[start.php] start in DEBUG mode
+2018-03-18 15:54:56 pid:8645 Workerman[start.php] stopping ...
+2018-03-18 15:54:56 pid:8649 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 15:54:56 pid:8645 Workerman[start.php] has been stopped
+2018-03-18 15:54:58 pid:8654 Workerman[start.php] start in DEBUG mode
+2018-03-18 16:16:06 pid:8654 Workerman[start.php] stopping ...
+2018-03-18 16:16:06 pid:8658 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:16:06 pid:8658 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:16:06 pid:8658 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:16:06 pid:8654 Workerman[start.php] has been stopped
+2018-03-18 16:16:12 pid:8706 Workerman[start.php] start in DEBUG mode
+2018-03-18 16:23:32 pid:8706 Workerman[start.php] stopping ...
+2018-03-18 16:23:32 pid:8710 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:23:32 pid:8710 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:23:32 pid:8706 Workerman[start.php] has been stopped
+2018-03-18 16:23:33 pid:8752 Workerman[start.php] start in DEBUG mode
+2018-03-18 16:25:17 pid:8752 Workerman[start.php] stopping ...
+2018-03-18 16:25:17 pid:8756 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:25:17 pid:8752 Workerman[start.php] has been stopped
+2018-03-18 16:25:19 pid:8761 Workerman[start.php] start in DEBUG mode
+2018-03-18 16:32:19 pid:8761 Workerman[start.php] stopping ...
+2018-03-18 16:32:19 pid:8767 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:32:19 pid:8761 Workerman[start.php] has been stopped
+2018-03-18 16:32:20 pid:8810 Workerman[start.php] start in DEBUG mode
+2018-03-18 16:56:54 pid:8810 Workerman[start.php] stopping ...
+2018-03-18 16:56:54 pid:8814 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:56:54 pid:8814 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:56:54 pid:8814 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:56:54 pid:8814 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:56:54 pid:8814 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 16:56:54 pid:8810 Workerman[start.php] has been stopped
+2018-03-18 16:56:55 pid:8854 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:17:37 pid:8854 Workerman[start.php] stopping ...
+2018-03-18 17:17:37 pid:8858 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:17:37 pid:8854 Workerman[start.php] has been stopped
+2018-03-18 17:18:24 pid:8910 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:28:51 pid:8910 Workerman[start.php] stopping ...
+2018-03-18 17:28:51 pid:8914 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:28:51 pid:8910 Workerman[start.php] has been stopped
+2018-03-18 17:28:53 pid:8919 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:29:12 pid:8919 Workerman[start.php] stopping ...
+2018-03-18 17:29:12 pid:8923 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:29:12 pid:8919 Workerman[start.php] has been stopped
+2018-03-18 17:29:13 pid:8928 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:34:18 pid:8928 Workerman[start.php] stopping ...
+2018-03-18 17:34:18 pid:8932 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:34:18 pid:8932 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:34:18 pid:8928 Workerman[start.php] has been stopped
+2018-03-18 17:34:20 pid:8939 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:36:31 pid:8939 Workerman[start.php] stopping ...
+2018-03-18 17:36:31 pid:8943 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:36:31 pid:8943 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:36:31 pid:8939 Workerman[start.php] has been stopped
+2018-03-18 17:38:26 pid:8964 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:42:06 pid:8964 Workerman[start.php] stopping ...
+2018-03-18 17:42:06 pid:8968 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:42:06 pid:8964 Workerman[start.php] has been stopped
+2018-03-18 17:42:07 pid:8985 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:44:06 pid:8985 Workerman[start.php] stopping ...
+2018-03-18 17:44:06 pid:8989 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:44:06 pid:8989 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:44:06 pid:8985 Workerman[start.php] has been stopped
+2018-03-18 17:44:07 pid:8994 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:45:10 pid:8994 Workerman[start.php] stopping ...
+2018-03-18 17:45:10 pid:8998 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:45:10 pid:8998 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:45:10 pid:8994 Workerman[start.php] has been stopped
+2018-03-18 17:45:11 pid:9003 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:46:22 pid:9003 Workerman[start.php] stopping ...
+2018-03-18 17:46:22 pid:9007 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:46:22 pid:9007 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:46:22 pid:9003 Workerman[start.php] has been stopped
+2018-03-18 17:46:24 pid:9012 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:46:29 pid:9015 Error: Call to undefined function dump() in /www/dianqiu/project/GatewayWorker/Applications/YourApp/Events.php:57
+Stack trace:
+#0 [internal function]: Events::onMessage('7f0000010b54000...', Array)
+#1 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(384): call_user_func('Events::onMessa...', '7f0000010b54000...', Array)
+#2 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Connection/TcpConnection.php(657): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #47)
+#5 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Events/Select.php(286): call_user_func_array(Array, Array)
+#6 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1882): Workerman\Events\Select->loop()
+#7 /www/dianqiu/project/GatewayWorker/vendor/workerman/gateway-worker/src/BusinessWorker.php(190): Workerman\Worker->run()
+#8 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1107): GatewayWorker\BusinessWorker->run()
+#9 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(1070): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#10 /www/dianqiu/project/GatewayWorker/vendor/workerman/workerman/Worker.php(445): Workerman\Worker::forkWorkers()
+#11 /www/dianqiu/project/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#12 {main}
+2018-03-18 17:46:29 pid:9015 Worker[9015] process terminated
+2018-03-18 17:46:29 pid:9012 worker[YourAppBusinessWorker:9015] exit with status 64000
+2018-03-18 17:46:45 pid:9012 Workerman[start.php] stopping ...
+2018-03-18 17:46:45 pid:9016 SendBufferToWorker fail. May be the send buffer are overflow. See http://wiki.workerman.net/Error2 for detail
+2018-03-18 17:46:45 pid:9012 Workerman[start.php] has been stopped
+2018-03-18 17:46:46 pid:9020 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:47:57 pid:9020 Workerman[start.php] stopping ...
+2018-03-18 17:47:57 pid:9024 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:47:57 pid:9024 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:47:57 pid:9020 Workerman[start.php] has been stopped
+2018-03-18 17:47:58 pid:9029 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:49:36 pid:9029 Workerman[start.php] stopping ...
+2018-03-18 17:49:36 pid:9033 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:49:36 pid:9033 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:49:36 pid:9029 Workerman[start.php] has been stopped
+2018-03-18 17:49:37 pid:9045 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:53:08 pid:9045 Workerman[start.php] stopping ...
+2018-03-18 17:53:08 pid:9049 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:53:08 pid:9049 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:53:08 pid:9045 Workerman[start.php] has been stopped
+2018-03-18 17:53:09 pid:9054 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:59:48 pid:9054 Workerman[start.php] stopping ...
+2018-03-18 17:59:48 pid:9058 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:59:48 pid:9058 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:59:48 pid:9058 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:59:48 pid:9058 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 17:59:48 pid:9054 Workerman[start.php] has been stopped
+2018-03-18 17:59:50 pid:9067 Workerman[start.php] start in DEBUG mode
+2018-03-18 18:32:04 pid:9067 Workerman[start.php] stopping ...
+2018-03-18 18:32:04 pid:9071 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:32:04 pid:9071 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:32:04 pid:9071 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:32:04 pid:9067 Workerman[start.php] has been stopped
+2018-03-18 18:32:05 pid:9115 Workerman[start.php] start in DEBUG mode
+2018-03-18 18:34:53 pid:9115 Workerman[start.php] stopping ...
+2018-03-18 18:34:53 pid:9119 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:34:53 pid:9115 Workerman[start.php] has been stopped
+2018-03-18 18:35:01 pid:9131 Workerman[start.php] start in DEBUG mode
+2018-03-18 18:36:06 pid:9131 Workerman[start.php] stopping ...
+2018-03-18 18:36:06 pid:9135 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:36:06 pid:9131 Workerman[start.php] has been stopped
+2018-03-18 18:36:07 pid:9140 Workerman[start.php] start in DEBUG mode
+2018-03-18 18:39:23 pid:9140 Workerman[start.php] stopping ...
+2018-03-18 18:39:23 pid:9144 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:39:23 pid:9144 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:39:23 pid:9144 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:39:23 pid:9146 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:39:23 pid:9140 Workerman[start.php] has been stopped
+2018-03-18 18:39:24 pid:9153 Workerman[start.php] start in DEBUG mode
+2018-03-18 18:48:35 pid:9153 Workerman[start.php] stopping ...
+2018-03-18 18:48:35 pid:9159 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9159 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9159 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9157 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9157 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9157 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9157 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2018-03-18 18:48:35 pid:9153 Workerman[start.php] has been stopped
+2018-03-18 18:49:03 pid:9170 Workerman[start.php] start in DEBUG mode
+2018-03-19 09:25:22 pid:9170 Workerman[start.php] stopping ...
+2018-03-19 09:25:22 pid:9170 Workerman[start.php] has been stopped
+2018-03-19 09:25:24 pid:10516 Workerman[start.php] start in DAEMON mode

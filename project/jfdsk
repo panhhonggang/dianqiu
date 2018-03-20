@@ -1,0 +1,1 @@
+'UPDATE `pub_devices_statu` SET `ReDay`=\'731\' WHERE `DeviceID` = \'868575025672835\'''UPDATE `pub_devices_statu` SET `ReDay`=\'1096\' WHERE `DeviceID` = \'868575025672835\'''UPDATE `pub_devices_statu` SET `ReDay`=\'1461\' WHERE `DeviceID` = \'868575025672835\''

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>充值跳转</title>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<style>
+		.install {
+			padding:1rem .5rem;
+		}
+		.install > h5{
+			font-size:.5rem;
+			font-weight:bolder;
+			color:rgb(44,44,44);
+			margin:0 0 .2rem 0;
+		}
+		/*清除浮动*/
+		.clearfix:after{
+			content:"";
+			height:"";
+			display:block;
+			clear:both;
+		}
+		.installFunction > div {
+			width:4.3rem;
+		}
+		.installFunction > div:first-child{
+			float:left;
+		}
+		.installFunction > div:last-child{
+			float:right;
+		}
+		.installFunction > div > p:first-child {
+			width:3.2rem;
+			margin:.5rem auto;
+		}
+		.installFunction > div > p:first-child  > img{
+			width:100%;
+			height:100%;
+		}
+		.installFunction > div > p:last-child {
+			width:100%;
+			text-align:center;
+			height:1rem;
+			line-height:1rem;
+			background-color:rgb(82,148,201);
+			color:white;
+			font-size:.5rem;
+		}
+		.installFunction > div:last-child > p:last-child {
+			background-color:rgb(201,144,91);
+		}
+		.error {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+<div id="contain">
+	<div class="install">
+		<h5>请选择需要执行的命令</h5>
+		<div class="installFunction clearfix">
+
+			<div style="background-color:rgb(129,185,230)" id="div1">
+				<p><img src="__PUBLIC__/Home/images/icon_ins@2x.png" alt=""></p>
+				<p>安装设备</p>
+			</div>
+
+			<div style="background-color:rgb(237,184,133)"  id="div2">
+			<p><img src="__PUBLIC__/Home/images/icon_charge@2x.png" alt=""></p>
+			<p>代充入口</p>
+		</div>
+
+	</div>
+</div>
+</div>
+</body>
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+<script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+    $('#div1').click(function(){
+        location.href = "{{:U('Home/Personnel/personal')}}";
+    })
+    $('#div2').click(function(){
+        location.href = "{{:U('Home/Personnel/topup')}}";
+    })
+</script>
+</html>

@@ -67,11 +67,11 @@
 				// 总收入
 				$("#allincome").text(allincome.toFixed(2));
 				// 订单数量
-				$("#orderNum").text(Number(res.order_filters.total).toFixed(2));
+				$("#orderNum").text(parseInt(res.order_filters.total));
 				// 报修数量
-				$("#repaire").text(Number(res.repairs.total).toFixed(2));
+				$("#repaire").text(parseInt(res.repairs.total));
 				// 建议数量
-				$("#feeds").text(Number(res.feeds.total).toFixed(2));
+				$("#feeds").text(parseInt(res.feeds.total));
 			}
 		})
 		// 请求后台数据
