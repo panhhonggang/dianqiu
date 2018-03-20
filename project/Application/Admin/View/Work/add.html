@@ -144,6 +144,7 @@ time.click(function(){
     $(this).blur()
 })
 $('.submit').click(function(event) {
+    var hasid = location.href.indexOf('id');
     var numberReg = /[0-9]/;
     var addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
     var control = $('.control').val();  // 设备编号
@@ -153,7 +154,7 @@ $('.submit').click(function(event) {
     var personnel_id = $('.personnel_id>option:selected').val()
     var address = $("input[name='add_ress']").val();
     console.log(addressReg.test(address))
-    if(!numberReg.test(control)){
+    if(!numberReg.test(control) && hasid == -1){
         layuiHint('请输入正确的设备编码！');
         return false
     }
@@ -190,7 +191,7 @@ $('.submit').click(function(event) {
     }else{
         $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
     } 
-    if(!addressReg.test(address)){
+    if(!addressReg.test(address)  && hasid == -1){
         layuiHint('请输入详细地址！');
         return false
     }

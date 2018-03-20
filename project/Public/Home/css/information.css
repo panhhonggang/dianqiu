@@ -4,10 +4,14 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	-webkit-appearance:none;
 	-webkit-appearance: none;
 }
+body {
+	min-height: 400px;
+	overflow: hidden;
+}
 #infor {
 	width: 10.0rem;
 	height: 80vh;
-	min-height: 600px;
+	min-height: 400px;
 	margin-bottom: 1.466667rem;
 	transform: scale(1);
 }
