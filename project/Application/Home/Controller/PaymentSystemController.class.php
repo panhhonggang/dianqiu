@@ -1068,7 +1068,7 @@ class PaymentSystemController extends Controller
                         // dump($sc);die;
                         // 
                         // Log::write(json_encode($msg), 'PPPPPPPPPPPPPPPP');
-                        file_put_contents('./ssssssssssssssss/'.$deviceCode['DeviceID'],$deviceCode['DeviceID'], FILE_APPEND);
+//                        file_put_contents('./ssssssssssssssss/'.$deviceCode['DeviceID'],$deviceCode['DeviceID'], FILE_APPEND);
                         $sc->sysnc_web($deviceCode['DeviceID']);
 
                     }else{
