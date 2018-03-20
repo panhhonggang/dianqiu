@@ -104,11 +104,11 @@ html,body {
 }
 
 .dazi{
-	width: 6.4rem;
+	width: 6.5rem;
 	height:2.4rem;
 	font-size: 2.2rem;
 	text-align: center;
-	margin-top:3vh;
+	margin-top:5vh;
 	position: relative;
 	color: #004872;
 }
@@ -125,14 +125,13 @@ html,body {
 	font-size: 0.4rem;
 	text-align: center;
 	position: relative;
-	margin-top: .3vh;
+	margin-top: .5vh;
 	color:#fff;
 }
-
 .dazi1{
 	width: 6.4rem;
 	font-size: 1rem;
-	margin-top: 0.6rem;
+	margin-top: 0.3rem;
 	text-align: center;
 	position: relative;
 	color: #004872;
@@ -150,7 +149,7 @@ html,body {
 	font-size: 0.4rem;
 	text-align: center;
 	position: relative;
-	margin-top:-1vh;
+	margin-top:-1.5vh;
 	color:#fff;
 }
 

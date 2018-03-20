@@ -137,8 +137,12 @@
 		var res=JSON.parse($('.res').val());
 		var deviceInfo=JSON.parse($(".deviceInfo").val());
 		var deviceId=data.deviceid;//设备id
+		console.log(res);
+		console.log(data);
+		console.log(deviceInfo);
 		sessionStorage.setItem("deviceId",deviceId);//设备编号设置本地存储
 		var devicestause=data.devicestause;//设备状态
+		console.log(data);
 		function machineStatus(){
 			if(devicestause=="0"){//制水
 				addwater();
@@ -218,13 +222,29 @@
 			$("body").css({height:'100vh',filter:'grayscale(100%)'});
 		}
 		machineStatus();//执行水机状态方法
-		var usednumberFlow=parseInt(data.sumflow);//已用数值
-		var usednumberDay=parseInt(data.sumday);//已用数值
+		var usednumberFlow=parseInt(data.sumflow);//已用流量
+		var usednumberDay=parseInt(data.sumday);//已用天数
+		var renumberFlow=parseInt(data.reflow);//剩余流量
+		var renumberDay=parseInt(data.reday);//剩余天数
 		// console.log(usednumberFlow);
 		$("#puretdsVal").html(data.rawtds?data.rawtds:'0');
 		$("#rawtdsVal").html(data.puretds?data.puretds:'0');
-		$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
-		$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
+		// $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
+		// $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
+		//1.设备状态页面数据显示
+		if(data.leasingmode=="0"){//零售
+			$(".textLeft").html("<p id='surplusVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:'0')+"L</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p>");
+		}else if(data.leasingmode=="1"){//显示流量值
+			$(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+renumberFlow+"L</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:'0')+"L</b></p>");
+		}else if(data.leasingmode=="2"){//套餐值
+			$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(renumberDay?renumberDay:'0')+"天</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p>");
+		}else if(data.leasingmode=="3"){//套餐&流量
+			$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(renumberDay?renumberDay:'0')+"天</b></p><p><span>剩余流量</span><b>"+(renumberFlow?renumberFlow:'0')+"L</b></p>");
+			$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p><p><span>已用流量</span><b>"+(usednumberFlow?usednumberFlow:'0')+"L</b></p>");
+		}
 
 		//websoket
 		var websoket=new WebSocket("ws://120.27.12.1:6001");
@@ -255,7 +275,7 @@
 			var leasingmode = dataList.LeasingMode;//租赁模式
 			//console.log(dataList.LeasingMode);
 			machineStatus();//执行水机状态方法
-			//console.log(dataList);
+			console.log(dataList);
 
 			// 获取设备租赁模式
 			if(dataList.LeasingMode){
