@@ -14,7 +14,7 @@ class IndexController extends CommonController
             //show($did);die;
 	        if(empty($did)){
 	        	// 请先绑定设备
-	        	$this->success('请先绑定设备...', 'Home/Devices/manage');
+	        	$this->success('请先绑定设备...', '/Home/Devices/manage');
                 // exit;
 	        }else{
 	        	// 查询用户设备设备码
