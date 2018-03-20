@@ -231,13 +231,13 @@ $(function(){
                 '<td  class="tdCleanWater">'+_puretds+'</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td>'+'剩余天数 (D)'+'</td>'+
+                '<td>'+'剩余流量 (D)'+'</td>'+
                 '<td class="reflow">'+_reflow+'</td>'+
                 '</tr>'+
-                // '<tr>'+
-                // '<td>'+'剩余天数 (D)'+'</td>'+
-                // '<td class="reday">'+_reday+'</td>'+
-                // '</tr>'+
+                '<tr>'+
+                '<td>'+'剩余天数 (D)'+'</td>'+
+                '<td class="reday">'+_reday+'</td>'+
+                '</tr>'+
                 '<tr>'+
                 '<td>'+'租赁模式'+'</td>'+
                 '<td class="tdLeaseMode">'+(data.statu.leasingmode?leasingmode[data.statu.leasingmode]:'--')+'</td>'+
@@ -302,7 +302,7 @@ $(function(){
             websoket.onmessage=function(res){
                 numAdd=0;
                 var dataList=JSON.parse(res.data);
-
+                console.log(dataList);
                 if(dataList.PackType=="Select")
                 {
                     numAdd=0;
