@@ -898,7 +898,7 @@ class PaymentSystemController extends Controller
                 $data['order_id'] = $result['attach'];
 
                 // 查询订单是否已处理
-                $orderData = M('Orders')->where($data)->field('is_pay,total_price')->find();
+                $orderData = M('Orders')->where($data)->field('is_pay,total_price,device_id')->find();
                 // dump($data);die;
                 // 1分钱测试数据
                 $orderData['total_price'] = 1;
@@ -950,7 +950,9 @@ class PaymentSystemController extends Controller
                         $flownum = 0;
                         //file_put_contents('./wx_pay1uid.txt',$result['out_trade_no']."\r\n", FILE_APPEND);
                         // 查询当前设备编号
-                        $deviceId['id'] = $did;
+//                        $deviceId['id'] = $did;
+                        $deviceId['id'] = $orderData['device_id'];
+
                         //file_put_contents('./wx_pay2uid.txt',$uid."\r\n", FILE_APPEND);
                         $deviceCode['DeviceID'] = $device->where($deviceId)->find()['device_code'];
                         
