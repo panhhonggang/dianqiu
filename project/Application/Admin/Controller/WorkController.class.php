@@ -84,6 +84,7 @@ class WorkController extends CommonController
         $list = $type->where($map)
             ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+            ->field('pub_devices.*,pub_binding.*,pub_work.*')
             ->order('pub_work.result asc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
@@ -144,6 +145,10 @@ class WorkController extends CommonController
         // dump($id);
         if ($res) {
             $repair_id = $work->where('id='.$id)->getField('repair_id');
+            if (!$repair_id){
+                $this->success('修改成功',U('admin/work/index'));
+                return;
+            }
             // dump($repair_id);
             if($result == 1){
                 $status = ['status'=>3];

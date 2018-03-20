@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
-
   <title>服务记录</title>
   <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
   <style>
@@ -106,8 +105,60 @@
             </li>
           </ul>
         </div>
-       
     </div>
+    <ul class="rewardFoot">
+      <li>
+        <h4 @click='showModule($event)'>报修</h4>
+        <ul>
+          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 1' >
+            <p @click='showText($event)'>
+              <span>报修</span>
+              <span @click='javascript:void(0);'>{{ item.time }}</span>
+            </p>
+            <div class="show">
+              <span><span>处理人：</span>{{ item.name }}</span>
+              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
+              <div><span>报修进度：</span>{{ item.result }}</div>
+              <div><span>报修地址：</span>{{ item.address }}</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4 @click='showModule($event)'>安装</h4>
+        <ul>
+          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 0'>
+            <p @click='showText($event)'>
+              <span>安装</span>
+              <span @click='javascript:void(0);'>{{ item.time }}</span>
+            </p>
+            <div class="show">
+              <span><span>处理人：</span>{{ item.name }}</span>
+              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
+              <div><span>安装进度：</span>{{ item.result }}</div>
+              <div><span>安装地址：</span>{{ item.address }}</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4 @click='showModule($event)'>维护</h4>
+        <ul>
+          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 2'>
+            <p @click='showText($event)'>
+              <span>维护</span>
+              <span @click='javascript:void(0);'>{{ item.time }}</span>
+            </p>
+            <div class="show" >
+              <span><span>处理人：</span>{{ item.name }}</span>
+              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
+              <div><span>维护进度：</span>{{ item.result }}</div>
+              <div><span>维护地址：</span>{{ item.address }}</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
   <script src="__PUBLIC__/Home/js/jquery-1.10.1.js"></script>
   <script src="__PUBLIC__/Home/js/public.js"></script>
@@ -119,7 +170,10 @@
         data() {
           return {
             data: [],
-            num: [0, 0]
+            num: [0, 0],
+            isSameEle: null,
+            liOffsetH: 0,
+            moduleIsShow: true
           }
         },
         computed: {},
@@ -130,19 +184,33 @@
             url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
+                res[i]['index'] = i;
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
                 }else if(res[i].type == 1){// 统计维修数量
                   that.num[1]++;
                 }
+                if(!res[i].phone){
+                  res[i].phone = '暂无电话';
+                }
+                // 处理进度
+                if(res[i].result == 0){
+                  res[i].result = '未处理';
+
+                }else if(res[i].result == 1){
+                  res[i].result = '正在处理';
+
+                }else if(res[i].result == 2){
+                  res[i].result = '已处理';
+
+                }
                 // 将数据更新到 data 
                 that.data.push(res[i]);
               }
-              console.log(that.data);
-              console.log(that.num)
+              // console.log(that.data);
+              // console.log(that.num);
             },
             error: function(res){
               console.log('请求失败！', res);
@@ -178,6 +246,52 @@
             var normal = year + '/' + month + '/'  + date + '\t'  + hour + ':'  + minute;
             // console.log('year + month + day + hour + minute: ', normal);
             return normal;
+          },
+          showText: function(e){
+            /**
+             * 点击安装或报修项目显示详情
+             */
+            // e: 当前元素(p标签)
+            var li = e.currentTarget.parentNode.parentNode.children;
+            var nowLi = e.currentTarget.parentNode;
+            // console.log('li: ',li);
+            // 初始化
+            for(var i=0; i<li.length; i++){
+              li[i].style.background = '#fff';
+              li[i].children[1].setAttribute('style','height:0;');
+
+            }
+            // 展开当前元素
+            nowLi.style.background = '#f6f6f6';
+            nowLi.children[1].setAttribute('style','height: 36vh;border-color:#ddd');
+            // 当前元素点击多次
+            if(this.isSameEle == nowLi.getAttribute('index')){
+              nowLi.children[1].setAttribute('style',"height:0;");
+              this.isSameEle = '';
+              return
+            }
+            this.isSameEle = nowLi.getAttribute('index');
+            // console.log('index: ',nowLi.getAttribute('index'));
+            // console.log('same: ',this.isSameEle);
+          },
+          showModule: function(e){
+            /**
+             * 显示或隐藏模块
+             * @param {object} [e] [当前元素]
+             */
+            var ul = e.currentTarget.parentNode.children[1];
+            // console.log(ul);
+
+            // 如果当前模块显示则隐藏， 反之则显示
+            if(this.moduleIsShow){
+              ul.style.display = 'none';
+              this.moduleIsShow = false;
+
+            }else if(!this.moduleIsShow){
+              ul.style.display = 'block';
+              this.moduleIsShow = true;
+
+            }
           }
        }
       });

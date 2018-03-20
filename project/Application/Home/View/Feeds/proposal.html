@@ -4,67 +4,26 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" >
-
-<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css">
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Home/css/advice.css">
-<link rel="stylesheet" href="__PUBLIC__/Home/css/linkSet.css">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 <title>建议</title>
-<style>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	
-	body {
-		width: 100vw;
-		height: 100vh;
-	}
-	#advice-all {
-		height: 100vh;
-	}
-	#advice-container {
-	    width: 100vw;
-	    height: 100vh;
-	    padding: 0 0.4rem 0.4rem 0.4rem;
-	    margin: 0;
-	}
-	#advice-container input {
-		position: absolute;
-		bottom: 0;
-		margin-top: 1rem;
-		margin-bottom: 1rem;
-		background: #039CE9;
-	}
-	#advice-container textarea {
-		border-radius: 5px;
-		border: 1px dashed #039CE9;
-	}
-	#form {
-		height: 92%;
-	}
-
-</style>
 </head> 
 	<body>
 		<div id="advice-all">
 			<div id="advice-container">
 				<h3>请写下您对设备的宝贵建议<b>*</b></h3>
 				<form id="form" action="__URL__/proposal" method="post">
-					<textarea autofocus name="content" id="" cols="30" rows="10" style="margin: 0px;padding:1vh;"></textarea>
+					<textarea autofocus name="content" id="" cols="30" rows="10"></textarea>
 					<p>收到建议后，我们会对设备不断进行调试，力求为您提供更好的体验，谢谢~</p>
 					<input type="button" value="提交" type="button">
 				</form>
 			</div>
 		</div>
 	</body>
+	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css"> 
-	<script type="text/javascript" src="__PUBLIC__/Home/js/linkSet.js"></script>
 	<script>
 	var oHeight = $(document).height(); //浏览器当前的高度
     $(window).resize(function(){
@@ -85,7 +44,7 @@
 
 	$("#form>input").click(function(){
 
-		console.log($("#form>textarea").val());
+		//console.log($("#form>textarea").val());
 
 		$("#form>textarea").val()
 		? $(this)[0].type="submit"
