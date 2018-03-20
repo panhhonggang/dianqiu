@@ -3,111 +3,139 @@
             <p>©2017 - 2018 点球电子 </p>
         </div>
     </div>
+    <!-- bootstrap.js -->
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <!-- layui.js -->
+    <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+    <!-- 城市三级联动.js -->
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/area.js"></script>
+    <!-- 左边导航栏引用 -->
+    <script src="__PUBLIC__/Admin/js/ace.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/adminPublic.js"></script>
+	<script src="__PUBLIC__/Admin/js/index/moment-with-locales.min.js"></script>
+	<!-- <script src="__PUBLIC__/Admin/js/index/bootstrap-datetimepicker.js"></script> -->
+	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">  
+        //提示
+        function tip(tip,title,fn){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.confirm(tip, {icon: 3, title:title}, function(index){
+                    fn&&fn()                
+                });
+            });
+        }   
+        $('#_exit').click(function(){
+            tip('确定退出？','提示',function(){
+                window.location.href = "{{:U('Login/logout')}}"
+            })
+            return false
+        })
+    </script>
+	<script type="text/javascript">
+		//设置nav高度
+	    var windowh=$(window).height();
+	    var navH=$("#nav").height(windowh-70);
+	    $(function(){
+	 
+		    /**************** 按时间搜索 -- 开始 ******************/
+		    	var newdate = new Date(),
+		    	year = newdate.getFullYear(),
+		    	month = (newdate.getMonth()+'').length == 1 
+		                  ? '0' + (newdate.getMonth()+1)
+		                  : newdate.getMonth()-0+1,
+		        date = (newdate.getDate()+'').length == 1 
+		                  ? '0' + newdate.getDate()
+		                  : newdate.getDate();
+		    	var now = year +'-'+ month +'-'+ date;
+		    	// console.log(year, month, date);
+		    	// $("#date-start").val(now);
+		    	 // 开始时间
+		        var startdate = $("#date-start").datetimepicker({  
+		            format: 'YYYY-MM-DD',  
+		            locale: moment.locale('zh-cn')
+		        }); 
+		        
+		        //结束时间
+				var enddate = $("#date-end").datetimepicker({
+		            format: 'YYYY-MM-DD',  
+		            locale: moment.locale('zh-cn')
+		        }); 
+		         //动态设置最小值  
+			    startdate.on('dp.change', function (e) {  
+			        enddate.data('DateTimePicker').minDate(e.date);  
+
+			    });  
+			    //动态设置最大值  
+			    enddate.on('dp.change', function (e) {  
+			        startdate.data('DateTimePicker').maxDate(e.date);   
+			        
+			    });
+			    // 添加时分秒
+			    $('#date-start').on("blur", function(){
+			    	var val = $("#date-start").val();
+			    	$("#date-start").val(val+'\t00:00:00');
+			    	// console.log($("#date-start").val())
+			    })
+			    // 添加时分秒
+			    $('#date-end').on("blur", function(){
+			    	var val = $("#date-end").val();
+			    	$("#date-end").val(val+'\t00:00:00');
+			    	// console.log($("#date-end").val())
+			    })
+
+		    /**************** 按时间搜索 -- 结束 ******************/
+
+
+		    /********** 设置导航栏当前位置 高亮 选中 -- 开始 ***********/
+
+			    var href = location.href, nowPos;   // nowPos：当前文件地址
+			    if(href.indexOf('html') > -1){
+			        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
+			    }else{
+					nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
+			    }
+			  	// console.log('nowPos: ',nowPos);
+			    // 导航下的所有连接
+			    var alink = $(".item");
+			    // console.log('alink: ',alink)
+			    // 高亮 选择当前地址的导航
+			    for(var i=0; i<alink.length; i++){
+			    	alink[i].onclick = function(){
+			    		sessionStorage.setItem('nav_now', this.getAttribute("href"));
+			    		
+			    	}
+			    }
+			    if(sessionStorage.getItem('nav_now')){
+			    	var thisModule, thisMenu, thisSelect;		// 当前模块， 当前菜单
+			    	var nowurl = sessionStorage.getItem('nav_now'),
+			    		now = nowurl.substring(nowurl.lastIndexOf('/Admin/')+7, nowurl.indexOf('html')+4);
+			    	console.log(now, nowurl);
+			    	for(var i=0; i<alink.length; i++){
+			    		if(now == 'Index/index.html'){
+					    	return
+					    	// 以下代码不在首页生效
+					    }
+			    		if(alink[i].getAttribute('href').indexOf(now) > -1){
+			    			thisSelect = alink[i];
+			    			thisMenu = alink[i].parentNode.parentNode;
+			    			thisModule = alink[i].parentNode.parentNode.parentNode;
+
+			    			thisSelect.style.color = '#1963aa';
+			    			thisMenu.style.display = 'block';
+			    			thisModule.setAttribute('class', 'open');
+
+			    			// console.log('thisSelect: ', thisSelect);
+			    			// console.log('thisMenu: ', thisMenu);
+			    			// console.log('thisModule: ', thisModule);
+			    		}
+			    	}
+			    }
+
+		    /********** 设置导航栏当前位置 高亮 选中 -- 结束 ***********/
+
+		});
+
+	</script>
 </body>
 </html>
-<script src="__PUBLIC__/Admin/js/index/moment-with-locales.min.js"></script>
-<script src="__PUBLIC__/Admin/js/index/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript">
-	//设置nav高度
-    var windowh=$(window).height();
-    var navH=$("#nav").height(windowh-70);
-    $(function(){
- 
-	    /**************** 按时间搜索 -- 开始 ******************/
-	    	var newdate = new Date(),
-	    	year = newdate.getFullYear(),
-	    	month = (newdate.getMonth()+'').length == 1 
-	                  ? '0' + (newdate.getMonth()+1)
-	                  : newdate.getMonth()-0+1,
-	        date = (newdate.getDate()+'').length == 1 
-	                  ? '0' + newdate.getDate()
-	                  : newdate.getDate();
-	    	var now = year +'-'+ month +'-'+ date;
-	    	// console.log(year, month, date);
-	    	// $("#date-start").val(now);
-	    	 // 起始时间
-	    	 
-	        var startdate = $("#date-start").datetimepicker({  
-	            format: 'YYYY-MM-DD',  
-	            locale: moment.locale('zh-cn')
-	        }); 
-	        
-	        //结束时间
-			var enddate = $("#date-end").datetimepicker({
-	            format: 'YYYY-MM-DD',  
-	            locale: moment.locale('zh-cn')
-	        }); 
-	         //动态设置最小值  
-		    startdate.on('dp.change', function (e) {  
-		        enddate.data('DateTimePicker').minDate(e.date);  
-		    });  
-		    //动态设置最大值  
-		    enddate.on('dp.change', function (e) {  
-		        startdate.data('DateTimePicker').maxDate(e.date);  
-		    });
-		    // 添加时分秒
-		    $('#date-start').on("blur", function(){
-		    	var val = $("#date-start").val();
-		    	$("#date-start").val(val+'\t00:00:00');
-		    	// console.log($("#date-start").val())
-		    })
-		    // 添加时分秒
-		    $('#date-end').on("blur", function(){
-		    	var val = $("#date-end").val();
-		    	$("#date-end").val(val+'\t00:00:00');
-		    	// console.log($("#date-end").val())
-		    })
-
-	    /**************** 按时间搜索 -- 结束 ******************/
-
-
-	    /********** 设置导航栏当前位置 高亮 选中 -- 开始 ***********/
-
-		    var href = location.href, nowPos;   // nowPos：当前文件地址
-		    if(href.indexOf('html') > -1){
-		        nowPos = href.substring(href.lastIndexOf('/Admin/')+7, href.indexOf('html')+4);
-		    }else{
-				nowPos = href.substring(href.lastIndexOf('/Admin/')+7);
-		    }
-		  	// console.log('nowPos: ',nowPos);
-		    // 导航下的所有连接
-		    var alink = $(".item");
-		    // console.log('alink: ',alink)
-		    // 高亮 选择当前地址的导航
-		    for(var i=0; i<alink.length; i++){
-		    	alink[i].onclick = function(){
-		    		sessionStorage.setItem('nav_now', this.getAttribute("href"));
-		    		
-		    	}
-		    }
-		    if(sessionStorage.getItem('nav_now')){
-		    	var thisModule, thisMenu, thisSelect;		// 当前模块， 当前菜单
-		    	var nowurl = sessionStorage.getItem('nav_now'),
-		    		now = nowurl.substring(nowurl.lastIndexOf('/Admin/')+7, nowurl.indexOf('html')+4);
-		    	console.log(now, nowurl);
-		    	for(var i=0; i<alink.length; i++){
-		    		if(now == 'Index/index.html'){
-				    	return
-				    	// 以下代码不在首页生效
-				    }
-		    		if(alink[i].getAttribute('href').indexOf(now) > -1){
-		    			thisSelect = alink[i];
-		    			thisMenu = alink[i].parentNode.parentNode;
-		    			thisModule = alink[i].parentNode.parentNode.parentNode;
-
-		    			thisSelect.style.color = '#1963aa';
-		    			thisMenu.style.display = 'block';
-		    			thisModule.setAttribute('class', 'open');
-
-		    			// console.log('thisSelect: ', thisSelect);
-		    			// console.log('thisMenu: ', thisMenu);
-		    			// console.log('thisModule: ', thisModule);
-		    		}
-		    	}
-		    }
-
-	    /********** 设置导航栏当前位置 高亮 选中 -- 结束 ***********/
-
-	});
-
-</script>

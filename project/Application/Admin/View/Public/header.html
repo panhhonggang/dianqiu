@@ -6,26 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>物联网云平台</title>
     <!-- jquery -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
     <!-- bootstrap css -->
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css" media="screen" />
     <!--响应式特性 css-->
     <link href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link rel="stylesheet" href="__PUBLIC__/Home/js/theme/default/laydate.css">
-    <!-- bootstrap.js -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
-    <!-- layui.js -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
-    <!-- 城市三级联动.js -->
-    <script type="text/javascript" src="__PUBLIC__/Admin/js/area.js"></script>
     <!-- layui.css -->
     <link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
-    <!-- 左边导航栏引用 -->
-    <script src="__PUBLIC__/Admin/js/ace.min.js"></script>
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/ace.min.css">
     <link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css">
-    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap-datetimepicker.min.css">
-    <script src="__PUBLIC__/Admin/js/adminPublic.js"></script>
+    <!-- <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap-datetimepicker.min.css"> -->
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
     <style type="text/css">
         .logo:link {
             color: #fff;
@@ -95,22 +87,5 @@
             <div class="button bowOut">
                 <a href="javascript:void(0)" url="{{:U('Login/logout')}}" style="color: #9d9d9d;;" id="_exit">退出</a>
             </div>
-            <script type="text/javascript">  
-                //提示
-                function tip(tip,title,fn){
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.confirm(tip, {icon: 3, title:title}, function(index){
-                            fn&&fn()                
-                        });
-                    });
-                }   
-                $('#_exit').click(function(){
-                    tip('确定退出？','提示',function(){
-                        window.location.href = "{{:U('Login/logout')}}"
-                    })
-                    return false
-                })
-            </script>
         </div>
     </div>
