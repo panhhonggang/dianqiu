@@ -18,7 +18,7 @@ class ActionController extends Controller
 
 
         // // $this->get_PackNum('868575025672835',300);
-        // $rr = unserialize(file_get_contents('./PackNum_868575025672835'));
+        // $rr = unserialize(file_get_contents('./PackNum/PackNum_868575025672835'));
         dump($rr);
 
 
@@ -137,7 +137,7 @@ class ActionController extends Controller
                     if($message['PackNum'] >= 30 && $message['PackNum']<=100){
                         // Log::write(json_encode($message), 'AAAAAAA');
 
-                        $arr=unserialize(file_get_contents('./PackNum_'.$message['DeviceID']));
+                        $arr=unserialize(file_get_contents('./PackNum/PackNum_'.$message['DeviceID']));
 
                         $id=isset($arr['PackNum'][$message['PackNum']])?$arr['PackNum'][$message['PackNum']]:false;
                         if($id){
@@ -146,7 +146,7 @@ class ActionController extends Controller
                             if($res){
                                 unset($arr['PackNum'][$message['PackNum']]);
 
-                                file_put_contents('./PackNum_'.$message['DeviceID'],unserialize($arr));
+                                file_put_contents('./PackNum/PackNum_'.$message['DeviceID'],unserialize($arr));
                             }
                         }
                     }
@@ -217,7 +217,7 @@ class ActionController extends Controller
             if(!isset($arr['PackNum'][$i])){
                 $arr['PackNum'][$i] = $id;
 
-                file_put_contents('./PackNum_'.$did, serialize($arr));
+                file_put_contents('./PackNum/PackNum_'.$did, serialize($arr));
                 return $i;
             }
         }
