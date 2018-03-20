@@ -178,7 +178,6 @@
                         date_end = $('#date-end').val();
                         status = Number($('.status>option:selected').val())+1;
 
-                        srearchInfo['uid'] = uid;
                         srearchInfo['device_code'] = device_code;
                         srearchInfo['name'] = name;
                         srearchInfo['phone'] = phone;
@@ -207,7 +206,11 @@
                             },500)
                         }
                     }
-                    
+                    // 重置搜索结果
+                    $('button[type="reset"]').click(function(){
+                        location.href = '{{:U("Admin/Feeds/repairlist")}}';
+
+                    })
                 /**************** 搜索关键字保留 -- 结束 ******************/
 
 

@@ -110,7 +110,7 @@
                         number = $('.number').val();
                         name = $('.name').val();
                         phone = $('.phone').val();
-                        type = ($('.type>option:selected').val())+1;
+                        type = Number($('.type>option:selected').val())+1;
                         result = Number($('.result>option:selected').val())+1;
                         address = $('.address').val();
                         date_start = $('#date-start').val();
@@ -146,6 +146,11 @@
                             },500)
                         }
                     }
+                    // 重置搜索结果
+                    $('button[type="reset"]').click(function(){
+                        location.href = '{{:U("Admin/Work/index")}}';
+
+                    })
                     
                 /**************** 搜索关键字保留 -- 结束 ******************/
             </script>
