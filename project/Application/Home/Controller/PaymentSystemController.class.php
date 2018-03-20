@@ -624,6 +624,7 @@ class PaymentSystemController extends Controller
     public function dcpay_add() {
         $data = json_decode($_POST['data'],true);
 
+
         $uid = $_SESSION['homeuser']['id'];
         //查找提交过来的套餐是否存在
         $setmeal_info = M('setmeal')->where('id='.intval($data[0]['sid']))->find();
@@ -637,6 +638,7 @@ class PaymentSystemController extends Controller
                 $where['device_code'] = $data[0]['dcode'];
                 $where['uid'] = array('neq','');
                 $info_code = M('Devices')->where($where)->find()['id'];
+
                 if ($info_code) {
                     // 实例化订单模型
                     $orders = D('Orders');
@@ -653,7 +655,7 @@ class PaymentSystemController extends Controller
                     // 用户ID号
                     $order['user_id'] = $uid;
                     // 关联的设备ID号
-                    $order['device_id'] = $info_code['id'];
+                    $order['device_id'] = $info_code;
                     // 商品的购买总数量
                     $order['total_num'] = 1;
                     // 商品的购买总金额
