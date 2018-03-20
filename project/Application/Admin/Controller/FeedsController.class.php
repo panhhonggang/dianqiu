@@ -23,10 +23,19 @@ class FeedsController extends CommonController
         $phpExcel = new \PHPExcel();
         // dump($phpExcel);
         // 搜索功能
-        $map = array(
-            'd.name' =>  array('like','%'.trim(I('post.name')).'%'),
-            'd.phone' => array('like','%'.trim(I('post.phone')).'%'),
-        );
+//        $map = array(
+//            'd.name' =>  array('like','%'.trim(I('post.name')).'%'),
+//            'd.phone' => array('like','%'.trim(I('post.phone')).'%'),
+//        );
+        $map = '';
+        $name = trim(I('post.name'));
+        $phone = trim(I('post.phone'));
+        if (!empty($name)){
+            $map['d.name'] =  array('like','%'.$name.'%');
+        }
+        if (!empty($phone)){
+            $map['d.phone'] = array('like','%'.$phone.'%');
+        }
 
          $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
          $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
