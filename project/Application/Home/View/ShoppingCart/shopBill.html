@@ -364,25 +364,20 @@
 		// 获取结算按钮
 		$('#foot>input[type=submit]').click(function(){
 			// 异步提交请求支付系统
-			$.ajax({
-				url:'{{:U("PaymentSystem/action")}}',
-				data:{ 'data':1 }, 
-				type:'post',
-				dataType:'json',
-				success:function(res){
-					if(res==2){
-						// 套餐确认
-						window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
-					}else if(res==3){
-						// 快递确认
-						window.location.href='{{:U("ShoppingProcess/sureBill")}}';
-					}else{
-						// 立即付款
-						weixinPay(res);
-					}
+			$.post('{{:U("PaymentSystem/action")}}',{ 'data':1 }, function(res){
+				if(res==2){
+					// 套餐确认
+					window.location.href='{{:U("ShoppingProcess/sureSetmeal")}}';
+				}else if(res==3){
+					// 快递确认
+					window.location.href='{{:U("ShoppingProcess/sureBill")}}';
+				}else{
+					// 立即付款
+					weixinPay(res);
 				}
 			});
-		})
+		});
+
 		// 微信支付方法
 		function weixinPay(res){
 			WeixinJSBridge.invoke(

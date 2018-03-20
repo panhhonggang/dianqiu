@@ -110,7 +110,7 @@ class UsersController extends CommonController
         if(IS_POST){
             $work = M('work');
             $map['dcode'] = M('devices')->where('id='.session('homeuser.did'))->getField('device_code');
-            $data = $work->where($map)->select();
+            $data = $work->where($map)->field('type,time')->select();
             $this->ajaxReturn($data);
         }
         $this->display();

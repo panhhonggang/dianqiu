@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人中心</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>服务人员登录</title>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<style>
+		.displayInfo{
+			height:7rem;
+			width:100%;
+			/*overflow:hidden;*/
+			border-top:1px solid #5EC9FF;
+			/*vertical-align:bottom;*/
+			/*padding:0;*/
+			background:url("__PUBLIC__/Home/images/mine-first-02.jpg") no-repeat 100% 100%;
+		}
+		/*头像*/
+		.userImage{
+			width:2.5rem;
+			height:2.5rem;
+			margin:1rem auto 0;
+			border-radius:50%;
+			overflow:hidden;
+		}
+		.userImage > img{
+			width:100%;
+			height:100%;
+		}
+		/*用户详细信息*/
+		.userInfo{
+			padding-left:24%;
+			margin:.6rem auto;
+			color:rgb(6, 87, 133);
+			font-family:PingFangSC-Regular;
+			font-size:.5rem;
+		}
+		.userInfo > li{
+			height:.7rem;
+			line-height:.7rem;
+			margin-bottom:.5rem;
+		}
+		/*清除浮动*/
+		.clearfix:after{
+			height:"";
+			content:"";
+			display:block;
+			clear:both;
+		}
+		.infoSet{
+			height:60%;
+		}
+		/*详情*/
+		.download{
+			height:1.3rem;
+			line-height:1.3rem;
+			border-bottom:1px solid rgb(235,235,235);
+			padding:0 1rem 0 1.5rem;
+			position:relative;
+			font-size:.5rem;
+			color:rgb(66, 66, 66);
+		}
+		.download > p:first-child{
+			float:left;
+		}
+		.download > p:last-child{
+			float:right;
+		}
+		/*小图标*/
+		.installIcon {
+			position:absolute;
+			top:.15rem;
+			left:.6rem;
+			width:.6rem;
+			height:.7rem;
+		}
+		.installIcon > img{
+			width:100%;
+			height:100%;
+		}
+		.iconNext {
+			position:absolute;
+			top:.1rem;
+			right:.4rem;
+			width:.4rem;
+			height:.5rem;
+		}
+		.iconNext > img{
+			width:100%;
+			height:100%;
+		}
+		.download > p > i{
+			width:.7rem;
+			height:.7rem;
+			font-style:normal;
+			display:block;
+			text-align:center;
+			line-height:.8rem;
+			border-radius:50%;
+			color:white;
+			margin-top:.3rem;
+		}
+	</style>
+</head>
+<body>
+	<div id="contain">
+		<div class="displayInfo">
+			<div class="userImage">
+				<img src="__PUBLIC__/Home/images/icon.jpg" alt="">
+			</div>
+			<ul class="userInfo">
+				<li>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<span>{{$user.name}}</span></li>
+				<li>手机号码：<span>{{$user.phone}}</span></li>
+				<!-- <li>设备编码：<span>KG06262879</span></li> -->
+				<!-- <li>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<span>广州</span></li> -->
+			</ul>
+		</div>
+		<div class="infoSet">
+
+			<a href="{{:U('Home/Personnel/dutyList',array('result'=>0))}}">
+				<div class="download clearfix">
+					<p><span class="installIcon"><img src="__PUBLIC__/Home/images/login_icon_ins@2x.png" alt=""></span>待安装</p>
+					<p><i style="background-color:rgb(249,88,107);">{{$not_install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
+				</div>
+			</a>
+			<a href="{{:U('Home/Personnel/dutyList',array('result'=>2))}}">
+				<div class="download clearfix">
+					<p><span class="installIcon "><img src="__PUBLIC__/Home/images/login_icon_fin@2x.png" alt=""></span>已完成</p>
+					<p><i style="background-color:rgb(50,201,124);">{{$install}}</i><span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></p>
+				</div>
+			</a>
+		</div>
+	</div>
+</body>
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+<script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+</script>
+</html>

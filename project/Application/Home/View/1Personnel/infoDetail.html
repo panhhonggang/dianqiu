@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>详情</title>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+
+	<style>
+		#contain{
+			background-color:rgb(240, 240, 242);
+		}
+		.userInfo > h1, .parameterSet > h1{
+			color:rgb(26, 26, 26);;
+			background-color:rgb(174,225,251);
+			font-family:PingFangSC-Light;
+			font-size:.6rem;
+			text-align:center;
+			height:1.2rem;
+			line-height:1.2rem;
+		}
+		.userInfo {
+			height:33%;
+			padding-bottom:.5rem;
+			background-color:white;
+			margin-bottom:.5rem;
+		}
+		.parameterSet {
+			background-color:white;
+			height:60%;
+		}
+		/*用户信息*/
+		.userInfo > ul, .parameterSet > form{
+			padding:.5rem .5rem .5rem .5rem;
+			font-size:.5rem;
+			color:rgb(102, 102, 102);
+		}
+		.userInfo > ul > li{
+			margin-bottom:.3rem;
+		}
+		.userInfo > ul > li:last-child > span:first-child {
+			float:left;
+			display:inline-block;
+			width:17%;
+		}
+		.userInfo > ul > li:last-child > span:last-child {
+			float:left;
+			display:inline-block;
+			width:83%;
+		}
+		/*清除浮动*/
+		.clearfix:after{
+			content:"";
+			height:"";
+			display:block;
+			clear:both;
+		}
+
+		/*参数设置*/
+		.parameterSet > form{
+			padding:.5rem;
+		}
+		.forms > p{
+			margin-bottom:.5rem;
+		}
+		/*下拉框*/
+		.selects {
+			width:6rem;
+			height:.9rem;
+			border-color:rgb(179, 179, 179);
+			color:rgb(179, 179, 179);
+		}
+		.selectCon{
+			position:relative;
+		}
+		.selectCon > span{
+			position:absolute;
+			top:0;
+			right:1.1rem;
+			width:1px;
+			height:.9rem;
+			background-color:rgb(179, 179, 179);
+		}
+		/*提交*/
+		.subBtn {
+			width:90%;
+			height:1.2rem;
+			background-color:rgb(3, 156, 233);
+			border-radius:5px;
+			color:white;
+			font-size:.6rem;
+			margin:.8rem auto 0;
+			display:block;
+			border:none;
+			font-family:PingFangSC-Regular;
+
+		}
+	</style>
+</head>
+
+<body>
+<div id="contain">
+	<!-- 用户信息 -->
+	<!--<div class="userInfo">-->
+	<!--<h1>用户信息</h1>-->
+	<!--<ul>-->
+	<!--<li>姓名：<span>李生</span></li>-->
+	<!--<li>电话：<span>13556482364</span></li>-->
+	<!--<li class="clearfix"><span>地址：</span><span>广东省广州市番禺区，钟村文化广场十七街21号</span></li>-->
+	<!--</ul>-->
+	<!--</div>-->
+	<!-- 参数设置 -->
+	<div  class="parameterSet">
+		<h1>参数设置</h1>
+		<form action=""  method="post" class="forms">
+			<p>设备编码：<span><input type="text" name="dcode" value="{{$info['data']['dcode']}}"></span></p>
+			<p class="selectCon">
+				<label for="">租赁模式：</label>
+				<select name="lease" id="" class="selects">
+					<option  value=""></option>
+					<option value="0">零售型</option>
+					<option value="1">按流量计费</option>
+					<option value="2">按时间计费</option>
+					<option  value="3">时长和流量套餐</option>
+					<option  value="4">商务型</option>
+				</select>
+				<span class="sugan"></span>
+			</p>
+			<p class="selectCon">
+				<label for="">滤芯模式：</label>
+				<select name="filter" id="" class="selects">
+					<option value=""></option>
+					<option value="0" >按时长</option>
+					<option  value="1">按流量</option>
+					<option  value="2">时长和流量</option>
+				</select>
+				<span class="sugan"></span>
+			</p>
+
+				<p>
+					<input type="submit" value="完成安装" class="subBtn">
+				</p>
+
+		</form>
+	</div>
+</div>
+</body>
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+<script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+</script>
+</html>

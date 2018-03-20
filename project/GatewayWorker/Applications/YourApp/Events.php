@@ -44,27 +44,18 @@ class Events
     * @param mixed $message 具体消息
     */
     public static function onMessage($client_id, $message) {
-        // var_dump($message);
+        
         if( is_array($message)){
-            $message['client_id'] = $client_id;
             $message['soure'] = 'TCP';
         }
         else
         {
             $message=json_decode($message,true);
-            $message['client_id'] = $client_id;
             $message['soure'] = 'WS';
         }
+        $message['client_id'] = $client_id;
+        // var_dump($message);
         self::sendMsg($message);
-        // $url = 'http://pub.dianqiukj.com/api/action/receive';
-        // $curlobj = curl_init();
-        // curl_setopt($curlobj,CURLOPT_URL,$url);
-        // curl_setopt($curlobj,CURLOPT_HEADER,0);     
-        // curl_setopt($curlobj,CURLOPT_RETURNTRANSFER,1);
-        // curl_setopt($curlobj,CURLOPT_POST,1);
-        // curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
-        // /*$res = */curl_exec($curlobj);
-        // // var_dump($res);
     }
 
     /**
@@ -76,17 +67,8 @@ class Events
         {
             $message['soure'] = 'Close';
             $message['DeviceID'] = $_SESSION['DeviceID'];
+
             self::sendMsg($message);
-            // $url = 'http://192.168.244.130/dianqiu/project/api/action/receive';
-            // $curlobj = curl_init();
-            // curl_setopt($curlobj,CURLOPT_URL,$url);
-            // curl_setopt($curlobj,CURLOPT_HEADER,0);     
-            // curl_setopt($curlobj,CURLOPT_RETURNTRANSFER,1);
-            // curl_setopt($curlobj,CURLOPT_POST,1);
-            // curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
-            // $res = curl_exec($curlobj);
-            // var_dump($res);
-            // 
         }
     }
 
@@ -102,7 +84,8 @@ class Events
         curl_setopt($curlobj,CURLOPT_RETURNTRANSFER,1);
         curl_setopt($curlobj,CURLOPT_POST,1);
         curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
-        /*$res = */curl_exec($curlobj);
-        // var_dump($res);
+        $res = curl_exec($curlobj);
+        // file_put_contents('/www/dianqiu/project/log/res.html',$res,FILE_APPEND);
+        // file_put_contents('/www/dianqiu/project/log/message.html',var_export($message),FILE_APPEND);
     }
 }

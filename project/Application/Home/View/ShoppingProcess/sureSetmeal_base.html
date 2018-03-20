@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+		<title>订单确认</title>
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/shop-bill.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/css/sure-bill.css">
+		<link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_495581_6iecu6ga3j46lxr.css">
+		<script src="__PUBLIC__/Home/js/flexible.js"></script>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+		<!-- 微信支付支持JS部分代码 -->
+		<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+	</head>
+	<body>
+	<div id="contain">
+		<div id="mo">
+			<foreach name="setmeal" item="vo" key="ke">
+			<div class="item">
+				<div id="mo2">
+					<div id="mo-right">
+						<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
+					</div>
+					<p class="bill">X{{$vo['num']}}</p>
+				</div>
+				<hr>
+			</div>
+			</foreach>
+			<div id="mo2">
+				<div id="mo-right2">
+					<b>共{{$totalNum}}件商品：小计：</b><p>￥{{$totalAmount/100}}</p>
+				</div>
+			</div>
+			<hr>
+<!-- 			<p class="franking">（含邮费¥0.00) </p> -->
+
+			
+		</div>
+			
+
+		<!-- 滤芯结束 -->
+        <div id="foot">
+			<b>合计金额：</b><b class="chang">￥{{$totalAmount/100}}</b>
+			<input type="submit" value="去结算">
+		</div>	
+	</div>
+	<script type="text/javascript">
+		$(function(){
+		var offStause=0;//设置离线状态:0为在线1为离线
+		var offLine=0;//离线标志位1
+		var Stause='';//设备状态
+		var leaseMode;//获取租赁模式
+		var flowNum=0;//当前选中的流量值
+		var dayNum=0;//当前选中的天数
+		var deviceId=sessionStorage.setItem("deviceId",deviceId);//设备编号设置本地存储
+		console.log(deviceId);
+		var websoket=new WebSocket("ws://120.27.12.1:6001");//建立websoket链接
+		var PackNum=0;//包数据
+		var CmdList=[];//命令队列
+		websoket.onopen=function(){
+			//包数据
+			ajson={
+				"DeviceID":deviceId,
+				"PackType":"login",
+				"Vison":0
+			};
+			websoket.send(JSON.stringify(ajson));//发送登录包
+			setTimeout(function(){//页面加载发送一次查询包
+				ajson.PackType="Select";
+				websoket.send(JSON.stringify(ajson));
+				setInterval(function(){//此后每隔10s发送一次查询包
+					websoket.send(JSON.stringify(ajson));
+				},10000);
+			},1);
+		}
+		//实时接收数据
+		websoket.onmessage=function(data)
+		{
+			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
+            leaseMode = dataList.LeasingMode;//租赁模式
+			if(dataList.PackType=="Select")//返回查询数据类型数据
+			{
+				offLine=0;
+				//console.log(123,offLine,offStause);
+			}
+			else if(dataList.PackType=="SetData")//设置数据类型数据
+			{
+				if((dataList.PackNum==100))
+				{
+					if((dataList.isSuccess==1))
+					{
+						location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+					}
+					else
+					{
+						layuiHint("充值异常，请联系客服");
+					}
+				}
+			}
+		}
+		setInterval(function(){//判断设备是否离线：offStause==1是离线；0是在线
+			offLine++;
+			if(offLine >= 90){
+				offStause=1;
+			}else{
+				offStause=0;
+			}
+		}, 1000);
+	});
+		//微信接口
+		wx.config({
+		    debug: false,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+		      'chooseWXPay'
+		    ]
+		});
+
+		// 获取结算按钮
+		$('#foot>input[type=submit]').click(function(){
+			// 异步提交请求支付系统
+			$.post('{{:U("PaymentSystem/sureSetmealPay")}}',{ 'data':2 }, function(res){
+				// 调用微信支付
+				// weixinPay(res);
+				function weixinPay(res){
+				    WeixinJSBridge.invoke(
+				        'getBrandWCPayRequest',
+				        JSON.parse(res),
+				        function(res){
+				            if (res.err_msg.substr(-2) == 'ok') {
+				            	if(leaseMode=="1") {//按流量计费
+		                            ajson["ReFlow"]=flowNum;
+		                        }else if(leaseMode=="2"){//按时间计费
+		                            ajson["Reday"]=dayNum;
+		                        }else if(leaseMode=="3"){//时长和流量套餐
+		                            ajson["ReFlow"]=flowNum;
+		                            ajson["Reday"]=dayNum;
+		                        }
+		                        websoket.send(JSON.stringify(ajson));
+		                        CmdList.push({
+		                            cmd:ajson,
+		                            type:type
+		                        });
+				                // 付款成功，跳转前台主页
+				                // location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+				            } else if (res.err_msg.substr(-6) == 'cancel') {
+				                    // 取消付款
+				                    // 跳转到待付款订单页面
+				                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+				            }else{
+				                    // 付款失败
+				                    // 跳转到待付款订单页面
+				                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+				            }
+				        }
+				    );
+				};
+			});
+		});
+
+		// 微信支付方法
+		function weixinPay(res){
+			console.log(999);
+			return false;
+		    WeixinJSBridge.invoke(
+		        'getBrandWCPayRequest',
+		        JSON.parse(res),
+		        function(res){
+		            if (res.err_msg.substr(-2) == 'ok') {
+		            	if(leaseMode=="1") {//按流量计费
+                            ajson["ReFlow"]=flowNum;
+                        }else if(leaseMode=="2"){//按时间计费
+                            ajson["Reday"]=dayNum;
+                        }else if(leaseMode=="3"){//时长和流量套餐
+                            ajson["ReFlow"]=flowNum;
+                            ajson["Reday"]=dayNum;
+                        }
+                        websoket.send(JSON.stringify(ajson));
+                        CmdList.push({
+                            cmd:ajson,
+                            type:type
+                        });
+		                // 付款成功，跳转前台主页
+		                // location.href = "{{:U('Home/PaymentSystem/paySuccess')}}";
+		            } else if (res.err_msg.substr(-6) == 'cancel') {
+		                    // 取消付款
+		                    // 跳转到待付款订单页面
+		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+		            }else{
+		                    // 付款失败
+		                    // 跳转到待付款订单页面
+		                    location.href = "{{:U('Home/PaymentSystem/failureToPay')}}";
+		            }
+		        }
+		    );
+		};
+	</script>
+	</body>
+
+</html>
