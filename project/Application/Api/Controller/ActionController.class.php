@@ -205,7 +205,7 @@ class ActionController extends Controller
 
     public function get_PackNum($did,$id)
     {
-        $res = file_get_contents('./PackNum_'.$did);
+        $res = file_get_contents('./PackNum/PackNum_'.$did);
         if($res){
             $arr = unserialize($res);
         }
