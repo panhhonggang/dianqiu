@@ -1,20 +1,29 @@
 
-* {
+body,ul,ol {
 	margin: 0;
 	padding: 0;
+}
+* {
 	box-sizing: border-box;
 }
-a:link {
-	color: #fff;
+a {
+	height: 38px;
+    line-height: 36px;
 }
-a:visited {
-	color: #aaa;
+#hTop a:link {
+	color: #fff !important;
 }
-a:hover {
-	color: #ddd;
+#hTop a:visited {
+	color: #aaa !important;
 }
-a:active {
-	color: #999;
+#hTop a:hover {
+	color: #eee !important;
+}
+#hTop a:active {
+	color: #999 !important;
+}
+.nav>li>a {
+	padding: 0 16px 0 7px !important;
 }
 .content {
 	background: #ecf0f5;
@@ -30,8 +39,10 @@ a:active {
 	width: 85%;
 	display: inline-flex;
 	position: relative;
-	left: 0;
-	margin-top: 2%;
+	top: 70px;
+    left: 0;
+    margin-left: 15%;
+    padding-top: 2%;
 }
 /*数字*/
 .h1 {
@@ -79,7 +90,7 @@ a:active {
 	width: 85%;
 	height: 75vh;
 	position: relative;
-	top: 0;
+	top: 70px;
 	left: 0;
 	margin-left: 15%;
 	padding-top: 2%;

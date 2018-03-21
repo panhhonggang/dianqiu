@@ -48,6 +48,7 @@
 	<script src="__PUBLIC__/Admin/js/echarts.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wtDIIDonPda8nBPCAPtSqMZj3QBGVuzP"></script>
 	<script>
+		$('.content').css({height: window.innerHeight + 'px'});
 		var series_data = [[],[]];
 		$.ajax({
 			url: "{{:U('Admin/Index/index')}}", 

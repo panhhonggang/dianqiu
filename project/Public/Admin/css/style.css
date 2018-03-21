@@ -32,7 +32,13 @@ ul li{
     }
 }
 /*nav part css*/
-.navBox{width: 15%; padding: 0;}
+.navBox{
+	width: 15%; 
+	position: fixed;
+	padding: 0;
+	top: 0;
+	margin-top: 70px;
+}
 .navBox ul li ul{
 	display: none;
 }
@@ -122,8 +128,9 @@ ul li{
 /*header part css*/
 #header{ 
 	height: 70px;
-    line-height: 70px;
     width: 100%;
+    position: fixed;
+    line-height: 70px;
     background: #222;
     font-size: 14px;
     color: #fff;
@@ -155,7 +162,12 @@ ul li{
 
 
 /*form part css*/
-.content #main{width: 85%; }
+.content>#main{
+	width: 85%;
+	float: right;
+    top: 0;
+    margin-top: 70px;
+}
 .content #main .titleBar{font-family: "黑体"; font-size: 20px; padding: 15px 0;}
 .form-search{    
 	width: 100%;
