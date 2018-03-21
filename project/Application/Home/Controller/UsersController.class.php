@@ -48,11 +48,11 @@ class UsersController extends CommonController
             }
 
             // 地址正则验证
-            if($this->isAddress(I('post.Installaddress'))){
+//            if($this->isAddress(I('post.Installaddress'))){
                 $data['address'] = I('post.Installaddress');
-            }else{
-                $this->error('请输入正确的地址');
-            }
+//            }else{
+//                $this->error('请输入正确的地址');
+//            }
 
             //$data['uid'] = $uid;
             $saveData['id'] = $did;
