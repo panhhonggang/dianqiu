@@ -105,6 +105,9 @@
                      */
                     // 点击搜索
                     $("button[name='search']").click(function(){
+                        setSearchWord();
+                    })
+                    function setSearchWord(){
                         sessionStorage.setItem('search', '');   // 初始化
 
                         number = $('.number').val();
@@ -126,7 +129,7 @@
                         srearchInfo['maxtime'] = date_end;
 
                         sessionStorage.setItem('search', JSON.stringify(srearchInfo));
-                    })
+                    }
                     // 搜索关键字保留
                     if(sessionStorage.getItem('search')){
                         var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
