@@ -19,10 +19,12 @@ class PersonnelController extends CommonController
         $phpExcel = new \PHPExcel();
         // dump($phpExcel);
         // 搜索功能
-        $map = array(
-            'name' => array('like','%'.trim(I('post.name')).'%'),
-            'phone' => array('like','%'.trim(I('post.phone')).'%'),
-        );
+        if (trim(I('post.name'))) {
+            $map['name'] = array('like','%'.trim(I('post.name')).'%');
+        }
+        if (trim(I('post.name'))) {
+            $map['phone'] = array('like','%'.trim(I('post.phone')).'%');
+        }
         $uid = $_SESSION['adminuser']['id'];
         $map['v_id'] = $uid;
 
