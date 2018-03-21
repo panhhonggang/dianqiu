@@ -77,14 +77,14 @@ class WorkController extends CommonController
 
         $total =$type->where($map)
             ->alias('w')
-            ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+            ->join('pub_devices ON w.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $list = $type->where($map)
             ->alias('w')
-            ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
+            ->join('pub_devices ON w.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
             ->field('pub_devices.*,pub_binding.*,w.*')
             ->order('w.result asc')
