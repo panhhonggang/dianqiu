@@ -20,20 +20,50 @@ class DevicesController extends CommonController
         require_once VENDOR_PATH.'PHPExcel.php';
         $phpExcel = new \PHPExcel();
         // 搜索功能
-        $map = array(
-            'd.device_code' =>  array('like','%'.trim(I('post.device_code')).'%'),
-            'vendors.name' =>  array('like','%'.trim(I('post.name')).'%'),
-            'd.name' =>  array('like','%'.trim(I('post.dname')).'%'),
-            'type.typename' => array('like','%'.trim(I('post.typename')).'%'),
-        );
-        $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:0;
-        $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:-1;
-        if (is_numeric($maxupdatetime)) {
-            $map['statu.updatetime'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime));
+//        $map = array(
+//            'd.device_code' =>  array('like','%'.trim(I('post.device_code')).'%'),
+//            'vendors.name' =>  array('like','%'.trim(I('post.name')).'%'),
+//            'd.name' =>  array('like','%'.trim(I('post.dname')).'%'),
+//            'type.typename' => array('like','%'.trim(I('post.typename')).'%'),
+//        );
+
+        if(!empty(I('post.device_code'))){
+            $map['d.device_code']=array('like','%'.trim(I('post.device_code')).'%');
         }
-        if ($maxupdatetime < 0) {
-            $map['statu.updatetime'] = array(array('egt',$minupdatetime));
+        if(!empty(I('post.name'))){
+            $map['vendors.name']=array('like','%'.trim(I('post.name')).'%');
         }
+        if(!empty(I('post.dname'))){
+            $map['d.name']=array('like','%'.trim(I('post.dname')).'%');
+        }
+        if(!empty(I('post.device_code'))){
+            $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
+        }
+
+        $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:false;
+        $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:false;
+
+        //原逻辑
+//        if (is_numeric($maxupdatetime) ) {
+//            $map['statu.updatetime'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime));
+//        }
+//        if ($maxupdatetime < 0) {
+//            $map['statu.updatetime'] = array(array('egt',$minupdatetime));
+//        }
+        /* 修改 处理时间区间搜索  2018年03月21日 李振东 */
+        $updatetime_arr=[];
+        if($maxupdatetime){
+            $updatetime_arr[]=array('elt',$maxupdatetime);
+        }
+        if($minupdatetime){
+            $updatetime_arr[]=array('egt',$minupdatetime);
+        }
+        if(!empty($updatetime_arr)){
+            $map['statu.updatetime']=$updatetime_arr;
+        }
+
+
+
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
