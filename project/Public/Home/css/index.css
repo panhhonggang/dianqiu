@@ -114,9 +114,9 @@ html,body {
 }
 .dazi>span{
 	display: inline-block;
-	position: absolute;
+	/*position: absolute;*/
 	bottom: 0;
-	right:1rem;
+	right: 0 !important;
 	font-size: 0.4rem;
 	color:#fff;
 }
@@ -125,13 +125,13 @@ html,body {
 	font-size: 0.4rem;
 	text-align: center;
 	position: relative;
-	margin-top: .5vh;
+	margin-top: -.5vh;
 	color:#fff;
 }
 .dazi1{
 	width: 6.4rem;
 	font-size: 1rem;
-	margin-top: 0.3rem;
+	margin: 0.4rem 0 0 0;
 	text-align: center;
 	position: relative;
 	color: #004872;
@@ -149,7 +149,6 @@ html,body {
 	font-size: 0.4rem;
 	text-align: center;
 	position: relative;
-	margin-top:-1.5vh;
 	color:#fff;
 }
 

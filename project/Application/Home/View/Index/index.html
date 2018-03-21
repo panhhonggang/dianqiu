@@ -10,6 +10,31 @@
 	.linkBox{
 		display: none !important;
 	}
+	.dazi {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+	.dazi>b,
+	.dazi>span {
+		display: inline-block;
+		position: relative;
+		top: 0;
+		margin: 0 auto;
+	}
+	#puretdsVal {
+		position: relative;
+	}
+	#rawtdsVal:after,
+	#puretdsVal:after {
+		content: 'ppm';
+		position: absolute;
+		left: 105%;
+		bottom: 18%;
+		color: #fff;
+		font-size: .4rem;
+		font-weight: 400;
+	}
 </style>
 </head>
 <body>
@@ -27,9 +52,9 @@
 				<div class="bolang bg4"></div>
 				<div class="bolang1 bg4"></div>
 				<div class="containTxt">
-					<div class="dazi" ><b id="rawtdsVal"></b><span>ppm</span></div>
+					<div class="dazi" ><b id="rawtdsVal"></b></div>
 					<div class="queshui">纯水TDS</div>
-					<div class="dazi1"><b id="puretdsVal"></b><span>ppm</span></div>
+					<div class="dazi1"><b id="puretdsVal"></b></div>
 					<div class="queshui1">原水TDS</div>
 				</div>
 			</div>
@@ -117,16 +142,23 @@
 	$(".charge").click(function(){
 		sessionStorage.setItem("shopFrom",'charge');
 	})
-	
+	var rawtdsVal=parseInt($("#rawtdsVal").val());
+	if(rawtdsVal>=10){
+
+		$(".dazi>span").css("right","1rem");
+	}else{
+		$(".dazi>span").css("right","1.7rem");
+	}
 	sessionStorage.setItem("lineRight",'');
 	sessionStorage.setItem("lineLeft",'');
 	//页面加载时执行
 	$(function(){
+
 		// 获取微信JSSDK所需的数据
 		var appId = $("#appId").val(),
-		nonceStr = $("#nonceStr").val(),
-		signature = $("#signature").val(),
-		timestamp = $("#timestamp").val();
+			nonceStr = $("#nonceStr").val(),
+			signature = $("#signature").val(),
+			timestamp = $("#timestamp").val();
 
 		// 调用微信分享
 		//wxShare(appId,nonceStr,signature,timestamp);
@@ -137,12 +169,12 @@
 		var res=JSON.parse($('.res').val());
 		var deviceInfo=JSON.parse($(".deviceInfo").val());
 		var deviceId=data.deviceid;//设备id
-		console.log(res);
-		console.log(data);
-		console.log(deviceInfo);
 		sessionStorage.setItem("deviceId",deviceId);//设备编号设置本地存储
+		// var deviceId=162753445596778;//设备id
+		// var deviceId=112233445566778;//设备id
 		var devicestause=data.devicestause;//设备状态
 		console.log(data);
+
 		function machineStatus(){
 			if(devicestause=="0"){//制水
 				addwater();
@@ -155,7 +187,7 @@
 			}else if(devicestause=="5"){//检修
 				service();
             }else if(devicestause=="6"){//欠费
-            	arrearage();
+                arrearage();
 			}else if(devicestause=="7"){ //关机
 				showDown();
 			}else if(devicestause=="8"){//开机
@@ -200,10 +232,10 @@
 		}
 		//欠费
 		function arrearage(){
-			$(".switchText").html("关机");
-			$(".arrearage").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
+            $(".switchText").html("关机");
+            $(".arrearage").show().siblings().hide();
+            $(".content").css({height: '100vh'});
+            $("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
 		//关机
 		function showDown(){
@@ -247,7 +279,7 @@
 		}
 
 		//websoket
-		var websoket=new WebSocket("ws://120.27.12.1:6001");
+		var websoket=new WebSocket("ws://jike.dianqiukj.com:6001");
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列
 		var identify=0;
@@ -275,15 +307,15 @@
 			var leasingmode = dataList.LeasingMode;//租赁模式
 			//console.log(dataList.LeasingMode);
 			machineStatus();//执行水机状态方法
-			console.log(dataList);
+			//console.log(dataList);
 
 			// 获取设备租赁模式
 			if(dataList.LeasingMode){
 				sessionStorage.setItem("leaseMode",dataList.LeasingMode);
 			}
 			if(dataList.PackType=="Select")//返回查询数据类型数据
-			{	//console.log(dataList);
-				numAdd=0;
+			{	console.log(dataList);
+                numAdd=0;
 				var usedFlow=parseInt(dataList.SumFlow);
 				var usedDay=parseInt(dataList.SumDay);
 
@@ -341,7 +373,7 @@
 				}else if(dataList.DeviceStause=="5"){//检修
 					service();
                 }else if(dataList.DeviceStause=="6"){//欠费
-                	arrearage();
+                    arrearage();
 				}else if(dataList.DeviceStause=="7"){ //关机
 					showDown();
 				}else if(dataList.DeviceStause=="8"){//开机
@@ -351,10 +383,10 @@
 		}
         //90秒后判断设备是否离线
         setInterval(function(){
-        	numAdd++;
-        	if(numAdd ==90){
-        		outLine();
-        	}
+            numAdd++;
+            if(numAdd ==90){
+                outLine();
+            }
         }, 1000);
 
 		//冲洗按钮操作
@@ -465,9 +497,9 @@
 		});
         //页面关闭后关闭websoket;
         window.onunload=function(){
-        	websoket.close();
+            websoket.close();
         };
-    })
+	})
 	//页面加载时执行结束
 </script>
 
