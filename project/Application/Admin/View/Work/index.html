@@ -71,7 +71,7 @@
                         <td>{{$vo.time}}</td>
                         <td>
                             <switch name="vo.result">
-                                <case value="未处理"><a href="__URL__/edit/id/{{$vo.id}}/result/1">正在进行中</a></case>
+                                <case value="未处理"><a class="handleBtn" ruleId="{{$vo.id}}">正在进行中</a></case>
                                 <case value="正在处理"><a href="__URL__/edit/id/{{$vo.id}}/result/2">任务完成</a></case>
                                 <default />
                             </switch>
@@ -154,6 +154,19 @@
                         location.href = '{{:U("Admin/Work/index")}}';
 
                     })
+                    // 处理按钮
+                    $(".handleBtn").click(function(){
+                        var _this=$(this);
+                        var id = $(this).attr('ruleId');
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.confirm('确定现在处理该条数据?', {icon: 3, title:'温馨提示'}, function(index){
+                                window.location.href='{{:U('edit')}}?id='+id+'&result=1';
+                                layer.close(index);
+                                
+                            });
+                        });
+                    });
                     
                 /**************** 搜索关键字保留 -- 结束 ******************/
             </script>

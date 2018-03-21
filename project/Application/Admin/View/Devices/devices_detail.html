@@ -9,7 +9,7 @@
                     <div style="margin: 15px 0;" class="_dive">
                         <div class="_four _margin-right _DD4B39 text-center">
                             <h1 class="_h1 _text H1devicestause">--</h1>
-                            <span class="_text">设备当前状态</span>
+                            <span class="_text">设备状态</span>
                         </div>
                         <div class="_four _margin-right _337AB7 text-center">
                             <h1 class="_h1 _text originalWater">--</h1>
@@ -21,7 +21,7 @@
                         </div>
                         <div class="_four _77E1FB text-center">
                             <h1 class="_h1 _text leaseMode">--</h1>
-                            <span class="_text">设备当前租赁模式</span>
+                            <span class="_text">租赁模式</span>
                         </div>
                     </div> 
                 </div>
@@ -115,6 +115,7 @@ $(function(){
     var $status = $('._dive div h1');
     var $_table = $('._table');
     var $_table2 = $('._table2');
+    
     $.ajax({
         url:'__URL__/deviceDetail?code=' + location.hash.slice(1),
         type:'get',
@@ -138,8 +139,10 @@ $(function(){
             //滤芯背景颜色
 
             var _color = ['#05CE3E','#005384','#DD4B39','#337AB7','#5CB85C','#77E1FB'];
+
             data.filterInfo.forEach(function(el,i){
                 //按流量计算百分比值
+                console.log(el.flowlife);
                 var persent1 = Number(data.statu[('reflowfilter'+(i+1))])/Number(el.flowlife?el.flowlife:0)*100;
                 //按时间计算百分比值
                 var persent2 = Number(data.statu[('redayfilter'+(i+1))])/Number(el.timelife?el.timelife:0)*100;
