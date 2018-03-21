@@ -185,6 +185,8 @@
 	<script src="__PUBLIC__/Home/js/laydate.js"></script>
 	<script src="__PUBLIC__/Home/js/echarts.min.js"></script>
 	<script src="__PUBLIC__/Home/js/flexible.js"></script>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<script src="__PUBLIC__/Home/js/comment.js"></script>
 	<script>
 	var yAxisData = [[400],[2000]];	//设置y轴最大值
 	$(function(){
@@ -195,6 +197,10 @@
 	 	var mustDateb = new Date(year, month, 0).getDate();//获取月份天数
 		var dataList=JSON.parse($(".datalist").val());//数据集
 		console.log(dataList);
+		if(!dataList.length) {
+			layuiHint("本月无数据")
+		}
+		console.log(1)
 		$("#dateSelect").text(year+'-'+month);//显示当前年月
 		// 页面加载就给月份赋值
 		getAvg(dataList,mustDateb);
@@ -215,7 +221,10 @@
 							"month":yearsMonth
 						},
 						success:function(res){
-							console.log(res);
+							if(!res.length) {
+								layuiHint("本月无数据")
+							}
+							console.log(res.length)
 							year=yearsMonth.slice(0,4);
 							month=yearsMonth.slice(5,6);
 							mustDatea = new Date(year, month, 0).getDate();
