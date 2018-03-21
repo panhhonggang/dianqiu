@@ -270,10 +270,13 @@ ul li{
 	display: inline-block;
 }
 .info select{
-	width: 100%;
     display: block;
 }
-.selects{
+.formBox input[type='text'] {
+	width: 210px;
+}
+.selects,
+select{
     width: 210px;
     position: relative;
 }

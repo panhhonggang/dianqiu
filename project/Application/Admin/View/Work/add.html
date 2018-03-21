@@ -148,7 +148,6 @@ $('.submit').click(function(event) {
     var numberReg = /[0-9]/;
     var addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
     var control = $('.control').val();  // 设备编号
-    // var number = $('input[name=number]').val().trim()
     var _textarea = $('._textarea').val();
     var phoneNumber = $('input[name=phone]').val().trim()
     var personnel_id = $('.personnel_id>option:selected').val()
@@ -162,28 +161,12 @@ $('.submit').click(function(event) {
         layuiHint('请选择安装人员！');
         return false
     }
-    // if(number){
-    //     if(specail(number)||chinese(number)){
-    //         layuiHint('工单号不能为中文或特殊字符')
-    //         return false
-    //     }
-    // }else{
-    //     layuiHint('工单号不能空')
-    //     return false
-    // }
+
     if(!chinese(_textarea)){
         layuiHint('请填写工作内容！')
         return false
     }
-    // if(phoneNumber){
-    //     if(!phone(phoneNumber)){
-    //         layuiHint('请输入正确的处理人手机号码！')
-    //         return false
-    //     }
-    // }else{
-    //     layuiHint('处理人手机号码不能为空！')
-    //     return false
-    // }
+
     if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
         layuiHint('请把地址填写完整！');
         return false
@@ -211,7 +194,8 @@ $(function(){
 
 })
 
-$("select").change('option',function(e){
+// 选择安装人员，自动请求手机号
+$(".personnel_id").change('option',function(e){
     var id = $(this).val();
     console.log(id);
     $.ajax({
