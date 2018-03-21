@@ -37,7 +37,14 @@
 	    var windowh=$(window).height();
 	    var navH=$("#nav").height(windowh-70);
 	    $(function(){
-	 
+	    	// 按回车键 搜索
+	 		$('.form-search input').on('keyup', function(e){
+	 			if(e.keyCode == '13'){
+	 				$('.form-search').submit();
+	 				// 搜索关键字保留
+	 				setSearchWord();
+	 			}
+	 		})
 		    /**************** 按时间搜索 -- 开始 ******************/
 		    	var newdate = new Date(),
 		    	year = newdate.getFullYear(),
