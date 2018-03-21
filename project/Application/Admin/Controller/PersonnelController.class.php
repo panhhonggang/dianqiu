@@ -9,9 +9,6 @@ class PersonnelController extends CommonController
      */
     public function index()
     {
-
-
-
         /*
              Excel导出
           */
@@ -25,12 +22,11 @@ class PersonnelController extends CommonController
         if (trim(I('post.phone'))) {
             $map['phone'] = array('like','%'.trim(I('post.phone')).'%');
         }
-        $uid = $_SESSION['adminuser']['id'];
-        $map['v_id'] = $uid;
 
         if($this->get_level()){
             $map['v_id'] = $_SESSION['adminuser']['id'];
         }
+
         $mincreate_time = strtotime(trim(I('post.mincreate_time')))?:0;
         $maxcreate_time = strtotime(trim(I('post.maxcreate_time')))?:-1;
         if (is_numeric($maxcreate_time)) {

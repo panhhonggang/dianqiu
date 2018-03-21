@@ -105,15 +105,16 @@ class UsersController extends CommonController
         $userlist = $user
             ->where($map)
             ->alias('u')
-
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
             ->join('__BINDING__ bd ON d.id = bd.did ', 'LEFT')
-            ->field('d.device_code,d.name,d.address,d.phone,w.*,u.*,cd.uid,cd.did,d.updatetime')
+            ->field('d.device_code,d.name,d.phone,w.*,u.*,d.address,cd.uid,cd.did,d.updatetime')
+//            ->field('d.device_code,.name,d.address,d.phone,u.*,w.nickname,cd.uid,cd.did,d.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
             // ->getAll();
+
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();
