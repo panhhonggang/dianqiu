@@ -15,9 +15,7 @@ class DevicesController extends CommonController
      */
     public function devicesList()
     {
-        if($this->get_level()){
-            $map['vendors.id'] = $_SESSION['adminuser']['id'];
-        }
+
         /*Excel导出*/
         require_once VENDOR_PATH.'PHPExcel.php';
         $phpExcel = new \PHPExcel();
@@ -43,6 +41,11 @@ class DevicesController extends CommonController
             }
             return false;
         });
+
+        if($this->get_level()){
+            $map['vendors.id'] = $_SESSION['adminuser']['id'];
+        }
+
         $user = D('Devices');
         // PHPExcel 导出数据
         if (I('output') == 1) {
