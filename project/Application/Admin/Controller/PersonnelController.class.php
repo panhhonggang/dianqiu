@@ -11,16 +11,30 @@ class PersonnelController extends CommonController
     {
         $map = [];
         $map = I('get.');
-        if ( !empty($map['key']) && !empty($map['value'])  && $map['key'] =='name') {
-            $where['name'] =  array('like', '%'.$map['value'].'%');
+//        if ( !empty($map['key']) && !empty($map['value'])  && $map['key'] =='name') {
+//            $where['name'] =  array('like', '%'.$map['value'].'%');
+//        }
+//
+//        if ( !empty($map['key']) && !empty($map['value'] && $map['key'] =='phone')) {
+//            $where['name'] =  array('like', '%'.$map['value'].'%');
+//        }
+        // BUG修改 优化搜索条件 2018年03月21日 李振东
+        if(!empty($map['value'])){
+            if(empty($map['key'])){
+                $where['name'] =  array('like', '%'.$map['value'].'%');
+                $where['phone'] =  array('like', '%'.$map['value'].'%');
+                $where['_logic'] = 'OR';
+            }else{
+                if($map['key']=='phone'){
+                    $where['phone'] = array('like', '%'.$map['value'].'%');
+                }elseif($map['key']=='name'){
+                    $where['name'] =  array('like', '%'.$map['value'].'%');
+                }
+            }
         }
-
-        if ( !empty($map['key']) && !empty($map['value'] && $map['key'] =='phone')) {
-            $where['name'] =  array('like', '%'.$map['value'].'%');
-        }
-        $uid = $_SESSION['adminuser']['id'];
-        $where['v_id'] = $uid;
-
+//        $uid = $_SESSION['adminuser']['id'];
+//        $where['v_id'] = $uid;
+//dump($where);die;
         if($this->get_level()){
             $where['v_id'] = $_SESSION['adminuser']['id'];
         }
