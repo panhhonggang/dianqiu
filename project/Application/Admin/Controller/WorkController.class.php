@@ -200,14 +200,11 @@ class WorkController extends CommonController
      */
     protected function getWorkNumber()
     {
-        $date = new Date(time());
-        $string = new Strings;
 
         do {
-            $dateStr = $date->format("%Y%m%d%H%M");   // 根据时间戳生成的字符串
-            $str1 = $string->randString(3,0);   // 生成字母随机字符
-            $str2 = $string->randString(5,1);   // 生成数字随机字符
-            $workNumber = substr($dateStr,3,-1).$str2;
+
+            $workNumber =  date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+
         } while(D('work')->where('number='.$workNumber)->getField('id'));
         return $workNumber;
     }

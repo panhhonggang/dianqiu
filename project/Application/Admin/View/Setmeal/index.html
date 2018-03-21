@@ -143,8 +143,17 @@
                             $('.describe').val(srearchInfo['describe']);
                             $('#date-start').val(srearchInfo['mintime']);
                             $('#date-end').val(srearchInfo['maxtime']);
+
+                            setTimeout(function(){
+                                sessionStorage.setItem('search', '');   // 初始化
+                            },500)
                         }
                     }
+                    // 重置搜索结果
+                    $('button[type="reset"]').click(function(){
+                        location.href = '{{:U("Admin/Setmeal/index")}}';
+
+                    })
                     
                 /**************** 搜索关键字保留 -- 结束 ******************/
                 

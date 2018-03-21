@@ -16,42 +16,102 @@ class DevicesController extends CommonController
     public function devicesList()
     {
 
-        // 查询条件
-        $map = '';
-        // if(!empty($_GET['code'])) $map['device_code'] = array('like',"%{$_GET['code']}%");
-        if (!empty($_GET['key']) && !empty($_GET['value'])) {
-            switch ($_GET['key']) {
-                case '1':
-                    $map['device_code'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '2':
-                    $map['vendors.name'] = array('like',"%{$_GET['value']}%");
-                    break;
-                case '3':
-                    $map['type.typename'] = array('like',"%{$_GET['value']}%");
-                    break;
-                default:
-                    # code...
-                    break;
-            }
+        /*Excel导出*/
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // 搜索功能
+//        $map = array(
+//            'd.device_code' =>  array('like','%'.trim(I('post.device_code')).'%'),
+//            'vendors.name' =>  array('like','%'.trim(I('post.name')).'%'),
+//            'd.name' =>  array('like','%'.trim(I('post.dname')).'%'),
+//            'type.typename' => array('like','%'.trim(I('post.typename')).'%'),
+//        );
+
+        if(!empty(I('post.device_code'))){
+            $map['d.device_code']=array('like','%'.trim(I('post.device_code')).'%');
         }
+        if(!empty(I('post.name'))){
+            $map['vendors.name']=array('like','%'.trim(I('post.name')).'%');
+        }
+        if(!empty(I('post.dname'))){
+            $map['d.name']=array('like','%'.trim(I('post.dname')).'%');
+        }
+        if(!empty(I('post.device_code'))){
+            $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
+        }
+
+        $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:false;
+        $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:false;
+
+        //原逻辑
+//        if (is_numeric($maxupdatetime) ) {
+//            $map['statu.updatetime'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime));
+//        }
+//        if ($maxupdatetime < 0) {
+//            $map['statu.updatetime'] = array(array('egt',$minupdatetime));
+//        }
+        /* 修改 处理时间区间搜索  2018年03月21日 李振东 */
+        $updatetime_arr=[];
+        if($maxupdatetime){
+            $updatetime_arr[]=array('elt',$maxupdatetime);
+        }
+        if($minupdatetime){
+            $updatetime_arr[]=array('egt',$minupdatetime);
+        }
+        if(!empty($updatetime_arr)){
+            $map['statu.updatetime']=$updatetime_arr;
+        }
+
+
+
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
+
         if($this->get_level()){
             $map['vendors.id'] = $_SESSION['adminuser']['id'];
         }
+
+        $user = D('Devices');
+        // PHPExcel 导出数据
+        if (I('output') == 1) {
+            $data = $user
+                ->where($map)
+                ->alias('d')
+                ->join("__DEVICES_STATU__ statu ON d.device_code=statu.DeviceID", 'LEFT')
+                ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
+                ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
+                ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
+                ->field("d.device_code,vendors.user,statu.iccid,d.name,d.phone,d.address,statu.leasingmode,statu.reday,statu.reflow,statu.devicestause,statu.csq,statu.filtermode,type.typename,statu.updatetime")
+                ->order('d.addtime desc')
+                ->select();
+            foreach ($data as $key=>$val) {
+                array_unshift($data[$key],$key+1);
+            }
+            $arr = [
+                'leasingmode' => ['零售型','按流量计费','按时间计费','时长和流量套餐'],
+                'devicestause' => ['制水','冲洗','水满','缺水','漏水','检修','欠费停机','关机','开机'],
+                'filtermode' => ['按时长','按流量','时长和流量'],
+                'updatetime'=>'Y-m-d H:i:s',
+            ];
+            replace_value($data,$arr);
+            $filename = '设备列表数据';
+            $title = '设备列表';
+            $cellName = ['id','设备编号','经销商名称','ICCID','绑定的用户','电话','地址','计费模式','剩余天数','剩余流量','工作状态','网络状态','滤芯模式','设备类型(滤芯)','最近更新时间'];
+
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
         $devices = D('Devices')->getDevicesInfo($map);
-
-        $arr = [
-            'netstause'=>['0'=>'未链接','1'=>'链接中','n'=>'未链接']
-        ];
-        replace_value($devices['data'],$arr);
-//
-
         $assign = [
             'deviceInfo' => $devices,
         ];
-
-        //dump($devices['data']);
-        
         $this->assign($assign);
         $this->display('devicesList');
     }

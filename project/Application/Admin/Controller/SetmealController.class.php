@@ -99,7 +99,6 @@ class SetmealController extends CommonController
                     ->field('pub_setmeal.*,pub_device_type.typename')
                     ->select();
 //        dump($list);
-        
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();

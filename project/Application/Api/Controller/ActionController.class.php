@@ -18,7 +18,7 @@ class ActionController extends Controller
 
 
         // // $this->get_PackNum('868575025672835',300);
-        // $rr = unserialize(file_get_contents('./PackNum_868575025672835'));
+        // $rr = unserialize(file_get_contents('./PackNum/PackNum_868575025672835'));
         dump($rr);
 
 
@@ -74,6 +74,7 @@ class ActionController extends Controller
     {
         $this->updateNetStase($DeviceID,0);
     }
+
     public function updateNetStase($DeviceID,$NetStause)
     {
         $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
@@ -90,16 +91,11 @@ class ActionController extends Controller
      * @param  [type] $message     [信息串]
      * @return [type]              [description]
      */
-    // public function sendMsg($device_code,$message)
-    // {
-    //     sleep(2);
-    //     $client_id = Gateway::getClientIdByUid($device_code);
-
-    //     $client_id = array_pop($client_id);
-
-    //     Gateway::sendToClient($client_id,$message);
-    //     sleep(2);
-    // }
+     public function sendMsg($device_code,$message)
+     {
+         sleep(1);
+         Gateway::sendToUid($device_code, $message);
+     }
 
     // 设备消息处理
     public function gettcp($client_id, $message)
@@ -137,7 +133,7 @@ class ActionController extends Controller
                     if($message['PackNum'] >= 30 && $message['PackNum']<=100){
                         // Log::write(json_encode($message), 'AAAAAAA');
 
-                        $arr=unserialize(file_get_contents('./PackNum_'.$message['DeviceID']));
+                        $arr=unserialize(file_get_contents('./PackNum/PackNum_'.$message['DeviceID']));
 
                         $id=isset($arr['PackNum'][$message['PackNum']])?$arr['PackNum'][$message['PackNum']]:false;
                         if($id){
@@ -146,7 +142,7 @@ class ActionController extends Controller
                             if($res){
                                 unset($arr['PackNum'][$message['PackNum']]);
 
-                                file_put_contents('./PackNum_'.$message['DeviceID'],unserialize($arr));
+                                file_put_contents('./PackNum/PackNum_'.$message['DeviceID'],unserialize($arr));
                             }
                         }
                     }
@@ -205,7 +201,7 @@ class ActionController extends Controller
 
     public function get_PackNum($did,$id)
     {
-        $res = file_get_contents('./PackNum_'.$did);
+        $res = file_get_contents('./PackNum/PackNum_'.$did);
         if($res){
             $arr = unserialize($res);
         }
@@ -217,7 +213,7 @@ class ActionController extends Controller
             if(!isset($arr['PackNum'][$i])){
                 $arr['PackNum'][$i] = $id;
 
-                file_put_contents('./PackNum_'.$did, serialize($arr));
+                file_put_contents('./PackNum/PackNum_'.$did, serialize($arr));
                 return $i;
             }
         }
@@ -250,8 +246,9 @@ class ActionController extends Controller
             'ICCID'       => $message['ICCID'],
             'CSQ'         => $message['CSQ'],
             'Loaction'    => $message['Loaction'],
-            // 'Reday'       => $Reday,
-            // 'ReFlow'      => $ReFlow,
+            'NetStause'   =>1,
+            'Reday'       => $message['Reday'],
+            'ReFlow'      => $message['ReFlow'],
         ];
         $devices_id = M('devices')->where("device_code={$message['DeviceID']}")->getField('id');
         $status_id  = M('devices_statu')->where("DeviceID={$message['DeviceID']}")->getField('id');

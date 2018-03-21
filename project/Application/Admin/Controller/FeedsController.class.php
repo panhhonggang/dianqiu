@@ -94,12 +94,14 @@ class FeedsController extends CommonController
         $userlist = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('__BINDING__ bd ON bd.did = d.id')
-                        ->join('__VENDORS__ v ON bd.vid = v.id')
+                        ->join('__BINDING__ bd ON bd.did = d.id', 'LEFT')
+                        ->join('__VENDORS__ v ON bd.vid = v.id', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
+
+//        dump($userlist);
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display();

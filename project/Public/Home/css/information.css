@@ -4,11 +4,16 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	-webkit-appearance:none;
 	-webkit-appearance: none;
 }
+body {
+	min-height: 400px;
+	overflow: hidden;
+}
 #infor {
 	width: 10.0rem;
 	height: 80vh;
 	min-height: 400px;
 	margin-bottom: 1.466667rem;
+	transform: scale(1);
 }
 
 #infor> form {
@@ -20,6 +25,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	height: 100%;
 	margin: 0.0rem 0.533333rem;
 	position: relative;
+	transform: scale(1);
 }
 
 #container h3 {
