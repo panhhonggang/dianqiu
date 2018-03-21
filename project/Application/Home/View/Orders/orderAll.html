@@ -342,7 +342,7 @@
 							<!-- 滤芯结束 -->
 							<div id="order-all-foot">
 
-								<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+								<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirms('{{$value['order_id']}}')" style="border:1px solid #039CE9">
 							</div>
 						</foreach>
 					</div>
@@ -407,7 +407,7 @@
 							<p class="franking clear">（含邮费¥0.00) </p>
 							<!-- <div class="orderFootcon"></div> -->
 							<div id="order-all-foot" class="clearfix">
-								<input type="submit" id="ord-btn1" value="取消订单" onclick="cancel('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+								<input type="submit" id="ord-btn1" data-method="confirmTrans" class="layui-btn" value="取消订单" onclick="cancel('{{$value['order_id']}}')" style="border:1px solid #039CE9">
 								<input type="submit" id="ord-btn2"  value="支付订单" onclick="payOrder('{{$value['order_id']}}')" style="border:1px solid #039CE9">
 							</div>
 							<!-- <hr class="dai-pay-border">	 -->
@@ -543,7 +543,7 @@
 							<!-- 滤芯结束 -->
 							<!-- <div id="order-all-foot"> -->
 								<div class="order-all-foot">
-									<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirm('{{$value['order_id']}}')" style="border:1px solid #039CE9">
+									<input type="submit" id="ord-btn2"  value="确认收货" onclick="confirms('{{$value['order_id']}}')" style="border:1px solid #039CE9">
 								</div>
 							</div>
 						</div>
@@ -610,16 +610,31 @@
 	            }
 	            );
 	};
+	$(function() {
+		layui.use("layer", function(){
+			var layer = layui.layer
+		})
+	})
 	// 取消订单
 	function cancel(oid){
-		$.post('{{:U("Orders/cancel")}}',{ 'oid':oid }, function(res){
-
-			// 订单取消成功
-			if(res==1){
-				// 刷新页面
-				location.reload();
-			}
-		});
+		//询问框  
+		  layer.open({  
+		    content: '确定要取消订单吗？'  
+		    ,btn: ['确定', '取消']  
+		    ,yes: function(index){ 
+		      	$.post('{{:U("Orders/cancel")}}',{ 'oid':oid }, function(res){
+					// 订单取消成功
+					if(res==1){
+						setTimeout(function() {
+							layer.msg("订单取消成功！");
+							// 刷新页面
+							location.reload();
+						}, 500);
+					}
+				});
+				layer.close(index); 
+		    }  
+		  });
 	}
 	// 支付订单
 	function payOrder(oid){
@@ -628,11 +643,12 @@
 		});
 	}
 	// 确认收货
-	function confirm(oid){
+	function confirms(oid){
 		$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
 
 			// 订单取消成功
 			if(res==1){
+				layer.msg("好的，谢谢！");
 				// 刷新页面
 				location.reload();
 			}
