@@ -22,7 +22,7 @@ class PersonnelController extends CommonController
         if (trim(I('post.name'))) {
             $map['name'] = array('like','%'.trim(I('post.name')).'%');
         }
-        if (trim(I('post.name'))) {
+        if (trim(I('post.phone'))) {
             $map['phone'] = array('like','%'.trim(I('post.phone')).'%');
         }
         $uid = $_SESSION['adminuser']['id'];

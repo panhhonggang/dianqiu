@@ -27,13 +27,13 @@ class WorkController extends CommonController
         // dump($phpExcel);
         // 搜索功能
         $map = array(
-            'pub_work.type' => trim(I('post.type')),
-            'pub_work.result' => trim(I('post.result')),
+            'w.type' => trim(I('post.type')),
+            'w.result' => trim(I('post.result')),
         );
-        $map['pub_work.number'] = trim(I('post.number')) ? array('like','%'.trim(I('post.number')).'%'): '';
-        $map['pub_work.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
-        $map['pub_work.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
-        $map['pub_work.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+        $map['w.number'] = trim(I('post.number')) ? array('like','%'.trim(I('post.number')).'%'): '';
+        $map['w.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
+        $map['w.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
+        $map['w.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
 //         $mintime = strtotime(trim(I('post.mintime')))?:0;
 //        $maxtime = strtotime(trim(I('post.maxtime')))?:-1;
 //        if (is_numeric($maxtime)) {
@@ -76,16 +76,18 @@ class WorkController extends CommonController
         }
 
         $total =$type->where($map)
+            ->alias('w')
             ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $list = $type->where($map)
+            ->alias('w')
             ->join('pub_devices ON pub_work.dcode = pub_devices.device_code')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-            ->field('pub_devices.*,pub_binding.*,pub_work.*')
-            ->order('pub_work.result asc')
+            ->field('pub_devices.*,pub_binding.*,w.*')
+            ->order('w.result asc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
 
