@@ -9,26 +9,61 @@ class PersonnelController extends CommonController
      */
     public function index()
     {
-        $map = [];
-        $map = I('get.');
-        if ( !empty($map['key']) && !empty($map['value'])  && $map['key'] =='name') {
-            $where['name'] =  array('like', '%'.$map['value'].'%');
-        }
 
-        if ( !empty($map['key']) && !empty($map['value'] && $map['key'] =='phone')) {
-            $where['name'] =  array('like', '%'.$map['value'].'%');
-        }
+
+
+        /*
+             Excel导出
+          */
+        require_once VENDOR_PATH.'PHPExcel.php';
+        $phpExcel = new \PHPExcel();
+        // dump($phpExcel);
+        // 搜索功能
+        $map = array(
+            'name' => array('like','%'.trim(I('post.name')).'%'),
+            'phone' => array('like','%'.trim(I('post.phone')).'%'),
+        );
         $uid = $_SESSION['adminuser']['id'];
-        $where['v_id'] = $uid;
+        $map['v_id'] = $uid;
 
         if($this->get_level()){
-            $where['v_id'] = $_SESSION['adminuser']['id'];
+            $map['v_id'] = $_SESSION['adminuser']['id'];
         }
-        $total = M('personnel')->where($where)->count();
+        $mincreate_time = strtotime(trim(I('post.mincreate_time')))?:0;
+        $maxcreate_time = strtotime(trim(I('post.maxcreate_time')))?:-1;
+        if (is_numeric($maxcreate_time)) {
+            $map['unix_timestamp(create_time)'] = array(array('egt',$mincreate_time),array('elt',$maxcreate_time));
+        }
+        if ($maxcreate_time < 0) {
+            $map['unix_timestamp(create_time)'] = array(array('egt',$mincreate_time));
+        }
+        // 删除数组中为空的值
+        $map = array_filter($map, function ($v) {
+            if ($v != "") {
+                return true;
+            }
+            return false;
+        });
+
+        // PHPExcel 导出数据
+        if (I('output') == 1) {
+            $data =M('personnel')->where($map)
+                                ->field('id,name,phone,create_time')
+                                ->select();
+            $filename = '安装人员列表数据';
+            $title = '安装人员列表';
+            $cellName = ['id','昵称','手机','最新添加时间'];
+            // dump($data);die;
+            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
+            $myexcel->output();
+            return ;
+        }
+
+        $total = M('personnel')->where($map)->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $list =  M('personnel')->where($where)->limit($page->firstRow.','.$page->listRows)->select();
+        $list =  M('personnel')->where($map)->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();
