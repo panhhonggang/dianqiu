@@ -74,6 +74,7 @@ class ActionController extends Controller
     {
         $this->updateNetStase($DeviceID,0);
     }
+
     public function updateNetStase($DeviceID,$NetStause)
     {
         $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
@@ -245,6 +246,7 @@ class ActionController extends Controller
             'ICCID'       => $message['ICCID'],
             'CSQ'         => $message['CSQ'],
             'Loaction'    => $message['Loaction'],
+            'NetStause'   =>1,
             // 'Reday'       => $Reday,
             // 'ReFlow'      => $ReFlow,
         ];
