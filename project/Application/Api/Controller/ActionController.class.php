@@ -90,16 +90,11 @@ class ActionController extends Controller
      * @param  [type] $message     [信息串]
      * @return [type]              [description]
      */
-    // public function sendMsg($device_code,$message)
-    // {
-    //     sleep(2);
-    //     $client_id = Gateway::getClientIdByUid($device_code);
-
-    //     $client_id = array_pop($client_id);
-
-    //     Gateway::sendToClient($client_id,$message);
-    //     sleep(2);
-    // }
+     public function sendMsg($device_code,$message)
+     {
+         sleep(1);
+         Gateway::sendToUid($device_code, $message);
+     }
 
     // 设备消息处理
     public function gettcp($client_id, $message)
