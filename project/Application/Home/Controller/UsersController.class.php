@@ -93,9 +93,8 @@ class UsersController extends CommonController
         return false; 
         return preg_match($match,$v);
     }
-
     // 正则检测地址
-    public function isAddress($value,$match='/^[a-zA-Z\x{4e00}-\x{9fa5}]{6,255}$/u')  
+    public function isAddress($value,$match='/^[a-zA-Z\x{4e00}-\x{9fa5}]{6,255}[0-9a-zA-Z\x{4e00}-\x{9fa5}]+$/u')  
     { 
         $v = trim($value); 
         if(empty($v)) 
