@@ -333,6 +333,17 @@ class ActionController extends Controller
             $data['ReFlowFilter' . $i]   = $message['ReFlowFilter' . $i];
             $data['ReDayFilter' . $i]    = $message['ReDayFilter' . $i];
         }
+        if ($data['ReFlowFilter1']==-1) {
+            $data['FilterMode']=0;
+        }
+        if ( $data['ReDayFilter1']==-1 ){
+            $data['FilterMode']=1;
+        }
+        if ($data['ReDayFilter1']>=0 and  $data['ReFlowFilter1']>=0) {
+            $data['FilterMode']=2;
+        }
+
+
         return $data;
     }
 
