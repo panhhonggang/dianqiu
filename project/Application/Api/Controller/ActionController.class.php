@@ -247,8 +247,8 @@ class ActionController extends Controller
             'CSQ'         => $message['CSQ'],
             'Loaction'    => $message['Loaction'],
             'NetStause'   =>1,
-            'Reday'       => $message['Reday'],
-            'ReFlow'      => $message['ReFlow'],
+//            'Reday'       => $message['Reday'],
+//            'ReFlow'      => $ReFlow,
         ];
         $devices_id = M('devices')->where("device_code={$message['DeviceID']}")->getField('id');
         $status_id  = M('devices_statu')->where("DeviceID={$message['DeviceID']}")->getField('id');
