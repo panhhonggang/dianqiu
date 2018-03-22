@@ -274,7 +274,7 @@ ul li{
 .info select{
     display: block;
 }
-.formBox input[type='text'] {
+.formBox input[type='text'],.formBox input[type='file'] {
 	width: 210px;
 }
 .selects,
