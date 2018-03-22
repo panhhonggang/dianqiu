@@ -350,7 +350,7 @@ class ActionController extends Controller
         // Log::write(json_encode($msg), 'BBBBBBB');
 
         // if(Gateway::getClientIdByUid($dcode))
-         dump($msg);
+//         dump($msg);
             // die;
         sleep(2);
         $res = Gateway::sendToUid($dcode, $msg);
