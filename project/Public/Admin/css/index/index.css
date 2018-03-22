@@ -6,6 +6,9 @@ body,ul,ol {
 * {
 	box-sizing: border-box;
 }
+body {
+	overflow: hidden;
+}
 a {
 	height: 38px;
     line-height: 36px;
@@ -150,5 +153,14 @@ a {
 	height: 95%;
 	overflow: hidden;
 	margin: 0;
-	font-family:"微软雅黑";
+	font-family: "微软雅黑";
+}
+#footer {
+	background: #ecf0f5;
+}
+#footer .span8 {
+	width: 80%;
+	line-height: 2;
+    vertical-align: middle;
+	text-align: center;
 }
