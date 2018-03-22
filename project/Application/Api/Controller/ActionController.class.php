@@ -285,10 +285,11 @@ class ActionController extends Controller
         //     $ReFlow = empty($result['reflow'])? 0 : $result['reflow'];
         //     $Reday = empty($result['reday'])? 0 : $result['reday'];
         // }
+
         $data = [
             'DeviceStause' => $message['DeviceStause'],
             'ReFlow'       => $message['ReFlow'],
-            'Reday'        => $message['Reday'],
+            'ReDay'        => $message['Reday'],
             'SumFlow'      => $message['SumFlow'],
             'SumDay'       => $message['SumDay'],
             'RawTDS'       => $message['RawTDS'],
