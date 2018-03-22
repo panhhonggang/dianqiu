@@ -10,7 +10,14 @@ class ActionController extends Controller
     {
         Gateway::$registerAddress = '127.0.0.1:9504';
     }
+    //测试
+    public function Initialize($device_code) {
 
+        $client_id = Gateway::getClientIdByUid($device_code);
+        return $client_id;
+
+
+    }
     public function ssss()
     {
         // $msg['PackNum'] = ['30'=>401];
