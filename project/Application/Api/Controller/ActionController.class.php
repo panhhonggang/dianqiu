@@ -195,7 +195,7 @@ class ActionController extends Controller
             // $res = M('order_setmeal')->where('id='.$value['id'])->save(['is_play'=>1]);
             $arr['PackNum'] = (string)$this->get_PackNum($map['d.device_code'],$value['id']);
            
-            $this->sysnc_info($map['d.device_code'],$arr);
+            $this->sysnc_info($devices,$arr);
         };
     }
 
