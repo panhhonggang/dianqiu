@@ -97,6 +97,7 @@ class SetmealController extends CommonController
                     ->limit($page->firstRow.','.$page->listRows)
                     ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
                     ->field('pub_setmeal.*,pub_device_type.typename')
+                    ->order('pub_setmeal.addtime desc')
                     ->select();
 //        dump($list);
         $this->assign('list',$list);
