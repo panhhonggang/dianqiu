@@ -650,15 +650,24 @@
 	}
 	// 确认收货
 	function confirms(oid){
-		$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
+		//询问框  
+		  layer.open({  
+		    content: '确定要取消订单吗？'  
+		    ,btn: ['确定', '取消']  
+		    ,yes: function(index){ 
+		      	$.post('{{:U("Orders/confirm")}}',{ 'oid':oid }, function(res){
 
-			// 订单取消成功
-			if(res==1){
-				layer.msg("好的，谢谢！");
-				// 刷新页面
-				location.reload();
-			}
-		});
+					// 订单取消成功
+					if(res==1){
+						layer.msg("好的，谢谢！");
+						// 刷新页面
+						location.reload();
+					}
+				});
+				layer.close(index); 
+		    }  
+		  });
+		
 	}
 	// 待完善
 	function onClickBtn(){
