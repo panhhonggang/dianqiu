@@ -279,7 +279,7 @@
 		}
 
 		//websoket
-		var websoket=new WebSocket("ws://jike.dianqiukj.com:6001");
+		var websoket=new WebSocket("ws://120.27.12.1:6001");
 		var PackNum=0;//包数据
 		var CmdList=[];//命令队列
 		var identify=0;
@@ -302,12 +302,12 @@
 		}
 		//实时接收数据
 		websoket.onmessage=function(data)
-		{
+		{	
 			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
 			var leasingmode = dataList.LeasingMode;//租赁模式
 			//console.log(dataList.LeasingMode);
 			machineStatus();//执行水机状态方法
-			//console.log(dataList);
+			console.log(dataList);
 
 			// 获取设备租赁模式
 			if(dataList.LeasingMode){
