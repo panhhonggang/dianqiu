@@ -63,8 +63,8 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 */
 #all-sure-head
 {
-	width:9.2rem;
-	margin:0.6rem 0.0rem;
+	width:97vw;
+	margin:0.6rem 0;
 	border-bottom: 1px solid #ccc;
 	
 }
@@ -93,7 +93,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 
 #order-all-foot{
 	margin-top:1.2rem; 
-	width: 9.2rem; 
+	width:94vw;
 	padding-bottom: 1.2rem;
 	position: relative;
 	bottom:-1.0rem;
