@@ -256,12 +256,12 @@ ul li{
 }
 .textareaBox{width: 215px; min-height: 110px; border: 1px solid #ccc;}
 .textareaBox p{
-    padding: 0 10px;
-    margin: 5px;
+    width: 200px;
+    margin: 3px 4px 0 4px;
 }
 .groupBox{position: relative;}
 .groupBox .elected{position: absolute; top: 0;left: 0;}
-.groupBox .textareaBox{margin-left: 185px; width: 219px;}
+.groupBox .textareaBox{margin-left: 185px; width: 210px;}
 .btn-groups .btns{
     /*margin: 150px 0 50px 90px;*/
     padding: 8px 35px;
@@ -274,7 +274,7 @@ ul li{
 .info select{
     display: block;
 }
-.formBox input[type='text'],.formBox input[type='file'] {
+.formBox input[type='text'],.formBox input[type='file'],.formBox input[type='password'] {
 	width: 210px;
 }
 .selects,
@@ -283,7 +283,7 @@ select{
     position: relative;
 }
 .selectList{
-    width: 218px;
+    width: 210px;
     height: auto;
     position: absolute;
     top: 30px;
