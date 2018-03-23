@@ -138,9 +138,13 @@ class PersonnelController extends Controller
                     M('devices')->where(['device_code'=>$data['dcode']])->save(['device_statu'=>2]);
                     $num = 1;
                     $co  = 1;
+                    $fnum = 1;
+                    $dnum = 1;
                     foreach ($res as $k => $v) {
                         $statu['ReFlowFilter'.$num++] = $v['flowlife'];
                         $statu['ReDayFilter'.$co++] = $v['timelife'];
+                        $statu['FlowLifeFilter'.$fnum++] = $v['flowlife'];
+                        $statu['DayLifeFiter'.$dnum++] = $v['timelife'];
 
 //                        M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save($statu);
                     }
@@ -158,21 +162,27 @@ class PersonnelController extends Controller
                     $statu['AliveStause'] = 1;
                     $statu['FilerNum'] = count($res);
                     $sc = A('Api/Action');
-                    $status = $sc->Initialize($data['dcode']);
-                    $sta = Gateway::sendToUid('868575025659121',$status);
-                    if ($status) {
-//                        $map['DeviceID'] = '868575025659121';
-//                        // $info = M('devices_statu')->($map)->save(['FilterMode'=>1,['LeasingMode']=>2,'updatetime'=>time()]);
-//                        $message = ['DeviceID' => '868575025672751', 'PackType' => 'SetData', 'Vison' => 0, 'AliveStause' => 1, 'FilterMode' => 1, 'SumDay' => 0, 'SumFlow' => 0, 'ReFlow' => 5, 'Reday' => 100, 'ReFlowFilter1' => 200, 'ReDayFilter1' => 100, 'FlowLifeFilter1' => 200, 'DayLifeFiter1' => 200, 'LeasingMode' => 2, 'FilerNum' => 5];
-                        $sta = Gateway::sendToUid($data['dcode'], $statu);
-                        dump($sta);
-                    }
-//                    $status_info = M('devices_statu')->add();
-//                    if ($status_info) {
-//                        $this->success('安装成功',U('home/Personnel/personal'),2);
+//                    $status = $sc->Initialize($data['dcode']);
+//                    $sta = Gateway::sendToUid('868575025659121',$status);
+//                    if ($status) {
+////                        $map['DeviceID'] = '868575025659121';
+////                        // $info = M('devices_statu')->($map)->save(['FilterMode'=>1,['LeasingMode']=>2,'updatetime'=>time()]);
+////                        $message = ['DeviceID' => '868575025672751', 'PackType' => 'SetData', 'Vison' => 0, 'AliveStause' => 1, 'FilterMode' => 1, 'SumDay' => 0, 'SumFlow' => 0, 'ReFlow' => 5, 'Reday' => 100, 'ReFlowFilter1' => 200, 'ReDayFilter1' => 100, 'FlowLifeFilter1' => 200, 'DayLifeFiter1' => 200, 'LeasingMode' => 2, 'FilerNum' => 5];
+//                        $sta = Gateway::sendToUid($data['dcode'], $statu);
+//
 //                    } else {
-//                        $this->success('设备重置不成功',U('home/Personnel/personal'),2);
+//                        unset($statu['PackType']);
+//                        unset($statu['DayLifeFiter']);
+//                        unset($statu['DayLifeFiter']);
+//
 //                    }
+//                    $status_info = M('devices_statu')->add();
+                        M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save(['data_statu'=>2]);
+                        Gateway::sendToUid($data['dcode'], $statu);
+                        $this->success('安装成功',U('home/Personnel/personal'),2);
+
+
+
 
                 } else {
                     $this->error('安装失败');
