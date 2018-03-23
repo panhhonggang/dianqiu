@@ -309,7 +309,7 @@ class UsersController extends CommonController
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
             ->field('f.*,d.name,u.balance')
             ->count();
         $page  = new \Think\Page($total,8);
@@ -319,11 +319,10 @@ class UsersController extends CommonController
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
             ->field('f.*,d.name,u.balance,bd.vid')
             ->order('f.addtime desc')
             ->select();
-        echo $list;
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();        
