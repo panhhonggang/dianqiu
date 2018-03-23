@@ -10,13 +10,23 @@ class ShopController extends CommonController
       public function index()
     {
 
-        $dcode = I('get.dcode');
+        $dcode =  I('get.dcode');
+        if(!preg_match("/^\d*$/",$dcode)) {
+            $this->error('设备号码有误');
+        };
         // 获取用户uid
         $uid = $_SESSION['homeuser']['id'];
         if ($dcode !='') {
             $dcode = I('get.dcode');
             $device = M('devices')->where('device_code='.$dcode)->find();
-            $did = $device['id'];
+
+            if (!empty($device)) {
+                $did = $device['id'];
+            } else {
+                $this->error('无该设备码');
+            }
+
+
 
         } else {
             $did = $_SESSION['homeuser']['did'];
