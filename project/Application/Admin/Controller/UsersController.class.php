@@ -250,21 +250,21 @@ class UsersController extends CommonController
             $map['f.flow'] = array(array('egt',$minflow));      
         }
         // 当前余量搜索
-        $mincurrentflow = trim(I('post.mincurrentflow'))?:0;
-        $maxcurrentflow = trim(I('post.maxcurrentflow'))?:-1;
-        if (is_numeric($maxcurrentflow)) {
+        $mincurrentflow = trim(I('post.mincurrentflow'));
+        $maxcurrentflow = trim(I('post.maxcurrentflow'));
+        if ($mincurrentflow && $maxcurrentflow) {
             $map['f.currentflow'] = array(array('egt',$mincurrentflow),array('elt',$maxcurrentflow));
         }
-        if ($maxcurrentflow < 0) {
+        if ($mincurrentflow && empty($maxcurrentflow)) {
             $map['f.currentflow'] = array(array('egt',$mincurrentflow));      
         }
         // 充值时间
-        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
-        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
-        if (is_numeric($maxaddtime)) {
+        $minaddtime = strtotime(trim(I('post.minaddtime')));
+        $maxaddtime = strtotime(trim(I('post.maxaddtime')));
+        if ($minaddtime && $maxaddtime) {
             $map['f.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
         }
-        if ($maxaddtime < 0) {
+        if ($minaddtime && empty($maxaddtime)) {
             $map['f.addtime'] = array(array('egt',$minaddtime));
         }
         // 删除数组中为空的值
@@ -309,7 +309,7 @@ class UsersController extends CommonController
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
             ->field('f.*,d.name,u.balance')
             ->count();
         $page  = new \Think\Page($total,8);
@@ -319,7 +319,7 @@ class UsersController extends CommonController
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
             ->field('f.*,d.name,u.balance,bd.vid')
             ->order('f.addtime desc')
             ->select();

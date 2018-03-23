@@ -85,7 +85,7 @@ class MYExcel
 
         for ($i=0; $i < count($this->cellName); $i++) { 
             $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$i].$this->topNumber, $this->cellName[$i]);
-            $this->objPHPExcel->getActiveSheet()->freezePane($this->cellKey[$i].($this->topNumber+1));//冻结窗口
+            $this->objPHPExcel->getActiveSheet()->freezePane($this->cellKey[0].($this->topNumber+1));//冻结窗口
             $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$i].$this->topNumber)->getFont()->setBold(true);//设置是否加粗
             $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$i].$this->topNumber)->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);//垂直居中
             $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$i].$this->topNumber)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);

@@ -123,6 +123,15 @@
 			    background: #039CE9;
 			    color: #fff;
 			}
+			.item {
+				position:relative;
+			}
+			.bianji {
+				position:absolute;
+				top:2vh;
+				right:2vh;
+				z-index:1000000;
+			}
 		</style>
 	</head>
 	<body>
@@ -132,47 +141,64 @@
 		<!-- <a id="back2Home" href="{{:U('Home/index/index')}}"><i class="iconfont icon-zhuye"></i></a> -->
 		<!-- 滤芯开始 -->
 		<div id="mo">
-
 			<foreach name="filters" item="v" key="k">
-			<div class="item">
-				<div id="ro1" class="ro1">
-					<div id="ro-left"><i><input class="del" type="text" value="—" readonly></i><img src="__PUBLIC__{{$v['picpath']}}" alt=""></div>
-					<div id="ro-right">
-						<div class="top">
-							<h3>{{$v['filtername']}}</h3>
-							<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+				<div class="item">
+					<span class="iconfont icon-edit bianji" index="1"></span>
+					<div id="ro1" class="ro1">
+						<div id="ro-left"><i><input class="del" type="text" value="—" readonly></i><img src="__PUBLIC__{{$v['picpath']}}" alt=""></div>
+						<div id="ro-right" class="clicknone">
+							<div class="top">
+								<h3>{{$v['filtername']}}</h3>
+								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+							</div>
+							<div class="bott">
+							 	<b>￥{{$v['price']/100}}</b>
+							 	<!-- <p class="">X{{$v['num']}}</p> -->
+							 	<i>
+									<input type="button" value="x" class="minus">
+									<input fid="{{$v['id']}}" class="num" type="button" value="{{$v['num']}}">
+									<!-- <input type="button" value="" class="plus"> -->
+								</i>
+							</div>
 						</div>
-						<div class="bott">
-						 	<b>￥{{$v['price']/100}}</b>
-						 	<!-- <p class="">X{{$v['num']}}</p> -->
-						 	<i>
-								<input type="button" value="x" class="minus">
-								<input fid="{{$v['id']}}" class="num" type="number" value="{{$v['num']}}">
-								<!-- <input type="button" value="" class="plus"> -->
-							</i>
+						<div id="ro-right" class="intoCart" style="display:none">
+							<div class="tops">
+								<h3>{{$v['filtername']}}</h3>
+								<p>{{$v['introduce']|msubstr=0,45,'utf-8'}}</p>
+							</div>
+							<div class="bottomBtn">
+								<div class="numadd">
+									<div>
+										<span class="reduce">-</span>
+										<input type="text" fid="{{$v['id']}}" class="num" value="{{$v['num']}}">
+										<span class="adds">+</span>
+									</div>
+									
+								</div>
+								<div class="finish">完成</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</foreach>
 
 			<foreach name="setmeal" item="vo" key="ke">
-			<div class="item">
-				<div id="mo2">
-					<input class="del" type="text" value="—" readonly>
-					<div id="mo-right">
-						<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
-						
+				<div class="item">
+					<div id="mo2">
+						<input class="del" type="text" value="—" readonly>
+						<div id="mo-right">
+							<b>{{$vo['describe']}}</b><p>￥{{$vo['money']/100}}</p>
+							
+						</div>
+						<p class="bill" style="position: relative;">
+							<i class="num">
+								<input type="button" value="x" class="minus">
+								<input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}">
+								<!-- <input type="button" value="" class="plus"> -->
+							</i>
+						</p>
 					</div>
-					<p class="bill" style="position: relative;">
-						<i class="num">
-							<input type="button" value="x" class="minus">
-							<input sid="{{$vo['id']}}" class="num" type="number" value="{{$vo['num']}}">
-							<!-- <input type="button" value="" class="plus"> -->
-						</i>
-					</p>
-				</div>
-			</div>			
+				</div>			
 			</foreach>
 			<p class="franking"> </p>
 		</div>
@@ -190,6 +216,7 @@
 	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 	<!-- 微信支付支持JS部分代码 -->
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
 <script>
 		/**
 		 * 初始化样式
@@ -216,7 +243,90 @@
 			}
 		}
 		
+		// 编辑
+		$(".bianji").on("click", function(){
+			if($(this).attr("index")) {
+				$(this).siblings().children(".clicknone").css("display", "none").siblings(".intoCart").css("display", "block");
+				$(this).attr("index", "");
+				$(this).css("display", "none");
+			}
+		})
+		// 购物车产品数量
+		var numVal;
+		// 点击减号
+		$(".reduce").on("click", function() {
+			numVal = $(this).siblings(".num").val();
+			numVal--;
+			$(this).siblings(".num").val(numVal);
+			if(numVal < 1) {
+				layer.msg("数量超出范围");
+				$(this).siblings(".num").val("1");
+			}
+		})
+		// 点击加号
+		$(".adds").on("click", function() {
+			numVal = $(this).siblings(".num").val();
+			numVal++;
+			$(this).siblings(".num").val(numVal);
+			if(numVal > 10) {
+				layer.msg("数量超出范围");
+				$(this).siblings(".num").val(10);
+			}
+		})
+		// 点击完成
+		$(".finish").on("click", function() {
+			numVal = $(this).siblings(".numadd").children().children(".num").val();
+			$(this).parent().parent(".intoCart").css("display", "none").siblings(".clicknone").css("display", "block");
+			// 完成之后将改变的数量赋予原显示块
+			$(this).parent().parent(".intoCart").siblings(".clicknone").children(".bott").children().children(".num").val(numVal);
+			// 点击完成后编辑图标出现
+			$(this).parent().parent().parent().siblings("span").attr("index", 1).css("display", "block");
+			// 提交后台
+			var num = $(this).parent().parent().siblings(".clicknone").children(".bott").children("i").children(".num").val() - 0;
+			var type = $(this).parent().parent().siblings(".clicknone").children(".bott").children("i").children(".num").attr("sid") ? "sid" : "fid";
+			var typeValue = $(this).parent().parent().siblings(".clicknone").children(".bott").children("i").children(".num").attr(type);
+			console.log(num ,type ,typeValue);
+			$.ajax({
+				url: '{{:U("ShoppingCart/reviseCart")}}',
+				type: "post",
+				data : {data:{type:type,typeValue:typeValue,num:num}},
+				success: function(res) {
+					console.log("成功", res);
+					// 判断购物车是否添加成功
+					if(res==1){
+						// alert('修改成功');
+						// 刷新页面
+						location.reload();
+					}
+				},
+				error: function(res) {
+					console.log("错误", res);
+				}
+			})
+		})
 
+		// 输入数量时失焦判断数量是否超出
+		$(".num").on("blur", function() {
+			var inputNum = parseInt($(this).val());
+			console.log(inputNum)
+			if(inputNum < 1) {
+				layer.msg("数量超出范围");
+				$(this).val(1)
+				numVal = 1;
+			}else if(inputNum >10) {
+				layer.msg("数量超出范围");
+				$(this).val(10)
+				numVal = 10;
+			}
+			else{
+				numVal = inputNum;
+			}
+			
+		})
+		// 封装layer使用
+		layui.use("layer", function() {
+			var layer = layui.layer;
+		})
 		/**
 		 *  减号按钮让产品购买数量自减
 		 */
