@@ -10,7 +10,14 @@ class ActionController extends Controller
     {
         Gateway::$registerAddress = '127.0.0.1:9504';
     }
+    //测试
+    public function Initialize($device_code) {
 
+        $client_id = Gateway::getClientIdByUid($device_code);
+        return $client_id;
+
+
+    }
     public function ssss()
     {
         // $msg['PackNum'] = ['30'=>401];
@@ -195,7 +202,7 @@ class ActionController extends Controller
             // $res = M('order_setmeal')->where('id='.$value['id'])->save(['is_play'=>1]);
             $arr['PackNum'] = (string)$this->get_PackNum($map['d.device_code'],$value['id']);
            
-            $this->sysnc_info($map['d.device_code'],$arr);
+            $this->sysnc_info($devices,$arr);
         };
     }
 
@@ -278,10 +285,11 @@ class ActionController extends Controller
         //     $ReFlow = empty($result['reflow'])? 0 : $result['reflow'];
         //     $Reday = empty($result['reday'])? 0 : $result['reday'];
         // }
+
         $data = [
             'DeviceStause' => $message['DeviceStause'],
             'ReFlow'       => $message['ReFlow'],
-            'Reday'        => $message['Reday'],
+            'ReDay'        => $message['Reday'],
             'SumFlow'      => $message['SumFlow'],
             'SumDay'       => $message['SumDay'],
             'RawTDS'       => $message['RawTDS'],
@@ -326,6 +334,17 @@ class ActionController extends Controller
             $data['ReFlowFilter' . $i]   = $message['ReFlowFilter' . $i];
             $data['ReDayFilter' . $i]    = $message['ReDayFilter' . $i];
         }
+        if ($data['ReFlowFilter1']==-1) {
+            $data['FilterMode']=0;
+        }
+        if ( $data['ReDayFilter1']==-1 ){
+            $data['FilterMode']=1;
+        }
+        if ($data['ReDayFilter1']>=0 and  $data['ReFlowFilter1']>=0) {
+            $data['FilterMode']=2;
+        }
+
+
         return $data;
     }
 
@@ -343,7 +362,7 @@ class ActionController extends Controller
         // Log::write(json_encode($msg), 'BBBBBBB');
 
         // if(Gateway::getClientIdByUid($dcode))
-         dump($msg);
+//         dump($msg);
             // die;
         sleep(2);
         $res = Gateway::sendToUid($dcode, $msg);

@@ -21,9 +21,6 @@ class ProductController extends CommonController
        /*
             Excel导出
          */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
         // 搜索功能
         $map = array(
             'typename' =>  array('like','%'.trim(I('post.typename')).'%'),
@@ -58,7 +55,7 @@ class ProductController extends CommonController
         D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
-        $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->select();
+        $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->order('addtime desc')->select();
         // dump($list);
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
@@ -186,13 +183,7 @@ class ProductController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function filterlist()
-    {       
-        /*
-            Excel导出
-         */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
+    {
         // 搜索功能
         $map = array(
             'filtername' =>  array('like','%'.trim(I('post.filtername')).'%'),

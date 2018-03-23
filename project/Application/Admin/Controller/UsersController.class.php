@@ -31,14 +31,7 @@ class UsersController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function index()
-    {	
-        // if (IS_POST) {
-        //     dump($_POST);die;
-        // }
-        
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
+    {
         // 搜索功能
         if(trim(I('post.address'))){
             $map['d.address'] = array('like','%'.trim(I('post.address')).'%');
@@ -112,6 +105,7 @@ class UsersController extends CommonController
             ->field('d.device_code,d.name,d.phone,w.*,u.*,d.address,cd.uid,cd.did,d.updatetime')
 //            ->field('d.device_code,.name,d.address,d.phone,u.*,w.nickname,cd.uid,cd.did,d.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
+            ->order('u.created_at desc')
             ->select();
             // ->getAll();
 
@@ -231,13 +225,6 @@ class UsersController extends CommonController
      */
     public function flow()
     {
-        // if (IS_POST) {
-        //     dump($_POST);die;
-        // }
-        
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-
         // 搜索功能
         $map = array(
             'f.mode' => trim(I('post.mode')),
@@ -334,6 +321,7 @@ class UsersController extends CommonController
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
             ->join('__BINDING__ bd ON d.id = bd.did ')
             ->field('f.*,d.name,u.balance,bd.vid')
+            ->order('f.addtime desc')
             ->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
