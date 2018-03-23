@@ -123,7 +123,6 @@ class PersonnelController extends Controller
             }
 
 
-
             $work_info = M('work')->where(['id'=>$map['id'],'personnel_id'=>$map['personnel_id']])->save(['dcode'=>$map['dcode'],'result'=>2]);
             if ($work_info) {
 
