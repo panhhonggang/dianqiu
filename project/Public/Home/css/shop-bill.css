@@ -64,20 +64,32 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	height: 3.013333rem;
 	float: left;
 }
-#ro-right{
+#ro-right, #ro-rightVisi{
 	width:5.546667rem;
 	height:3.013333rem;
 	float: right;
 	display: inline-block;
 }
 #ro-right .top{
-	height: 2.453333rem;	
+	height: 2.4rem;	
 }
 #ro-right .top h3{
 	font-size: 0.426667rem;
 	margin-bottom:0.133333rem;
 }
 #ro-right .top p
+{
+	font-size: 0.346667rem;
+}
+
+#ro-right .tops{
+	height: 2rem;	
+}
+#ro-right .tops h3{
+	font-size: 0.426667rem;
+	margin-bottom:0.133333rem;
+}
+#ro-right .tops p
 {
 	font-size: 0.346667rem;
 }
@@ -97,7 +109,6 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	right: 0.0rem;
 	bottom: 0.0rem;
 }
-
 #ro-right .bott i{
 	font-size: 0.426667rem;
 	color:red;
@@ -115,6 +126,68 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 #ro-right .bott i input:last-child{
 	border:none;
 
+}
+.bottomBtn {
+	height:1rem;
+}
+.bottomBtn:after {
+	content:"";
+	height:0;
+	display:block;
+	clear:both;
+}
+.numadd {
+	width:50%;
+	float:left;
+	border:1px solid #DEDEDE;
+}
+.numadd > div{
+    width:100%;
+    flex-direction:row;
+    display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	box-orient:horizontal;
+	-webkit-box-orient:horizontal;
+	-moz-box-orient:horizontal;
+	-ms-box-orient:horizontal;
+} 
+.numadd > div > span {
+	flex:1;
+	box-flex:1;
+	-webkit-box-flex:1;
+	-moz-box-flex:1;
+	-ms-box-flex:1;
+	box-flex:1;
+	text-align:center;
+	line-height:.95rem;
+}
+.numadd > div > span:first-child {
+	border-right:1px solid #DEDEDE;
+}
+.numadd > div > span:last-child {
+	border-left:1px solid #DEDEDE;
+	
+}
+.numadd > div > input {
+	flex:1;
+	box-flex:1;
+	-webkit-box-flex:1;
+	-moz-box-flex:1;
+	-ms-box-flex:1;
+	width:1rem !important;
+	border:none;
+	text-align:center;
+}
+.finish {
+	width:50%;
+	text-align:center;
+	line-height:1rem;
+	color:white;
+	background-color: #4AA3E0;
+	float: right;
 }
 i.num{
 	font-size: 0.426667rem;
