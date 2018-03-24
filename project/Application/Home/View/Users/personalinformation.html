@@ -3,6 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv='x-ua-compatile' content='ie-edge'>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
 		<title>个人信息 </title>
 		<link rel="stylesheet" href="__PUBLIC__/Home/css/information.css">
@@ -14,24 +15,32 @@
 
 	<body>
 		<div id="infor">
-			<form action="{{:U('Home/Users/personalInformation')}}" method="post" >
+			<form id='form' action="{{:U('Home/Users/personalInformation')}}" method="post" >
 			<div id="container">
 				<h3>个人信息</h3>
 				<div id="char-list">
 					<label for="name">
-						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i><p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p><input id="name" type="text" name="name" value="{{$user['name']}}"> 
+						<div class="spac" ><i class="iconfont icon-iconzhenghe31"></i>
+						<p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p>
+						<input id="name" type="text" name="name" value="{{$user['name']}}"> 
 					    </div>
 					</label>
 					<label for="tel">
 						
-						<div class="spac"><i class="iconfont icon-dianhuahaoma spac-tel"></i><p>电话号码：</p><input id="tel" type="text" name="phone" value="{{$user['phone']}}"></div><br>
+						<div class="spac"><i class="iconfont icon-dianhuahaoma spac-tel"></i>
+						<p>电话号码：</p>
+						<input id="tel" type="text" name="phone" value="{{$user['phone']}}"></div><br>
 					</label>
 					<label for="addr">
 					
-					<div class="spac"><i class="iconfont iconfont icon-dizhi"></i>  <p>安装地址：</p><input id="addr" type="text" name="Installaddress" value="{{$user['address']}}"></div>
+						<div class="spac" style='border-bottom:none'>
+							<i class="iconfont iconfont icon-dizhi"></i>  
+							<p>安装地址：</p>
+							<textarea name="Installaddress" id="addr" cols="30" rows="3"value="{{$user['address']}}" style='width:9.0rem;margin-top:8px;padding:6px;box-sizing:border-box;border:1px solid #ccc'>{{$user['address']}}</textarea>
+						</div>
 					</label>
 				</div>
-				<div class="savediv"><input id="save" type="submit" value="保存"></div>
+				<div class="savediv"><input id="save" type="button" value="保存"></div>
 
 			</div>
 			</form>
@@ -39,22 +48,70 @@
 		<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 		<script>
+			// 替换当前历史记录为首页， 防止后退再回到这里
+			// history.replaceState({},null,'{{:U("Home/Index/index")}}');
 
+			var name = $('#name').val().trim(),
+				phone = $('#tel').val().trim(),
+				addr = $('#addr').val().trim();
+			var nameReg, phoneReg, areaReg;
+			nameReg = /^[a-zA-Z\-\u4e00-\u9fa5]{2,255}$/u;
+			phoneReg = /^1((((3[0-35-9])|([5|8][0-9])|(4[5|7|9])|66|(7[3|5-8])|(9[8|9]))\d)|(34[0-8]))\d{7}$/;
+			areaReg = /^[\w\-\u4e00-\u9fa5]{8,255}$/u;
+
+			// 点击保存
 			$("#save").click(function(){
-				if($("#name").val()==""||$("#tel").val()==""||$("#addr").val()==""){
-					layui.use('layer', function(){
-						var layer = layui.layer;
-						layer.msg('请输入完整个人信息');
-					});  
-					return false;
-				}else if(!(/^1[34578]\d{9}$/.test($("#tel").val()))){
-					layui.use('layer', function(){
-						var layer = layui.layer;
-						layer.msg('请正确输入手机号码');
-					});  
-					return false;
+				if(!$("#name").val().trim()){
+					layuiHint('请填写姓名！');
+					return
+
+				}else if(!nameReg.test($("#name").val().trim())){
+					layuiHint('姓名只能由中文、英文组成！');
+					return
+
 				}
+				if(!$("#tel").val().trim()){
+					layuiHint('请输入手机号！');
+					return
+
+				}else if(!phoneReg.test($("#tel").val().trim())){
+					layuiHint('请输入正确的手机号码！');
+					return
+					
+				}
+	
+				if(!$("#addr").val().trim()){
+					layuiHint('请输入地址！');
+					return
+
+				}else if($("#addr").val().trim().length <= 10){
+					layuiHint('请输入详细地址！');
+					return
+					
+				}else if(!areaReg.test($("#addr").val().trim())){
+					layuiHint('地址只能由中文、数字、英文组成！');
+					return
+					
+				}
+				if(name == $('#name').val().trim() && phone == $('#tel').val().trim() && addr == $('#addr').val().trim()){
+
+					layuiHint('你什么都没修改!');
+					setTimeout(function(){
+						location.href = '{{:U("Home/Users/mine")}}';
+					},500);
+					return
+				}
+				layuiHint('保存成功！');
+				$('#form').submit();
 			});
+
+			// 提示框函数
+			function layuiHint(text){
+				layui.use('layer', function(){
+					var layer = layui.layer;
+					layer.msg(text);
+				});
+			}
 		</script>
 	</body>
 
