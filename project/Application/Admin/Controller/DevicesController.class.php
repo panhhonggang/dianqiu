@@ -16,9 +16,6 @@ class DevicesController extends CommonController
     public function devicesList()
     {
 
-        /*Excel导出*/
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
         // 搜索功能
 //        $map = array(
 //            'd.device_code' =>  array('like','%'.trim(I('post.device_code')).'%'),
@@ -27,16 +24,16 @@ class DevicesController extends CommonController
 //            'type.typename' => array('like','%'.trim(I('post.typename')).'%'),
 //        );
 
-        if(!empty(I('post.device_code'))){
+        if(I('post.device_code')){
             $map['d.device_code']=array('like','%'.trim(I('post.device_code')).'%');
         }
-        if(!empty(I('post.name'))){
+        if(I('post.name')){
             $map['vendors.name']=array('like','%'.trim(I('post.name')).'%');
         }
-        if(!empty(I('post.dname'))){
+        if(I('post.dname')){
             $map['d.name']=array('like','%'.trim(I('post.dname')).'%');
         }
-        if(!empty(I('post.device_code'))){
+        if(I('post.device_code')){
             $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
         }
 
@@ -138,7 +135,6 @@ class DevicesController extends CommonController
     {
         $devices = D('Devices');
         $code = I('post.');
-
         if(!$devices->create()){
             $this->error($devices->getError(), 'show_add_device');
         }
@@ -252,6 +248,8 @@ class DevicesController extends CommonController
                 if (!$res) {
                     
                     $this->error('导入失败啦！');
+                }else{
+                   $this->success('导入成功',U('Admin/Devices/devicesList'));
                 }
             } else {
                 $this->error('已导入' . $i . '条数据<br>');
