@@ -83,15 +83,15 @@ $(function(){
             layuiHint('请输入登录账号');
             return
 
-        }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(user.trim())){
+        }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(user)){
             layuiHint('账户名不能输入特殊字符');
             return
         } 
         if(!name){
-            layuiHint('请输入账户名');
+            layuiHint('请输入昵称');
             return
 
-        }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(name.trim())){
+        }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(name)){
             layuiHint('用户昵称不能输入特殊字符');
             return
         }
@@ -118,8 +118,12 @@ $(function(){
         }else{
             $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         }
-        if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(address)){
+        if(!address){
             layuiHint('请输入详细地址！');
+            return
+
+        }else if(!/^[\w\-\u4e00-\u9fa5]{2,255}$/u.test(address)){
+            layuiHint('地址只能由中文、英文、数字组成！');
             return
         }
 
@@ -135,16 +139,6 @@ $(function(){
     })
     //城市三级联动
     _init_area();
-    // $(".oddbtn").click(function(ev){
-    //     if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-    //         layui.use('layer', function(){
-    //             var layer = layui.layer;
-    //             layer.msg('亲，请把地址填写完整');
-    //         });    
-    //         ev.preventDefault();
-    //     }else{
-    //         $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
-    //     }
-    // });
+
 })
 </script>
