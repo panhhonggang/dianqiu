@@ -77,7 +77,7 @@ class ProductController extends CommonController
                 'filter7' => I('post.filter7'),
                 'filter8' => I('post.filter8'),
             );
-            $data = array_filter($data);
+//            $data = array_filter($data);
             $device_type = M('device_type');
             $res = $device_type->where('id='.$id)->save($data);
             if ($res) {

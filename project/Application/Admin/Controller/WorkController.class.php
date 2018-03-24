@@ -143,6 +143,8 @@ class WorkController extends CommonController
         $work = M("work");
         $repair = M('repair');
         $data['result'] = $_GET['result'];
+        $data['name'] = $_SESSION['adminuser']['name'];
+        $data['phone'] = $_SESSION['adminuser']['phone'];
         $res = $work->where('id='.$id)->save($data); 
         // dump($id);
         if ($res) {
