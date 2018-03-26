@@ -11,6 +11,7 @@ class ShopController extends CommonController
     {
 
         $dcode =  I('get.dcode');
+
         if(!preg_match("/^\d*$/",$dcode)) {
             $this->error('设备号码有误');
         };
@@ -30,6 +31,9 @@ class ShopController extends CommonController
 
         } else {
             $did = $_SESSION['homeuser']['did'];
+            if (empty($did)) {
+                $this->error('请填写设备号码');
+            }
             $device = M('devices')->where('id='.$did)->find();
         }
 
