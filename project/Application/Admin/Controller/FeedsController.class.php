@@ -131,17 +131,19 @@ class FeedsController extends CommonController
          /*
             Excel导出
          */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
-        // 搜索功能
-        $map = array(
-            'd.device_code' => array('like','%'.trim(I('post.device_code')).'%'),
-            'd.name' => array('like','%'.trim(I('post.name')).'%'),
-            'd.phone' => array('like','%'.trim(I('post.phone')).'%'),
-            'f.address' => array('like','%'.trim(I('post.address')).'%'),
-            'f.status' => trim(I('post.status')),
-        );
+        
+        $device_code = trim(I('post.device_code'));
+        $name = trim(I('post.name'));
+        $phone = trim(I('post.phone'));
+        $address = trim(I('post.address'));
+        $status = trim(I('post.status'));
+        if($device_code){
+            $map['d.device_code'] = array('like','%'.$device_code.'%');
+        }
+        $name ? $map['d.name'] = array('like','%'.$name.'%') : '';
+        $phone ? $map['address'] = array('like','%'.$address.'%') : '';
+        $status ? $map['status'] = trim(I('post.status')):'';
+
 
         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;

@@ -36,7 +36,11 @@ class DevicesController extends CommonController
         if(I('post.device_code')){
             $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
         }
-
+        if(I('post.is_bind') == 1){
+            $map['d.uid'] = array(array('gt',0));
+        }elseif (I('post.is_bind') == 2){
+            $map['d.uid'] = array('exp','IS NUll');
+        }
         $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:false;
         $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:false;
 
@@ -104,7 +108,6 @@ class DevicesController extends CommonController
             $myexcel->output();
             return ;
         }
-
         $devices = D('Devices')->getDevicesInfo($map);
         $assign = [
             'deviceInfo' => $devices,

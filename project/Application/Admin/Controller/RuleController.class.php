@@ -203,7 +203,7 @@ class RuleController extends CommonController{
         $map=I('get.');
         $result=D('AuthGroupAccess')->deleteData($map);
         if ($result) {
-            $this->success('操作成功',U('Admin/Rule/group_list'));
+            $this->success('操作成功');
         }else{
             $this->error('操作失败');
         }
