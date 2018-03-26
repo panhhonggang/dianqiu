@@ -18,51 +18,13 @@ class ProductController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function index()
-    {
-        /*
-             Excel导出
-
-          */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
-        // 搜索功能
-        $map = array(
-            'typename' =>  array('like','%'.trim(I('post.typename')).'%'),
-        );
-        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
-        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
-        if (is_numeric($maxaddtime)) {
-            $map['addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
-        }
-        if ($maxaddtime < 0) {
-            $map['addtime'] = array(array('egt',$minaddtime));
-        }
-
+    {      
+        //查询滤芯时间寿命，流量寿命，产品类型，经销商昵称
         $type = M('device_type');
-        // PHPExcel 导出数据
-        if (I('output') == 1) {
-            $data = $type->where($map)->select();
-            $arr = ['addtime'=>'Y-m-d H:i:s'];
-            replace_value($data,$arr);
-            $filename = '产品类型列表数据';
-            $title = '产品类型列表';
-            $cellName = ['id','产品类型','一级滤芯','二级滤芯','三级滤芯','四级滤芯','五级滤芯','六级滤芯','七级滤芯','八级滤芯','添加时间'];
-            // dump($data);die;
-            $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
-            $myexcel->output();
-            return ;
-        }
-
-
-        $total =$type->where($map)->count();
-        $page  = new \Think\Page($total,8);
-        D('devices')->getPageConfig($page);
-        $pageButton =$page->show();
 
         $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->select();
-        // dump($list);
-        echo json_encode($list);
+        dump($list);
+        // echo json_encode($list);
         
     }
 
