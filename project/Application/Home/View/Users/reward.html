@@ -98,7 +98,7 @@
             url: '{{:U("Users/reward")}}',
             type: 'post',
             success: function(res){
-              // console.log('请求成功！', res);
+              console.log('请求成功！', res);
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
                 res[i]['index'] = i;
@@ -184,7 +184,7 @@
             }
             // 展开当前元素
             nowLi.style.background = '#f6f6f6';
-            nowLi.children[1].setAttribute('style','height: 36vh;border-color:#ddd');
+            nowLi.children[1].setAttribute('style','height: 38vh;border-color:#ddd');
             // 当前元素点击多次
             if(this.isSameEle == nowLi.getAttribute('index')){
               nowLi.children[1].setAttribute('style',"height:0;");
