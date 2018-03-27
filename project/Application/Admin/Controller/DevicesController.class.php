@@ -44,6 +44,15 @@ class DevicesController extends CommonController
         }elseif (I('post.is_bind') == 2){
             $map['d.uid'] = array('exp','IS NUll');
         }
+        if(strlen(I('post.status'))) {
+            if(I('post.status') == 0){
+                $map['statu.updatetime'] = array(array('gt',0));
+            } elseif(I('post.status') == 1){
+                $map['statu.updatetime'] = array('exp','IS NUll');
+            }
+        }
+        
+
         $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:false;
         $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:false;
 
@@ -79,7 +88,7 @@ class DevicesController extends CommonController
         if($this->get_level()){
             $map['vendors.id'] = $_SESSION['adminuser']['id'];
         }
-
+print_r($map);
         $user = D('Devices');
         // PHPExcel 导出数据
         if (I('output') == 1) {

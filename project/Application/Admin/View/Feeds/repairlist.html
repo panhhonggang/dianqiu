@@ -179,7 +179,9 @@
                         address = $('.address').val();
                         date_start = $('#date-start').val();
                         date_end = $('#date-end').val();
-                        status = Number($('.status>option:selected').val())+1;
+                        if($('.status>option:selected').val()){
+                            status = Number($('.status>option:selected').val())+1;
+                        }
 
                         srearchInfo['device_code'] = device_code;
                         srearchInfo['name'] = name;
@@ -202,7 +204,9 @@
                             $('.address').val(srearchInfo['address']);
                             $('#date-start').val(srearchInfo['mintime']);
                             $('#date-end').val(srearchInfo['maxtime']);
-                            $('.status>option').eq(srearchInfo['status'])[0].selected = true;
+                            if(srearchInfo['status']){
+                                $('.status>option').eq(srearchInfo['status'])[0].selected = true;
+                            }
 
                             setTimeout(function(){
                                 sessionStorage.setItem('search', '');   // 初始化

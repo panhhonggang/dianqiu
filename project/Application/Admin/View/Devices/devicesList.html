@@ -167,8 +167,13 @@
 
                         device_code = $('.device_code').val();
                         name = $('.name').val();
-                        is_bind = Number($('.is_bind>option:selected').val())+1;
-                        status = Number($('.status>option:selected').val())+1;
+                        if($('.is_bind>option:selected').val()){
+                            is_bind = Number($('.is_bind>option:selected').val());
+                        }
+                        if($('.status>option:selected').val()){
+                            status = Number($('.status>option:selected').val())+1;
+                        }
+                        
                         dname = $('.dname').val();
                         typename = $('.typename').val();
                         date_start = $('#date-start').val();
@@ -190,8 +195,12 @@
                         if($('.form-search').length){
                             // console.log(srearchInfo)
                             $('.device_code').val(srearchInfo['device_code']);
-                            $('.is_bind>option').eq(srearchInfo['is_bind'])[0].selected = true;
-                            $('.status>option').eq(srearchInfo['status'])[0].selected = true;
+                            if(srearchInfo['is_bind']){
+                                $('.is_bind>option').eq(srearchInfo['is_bind'])[0].selected = true;
+                            }
+                            if(srearchInfo['status']){
+                                $('.status>option').eq(srearchInfo['status'])[0].selected = true;
+                            }
                             
                             $('.name').val(srearchInfo['name']);
 

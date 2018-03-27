@@ -113,8 +113,12 @@
                         number = $('.number').val();
                         name = $('.name').val();
                         phone = $('.phone').val();
-                        type = Number($('.type>option:selected').val())+1;
-                        result = Number($('.result>option:selected').val())+1;
+                        if($('.type>option:selected').val()){
+                            type = Number($('.type>option:selected').val())+1;
+                        }
+                        if($('.result>option:selected').val()){
+                            result = Number($('.result>option:selected').val())+1;
+                        }
                         address = $('.address').val();
                         date_start = $('#date-start').val();
                         date_end = $('#date-end').val();
@@ -139,8 +143,12 @@
                             $('.name').val(srearchInfo['name']);
                             $('.phone').val(srearchInfo['phone']);
                             $('.address').val(srearchInfo['address']);
-                            $('.type>option').eq(srearchInfo['type'])[0].selected = true;
-                            $('.result>option').eq(srearchInfo['result'])[0].selected = true;
+                            if(srearchInfo['type']){
+                                $('.type>option').eq(srearchInfo['type'])[0].selected = true;
+                            }
+                            if(srearchInfo['result']){
+                                $('.result>option').eq(srearchInfo['result'])[0].selected = true;
+                            }
                             $('#date-start').val(srearchInfo['mintime']);
                             $('#date-end').val(srearchInfo['maxtime']);
 

@@ -114,13 +114,15 @@
                     function setSearchWord(){
                         sessionStorage.setItem('search', '');
                         
-                        type = $('.prodtype').val(),
-                        remodel = Number($('select>option:selected').val())+1,
-                        minmoney = $('.minmoney').val(),
-                        maxmoney = $('.maxmoney').val(),
-                        flow = $('.flow').val(),
-                        describe = $('.describe').val(),
-                        mintime = $('#date-start').val(),
+                        type = $('.prodtype').val();
+                        if($('select>option:selected').val()){
+                            remodel = Number($('select>option:selected').val())+1;
+                        }
+                        minmoney = $('.minmoney').val();
+                        maxmoney = $('.maxmoney').val();
+                        flow = $('.flow').val();
+                        describe = $('.describe').val();
+                        mintime = $('#date-start').val();
                         maxtime = $('#date-end').val();
 
                         srearchInfo['type'] = type;
@@ -139,7 +141,7 @@
                         if($('.form-search').length){
                             // console.log(srearchInfo)
                             $('.prodtype').val(srearchInfo['type']);
-                            if($('select>option').eq(srearchInfo['remodel'])[0]){
+                            if(srearchInfo['remodel']){
                                 $('select>option').eq(srearchInfo['remodel'])[0].selected = true;
                             }
                             $('.minmoney').val(srearchInfo['minmoney']);
