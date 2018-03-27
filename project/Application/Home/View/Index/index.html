@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<style type="text/css">
 	.linkBox{
 		display: none !important;
@@ -34,6 +35,9 @@
 		color: #fff;
 		font-size: .4rem;
 		font-weight: 400;
+	}
+	.icon-leaking {
+		color: red;
 	}
 </style>
 </head>
@@ -90,6 +94,10 @@
 				<div class="statusShuiman outLine right"><!--离线-->
 					<p><i class="iconfont "></i></p>
 					<span>已离线</span>
+				</div>
+				<div class="statusShuiman leaking right"><!--离线-->
+					<p><i class="iconfont icon-leaking"></i></p>
+					<span>漏水</span>
 				</div>
 			</div>
 			<div class="shuibolang">
@@ -253,6 +261,13 @@
 			$("html").css("background", "rgba(194,194,194,.5)");
 			$("body").css({height:'100vh',filter:'grayscale(100%)'});
 		}
+		//漏水
+		function leaking(){
+			$(".switchText").html("开机");
+			$(".leaking").show().siblings().hide();
+			$(".content").css({height: '100vh'});
+			$("body").css({height:'100vh',filter:'grayscale(0%)'});
+		}
 		machineStatus();//执行水机状态方法
 		var usednumberFlow=parseInt(data.sumflow);//已用流量
 		var usednumberDay=parseInt(data.sumday);//已用天数
@@ -370,6 +385,8 @@
 					fullWaters();
 				}else if(dataList.DeviceStause=="3"){//缺水
 					lessWaters();
+				}else if(dataList.DeviceStause=="4"){//漏水
+					leaking();
 				}else if(dataList.DeviceStause=="5"){//检修
 					service();
                 }else if(dataList.DeviceStause=="6"){//欠费

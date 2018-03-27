@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
+use Org\Util\Gateway;
 /**
  * 安装人员系统
  */
@@ -30,7 +31,25 @@ class PersonnelController extends Controller
      */
     public function index()
     {
-
+//        $sc = A('Api/Action');
+//
+//        $status = $sc->haihai('868575025659121');
+//        // $map['DeviceID'] = '868575025659121';
+//        // $info = M('devices_statu')->($map)->save(['FilterMode'=>1,['LeasingMode']=>2,'updatetime'=>time()]);
+//        // if ($info) {
+//        //     $message = ['DeviceID'=>'868575025672751','PackType'=>'SetData','Vison'=>0,'AliveStause'=>1,'FilterMode'=>0,'SumDay'=>0,'SumFlow'=>0,'ReFlow'=>5,'Reday'=>100,'ReFlowFilter1'=>200,'ReDayFilter1'=>100,'FlowLifeFilter1'=>200,'DayLifeFiter1'=>200,'LeasingMode'=>2,'FilerNum'=5];
+//        //     $sta = Gateway::sendToUid('868575025659121' $message);
+//
+//        //         }
+//        if ($status) {
+//            $map['DeviceID'] = '868575025659121';
+//            // $info = M('devices_statu')->($map)->save(['FilterMode'=>1,['LeasingMode']=>2,'updatetime'=>time()]);
+//
+//
+//            $message = ['DeviceID'=>'868575025672751','PackType'=>'SetData','Vison'=>0,'AliveStause'=>1,'FilterMode'=>1,'SumDay'=>0,'SumFlow'=>0,'ReFlow'=>5,'Reday'=>100,'ReFlowFilter1'=>200,'ReDayFilter1'=>100,'FlowLifeFilter1'=>200,'DayLifeFiter1'=>200,'LeasingMode'=>2,'FilerNum'=>5];
+//            $sta = Gateway::sendToUid('868575025659121',$message);
+//            dump($sta);
+//        }
         $this->display('index');
 
     }
@@ -89,10 +108,26 @@ class PersonnelController extends Controller
             $data['vid'] = $vid;
             $data['wid'] = $id;
             $data['create_time'] = date('Y-m-d H:i:s');
+            //查询产品类型
+            $type_info = M('devices')->field('type_id')->where(['device_code'=>$data['dcode']])->find();
+            //查找产品对应的滤芯
+            $type_name = M('device_type')->where(['id'=>$type_info['type_id']])->find();
+            unset($type_name['id'], $type_name['typename'], $type_name['addtime']);
+            $sum = array_filter($type_name);
+            foreach ($sum as $key => $value) {
+                $str = stripos($value,'-');
+                $map_filters['filtername'] = substr($value, 0,$str);
+                $map_filters['alias'] = substr($value, $str+1);
+                $res[] = M('filters')->field('flowlife,timelife')->where($map_filters)->find();
+
+            }
+
+
             $work_info = M('work')->where(['id'=>$map['id'],'personnel_id'=>$map['personnel_id']])->save(['dcode'=>$map['dcode'],'result'=>2]);
             if ($work_info) {
 
                 $add_info = M('install')->add($data);
+
                 if ( $add_info) {
                     $device_status['DeviceID'] = $data['dcode'];
                     $device_status['LeasingMode'] = $data['lease'];
@@ -101,7 +136,54 @@ class PersonnelController extends Controller
                     $device_status['addtime'] =  time();
                     M('devices_statu')->add($device_status);
                     M('devices')->where(['device_code'=>$data['dcode']])->save(['device_statu'=>2]);
-                    $this->success('安装成功',U('home/Personnel/personal'),2);
+                    $num = 1;
+                    $co  = 1;
+                    $fnum = 1;
+                    $dnum = 1;
+                    foreach ($res as $k => $v) {
+                        $statu['ReFlowFilter'.$num++] = $v['flowlife'];
+                        $statu['ReDayFilter'.$co++] = $v['timelife'];
+                        $statu['FlowLifeFilter'.$fnum++] = $v['flowlife'];
+                        $statu['DayLifeFiter'.$dnum++] = $v['timelife'];
+
+//                        M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save($statu);
+                    }
+
+//                    $status_info = M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save(['ReFlow'=>0,'Reday'=>0,'LeasingMode'=>$data['lease']
+//                    ,'FilterMode'=>$data['filter'],'SumFlow'=>0,'SumDay'=>0,'AliveStause'=>1,'updatetime'=>time()]);
+                    $statu['DeviceID'] = $data['dcode'];
+                    $statu['PackType'] = 'SetData';
+//                    $statu['ReFlow'] = 0;
+//                    $statu['Reday'] = 0;
+                    $statu['LeasingMode'] = $data['lease'];
+                    $statu['FilterMode'] = $data['filter'];
+                    $statu['SumFlow'] = 0;
+                    $statu['SumDay'] = 0;
+                    $statu['AliveStause'] = 1;
+                    $statu['FilerNum'] = count($res);
+                    $sc = A('Api/Action');
+//                    $status = $sc->Initialize($data['dcode']);
+//                    $sta = Gateway::sendToUid('868575025659121',$status);
+//                    if ($status) {
+////                        $map['DeviceID'] = '868575025659121';
+////                        // $info = M('devices_statu')->($map)->save(['FilterMode'=>1,['LeasingMode']=>2,'updatetime'=>time()]);
+////                        $message = ['DeviceID' => '868575025672751', 'PackType' => 'SetData', 'Vison' => 0, 'AliveStause' => 1, 'FilterMode' => 1, 'SumDay' => 0, 'SumFlow' => 0, 'ReFlow' => 5, 'Reday' => 100, 'ReFlowFilter1' => 200, 'ReDayFilter1' => 100, 'FlowLifeFilter1' => 200, 'DayLifeFiter1' => 200, 'LeasingMode' => 2, 'FilerNum' => 5];
+//                        $sta = Gateway::sendToUid($data['dcode'], $statu);
+//
+//                    } else {
+//                        unset($statu['PackType']);
+//                        unset($statu['DayLifeFiter']);
+//                        unset($statu['DayLifeFiter']);
+//
+//                    }
+//                    $status_info = M('devices_statu')->add();
+                        M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save(['data_statu'=>2]);
+                        Gateway::sendToUid($data['dcode'], $statu);
+                        $this->success('安装成功',U('home/Personnel/personal'),2);
+
+
+
+
                 } else {
                     $this->error('安装失败');
                 }

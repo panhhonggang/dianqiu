@@ -22,6 +22,8 @@ class CommonController extends Controller
 
         $bool = $this->rule_check(session('adminuser.id'));
         if(!$bool){
+            echo '权限不足';
+            die;
             redirect('Login/login',5,'权限不足');
         }
 

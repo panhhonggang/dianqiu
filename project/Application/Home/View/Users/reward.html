@@ -16,6 +16,7 @@
             <span>累计：</span>
             <p>安装&nbsp;{{ num[0] }}</p>
             <p>报修&nbsp;{{ num[1] }}</p>
+            <p>维护&nbsp;{{ num[2] }}</p>
          </div>
        </div>
     </div>
@@ -83,7 +84,7 @@
         data() {
           return {
             data: [],
-            num: [0, 0],
+            num: [0, 0, 0],
             isSameEle: null,
             liOffsetH: 0,
             moduleIsShow: true
@@ -106,6 +107,9 @@
 
                 }else if(res[i].type == 1){// 统计维修数量
                   that.num[1]++;
+
+                }else if(res[i].type == 2){// 统计维护数量
+                  that.num[2]++;
 
                 }
                 if(!res[i].phone){

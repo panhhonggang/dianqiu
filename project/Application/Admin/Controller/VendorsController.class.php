@@ -16,11 +16,6 @@ class VendorsController extends CommonController
      */
     public function index()
     {
-        /*
-            Excel导出
-         */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
         // dump($phpExcel);
         // 搜索功能
         $map = array(
@@ -75,7 +70,7 @@ class VendorsController extends CommonController
         D('devices')->getPageConfig($page);
         $pageButton =$page->show();
 
-        $userlist = $user->where($map)->limit($page->firstRow.','.$page->listRows)->getAll();
+        $userlist = $user->where($map)->limit($page->firstRow.','.$page->listRows)->order('addtime desc')->getAll();
 
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
@@ -258,13 +253,6 @@ class VendorsController extends CommonController
      */
     public function bindinglist()
     {
-
-        /*
-             Excel导出
-          */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
         // 搜索功能
         $map = array(
             'pub_devices.device_code' => array('like','%'.trim(I('post.device_code')).'%'),
@@ -324,6 +312,7 @@ class VendorsController extends CommonController
                                 ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
                                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                                 ->field('pub_binding.*,pub_vendors.name,pub_vendors.phone,pub_devices.device_code')
+                                ->order('pub_binding.addtime desc')
                                 ->select();
 //        dump($map);
         $this->assign('list',$bindinglist);

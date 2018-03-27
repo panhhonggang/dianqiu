@@ -434,12 +434,15 @@ class XZCloudStandard
             {
                 $PackNum=$data['PackNum'];
             }
-            $PackLenth+=10;
-            $req_Data=pack('nCCnn',0xddaa,$PackNum,$data[self::Vison],$PackLenth,$data['DataCmd']);
-            $req_Data.=$DataPack;
-            $CheckCode=pack('n',XZCloudStandard::crc16($req_Data));
-            $req_Data.=$CheckCode;
-            return $req_Data;
+            if($PackLenth>0){
+                $PackLenth+=10;
+                $req_Data=pack('nCCnn',0xddaa,$PackNum,$data[self::Vison],$PackLenth,$data['DataCmd']);
+                $req_Data.=$DataPack;
+                $CheckCode=pack('n',XZCloudStandard::crc16($req_Data));
+                $req_Data.=$CheckCode;
+                return $req_Data;
+            }
+
         }
         else
         {

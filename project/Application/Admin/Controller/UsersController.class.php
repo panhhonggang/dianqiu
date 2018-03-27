@@ -31,14 +31,7 @@ class UsersController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function index()
-    {	
-        // if (IS_POST) {
-        //     dump($_POST);die;
-        // }
-        
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
+    {
         // 搜索功能
         if(trim(I('post.address'))){
             $map['d.address'] = array('like','%'.trim(I('post.address')).'%');
@@ -112,6 +105,7 @@ class UsersController extends CommonController
             ->field('d.device_code,d.name,d.phone,w.*,u.*,d.address,cd.uid,cd.did,d.updatetime')
 //            ->field('d.device_code,.name,d.address,d.phone,u.*,w.nickname,cd.uid,cd.did,d.updatetime')
             ->limit($page->firstRow.','.$page->listRows)
+            ->order('u.created_at desc')
             ->select();
             // ->getAll();
 
@@ -231,22 +225,15 @@ class UsersController extends CommonController
      */
     public function flow()
     {
-        // if (IS_POST) {
-        //     dump($_POST);die;
-        // }
-        
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-
         // 搜索功能
         $map = array(
-            'f.mode' => trim(I('post.mode')),
-            '_query' => "status=1",
+            'f.mode' => trim(I('get.mode')),
+//            '_query' => "status=1",
         );
-        $map['d.name'] = trim(I('post.name')) ? array('like','%'.trim(I('post.name')).'%'): '';
+        $map['d.name'] = trim(I('get.name')) ? array('like','%'.trim(I('get.name')).'%'): '';
         // 充值金额范围搜索
-        $minmoney = trim(I('post.minmoney'))?:0;
-        $maxmoney = trim(I('post.maxmoney'))?:-1;
+        $minmoney = trim(I('get.minmoney'))?:0;
+        $maxmoney = trim(I('get.maxmoney'))?:-1;
         if (is_numeric($maxmoney)) {
             $map['f.money'] = array(array('egt',$minmoney*100),array('elt',$maxmoney*100));
         }
@@ -254,8 +241,8 @@ class UsersController extends CommonController
             $map['f.money'] = array(array('egt',$minmoney*100));      
         }
         // 充值量搜索
-        $minflow = trim(I('post.minflow'))?:0;
-        $maxflow = trim(I('post.maxflow'))?:-1;
+        $minflow = trim(I('get.minflow'))?:0;
+        $maxflow = trim(I('get.maxflow'))?:-1;
         if (is_numeric($maxflow)) {
             $map['f.flow'] = array(array('egt',$minflow),array('elt',$maxflow));
         }
@@ -263,21 +250,21 @@ class UsersController extends CommonController
             $map['f.flow'] = array(array('egt',$minflow));      
         }
         // 当前余量搜索
-        $mincurrentflow = trim(I('post.mincurrentflow'))?:0;
-        $maxcurrentflow = trim(I('post.maxcurrentflow'))?:-1;
-        if (is_numeric($maxcurrentflow)) {
+        $mincurrentflow = trim(I('get.mincurrentflow'))?:0;
+        $maxcurrentflow = trim(I('get.maxcurrentflow'));
+        if ($maxcurrentflow) {
             $map['f.currentflow'] = array(array('egt',$mincurrentflow),array('elt',$maxcurrentflow));
         }
-        if ($maxcurrentflow < 0) {
+        if ($mincurrentflow && empty($maxcurrentflow)) {
             $map['f.currentflow'] = array(array('egt',$mincurrentflow));      
         }
         // 充值时间
-        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
-        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
-        if (is_numeric($maxaddtime)) {
+        $minaddtime = strtotime(trim(I('get.minaddtime')));
+        $maxaddtime = strtotime(trim(I('get.maxaddtime')));
+        if ($minaddtime && $maxaddtime) {
             $map['f.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
         }
-        if ($maxaddtime < 0) {
+        if ($minaddtime && empty($maxaddtime)) {
             $map['f.addtime'] = array(array('egt',$minaddtime));
         }
         // 删除数组中为空的值
@@ -302,7 +289,7 @@ class UsersController extends CommonController
                 ->join('__DEVICES__ d ON f.did=d.id','LEFT')
                 ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
                 ->join('__BINDING__ bd ON d.id = bd.did ')
-                ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
+                ->field('f.id,d.name,f.money/100,f.flow,f.currentflow,f.mode,f.addtime')
                 ->select();
             $arr = [
                 'addtime'=>'Y-m-d H:i:s',
@@ -322,22 +309,27 @@ class UsersController extends CommonController
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
             ->field('f.*,d.name,u.balance')
             ->count();
         $page  = new \Think\Page($total,8);
+//        foreach ($map as $k=>$v){
+//            $page->parameter .="$k=".urlencode($v);
+//        }
         $pageButton =$page->show();
 
         $list = $flow->where($map)->limit($page->firstRow.','.$page->listRows)
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
+            ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
             ->field('f.*,d.name,u.balance,bd.vid')
+            ->order('f.addtime desc')
             ->select();
+//        dump($pageButton);
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
-        $this->display();        
+        $this->display();
     }
 
     

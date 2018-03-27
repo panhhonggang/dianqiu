@@ -114,29 +114,27 @@
 	<div  class="parameterSet">
 		<h1>参数设置</h1>
 		<form action=""  class="forms">
+			<php>
+				$array = ['0'=>'按时长','1'=>'按流量','2'=>'时长和流量'];
+				$lease = ['0'=>'零售型','1'=>'按流量计费','2'=>'按时间计费','3'=>'时长和流量套餐','4'=>'商务型'];
+
+			</php>
 			<p>设备编码：<span><input type="text" name="dcode" value="{{$work_info['dcode']}}"></span></p>
 			<p class="selectCon">
-				<label for="">租赁模式：</label>
-				<select name="lease" id="" class="selects">
 
-					<option <?php echo ($work_info['lease']===0)?'selected':''; ?> value="0">零售型</option>
-					<option <?php echo ($work_info['lease']==1)?'selected':''; ?> value="1">按流量计费</option>
-					<option <?php echo ($work_info['lease']==2)?'selected':''; ?> value="2">按时间计费</option>
-					<option <?php echo ($work_info['lease']==3)?'selected':''; ?> value="3">时长和流量套餐</option>
-					<option <?php echo ($work_info['lease']==4)?'selected':''; ?> value="4">商务型</option>
-				</select>
+
+				<label for="">租赁模式{{$work_info['id']}}：</label>
+				<input type="text" value="{{$array[$work_info['lease']]}}" disabled>
+
 				<span class="sugan"></span>
 			</p>
 			<p class="selectCon">
 				<label for="">滤芯模式：</label>
-				<select name="filter" id="" class="selects">
-					<option value=""></option>
-					<option <?php echo ($work_info['filter']==0)?'selected':''; ?> value="0" >按时长</option>
-					<option <?php echo ($work_info['filter']==1)?'selected':''; ?> value="1">按流量</option>
-					<option <?php echo ($work_info['filter']==2)?'selected':''; ?> value="2">时长和流量</option>
-				</select>
+
+				<input type="text" value="{{$array[$work_info['filter']]}}" disabled>
+
 				<span class="sugan"></span>
-			</p>
+
 
 
 		</form>

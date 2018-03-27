@@ -18,35 +18,38 @@ class OrdersController extends CommonController
     {	
 
         $map = '';
-
-
-      /*
-            Excel导出
-         */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
         // 搜索功能
-        $map = array(
-            'pub_orders.order_id' =>  array('like','%'.trim(I('post.order_id')).'%'),
-            'pub_wechat.nickname' => array('like','%'.trim(I('post.nickname')).'%'),
-            'pub_orders.total_num' => trim(I('post.total_num')),
-            'pub_express_information.name' => array('like','%'.trim(I('post.name')).'%'),
-            'pub_express_information.phone' => array('like','%'.trim(I('post.phone')).'%'),
-            'pub_express_information.addres' => array('like','%'.trim(I('post.addres')).'%'),
-        );
+
+        if (trim(I('post.order_id'))) {
+            $map['pub_orders.order_id'] = array('like','%'.trim(I('post.order_id')).'%');
+        }
+        if (trim(I('post.nickname'))) {
+            $map['pub_wechat.nickname'] = array('like','%'.trim(I('post.nickname')).'%');
+        }
+        if (trim(I('post.total_num'))) {
+            $map['pub_orders.total_num'] = array('like','%'.trim(I('post.total_num')).'%');
+        }
+        if (trim(I('post.name'))) {
+            $map['pub_express_information.name'] = array('like','%'.trim(I('post.name')).'%');
+        }
+        if (trim(I('post.phone'))) {
+            $map['pub_express_information.phone'] = array('like','%'.trim(I('post.phone')).'%');
+        }
+        if (trim(I('post.addres'))) {
+            $map['pub_express_information.addres'] = array('like','%'.trim(I('post.addres')).'%');
+        }
 
         if($this->get_level()){
             $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
         }
 
-        $mintotal_price = trim(I('post.mintotal_pricet'))?:0;
+        $mintotal_price = trim(I('post.mintotal_price'))?:0;
         $maxtotal_price = trim(I('post.maxtotal_price'))?:-1;
         if (is_numeric($maxtotal_price)) {
-            $map['pub_orders.total_price'] = array(array('egt',$mintotal_price),array('elt',$maxtotal_price));
+            $map['pub_orders.total_price'] = array(array('egt',$mintotal_price*100),array('elt',$maxtotal_price*100));
         }
         if ($maxtotal_price < 0) {
-            $map['pub_orders.total_price'] = array(array('egt',mintotal_price));      
+            $map['pub_orders.total_price'] = array(array('egt',$mintotal_price*100));
         }
         $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:0;
          $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:-1;
@@ -55,7 +58,7 @@ class OrdersController extends CommonController
          }
          if ($maxcreated_at < 0) {
              $map['pub_orders.created_at'] = array(array('egt',$mincreated_at));
-         }       
+         }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -63,7 +66,6 @@ class OrdersController extends CommonController
             }
             return false;
         });
-
         $order = M('orders');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -77,23 +79,10 @@ class OrdersController extends CommonController
                       ->select();
             // 数组中枚举数值替换
             $arr = [
-                'is_pay'=>[
-                    '0'=>'未付款',
-                    '1'=>'已付款',
-                    '2'=>'已取消'
-                ],
-                'is_receipt'=>[
-                    '0'=>'未发货',
-                    '1'=>'已发货'
-                ],
-                'is_ship'=>[
-                    '0'=>'未收货',
-                    '1'=>'已收货'
-                ],
-                'is_recharge'=>[
-                    '0'=>'未充值',
-                    '1'=>'已充值'
-                ],
+                'is_pay'=>['0'=>'未付款','1'=>'已付款','2'=>'已取消'],
+                'is_receipt'=>['0'=>'未发货','1'=>'已发货'],
+                'is_ship'=>['0'=>'未收货','1'=>'已收货'],
+                'is_recharge'=>['0'=>'未充值','1'=>'已充值'],
                 'created_at'=>'Y-m-d H:i:s',
             ];
             replace_value($data,$arr);
@@ -128,6 +117,7 @@ class OrdersController extends CommonController
                       ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
                       ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
                       ->field('pub_orders.*,pub_binding.vid,pub_vendors.name vname,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
+                      ->order('pub_orders.created_at desc')
                       ->limit($page->firstRow.','.$page->listRows)
                       ->select();
 

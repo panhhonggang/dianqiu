@@ -4,9 +4,9 @@
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
             <div class="titleBar">用户管理/<span>充值记录</span></div>
-            <form class="form-search" action="__URL__/flow" method="post">
+            <form class="form-search" action="__URL__/flow" method="get">
                 <span class="select-box">用户昵称:
-                    <input type="text" class="input-medium name" name="name" placeholder="请输入用户昵称" style="width: 70px;"/ >
+                    <input type="text" value="{{:I('get.name')}}" class="input-medium name" name="name" placeholder="请输入用户昵称" style="width: 70px;"/ >
                 </span>
 
                 <span class="select-box">充值金额:
@@ -21,16 +21,17 @@
                     <input type="text" class="input-medium mincurrentflow" name="mincurrentflow" placeholder="" style="width: 60px;" / > ~ 
                     <input type="text" class="input-medium maxcurrentflow" name="maxcurrentflow" placeholder="" style="width: 60px;" / >
                 </span>
-                <span class="select-box">充值方式:
-                    <select class="select mode" size="1" name="mode" style="width: 100px;">
-                        <option value="" selected>- 充值方式 -</option>
-                        <option value="0">系统赠送</option>
-                        <option value="1">微信</option>
-                        <option value="2">支付宝</option>
-                    </select>
-                </span>               
+                <!--<span class="select-box">充值方式:-->
+                    <!--<select class="select mode" size="1" name="mode" style="width: 100px;">-->
+                        <!--<option value="" selected>- 充值方式 -</option>-->
+                        <!--<option value="0">系统赠送</option>-->
+                        <!--<option value="1">微信</option>-->
+                        <!--<option value="2">支付宝</option>-->
+                    <!--</select>-->
+                <!--</span>               -->
                 <span class="select-box" style="display: inline-block;position:relative">充值时间:
-                    <input type="text" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~ <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
+                    <input type="text" value="{{:I('get.minaddtime')}}" id="date-start" class="input-medium form-control" name="minaddtime" placeholder="请选择时间" style="width: 76px;left: 0"/ > ~
+                    <input type="text" id="date-end" class="input-medium form-control" name="maxaddtime" placeholder="请选择时间" style="width:76px;right: 0"/ >
                 </span>
                 <div class="submitBtn">
                     <button type="submit" name="output" value="1" class="btn fr mbtn" style="float: left;color: #8f0911;background-color: #eee;"><i class="layui-icon">&#xe62f;</i> 导出</button>

@@ -28,7 +28,7 @@ class FlowModel extends Model
         $lastat = strtotime($lastDayOfMonth) + 24*60*60;
 
        $map['addtime'] = array(array('gt',$firstat),array('lt',$lastat), 'and');
-       // $map['_query'] = "status=1";
+        $map['_query'] = "status=1";
        $data = $this
                 ->where($map)
                 ->select();

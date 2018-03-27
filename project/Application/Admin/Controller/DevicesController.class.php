@@ -16,9 +16,6 @@ class DevicesController extends CommonController
     public function devicesList()
     {
 
-        /*Excel导出*/
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
         // 搜索功能
 //        $map = array(
 //            'd.device_code' =>  array('like','%'.trim(I('post.device_code')).'%'),
@@ -27,19 +24,26 @@ class DevicesController extends CommonController
 //            'type.typename' => array('like','%'.trim(I('post.typename')).'%'),
 //        );
 
-        if(!empty(I('post.device_code'))){
+        if(I('post.device_code')){
             $map['d.device_code']=array('like','%'.trim(I('post.device_code')).'%');
         }
-        if(!empty(I('post.name'))){
+        if(I('post.name')){
             $map['vendors.name']=array('like','%'.trim(I('post.name')).'%');
         }
-        if(!empty(I('post.dname'))){
+        if(I('post.dname')){
             $map['d.name']=array('like','%'.trim(I('post.dname')).'%');
         }
-        if(!empty(I('post.device_code'))){
+        if(I('post.phone')){
+            $map['d.phone']=array('like','%'.trim(I('post.phone')).'%');
+        }
+        if(I('post.typename')){
             $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
         }
-
+        if(I('post.is_bind') == 1){
+            $map['d.uid'] = array(array('gt',0));
+        }elseif (I('post.is_bind') == 2){
+            $map['d.uid'] = array('exp','IS NUll');
+        }
         $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:false;
         $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:false;
 
@@ -107,7 +111,6 @@ class DevicesController extends CommonController
             $myexcel->output();
             return ;
         }
-
         $devices = D('Devices')->getDevicesInfo($map);
         $assign = [
             'deviceInfo' => $devices,
@@ -138,7 +141,6 @@ class DevicesController extends CommonController
     {
         $devices = D('Devices');
         $code = I('post.');
-
         if(!$devices->create()){
             $this->error($devices->getError(), 'show_add_device');
         }
@@ -252,6 +254,8 @@ class DevicesController extends CommonController
                 if (!$res) {
                     
                     $this->error('导入失败啦！');
+                }else{
+                   $this->success('导入成功',U('Admin/Devices/devicesList'));
                 }
             } else {
                 $this->error('已导入' . $i . '条数据<br>');

@@ -52,11 +52,15 @@
                         <!-- 此处需要三级联动 -->
                     </div>
                     <div class="control-group">
+                        <span>详细地址<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <textarea name="detail" id="" cols="30" rows="5" placeholder="请输入详细地址..." style='width:210px'></textarea>
+                    </div>
+                    <div class="control-group">
                         <span>身份证号<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <input type="text" name="idcard" placeholder="请输入身份证号...">
                     </div>
                     <div class="btn-groups">
-                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                        <button class="subbtn btns btn-primary oddbtn" type="button">确认</button>
                     </div>
                 </form>
             </div>
@@ -68,53 +72,73 @@
 <script>
 $(function(){
     //验证
-    $('#_formTable').submit(function(){
+    $('.oddbtn').on('click',function(){
         var user = $('input[name=user]').val().trim()
         var name = $('input[name=name]').val().trim()
         var phone = $('input[name=phone]').val().trim()
         var email = $('input[name=email]').val().trim()
+        var address = $('textarea[name="detail"]').val().trim()
         var idcard = $('input[name=idcard]').val().trim()
-        if(user){
-            if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(user.trim())){
-                layuiHint('账户名不能输入特殊字符')
-            }else{
-                if(name){
-                    if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(name.trim())){
-                        layuiHint('用户昵称不能输入特殊字符')
-                    }else{
-                        if(/1[3,4,5,6,7,8]\d{9}/.test(phone.trim())){
-                            if(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(email.trim())){
-                                    return true
-                            }else{
-                                layuiHint('请输入正确的email')
-                            }
-                            
-                        }else{
-                            layuiHint('请输入正确的手机号码')
-                        }
-                    }
-                }else{
-                    layuiHint('用户昵称不能为空')
-                }
-            }
-        }else{
-            layuiHint('账户名不能为空')
+        if(!user.trim()){
+            layuiHint('请输入登录账号');
+            return
+
+        }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(user)){
+            layuiHint('账户名不能输入特殊字符');
+            return
+        } 
+        if(!name){
+            layuiHint('请输入昵称');
+            return
+
+        }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(name)){
+            layuiHint('用户昵称不能输入特殊字符');
+            return
         }
-        
-        return false
-    })
-    //城市三级联动
-    _init_area();
-    $(".oddbtn").click(function(ev){
+        if(!phone){
+            layuiHint('请输入手机号');
+            return
+
+        }else if(!/^1[3,4,5,6,7,8]\d{9}$/.test(phone)){
+            layuiHint('请输入正确的手机号码');
+            return
+        }
+        if(!email){
+            layuiHint('请输入邮箱');
+            return
+
+        }else if(!/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(email.trim())){
+            layuiHint('请输入正确的email');
+            return
+        }
         if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('亲，请把地址填写完整');
-            });    
-            ev.preventDefault();
+            layuiHint('请把地址填写完整');    
+            return
+
         }else{
             $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         }
-    });
+        if(!address){
+            layuiHint('请输入详细地址！');
+            return
+
+        }else if(!/^[\w\-\u4e00-\u9fa5]{2,255}$/u.test(address)){
+            layuiHint('地址只能由中文、英文、数字组成！');
+            return
+        }
+
+        if(!idcard){
+            layuiHint('请输入身份证号码');
+            return
+
+        }else if(!/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(idcard.trim())){
+            layuiHint('请输入正确的身份证号码');
+            return
+        }
+        $('#_formTable').submit();
+    })
+    //城市三级联动
+    _init_area();
+
 })
 </script>
