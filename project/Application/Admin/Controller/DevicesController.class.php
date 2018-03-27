@@ -112,6 +112,8 @@ class DevicesController extends CommonController
             return ;
         }
         $devices = D('Devices')->getDevicesInfo($map);
+
+
         $assign = [
             'deviceInfo' => $devices,
         ];

@@ -62,6 +62,7 @@
                             <td>网络状态</td>
                             <td>滤芯模式</td>
                             <td>设备类型(滤芯)</td>
+                            <td>设备首次绑定时间</td>
                             <td>最近更新时间</td>
                             <td>设备状态</td>
                         </tr>
@@ -124,7 +125,9 @@
                                             <default />
                                         </switch>
                                     </td>
+
                                     <td>{{$data.typename}}</td>
+                                    <td>{{$data.addtime|date='Y-m-d H:i:s', ###}}</td>
                                     <if condition="$data['updatetime'] == null ">
                                         <td></td>
                                         <td>未激活</td>
