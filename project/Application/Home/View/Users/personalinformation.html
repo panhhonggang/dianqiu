@@ -49,7 +49,7 @@
 		<script>
 			$(function(){
 				// 替换当前历史记录为首页， 防止后退再回到这里
-				// history.replaceState({},null,'{{:U("Home/Index/index")}}');
+				history.replaceState({},null,'{{:U("Home/Index/index")}}');
 
 				var name = $('#name').val().replace(/^(\s)|(\s*)/g,''),
 					phone = $('#phone').val().replace(/^(\s)|(\s*)/g,''),
