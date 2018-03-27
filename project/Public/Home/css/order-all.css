@@ -9,6 +9,9 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	-webkit-appearance:none;
 	-webkit-appearance: none;
 }
+body {
+	overflow-x: hidden;
+}
 #container{
 
     margin: 0.4rem 0.4rem 0.5rem 0.4rem !important;
@@ -192,4 +195,61 @@ border:1px solid #000;
     clear:both
 }
 
-
+.orderFulfil {
+	width: 9.2rem;
+	padding: 0 0 10vh 0;
+	border-bottom: 6px solid #EBEBEB;
+}
+.nopay-kuai {
+	border-top: 0px solid #EBEBEB;
+	margin: 1rem 0.4rem 0rem 0rem;
+}
+#order-all-header>ul>li:nth-of-type(1)>a{
+	color: #039CE9;
+}
+#all-information {
+	margin-top: 1rem;
+}
+#ro-right .bott {
+	text-align: right;
+}
+.bott p {
+	position: relative;
+	margin-left: 5vw;
+}
+#ord-btn1, #ord-btn2 {
+	border: 1px solid #353659;
+	border-radius: 6px;
+	font-size: .36rem;
+}
+.fini-change {
+	background: #039CE9;
+	height: .8rem;
+	line-height: .8rem;
+}
+#order-all-header{
+	margin-top:.4rem;
+}
+.suojin, .becomePay, .becomeSend, .becomeAccept{
+	padding-left:.4rem;
+}
+.slideLine {
+	position:absolute;
+	bottom:-1vh;
+	width:8vh;
+	left:4.2vh;
+	height:1vh;
+	border-radius:2px;
+	background-color:#039CE9;
+}
+.ordernull {
+	text-align:center;
+	margin-top:8vh;
+	font-size:3vh;
+}
+.layui-btn{
+	line-height: 0;
+}
+#order-all-foot>#ord-btn1 {
+    color: #000;
+}
