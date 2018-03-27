@@ -1,0 +1,181 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+html, body {
+	width: 100% !important;
+	height: 100%;
+	background: #fff;
+}
+#dateSelect{
+	width: 40%;
+	height: 5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 16px 0;
+	left: 50%;
+	margin-left: -20%;
+	background: #fff;
+	z-index: 999;
+	border: 1px solid #196f9a;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+#dateSelect>input {
+	width: 100%;
+	height: 5vh;
+	position: relative;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	margin-bottom: 0;
+	border: none;
+	font-size: .5rem;
+	padding: 0 25%;
+	z-index: 1001;
+	text-align: center;
+	cursor: pointer;
+	background: rgba(0,0,0,0);
+}
+
+#dateSelect:after {
+	content: '';
+	width: 0;
+	height: 0;
+	display: block;
+	position: absolute;
+	right: 6%;
+	top: 1.5vh;
+	border: 1.5vh solid;
+	border-color: #039CE9 transparent transparent transparent;
+	z-index: 1000;
+}
+.echartDiv {
+	position: relative;
+	margin: 5vh 0;
+}
+.chart {
+	width: 96%;
+	height: 50%;
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	left: 50%;
+	margin-left: -48%;
+}
+.chart>div{
+	width: 96% !important;
+	height: 200px;
+	position: relative; 
+	left: 50%;
+	margin-left: -48% !important;
+	overflow: hidden; 
+}
+.chart>div>canvas {
+	width: 100% !important;
+}
+
+.eChartTitle {
+	display: inline-block;
+	position: relative;
+	/*left: 0;*/
+	float: left;
+	padding: 1% 2%;
+	color: #fff;
+	font-weight: 400;
+	border-radius: 0 0.33333rem 0.33333rem 0;
+	background: #039CE9;
+}
+.eChartTitle:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.eChartTitle>span {
+	font-size: 16px;
+}
+
+@media screen and (max-width: 500px){
+	html, body {
+		width: 100% !important;
+		max-width: 500px;
+		overflow-x: hidden;
+	}
+
+	.chart {
+		height: 30vh;
+	}
+}
+@media screen and (min-width: 501px) {
+	html, body {
+		width: 100% !important;
+	}
+
+	.chart {
+		height: 30vh;
+	}
+}
+.layui-laydate, .layui-laydate-main{
+	width: 98vw !important;
+	position: relative;
+}
+.laydate-footer-btns {
+	width: 50%;
+	display: flex;
+	position: relative !important;
+	right: 0 !important;
+	top: 0 !important;
+	align-items: center;
+}
+.laydate-btns-clear,
+.laydate-btns-now,
+.laydate-btns-confirm {
+	width: 33.33%;
+	display: inline-block;
+	padding: 10% !important;
+}
+.layui-laydate-footer {
+	display: flex;
+	justify-content: flex-end;
+	height: auto;
+}
+.laydate-footer-btns span {
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+}
+.laydate-footer-btns span:nth-child(1){
+	background-color:#02CBB7;
+	color:white;
+	border:1px solid #02CBB7;
+
+}
+.laydate-footer-btns span:nth-child(2){
+	background-color:#02ACCB;
+	color:white;
+	border:1px solid #02ACCB;
+	margin-left:2px;
+}
+.laydate-footer-btns span:nth-child(3){
+	background-color:#09BEC5;
+	color:white;
+	border:1px solid #09BEC5;
+	margin-left:2px;
+}
+/*.laydate-btns-clear {
+	background-color:#02CBB7;
+	color:white;
+}
+.laydate-btns-now {
+	background-color:#02ACCB;
+	color:white;
+}
+.laydate-btns-confirm {
+	background-color:#09BEC5;
+	color:white;
+}*/
