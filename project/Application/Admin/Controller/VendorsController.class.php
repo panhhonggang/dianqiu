@@ -85,6 +85,10 @@ class VendorsController extends CommonController
     {
         if(IS_POST){
 
+            
+            //将三级联动地址拼接具体地址再写入数据库
+            $_POST['address'] = $_POST['address'].$_POST['addr'];
+            
             $user = D('vendors');
             $info = $user->create();
 
@@ -113,6 +117,14 @@ class VendorsController extends CommonController
     public function edit($id)
     {
         if(IS_POST){
+
+            
+            //将三级联动地址拼接具体地址再写入数据库
+            $_POST['address'] = $_POST['address'].$_POST['addr'];
+
+            // dump($_POST);die;
+
+
             $user = D('vendors');
             if(empty($_POST['password'])) {
                 unset($_POST['password']);
