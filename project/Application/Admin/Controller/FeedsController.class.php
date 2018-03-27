@@ -136,13 +136,14 @@ class FeedsController extends CommonController
         $name = trim(I('post.name'));
         $phone = trim(I('post.phone'));
         $address = trim(I('post.address'));
-        $status = trim(I('post.status'));
+        $status = I('post.status');
         if($device_code){
             $map['d.device_code'] = array('like','%'.$device_code.'%');
         }
         $name ? $map['d.name'] = array('like','%'.$name.'%') : '';
-        $phone ? $map['address'] = array('like','%'.$address.'%') : '';
-        $status ? $map['status'] = trim(I('post.status')):'';
+        $phone ? $map['d.phone'] = array('like','%'.$phone.'%') : '';
+        $address ? $map['d.address'] = array('like','%'.$address.'%') : '';
+        if(strlen($status)) $map['status'] = array('eq',$status);
 
 
         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
@@ -160,7 +161,6 @@ class FeedsController extends CommonController
             }
             return false;
         });
-
         $user = M('repair');
         // PHPExcel 导出数据 
         if (I('output') == 1) {

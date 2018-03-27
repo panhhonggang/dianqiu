@@ -21,6 +21,8 @@ class VendorsModel extends BaseModel
 
         array('repassword','password','两次密码不相同',0,'confirm'), //验证确认密码是否和密码一致
         array('phone','/^1[34578]\d{9}$/','电话号码格式不对',1,'regex'),
+        array('csphone','require','客服电话不能为空'),
+        array('csphone','/^1[34578]\d{9}$/','客服电话不对',1,'regex'),
         array('email','/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/','邮箱格式不对',1,'regex'),
         array('name','require','用户昵称不能为空'),
         array('address','require','地址不能为空'),

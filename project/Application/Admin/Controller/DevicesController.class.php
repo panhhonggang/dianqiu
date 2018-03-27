@@ -33,7 +33,10 @@ class DevicesController extends CommonController
         if(I('post.dname')){
             $map['d.name']=array('like','%'.trim(I('post.dname')).'%');
         }
-        if(I('post.device_code')){
+        if(I('post.phone')){
+            $map['d.phone']=array('like','%'.trim(I('post.phone')).'%');
+        }
+        if(I('post.typename')){
             $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
         }
         if(I('post.is_bind') == 1){
