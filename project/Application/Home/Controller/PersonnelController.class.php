@@ -134,6 +134,20 @@ class PersonnelController extends Controller
                     $device_status['FilterMode'] = $data['filter'];
 //                    $device_status['AliveStause'] = $data['dcode'];
                     $device_status['addtime'] =  time();
+                    $num = 1;
+                    $co  = 1;
+                    $fnum = 1;
+                    $dnum = 1;
+                    foreach ($res as $k => $v) {
+                        $device_status['ReFlowFilter'.$num++] = $v['flowlife'];
+                        $device_status['ReDayFilter'.$co++] = $v['timelife'];
+                        $device_status['FlowLifeFilter'.$fnum++] = $v['flowlife'];
+                        $device_status['DayLifeFiter'.$dnum++] = $v['timelife'];
+
+//                        M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save($statu);
+                    }
+
+
                     M('devices_statu')->add($device_status);
                     M('devices')->where(['device_code'=>$data['dcode']])->save(['device_statu'=>2]);
                     $num = 1;
@@ -161,6 +175,7 @@ class PersonnelController extends Controller
                     $statu['SumDay'] = 0;
                     $statu['AliveStause'] = 1;
                     $statu['FilerNum'] = count($res);
+                    $message['PackNum'] = 6;//激活
                     $sc = A('Api/Action');
 //                    $status = $sc->Initialize($data['dcode']);
 //                    $sta = Gateway::sendToUid('868575025659121',$status);

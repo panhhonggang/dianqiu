@@ -8,53 +8,24 @@ class ActionController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
         Gateway::$registerAddress = '127.0.0.1:9504';
     }
-    //测试
-    public function Initialize($device_code) {
 
-        $client_id = Gateway::getClientIdByUid($device_code);
-        return $client_id;
-
-
-    }
-    public function ssss()
+    public function test()
     {
-        // $msg['PackNum'] = ['30'=>401];
-        // file_put_contents('./PackNum_868575025672835',serialize($msg));
 
+        $message['DeviceID'] = '868575025659121';
 
-        // // $this->get_PackNum('868575025672835',300);
-        // $rr = unserialize(file_get_contents('./PackNum/PackNum_868575025672835'));
-        dump($rr);
+        $this->get_filter_info('868575025659121');
 
-
-// {"DeviceID":"868575025672835","PackType":"SetData","Vison":0,"Reday":80,"PackNum":81}
-        // die;
-        // $this->sysnc_web('868575025672835');
-
-        // $msg['PackType']="SetData";
-        // $msg['DeviceID']="868575025672835";//$dcode;
-        // $msg['Vison']="0";
-        // $msg['ReFlow'] = 0;//empty($data['reflow'])? 0 : $data['reflow'];
-        // $msg['Reday'] = 100;//empty($data['reday'])? 0 : $data['reday'];
-        // $msg['PackNum'] = 30;
-        // // $msg = ["DeviceID"=>"868575025672835","PackType"=>"SetData","Vison"=>0,"DeviceStause"=>8];
-        // // $res = Gateway::getClientIdByUid("868575025672835");
-        // // dump($res);
-        // // dump(Gateway::isUidOnline('868575025672835'));
-        // // $acl="";
-        // // foreach ($res as $key => $value) {
-        // //     // $res = array_pop($res);
-        // // }
-        //     // dump($res);
-            // dump(Gateway::sendToUid("868575025672835",$msg));
-
-        //     dump(Gateway::sendToClient($acl,$msg));
-        // dump(Gateway::isUidOnline($res));
+//        $this->check_info(94);
+//        $this->sendMsg($message['DeviceID'],$message);
     }
 
-    // 接收信息
+    /**
+     * 接收信息 信息分发
+     */
     public function receive()
     {
         $message = I('post.');
@@ -63,7 +34,6 @@ class ActionController extends Controller
         if(empty($message['DeviceID'])){
             $mes  = Gateway::getSession($client_id);
             $message['DeviceID']  = $mes['DeviceID'];
-            
         }
         // 判断数据传输的对象
         if( $message['soure']=='Close')
@@ -77,34 +47,23 @@ class ActionController extends Controller
             $this->getws($client_id, $message);
         }
     }
-    public function Close($DeviceID)
-    {
-        $this->updateNetStase($DeviceID,0);
-    }
 
-    public function updateNetStase($DeviceID,$NetStause)
-    {
-        $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
 
-        $data = [
-            'NetStause'   => $NetStause,
-        ];
-        $this->updateData($status_id, $data);
+    /**
+     * web端信息 数据处理
+     */
+    public function getws($client_id, $message)
+    {
+        if( $message['PackType'] == 'login' ){
+            Gateway::joinGroup( $client_id, $message['DeviceID'] );
+        } else {
+            Gateway::sendToUid($message['DeviceID'], $message);
+        }
     }
 
     /**
-     * [sendMsg 向设备发送信息 信息推送]
-     * @param  [type] $device_code [设备码]
-     * @param  [type] $message     [信息串]
-     * @return [type]              [description]
+     * 设备消息处理
      */
-     public function sendMsg($device_code,$message)
-     {
-         sleep(1);
-         Gateway::sendToUid($device_code, $message);
-     }
-
-    // 设备消息处理
     public function gettcp($client_id, $message)
     {
         if( empty( Gateway::getSession($client_id) ) ){
@@ -115,52 +74,11 @@ class ActionController extends Controller
             $message['DeviceID'] = $res['DeviceID'];
         }
         
-        $this->updateNetStase($message['DeviceID'],1);
         if($message['PackType'] == 'login'){
-            
             Gateway::bindUid($client_id, $message['DeviceID']);
-
         }
 
-        switch ($message['PackType']) {
-            case 'login':
-                /*$message = */$this->loginAction($message);
-                break;
-            // 设备设置
-            case 'Select':
-
-       
-                
-                /*$message = */$this->selectAction($message);
-                break;
-
-            case 'SetData':
-
-                if(isset($message['PackNum'])){
-                    if($message['PackNum'] >= 30 && $message['PackNum']<=100){
-                        // Log::write(json_encode($message), 'AAAAAAA');
-
-                        $arr=unserialize(file_get_contents('./PackNum/PackNum_'.$message['DeviceID']));
-
-                        $id=isset($arr['PackNum'][$message['PackNum']])?$arr['PackNum'][$message['PackNum']]:false;
-                        if($id){
-                            $res = M('order_setmeal')->where('id='.$id)->save(['is_play'=>1]);
-                            // Log::write($res, 'BBBBBBBBBB');
-                            if($res){
-                                unset($arr['PackNum'][$message['PackNum']]);
-
-                                file_put_contents('./PackNum/PackNum_'.$message['DeviceID'],unserialize($arr));
-                            }
-                        }
-                    }
-                }
-                break;
-
-            default:
-                # code...
-                break;
-        }
-
+        // 信息正常回复
         if( isset($message['DeviceID']) ){
             if( Gateway::getClientCountByGroup($message['DeviceID']) > 0 ){
                 Gateway::sendToGroup( $message['DeviceID'], json_encode($message) );
@@ -168,145 +86,242 @@ class ActionController extends Controller
         }
         Gateway::sendToClient($client_id, $message);
 
-        if($message['PackType'] == 'login'){
-            $this->sysnc_web($message['DeviceID']);
+        switch ($message['PackType']) {
+            case 'login':
+                $this->loginAction($message);
+                break;
+
+            case 'SetData':
+                $this->setdataAction($message);
+                break;
+
+            case 'Select':
+                $this->selectAction($message);
+                break;
+
+            default:
+                $data['NetStause']=1;
+
+                M('devices_statu')->where("DeviceID=" . $DeviceID)->save($data);
+                break;
         }
-        
     }
 
-    public function sysnc_web($devices)
+    /**
+     * 设备连接关闭
+     */
+    public function Close($DeviceID)
     {
+        $DeviceID=trim($DeviceID);
 
-        $map['d.device_code'] = $devices;
-        $map['od.is_play'] = 0;
-        $map['o.is_pay'] = 1;
-        // $data = M('devices_statu')->where($map)->field('reflow,reday')->find();
-        $data = M('devices')
-            ->alias('d')
-            ->where($map)
-            ->join('__ORDERS__ o ON d.id=o.device_id', 'LEFT')
-            ->join('__ORDER_SETMEAL__ od ON o.order_id=od.order_id', 'LEFT')
-            ->field('od.id,od.remodel,od.flow,od.goods_num')
-            ->select();
+        $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
 
-        
-        foreach ($data as $key => $value) {
-            // M('order_setmeal')->startTrans();
-            $arr = [];
-            if($value['remodel'] == 1){
-                $arr['reday'] = $value['flow'];
-            } else {
-                $arr['reflow'] = $value['flow'];
-            }
-
-            // $res = M('order_setmeal')->where('id='.$value['id'])->save(['is_play'=>1]);
-            $arr['PackNum'] = (string)$this->get_PackNum($map['d.device_code'],$value['id']);
-           
-            $this->sysnc_info($devices,$arr);
-        };
-    }
-
-    public function get_PackNum($did,$id)
-    {
-        $res = file_get_contents('./PackNum/PackNum_'.$did);
-        if($res){
-            $arr = unserialize($res);
-        }
-        $key =  array_keys($arr['PackNum'],$id);
-        if(!empty($key)){
-            return array_pop($key);
-        }else{
-            for ($i=30; $i <=100; $i++) {
-            if(!isset($arr['PackNum'][$i])){
-                $arr['PackNum'][$i] = $id;
-
-                file_put_contents('./PackNum/PackNum_'.$did, serialize($arr));
-                return $i;
-            }
-        }
-        }
-        
-    }
-
-
-    // json数据处理
-    public function getws($client_id, $message)
-    {
-        if( $message['PackType'] == 'login' ){
-            Gateway::joinGroup( $client_id, $message['DeviceID'] );
-        } else {
-            Gateway::sendToUid($message['DeviceID'], $message);
-
+        if($status_id){
+            $data = ['NetStause'   => 0];
+            $this->updateData($status_id, $data);
         }
     }
 
     // 登陆数据处理
     public function loginAction($message)
     {
+
         $data = [
-            'DataCmd'     => $message['DataCmd'],
             'Device'      => $message['Device'],
-            'PackType'    => $message['PackType'],
-            'AliveStause' => $message['AliveStause'],
-            'DeviceType'  => $message['DeviceType'],
-            'DeviceID'    => $message['DeviceID'],
             'ICCID'       => $message['ICCID'],
             'CSQ'         => $message['CSQ'],
             'Loaction'    => $message['Loaction'],
             'NetStause'   =>1,
-//            'Reday'       => $message['Reday'],
-//            'ReFlow'      => $ReFlow,
         ];
-        $devices_id = M('devices')->where("device_code={$message['DeviceID']}")->getField('id');
-        $status_id  = M('devices_statu')->where("DeviceID={$message['DeviceID']}")->getField('id');
+
+        $dcode=trim($message['DeviceID']);
+
+        $status_id  = M('devices_statu')->where("DeviceID={$dcode}")->getField('id');
+
         if( empty($status_id) ){
             $res = $this->saveData($data);
             if($res){
                 $data['updatetime'] = time();
                 $data['device_status'] = 1;
-                $result = M('devices')->where('device_code=' . $message['DeviceID'])->save($data);
+                M('devices')->where('device_code=' . $message['DeviceID'])->save($data);
             }
         } else {
-            $res = $this->updateData($status_id, $data);
+            if($this->check_info($status_id)){
+                $this->updateData($status_id, $data);
+            }
         }
-        // if($res){
-        //     return $data;
-        // }
     }
 
-    // 设备自动回复处理
+
+
+    /**
+     * 设备查询包处理
+     * @param $message
+     * @return array
+     */
     public function selectAction($message)
     {
-        // $ReFlow = 0;
-        // $Reday = 0;
-  
-        // $result = $this->sysnc_info($message['DeviceID']);
-        // if(!empty($result)){
-        //     $ReFlow = empty($result['reflow'])? 0 : $result['reflow'];
-        //     $Reday = empty($result['reday'])? 0 : $result['reday'];
-        // }
-
         $data = [
             'DeviceStause' => $message['DeviceStause'],
-            'ReFlow'       => $message['ReFlow'],
-            'ReDay'        => $message['Reday'],
+            'NetStause'    =>1,
             'SumFlow'      => $message['SumFlow'],
             'SumDay'       => $message['SumDay'],
             'RawTDS'       => $message['RawTDS'],
             'PureTDS'      => $message['PureTDS'],
             'Temperature'  => $message['Temperature'],
-            'FilerNum'     => $message['FilerNum'],
-            'LeasingMode'  => $message['LeasingMode'],
         ];
+
         if( $message['FilerNum'] != null ){
             $res = $this->filterAction($message);
 
             $data = array_merge( $data, $res );
         }
+        $dcode=trim($message['DeviceID']);
 
-        $status_id = M('devices_statu')->where("DeviceID=" . $message['DeviceID'])->getField('id');
-        if($this->updateData($status_id, $data)){
-            return $data;
+        $ds = M('devices_statu')->where("DeviceID=" . $dcode)->find();
+
+        if ($ds) {
+            if( $ds['data_statu'] == 0 ){
+                $data['ReFlow'] = $message['ReFlow'];
+                $data['ReDay']  = $message['Reday'];
+                $data['FilerNum']  = $message['FilerNum'];
+            }
+
+            $this->updateData($ds['id'], $data);
+        }
+    }
+
+    /**
+     * 设备设置包处理
+     * @param $message
+     * @return array
+     */
+    public function setdataAction($message)
+    {
+        if (isset($message['PackNum'])) {
+
+            $DeviceID=trim($message['DeviceID']);
+
+            if ($message['PackNum'] == 6) {//激活
+                $data['data_statu']  = 0;
+                $data['AliveStause'] = 1;
+            }
+
+            if ($message['PackNum'] == 5) {//更新
+                $data['data_statu'] = 0;
+                $data['ReDay']      = $message['ReDay'];
+                $data['ReFlow']     = $message['ReFlow'];
+                $data['FilerNum']   = $message['FilerNum'];
+            }
+
+            $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
+
+            if (!empty($data)) {
+                $this->updateData($status_id, $data);
+            }
+        }
+    }
+
+    /**
+     * 推送信息到设备
+     * @param $dcode
+     */
+    public function sysnc($dcode)
+    {
+        $status_id = M('devices_statu')->where("DeviceID=" . $dcode)->getField('id');
+        $this->check_info($status_id);
+    }
+    /**
+     * 库数据检查  单向推送到设备
+     * $id  数据串的id
+     * 数据状态 0正常 1更新 2 需要激活
+     */
+    public function check_info($id)
+    {
+        $data = M('devices_statu')->find($id);
+        if (isset($data['data_statu']) && $data['data_statu'] > 0 ){
+            $msg = $this->get_data($data);
+
+            if($msg) $this->sendMsg($msg);
+
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 处理数据结构
+     */
+    public function get_data($data)
+    {
+        if(!isset($data['deviceid'])){
+            return false;
+        }
+        $msg['DeviceID'] = $data['deviceid'];
+        $msg['PackType'] = "SetData";
+        $msg['Vison']    = 0;
+
+        $PackNumArr      = ['1'=>5,'2'=>6];//设备传输包标识 5更新 6激活 用于回调请求时数据处理
+
+        $msg['PackNum']  = $PackNumArr[$data['data_statu']]?:0;
+
+        //设备模式
+        $msg['LeasingMode'] = $data['leasingmode'];
+        $msg['FilterMode']  = $data['filtermode'];
+
+        //剩余
+        $msg['ReFlow'] = empty($data['reflow'])? 0 : $data['reflow'];
+        $msg['Reday']  = empty($data['reday'])? 0 : $data['reday'];
+
+        $filter_life=$this->get_filter_info($data['deviceid']);
+        if(empty($filter_life)) return false;
+
+        if ($msg['PackNum'] == 5) { //设备更新
+            for ($i=1; $i<9; $i++){
+                if( !empty($data['reflowfilter'.$i]) or !empty($data['redayfilter'.$i])){
+                    $msg['ReFlowFilter'. $i]     = $data['reflowfilter'.$i];
+                    $msg['ReDayFilter'. $i]      = $data['redayfilter'.$i];
+                    $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
+                    $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
+                }
+            }
+
+        }
+
+        if ($msg['PackNum']==6 && $data['alivestause'] == 0) {//设备激活
+            $msg['AliveStause'] = 1;
+            $msg['SumFlow']     = 0;
+            $msg['SumDay']      = 0;
+
+            $filenum=0;
+            for ($i=1; $i<9; $i++){
+                if( !empty($data['reflowfilter'.$i]) or !empty($data['redayfilter'.$i])){
+                    $filenum++;
+                    $msg['ReFlowFilter'. $i]     = $data['reflowfilter'.$i];
+                    $msg['ReDayFilter'. $i]      = $data['redayfilter'.$i];
+//                    $msg['FlowLifeFilter'. $i]   = $data['reflowfilter'.$i];
+//                    $msg['DayLifeFiter'. $i]     = $data['redayfilter'.$i];
+                    $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
+                    $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
+                }
+            }
+            $msg['FilerNum'] = $filenum;
+
+        }
+        return $msg;
+    }
+
+    /**
+     * sendMsg 向设备发送信息 信息推送
+     * @param   array $message     信息串
+     * @return
+     */
+    public function sendMsg($message)
+    {
+        Log::write(json_encode($message), 'AAAAAAA');
+
+        if(isset($message['DeviceID'])){
+            Gateway::sendToUid($message['DeviceID'], $message);
         }
     }
 
@@ -321,6 +336,7 @@ class ActionController extends Controller
     // 更新数据
     public function updateData($id, $data)
     {
+
         $data['updatetime'] = time();
         return M('devices_statu')->where("id={$id}")->save($data);
     }
@@ -348,27 +364,33 @@ class ActionController extends Controller
         return $data;
     }
 
-    // 同步数据库的流量剩余信息
-    public function sysnc_info($dcode,$data)
+
+    public function get_filter_info($dcode)
     {
-        $msg['PackType']="SetData";
-        $msg['PackNum']=$data['PackNum'];
-        $msg['DeviceID']=$dcode;
-        $msg['Vison']="0";
-        $msg['ReFlow'] = empty($data['reflow'])? 0 : $data['reflow'];
-        $msg['Reday'] = empty($data['reday'])? 0 : $data['reday'];
+        $code = M('devices')->where("device_code={$dcode}")->find();
+//        $status = M('devices_statu')->where("DeviceID='{$dcode}'")->find();
+        $type = M('device_type')->where("id={$code['type_id']}")->find();
 
-
-        // Log::write(json_encode($msg), 'BBBBBBB');
-
-        // if(Gateway::getClientIdByUid($dcode))
-//         dump($msg);
-            // die;
-        sleep(2);
-        $res = Gateway::sendToUid($dcode, $msg);
-        // $res = $this->sendMsg($dcode, $msg);
-        
-        // return $res;
+        unset($type['id'], $type['typename'], $type['addtime']);
+        $sum = array_filter($type);
+        foreach ($sum as $key => $value) {
+            $str = stripos($value,'-');
+            $map['filtername'] = substr($value, 0,$str);
+            $map['alias'] = substr($value, $str+1);
+//            $res[] = M('filters')->where($map)->field('timelife,flowlife')->find();
+            $res[] = M('filters')->where($map)->field('timelife,flowlife')->find();
+        }
+        return $res;
     }
+
+//    public function updateNetStase($DeviceID,$NetStause)
+//    {
+//        $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
+//
+//        $data = [
+//            'NetStause'   => $NetStause,
+//        ];
+//        $this->updateData($status_id, $data);
+//    }
 
 }

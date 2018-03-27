@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
-
+use Think\Log;
 /**
  * 支付系统
  */
@@ -80,7 +80,8 @@ class PaymentSystemController extends Controller
                 // 用户ID号
                 $order['user_id']       = $uid;
                 // 关联的设备ID号
-                $order['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+//                $order['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+                $order['device_id']     = M('currentDevices')->where("`uid`={$uid}")->getField('did');
                 // 商品的购买总数量
                 $order['total_num']     = $totalNum;
                 // 商品的购买总金额
@@ -191,7 +192,9 @@ class PaymentSystemController extends Controller
                 // 用户ID号
                 $order['user_id']       = $uid;
                 // 关联的设备ID号
-                $order['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+//                $order['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+                $order['device_id']     = M('currentDevices')->where("`uid`={$uid}")->getField('did');
+
                 // 商品的购买总数量
                 $order['total_num']     = $totalNum;
                 // 商品的购买总金额
@@ -370,7 +373,9 @@ class PaymentSystemController extends Controller
                 // 用户ID号
                 $ordersData['user_id']       = $uid;
                 // 关联的设备ID号
-                $ordersData['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+//                $ordersData['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+                $ordersData['device_id']     = M('currentDevices')->where("`uid`={$uid}")->getField('did');
+
                 // 商品的购买总数量
                 $ordersData['total_num']     = $totalNum;
                 // 商品的购买总金额
@@ -528,7 +533,9 @@ class PaymentSystemController extends Controller
                 // 用户ID号
                 $ordersData['user_id']       = $uid;
                 // 关联的设备ID号
-                $ordersData['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+//                $ordersData['device_id']     = M('Devices')->where("`uid`='{$uid}'")->find()['id'];
+                $ordersData['device_id']     = M('currentDevices')->where("`uid`={$uid}")->getField('did');
+
                 // 商品的购买总数量
                 $ordersData['total_num']     = $totalNum;
                 // 商品的购买总金额
@@ -864,29 +871,29 @@ class PaymentSystemController extends Controller
         $xml=file_get_contents('php://input', 'r');
         // file_put_contents('./wx_pay.txt',$xml."\r\n", FILE_APPEND);
         //echo 1;die;
-//         $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
-// <attach><![CDATA[3348930254834304]]></attach>
-// <bank_type><![CDATA[CFT]]></bank_type>
-// <cash_fee><![CDATA[1]]></cash_fee>
-// <fee_type><![CDATA[CNY]]></fee_type>
-// <is_subscribe><![CDATA[Y]]></is_subscribe>
-// <mch_id><![CDATA[1394894802]]></mch_id>
-// <nonce_str><![CDATA[7o8npfqaiqcir08sh7tmuaj2y45tuyoy]]></nonce_str>
-// <openid><![CDATA[oXwY4txlP9OKwEDbVUMvUXP_7FhA]]></openid>
-// <out_trade_no><![CDATA[5971653924322014]]></out_trade_no>
-// <result_code><![CDATA[SUCCESS]]></result_code>
-// <return_code><![CDATA[SUCCESS]]></return_code>
-// <sign><![CDATA[4304C1E1631CDA64D1366A60F1227046]]></sign>
-// <time_end><![CDATA[20180317091019]]></time_end>
-// <total_fee>1</total_fee>
-// <trade_type><![CDATA[JSAPI]]></trade_type>
-// <transaction_id><![CDATA[4200000061201803170106895624]]></transaction_id>
-// </xml>';
+//        $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
+//<attach><![CDATA[393068816013024114]]></attach>
+//<bank_type><![CDATA[CFT]]></bank_type>
+//<cash_fee><![CDATA[1]]></cash_fee>
+//<fee_type><![CDATA[CNY]]></fee_type>
+//<is_subscribe><![CDATA[Y]]></is_subscribe>
+//<mch_id><![CDATA[1394894802]]></mch_id>
+//<nonce_str><![CDATA[e3i41m4g9x3xd92m7duyupvfwq84uz0w]]></nonce_str>
+//<openid><![CDATA[oXwY4tygQ0kK3SCrYoK2pME_1b38]]></openid>
+//<out_trade_no><![CDATA[401974940811653114]]></out_trade_no>
+//<result_code><![CDATA[SUCCESS]]></result_code>
+//<return_code><![CDATA[SUCCESS]]></return_code>
+//<sign><![CDATA[5E3A641DBAB0D9724259D80C61FB659B]]></sign>
+//<time_end><![CDATA[20180327192613]]></time_end>
+//<total_fee>1</total_fee>
+//<trade_type><![CDATA[JSAPI]]></trade_type>
+//<transaction_id><![CDATA[4200000054201803276779138017]]></transaction_id>
+//</xml>';
         
         if($xml){
             //解析微信返回数据数组格式
             $result = $this->notifyData($xml);
-            //show($result);die;
+
             //$uid = M('Users')->where("open_id='{$result['']}'")->find()['id'];
             //file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
             // 如果订单号不为空
@@ -906,7 +913,7 @@ class PaymentSystemController extends Controller
                 // 如果订单未处理，订单支付金额等于订单实际金额
                 if(empty($orderData['is_pay']) && $orderData['total_price'] == $result['total_fee']){
                     //file_put_contents('./wx_pay121.txt',$xml."\r\n", FILE_APPEND);
-                    //dump($result);
+//                    dump($result);
                     // 处理订单
                     // 实例化订单对象
                     $orders = M('Orders');  
@@ -941,6 +948,8 @@ class PaymentSystemController extends Controller
                     // dump($orderSetmealData);die;
                     // 充值状态
                     $status = 0;
+
+
                     if($orderSetmealData){
                         //show($orderSetmealData);die;
                         // 统计未处理套餐数量
@@ -957,34 +966,38 @@ class PaymentSystemController extends Controller
                         $deviceCode['DeviceID'] = $device->where($deviceId)->find()['device_code'];
                         
                         foreach ($orderSetmealData as $value) {
-                            //show($value);die;
+//                            dump($value);
                             // 查询设备当前剩余流量
                             $devicesStatus = $devicesStatu->where($deviceCode)->find();
                             // $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
                             $devicesStatuReFlow = $devicesStatus['reflow'];
                             $devicesStatuReDay = $devicesStatus['reday'];
                             // file_put_contents('套餐模式',var_export($value['remodel'], true),FILE_APPEND);
-                            // if ($value['remodel'] == 1) {
-                            //     // 充值后流量应剩余天数
-                            //     $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']); 
-                            // } else {
-                            //     // 充值后流量应剩余流量
-                            //     $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']); 
-                            // }
+//                             if ($value['remodel'] == 1) {
+//                                 // 充值后流量应剩余天数
+//                                 $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']);
+//                             } else {
+//                                 // 充值后流量应剩余流量
+//                                 $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
+//                             }
                             switch ($value['remodel']) {
-                                case '0':
-                                    $Flow['ReDay'] = $devicesStatuReDay + ($value['flow']*$value['goods_num']); 
-                                    break;
-                                case '1':
+                                case '0'://流量
                                     $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
+                                    break;
+                                case '1'://时长
+                                    $Flow['ReDay'] =$devicesStatuReDay  + ($value['flow']*$value['goods_num']);
                                     break;
                                 default:
                                     # code...
                                     break;
                             }
-                            
+                            $Flow['data_statu']=1;
+
+                            Log::write(json_encode($Flow), '更新devicesStatu');
+
                             // 修改设备剩余流量
                             $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
+
                             // file_put_contents('jfdsk',var_export($devicesStatu->_sql(), true),FILE_APPEND);
                             // 准备发送指令
                             // if(empty($Flow['ReDay'])){
@@ -1036,6 +1049,7 @@ class PaymentSystemController extends Controller
                                 // 定时器++
                                 $flownum++;
                             }
+//                            dump($FlowRes);
 
                             // 判断修改结果
                             if($FlowRes){
@@ -1044,10 +1058,8 @@ class PaymentSystemController extends Controller
                             }
                             
                         }
-                        // file_put_contents('sssssss',$countNun .$num. $flownum);
-                        // dump($countNun);
-                        // dump($num);
-                        // dump($msg);die;
+//                         dump($countNun);
+//                         die;
                         // 全部套餐充值完成
                         if($countNun == $num && $countNun == $flownum){
                             // 充值和流水完成，状态设为1
@@ -1058,20 +1070,17 @@ class PaymentSystemController extends Controller
                         // 没有套餐默认值，状态设为1
                         $status = 1;
                     }
-                    // dump($status);die;
+//                     dump($status);die;
                     // show($msg);die;
                     // file_put_contents('saaa',$isPayRes .'jfdslajfds'. $status);
                     if($isPayRes && $status){
-                        
+//                        dump($deviceCode);
                         // 执行事务
                         $orders->commit();
 
                         $sc=A("Api/Action");
-                        // dump($sc);die;
-                        // 
-                        // Log::write(json_encode($msg), 'PPPPPPPPPPPPPPPP');
-//                        file_put_contents('./ssssssssssssssss/'.$deviceCode['DeviceID'],$deviceCode['DeviceID'], FILE_APPEND);
-                        $sc->sysnc_web($deviceCode['DeviceID']);
+
+                        $sc->sysnc($deviceCode['DeviceID']);
 
                     }else{
                         // 事务回滚

@@ -75,6 +75,23 @@ class XZCloudStandard
     const FlowLifeFilter5='FlowLifeFilter5';
     const DayLifeFiter5='DayLifeFiter5';
 
+    const ReFlowFilter6='ReFlowFilter6';
+    const ReDayFilter6='ReDayFilter6';
+    const FlowLifeFilter6='FlowLifeFilter6';
+    const DayLifeFiter6='DayLifeFiter6';
+
+    const ReFlowFilter7='ReFlowFilter7';
+    const ReDayFilter7='ReDayFilter7';
+    const FlowLifeFilter7='FlowLifeFilter7';
+    const DayLifeFiter7='DayLifeFiter7';
+
+    const ReFlowFilter8='ReFlowFilter8';
+    const ReDayFilter8='ReDayFilter8';
+    const FlowLifeFilter8='FlowLifeFilter8';
+    const DayLifeFiter8='DayLifeFiter8';
+
+
+
     const Vison='Vison'; // 协议版本
     const DeviceType='DeviceType'; // 设备类型 
     const DeviceID='DeviceID'; // 设备 ID
@@ -120,6 +137,21 @@ class XZCloudStandard
         [self::ReDayFilter5,'n'],
         [self::FlowLifeFilter5,'n'],
         [self::DayLifeFiter5,'n'],
+
+        [self::ReFlowFilter6,'n'],
+        [self::ReDayFilter6,'n'],
+        [self::FlowLifeFilter6,'n'],
+        [self::DayLifeFiter6,'n'],
+
+        [self::ReFlowFilter7,'n'],
+        [self::ReDayFilter7,'n'],
+        [self::FlowLifeFilter7,'n'],
+        [self::DayLifeFiter7,'n'],
+
+        [self::ReFlowFilter8,'n'],
+        [self::ReDayFilter8,'n'],
+        [self::FlowLifeFilter8,'n'],
+        [self::DayLifeFiter8,'n'],
     ];
     static $TableReadStruct=
     [
@@ -348,6 +380,8 @@ class XZCloudStandard
                 $data['DataCmd']=3;
                 $i=count(XZCloudStandard::$TableSetCmd)-1;
                 $cmd=XZCloudStandard::$TableSetCmd;
+                $data['CurTime']=time();
+
                 for(;$i>=0;$i--)
                 {
                     if(isset($data[$cmd[$i][0]]))
@@ -357,7 +391,7 @@ class XZCloudStandard
                 }
                 // if(isset($data[self::AliveStause]))
                 // {
-                $data['CurTime']=time();
+                //$data['CurTime']=time();
                 // }
                 $DataPack='';
                 for($j=0;$j<=$i;$j++)
@@ -434,7 +468,7 @@ class XZCloudStandard
             {
                 $PackNum=$data['PackNum'];
             }
-            if($PackLenth>0){
+            if($PackLenth>0||$data['PackType']!='SetData'){
                 $PackLenth+=10;
                 $req_Data=pack('nCCnn',0xddaa,$PackNum,$data[self::Vison],$PackLenth,$data['DataCmd']);
                 $req_Data.=$DataPack;
