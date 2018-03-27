@@ -10,7 +10,7 @@
             <div class="titleBar">后台管理/<span>编辑经销商</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(-1)" class="btn btn-info">&lt;&lt;返回</a></div>
             <div class="formBox">
                 <foreach name="info" item="vo" key="key">
-                <form class="" action="__URL__/edit" method="post">
+                <form id="form" action="__URL__/edit" method="post">
                     <input type="hidden" name="id" value="{{$vo.id}}">
                     <input type="hidden" name="user" value="{{$vo.user}}">
                     <input type="hidden" name="name" value="{{$vo.name}}">
@@ -45,6 +45,12 @@
                             <input class="addressValue" type="hidden" name="address" value="" />
                         </div>
                     </div>
+                    <div class="control-group">
+                        <span>详细地址地址</span>
+                        <div class="info">
+                            <textarea name="addr" id="" cols="30" rows="4"></textarea>
+                        </div>
+                    </div>
                     
                     <div class="control-group">
                         <span>身份证号</span>
@@ -52,7 +58,7 @@
                     </div>
                     
                     <div class="btn-groups">
-                        <button class="subbtn btns btn-primary oddbtn" type="submit">确认</button>
+                        <button class="subbtn btns btn-primary oddbtn" type="button">确认</button>
                     </div>
                 </form>
                 </foreach>
@@ -67,15 +73,31 @@ $(function(){
     //城市三级联动
     _init_area();
     $(".oddbtn").click(function(ev){
+        var idcard = $('input[name="idcard"]').val().trim();
+        var addr = $('textarea[name="addr"]').val().trim();
         if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('亲，请把地址填写完整');
-            });    
-            ev.preventDefault();
+            layuiHint('请选择地址');
+            return
         }else{
             $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         }
+        if(!addr){
+            layuiHint('请输入详细地址！');
+            return
+
+        }else if(!/^[\w\-\u4e00-\u9fa5]{2,255}$/u.test(addr)){
+            layuiHint('地址只能由中文、英文、数字组成！');
+            return
+        }
+        if(!idcard){
+            layuiHint('请输入身份证号码');
+            return
+
+        }else if(!/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(idcard)){
+            layuiHint('请输入正确的身份证号码');
+            return
+        }
+        $('#form').submit();
     });
 })
 </script>

@@ -40,7 +40,7 @@ body {
 	margin-bottom: 6.666667rem;
 }
 
-#char-list div {
+#char-list>div>div {
 	height: 0.933333rem;
 	width: 9.0rem;
 	line-height: 0.933333rem;
@@ -49,16 +49,28 @@ body {
 	padding: 0.133333rem 0.0rem;
 	margin: 0.276667rem 0.0rem;
 	font-size: 0.373333rem;
-	display: inline-block;
-	/*background: #fc1;*/
+	display: flex;
 }
 
-/*#char-list .spac {
+#char-list .spac {
 	letter-spacing: 0.0rem;
-}*/
+}
+#char-list>#addr>.spac{
+	display: block !important;
+	position: relative;
+}
 
+#char-list>#addr>.spac textarea {
+	width: 100%;
+	position: absolute;
+	padding: 8px;
+	top: 0;
+	left: 0;
+	margin-top: 1.2rem;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
 #char-list i {
-
 	font-size: 0.74rem;
 	float: left;
 	height: 0.933333rem;
@@ -70,25 +82,26 @@ body {
 	font-weight: 600;
 }
 
-#char-list div p{
-	/*margin-left: 0.166667rem;*/
-    letter-spacing: 0.026667rem;
+#char-list div span{
     display: inline-block;
-    /*background: red;*/
-    font-size:0.426667rem;
-    width: 2.28rem;
-    text-align: right;
-    color:#6A6A6A;
-    float: left;
-
+    font-size: 0.426667rem;
+    width: 28%;
+    color: #6A6A6A;
+    text-align: justify;
 }
-
-#char-list div input {display: inline-block;
+/*文字两端对齐*/
+.spac>span::after {
+	content: '';
+	display: inline-block;
+	padding-left: 100%;
+}
+#char-list div input {
+	display: inline-block;
 	border: none;
 	background: #fff;
 	height: 0.666667rem;
 	/*background: green;*/
-	width:5.333333rem;
+	width: 52%;
 	height:0.933333rem;
 	font-size: 0.426667rem;
 }
