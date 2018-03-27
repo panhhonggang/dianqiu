@@ -1,7 +1,8 @@
 <?php
 namespace Api\Controller;
-//use Think\Controller;
+use Think\Controller;
 use Admin\Controller\CommonController;
+use Think\Model;
 
 /**
  * 产品控制器
@@ -10,7 +11,7 @@ use Admin\Controller\CommonController;
  * @author 潘宏钢 <619328391@qq.com>
  */
 
-class ProductController extends CommonController
+class ProductController extends Controller
 {
     /**
      * 产品类型列表
@@ -18,13 +19,63 @@ class ProductController extends CommonController
      * @author 潘宏钢 <619328391@qq.com>
      */
     public function index()
-    {      
-        //查询滤芯时间寿命，流量寿命，产品类型，经销商昵称
-        $type = M('device_type');
+    {
+        //查询所有滤芯型号
+        $alist = M('device_type')->field('typename,filter1,filter2,filter3,filter4,filter5,filter6,filter7,filter8')->select();
 
-        $list = $type->where($map)->limit($page->firstRow.','.$page->listRows)->select();
-        dump($list);
-        // echo json_encode($list);
+
+        $data = array_column($alist, null, 'typename');
+        $new = [];
+        foreach ($data as $key => &$value) {
+            // 清楚 typename
+            unset($value['typename']); 
+
+            // 清除空
+            $filters = array_filter($value);
+
+            foreach ($filters as $k => &$v) {
+                // 拆分
+                $list = explode('-', $v);
+                
+                $map['filtername'] = $list[0];
+                $map['alias'] = isset($list[1])? $list[1]: '';
+                $map1 = array_filter($map);
+
+                // 接受数据
+                $stmp =[];
+                $stmp = D('filters')->field('timelife, flowlife')->where($map1)->select();
+
+                $new[$key][] = array_merge(['filterelement'=> $v], isset($stmp[0]) ? $stmp[0] : []);
+            }
+
+        }
+
+        $tmp = [];
+        foreach ($new as $key => $value) {
+            $tmp[] = [
+                'productmodel' => $key,
+                'filterelementpro' => $value,
+            ];
+        }
+
+
+
+        // dump($new);die;
+
+        // $ndata = json_encode($new);
+        // echo ($ndata);die;
+        $json['productpro'] = $tmp;
+       
+        
+
+        // // //获取所有用户别名
+        $vlist = M('vendors')->field('name')->where('pid > 0')->select();
+
+        foreach ($vlist as $key => $value) {
+            $json['vendors'][] = $value['name'];
+        }
+       
+        echo json_encode($json);
         
     }
 

@@ -13,8 +13,16 @@ class LoginController extends Controller
     // 登录方法
     public function login()
     {
+
         if (IS_POST) {
-            
+            //接受安卓端的json数据
+            // $json = file_get_contents("php://input");
+            // $data = json_decode($json, true);
+
+            // $data['password'] = '123';
+            // $data['name'] = 'admin';
+
+            // dump($data);
 
             $password = md5($_POST['password']);
             $info = M('vendors')->where("user='{$_POST['name']}'")->find();
@@ -22,21 +30,20 @@ class LoginController extends Controller
             if ($info) {
                 if ($info['password'] == $password) {
                     // 万事大吉
-                    // $_SESSION['adminuser'] = $info;
+                    $_SESSION['adminuser'] = $info;
                     
                     //验证成功
-                    $this->ajaxReturn('1');
+                    echo json_encode('1');
                 } else {
-                    $this->ajaxReturn('0');
+                    echo json_encode('2');
                 }
             } else {
-                $this->ajaxReturn('0');
+                echo json_encode('3');
             }
-
         } else {
-            $this->ajaxReturn('0');
-            
-        }
+            echo json_encode('4');
+        }     
+
     }
 
 
