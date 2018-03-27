@@ -150,13 +150,13 @@
 	$(".charge").click(function(){
 		sessionStorage.setItem("shopFrom",'charge');
 	})
-	var rawtdsVal=parseInt($("#rawtdsVal").val());
-	if(rawtdsVal>=10){
+	// var rawtdsVal=parseInt($("#rawtdsVal").val());
+	// if(rawtdsVal>=10){
 
-		$(".dazi>span").css("right","1rem");
-	}else{
-		$(".dazi>span").css("right","1.7rem");
-	}
+	// 	$(".dazi>span").css("right","1rem");
+	// }else{
+	// 	$(".dazi>span").css("right","1.7rem");
+	// }
 	sessionStorage.setItem("lineRight",'');
 	sessionStorage.setItem("lineLeft",'');
 	//页面加载时执行
@@ -182,6 +182,14 @@
 		// var deviceId=112233445566778;//设备id
 		var devicestause=data.devicestause;//设备状态
 		console.log(data);
+		//netstause:  0: 断开， 1：连接中
+		if(data.netstause == 1){	// 连接
+			machineStatus();	//执行水机状态方法
+
+		}else if(data.netstause == 0){		
+			outLine();
+			// return
+		}
 
 		function machineStatus(){
 			if(devicestause=="0"){//制水
@@ -268,7 +276,6 @@
 			$(".content").css({height: '100vh'});
 			$("body").css({height:'100vh',filter:'grayscale(0%)'});
 		}
-		machineStatus();//执行水机状态方法
 		var usednumberFlow=parseInt(data.sumflow);//已用流量
 		var usednumberDay=parseInt(data.sumday);//已用天数
 		var renumberFlow=parseInt(data.reflow);//剩余流量

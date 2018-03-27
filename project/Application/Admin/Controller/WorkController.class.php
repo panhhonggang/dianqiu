@@ -34,14 +34,19 @@ class WorkController extends CommonController
         $map['w.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
         $map['w.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
         $map['w.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
-//         $mintime = strtotime(trim(I('post.mintime')))?:0;
-//        $maxtime = strtotime(trim(I('post.maxtime')))?:-1;
-//        if (is_numeric($maxtime)) {
-//            $map['pub_work.time'] = array(array('egt',$mintime),array('elt',$maxtime));
-//        }
-//        if ($maxtime < 0) {
-//            $map['pub_work.time'] = array(array('egt',$mintime));
-//        }
+        $mintime = strtotime(trim(I('post.mintime')));
+       $maxtime = strtotime(trim(I('post.maxtime')));
+       $updatetime_arr=[];
+       if($maxtime){
+           $updatetime_arr[]=array('elt',$maxtime);
+       }
+       if($mintime){
+           $updatetime_arr[]=array('egt',$mintime);
+       }
+       if(!empty($updatetime_arr)){
+           $map['UNIX_TIMESTAMP(w.time)']=$updatetime_arr;
+       }
+
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
