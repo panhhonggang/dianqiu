@@ -61,7 +61,7 @@
 
 				// 点击保存
 				$("#save").click(function(){
-					if(!name){
+					if(!$('#name').val().replace(/^(\s)|(\s*)/g,'')){
 						layuiHint('请填写姓名！');
 						return
 
@@ -70,7 +70,7 @@
 						return
 
 					}
-					if(!phone){
+					if(!$('#phone').val().replace(/^(\s)|(\s*)/g,'')){
 						layuiHint('请输入手机号！');
 						return
 
@@ -79,11 +79,11 @@
 						return
 						
 					}
-					if(!address){
+					if(!$('#address').val().replace(/^(\s)|(\s*)/g,'')){
 						layuiHint('请输入地址！');
 						return
 
-					}else if(address.length <= 10){
+					}else if($('#address').val().replace(/^(\s)|(\s*)/g,'').length <= 10){
 						layuiHint('请输入详细地址！');
 						return
 						

@@ -141,7 +141,9 @@
                         idcard = $('.idcard').val(),
                         date_start = $('#date-start').val(),
                         date_end = $('#date-end').val();
-                        mglevel = Number($('.mglevel>option:selected').val())+1;
+                        if($('.mglevel>option:selected').val()){
+                            mglevel = Number($('.mglevel>option:selected').val())+1;
+                        }
 
                         srearchInfo['uid'] = uid;
                         srearchInfo['user'] = user;
@@ -170,7 +172,9 @@
                             $('.idcard').val(srearchInfo['idcard']);
                             $('#date-start').val(srearchInfo['mintime']);
                             $('#date-end').val(srearchInfo['maxtime']);
-                            $('.mglevel>option').eq(srearchInfo['mglevel'])[0].selected = true;
+                            if(srearchInfo['mglevel']){
+                                $('.mglevel>option').eq(srearchInfo['mglevel'])[0].selected = true;
+                            }
 
                             setTimeout(function(){
                                 sessionStorage.setItem('search', '');   // 初始化
