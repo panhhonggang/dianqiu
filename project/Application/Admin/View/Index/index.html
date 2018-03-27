@@ -54,7 +54,7 @@
 			url: "{{:U('Admin/Index/index')}}", 
 			type: 'post',
 			success: function(res){
-				console.log(res);
+				// console.log(res);
 				// 存放收入
 				var allincome = 0;
 
@@ -73,6 +73,9 @@
 				$("#repaire").text(parseInt(res.repairs.total));
 				// 建议数量
 				$("#feeds").text(parseInt(res.feeds.total));
+			},
+			error: function(res){
+				console.log('错误 ',res)
 			}
 		})
 		// 请求后台数据
@@ -82,6 +85,7 @@
 			async: false,
 			dataType: 'json',
 			success: function(res){
+				// console.log('连接成功！',res)
 				// 当月收入
 				for(var i in res.flows){
 					if(res.flows[i]){
@@ -91,10 +95,11 @@
 					}
 					
 				}
-				for(var i in res.order_filters){
+				for(var i in res.devices){
 					// 遍历新增设备数量
-					if(res.order_filters[i]){
-						series_data[1].push(parseInt(res.order_filters[i].total_num));
+					if(res.devices[i]){
+						series_data[1].push(parseInt(res.devices[i].count));
+
 					}else {
 						series_data[1].push(0);
 					}
@@ -212,22 +217,19 @@
 		var legend_data = ['收入','新增设备'];
 		// y轴坐标数据
 		var yAxis_data = [['','',''],[ '0台', '1台', '2台']];
-		// 要显示的数据
 
+		// 要显示的数据
 		if(series_data[0].length){
 
 			//收入 折线图显示
-		    income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
+		    income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], legend_data[0]));
 			//新增设备 折线图显示
-		    newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		    newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], legend_data[1]));
 		}else{ 
-			//这里是假数据
-			yAxis_data = [[0],[0]];
-			series_data = [[0],[0]];
 			//收入 折线图显示
-		    income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], '收入'));
+		    income.setOption(getOption('金额','收入',yAxis_data[0],series_data[0], legend_data[0]));
 			//新增设备 折线图显示
-		    newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], '新增数量'));
+		    newMoreDevice.setOption(getOption('设备数量','新增设备',yAxis_data[1],series_data[1], legend_data[1]));
 		}
 		/*************************  地图  **************************/
 		// 百度地图API功能
