@@ -10,8 +10,8 @@ body {
 	overflow: hidden;
 }
 a {
-	height: 38px;
-    line-height: 36px;
+	height: auto;
+    line-height: initial;
 }
 #hTop a:link {
 	color: #fff !important;
