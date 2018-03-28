@@ -74,6 +74,7 @@ class ProductController extends Controller
 
         //去除产品属下的id
         foreach ($tmp as $key => &$value) {
+            //去除数组中的第一个值，且索引重新排列
             array_shift($value['filterelementpro']);
             // unset($value['filterelementpro'][0]);
         }
@@ -87,8 +88,8 @@ class ProductController extends Controller
         // // //获取所有用户别名
         $vlist = M('vendors')->field('id,name')->where('pid > 0')->select();
 
-        foreach ($vlist as $key => $value) {
-            $json['vendors'][] = $value;
+        foreach ($vlist as $k => $u) {
+            $json['vendors'][] = $u;
         }
         
         // dump($json);die;
