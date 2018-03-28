@@ -365,7 +365,7 @@ class UsersController extends CommonController
                     if($value['id'] == $did){
                         unset($device_tmp[$key]);
                     }
-                    $device_tmp[0] = $device_tmp[$key];
+                    // $device_tmp[0] = $device_tmp[$key];
                 }
                 $current_status = $current_devices->where('uid='.$uid)->save(['did'=>$device_tmp[0]]);
             }
@@ -373,7 +373,7 @@ class UsersController extends CommonController
                 $current_devices->commit();
             } else {
                 $current_devices->rollback();
-                $this->ajaxReturn(['code'=>203,'msg'=>'解绑失败']);
+                $this->ajaxReturn(['code'=>201,'msg'=>'解绑失败']);
             }
         }
 
@@ -386,6 +386,7 @@ class UsersController extends CommonController
         } else {
             $orders_status = true;
         }
+
         if($flow){
             $flow_status = M('flow')->where('did='.$deviceInfo['id'])->save($status);
         } else {
