@@ -8,38 +8,38 @@
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<style type="text/css">
-	.linkBox{
-		display: none !important;
-	}
-	.dazi {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-	}
-	.dazi>b,
-	.dazi>span {
-		display: inline-block;
-		position: relative;
-		top: 0;
-		margin: 0 auto;
-	}
-	#puretdsVal {
-		position: relative;
-	}
-	#rawtdsVal:after,
-	#puretdsVal:after {
-		content: 'ppm';
-		position: absolute;
-		left: 105%;
-		bottom: 18%;
-		color: #fff;
-		font-size: .4rem;
-		font-weight: 400;
-	}
-	.icon-leaking {
-		color: red;
-	}
-</style>
+		.linkBox{
+			display: none !important;
+		}
+		.dazi {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+		}
+		.dazi>b,
+		.dazi>span {
+			display: inline-block;
+			position: relative;
+			top: 0;
+			margin: 0 auto;
+		}
+		#puretdsVal {
+			position: relative;
+		}
+		#rawtdsVal:after,
+		#puretdsVal:after {
+			content: 'ppm';
+			position: absolute;
+			left: 105%;
+			bottom: 18%;
+			color: #fff;
+			font-size: .4rem;
+			font-weight: 400;
+		}
+		.icon-leaking {
+			color: red;
+		}
+	</style>
 </head>
 <body>
 	<input type="hidden" value="{{$_SESSION['weixin'][1]['appId']}}" id="appId">

@@ -73,12 +73,14 @@
 $(function(){
     //验证
     $('.oddbtn').on('click',function(){
-        var user = $('input[name=user]').val().trim()
-        var name = $('input[name=name]').val().trim()
-        var phone = $('input[name=phone]').val().trim()
-        var email = $('input[name=email]').val().trim()
-        var address = $('textarea[name="detail"]').val().trim()
-        var idcard = $('input[name=idcard]').val().trim()
+        var user = $('input[name=user]').val().trim();
+        var name = $('input[name=name]').val().trim();
+        var phone = $('input[name=phone]').val().trim();
+        var csphone = $('input[name="csphone"]').val().trim();
+        var email = $('input[name=email]').val().trim();
+        var address = $('textarea[name="detail"]').val().trim();
+        var idcard = $('input[name=idcard]').val().trim();
+
         if(!user.trim()){
             layuiHint('请输入登录账号');
             return
@@ -86,7 +88,8 @@ $(function(){
         }else if(/[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(user)){
             layuiHint('账户名不能输入特殊字符');
             return
-        } 
+        }
+
         if(!name){
             layuiHint('请输入昵称');
             return
@@ -95,6 +98,7 @@ $(function(){
             layuiHint('用户昵称不能输入特殊字符');
             return
         }
+
         if(!phone){
             layuiHint('请输入手机号');
             return
@@ -103,6 +107,16 @@ $(function(){
             layuiHint('请输入正确的手机号码');
             return
         }
+
+        if(!csphone){
+            layuiHint('请输入客服电话');
+            return
+
+        }else if(!/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(csphone)){
+            layuiHint('请输入正确的客服电话');
+            return
+        }
+
         if(!email){
             layuiHint('请输入邮箱');
             return
@@ -111,6 +125,7 @@ $(function(){
             layuiHint('请输入正确的email');
             return
         }
+
         if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
             layuiHint('请把地址填写完整');    
             return
@@ -118,11 +133,12 @@ $(function(){
         }else{
             $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
         }
+
         if(!address){
             layuiHint('请输入详细地址！');
             return
 
-        }else if(!/^[\w\-\u4e00-\u9fa5]{2,255}$/u.test(address)){
+        }else if(!/^[\w\-\u4e00-\u9fa5]{2,255}$/u.test(address.replace(/^(\s)|(\s*)/g,''))){
             layuiHint('地址只能由中文、英文、数字组成！');
             return
         }
@@ -135,6 +151,7 @@ $(function(){
             layuiHint('请输入正确的身份证号码');
             return
         }
+
         $('#_formTable').submit();
     })
     //城市三级联动
