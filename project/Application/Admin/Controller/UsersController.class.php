@@ -337,6 +337,7 @@ class UsersController extends CommonController
     public function unbind()
     {
         $code['device_code'] = I('post.device_code');
+        // $code['device_code'] = 992833445596778;
         $data = [
             'uid' => null,
             'name' => null,
@@ -354,7 +355,9 @@ class UsersController extends CommonController
         $current_device = $current_devices->where('did='.$did)->find();
         if(!empty($current_device)){
             $bind_device = $device->where('uid='.$uid)->select();
+            
             if(count($bind_device) == 1){
+                
                 $current_status = $current_devices->where('did='.$did)->delete();
             } else {
                 foreach ($bind_device as $key => $value) {
@@ -383,7 +386,6 @@ class UsersController extends CommonController
         } else {
             $orders_status = true;
         }
-
         if($flow){
             $flow_status = M('flow')->where('did='.$deviceInfo['id'])->save($status);
         } else {
