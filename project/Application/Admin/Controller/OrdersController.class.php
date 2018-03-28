@@ -43,16 +43,17 @@ class OrdersController extends CommonController
             $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
         }
 
-        $mintotal_price = trim(I('post.mintotal_price'))?:0;
-        $maxtotal_price = trim(I('post.maxtotal_price'))?:-1;
+        $mintotal_price = trim(I('post.mintotal_price'))?:null;
+        $maxtotal_price = trim(I('post.maxtotal_price'))?:null;
         if (is_numeric($maxtotal_price)) {
             $map['pub_orders.total_price'] = array(array('egt',$mintotal_price*100),array('elt',$maxtotal_price*100));
         }
         if ($maxtotal_price < 0) {
             $map['pub_orders.total_price'] = array(array('egt',$mintotal_price*100));
         }
-        $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:0;
-         $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:-1;
+
+         $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:null;
+         $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:null;
          if (is_numeric($maxcreated_at)) {
              $map['pub_orders.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
          }
@@ -66,6 +67,7 @@ class OrdersController extends CommonController
             }
             return false;
         });
+//dump($map);
         $order = M('orders');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
