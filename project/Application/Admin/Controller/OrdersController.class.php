@@ -21,43 +21,44 @@ class OrdersController extends CommonController
         // 搜索功能
 
         if (trim(I('post.order_id'))) {
-            $map['pub_orders.order_id'] = array('like','%'.trim(I('post.order_id')).'%');
+            $map['o.order_id'] = array('like','%'.trim(I('post.order_id')).'%');
         }
         if (trim(I('post.nickname'))) {
-            $map['pub_wechat.nickname'] = array('like','%'.trim(I('post.nickname')).'%');
+            $map['w.nickname'] = array('like','%'.trim(I('post.nickname')).'%');
         }
         if (trim(I('post.total_num'))) {
-            $map['pub_orders.total_num'] = array('like','%'.trim(I('post.total_num')).'%');
+            $map['o.total_num'] = trim(I('post.total_num'));
         }
         if (trim(I('post.name'))) {
-            $map['pub_express_information.name'] = array('like','%'.trim(I('post.name')).'%');
+            $map['e.name'] = array('like','%'.trim(I('post.name')).'%');
         }
         if (trim(I('post.phone'))) {
-            $map['pub_express_information.phone'] = array('like','%'.trim(I('post.phone')).'%');
+            $map['e.phone'] = array('like','%'.trim(I('post.phone')).'%');
         }
         if (trim(I('post.addres'))) {
-            $map['pub_express_information.addres'] = array('like','%'.trim(I('post.addres')).'%');
+            $map['e.addres'] = array('like','%'.trim(I('post.addres')).'%');
         }
 
         if($this->get_level()){
-            $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
+            $map['b.vid'] = $_SESSION['adminuser']['id'];
         }
 
-        $mintotal_price = trim(I('post.mintotal_price'))?:0;
-        $maxtotal_price = trim(I('post.maxtotal_price'))?:-1;
+        $mintotal_price = trim(I('post.mintotal_price'))?:null;
+        $maxtotal_price = trim(I('post.maxtotal_price'))?:null;
         if (is_numeric($maxtotal_price)) {
-            $map['pub_orders.total_price'] = array(array('egt',$mintotal_price*100),array('elt',$maxtotal_price*100));
+            $map['o.total_price'] = array(array('egt',$mintotal_price*100),array('elt',$maxtotal_price*100));
         }
         if ($maxtotal_price < 0) {
-            $map['pub_orders.total_price'] = array(array('egt',$mintotal_price*100));
+            $map['o.total_price'] = array(array('egt',$mintotal_price*100));
         }
-        $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:0;
-         $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:-1;
+
+         $mincreated_at = strtotime(trim(I('post.mincreated_at')))?:null;
+         $maxcreated_at = strtotime(trim(I('post.maxcreated_at')))?:null;
          if (is_numeric($maxcreated_at)) {
-             $map['pub_orders.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
+             $map['o.created_at'] = array(array('egt',$mincreated_at),array('elt',$maxcreated_at));
          }
          if ($maxcreated_at < 0) {
-             $map['pub_orders.created_at'] = array(array('egt',$mincreated_at));
+             $map['o.created_at'] = array(array('egt',$mincreated_at));
          }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
@@ -66,17 +67,24 @@ class OrdersController extends CommonController
             }
             return false;
         });
+//dump($map);
         $order = M('orders');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
             $data = $order->where($map)
-                      ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
-                      ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-                      ->join('pub_users ON pub_orders.user_id = pub_users.id')
-                      ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
-                      ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
-                      ->field('pub_orders.order_id,pub_wechat.nickname,pub_orders.total_num,pub_orders.total_price,pub_express_information.name,pub_express_information.phone,pub_express_information.addres,pub_orders.is_pay,pub_orders.is_receipt,pub_orders.is_ship,pub_orders.is_recharge,pub_orders.created_at')
-                      ->select();
+                        ->alias('o')
+                        ->join('pub_devices d on o.device_id = d.id','LEFT')
+                        ->join('pub_users u on o.user_id = u.id','LEFT')
+                        ->join('pub_wechat w ON u.open_id = w.open_id','LEFT')
+                        ->join('pub_express_information e ON o.express_id = e.id','LEFT')
+                        ->join('pub_binding b on o.device_id = b.did','LEFT')
+                        ->join('pub_vendors v on b.vid = v.id','LEFT')
+                        ->order('o.created_at desc')
+                        ->field([
+                            'o.order_id','w.nickname','o.total_num','o.total_price','e.name','e.phone','e.addres','o.is_pay',
+                            'o.is_receipt','o.is_ship','o.is_recharge','o.created_at'
+                        ])
+                        ->select();
             // 数组中枚举数值替换
             $arr = [
                 'is_pay'=>['0'=>'未付款','1'=>'已付款','2'=>'已取消'],
@@ -96,31 +104,25 @@ class OrdersController extends CommonController
             return ;
         }
 
-
-        
-        $total = $order->where($map)
-                      ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
-                      ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-                      ->join('pub_users ON pub_orders.user_id = pub_users.id')
-                      ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
-                      ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
-                      ->field('pub_orders.*,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
-                        ->count();
+        $total = $order->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
-
-        $list = $order->where($map)
-                      ->join('pub_devices ON pub_orders.device_id = pub_devices.id')
-                      ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-                      ->join('pub_users ON pub_orders.user_id = pub_users.id')
-                      ->join('pub_express_information ON pub_orders.express_id = pub_express_information.id')
-                      ->join('pub_wechat ON pub_users.open_id = pub_wechat.open_id')
-                      ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
-                      ->field('pub_orders.*,pub_binding.vid,pub_vendors.name vname,pub_wechat.nickname,pub_express_information.name,pub_express_information.phone,pub_express_information.addres')
-                      ->order('pub_orders.created_at desc')
-                      ->limit($page->firstRow.','.$page->listRows)
-                      ->select();
-
+        
+        $list = $order
+                    ->alias('o')
+                    ->join('pub_devices d on o.device_id = d.id','LEFT')
+                    ->join('pub_users u on o.user_id = u.id','LEFT')
+                    ->join('pub_wechat w ON u.open_id = w.open_id','LEFT')
+                    ->join('pub_express_information e ON o.express_id = e.id','LEFT')
+                    ->join('pub_binding b on o.device_id = b.did','LEFT')
+                    ->join('pub_vendors v on b.vid = v.id','LEFT')
+                    ->limit($page->firstRow.','.$page->listRows)
+                    ->field([
+                        'o.*','w.nickname','v.name vname','e.name','e.phone','e.addres'
+                        ])
+                    ->order('o.created_at desc')
+                    ->select();
+        // dump($list);die;
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();
