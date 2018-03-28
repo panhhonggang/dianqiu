@@ -221,6 +221,7 @@ border:1px solid #000;
 	border: 1px solid #353659;
 	border-radius: 6px;
 	font-size: .36rem;
+	line-height:0;
 }
 .fini-change {
 	background: #039CE9;
