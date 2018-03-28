@@ -88,7 +88,6 @@ class DevicesController extends CommonController
         if($this->get_level()){
             $map['vendors.id'] = $_SESSION['adminuser']['id'];
         }
-print_r($map);
         $user = D('Devices');
         // PHPExcel 导出数据
         if (I('output') == 1) {
