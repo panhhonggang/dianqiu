@@ -19,7 +19,7 @@
             margin: 50px 0 50px 90px;
             padding: 8px 35px;
             border-radius: 7px;
-        }
+        } 
     </style>
         <div class="tableBox">
             <div class="titleBar">工单管理/<span>工单添加</span></div>
@@ -42,7 +42,7 @@
                             <input type="text" readonly="" name="dcode" value="{{$repairData['device_code']}}">
                         </empty>
                     </div>
-                    <div class="control-group">
+                    <div class="control-group install">
                         <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <select name="personnel_id" class="personnel_id">
                             <option value="">--请选择--</option>
@@ -51,20 +51,32 @@
                             </volist>
                         </select>
                     </div>
-                    <div class="control-group">
+                    <div class="control-group install">
                         <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
                     </div>
                     <div class="control-group">
                         <span>维护类型</span>
                         <empty name="_GET">
-                            <input type="radio" class="control" name="type" value="0" checked>安装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="control" name="type" value="1" disabled>维修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="control" name="type" value="2">维护&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style='width:auto !important;text-align: center;'>
+                                <input type="radio" class="control" id='control0' name="type" value="0" checked><label for="control0">安装</label>
+                            </span>
+                            <span style='width:auto !important;text-align: center;'>
+                                <input type="radio" class="control" id='control1' name="type" value="1" disabled><label for="control1">维修</label>
+                            </span>
+                            <span style='width:auto !important;text-align: center;'>
+                                <input type="radio" class="control" id='control2' name="type" value="2"><label for="control2">维护</label>
+                            </span>
                         <else />
-                            <input type="radio" class="control" name="type" disabled disabled value="0">安装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="control" name="type" value="1" checked>维修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="control" name="type" disabled disabled value="2">维护&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style='width:auto !important;text-align: center;'>
+                                <input type="radio" class="control" id='control3' name="type" disabled disabled value="0"><label for="control3">安装</label>
+                            </span>
+                            <span style='width:auto !important;text-align: center;'>
+                                <input type="radio" class="control" id='control4' name="type" value="1" checked><label for="control4">维修</label>
+                            </span>
+                            <span style='width:auto !important;text-align: center;'>
+                                <input type="radio" class="control" id='control5' name="type" disabled disabled value="2"><label for="control5">维护</label>
+                            </span>
                         </empty>
 
                     </div>
@@ -87,18 +99,13 @@
                             <span>详细地址<sub style="color:red;margin-left: 5px;">*</sub></span>
                             <input type="text" class="control" name="add_ress" placeholder="请输入详细地址..." style="width:210px;">
                         </div>
-                    <else />
+                    
                         <div class="control-group">
-                            <span>详细地址</span>
-                            <input type="text" class="control" name="address" value="{{$repairData['address']}}" style="width:210px;">
+                            <span>处理时间</span>
+                            <!-- 需要时间插件 -->
+                            <input type="text" id="addMaintenanceDate" name="time"/>
                         </div>
                     </empty>
-                    
-                    <div class="control-group">
-                        <span>处理时间</span>
-                        <!-- 需要时间插件 -->
-                        <input type="text" id="addMaintenanceDate" name="time"/>
-                    </div>
                     <div class="btn-groups">
                         <button class="btns reset btn-primary" type="reset">重置</button>
                         <button class="subbtn btns btn-primary submit" type="button">提交</button>
@@ -142,6 +149,17 @@ var str = year+'-'+zero(month)+'-'+zero(day)
 time.val(str)
 time.click(function(){
     $(this).blur()
+})
+// 维护类型隐藏安装人员选择
+$('.control').click(function(){
+    if($(this).val() == 2){
+        $('.install').hide();
+        // 清空安装人员数据
+        $('.personnel_id>option').eq(0)[0].selected = true;
+        $("#phone").val('');
+    }else{
+        $('.install').show();
+    }
 })
 $('.submit').click(function(event) {
     var hasid = location.href.indexOf('id');
