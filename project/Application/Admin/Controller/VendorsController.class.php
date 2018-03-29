@@ -203,6 +203,9 @@ class VendorsController extends CommonController
                     
                     // 添加
                     $binding = M('binding');
+                    if($binding->where(['did'=>$_POST['vid']])->find()){
+                        return $this->error('设备已绑定过经销商');
+                    }
                     if ($binding->add($arr)) {
                         // 更改设备的绑定状态
                         $devices = M('devices');  
