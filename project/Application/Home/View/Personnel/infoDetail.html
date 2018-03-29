@@ -70,17 +70,14 @@
 			height:.9rem;
 			border-color:rgb(179, 179, 179);
 			color:rgb(179, 179, 179);
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
 		}
-		.selectCon{
-			position:relative;
-		}
-		.selectCon > span{
-			position:absolute;
-			top:0;
-			right:1.1rem;
-			width:1px;
+		.deviceCode {
 			height:.9rem;
-			background-color:rgb(179, 179, 179);
+			width:6rem;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
 		}
 		/*提交*/
 		.subBtn {
@@ -114,7 +111,7 @@
 	<div  class="parameterSet">
 		<h1>参数设置</h1>
 		<form action=""  method="post" class="forms">
-			<p>设备编码：<span><input type="text" name="dcode" value="{{$info['data']['dcode']}}"></span></p>
+			<p class="selectCon">设备编码： <input type="text" class="deviceCode" name="dcode" value="{{$info['data']['dcode']}}"></p>
 			<p class="selectCon">
 				<label for="">租赁模式：</label>
 				<select name="lease" id="" class="selects">
@@ -125,7 +122,6 @@
 					<option  value="3">时长和流量套餐</option>
 					<option  value="4">商务型</option>
 				</select>
-				<span class="sugan"></span>
 			</p>
 			<p class="selectCon">
 				<label for="">滤芯模式：</label>
@@ -135,7 +131,6 @@
 					<option  value="1">按流量</option>
 					<option  value="2">时长和流量</option>
 				</select>
-				<span class="sugan"></span>
 			</p>
 
 				<p>

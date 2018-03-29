@@ -6,6 +6,7 @@
 	<title>任务列表</title>
 	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
 	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 	<style>
 		#contain{
 			background-color:rgb(240, 240, 242);
@@ -66,14 +67,11 @@
 		}
 		.iconNext {
 			position:absolute;
-			top:.35rem;
+			top:.3rem;
 			right:.4rem;
 			width:.35rem;
 			height:.45rem;
-		}
-		.iconNext > img{
-			width:100%;
-			height:100%;
+			font-size:.7rem !important;
 		}
 	</style>
 </head>
@@ -83,7 +81,6 @@
 			<if condition="$list neq null">
 			<foreach name="list" item="vo">
 				<li>
-
 					<if condition="$where['result'] eq 0 ">
 						<a href="{{:U('home/Personnel/infoDetail',array('id'=>$vo['id']))}}">
 						<else />
@@ -98,7 +95,7 @@
 								<p>工单号：<span>{{$vo.number}}</span></p>
 								<p>设备编码：<span>{{$vo.dcode}}</span></p>
 							</li>
-							<li>详情<span class="iconNext"><img src="__PUBLIC__/Home/images/login_icon_arr@2x.png" alt=""></span></li>
+							<li><span class="iconNext iconfont icon-dayuhao right"></span></li>
 						</ol>
 					</a>
 				</li>
