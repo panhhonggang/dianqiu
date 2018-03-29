@@ -87,7 +87,7 @@ class VendorsController extends CommonController
 
             
             //将三级联动地址拼接具体地址再写入数据库
-            $_POST['address'] = $_POST['address'].$_POST['addr'];
+            $_POST['address'] = $_POST['address'].$_POST['detail'];
             
             $user = D('vendors');
             $info = $user->create();
