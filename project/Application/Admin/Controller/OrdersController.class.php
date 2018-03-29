@@ -104,11 +104,20 @@ class OrdersController extends CommonController
             return ;
         }
 
-        $total = $order->count();
+        $total = $order
+                    ->where($map)
+                    ->alias('o')
+                    ->join('pub_devices d on o.device_id = d.id','LEFT')
+                    ->join('pub_users u on o.user_id = u.id','LEFT')
+                    ->join('pub_wechat w ON u.open_id = w.open_id','LEFT')
+                    ->join('pub_express_information e ON o.express_id = e.id','LEFT')
+                    ->join('pub_binding b on o.device_id = b.did','LEFT')
+                    ->join('pub_vendors v on b.vid = v.id','LEFT')->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         
         $list = $order
+                    ->where($map)
                     ->alias('o')
                     ->join('pub_devices d on o.device_id = d.id','LEFT')
                     ->join('pub_users u on o.user_id = u.id','LEFT')
