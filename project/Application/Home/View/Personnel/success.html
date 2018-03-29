@@ -60,41 +60,27 @@
 		/*参数设置*/
 		.parameterSet > form{
 			padding:.5rem;
+			font-size:.5rem;
 		}
 		.forms > p{
 			margin-bottom:.5rem;
 		}
-		/*下拉框*/
-		.selects {
-			width:6rem;
-			height:.9rem;
-			border-color:rgb(179, 179, 179);
-			color:rgb(179, 179, 179);
+		.forms > p > label {
+			width:35%;
+			float:left;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			white-space:nowrap;
 		}
-		.selectCon{
-			position:relative;
-		}
-		.selectCon > span{
-			position:absolute;
-			top:0;
-			right:1.1rem;
-			width:1px;
-			height:.9rem;
-			background-color:rgb(179, 179, 179);
-		}
-		/*提交*/
-		.subBtn {
-			width:90%;
-			height:1.2rem;
-			background-color:rgb(3, 156, 233);
-			border-radius:5px;
-			color:white;
-			font-size:.6rem;
-			margin:.8rem auto 0;
-			display:block;
-			border:none;
-			font-family:PingFangSC-Regular;
-
+		.forms > p > input[type=text] {
+			float:left;
+			width:65%;
+			-webkit-appearance: none;
+			appearance: none;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			border:1px solid rgb(179, 179, 179);
+			/*padding:.1rem;*/
 		}
 	</style>
 </head>
@@ -117,26 +103,18 @@
 			<php>
 				$array = ['0'=>'按时长','1'=>'按流量','2'=>'时长和流量'];
 				$lease = ['0'=>'零售型','1'=>'按流量计费','2'=>'按时间计费','3'=>'时长和流量套餐','4'=>'商务型'];
-
 			</php>
-			<p>设备编码：<span><input type="text" name="dcode" value="{{$work_info['dcode']}}"></span></p>
-			<p class="selectCon">
-
-
+			<p class="selectCon clearfix">
+				<label for="">设备编码：</label>
+				<input type="text" name="dcode" value="{{$work_info['dcode']}}">
+			</p>
+			<p class="selectCon clearfix">
 				<label for="">租赁模式{{$work_info['id']}}：</label>
 				<input type="text" value="{{$array[$work_info['lease']]}}" disabled>
-
-				<span class="sugan"></span>
 			</p>
-			<p class="selectCon">
+			<p class="selectCon clearfix">
 				<label for="">滤芯模式：</label>
-
 				<input type="text" value="{{$array[$work_info['filter']]}}" disabled>
-
-				<span class="sugan"></span>
-
-
-
 		</form>
 	</div>
 </div>
