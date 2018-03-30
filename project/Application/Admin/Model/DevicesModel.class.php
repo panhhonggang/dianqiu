@@ -82,14 +82,27 @@ class DevicesModel extends Model
          $firstat = strtotime($firstDayOfMonth);
          $lastDayOfMonth = $date->lastDayOfMonth();
          $lastat = strtotime($lastDayOfMonth) + 24*60*60;
- 
-        $map['addtime'] = array(array('gt',$firstat),array('lt',$lastat), 'and');
+
+
         // $map['_query'] = "status=1";
-        $data = $this
+         if($_SESSION['adminuser']['leavel']>0){
+             $map=[
+                 'd.addtime'=>array(array('gt',$firstat),array('lt',$lastat), 'and'),
+                 'b.vid'=>$_SESSION['adminuser']['id'],
+             ];
+             $data = $this
+                 ->where($map)
+                 ->alias('d')
+                 ->join('__BINDING__ b on d.id = b.did','LEFT')
+                 ->select();
+         }else{
+             $map['addtime'] = array(array('gt',$firstat),array('lt',$lastat), 'and');
+             $data = $this
                  ->where($map)
                  ->select();
-                 // dump($data);
-        return $data;
+         }
+        // dump($data);
+         return $data;
      }
  
      // 当月每一天的数据条数

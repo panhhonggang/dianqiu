@@ -27,13 +27,25 @@ class FlowModel extends Model
         $lastDayOfMonth = $date->lastDayOfMonth();
         $lastat = strtotime($lastDayOfMonth) + 24*60*60;
 
-       $map['addtime'] = array(array('gt',$firstat),array('lt',$lastat), 'and');
+        $map['addtime'] = array(array('gt',$firstat),array('lt',$lastat), 'and');
         $map['_query'] = "status=1";
-       $data = $this
+
+        if($_SESSION['adminuser']['leavel']>0){
+            $map=[
+                'f.addtime' => array(array('gt',$firstat),array('lt',$lastat), 'and'),
+                'f.status' => "1",
+            ];
+            $map['b.vid']=$_SESSION['adminuser']['id'];
+            $data = $this
                 ->where($map)
+                ->alias('f')
+                ->join('__BINDING__ b on f.did = b.did','LEFT')
                 ->select();
-                // dump($data);
-       return $data;
+        }else{
+            $data = $this->where($map)->select();
+        }
+
+        return $data;
     }
 
     // 当月每一天的数据条数

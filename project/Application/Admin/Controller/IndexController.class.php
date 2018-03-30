@@ -10,17 +10,42 @@ class IndexController extends CommonController {
 
 			$devices = D('Devices')->getTotalByEveryDay();
 	    	// 滤芯订单数量（已发货及未发货数量->以发货及未发货列表）
-	    	$order_filters = D('Orders')
-	    						->field('distinct(order_id)')
-	    	                    ->select();
-	    	$order_filter['total'] = count($order_filters); 
+            if($_SESSION['adminuser']['leavel']>0){
+                $map['b.vid'] = $_SESSION['adminuser']['id'];
+                $order_filters = D('Orders')
+                    ->where($map)
+                    ->alias('o')
+                    ->join('pub_binding b on o.device_id = b.did','LEFT')
+                    ->field('distinct(order_id)')
+                    ->select();
+                $order_filter['total'] = count($order_filters);
 
-	    	// 保修数量统计->保修列表  
-	    	$repairs['total'] = D('Repair')->count();	    	
+                // 保修数量统计->保修列表
+                $repairs['total'] = D('Repair')
+                    ->where($map)
+                    ->alias('r')
+                    ->join('__BINDING__ b on r.did = b.did','LEFT')
+                    ->count();
 
-	    	// 建议数量统计->建议列表
-	    	$feeds['total'] = D('Feeds')->count();
+                // 建议数量统计->建议列表
+                $feeds['total'] = D('Feeds')
+                    ->where($map)
+                    ->alias('f')
+                    ->join('__BINDING__ b on f.did = b.did','LEFT')
+                    ->count();
+            } else {
+                $order_filters = D('Orders')
+                    ->field('distinct(order_id)')
+                    ->select();
 
+                $order_filter['total'] = count($order_filters);
+
+                // 保修数量统计->保修列表
+                $repairs['total'] = D('Repair')->count();
+
+                // 建议数量统计->建议列表
+                $feeds['total'] = D('Feeds')->count();
+            }
 	    	$data = [
 				'flows' => $flows,
 				'devices'=> $devices,
@@ -30,7 +55,9 @@ class IndexController extends CommonController {
 	    	];
 	    	$this->ajaxReturn($data);
     	}
+
         $this->display('index');
+
     }
 
     public function welcome()
