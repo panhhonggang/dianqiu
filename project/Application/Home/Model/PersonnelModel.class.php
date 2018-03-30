@@ -40,7 +40,7 @@ class PersonnelModel extends Model
      * 查询设备编码是否是经销商并且未激活
      */
     public function status($map) {
-        $map['id'] = 23;
+//        $map['id'] = 23;
         $info = M('personnel')->field('v_id')->where(['id'=>$map['personnel_id']])->find();
 
         $where['device_code'] = $map['dcode'];
@@ -49,7 +49,7 @@ class PersonnelModel extends Model
         $binding_info = M('binding')->where(['did'=>$list['id'],'vid'=>$info['v_id']])->find();
 
         if (empty($binding_info)) {
-            return ['code'=>403,'message'=>'该设备号码有误'];
+            return ['code'=>403,'message'=>'该设备号码有误或者已激活'];
         } else {
             return ['code'=>200,'data'=>$binding_info['vid']];
         }
