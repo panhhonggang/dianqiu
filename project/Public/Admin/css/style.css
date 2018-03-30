@@ -276,6 +276,10 @@ ul li{
 }
 .formBox input[type='text'],.formBox input[type='file'],.formBox input[type='password'] {
 	width: 210px;
+	
+}
+.formBox input[type='text'],.formBox input[type='password'],.formBox input[type='url'] {
+	padding: 14px 5px !important;
 }
 .selects,
 select{
