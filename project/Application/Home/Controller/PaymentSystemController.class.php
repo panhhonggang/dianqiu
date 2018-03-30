@@ -700,7 +700,7 @@ class PaymentSystemController extends Controller
                         $perData['pid'] =  session('pid');
                     }
                     if (empty(session('pid')) && !empty($_SESSION['homeuser']['id'])) {
-                        $perData['pid'] = $_SESSION['homeuser']['id'];
+                        $perData['uid'] = $_SESSION['homeuser']['id'];
                     }
                     $perData['device_id'] = $info_code['id'];
                     $perData['total_num'] = 1;

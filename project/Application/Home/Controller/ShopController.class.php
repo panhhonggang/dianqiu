@@ -227,9 +227,9 @@ class ShopController extends CommonController
         $this->assign('openId',$openId);
         if ($dcode !='') {
 
-            if (empty(session('pid'))) {
-                $this->error('请登录');
-            }
+//            if (empty(session('pid'))) {
+//                $this->error('请登录');
+//            }
             $where['device_code'] = $dcode;
             $where['uid'] = array('neq','');
             $info_code = M('Devices')->where($where)->find()['id'];
@@ -393,6 +393,7 @@ class ShopController extends CommonController
     * 充值
     */
     public function topup() {
+
         $this->display('chongzhi');
     }
     // // 将套餐数据更新到数据库
