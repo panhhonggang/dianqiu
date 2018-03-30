@@ -21,12 +21,7 @@ class FeedsController extends CommonController
          */
         require_once VENDOR_PATH.'PHPExcel.php';
         $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
-        // 搜索功能
-//        $map = array(
-//            'd.name' =>  array('like','%'.trim(I('post.name')).'%'),
-//            'd.phone' => array('like','%'.trim(I('post.phone')).'%'),
-//        );
+
         $map = '';
         $name = trim(I('post.name'));
         $phone = trim(I('post.phone'));
@@ -37,14 +32,15 @@ class FeedsController extends CommonController
             $map['d.phone'] = array('like','%'.$phone.'%');
         }
 
-         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
-         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+         $minaddtime = strtotime(trim(I('post.minaddtime')))?:null;
+         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:null;
          if (is_numeric($maxaddtime)) {
-             $map['f.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+             $map['f.addtime'][] = array('elt',$maxaddtime);
          }
-         if ($maxaddtime < 0) {
-             $map['f.addtime'] = array(array('egt',$minaddtime));
+         if (is_numeric($minaddtime)) {
+             $map['f.addtime'][] = array('egt',$minaddtime);
          }
+
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
             if ($v != "") {
@@ -56,6 +52,7 @@ class FeedsController extends CommonController
         if($this->get_level()){
             $map['v.id'] = $_SESSION['adminuser']['id'];
         }
+//        dump($map);exit;
 
         $user = M('feeds');
         // PHPExcel 导出数据
@@ -63,8 +60,8 @@ class FeedsController extends CommonController
             $data = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('pub_binding ON pub_binding.did = d.id')
-                        ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
+                        ->join('__BINDING__ bd ON bd.did = d.id')
+                        ->join('__VENDORS__ v ON bd.vid = v.id')
                         ->field('f.id,f.uid,d.name,d.phone,f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->select();
@@ -131,7 +128,7 @@ class FeedsController extends CommonController
          /*
             Excel导出
          */
-        
+        $map=[];
         $device_code = trim(I('post.device_code'));
         $name = trim(I('post.name'));
         $phone = trim(I('post.phone'));
@@ -146,13 +143,13 @@ class FeedsController extends CommonController
         if(strlen($status)) $map['status'] = array('eq',$status);
 
 
-        $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
-        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+        $minaddtime = strtotime(trim(I('post.minaddtime')))?:null;
+        $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:null;
         if (is_numeric($maxaddtime)) {
-            $map['f.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+            $map['f.addtime'][] = array('elt',$maxaddtime);
         }
-        if ($maxaddtime < 0) {
-            $map['f.addtime'] = array(array('egt',$minaddtime));
+        if (is_numeric($minaddtime)) {
+            $map['f.addtime'][] = array('egt',$minaddtime);
         }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
@@ -161,6 +158,11 @@ class FeedsController extends CommonController
             }
             return false;
         });
+
+        if($this->get_level()){
+            $map['bd.vid'] = $_SESSION['adminuser']['id'];
+        }
+
         $user = M('repair');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -181,10 +183,7 @@ class FeedsController extends CommonController
             $myexcel->output();
             return ;
         }
-
-        if($this->get_level()){
-            $map['bd.vid'] = $_SESSION['adminuser']['id'];
-        }
+        
         $user = M('repair');
         $total = $user->where($map)
                         ->alias('f')
