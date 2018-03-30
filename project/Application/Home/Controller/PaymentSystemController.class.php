@@ -629,6 +629,7 @@ class PaymentSystemController extends Controller
      * 代充
      */
     public function dcpay_add() {
+
         $data = json_decode($_POST['data'],true);
 
 
@@ -653,6 +654,7 @@ class PaymentSystemController extends Controller
                     $orderSetmeal = D('OrderSetmeal');
                     // 实例化购物车模型
                     $cartSetmeal = M('CartSetmeal');
+                    $pers = M('pers_charge');
                     // 开启事务
                     $orders->startTrans();
 
@@ -692,16 +694,32 @@ class PaymentSystemController extends Controller
                     $setmealData['goods_price'] = $setmeal_info['money'];
                     // 订单创建时间
                     $setmealData['created_at'] = $order['created_at'];
+                    $perData['orderid'] = $order['order_id'];
+                    //如果安装人员存在 优先级使用安装人员
+                    if (!empty(session('pid')) && !empty($_SESSION['homeuser']['id'])) {
+                        $perData['pid'] =  session('pid');
+                    }
+                    if (empty(session('pid')) && !empty($_SESSION['homeuser']['id'])) {
+                        $perData['pid'] = $_SESSION['homeuser']['id'];
+                    }
+                    $perData['device_id'] = $info_code['id'];
+                    $perData['total_num'] = 1;
+                    $perData['total_price'] = $setmeal_info['money'];
+                    $perData['setmeal_id'] = $setmeal_info['id'];
+                    $perData['type_id'] = $info_code['type_id'];
+                    $perData['money'] = $setmeal_info['money'];
+                    $perData['flow'] = $setmeal_info['flow'];
+                    $perData['create_time'] = date('Y-m-d H:i:s');
 
                     // 创建订单
                     $ordersRes = $orders->add($order);
                     // 创建订单套餐
                     $orderSetmealRes = $orderSetmeal->add($setmealData);
-
-
+                    //代充记录
+                    $persSetmealRes = $pers->add($perData);
 
                     // 判断订单是否创建成功
-                    if ($ordersRes && $orderSetmealRes) {
+                    if ($ordersRes && $orderSetmealRes && $persSetmealRes) {
 
                         // 执行事务
                         $orders->commit();
