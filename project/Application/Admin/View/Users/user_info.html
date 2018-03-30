@@ -76,6 +76,7 @@
             })
             flow.replace(/(\[.+\])/,function(match,p1,offset,str){
                 var data = JSON.parse(match)
+                console.log('data: ',data);
                 data.forEach(function(el,i,arr){
                     var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
                     var ordernumber = el.order_id?el.order_id:'--'
