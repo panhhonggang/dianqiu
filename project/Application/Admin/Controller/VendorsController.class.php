@@ -208,7 +208,7 @@ class VendorsController extends CommonController
                     // dump($arr);die;
                     // 添加
                     $binding = M('binding');
-                    if($binding->where(['did'=>$did1])->find()){
+                    if($binding->where('did='.$did1['id'])->find()){
                         return $this->error('设备已绑定过经销商');
                     }
                     if ($binding->add($arr)) {
