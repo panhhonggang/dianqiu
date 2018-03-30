@@ -42,7 +42,6 @@
                             <input type="text" readonly="" name="dcode" value="{{$repairData['device_code']}}">
                         </empty>
                     </div>
-                    <empty name="_GET">
                         <div class="control-group install">
                             <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
                             <select name="personnel_id" class="personnel_id">
@@ -56,7 +55,6 @@
                             <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
                             <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
                         </div>
-                    </empty>
                     <div class="control-group">
                         <span>维护类型</span>
                         <empty name="_GET">
@@ -152,17 +150,7 @@ time.val(str)
 time.click(function(){
     $(this).blur()
 })
-// 维护类型隐藏安装人员选择
-$('.control').click(function(){
-    if($(this).val() == 2){
-        $('.install').hide();
-        // 清空安装人员数据
-        $('.personnel_id>option').eq(0)[0].selected = true;
-        $("#phone").val('');
-    }else{
-        $('.install').show();
-    }
-})
+
 $('.submit').click(function(event) {
     var hasid = location.href.indexOf('id');
     var numberReg = /[0-9]/;
