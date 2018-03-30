@@ -10,7 +10,7 @@
 <script src="__PUBLIC__/Home/js/flexible.js"></script>
 <link rel="stylesheet" href="__PUBLIC__/Home/fonts/iconfont.css">
 <link rel="stylesheet" href="__PUBLIC__/Home/css/all-devices.css">
-
+<script src="__PUBLIC__/Admin/layui/layui.js"></script>
 <script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 <title>绑定指引</title>
 <style>
@@ -48,16 +48,46 @@
 </style>
 <script>	
 		$(function(){
+			//layuiHint弹框提示封装
+			function layuiHint(text){
+			    layui.use('layer', function(){
+			        var layer = layui.layer;
+			        layer.msg(text);
+			    });  
+			}
 			$('#devices-list li').bind('click',function(){
 				var device_code = $(this).attr('title');
 				var _this = this;
-				$.post('{{:U("Home/Devices/setNowDevices")}}',{ 'device_code':device_code }, function(res){
-					// 判断购物车是否添加成功
-					if(res==1){
-						$('#devices-list ul li b').removeClass('iconfont icon-chenggong');
-						$(_this).children('b').addClass('iconfont icon-chenggong');	
+				$.ajax({
+					url: '{{:U("Home/Devices/setNowDevices")}}',
+					type: 'post',
+					data: { 'device_code':device_code },
+					success: function(res){
+						if(res == 1){
+							$(_this).find('span').addClass('device_now');	
+
+							layuiHint('切换成功！');
+							setTimeout(function(){
+								location.href = "{{:U('Home/Users/mine')}}";
+							}, 500);
+
+						}else{
+							layuiHint('切换失败！');
+
+						}
+					},
+					error: function(res){
+						layuiHint('切换失败，请稍后再试！');
+
 					}
-				});
+				})
+				// $.post('{{:U("Home/Devices/setNowDevices")}}',{ 'device_code':device_code }, function(res){
+				// 	// 判断切换设备
+				// 	if(res==1){
+				// 		$('#devices-list ul li b').removeClass('iconfont icon-chenggong');
+				// 		$(_this).children('b').addClass('iconfont icon-chenggong');	
+				// 	}
+				// });
 	
 			});	
 		});
@@ -84,9 +114,9 @@
 				<foreach name="devices"	item="value">				
 					<if condition="$currentDevices['did'] == $value['id'] ">
 							<!-- 用户当前设备 -->
-							<li title="{{$value['device_code']}}"><p><span></span></p>设备编码:{{$value['device_code']}}</li>
+							<li title="{{$value['device_code']}}"  style="cursor:pointer;"><p><span></span></p>设备编码:{{$value['device_code']}}</li>
 					    <else />
-					    	<li title="{{$value['device_code']}}"><p></p>设备编码:{{$value['device_code']}}</li>
+					    	<li title="{{$value['device_code']}}"  style="cursor:pointer;"><p></p>设备编码:{{$value['device_code']}}</li>
 					</if>
 				</foreach>
 			</ul>
@@ -146,9 +176,6 @@
 		});
 	});
 
-	$("#devices-list>ul>li").click(function(){
-		location.href = "{{:U('Home/Users/mine')}}";
-	})
 </script>
 
 </body>

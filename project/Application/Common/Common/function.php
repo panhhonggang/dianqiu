@@ -185,6 +185,62 @@ if(!function_exists('replace_value')){
 }
 
 
+/**
+ * @param $data
+ * @param array $replace
+ * @param string $suffix
+ * @return mixed
+ *
+ * 传入说明:
+ * $arr = [
+        'is_pay'=>['0'=>'未付款','1'=>'已付款','2'=>'已取消'],
+        'is_receipt'=>['0'=>'未发货','1'=>'已发货'],
+        'is_ship'=>['0'=>'未收货','1'=>'已收货'],
+        'is_recharge'=>['0'=>'未充值','1'=>'已充值'],
+        'created_at'=>['date','Y-m-d H:i:s'],
+        'total_price'=>['price']
+        ];
+ *  格式 :
+ *  (1) 字段下标=> 状态替换的对应文字
+ *  (2) 字段下标=> ['date','Y-m-d H:i:s']   使用函数date进行'Y-m-d H:i:s'处理
+ *  (3) 字段下标=> ['str','123']   使用函数 在原数据上拼接 '123'
+ *  执行函数 传入的格式 原值在参数集合最后进行执行 call_user_func(...$val)
+ *
+ */
+function replace_array_value($data, array $replace, $suffix="")
+{
+    $arr=['replace'=>$replace, 'suffix'=>$suffix];
+    array_walk($data,function(&$v,$k,$arr){
+        extract($arr);
+        $fun=['date','str','price'];
+        foreach ($replace as $key=> $val) {
+            if(array_key_exists($key,$v)){
+                if($v[$key]=== null || $v[$key] === ''){
+                    $v[$key.$suffix]=$val['null']?:'';
+                }else{
+                    if(in_array($val[0],$fun)){
+                        switch ($val[0]) {
+                            case 'str':
+                                $v[$key.$suffix] = $v[$key].$val[1];
+                                break;
+                            case 'price':
+                                $v[$key.$suffix] = number_format(intval(trim($v[$key]), 10)/100,2);
+                                break;
+                            default:
+                                $val[]=$v[$key];
+                                $v[$key.$suffix] = call_user_func(...$val);
+                                break;
+                        }
+                    }else{
+                        $v[$key.$suffix]=$val[$v[$key]];
+                    }
+                }
+            }
+        }
+    },$arr);
+    return $data;
+}
+
 
 
 

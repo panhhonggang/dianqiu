@@ -82,7 +82,6 @@ class MYExcel
         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(18);
         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $this->objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
         for ($i=0; $i < count($this->cellName); $i++) { 
             $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$i].$this->topNumber, $this->cellName[$i]);
             $this->objPHPExcel->getActiveSheet()->freezePane($this->cellKey[0].($this->topNumber+1));//冻结窗口
@@ -93,8 +92,9 @@ class MYExcel
         foreach ($this->data as $key => $value) {
             $j = 0;
             foreach ($value as $k => $v) {
-                $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$j].($key+$this->topNumber+1), $v);
-                $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$j].($key+$this->topNumber+1))->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue($this->cellKey[$j].($key+$this->topNumber+1), $v.' ');
+                $this->objPHPExcel->getActiveSheet()->getStyle($this->cellKey[$j].($key+$this->topNumber+1))->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);               
+                
                 $j++;
             }           
         }

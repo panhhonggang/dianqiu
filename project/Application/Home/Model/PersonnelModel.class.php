@@ -49,7 +49,7 @@ class PersonnelModel extends Model
         $binding_info = M('binding')->where(['did'=>$list['id'],'vid'=>$info['v_id']])->find();
 
         if (empty($binding_info)) {
-            return ['code'=>403,'message'=>'该设备号码有误或者已激活'];
+            return ['code'=>403,'message'=>'该设备号码有误'];
         } else {
             return ['code'=>200,'data'=>$binding_info['vid']];
         }

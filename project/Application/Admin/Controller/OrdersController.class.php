@@ -67,7 +67,6 @@ class OrdersController extends CommonController
             }
             return false;
         });
-//dump($map);
         $order = M('orders');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -91,9 +90,11 @@ class OrdersController extends CommonController
                 'is_receipt'=>['0'=>'未发货','1'=>'已发货'],
                 'is_ship'=>['0'=>'未收货','1'=>'已收货'],
                 'is_recharge'=>['0'=>'未充值','1'=>'已充值'],
-                'created_at'=>'Y-m-d H:i:s',
+                'created_at'=>['date','Y-m-d H:i:s'],
+                'total_price'=>['price']
             ];
-            replace_value($data,$arr);
+
+            $data = replace_array_value($data,$arr);
 
             $filename = '订单列表数据';
             $title = '订单列表';

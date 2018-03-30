@@ -15,7 +15,13 @@
 	<script src="__PUBLIC__/Admin/js/index/moment-with-locales.min.js"></script>
 	<!-- <script src="__PUBLIC__/Admin/js/index/bootstrap-datetimepicker.js"></script> -->
 	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> 
-    <script type="text/javascript">  
+    <script type="text/javascript"> 
+    	var ua = navigator.userAgent;
+    	var isOpera = ua.indexOf("Opera") > -1;
+    	if(ua.indexOf('compatible') > -1 && ua.indexOf('MSIE') > -1 && !isOpera){
+
+    		alert('您的浏览体验不佳，请更换新的浏览器，如谷歌浏览器或火狐浏览器！')
+    	}
         //提示
         function tip(tip,title,fn){
             layui.use('layer', function(){

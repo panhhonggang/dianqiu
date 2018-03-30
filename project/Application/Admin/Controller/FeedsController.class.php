@@ -48,9 +48,8 @@ class FeedsController extends CommonController
             }
             return false;
         });
-
         if($this->get_level()){
-            $map['v.id'] = $_SESSION['adminuser']['id'];
+            $map['bd.vid'] = $_SESSION['adminuser']['id'];
         }
 //        dump($map);exit;
 
@@ -79,21 +78,19 @@ class FeedsController extends CommonController
         $total = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('__BINDING__ bd ON bd.did = d.id')
-                        ->join('__VENDORS__ v ON bd.vid = v.id')
-                        ->field('d.*,f.id,f.content,f.addtime')
-                        ->order('f.addtime desc');
-//                        ->count();
-        $ss=$total;
-        $total=$total->count();
+                        ->join('__BINDING__ bd ON  f.did= bd.did ')
+//                        ->join('__VENDORS__ v ON bd.vid = v.id')
+//                        ->field('d.*,f.id,f.content,f.addtime')
+                        ->order('f.addtime desc')
+                        ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $userlist = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('__BINDING__ bd ON bd.did = d.id', 'LEFT')
-                        ->join('__VENDORS__ v ON bd.vid = v.id', 'LEFT')
-                        ->field('d.*,f.id, f.content,f.addtime')
+                        ->join('__BINDING__ bd ON bd.did = f.did', 'LEFT')
+//                        ->join('__VENDORS__ v ON bd.vid = v.id', 'LEFT')
+//                        ->field('d.*,f.id, f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
@@ -163,6 +160,7 @@ class FeedsController extends CommonController
             $map['bd.vid'] = $_SESSION['adminuser']['id'];
         }
 
+//        dump($map);die;
         $user = M('repair');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -188,20 +186,21 @@ class FeedsController extends CommonController
         $total = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('pub_binding bd ON  d.id = bd.did', 'LEFT')
-                        ->field('d.*,f.id, f.content,f.addtime,f.picpath')
+                        ->join('__BINDING__ bd ON  f.did = bd.did', 'LEFT')
+//                        ->field('d.*,f.id, f.content,f.addtime,f.picpath')
                         ->order('f.addtime desc')
                         ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $userlist = $user->where($map)
                         ->alias('f')
-                        ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('pub_binding bd ON  d.id = bd.did', 'LEFT')
+                        ->join('__DEVICES__ d ON  f.did = d.id', 'LEFT')
+                        ->join('__BINDING__ bd ON  f.did = bd.did', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime,f.picpath,f.status,bd.vid')
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
+//        dump($userlist);
         $this->assign('list',$userlist);
         $this->assign('button',$pageButton);
         $this->display(); 
