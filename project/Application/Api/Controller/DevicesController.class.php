@@ -33,10 +33,17 @@ class DevicesController extends Controller
             //去除可能为空的值
             $ndata = array_filter($data);
 
-            //数据写入
-            $bool = $devices->add($ndata);
+            //判断库里有没有这个设备编码
+            $boolean = $devices->where('device_code = '.$data['device_code'])->find();
 
-            
+            if ($boolean) {
+                //数据进行修改
+                $bool = $devices->where('device_code = '.$data['device_code'])->save($ndata);
+            } else {
+                //数据写入
+                $bool = $devices->add($ndata);
+            }
+
             if($bool) {
                 echo json_encode($ndata);
             } else {
