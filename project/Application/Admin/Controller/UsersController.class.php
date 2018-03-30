@@ -308,7 +308,7 @@ class UsersController extends CommonController
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
             return ;
-        }       
+        }
 
         $total = $flow->where($map)
             ->alias('f')
@@ -326,12 +326,13 @@ class UsersController extends CommonController
         $list = $flow->where($map)->limit($page->firstRow.','.$page->listRows)
             ->alias('f')
             ->join('__DEVICES__ d ON f.did=d.id','LEFT')
+            ->join('__DEVICES_STATU__ ds ON d.device_code=ds.DeviceID','LEFT')
             ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
             ->join('__BINDING__ bd ON d.id = bd.did ','LEFT')
-            ->field('f.*,d.name,u.balance,bd.vid')
+            ->field('f.*,d.name,ds.reday,u.balance,bd.vid')
             ->order('f.addtime desc')
             ->select();
-//        dump($pageButton);
+//        dump($list);exit;
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();
