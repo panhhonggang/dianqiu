@@ -83,8 +83,6 @@ class FeedsController extends CommonController
 //                        ->field('d.*,f.id,f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->count();
-//        $ss=$total;
-//        $total=$total->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $userlist = $user->where($map)
@@ -92,7 +90,7 @@ class FeedsController extends CommonController
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
                         ->join('__BINDING__ bd ON bd.did = f.did', 'LEFT')
 //                        ->join('__VENDORS__ v ON bd.vid = v.id', 'LEFT')
-                        ->field('d.*,f.id, f.content,f.addtime')
+//                        ->field('d.*,f.id, f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
                         ->select();
