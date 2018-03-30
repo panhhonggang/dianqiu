@@ -56,21 +56,30 @@ class WorkController extends CommonController
             $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
 
         }
-
         $type = D('work');
         // PHPExcel 导出数据
         if (I('output') == 1) {
             $data = $type->where($map)
                 ->alias('w')
-                ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+                ->join('pub_devices ON w.device_code = pub_devices.device_code','LEFT')
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
                 ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
-                ->field('w.id,w.dcode,w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time')
+                ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
+                ->field('w.id,w.device_code,w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time,pub_repair.address raddress,w.province,w.city,w.district')
                 ->getAll();
             $arr = [
                 'time'=>['date','Y-m-d H:i:s'],
                 'create_at'=>['date','Y-m-d H:i:s'],
-        ];
+            ];
+            foreach ($data as $key => $value) {
+                if($value['type'] === '维修' ){
+                    $data[$key]['address'] = $value['raddress'];                    
+                }
+                unset($data[$key]['raddress']);
+                    unset($data[$key]['province']);
+                    unset($data[$key]['city']);
+                    unset($data[$key]['district']);
+            }
         //    replace_value($data,$arr,'');
             $data = replace_array_value($data,$arr);
             $filename = '工单列表数据';
@@ -84,23 +93,23 @@ class WorkController extends CommonController
 
         $total =$type->where($map)
             ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+            ->join('pub_devices ON w.device_code = pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')            
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
-        $list = $type->where($map)
+        $data = $type->where($map)
             ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+            ->join('pub_devices ON w.device_code= pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
-            ->field('pub_devices.*,pub_binding.*,w.*,pub_personnel.name pname,pub_personnel.phone pphone')
+            ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
+            ->field('pub_devices.*,pub_binding.*,w.*,pub_personnel.name pname,pub_personnel.phone pphone,pub_repair.address raddress')
             ->order('w.result asc,w.create_at desc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
-
-        $this->assign('list',$list);
+        $this->assign('list',$data);
         $this->assign('button',$pageButton);
         $this->display();
     }
@@ -166,6 +175,7 @@ class WorkController extends CommonController
         $data['result'] = $_GET['result'];
         $data['name'] = $_SESSION['adminuser']['name'];
         $data['phone'] = $_SESSION['adminuser']['phone'];
+        $data['time'] = time();
         $res = $work->where('id='.$id)->save($data); 
         // dump($id);
         if ($res) {
@@ -183,7 +193,6 @@ class WorkController extends CommonController
                 $status = ['status'=>2];
             }
             $res_repair = $repair->where('id='.$repair_id)->save($status);
-            dump($res_repair);
             if($res_repair){
                 $this->redirect('work/index');
             }

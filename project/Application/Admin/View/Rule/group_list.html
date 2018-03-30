@@ -30,7 +30,7 @@
                                 {{$v['user']}}
                             </td>
                             <td>
-                                <a class="_del" url="{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}" href="javascript:void(0)">
+                                <a class="" href="{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}">
                                     删除
                                 </a>
                             </td>
@@ -54,12 +54,7 @@
                             fn&&fn()                
                         });
                     });
-                } 
-                $('._del').click(function(){
-                    tip('确定删除？','提示',function(){
-                        location.href = "{{:U('Admin/Rule/delete_user_from_group',array('uid'=>$v['id']))}}"
-                    })
-                })
+                }
             </script>
         </div>
         <!-- footer part -->
