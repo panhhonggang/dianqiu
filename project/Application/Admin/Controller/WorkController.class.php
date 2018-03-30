@@ -64,10 +64,15 @@ class WorkController extends CommonController
                 ->alias('w')
                 ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
-                ->field('w.id,w.dcode,w.number,w.name,w.phone,w.type,w.content,w.address,w.result,w.create_at,w.time')
+                ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
+                ->field('w.id,w.dcode,w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time')
                 ->getAll();
-            $arr = ['time'=>'Y-m-d H:i:s'];
-//            replace_value($data,$arr,'');
+            $arr = [
+                'time'=>['date','Y-m-d H:i:s'],
+                'create_at'=>['date','Y-m-d H:i:s'],
+        ];
+        //    replace_value($data,$arr,'');
+            $data = replace_array_value($data,$arr);
             $filename = '工单列表数据';
             $title = '工单列表';
             $cellName = ['id','设备号','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','创建时间','处理时间'];
@@ -91,7 +96,7 @@ class WorkController extends CommonController
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
             ->field('pub_devices.*,pub_binding.*,w.*,pub_personnel.name pname,pub_personnel.phone pphone')
-            ->order('w.result asc')
+            ->order('w.result asc,w.create_at desc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
 

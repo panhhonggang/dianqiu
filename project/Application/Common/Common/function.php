@@ -184,6 +184,40 @@ if(!function_exists('replace_value')){
     }
 }
 
+function replace_array_value($data, array $replace, $suffix="")
+{
+
+    $arr=['replace'=>$replace, 'suffix'=>$suffix];
+    array_walk($data,function(&$v,$k,$arr){
+        extract($arr);
+        $fun=['date','str'];
+        foreach ($replace as $key=> $val) {
+            if(array_key_exists($key,$v)){
+                if($v[$key]=== null || $v[$key] == ''){
+                    $v[$key.$suffix]=$val['null']?:'';
+                }else{
+                    if(in_array($val[0],$fun)){
+                        switch ($val[0]) {
+                            case 'date':
+                                $v[$key.$suffix]=date($val[1],$v[$key]);
+                                break;
+                            case 'str':
+                                $v[$key.$suffix]=$v[$key].$val[1];
+                                break;
+                            default:
+                                $val[]=$v[$key];
+                                $v[$key.$suffix] = call_user_func(...$val);
+                                break;
+                        }
+                    }else{
+                        $v[$key.$suffix]=$val[$v[$key]];
+                    }
+                }
+            }
+        }
+    },$arr);
+    return $data;
+}
 
 
 
