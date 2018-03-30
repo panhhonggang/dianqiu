@@ -42,19 +42,21 @@
                             <input type="text" readonly="" name="dcode" value="{{$repairData['device_code']}}">
                         </empty>
                     </div>
-                    <div class="control-group install">
-                        <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
-                        <select name="personnel_id" class="personnel_id">
-                            <option value="">--请选择--</option>
-                            <volist name="personnelData" id='v'>
-                                <option value="{{$v.id}}">{{$v.name}}</option>
-                            </volist>
-                        </select>
-                    </div>
-                    <div class="control-group install">
-                        <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
-                        <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
-                    </div>
+                    <empty name="_GET">
+                        <div class="control-group install">
+                            <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
+                            <select name="personnel_id" class="personnel_id">
+                                <option value="">--请选择--</option>
+                                <volist name="personnelData" id='v'>
+                                    <option value="{{$v.id}}">{{$v.name}}</option>
+                                </volist>
+                            </select>
+                        </div>
+                        <div class="control-group install">
+                            <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                            <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
+                        </div>
+                    </empty>
                     <div class="control-group">
                         <span>维护类型</span>
                         <empty name="_GET">
@@ -167,35 +169,35 @@ $('.submit').click(function(event) {
     var addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
     var control = $('.control').val();  // 设备编号
     var _textarea = $('._textarea').val();
-    var phoneNumber = $('input[name=phone]').val().trim()
+    // var phoneNumber = $('input[name=phone]').val().trim()
     var personnel_id = $('.personnel_id>option:selected').val()
     var address = $("input[name='add_ress']").val();
     console.log(addressReg.test(address))
-    if(!numberReg.test(control) && hasid == -1){
-        layuiHint('请输入正确的设备编码！');
-        return false
-    }
-    if(!personnel_id){
-        layuiHint('请选择安装人员！');
-        return false
-    }
+    // if(!numberReg.test(control) && hasid == -1){
+    //     layuiHint('请输入正确的设备编码！');
+    //     return false
+    // }
+    // if(!personnel_id){
+    //     layuiHint('请选择安装人员！');
+    //     return false
+    // }
 
-    if(!chinese(_textarea)){
-        layuiHint('请填写工作内容！')
-        return false
-    }
+    // if(!chinese(_textarea)){
+    //     layuiHint('请填写工作内容！')
+    //     return false
+    // }
 
-    if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-        layuiHint('请把地址填写完整！');
-        return false
+    // if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
+    //     layuiHint('请把地址填写完整！');
+    //     return false
 
-    }else{
-        $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
-    } 
-    if(!addressReg.test(address)  && hasid == -1){
-        layuiHint('请输入详细地址！');
-        return false
-    }
+    // }else{
+    //     $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
+    // } 
+    // if(!addressReg.test(address)  && hasid == -1){
+    //     layuiHint('请输入详细地址！');
+    //     return false
+    // }
     $('#_formTable').submit();
 });
 $(function(){
