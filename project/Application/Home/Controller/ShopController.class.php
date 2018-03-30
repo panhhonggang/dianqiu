@@ -379,11 +379,21 @@ class ShopController extends CommonController
             $this->display();
         }
     }
+    public function dcode() {
+        $data = I('post.');
+
+        $info = M('devices')->where(['devices_code'=>$data['dcode']])->find();
+        if ($info) {
+            return $this->ajaxReturn(['code'=>200]);
+        } else {
+            return $this->ajaxReturn(['code'=>404,'message'=>'查询不到该设备']);
+        }
+    }
     /*
     * 充值
     */
     public function topup() {
-        $this->display('Personnel/chongzhi');
+        $this->display('chongzhi');
     }
     // // 将套餐数据更新到数据库
     // public function deviceStatu()
