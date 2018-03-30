@@ -48,9 +48,8 @@ class FeedsController extends CommonController
             }
             return false;
         });
-
         if($this->get_level()){
-            $map['v.id'] = $_SESSION['adminuser']['id'];
+            $map['bd.vid'] = $_SESSION['adminuser']['id'];
         }
 //        dump($map);exit;
 
@@ -79,20 +78,20 @@ class FeedsController extends CommonController
         $total = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('__BINDING__ bd ON bd.did = d.id')
-                        ->join('__VENDORS__ v ON bd.vid = v.id')
-                        ->field('d.*,f.id,f.content,f.addtime')
-                        ->order('f.addtime desc');
-//                        ->count();
-        $ss=$total;
-        $total=$total->count();
+                        ->join('__BINDING__ bd ON  f.did= bd.did ')
+//                        ->join('__VENDORS__ v ON bd.vid = v.id')
+//                        ->field('d.*,f.id,f.content,f.addtime')
+                        ->order('f.addtime desc')
+                        ->count();
+//        $ss=$total;
+//        $total=$total->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $userlist = $user->where($map)
                         ->alias('f')
                         ->join('__DEVICES__ d ON f.uid = d.uid AND f.did = d.id', 'LEFT')
-                        ->join('__BINDING__ bd ON bd.did = d.id', 'LEFT')
-                        ->join('__VENDORS__ v ON bd.vid = v.id', 'LEFT')
+                        ->join('__BINDING__ bd ON bd.did = f.did', 'LEFT')
+//                        ->join('__VENDORS__ v ON bd.vid = v.id', 'LEFT')
                         ->field('d.*,f.id, f.content,f.addtime')
                         ->order('f.addtime desc')
                         ->limit($page->firstRow.','.$page->listRows)
