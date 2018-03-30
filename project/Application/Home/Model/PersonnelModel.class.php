@@ -26,7 +26,8 @@ class PersonnelModel extends Model
      */
     public function per_detail($map) {
         //查询工单
-        $info = M('work')->field('dcode')->where(['id'=>$map['id']])->find();
+        $info = M('work')->field('device_code')->where(['id'=>$map['id']])->find();
+
 
         if ($info) {
 
