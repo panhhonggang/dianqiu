@@ -186,10 +186,10 @@ class UsersController extends CommonController
         if(!empty($code)){
              $balance = M('devices_statu')
             ->where(['DeviceID' => ['in',$code]])
-            ->field('DeviceID,ReFlow')
+            ->field('DeviceID,ReDay')
             ->select();
         }
-   
+
         // 分配数据
         $assign = [
             'userinfo' => json_encode($userinfo),
@@ -197,6 +197,7 @@ class UsersController extends CommonController
             'flow'     => json_encode($flow),
             'balance'  => json_encode($balance),
         ];
+
         $this->assign($assign);
         $this->display();
 
