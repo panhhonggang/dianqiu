@@ -68,7 +68,8 @@
                         <td>{{$vo.content}}</td>
                         <td>{{$vo.address}}</td>
                         <td>{{$vo.result}}</td>
-                        <td>{{$vo.time}}</td>
+                        <td><?php if($vo['time']){ echo date('Y-m-d H:i:s',$vo['time']);} ?></td>
+                        <td>{{$vo.create_at|date='Y-m-d H:i:s',###}}</td>
                         <td>
                             <switch name="vo.result">
                                 <case value="未处理"><a class="handleBtn" ruleId="{{$vo.id}}">正在进行中</a></case>

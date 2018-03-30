@@ -22,9 +22,6 @@ class WorkController extends CommonController
         /*
             Excel导出
          */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
         // 搜索功能
         $map = array(
             'w.type' => trim(I('post.type')),
@@ -44,7 +41,7 @@ class WorkController extends CommonController
            $updatetime_arr[]=array('egt',$mintime);
        }
        if(!empty($updatetime_arr)){
-           $map['UNIX_TIMESTAMP(w.time)']=$updatetime_arr;
+           $map['w.time']=$updatetime_arr;
        }
 
         // 删除数组中为空的值
@@ -65,15 +62,15 @@ class WorkController extends CommonController
         if (I('output') == 1) {
             $data = $type->where($map)
                 ->alias('w')
-                ->join('pub_devices ON w.dcode = pub_devices.device_code')
-                ->join('pub_binding ON pub_devices.id = pub_binding.did ')
-                ->field('w.id,w.dcode,w.number,w.name,w.phone,w.type,w.content,w.address,w.result,w.time')
+                ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+                ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
+                ->field('w.id,w.dcode,w.number,w.name,w.phone,w.type,w.content,w.address,w.result,w.create_at,w.time')
                 ->getAll();
             $arr = ['time'=>'Y-m-d H:i:s'];
 //            replace_value($data,$arr,'');
             $filename = '工单列表数据';
             $title = '工单列表';
-            $cellName = ['id','设备号','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','处理时间'];
+            $cellName = ['id','设备号','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','创建时间','处理时间'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
@@ -82,15 +79,15 @@ class WorkController extends CommonController
 
         $total =$type->where($map)
             ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code')
-            ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+            ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+            ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
         $list = $type->where($map)
             ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code')
-            ->join('pub_binding ON pub_devices.id = pub_binding.did ')
+            ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+            ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->field('pub_devices.*,pub_binding.*,w.*')
             ->order('w.result asc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
@@ -104,10 +101,22 @@ class WorkController extends CommonController
     public function add()
     {
         if (IS_POST) {
-            // dump($_POST);die;
+            I('repair_id') ? $data['repair_id'] = I('repair_id'):'';
+            $data['device_code'] = I('dcode');
+            I('personnel_id') ? $data['personnel_id'] = I('personnel_id'):'';
+            $data['type'] = I('type');
+            $data['content'] = I('content');
+            I('s_province') ? $data['province'] = I('s_province'):'';
+            I('s_city') ? $data['city'] = I('s_city'):'';
+            I('s_county') ? $data['district'] = I('s_county'):'';
+            I('add_ress') ? $data['address'] = I('add_ress'):'';
+            I('time') ? $data['time'] = strtotime(I('time')):'';
+            $data['create_at'] = time();
+
+
+            // dump(I('post.'));die;
             $device_type = D('work');
-            $data = I('post.');
-            $data['address'] = $data['address'].$data['add_ress'];
+            
             $data['number'] = $this->getWorkNumber();
             $info = $device_type->create();
             if($info){

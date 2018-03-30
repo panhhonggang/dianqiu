@@ -182,6 +182,7 @@ class UsersController extends CommonController
         }
         $flow    = M('flow')->where($where)->order('addtime desc')->select();
 
+
         $balance=[];
         if(!empty($code)){
              $balance = M('devices_statu')
@@ -189,6 +190,9 @@ class UsersController extends CommonController
             ->field('DeviceID,ReDay')
             ->select();
         }
+
+        $flow[0]['reday'] = $balance['0']['reday'];
+
 
         // 分配数据
         $assign = [
