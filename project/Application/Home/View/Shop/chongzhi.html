@@ -1,0 +1,85 @@
+{__NOLAYOUT__}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,minimal-ui" />
+	<title>充值跳转</title>
+	<script src="__PUBLIC__/Home/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<style>
+		.chongzhiForm{
+			padding:1rem .5rem;
+			font-size:.5rem;
+			color:rgb(89,89,89);
+		}
+		.chongzhiForm > p{
+			margin-bottom:1rem;
+		}
+		.chongzhiForm > p > input[type=text] {
+			height:.8rem;
+			width:60%;
+			border:1px solid rgb(222,222,222);
+			padding-left:5px;
+		}
+		.chongzhiForm > p > input[type=button] {
+			border:none;
+			border-radius:5px;
+			width:95%;
+			height:1.2rem;
+			color:white;
+			display:block;
+			margin:0 auto;
+			background:rgb(3,155,231);
+			-webkit-appearance: none;
+			appearance: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="contain">
+		<form action="" method="" id="form1" class="chongzhiForm">
+			<p>
+				设备编码： <input type="text" name="dcode">
+			</p>
+			<p>
+				<input id='top-up' type="button" value="进入充值">
+			</p>
+		</form>
+	</div>
+</body>
+<script src="__PUBLIC__/Home/js/flexible.js"></script>
+<script src="__PUBLIC__/Admin/layui/layui.js"></script>
+<script src="__PUBLIC__/Home/js/comment.js"></script>
+<script>
+    $("#top-up").click(function() {//button的click事件
+        var dcode = $("input[name='dcode']").val()
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{{:U('Home/shop/dcode')}}" ,//url
+            data: $('#form1').serialize(),
+            success: function (result) {
+                if (result.code == 200) {
+
+						location.href="{{:U('Home/Shop/charge')}}"+"?dcode="+dcode
+
+
+                } else {
+                    layuiHint(result.message);
+                }
+
+            },
+            error : function() {
+                layuiHint('异常');
+            }
+        });
+
+
+
+
+
+    })
+</script>
+</html>
