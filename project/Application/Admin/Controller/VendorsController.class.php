@@ -191,19 +191,24 @@ class VendorsController extends CommonController
     public function devices_add()
     {
         if (IS_POST) {
-            $did = M('devices')->where('device_code='.$_POST['dcode'])->field('id')->find();
-            if ($did) {
+
+            //查找设备的id
+            $did1 = M('devices')->where('device_code='.$_POST['dcode'])->field('id')->find();
+
+            // dump($did1);die;
+            if ($did1) {
                 if ($_POST['vid']) {
                     $arr = array(
                         'vid' => I('vid'),
-                        'did' => $did['id'],
+                        'did' => $did1['id'],
                         'operator' => $_SESSION['adminuser']['name'],
                         'addtime' => time(),
                     );
                     
+                    // dump($arr);die;
                     // 添加
                     $binding = M('binding');
-                    if($binding->where(['did'=>$_POST['vid']])->find()){
+                    if($binding->where(['did'=>$did1])->find()){
                         return $this->error('设备已绑定过经销商');
                     }
                     if ($binding->add($arr)) {
