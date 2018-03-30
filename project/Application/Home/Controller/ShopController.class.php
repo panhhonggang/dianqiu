@@ -379,7 +379,12 @@ class ShopController extends CommonController
             $this->display();
         }
     }
-
+    /*
+    * 充值
+    */
+    public function topup() {
+        $this->display('Personnel/chongzhi');
+    }
     // // 将套餐数据更新到数据库
     // public function deviceStatu()
     // {

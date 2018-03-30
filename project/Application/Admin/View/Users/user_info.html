@@ -79,7 +79,7 @@
                 data.forEach(function(el,i,arr){
                     var time = el.addtime?new Date(Number(el.addtime)*1000).toLocaleString():'--'
                     var ordernumber = el.order_id?el.order_id:'--'
-                    var currentbalance = el.currentflow?el.currentflow:'--'
+                    var currentbalance = el.reday?el.reday:'--'
                     var flow = el.flow?el.flow:'--'
                     var money = el.money?el.money:'--'
                     var html = '<tr>'+
@@ -110,9 +110,9 @@
                         '<td>'+installaddress+'</td>'+
                         '<td class="device_code">'+data[i].device_code+'</td>'+
                         '<td class="balance"></td>'+
-                        '<td>'+login_time+'</td>'+
-                        '<td>'+data[i].login_ip+'</td>'+
                         '<td>'+addtime+'</td>'+
+                        '<td>'+data[i].login_ip+'</td>'+
+                        '<td>'+login_time+'</td>'+
                         '<td>'+userStatus[data[i].user_status]+'</td>'+
                         '<td><a class="unb" did="'+data[i].device_code+'" href="javascript:;">解绑</a></td>'+
                     '</tr>'
