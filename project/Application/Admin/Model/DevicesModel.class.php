@@ -45,13 +45,16 @@ class DevicesModel extends Model
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
             ->join('__USERS__ u ON u.id=d.uid', 'LEFT')
             ->field("statu.*,bind.*,d.id,d.device_code,type.*,vendors.*,d.name dname,d.phone,d.address,d.uid")
-            ->order('d.id asc')
-            ->limit($page->firstRow.','.$page->listRows)
+            // ->order('d.id asc')
+            // ->limit($page->firstRow.','.$page->listRows)
             ->count();
         $page = new \Think\Page($count, 10);
+
         $page->rollPage = 10;
         $this->getPageConfig($page);
         $show = $page->show();
+
+        
 
         // 查询数据
         $data = $this

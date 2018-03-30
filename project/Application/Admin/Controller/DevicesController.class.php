@@ -40,9 +40,9 @@ class DevicesController extends CommonController
             $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
         }
         if(I('post.is_bind') == 1){
-            $map['d.uid'] = array(array('gt',0));
+            $map['uid'] = array(array('gt',0));
         }elseif (I('post.is_bind') == 2){
-            $map['d.uid'] = array('exp','IS NUll');
+            $map['uid'] = array('exp','IS NUll');
         }
         if(strlen(I('post.status'))) {
             if(I('post.status') == 0){

@@ -45,6 +45,8 @@
 	 				setSearchWord();
 	 			}
 	 		})
+	 		$('#date-start').css({width:'90px;'});
+	 		$('#date-end').css({width:'90px;'});
 		    /**************** 按时间搜索 -- 开始 ******************/
 		    	var newdate = new Date(),
 		    	year = newdate.getFullYear(),
@@ -59,23 +61,27 @@
 		    	// $("#date-start").val(now);
 		    	 // 开始时间
 		        var startdate = $("#date-start").datetimepicker({  
-		            format: 'YYYY-MM-DD hh:mm:ss',  
+		            format: 'YYYY-MM-DD',  
 		            locale: moment.locale('zh-cn')
 		        }); 
 		        
 		        //结束时间
 				var enddate = $("#date-end").datetimepicker({
-		            format: 'YYYY-MM-DD hh:mm:ss',  
+		            format: 'YYYY-MM-DD',  
 		            locale: moment.locale('zh-cn')
 		        }); 
 		         //动态设置最小值  
 			    startdate.on('dp.change', function (e) {  
 			        enddate.data('DateTimePicker').minDate(e.date);  
+			        var time = $(this).val()+' 00:00:00';
+			    	$('#date-start').val(time);
 
 			    });  
 			    //动态设置最大值  
 			    enddate.on('dp.change', function (e) {  
-			        startdate.data('DateTimePicker').maxDate(e.date);   
+			        startdate.data('DateTimePicker').maxDate(e.date); 
+			        var time = $(this).val()+' 23:59:59'; 
+			    	$('#date-end').val(time);  
 			        
 			    });
 		        // $("#date-start").datetimepicker('show');

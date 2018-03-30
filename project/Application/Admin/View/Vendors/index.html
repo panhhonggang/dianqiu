@@ -162,6 +162,8 @@
                         var srearchInfo = JSON.parse(sessionStorage.getItem('search'));
                         if($('.form-search').length){
                             // console.log(srearchInfo)
+                            console.log(srearchInfo['mintime']);
+                            console.log(srearchInfo['maxtime']);
 
                             $('.uid').val(srearchInfo['uid']);
                             $('.user').val(srearchInfo['user']);
