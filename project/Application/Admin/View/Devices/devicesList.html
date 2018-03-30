@@ -23,7 +23,7 @@
                         <input type="text" class="input-medium dname" name="dname" placeholder="请输入用户名" style="width: 100px;"/ >
                     </span>
                     <span class="select-box">电话:
-                        <input type="text" class="input-medium dname" name="phone" placeholder="请输入用户名" style="width: 100px;"/ >
+                        <input type="text" class="input-medium phone" name="phone" placeholder="请输入用户名" style="width: 100px;"/ >
                     </span>
                     <span class="select-box">设备类型(滤芯):
                         <input type="text" class="input-medium typename" name="typename" placeholder="请输入设备类型" style="width: 100px;"/ >
@@ -150,7 +150,7 @@
             <script>
                 /**************** 搜索关键字保留 -- 开始 ******************/
                     var srearchInfo = {};
-                    var device_code, name, is_bind, dname, 
+                    var device_code, name, is_bind, dname,phone,
                     typename, date_start, date_end, status;
                     /**
                      * device_code: 设备编号, name：经销商名称, 
@@ -175,6 +175,7 @@
                         }
                         
                         dname = $('.dname').val();
+                        phone =$('.phone').val();
                         typename = $('.typename').val();
                         date_start = $('#date-start').val();
                         date_end = $('#date-end').val();
@@ -183,6 +184,7 @@
                         srearchInfo['name'] = name;
                         srearchInfo['is_bind'] = is_bind;
                         srearchInfo['dname'] = dname;
+                        srearchInfo['phone'] = phone;
                         srearchInfo['typename'] = typename;
                         srearchInfo['mintime'] = date_start;
                         srearchInfo['maxtime'] = date_end;
@@ -204,6 +206,7 @@
                             
                             $('.name').val(srearchInfo['name']);
 
+                            $('.phone').val(srearchInfo['phone']);
                             $('.dname').val(srearchInfo['dname']);
                             $('.typename').val(srearchInfo['typename']);
                             $('#date-start').val(srearchInfo['mintime']);
