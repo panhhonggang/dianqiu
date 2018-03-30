@@ -123,7 +123,7 @@ class WechatController extends Controller
                 "name":"代缴费",
                 "type":"view",
                 
-                "url":"http://pub.dianqiukj.com/"
+                "url":"http://pub.dianqiukj.com/home/shop/topup"
             }],
             "button":[{
                 "name":"安装人员",
