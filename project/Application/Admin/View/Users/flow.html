@@ -91,11 +91,11 @@
 
                  /**************** 搜索关键字保留 -- 开始 ******************/
                     var srearchInfo = {};
-                    var name, minmoney, maxmoney, minflow, maxflow, mode,
+                    var name, minmoney, maxmoney, minflow, maxflow,
                     mincurrentflow, maxcurrentflow, date_start, date_end;
                     /**
                      * phone：电话, minmoney：最小金额, maxmoney：最大金额, 
-                     * minflow：最小流量, maxflow：最大流量, mode：充值方式,
+                     * minflow：最小流量, maxflow：最大流量, 
                      * mincurrentflow：账户余量最小, maxcurrentflow：账户余量最大, 
                      * date_start： 开始时间, date_end：结束时间
                      */
@@ -111,7 +111,7 @@
                         maxmoney = $('.maxmoney').val();
                         minflow = $('.minflow').val();
                         maxflow = $('.maxflow').val();
-                        mode = Number($('.mode>option:selected').val())+1;
+
                         mincurrentflow = $('.mincurrentflow').val();
                         maxcurrentflow = $('.maxcurrentflow').val();
                         date_start = $('#date-start').val();
@@ -122,7 +122,6 @@
                         srearchInfo['maxmoney'] = maxmoney;
                         srearchInfo['minflow'] = minflow;
                         srearchInfo['maxflow'] = maxflow;
-                        srearchInfo['mode'] = mode;
                         srearchInfo['mincurrentflow'] = mincurrentflow;
                         srearchInfo['maxcurrentflow'] = maxcurrentflow;
                         srearchInfo['mintime'] = date_start;
@@ -144,7 +143,6 @@
                             $('.maxcurrentflow').val(srearchInfo['maxcurrentflow']);
                             $('#date-start').val(srearchInfo['mintime']);
                             $('#date-end').val(srearchInfo['maxtime']);
-                            $('.mode>option').eq(srearchInfo['mode'])[0].selected = true;
 
                             setTimeout(function(){
                                 sessionStorage.setItem('search', '');   // 初始化
