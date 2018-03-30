@@ -79,7 +79,7 @@ class PersonnelController extends Controller
         $where['type'] = 0;
         //安装人
         $where['personnel_id'] = session('pid');
-        $list = M('work')->field('number,dcode,id')->where($where)->select();
+        $list = M('work')->field('number,device_code,id')->where($where)->select();
         $this->assign('where',$where);
         $this->assign('list', $list);
         $this->display();
@@ -110,6 +110,11 @@ class PersonnelController extends Controller
             $data['create_time'] = date('Y-m-d H:i:s');
             //查询产品类型
             $type_info = M('devices')->field('type_id')->where(['device_code'=>$data['dcode']])->find();
+            $status_info = M('devices_statu')->field('AliveStause')->where(['DeviceID'=>$data['dcode']])->find();
+            if ($status_info['alivestause'] == 1) {
+                $this->error('此设备正常 无需安装');
+            }
+
             //查找产品对应的滤芯
             $type_name = M('device_type')->where(['id'=>$type_info['type_id']])->find();
             unset($type_name['id'], $type_name['typename'], $type_name['addtime']);
