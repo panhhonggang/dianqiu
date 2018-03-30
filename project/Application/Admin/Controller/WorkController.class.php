@@ -65,7 +65,7 @@ class WorkController extends CommonController
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
                 ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
                 ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
-                ->field('w.id,w.dcode,w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time,pub_repair.address raddress,w.province,w.city,w.district')
+                ->field('w.id,w.device_code,w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time,pub_repair.address raddress,w.province,w.city,w.district')
                 ->getAll();
             $arr = [
                 'time'=>['date','Y-m-d H:i:s'],
@@ -73,12 +73,12 @@ class WorkController extends CommonController
             ];
             foreach ($data as $key => $value) {
                 if($value['type'] === '维修' ){
-                    $data[$key]['address'] = $value['raddress'];
-                    unset($data[$key]['raddress']);
+                    $data[$key]['address'] = $value['raddress'];                    
+                }
+                unset($data[$key]['raddress']);
                     unset($data[$key]['province']);
                     unset($data[$key]['city']);
-                    unset($data[$key]['distrct']);
-                }
+                    unset($data[$key]['district']);
             }
         //    replace_value($data,$arr,'');
             $data = replace_array_value($data,$arr);
@@ -99,7 +99,7 @@ class WorkController extends CommonController
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
-        $list = $type->where($map)
+        $data = $type->where($map)
             ->alias('w')
             ->join('pub_devices ON w.device_code= pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
@@ -109,8 +109,7 @@ class WorkController extends CommonController
             ->order('w.result asc,w.create_at desc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
-
-        $this->assign('list',$list);
+        $this->assign('list',$data);
         $this->assign('button',$pageButton);
         $this->display();
     }
