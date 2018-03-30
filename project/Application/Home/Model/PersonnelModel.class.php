@@ -42,12 +42,15 @@ class PersonnelModel extends Model
     public function status($map) {
 //        $map['id'] = 23;
         $info = M('personnel')->field('v_id')->where(['id'=>$map['personnel_id']])->find();
+        // dump($info);
+        // echo M('personnel')->getlastsql();exit;
 
         $where['device_code'] = $map['dcode'];
 
         $list = M('devices')->field('id')->where($where)->find();
+        // echo M('devices')->getlastsql();exit;
         $binding_info = M('binding')->where(['did'=>$list['id'],'vid'=>$info['v_id']])->find();
-
+        // echo M('binding')->getlastsql();exit;
         if (empty($binding_info)) {
             return ['code'=>403,'message'=>'该设备号码有误'];
         } else {

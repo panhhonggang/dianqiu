@@ -24,9 +24,9 @@ class CommonController extends Controller
             $weixin      = new WeixinJssdk;
             // 获取用户open_id
             $openId      = $weixin->GetOpenid();
-           $openId_ifno = $weixin->getSignPackage();
+            $openId_ifno = $weixin->getSignPackage();
             // $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
-            // $openId   = 'oXwY4txlP9OKwEDbVUMvUXP_7FhA';
+            // $openId   = 'oXwY4t_vkTgtlD0CBTZ-vTbIMWHs';
             $weixinInfo = [$openId,$openId_ifno];
             session('weixin',$weixinInfo);
             // 查询用户信息
