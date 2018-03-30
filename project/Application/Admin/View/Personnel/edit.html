@@ -3,7 +3,7 @@
     <include file="Public/nav" />
     <div class="row-fluid fl" id="main">
         <div class="tableBox">
-            <div class="titleBar">安装人员管理/<span>安装人员添加</span></div>
+            <div class="titleBar">安装人员管理/<span>安装人员编辑</span></div>
             <div class="formBox">
                 <form class="" action="__URL__/edit" method="post" id="_formTable">
                     <input type="hidden" name="id" value="{{$info.id}}">
@@ -14,7 +14,6 @@
                     <div class="control-group">
                         <span>用户名字<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <input type="text" name="name" placeholder="请输入用户昵称..." value="{{$info.name}}">
-                        <div style="font-size: 12px;text-indent: 38%;margin-top:-10px;color: red">(用户昵称将不可修改，请确认后再提交)</div>
                     </div>
                     <div class="control-group">
                         <span>密码<sub style="color:red;margin-left: 5px;">*</sub></span>

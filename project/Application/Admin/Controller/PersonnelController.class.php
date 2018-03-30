@@ -61,7 +61,7 @@ class PersonnelController extends CommonController
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
 
-        $list =  M('personnel')->where($map)->limit($page->firstRow.','.$page->listRows)->select();
+        $list =  M('personnel')->where($map)->limit($page->firstRow.','.$page->listRows)->order('id desc')->select();
         $this->assign('list',$list);
         $this->assign('button',$pageButton);
         $this->display();
@@ -84,11 +84,25 @@ class PersonnelController extends CommonController
                 if ($get_info) {
                     $this->error($get_info);
                 }
+
+                $password = I('post.password','','strip_tags');
+                $repassword = I('post.repassword','','strip_tags');
+
+
+                if (strlen($password) < 6) {
+                    $this->error('密码少于6位！');
+                }
+                if ($password != $repassword) {
+                    $this->error('两次密码有误！');
+                }
+
+
                 $data['v_id'] = $uid;
                 $data['name'] = I('post.name','','strip_tags');
                 $data['phone'] = I('post.phone','','strip_tags');
-                $data['password'] = MD5(I('post.password','','strip_tags'));
+                $data['password'] = MD5($password);
                 $data['create_time'] = date('Y-m-d H:i:s');
+
                 $res = $personnel->add($data);
                 if ($res) {
                     $this->success('添加成功',U('Personnel/index'),2);
@@ -98,33 +112,6 @@ class PersonnelController extends CommonController
             } else {
                     $this->error($personnel->getError());
             }
-//            if(!preg_match("/^1[34578]{1}\d{9}$/",$phone)) {
-//                $this->error('手机号码有误！');
-//            }
-//
-//            if (strlen($password) < 6) {
-//                $this->error('密码少于6位！');
-//            }
-//            if ($password != $repassword) {
-//                $this->error('两次密码有误！');
-//            }
-
-//            $info = M('personnel')->where($map)->find();
-//            if ($info) {
-//                $this->error('手机号码或者名字已存在');
-//            }
-//            $data['name'] = $name;
-//            $data['v_id'] = $uid;
-//            $data['phone'] = $phone;
-//            $data['password'] = MD5($password);
-//            $data['create_time'] = date('Y-m-d H:i:s');
-//
-//            $num = M('personnel')->add($data);
-//            if ($num) {
-//                $this->success('提交成功',U('Personnel/index'),2);
-//            } else {
-//                $this->error('添加失败');
-//            }
         } else {
             $this->display();
         }
