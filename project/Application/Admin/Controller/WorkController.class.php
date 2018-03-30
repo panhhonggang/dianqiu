@@ -56,13 +56,12 @@ class WorkController extends CommonController
             $map['pub_binding.vid'] = $_SESSION['adminuser']['id'];
 
         }
-
         $type = D('work');
         // PHPExcel 导出数据
         if (I('output') == 1) {
             $data = $type->where($map)
                 ->alias('w')
-                ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+                ->join('pub_devices ON w.device_code = pub_devices.device_code','LEFT')
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
                 ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
                 ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
@@ -94,7 +93,7 @@ class WorkController extends CommonController
 
         $total =$type->where($map)
             ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+            ->join('pub_devices ON w.device_code = pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')            
             ->count();
@@ -102,7 +101,7 @@ class WorkController extends CommonController
         $pageButton =$page->show();
         $list = $type->where($map)
             ->alias('w')
-            ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
+            ->join('pub_devices ON w.device_code= pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
             ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
             ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
