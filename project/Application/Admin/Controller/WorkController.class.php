@@ -58,7 +58,7 @@ class WorkController extends CommonController
         }
 
         $type = D('work');
-        // PHPExcel 导出数据 
+        // PHPExcel 导出数据
         if (I('output') == 1) {
             $data = $type->where($map)
                 ->alias('w')
@@ -81,6 +81,7 @@ class WorkController extends CommonController
             ->alias('w')
             ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
+            ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')            
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
@@ -88,7 +89,8 @@ class WorkController extends CommonController
             ->alias('w')
             ->join('pub_devices ON w.dcode = pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
-            ->field('pub_devices.*,pub_binding.*,w.*')
+            ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
+            ->field('pub_devices.*,pub_binding.*,w.*,pub_personnel.name pname,pub_personnel.phone pphone')
             ->order('w.result asc')
             ->limit($page->firstRow.','.$page->listRows)->getAll();
         //exit();
