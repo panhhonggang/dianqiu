@@ -176,6 +176,7 @@ class WorkController extends CommonController
         $data['result'] = $_GET['result'];
         $data['name'] = $_SESSION['adminuser']['name'];
         $data['phone'] = $_SESSION['adminuser']['phone'];
+        $data['time'] = time();
         $res = $work->where('id='.$id)->save($data); 
         // dump($id);
         if ($res) {
@@ -193,7 +194,6 @@ class WorkController extends CommonController
                 $status = ['status'=>2];
             }
             $res_repair = $repair->where('id='.$repair_id)->save($status);
-            dump($res_repair);
             if($res_repair){
                 $this->redirect('work/index');
             }
