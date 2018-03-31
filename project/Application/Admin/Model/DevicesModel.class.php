@@ -23,6 +23,7 @@ class DevicesModel extends Model
     protected $_auto = array(
         array('device_statu', '1'),
         array('addtime', 'time', 1, 'function'),
+        array('updatetime','time',2,'function'),
     );
 
     // 获取产品类型
