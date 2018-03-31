@@ -174,13 +174,7 @@
 	$(".charge").click(function(){
 		sessionStorage.setItem("shopFrom",'charge');
 	})
-	// var rawtdsVal=parseInt($("#rawtdsVal").val());
-	// if(rawtdsVal>=10){
 
-	// 	$(".dazi>span").css("right","1rem");
-	// }else{
-	// 	$(".dazi>span").css("right","1.7rem");
-	// }
 	sessionStorage.setItem("lineRight",'');
 	sessionStorage.setItem("lineLeft",'');
 	//页面加载时执行
@@ -235,71 +229,6 @@
 			}
 		}
 
-		//制水
-		function addwater(){
-			$(".switchText").html("关机");
-			$(".addwater").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
-		//冲洗
-		function wash(){
-			$(".switchText").html("关机");
-			$(".wash").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
-		//缺水
-		function lessWaters(){
-			$(".switchText").html("关机");
-			$(".lessWaters").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
-		//水满
-		function fullWaters(){
-			$(".switchText").html("关机");
-			$(".fullWaters").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
-		//检修
-		function service(){
-			$(".switchText").html("关机");
-			$(".service").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
-		//欠费
-		function arrearage(){
-            $(".switchText").html("关机");
-            $(".arrearage").show().siblings().hide();
-            $(".content").css({height: '100vh'});
-            $("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
-		//关机
-		function showDown(){
-			$(".switchText").html("开机");
-			$(".showDown").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("html").css("background", "rgba(194,194,194,.5)");
-			$("body").css({height:'100vh',filter:'grayscale(100%)'});
-		}
-		//离线
-		function outLine(){
-			$(".switchText").html("开机");
-			$(".outLine").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("html").css("background", "rgba(194,194,194,.5)");
-			$("body").css({height:'100vh',filter:'grayscale(100%)'});
-		}
-		//漏水
-		function leaking(){
-			$(".switchText").html("开机");
-			$(".leaking").show().siblings().hide();
-			$(".content").css({height: '100vh'});
-			$("body").css({height:'100vh',filter:'grayscale(0%)'});
-		}
 		var usednumberFlow=parseInt(data.sumflow);//已用流量
 		var usednumberDay=parseInt(data.sumday);//已用天数
 		var renumberFlow=parseInt(data.reflow);//剩余流量
@@ -378,19 +307,22 @@
 				$("#puretdsVal").text(dataList.RawTDS?dataList.RawTDS:'0');//设置当前设备纯水值
 				if(leasingmode=="0"){//零售
 					$(".textLeft").html("<p id='surplusVal'><span>已用</span><b>"+(usedFlow?usedFlow:'0')+"L</b></p>");
-					$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
+					$(".textRight").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
 
 				}else if(leasingmode=="1"){//显示流量值
-					$(".textLeft").html("<p id='surplusVal'><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
-					$(".textRight").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedFlow?usedFlow:'0')+"L</b></p>");
+					$(".textLeft").html("<p id='surplusVal'><span>剩余</span><b>"+dataList.ReFlow+"L</b></p>");
+					$(".textcenter").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
+
+					$(".textRight").html("<p><span>已用</span><b>"+(usedFlow?usedFlow:'0')+"L</b></p>");
 
 				}else if(leasingmode=="2"){//套餐值
-					$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p>");
-					$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
+					$(".textLeft").html("<p id='surplusVal'><span>剩余</span><b>"+dataList.Reday+"天</b></p>");
+					$(".textcenter").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
+					$(".textRight").html("<p><span>已用</span><b>"+(usedFlow?usedFlow:'0')+"L</b></p>");
 
 				}else if(leasingmode=="3"){//套餐&流量
-					$(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+dataList.Reday+"天</b></p><p><span>剩余流量</span><b>"+dataList.ReFlow+"L</b></p>");
-					$(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usedDay?usedDay:'0')+"天</b></p><p><span>已用</span><b>"+(usedFlow?usedFlow:'0')+"L</b></p>");
+					$(".textLeft").html("<p id='surplusVal'><span>剩余</span><b>"+dataList.Reday+"天</b></p><p><span>剩余</span><b>"+dataList.ReFlow+"L</b></p>");
+					$(".textRight").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
 				}
 			}
 			else if(dataList.PackType=="SetData")//设置数据类型数据
@@ -560,6 +492,74 @@
         };
 	})
 	//页面加载时执行结束
+</script>
+<script>
+	
+	//制水
+	function addwater(){
+		$(".switchText").html("关机");
+		$(".addwater").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
+	//冲洗
+	function wash(){
+		$(".switchText").html("关机");
+		$(".wash").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
+	//缺水
+	function lessWaters(){
+		$(".switchText").html("关机");
+		$(".lessWaters").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
+	//水满
+	function fullWaters(){
+		$(".switchText").html("关机");
+		$(".fullWaters").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
+	//检修
+	function service(){
+		$(".switchText").html("关机");
+		$(".service").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
+	//欠费
+	function arrearage(){
+        $(".switchText").html("关机");
+        $(".arrearage").show().siblings().hide();
+        $(".content").css({height: '100vh'});
+        $("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
+	//关机
+	function showDown(){
+		$(".switchText").html("开机");
+		$(".showDown").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("html").css("background", "rgba(194,194,194,.5)");
+		$("body").css({height:'100vh',filter:'grayscale(100%)'});
+	}
+	//离线
+	function outLine(){
+		$(".switchText").html("开机");
+		$(".outLine").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("html").css("background", "rgba(194,194,194,.5)");
+		$("body").css({height:'100vh',filter:'grayscale(100%)'});
+	}
+	//漏水
+	function leaking(){
+		$(".switchText").html("开机");
+		$(".leaking").show().siblings().hide();
+		$(".content").css({height: '100vh'});
+		$("body").css({height:'100vh',filter:'grayscale(0%)'});
+	}
 </script>
 
 </body>
