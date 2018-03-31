@@ -78,15 +78,13 @@
 		        }); 
 		         //动态设置最小值  
 			    startdate.on('dp.change', function (e) {  
-			        enddate.data('DateTimePicker').minDate(e.date);  
-			        var time = $(this).val()+' 00:00:00';
+			        enddate.data('DateTimePicker').minDate(e.date);
 			    	$('#date-start').val(time);
 
 			    });  
 			    //动态设置最大值  
 			    enddate.on('dp.change', function (e) {  
-			        startdate.data('DateTimePicker').maxDate(e.date); 
-			        var time = $(this).val()+' 23:59:59'; 
+			        startdate.data('DateTimePicker').maxDate(e.date);
 			    	$('#date-end').val(time);  
 			        
 			    });
