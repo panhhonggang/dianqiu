@@ -151,6 +151,8 @@ class DevicesController extends CommonController
     {
         $devices = D('Devices');
         $code = I('post.');
+
+        dump($code);die;
         if(!$devices->create()){
             $this->error($devices->getError(), 'show_add_device');
         }
@@ -245,7 +247,8 @@ class DevicesController extends CommonController
     }
 
     public function save_import($data)
-    {   
+    { 
+
         $i = 0;
         foreach ($data as $key => $val) {
             $_POST['device_code'] = $val['A'];
@@ -254,8 +257,10 @@ class DevicesController extends CommonController
             $Devices = D('Devices'); 
             $res = D('Devices')->getCate();
             $info = $Devices->create();
+
             $code = $Devices->where("device_code='{$_POST['device_code']}'")->find();
             if(!empty($code)) $this->error( '已导入' . $i . '条数据<br>' . $_POST['device_code'] . '已存在');
+            
             if($info){
                 if(!in_array($_POST['type_id'], $res)){
                     $this->error('已导入' . $i . '条数据<br>' . $_POST['device_code'] . '设备类型不存在');
@@ -265,7 +270,8 @@ class DevicesController extends CommonController
                     
                     $this->error('导入失败啦！');
                 }else{
-                   $this->success('导入成功',U('Admin/Devices/devicesList'));
+                    echo "导入成功";
+                   // $this->success('导入成功',U('Admin/Devices/devicesList'));
                 }
             } else {
                 $this->error('已导入' . $i . '条数据<br>');
