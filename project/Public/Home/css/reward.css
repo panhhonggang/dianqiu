@@ -46,6 +46,9 @@ body{
   width: 26%;
   display: inline-block;
 }
+.rewardFoot {
+  overflow-y: scroll;
+}
 .adviceFoot ul{
   width: 100%;
 }
