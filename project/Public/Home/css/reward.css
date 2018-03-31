@@ -7,8 +7,11 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fo
           box-sizing: border-box;
 }
 body{
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
   font-size: .7rem;
-  font-size: 0.72rem;
 }
 .rewardTop{
    width: 100%;
@@ -97,7 +100,7 @@ body{
 ._reward .show {
   width: 100%;
   height: 0;
-  max-height: 260px;
+  max-height: 262px;
   display: block;
   padding: 0 5%;
   border-top: 1px solid #f1f1f1;
