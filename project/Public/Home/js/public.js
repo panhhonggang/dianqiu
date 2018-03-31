@@ -26,7 +26,7 @@ function bind(obj, ev, fn) {
             fn.call(obj);
         });
     }
-}
+} 
 	// 添加class
 function addClass(obj, sClass) { 
     var aClass = obj.className.split(' ');

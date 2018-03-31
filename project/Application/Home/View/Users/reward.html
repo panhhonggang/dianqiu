@@ -53,30 +53,6 @@
               <div><span>安装地址：</span>{{ item.address }}</div>
             </div>
           </li>
-          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 0'>
-            <p @click='showText($event)'>
-              <span>安装</span>
-              <span @click='javascript:void(0);'>{{ item.time }}</span>
-            </p>
-            <div class="show">
-              <span><span>处理人：</span>{{ item.name }}</span>
-              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
-              <div><span>安装进度：</span>{{ item.result }}</div>
-              <div><span>安装地址：</span>{{ item.address }}</div>
-            </div>
-          </li>
-          <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 0'>
-            <p @click='showText($event)'>
-              <span>安装</span>
-              <span @click='javascript:void(0);'>{{ item.time }}</span>
-            </p>
-            <div class="show">
-              <span><span>处理人：</span>{{ item.name }}</span>
-              <div><span>电话：</span><a :href="'tel:'+ item.phone">{{ item.phone }}</a></div>
-              <div><span>安装进度：</span>{{ item.result }}</div>
-              <div><span>安装地址：</span>{{ item.address }}</div>
-            </div>
-          </li>
         </ul>
       </li>
       <li>
