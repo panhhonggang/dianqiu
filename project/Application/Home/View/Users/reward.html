@@ -166,6 +166,7 @@
                   : localetime.getSeconds();
 
             var normal = year + '/' + month + '/'  + date + '\t'  + hour + ':'  + minute;
+            if(!_time) normal = '时间不见了';
             // console.log('year + month + day + hour + minute: ', normal);
             return normal;
           },
