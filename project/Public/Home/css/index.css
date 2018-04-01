@@ -23,7 +23,7 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 	-moz-appearance:none;
 	-webkit-appearance:none;
 	-webkit-appearance: none; 
-}
+} 
 .clearfix:after{content:"";height:0;line-height:0;display:block;visibility:hidden;clear:both}
 .clearfix{zoom:1;}/*为了兼容IE*/
 .clear{clear:both;}
@@ -31,13 +31,12 @@ ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
 html,body {
 	height: 100vh;
 	overflow: hidden;
-}
+} 
 .top{
 	width:10rem;
 	height:62vh;
 	position: relative;
 	padding-top: 5%;
-	background: url("../images/yun_01.jpg") no-repeat;
 	background-size: 100% 100%;
 }
 
@@ -363,6 +362,60 @@ i.icon-jianxiu,i.icon-queshui{
 html{
 	background-color: #A8E2FF;
 }
+
+.linkBox{
+	display: none !important;
+}
+.dazi {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+.dazi>b,
+.dazi>span {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	margin: 0 auto;
+}
+#puretdsVal {
+	position: relative;
+}
+#rawtdsVal:after,
+#puretdsVal:after {
+	content: 'ppm';
+	position: absolute;
+	left: 105%;
+	bottom: 18%;
+	color: #fff;
+	font-size: .4rem;
+	font-weight: 400;
+}
+.icon-leaking {
+	color: red;
+}
+.flow_day {
+	width: 100vw;
+	display: block;
+}
+.flow_day>div {
+	width: 33.33%;
+	display: inline-block;
+}
+.flow_day>div:nth-of-type(2) {
+	position: absolute;
+    height: 2rem;
+    top: .8rem;
+    left: 36%;
+    z-index: 11;
+}
+.flow_day>div:nth-of-type(3) {
+	right: 0;
+}
+.flow_day>div>p {
+	text-align: center;
+}
+
 @media screen and (max-height: 520px) {
 
 	.top{

@@ -156,6 +156,8 @@
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script src="__PUBLIC__/Home/js/wx_share.js"></script>	
 	<script>
+
+	var pumpSpend = 260/60000;	//泵流速
 	// 获取窗口高度
 	var docCH = document.documentElement.clientHeight;
 	// console.log(docCH)
@@ -231,7 +233,7 @@
 
 		var usednumberFlow=parseInt(data.sumflow);//已用流量
 		var usednumberDay=parseInt(data.sumday);//已用天数
-		var renumberFlow=parseInt(data.reflow);//剩余流量
+		var renumberFlow=parseInt(data.sumpump*pumpSpend);//剩余流量
 		var renumberDay=parseInt(data.reday);//剩余天数
 		// console.log(usednumberFlow);
 		$("#puretdsVal").html(data.rawtds?data.rawtds:'0');
@@ -299,7 +301,7 @@
 			if(dataList.PackType=="Select")//返回查询数据类型数据
 			{	console.log(dataList);
                 numAdd=0;
-				var usedFlow=parseInt(dataList.SumFlow);
+				var usedFlow=parseInt(dataList.SumPump*pumpSpend);
 				var usedDay=parseInt(dataList.SumDay);
 
 				//1.设备状态页面数据显示
