@@ -26,7 +26,7 @@ function bind(obj, ev, fn) {
             fn.call(obj);
         });
     }
-}
+} 
 	// 添加class
 function addClass(obj, sClass) { 
     var aClass = obj.className.split(' ');
@@ -51,10 +51,6 @@ function removeClass(obj, sClass) {
         }
     }
 }
-	//默认事件
-bind(document,"touchmove",function(ev){
-    ev.preventDefault();
-});
 	//text触屏滑动
 function fnTab_txt(oTab,oList,aNav,iW,classActive)
 {

@@ -130,11 +130,15 @@
                                     <td>{{$data.addtime|date='Y-m-d H:i:s', ###}}</td>
                                     <if condition="$data['updatetime'] == null ">
                                         <td></td>
-                                        <td>未激活</td>
                                         <else />
                                         <td>{{$data.updatetime|date='Y-m-d H:i:s', ###}}</td>
-                                        <td>已激活</td>
                                     </if>
+                                   <if condition="$data['alivestause'] == 1 ">
+                                        <td>已激活</td>
+                                        <else />
+                                        <td>未激活</td>
+                                    </if>
+
                                 </tr>
                             </foreach>
                         </empty>

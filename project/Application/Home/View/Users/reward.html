@@ -102,6 +102,7 @@
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
                 res[i]['index'] = i;
+                res[i].time = that.getLocaltime(res[i].time);
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
 
@@ -165,6 +166,7 @@
                   : localetime.getSeconds();
 
             var normal = year + '/' + month + '/'  + date + '\t'  + hour + ':'  + minute;
+            if(!_time) normal = '时间不见了';
             // console.log('year + month + day + hour + minute: ', normal);
             return normal;
           },
@@ -184,7 +186,7 @@
             }
             // 展开当前元素
             nowLi.style.background = '#f6f6f6';
-            nowLi.children[1].setAttribute('style','height: 38vh;border-color:#ddd');
+            nowLi.children[1].setAttribute('style','height:40vh;border-color:#ddd');
             // 当前元素点击多次
             if(this.isSameEle == nowLi.getAttribute('index')){
               nowLi.children[1].setAttribute('style',"height:0;");

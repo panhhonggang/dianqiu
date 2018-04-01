@@ -80,6 +80,7 @@ class PersonnelController extends Controller
         //安装人
         $where['personnel_id'] = session('pid');
         $list = M('work')->field('number,device_code,id')->where($where)->select();
+
         $this->assign('where',$where);
         $this->assign('list', $list);
         $this->display();
@@ -221,14 +222,15 @@ class PersonnelController extends Controller
     /*
      * 完成安装
      */
-    public function to_success($id) {
-
-        $map['personnel_id'] = session('pid');
-        $map['id'] = $id;
-        $work_info = M('install')->where(['wid'=>$map['id'],'pid'=>$map['personnel_id']])->find();
-        if (!$work_info) {
-            $this->error('数据有误');
-        }
+    public function to_success($device_code) {
+        // echo $device_code;die;
+        // $map['personnel_id'] = session('pid');
+        // $map['id'] = $id;
+        $work_info = M('install')->where('dcode = '.$device_code)->find();
+        // echo M('install')->getLastSql();
+        // if (!$work_info) {
+        //     $this->error('数据有误');
+        // }
         $this->assign('work_info',$work_info);
         $this->display('success');
     }

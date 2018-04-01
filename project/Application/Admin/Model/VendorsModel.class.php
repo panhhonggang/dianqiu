@@ -13,6 +13,8 @@ class VendorsModel extends BaseModel
     // 自动验证
     protected $_validate = array(
         array('user','require','账户名不能为空'),
+        array('password','require','密码不能为空'),
+        // array('password','checkPwd','密码格式不正确',self::EXISTS_VALIDATE,'callback',self::MODEL_INSERT), // 自定义函数验证密码格式
         // array('user','((?=[\x21-\x7e]+)[^A-Za-z0-9])','登陆帐号不可以使用特殊字符'),
         // array('name','((?=[\x21-\x7e]+)[^A-Za-z0-9])','用户昵称不可以使用特殊字符'),
         array('user','/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]{1,660}$/u','用户名不能使用特殊字符',1,'regex'),
@@ -52,4 +54,8 @@ class VendorsModel extends BaseModel
         return $list;
     }
 
+    public function checkPwd()
+    {
+
+    }
 }

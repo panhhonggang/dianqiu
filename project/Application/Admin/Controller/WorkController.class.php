@@ -28,8 +28,8 @@ class WorkController extends CommonController
             'w.result' => trim(I('post.result')),
         );
         $map['w.number'] = trim(I('post.number')) ? array('like','%'.trim(I('post.number')).'%'): '';
-        $map['w.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
-        $map['w.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
+        $map['pub_personnel.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
+        $map['pub_personnel.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
         $map['w.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
         $mintime = strtotime(trim(I('post.mintime')));
        $maxtime = strtotime(trim(I('post.maxtime')));
@@ -194,7 +194,7 @@ class WorkController extends CommonController
             }
             $res_repair = $repair->where('id='.$repair_id)->save($status);
             if($res_repair){
-                $this->redirect('work/index');
+                $this->success('修改成功',U('admin/work/index'));
             }
             // echo 1111;
         } else {

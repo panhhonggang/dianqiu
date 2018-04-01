@@ -23,10 +23,10 @@ class CommonController extends Controller
             // 实例化微信JSSDK对象
             $weixin      = new WeixinJssdk;
             // 获取用户open_id
-//            $openId      = $weixin->GetOpenid();
-           $openId_ifno = $weixin->getSignPackage();
+            $openId      = $weixin->GetOpenid();
+            $openId_ifno = $weixin->getSignPackage();
             // $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
-             $openId   = 'oXwY4tygQ0kK3SCrYoK2pME_1b38';
+            // $openId   = 'oXwY4t_vkTgtlD0CBTZ-vTbIMWHs';
             $weixinInfo = [$openId,$openId_ifno];
             session('weixin',$weixinInfo);
             // 查询用户信息

@@ -15,35 +15,40 @@ class DevicesController extends CommonController
      */
     public function devicesList()
     {
-
-        // 搜索功能
-//        $map = array(
-//            'd.device_code' =>  array('like','%'.trim(I('post.device_code')).'%'),
-//            'vendors.name' =>  array('like','%'.trim(I('post.name')).'%'),
-//            'd.name' =>  array('like','%'.trim(I('post.dname')).'%'),
-//            'type.typename' => array('like','%'.trim(I('post.typename')).'%'),
-//        );
-
+        //按设备码查询
         if(I('post.device_code')){
             $map['d.device_code']=array('like','%'.trim(I('post.device_code')).'%');
         }
+
+        //按经销商名查询
         if(I('post.name')){
             $map['vendors.name']=array('like','%'.trim(I('post.name')).'%');
         }
+
+        //按绑定的用户查询
         if(I('post.dname')){
             $map['d.name']=array('like','%'.trim(I('post.dname')).'%');
         }
+
+        //按电话查询
         if(I('post.phone')){
             $map['d.phone']=array('like','%'.trim(I('post.phone')).'%');
         }
+
+        //设备类型(滤芯):
         if(I('post.typename')){
             $map['type.typename']=array('like','%'.trim(I('post.typename')).'%');
         }
+
+        //是否绑定
         if(I('post.is_bind') == 1){
             $map['uid'] = array(array('gt',0));
         }elseif (I('post.is_bind') == 2){
             $map['uid'] = array('exp','IS NUll');
         }
+
+        // $this->assign($_POST['is_bing']);
+        //安装设备状态查询
         if(strlen(I('post.status'))) {
             if(I('post.status') == 0){
                 $map['statu.updatetime'] = array(array('gt',0));
@@ -51,18 +56,14 @@ class DevicesController extends CommonController
                 $map['statu.updatetime'] = array('exp','IS NUll');
             }
         }
-        
 
+        // dump($_POST);die;
+
+        
+        //按时间段查询
         $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:false;
         $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:false;
 
-        //原逻辑
-//        if (is_numeric($maxupdatetime) ) {
-//            $map['statu.updatetime'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime));
-//        }
-//        if ($maxupdatetime < 0) {
-//            $map['statu.updatetime'] = array(array('egt',$minupdatetime));
-//        }
         /* 修改 处理时间区间搜索  2018年03月21日 李振东 */
         $updatetime_arr=[];
         if($maxupdatetime){
@@ -151,6 +152,8 @@ class DevicesController extends CommonController
     {
         $devices = D('Devices');
         $code = I('post.');
+
+        // dump($code);die;
         if(!$devices->create()){
             $this->error($devices->getError(), 'show_add_device');
         }
@@ -245,7 +248,8 @@ class DevicesController extends CommonController
     }
 
     public function save_import($data)
-    {   
+    { 
+
         $i = 0;
         foreach ($data as $key => $val) {
             $_POST['device_code'] = $val['A'];
@@ -254,8 +258,10 @@ class DevicesController extends CommonController
             $Devices = D('Devices'); 
             $res = D('Devices')->getCate();
             $info = $Devices->create();
+
             $code = $Devices->where("device_code='{$_POST['device_code']}'")->find();
             if(!empty($code)) $this->error( '已导入' . $i . '条数据<br>' . $_POST['device_code'] . '已存在');
+            
             if($info){
                 if(!in_array($_POST['type_id'], $res)){
                     $this->error('已导入' . $i . '条数据<br>' . $_POST['device_code'] . '设备类型不存在');
@@ -265,13 +271,17 @@ class DevicesController extends CommonController
                     
                     $this->error('导入失败啦！');
                 }else{
-                   $this->success('导入成功',U('Admin/Devices/devicesList'));
+                    // echo "导入成功";
+                    $bool = true;
                 }
             } else {
                 $this->error('已导入' . $i . '条数据<br>');
             }   
             $i ++;
         }
+
+        if($bool) $this->success('成功导入'.$i.'条数据',U('Admin/Devices/devicesList'));
+        
     }
 
     private function getExcel($fileName, $headArr, $data)
