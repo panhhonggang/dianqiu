@@ -47,19 +47,18 @@ class UsersController extends CommonController
             }
             return false;
         });
-        $minupdatetime = strtotime(trim(I('post.minupdatetime')))?:0;
-        $maxupdatetime = strtotime(trim(I('post.maxupdatetime')))?:-1;
-        if (empty($maxupdatetime) &&is_numeric($maxupdatetime)) {
-            $map['d.updatetime'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime));
+        $minupdatetime = strtotime(trim(I('post.mincreated_at')));
+        $maxupdatetime = strtotime(trim(I('post.maxcreated_at')));
+        if (!empty($maxupdatetime) && !empty($maxupdatetime)) {
+            $map['u.created_at'] = array(array('egt',$minupdatetime),array('elt',$maxupdatetime+24*60*60));
         }
-        if (empty($maxupdatetime) && $maxupdatetime < 0) {
-            $map['d.updatetime'] = array(array('egt',$minupdatetime));
-        }
+        // if (empty($maxupdatetime) && $maxupdatetime < 0) {
+        //     $map['u.created_at'] = array(array('egt',$minupdatetime));
+        // }
         if($this->get_level()){
             $map['bd.vid'] = $_SESSION['adminuser']['id'];
 
         }
-
         $user = D('users');
         // PHPExcel 导出数据 
         if (I('output') == 1) {
@@ -192,7 +191,6 @@ class UsersController extends CommonController
         }
 
         $flow[0]['reday'] = $balance['0']['reday'];
-
 
         // 分配数据
         $assign = [
@@ -341,7 +339,15 @@ class UsersController extends CommonController
         $this->display();
     }
 
-    
+
+    /*
+        设备解绑流程：
+            1. 获取设备编号
+            3.     
+        
+
+
+     */
     // 解除用户绑定
     public function unbind()
     {
@@ -362,6 +368,7 @@ class UsersController extends CommonController
         $device->startTrans();
         $current_devices->startTrans();
         $current_device = $current_devices->where('did='.$did)->find();
+        // print_r($current_device);die;
         if(!empty($current_device)){
             $bind_device = $device->where('uid='.$uid)->select();
             
@@ -374,7 +381,7 @@ class UsersController extends CommonController
                     if($value['id'] == $did){
                         unset($device_tmp[$key]);
                     }
-                    // $device_tmp[0] = $device_tmp[$key];
+                    $device_tmp[0] = $device_tmp[$key];
                 }
                 $current_status = $current_devices->where('uid='.$uid)->save(['did'=>$device_tmp[0]]);
             }
