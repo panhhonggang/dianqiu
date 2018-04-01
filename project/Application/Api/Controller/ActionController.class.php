@@ -164,8 +164,6 @@ class ActionController extends Controller
         $data = [
             'DeviceStause' => $message['DeviceStause'],
             'NetStause'    =>1,
-            'SumFlow'      => $message['SumFlow'],
-            'SumDay'       => $message['SumDay'],
             'RawTDS'       => $message['RawTDS'],
             'PureTDS'      => $message['PureTDS'],
             'Temperature'  => $message['Temperature'],
@@ -181,10 +179,8 @@ class ActionController extends Controller
         $ds = M('devices_statu')->where("DeviceID=" . $dcode)->find();
 
         if ($ds) {
-            if( $ds['data_statu'] == 0 ){
-                $data['ReFlow'] = $message['ReFlow'];
-                $data['ReDay']  = $message['Reday'];
-                $data['FilerNum']  = $message['FilerNum'];
+            if( $ds['data_statu'] !== 0 ){
+                $this->sysnc($dcode);//信息同步
             }
 
             $this->updateData($ds['id'], $data);
@@ -202,23 +198,25 @@ class ActionController extends Controller
 
             $DeviceID=trim($message['DeviceID']);
 
-            if ($message['PackNum'] == 6) {//激活
-                $data['data_statu']  = 0;
-                $data['AliveStause'] = 1;
+
+            if ($message['PackNum'] == 6 || $message['PackNum'] == 5) {
+                $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->save(['data_statu'=>0]);
             }
 
-            if ($message['PackNum'] == 5) {//更新
-                $data['data_statu'] = 0;
-                $data['ReDay']      = $message['ReDay'];
-                $data['ReFlow']     = $message['ReFlow'];
-                $data['FilerNum']   = $message['FilerNum'];
-            }
+//            $res = $this->check_msg($message);
+//            $data['data_statu'] = 0;
 
-            $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->getField('id');
-
-            if (!empty($data)) {
-                $this->updateData($status_id, $data);
-            }
+//            if (!empty($res['data'])) {
+//                if(!empty($res['rest'])){
+//                    //数据不统一 继续更新
+//
+//                }else{
+////                    $data = $res['data'];
+//                    $data['data_statu'] = 0;
+//                }
+//                $this->updateData($status_id, $data);
+//
+//            }
         }
     }
 
@@ -230,6 +228,40 @@ class ActionController extends Controller
     {
         $status_id = M('devices_statu')->where("DeviceID=" . $dcode)->getField('id');
         $this->check_info($status_id);
+    }
+
+    /**
+     * 检查设备与库里的数据的一致性   (禁用)
+     * @param $message
+     */
+    public function check_msg($message)
+    {
+        $data = M('devices_statu')->where("DeviceID=" . $DeviceID)->find();
+        //要验证的字段
+        $arr=['ReFlow', 'Reday',
+            'SumDay','SumFlow',
+            'FilterMode','LeasingMode','AliveStause',
+    //            'ReFlowFilter1','ReDayFilter1',
+    //            'ReFlowFilter2','ReDayFilter2',
+    //            'ReFlowFilter3','ReDayFilter3',
+    //            'ReFlowFilter4','ReDayFilter4',
+    //            'ReFlowFilter5','ReDayFilter5',
+    //            'ReFlowFilter6','ReDayFilter6',
+    //            'ReFlowFilter7','ReDayFilter7',
+    //            'ReFlowFilter8','ReDayFilter8',
+        ];
+
+        foreach ($message as $key=>$value){
+            $key=strtolower($key);
+            $res = [];
+            if(isset($data[$key]) || $data[$key] == $value){
+                $res[$key] = $value;
+            }else{
+                $rest[$key] = $value;
+            }
+        }
+
+        return ['id'=>$data['id'],'data'=>$res,'rest'=>$rest];
     }
     /**
      * 库数据检查  单向推送到设备
@@ -285,7 +317,6 @@ class ActionController extends Controller
                     $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
                 }
             }
-
         }
 
         if ($msg['PackNum']==6 && $data['alivestause'] == 0) {//设备激活
@@ -318,7 +349,7 @@ class ActionController extends Controller
      */
     public function sendMsg($message)
     {
-        Log::write(json_encode($message), 'AAAAAAA');
+        Log::write(json_encode($message), '发送信息包');
 
         if(isset($message['DeviceID'])){
             Gateway::sendToUid($message['DeviceID'], $message);
