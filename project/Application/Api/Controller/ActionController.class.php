@@ -179,8 +179,28 @@ class ActionController extends Controller
         $ds = M('devices_statu')->where("DeviceID=" . $dcode)->find();
 
         if ($ds) {
-            if( $ds['data_statu'] !== 0 ){
+            if( $ds['data_statu'] != 0 ){
                 $this->sysnc($dcode);//信息同步
+            }else{
+                $data['ReFlow']     =$message['ReFlow'];
+                $data['ReDay']      =$message['ReDay'];
+                $data['SumFlow']    =$message['SumFlow'];
+                $data['SumDay']     =$message['SumDay'];
+                $data['FilterMode'] =$message['FilterMode'];
+                $data['LeasingMode']=$message['LeasingMode'];
+
+
+                $data['CSQ']        =$message['CSQ'];
+                $data['ICCID']      =$message['ICCID'];
+                $data['Device']     =$message['Device'];
+                $data['ICCID']      =$message['ICCID'];
+
+                if(isset($message['FilerNum'])){
+                    for ($i=1;$i<=$message['FilerNum'];$i++){
+                        $data['ReFlowFilter'.$i]    =$message['ReFlowFilter'.$i];
+                        $data['ReDayFilter'.$i]     =$message['ReDayFilter'.$i];
+                    }
+                }
             }
 
             $this->updateData($ds['id'], $data);
@@ -197,7 +217,6 @@ class ActionController extends Controller
         if (isset($message['PackNum'])) {
 
             $DeviceID=trim($message['DeviceID']);
-
 
             if ($message['PackNum'] == 6 || $message['PackNum'] == 5) {
                 $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->save(['data_statu'=>0]);
