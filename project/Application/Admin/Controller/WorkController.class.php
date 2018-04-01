@@ -30,19 +30,28 @@ class WorkController extends CommonController
         $map['w.number'] = trim(I('post.number')) ? array('like','%'.trim(I('post.number')).'%'): '';
         $map['pub_personnel.name'] = trim(I('post.name')) ?  array('like','%'.trim(I('post.name')).'%'): '';
         $map['pub_personnel.phone'] = trim(I('post.phone')) ? array('like','%'.trim(I('post.phone')).'%'):'';
-        $map['w.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+        /* 修改搜索地址失败的 */
+        $map['w.address|w.province|w.city|w.district|pub_repair.address'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+        // $map['w.province'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+        // $map['w.city'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+        // $map['w.district'] = trim(I('post.address')) ? array('like','%'.trim(I('post.address')).'%'):'';
+        // $map['_logic'] = 'OR';
+
+
         $mintime = strtotime(trim(I('post.mintime')));
-       $maxtime = strtotime(trim(I('post.maxtime')));
-       $updatetime_arr=[];
-       if($maxtime){
-           $updatetime_arr[]=array('elt',$maxtime);
-       }
-       if($mintime){
-           $updatetime_arr[]=array('egt',$mintime);
-       }
-       if(!empty($updatetime_arr)){
-           $map['w.time']=$updatetime_arr;
-       }
+        $maxtime = strtotime(trim(I('post.maxtime')));
+
+        // dump($map);die;
+        $updatetime_arr=[];
+        if($maxtime){
+            $updatetime_arr[]=array('elt',$maxtime);
+        }
+        if($mintime){
+            $updatetime_arr[]=array('egt',$mintime);
+        }
+        if(!empty($updatetime_arr)){
+            $map['w.time']=$updatetime_arr;
+        }
 
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
@@ -95,10 +104,12 @@ class WorkController extends CommonController
             ->alias('w')
             ->join('pub_devices ON w.device_code = pub_devices.device_code','LEFT')
             ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
-            ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')            
+            ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT') 
+            ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')           
             ->count();
         $page  = new \Think\Page($total,8);
         $pageButton =$page->show();
+        // echo M()->getLastSql();
         $data = $type->where($map)
             ->alias('w')
             ->join('pub_devices ON w.device_code= pub_devices.device_code','LEFT')
