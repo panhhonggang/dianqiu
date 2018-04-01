@@ -81,13 +81,16 @@
                     var ordernumber = el.order_id?el.order_id:'--'
                     var currentbalance = el.reday?el.reday:'--'
                     var flow = el.flow?el.flow:'--'
-                    var money = el.money?el.money:'--'
+                    var money = el.money?el.money/100:'--'
+                    var userId = el.id ? el.id : '--'
+                    var payWay = mode[el.mode] ? mode[el.mode] : '--'
                     var html = '<tr>'+
-                                    '<td>'+el.id+'</td>'+
-                                    '<td>'+mode[el.mode]+'</td>'+
+                                    '<td>'+userId+'</td>'+
+                                    '<td>'+payWay+'</td>'+
                                     '<td>'+ordernumber+'</td>'+
-                                    '<td>'+money/100+'</td>'+
+                                    '<td>'+money+'</td>'+
                                     '<td>'+flow+'</td>'+
+                                    '<td>'+currentbalance+'</td>'+
                                     '<td>'+time.trim()+'</td>'+
                                 '</tr>'
                     $('._flow').append(html)
