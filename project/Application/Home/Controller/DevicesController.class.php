@@ -62,6 +62,12 @@ class DevicesController extends CommonController
         
     }
 
+    /*
+        设备绑定流程：
+            
+    
+    
+    */
     // 设备绑定
     public function bind()
     {
