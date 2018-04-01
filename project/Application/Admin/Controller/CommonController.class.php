@@ -33,6 +33,10 @@ class CommonController extends Controller
             'nav_data'=>$nav_data
             );
         $this->assign($assign);
+
+        //处理分页搜索条件使用POST方式提交
+        $_POST = array_merge($_POST,$_GET);
+        $_GET = $_POST;
     }
 
     public function rule_check($uid)

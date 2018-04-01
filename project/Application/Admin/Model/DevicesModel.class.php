@@ -36,6 +36,7 @@ class DevicesModel extends Model
     // 
     public function getDevicesInfo($map)
     {
+        // dump($map);die;
         // 分页
         $count = $this
             ->where($map)
@@ -45,15 +46,20 @@ class DevicesModel extends Model
             ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
             ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
             ->join('__USERS__ u ON u.id=d.uid', 'LEFT')
-            ->field("statu.*,bind.*,d.id,d.device_code,type.*,vendors.*,d.name dname,d.phone,d.address,d.uid")
+            // ->field("statu.*,bind.*,d.id,d.device_code,type.*,vendors.*,d.name dname,d.phone,d.address,d.uid")
             // ->order('d.id asc')
             // ->limit($page->firstRow.','.$page->listRows)
             ->count();
+
+        // echo $count;
+        // echo M()->getLastSql();die;
+
         $page = new \Think\Page($count, 10);
 
         $page->rollPage = 10;
         $this->getPageConfig($page);
         $show = $page->show();
+
 
         
 
@@ -70,6 +76,8 @@ class DevicesModel extends Model
             ->order('d.id asc')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
+
+        // echo M()->getLastSql();die;
         // 分配返回数据
         $assign = [
             'show' => $show,
