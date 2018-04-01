@@ -67,7 +67,7 @@
                         <td>{{$vo.pphone}}</td>
                         <td>{{$vo.type}}</td>
                         <td>{{$vo.content}}</td>
-                        <?php $address = $vo['province'].$vo['city'].$vo['district'].$vo['addess']; ?>
+                        <?php $address = $vo['province'].$vo['city'].$vo['district'].$vo['address']; ?>
                         <td>{{$vo['type'] === '维修' ? $vo['raddress']:$address}}</td>
                         <td>{{$vo.result}}</td>
                         <td><?php if($vo['time']){ echo date('Y-m-d H:i:s',$vo['time']);} ?></td>
