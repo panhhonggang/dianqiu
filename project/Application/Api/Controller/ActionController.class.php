@@ -14,13 +14,16 @@ class ActionController extends Controller
 
     public function test()
     {
-
-        $message['DeviceID'] = '868575025659121';
-
-        $this->get_filter_info('868575025659121');
-
-//        $this->check_info(94);
-//        $this->sendMsg($message['DeviceID'],$message);
+//
+//        $message['DeviceID'] = '868575025672249';
+//        $message['PackType'] = "SetData";
+//        $message['Vison']    = 0;
+//        $message['Reday']    = '226';
+////
+////        $this->get_filter_info('868575025659121');
+////
+//////        $this->check_info(94);
+//        $this->sendMsg($message);
     }
 
     /**
@@ -47,7 +50,6 @@ class ActionController extends Controller
             $this->getws($client_id, $message);
         }
     }
-
 
     /**
      * web端信息 数据处理
@@ -102,7 +104,7 @@ class ActionController extends Controller
             default:
                 $data['NetStause']=1;
 
-                M('devices_statu')->where("DeviceID=" . $DeviceID)->save($data);
+                M('devices_statu')->where("DeviceID=" . $message['DeviceID'])->save($data);
                 break;
         }
     }
@@ -139,6 +141,7 @@ class ActionController extends Controller
         $status_id  = M('devices_statu')->where("DeviceID={$dcode}")->getField('id');
 
         if( empty($status_id) ){
+            $data['DeviceID']=$dcode;
             $res = $this->saveData($data);
             if($res){
                 $data['updatetime'] = time();
@@ -168,8 +171,10 @@ class ActionController extends Controller
             'PureTDS'      => $message['PureTDS'],
             'Temperature'  => $message['Temperature'],
         ];
+        if( isset($message['SumPump']) ) $data['SumPump'] = $message['SumPump'];
 
-        if( $message['FilerNum'] != null ){
+
+        if(isset($message['FilerNum']) || $message['FilerNum'] != null ){
             $res = $this->filterAction($message);
 
             $data = array_merge( $data, $res );
@@ -182,23 +187,25 @@ class ActionController extends Controller
             if( $ds['data_statu'] != 0 ){
                 $this->sysnc($dcode);//信息同步
             }else{
-                $data['ReFlow']     =$message['ReFlow'];
-                $data['ReDay']      =$message['ReDay'];
-                $data['SumFlow']    =$message['SumFlow'];
-                $data['SumDay']     =$message['SumDay'];
-                $data['FilterMode'] =$message['FilterMode'];
-                $data['LeasingMode']=$message['LeasingMode'];
+                if( isset($message['ReFlow']) ) $data['ReFlow'] = $message['ReFlow'];
+
+                if( isset($message['Reday']) ) $data['ReDay']      =$message['Reday'];
+                if( isset($message['SumFlow']) ) $data['SumFlow']    =$message['SumFlow'];
+                if( isset($message['SumDay']) ) $data['SumDay']     =$message['SumDay'];
+                if( isset($message['FilterMode']) ) $data['FilterMode'] =$message['FilterMode'];
+                if( isset($message['LeasingMode']) ) $data['LeasingMode']=$message['LeasingMode'];
+                if( isset($message['AliveStause']) ) $data['AliveStause']=$message['AliveStause'];
 
 
-                $data['CSQ']        =$message['CSQ'];
-                $data['ICCID']      =$message['ICCID'];
-                $data['Device']     =$message['Device'];
-                $data['ICCID']      =$message['ICCID'];
+                if( isset($message['CSQ']) ) $data['CSQ']        =$message['CSQ'];
+                if( isset($message['ICCID']) ) $data['ICCID']      =$message['ICCID'];
+                if( isset($message['Device']) ) $data['Device']     =$message['Device'];
+                if( isset($message['ICCID']) ) $data['ICCID']      =$message['ICCID'];
 
                 if(isset($message['FilerNum'])){
                     for ($i=1;$i<=$message['FilerNum'];$i++){
-                        $data['ReFlowFilter'.$i]    =$message['ReFlowFilter'.$i];
-                        $data['ReDayFilter'.$i]     =$message['ReDayFilter'.$i];
+                        if( isset($message['ReFlowFilter'.$i]) ) $data['ReFlowFilter'.$i]    =$message['ReFlowFilter'.$i];
+                        if( isset($message['ReDayFilter'.$i])  ) $data['ReDayFilter'.$i]     =$message['ReDayFilter'.$i];
                     }
                 }
             }

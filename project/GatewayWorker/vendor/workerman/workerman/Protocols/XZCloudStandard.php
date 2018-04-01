@@ -109,6 +109,7 @@ class XZCloudStandard
         [self::Reday,'n'],
         [self::SumFlow,'n'],
         [self::SumDay,'n'],
+        ["SumPump",'N'],
         ['CurTime','N'],
         [self::FilterMode,'C'],
         [self::FilerNum,'C'],
@@ -161,6 +162,7 @@ class XZCloudStandard
         [self::Reday,'n'],
         [self::SumFlow,'n'],
         [self::SumDay,'n'],
+        ["SumPump",'N'],
         [self::RawTDS,'n'],
         [self::PureTDS,'n'],
         [self::Temperature,'C'],
@@ -266,14 +268,14 @@ class XZCloudStandard
             $table=XZCloudStandard::$TableReadStruct;
             $unpackStr=$table[0][1];
             $unpackStr.=$table[0][0];
-            for($i=1;$i<10;$i++)
+            for($i=1;$i<count(self::$TableReadStruct);$i++)
             {
                 $unpackStr.='/';
                 $unpackStr.=$table[$i][1];
                 $unpackStr.=$table[$i][0];
             }
             $Device=unpack($unpackStr, $recv_buffer);            
-            for($i=0;$i<10;$i++)
+            for($i=0;$i<count(self::$TableReadStruct);$i++)
             {
                 $decodeData[$table[$i][0]]=$Device[$table[$i][0]];
                 if($table[$i][1]=='n')
@@ -290,8 +292,15 @@ class XZCloudStandard
                         $decodeData[$table[$i][0]]=-1;
                     }
                 }
+                else if($table[$i][1]=='N')
+                {
+                    if($decodeData[$table[$i][0]]==4294967295)
+                    {
+                        $decodeData[$table[$i][0]]=-1;
+                    }
+                }
             }
-            $FilterDataStr = substr($recv_buffer,16);
+            $FilterDataStr = substr($recv_buffer,20);
             for($i=1; $i<=$decodeData[self::FilerNum]; $i++)
             {
                 $filterData                      = unpack('nReDayFilter/nReFlowFilter', $FilterDataStr);
