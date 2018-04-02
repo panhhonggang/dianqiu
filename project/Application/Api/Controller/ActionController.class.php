@@ -191,7 +191,7 @@ class ActionController extends Controller
 
                 if( isset($message['Reday']) ) $data['ReDay']      =$message['Reday'];
                 if( isset($message['SumFlow']) ) $data['SumFlow']    =$message['SumFlow'];
-                if( isset($message['SumDay']) ) $data['SumDay']     =$message['SumDay'];
+                if( isset($message['SumDay']) and $message['SumDay']!=0) $data['SumDay']     =$message['SumDay'];
                 if( isset($message['FilterMode']) ) $data['FilterMode'] =$message['FilterMode'];
                 if( isset($message['LeasingMode']) ) $data['LeasingMode']=$message['LeasingMode'];
                 if( isset($message['AliveStause']) ) $data['AliveStause']=$message['AliveStause'];
