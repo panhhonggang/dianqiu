@@ -102,7 +102,7 @@
               // 将后台传来的时间戳转化为正常时间
               for(var i=0; i<res.length; i++){
                 res[i]['index'] = i;
-                res[i].time = that.getLocaltime(res[i].time);
+                res[i].create_at = that.getLocaltime(res[i].create_at);
                 if(res[i].type == 0){// 统计报装数量
                   that.num[0]++;
 
@@ -150,8 +150,8 @@
             var localetime = new Date(_time);
             var year = localetime.getFullYear(),
                 month = (localetime.getMonth()+'').length == 1 
-                  ? '0' + localetime.getMonth() 
-                  : localetime.getMonth(),
+                  ? +('0' + localetime.getMonth())+1
+                  : localetime.getMonth()+1,
                 date = (localetime.getDate()+'').length == 1
                   ? '0' + localetime.getDate()
                   : localetime.getDate(),
