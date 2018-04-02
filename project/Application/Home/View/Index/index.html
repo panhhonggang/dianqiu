@@ -442,6 +442,9 @@
 			layui.use('layer', function(){
 				var layer = layui.layer;
 				layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
+
+					$("html").css("background", "#A8E2FF");
+					$("body").css({height:'100vh',filter:'grayscale(0)'});
 					layer.close(index);
 					ajson={
 						"DeviceID":deviceId,
@@ -469,6 +472,7 @@
 						cmd:ajson,
 						type:type
 					});
+
 					identify=1;
 					setTimeout(function(){
 						if(identify==1){
