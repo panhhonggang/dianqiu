@@ -27,7 +27,7 @@
           <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 1' >
             <p @click='showText($event)'>
               <span>报修</span>
-              <span @click='javascript:void(0);'>{{ item.time }}</span>
+              <span @click='javascript:void(0);'>{{ item.create_at }}</span>
             </p>
             <div class="show">
               <span><span>处理人：</span>{{ item.name }}</span>
@@ -44,7 +44,7 @@
           <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 0'>
             <p @click='showText($event)'>
               <span>安装</span>
-              <span @click='javascript:void(0);'>{{ item.time }}</span>
+              <span @click='javascript:void(0);'>{{ item.create_at }}</span>
             </p>
             <div class="show">
               <span><span>处理人：</span>{{ item.name }}</span>
@@ -61,7 +61,7 @@
           <li v-for='(item, index) in data' class="litem" :index='item.index' v-if='item.type == 2'>
             <p @click='showText($event)'>
               <span>维护</span>
-              <span @click='javascript:void(0);'>{{ item.time }}</span>
+              <span @click='javascript:void(0);'>{{ item.create_at }}</span>
             </p>
             <div class="show" >
               <span><span>处理人：</span>{{ item.name }}</span>

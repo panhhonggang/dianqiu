@@ -51,9 +51,9 @@ class DevicesController extends CommonController
         //安装设备状态查询
         if(strlen(I('post.status'))) {
             if(I('post.status') == 0){
-                $map['statu.updatetime'] = array(array('gt',0));
+                $map['statu.AliveStause'] = array('eq',1);
             } elseif(I('post.status') == 1){
-                $map['statu.updatetime'] = array('exp','IS NUll');
+                $map['_string'] = 'statu.AliveStause != 1 or statu.AliveStause IS NULL';
             }
         }
 
@@ -120,8 +120,9 @@ class DevicesController extends CommonController
             $myexcel->output();
             return ;
         }
-        $devices = D('Devices')->getDevicesInfo($map);
 
+        $devices = D('Devices')->getDevicesInfo($map);
+        
 
         $assign = [
             'deviceInfo' => $devices,
