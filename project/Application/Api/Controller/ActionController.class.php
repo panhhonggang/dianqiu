@@ -331,6 +331,9 @@ class ActionController extends Controller
         $msg['ReFlow'] = empty($data['reflow'])? 0 : $data['reflow'];
         $msg['Reday']  = empty($data['reday'])? 0 : $data['reday'];
 
+        $msg['SumFlow']     = empty($data['sumflow'])? 0 :$data['sumflow'];
+        $msg['SumDay']      = empty($data['sumday'])? 0 :$data['sumday'];
+
         $filter_life=$this->get_filter_info($data['deviceid']);
         if(empty($filter_life)) return false;
 
@@ -347,23 +350,18 @@ class ActionController extends Controller
 
         if ($msg['PackNum']==6 && $data['alivestause'] == 0) {//设备激活
             $msg['AliveStause'] = 1;
-            $msg['SumFlow']     = 0;
-            $msg['SumDay']      = 0;
 
             $filenum=0;
             for ($i=1; $i<9; $i++){
                 if( !empty($data['reflowfilter'.$i]) or !empty($data['redayfilter'.$i])){
                     $filenum++;
-                    $msg['ReFlowFilter'. $i]     = $data['reflowfilter'.$i];
-                    $msg['ReDayFilter'. $i]      = $data['redayfilter'.$i];
-//                    $msg['FlowLifeFilter'. $i]   = $data['reflowfilter'.$i];
-//                    $msg['DayLifeFiter'. $i]     = $data['redayfilter'.$i];
+                    $msg['ReFlowFilter'. $i]     = $filter_life[$i-1]['flowlife'];
+                    $msg['ReDayFilter'. $i]      = $filter_life[$i-1]['timelife'];
                     $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
                     $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
                 }
             }
             $msg['FilerNum'] = $filenum;
-
         }
         return $msg;
     }
@@ -438,6 +436,50 @@ class ActionController extends Controller
             $res[] = M('filters')->where($map)->field('timelife,flowlife')->find();
         }
         return $res;
+    }
+
+
+    /**
+     * 设备初始化  (待完善)
+     * @param  [type] $dcode [description]
+     * @return [type] [description]
+     *
+     * @Author 李振东 lzdong@foxmail.com 2018-04-02
+     */
+    public function devices_init($dcode,$data)
+    {
+        $message['DeviceID'] = $dcode;
+        $message['PackType'] = "SetData";
+        $message['Vison']    = 0;
+        $message['PackNum']  = 6;
+
+        $filter =  $this->get_filter_info($dcode);
+        foreach ($filter as $key =>$value) {
+            $i =$key+1;
+            $sdata[ 'ReFlowFilter'.$i]      =$value['flowlife'];
+            $sdata[ 'FlowLifeFilter'.$i]    =$value['flowlife'];
+
+            $sdata[ 'ReDayFilter'.$i]       =$value['timelife'];
+            $sdata[ 'DayLifeFiter'.$i]      =$value['timelife'];
+        }
+
+//        $sdata['ReDay']     = '3';
+        $sdata['SumDay']    = 0;
+        $sdata['AliveStause']=1;
+        $sdata['FilterMode']=0;
+        $sdata['LeasingMode']=2;
+        $sdata['data_statu']=2;
+
+        $message = array_merge($message,$sdata);
+
+        $id = M('devicesStatu')->where('DeviceID='.$dcode)->getField('id');
+        if(empty($id)) {
+            $sdata['DeviceID'] = $dcode;
+            M('devicesStatu')->add($sdata);
+        } else {
+            M('devicesStatu')->where('id='.$id)->save($sdata);
+        }
+        $this->sendMsg($message);
     }
 
 //    public function updateNetStase($DeviceID,$NetStause)
