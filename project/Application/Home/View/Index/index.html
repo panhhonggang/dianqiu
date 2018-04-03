@@ -287,7 +287,7 @@
 		}
 		//实时接收数据
 		websoket.onmessage=function(data)
-		{	
+		{	 
 			var dataList=JSON.parse(data.data);//读取websoket数据，转换为json对象
 			var leasingmode = dataList.LeasingMode;//租赁模式
 			//console.log(dataList.LeasingMode);
