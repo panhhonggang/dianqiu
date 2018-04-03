@@ -407,7 +407,7 @@ class XZCloudStandard
                 {
                     $dataNum=0;
                    
-                    if(isset($data[$cmd[$j][0]]))
+                    if( isset($data[$cmd[$j][0]]) && $data[$cmd[$j][0]] != -1 )
                     {
                         $dataNum=$data[$cmd[$j][0]];
                     }
