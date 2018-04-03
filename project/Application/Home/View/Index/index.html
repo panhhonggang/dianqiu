@@ -29,6 +29,7 @@
 		#rawtdsVal:after,
 		#puretdsVal:after {
 			content: 'ppm';
+			display: block;
 			position: absolute;
 			left: 105%;
 			bottom: 18%;
@@ -181,7 +182,6 @@
 	sessionStorage.setItem("lineLeft",'');
 	//页面加载时执行
 	$(function(){
-
 		// 获取微信JSSDK所需的数据
 		var appId = $("#appId").val(),
 			nonceStr = $("#nonceStr").val(),
@@ -293,7 +293,8 @@
 			//console.log(dataList.LeasingMode);
 			machineStatus();//执行水机状态方法
 			console.log(dataList);
-
+			$("#rawtdsVal").css({visibility: "inherit"});
+			$("#puretdsVal").css({visibility: "inherit"});
 			// 获取设备租赁模式
 			if(dataList.LeasingMode){
 				sessionStorage.setItem("leaseMode",dataList.LeasingMode);
