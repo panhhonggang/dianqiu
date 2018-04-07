@@ -436,6 +436,7 @@
 		//开机/关机按钮操作
 		$('.clickBtn').click(function(){
 			var _this=$(this).children("span").html();
+			var mstatus = $(this).find(".switchText").text();
 			var ajson;//数据对象
 			//判断操作类型
 			var tipsText = "确定要"+ _this + deviceId +"吗？";
@@ -444,7 +445,6 @@
 				var layer = layui.layer;
 				layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
 
-					$("html").css("background", "#A8E2FF");
 					$("body").css({height:'100vh',filter:'grayscale(0)'});
 					layer.close(index);
 					ajson={
@@ -549,7 +549,6 @@
 		$(".switchText").html("开机");
 		$(".showDown").show().siblings().hide();
 		$(".content").css({height: '100vh'});
-		$("html").css("background", "rgba(194,194,194,.5)");
 		$("body").css({height:'100vh',filter:'grayscale(100%)'});
 	}
 	//离线
@@ -557,7 +556,6 @@
 		$(".switchText").html("开机");
 		$(".outLine").show().siblings().hide();
 		$(".content").css({height: '100vh'});
-		$("html").css("background", "rgba(194,194,194,.5)");
 		$("body").css({height:'100vh',filter:'grayscale(100%)'});
 	}
 	//漏水

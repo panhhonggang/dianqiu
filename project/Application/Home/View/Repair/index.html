@@ -186,121 +186,105 @@
 	</form>
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
 	<script>
+
 		//微信接口
-		wx.ready(function () {
-		    // 在这里调用 API
-		    wx.checkJsApi({
-		      jsApiList: [
-		        'chooseImage',
+		wx.config({
+		    debug: true,
+		    appId: '{{$info["appId"]}}',
+		    timestamp: '{{$info["timestamp"]}}',
+		    nonceStr: '{{$info["nonceStr"]}}',
+		    signature: '{{$info["signature"]}}',
+		    jsApiList: [
+		      // 所有要调用的 API 都要加到这个列表中
+			    'chooseImage',
 		        'uploadImage',
 		        'getLocalImgData',
 		        'downloadImage'
-		      ],
-		      success: function (res) {
-		        console.log(JSON.stringify(res));
-		      }
-		    });
-
-			//微信接口
-			wx.config({
-			    debug: false,
-			    appId: '{{$info["appId"]}}',
-			    timestamp: '{{$info["timestamp"]}}',
-			    nonceStr: '{{$info["nonceStr"]}}',
-			    signature: '{{$info["signature"]}}',
-			    jsApiList: [
-			      // 所有要调用的 API 都要加到这个列表中
-			      'configWXDeviceWiFi', 
-			      'scanQRCode'
-			    ]
-			});
+		    ]
 		});
-		function takePicture(nums) {  
-		   	wx.chooseImage({  
-		       	count: 1,  
-		       	needResult: 1,  
-		       	sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
-		       	sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
-		       	success: function (data) {                  
-		           	localIds = data.localIds[0];   // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片        
-		           	var span = $("<span></span>");
-					var span1 = $("<span>X</span>");
-					var img = $('<img src="" alt="" />');
 
-					img[0].src = localIds;
-					img[0].width = "100%";
-					img[0].height = "90%";
-					
-					// console.log(span, span[0]);
-					span1.addClass("delPic");
-					span1.css({zIndex: '999'});
-					span.append(span1);
-					span.append(img[0]);
-					$('#picShow').append(span);                   
-
-		           	var num1 = nums;
-		           	wxuploadImage(localIds,num1);
-		           	wxgetLocalImgData(localIds,num1);
-		       	},  
-		       	fail: function (res) {    
-		       	console.log('失败：',JSON.stringify(res));
-	           	}    
-	       	});  
-	   }
-	   function wxuploadImage(e,num) {
-		    var $hiddenImg= $(".hiddenImg");
-		    wx.uploadImage({  
-		        localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得  
-		        isShowProgressTips: 1, // 默认为1，显示进度提示  
-		        success: function (res) {                                        
-		            mediaId = res.serverId;                    
-		            wxdownloadImage(mediaId)
-		            $($hiddenImg[num]).val(mediaId);          
-		        },  
-		        fail: function (error) {  
-		            picPath = '';  
-		            localIds = '';  
-		            alert(Json.stringify(error));          
-		        }          
-		    });  
-		}
-		function wxgetLocalImgData(e,num){
-		    var $myimg = $(".myimg");    
-		    if(window.__wxjs_is_wkwebview){
-			    wx.getLocalImgData({
-			        localId: e, // 图片的localID
-			        success: function (res) {                    
-			            var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-			            localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下                                            
-			            $($myimg[num]).attr("src", localData);
-			        },
-			        fail:function(res){
-			          alert("显示失败");
-			        }
-			    });
-		    }else{
-		        $($myimg[num]).attr("src", e);
-		        
-		    }
-		}
-
-		//layuiHint弹框提示封装
-		function layuiHint(text){
-		    layui.use('layer', function(){
-		        var layer = layui.layer;
-		        layer.msg(text);
-		    });  
-		}
 		$(function(){
+			function takePicture(nums) {  
+				
+			   	wx.chooseImage({  
+			       	count: 1,  
+			       	needResult: 1,  
+			       	sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+			       	sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+			       	success: function (data) {                  
+			           	localIds = data.localIds[0];   // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片        
+			           	                  
+			           	var num1 = nums;
+			           	wxuploadImage(localIds,num1);
+			           	wxgetLocalImgData(localIds,num1);
+			       	},  
+			       	fail: function (res) {  
+			       		console.log('失败：',JSON.stringify(res));
+		           	}    
+		       	});  
+			   
+		   	}
+		   	function wxuploadImage(e,num) {
+
+			    wx.uploadImage({  
+			        localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得  
+			        isShowProgressTips: 1, // 默认为1，显示进度提示  
+			        success: function (res) {                                        
+			            mediaId = res.serverId;                     
+			             
+			        },  
+			        fail: function (error) {  
+			            picPath = '';  
+			            localIds = '';  
+			        }          
+			    });
+			}
+	        var $span = $("<span></span>");
+			var $span1 = $("<span>X</span>");
+			var $img = $('<img src="" alt="" />');
+			function wxgetLocalImgData(e,num){
+
+				$img[0].width = "100%";
+				$img[0].height = "90%";
+
+			    if(window.__wxjs_is_wkwebview){
+				    wx.getLocalImgData({
+				        localId: e, // 图片的localID
+				        success: function (res) {                    
+				            var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+				            localData = localData.replace('jgp', 'jpeg');//iOS 系统里面得到的数据，类型为 image/jgp,因此需要替换一下                                            
+							$img[0].src = localData;
+
+				        },
+				        fail:function(res){
+				          	alert("显示失败");
+				        }
+				    });
+			    }else{
+			        $img[0].src = e;
+			        
+			    }
+
+				$span1.addClass("delPic");
+				$span1.css({zIndex: '999'});
+				$span.append($span1);
+				$span.append($img[0]);
+				$('#picShow').append($span);
+
+				formData.append('pic', $img[0].src);
+			}
+
+			//layuiHint弹框提示封装
+			function layuiHint(text){
+			    layui.use('layer', function(){
+			        var layer = layui.layer;
+			        layer.msg(text);
+			    });  
+			}
+			var formData = new FormData($("#form")[0]);
 
 			$("#star").val('09:00:00');
 			var nowDate = new Date().getTime();
-
-			// $("#chooseDate").val(
-			// 	new Date().toLocaleString()
-			// 	.substr(0,9).replace('/', '年').replace('/', '月') +'日'
-			// );
-			// console.log(end_time);
 			
 			$("#chooseDate").click(function(){
 
@@ -370,38 +354,17 @@
 
 			// 点击上传图片
 			$(".sendpic").click(function(){
-				takePicture();
+				var len = $("#picShow>span").length;
+				if(len == 1){
+					layuiHint("暂时只支持一张图片！");
+					return
+				}
+				takePicture(1);
 			})
-			// // 上传的图片
-			// $(".repair-sendpic").on("change",function(e){
-			// 	var files =this.files;
-			// 	var span = $("<span></span>"),
-			// 		span1 = $("<span>X</span>"),
-			// 		img = $('<img src="" alt="" />'
-			// 			);
-			// 	var reader =new FileReader();
-			// 	reader.readAsDataURL(files[0]);
-			// 	reader.onload =function(e){
-			// 		var mb = (e.total/1024)/1024;
-			// 		if(mb>= 4){
-			// 			layuiHint('文件大小大于4M');
-			// 			return;
-			// 		}
-			// 		img[0].src = this.result;
-			// 		img[0].width = "100%";
-			// 		img[0].height = "90%";
-					
-			// 		// console.log(span, span[0]);
-			// 		span1.addClass("delPic");
-			// 		span1.css({zIndex: '999'});
-			// 		span.append(span1);
-			// 		span.append(img[0]);
-			// 		$('#picShow').append(span);
-			// 	}
-			// });
 
 			// 点击上传的图片右上角的" x "，删除这张图片
 			$(".delPic").live("click", ".delPic", function(){
+				formData.delete('pic');
 				$(this).parent().remove();
 			})
 
@@ -409,38 +372,41 @@
 			var	nameReg = /^([a-zA-Z0-9_\u4e00-\u9fa5]){2,30}$/,
 				phoneReg = /^(1[3|4|5|7|8])\d{9}$/,
 				addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
-
+			
 			// 点击‘提交’
 			$("#re-commit").click(function(){
 
-				if($("#chooseDate").val() 
-					&& $("#star").val() && $("#end").val() 
-					&& $("#QUesdec").val() && $("#picShow").html()
-					&& (nameReg.test($(".name").val()))
-					&& (phoneReg.test($(".phone").val()))
-					&& (addressReg.test($(".address").val())) ){
-					
-					$("#form").submit();
-
-				}else if(!$("#chooseDate").val() || !$("#star").val() || !$("#end").val()){
+				if(!$("#chooseDate").val() || !$("#star").val() || !$("#end").val()){
 					layuiHint("请选择完整的服务时间！");
-
-				}else if(!$("#QUesdec").val()){
+					return
+				}
+				if(!$("#QUesdec").val()){
 					layuiHint("请描述您遇到的问题！");
-
-				}else if(!$("#picShow").html()){
-					layuiHint("请上传图片！");
-
-				}else if( !(nameReg.test($(".name").val())) ){
-					layuiHint("请输入正确的姓名！");
-
-				}else if( !(phoneReg.test($(".phone").val())) ){
-					layuiHint("请输入正确的手机号码！");
-
-				}else if( !(addressReg.test($(".address").val())) ){
-					layuiHint("请输入详细地址！");
+					return
 
 				}
+				if(!$("#picShow").html()){
+					layuiHint("请上传图片！");
+					return
+
+				}
+				if( !(nameReg.test($(".name").val())) ){
+					layuiHint("请输入正确的姓名！");
+					return
+
+				}
+				if( !(phoneReg.test($(".phone").val())) ){
+					layuiHint("请输入正确的手机号码！");
+					return
+
+				}
+				if( !(addressReg.test($(".address").val())) ){
+					layuiHint("请输入详细地址！");
+					return
+
+				}
+
+				$("#form").submit();
 
 				// console.log($("#picShow").html())
 				// console.log($("#QUesdec"))
