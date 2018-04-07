@@ -146,7 +146,8 @@
 					<textarea name="content" id="QUesdec" cols="30" rows="10"></textarea>
 					<p>上传截图</p>
 					<i class="iconfont icon-plus"></i>
-					<input name="pic" class="repair-sendpic sendpic" accept="image/*" type="button" />
+					<input class="repair-sendpic sendpic" accept="image/*" type="button" />
+					<input type="hidden" name='pic'>
 					<div id="picShow"></div>
 				</div>
 				<div id="repair-link">
@@ -271,7 +272,7 @@
 				$span.append($img[0]);
 				$('#picShow').append($span);
 
-				$('.sendpic').val(e);
+				$('input[name="pic"]').val(e);
 			}
 
 			//layuiHint弹框提示封装
