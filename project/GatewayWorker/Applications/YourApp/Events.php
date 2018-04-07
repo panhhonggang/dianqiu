@@ -67,7 +67,7 @@ class Events
         {
             $message['soure'] = 'Close';
             $message['DeviceID'] = $_SESSION['DeviceID'];
-
+            $message['client_id'] = $client_id;
             self::sendMsg($message);
         }
     }
