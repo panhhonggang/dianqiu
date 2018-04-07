@@ -232,7 +232,7 @@
 			        isShowProgressTips: 1, // 默认为1，显示进度提示  
 			        success: function (res) {                                        
 			            mediaId = res.serverId;                     
-			             
+			            $('input[name="pic"]').val(mediaId);
 			        },  
 			        fail: function (error) {  
 			            picPath = '';  
@@ -271,8 +271,7 @@
 				$span.append($span1);
 				$span.append($img[0]);
 				$('#picShow').append($span);
-				e = e.replace('wxLocalResource://imageid','');
-				$('input[name="pic"]').val(e);
+				
 			}
 
 			//layuiHint弹框提示封装
@@ -365,7 +364,8 @@
 
 			// 点击上传的图片右上角的" x "，删除这张图片
 			$(".delPic").live("click", ".delPic", function(){
-				formData.delete('pic');
+				// 清除删除的这条数据
+				$('input[name="pic"]').val('');
 				$(this).parent().remove();
 			})
 
