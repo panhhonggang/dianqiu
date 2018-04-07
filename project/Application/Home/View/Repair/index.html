@@ -190,7 +190,7 @@
 
 		//微信接口
 		wx.config({
-		    debug: true,
+		    debug: false,
 		    appId: '{{$info["appId"]}}',
 		    timestamp: '{{$info["timestamp"]}}',
 		    nonceStr: '{{$info["nonceStr"]}}',
@@ -271,7 +271,7 @@
 				$span.append($span1);
 				$span.append($img[0]);
 				$('#picShow').append($span);
-
+				e = e.replace('wxLocalResource://imageid','');
 				$('input[name="pic"]').val(e);
 			}
 
