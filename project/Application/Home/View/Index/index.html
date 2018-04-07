@@ -285,6 +285,10 @@
 				},10000);
 			},1000);
 		}
+		// websocket 连接关闭后刷新页面
+		websoket.onclose = function(){
+			location.reload();
+		}
 		//实时接收数据
 		websoket.onmessage = function(data){
 
@@ -406,23 +410,23 @@
 							"curTime":0,
 						};
 						//根据当前设备状态设置按钮文本
-						ajson['DeviceStause']=1;
-						ajson['type']='冲洗中';
+						ajson['DeviceStause'] = 1;
+						ajson['type'] = '冲洗中';
 						//发送数据
 						websoket.send(JSON.stringify(ajson));
 						CmdList.push({
 							cmd:ajson,
 							type:"冲洗中"
 						});
-						identify=1;
+						identify = 1;
 						setTimeout(function(){
-							if(identify==1){
+							if(identify == 1){
 								layui.use('layer', function(){
 									var layer = layui.layer;
 									// layer.msg('操作超时！');
 									thisT.html('冲洗')
 								});
-								identify=0;
+								identify = 0;
 							}
 						},10000)
 					});
@@ -441,16 +445,6 @@
 			layui.use('layer', function(){
 				var layer = layui.layer;
 				layer.confirm(tipsText, {icon: 3, title:'温馨提示'}, function(index){
-
-					if(mtext != '关机'){
-						$("html").css("background", "#A8E2FF");
-						$("body").css({height:'100vh',filter:'grayscale(0)'});
-
-					}else{
-						$("html").css("background", "rgba(194,194,194,.5)");
-						$("body").css({height:'100vh',filter:'grayscale(100%)'});
-
-					}
 					
 					layer.close(index);
 					ajson={
@@ -461,16 +455,22 @@
 						"curTime":0,
 					};
 					//根据当前设备状态设置按钮文本
-					var type=0;
-					if(_this=="开机"){
-						ajson['DeviceStause']=8;
-						ajson['type']='开机中';
+					var type = 0;
+					if(_this == "开机"){
+						ajson['DeviceStause'] = 8;
+						ajson['type'] = '开机中';
 						$(".switchText").html("开机中");
 
-					}else if(_this=="关机"){
-						ajson['DeviceStause']=7;
-						ajson['type']='关机中';
+						$("html").css("background", "#A8E2FF");
+						$("body").css({height:'100vh',filter:'grayscale(0)'});
+
+					}else if(_this == "关机"){
+						ajson['DeviceStause'] = 7;
+						ajson['type'] = '关机中';
 						$(".switchText").html("关机中");
+
+						$("html").css("background", "rgba(194,194,194,.5)");
+						$("body").css({height:'100vh',filter:'grayscale(100%)'});
 
 					}
 					//发送数据
@@ -480,20 +480,27 @@
 						type:type
 					});
 
-					identify=1;
+					identify = 1;
 					setTimeout(function(){
-						if(identify==1){
+						if(identify == 1){
 							layui.use('layer', function(){
 								var layer = layui.layer;
 								// layer.msg('操作超时！');
-								if($(".switchText").html=='开机中'){
+								if($(".switchText").html == '开机中'){
 									$(".switchText").html('开机')
-								}else if($('.switchText').html()=='关机中'){
+
+									$("html").css("background", "#A8E2FF");
+									$("body").css({height:'100vh',filter:'grayscale(0)'});
+
+								}else if($('.switchText').html() == '关机中'){
 									$('.switchText').html('关机');
+
+									$("html").css("background", "rgba(194,194,194,.5)");
+									$("body").css({height:'100vh',filter:'grayscale(100%)'});
 								}
 
 							});
-							identify=0;
+							identify = 0;
 						}
 					},10000)
 				});
