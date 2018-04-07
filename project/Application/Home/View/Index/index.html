@@ -282,8 +282,8 @@
 				websoket.send(JSON.stringify(ajson));
 				setInterval(function(){
 					websoket.send(JSON.stringify(ajson));
-				},10000);
-			},1000);
+				},60000);
+			},100);
 		}
 		// websocket 连接关闭后刷新页面
 		websoket.onclose = function(){
@@ -291,7 +291,8 @@
 		}
 		//实时接收数据
 		websoket.onmessage = function(data){
-
+			
+			numAdd = 0;
 			var dataList = JSON.parse(data.data);//读取websoket数据，转换为json对象
 			var leasingmode = dataList.LeasingMode;//租赁模式
 			//console.log(dataList.LeasingMode);
@@ -306,7 +307,7 @@
 			}
 			if(dataList.PackType == "Select"){	//返回查询数据类型数据
 				console.log(dataList);
-                numAdd=0;
+                
 				var usedFlow = parseInt(dataList.SumPump*pumpSpend);
 				var usedDay = parseInt(dataList.SumDay);
 
@@ -332,8 +333,8 @@
 					$(".textLeft").html("<p id='surplusVal'><span>剩余</span><b>"+dataList.Reday+"天</b></p><p><span>剩余</span><b>"+dataList.ReFlow+"L</b></p>");
 					$(".textRight").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");
 				}
-			}
-			else if(dataList.PackType == "SetData"){	//设置数据类型数据
+
+			}else if(dataList.PackType == "SetData"){	//设置数据类型数据
 				identify=0;
 				for(var i=0; i<CmdList.length; i++){
 					if(CmdList[i].cmd.PackNum == dataList.PackNum){
