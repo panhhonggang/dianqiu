@@ -26,17 +26,6 @@
 		#puretdsVal {
 			position: relative;
 		}
-		#rawtdsVal:after,
-		#puretdsVal:after {
-			content: 'ppm';
-			display: block;
-			position: absolute;
-			left: 105%;
-			bottom: 18%;
-			color: #fff;
-			font-size: .4rem;
-			font-weight: 400;
-		}
 		.icon-leaking {
 			color: red;
 		}
@@ -78,9 +67,17 @@
 				<div class="bolang bg4"></div>
 				<div class="bolang1 bg4"></div>
 				<div class="containTxt">
-					<div class="dazi" ><b id="rawtdsVal"></b></div>
+					<div class="dazi" >
+						<b id="rawtdsVal">
+							0<span>ppm</span>
+						</b>
+					</div>
 					<div class="queshui">纯水TDS</div>
-					<div class="dazi1"><b id="puretdsVal"></b></div>
+					<div class="dazi1">
+						<b id="puretdsVal">
+							0<span>ppm</span>
+						</b>
+					</div>
 					<div class="queshui1">原水TDS</div>
 				</div>
 			</div>
@@ -236,8 +233,8 @@
 		var renumberFlow = parseInt(data.reflow);//剩余流量
 		var renumberDay = parseInt(data.reday);//剩余天数
 		// console.log(usednumberFlow);
-		$("#puretdsVal").html(data.rawtds?data.rawtds:'0');
-		$("#rawtdsVal").html(data.puretds?data.puretds:'0');
+		$("#puretdsVal").html((data.rawtds?data.rawtds:'0') + '<span>ppm</span>');
+		$("#rawtdsVal").html((data.puretds?data.puretds:'0') + '<span>ppm</span>');
 		// $(".textLeft").html("<p id='surplusVal'><span>剩余天数</span><b>"+(data.reday?data.reday:'0')+"天</b></p>");
 		// $(".textRight").html("<p id='alreadyUsedVal'><span>已用天数</span><b>"+(usednumberFlow?usednumberFlow:'0')+"天</b></p>");
 		//1.设备状态页面数据显示
@@ -312,8 +309,8 @@
 				var usedDay = parseInt(dataList.SumDay);
 
 				//1.设备状态页面数据显示
-				$("#rawtdsVal").text(dataList.PureTDS?dataList.PureTDS:'0');//设置当前设备原水值
-				$("#puretdsVal").text(dataList.RawTDS?dataList.RawTDS:'0');//设置当前设备纯水值
+				$("#rawtdsVal").text((dataList.PureTDS?dataList.PureTDS:'0') + '<span>ppm</span>');//设置当前设备原水值
+				$("#puretdsVal").text((dataList.RawTDS?dataList.RawTDS:'0') + '<span>ppm</span>');//设置当前设备纯水值
 				if(leasingmode == "0"){//零售
 					$(".textLeft").html("<p id='surplusVal'><span>已用</span><b>"+(usedFlow?usedFlow:'0')+"L</b></p>");
 					$(".textRight").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usedDay?usedDay:'0')+"天</b></p>");

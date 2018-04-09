@@ -381,9 +381,15 @@ html{
 #puretdsVal {
 	position: relative;
 }
-#rawtdsVal:after,
-#puretdsVal:after {
-	content: 'ppm';
+#rawtdsVal>span {
+	position: absolute;
+	left: 102%;
+	bottom: 18%;
+	color: #fff;
+	font-size: .4rem;
+	font-weight: 400;
+}
+#puretdsVal>span {
 	position: absolute;
 	left: 105%;
 	bottom: 18%;
