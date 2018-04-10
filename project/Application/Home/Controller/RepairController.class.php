@@ -76,9 +76,19 @@ class RepairController extends CommonController
     public function downloadPic($paths)
     {
 
-        $path_info = '/Pic/'.date('Y-m-d',time())."/".md5($paths).".jpg";
-        $path = './Public'.$path_info;
+        $path_info = '/Pic/repair/'.date('Y-m-d',time());
 
+        $file=md5($paths).".jpg";
+
+
+        $dir =rtrim(THINK_PATH,"ThinkPHP/").'/Public'.$path_info;
+        if(!is_dir($dir)){
+            mkdir($dir);
+        }
+        $path_info = $path_info.'/'.$file;
+
+        $path = './Public'.$path_info;
+        
         $weixin = new WeixinJssdk;
         $ACCESS_TOKEN = $weixin->getAccessToken();
 
