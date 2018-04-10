@@ -171,7 +171,7 @@ class FeedsController extends CommonController
                         ->field('f.uid,d.device_code,d.name,d.phone,f.content,f.address,f.status,f.addtime')
                         ->order('f.addtime desc')
                         ->select();
-            $arr = ['addtime'=>'Y-m-d H:i:s'];
+            $arr = ['addtime'=>'Y-m-d H:i:s','status'=>['待处理','已处理完成','正在处理中','任务进行中']];
             replace_value($data,$arr);
             $filename = '报修列表数据';
             $title = '报修列表';

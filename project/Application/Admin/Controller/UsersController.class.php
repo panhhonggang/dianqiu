@@ -291,8 +291,9 @@ class UsersController extends CommonController
                 ->alias('f')
                 ->join('__DEVICES__ d ON f.did=d.id','LEFT')
 //                ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
+                ->join('__DEVICES_STATU__ ds ON d.device_code=ds.DeviceID','LEFT')
                 ->join('__BINDING__ bd ON f.did = bd.did ','LEFT')
-                ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
+                ->field('f.id,d.name,f.money,f.flow,ds.reday,f.mode,f.addtime')
                 ->order('f.addtime desc')
                 ->select();
 //            dump($data);exit;

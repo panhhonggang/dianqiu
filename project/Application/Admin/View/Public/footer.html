@@ -68,7 +68,7 @@
 		    	 // 开始时间
 		        var startdate = $("#date-start").datetimepicker({  
 		            format: 'YYYY-MM-DD',  
-		            locale: moment.locale('zh-cn')
+		            locale: moment.locale('zh-cn'),
 		        }); 
 		        
 		        //结束时间
@@ -79,13 +79,13 @@
 		         //动态设置最小值  
 			    startdate.on('dp.change', function (e) {  
 			        enddate.data('DateTimePicker').minDate(e.date);
-			    	$('#date-start').val(time);
+			    	// $('#date-start').val(time);
 
 			    });  
 			    //动态设置最大值  
-			    enddate.on('dp.change', function (e) {  
+			    enddate.on('dp.change', function (e) { 
 			        startdate.data('DateTimePicker').maxDate(e.date);
-			    	$('#date-end').val(time);  
+			    	// $('#date-end').val(time);  
 			        
 			    });
 		        // $("#date-start").datetimepicker('show');

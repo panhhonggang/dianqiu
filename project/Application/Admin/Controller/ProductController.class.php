@@ -240,8 +240,8 @@ class ProductController extends CommonController
             $data = $filter->where($map)
                             ->field('id,filtername,alias,price,timelife,flowlife,introduce,url,addtime')
                             ->select();
-            $arr = ['addtime'=>'Y-m-d H:i:s'];
-            replace_value($data,$arr);
+            $arr = ['addtime'=>['date','Y-m-d H:i:s'],'price'=>['price']];
+            $data = replace_array_value($data,$arr);
             $filename = '滤芯列表数据';
             $title = '滤芯列表';
             $cellName = ['滤芯id','滤芯名称','滤芯别名','滤芯价格','时间寿命','流量寿命','滤芯简介','购买网址','最新添加时间'];
