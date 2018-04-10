@@ -74,7 +74,7 @@ class WorkController extends CommonController
                 ->join('pub_binding ON pub_devices.id = pub_binding.did ','LEFT')
                 ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
                 ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
-                ->field('w.id,w.device_code,w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time,pub_repair.address raddress,w.province,w.city,w.district')
+                ->field('w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time,pub_repair.address raddress,w.province,w.city,w.district')
                 ->getAll();
             $arr = [
                 'time'=>['date','Y-m-d H:i:s'],
@@ -93,7 +93,7 @@ class WorkController extends CommonController
             $data = replace_array_value($data,$arr);
             $filename = '工单列表数据';
             $title = '工单列表';
-            $cellName = ['id','设备号','工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','创建时间','处理时间'];
+            $cellName = ['工单编号','处理人','处理人电话','维护类型','工作内容','地址','处理结果','创建时间','处理时间'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();

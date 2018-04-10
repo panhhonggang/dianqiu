@@ -12,8 +12,6 @@ class PersonnelController extends CommonController
         /*
              Excel导出
           */
-        require_once VENDOR_PATH.'PHPExcel.php';
-        $phpExcel = new \PHPExcel();
         // dump($phpExcel);
         // 搜索功能
         if (trim(I('post.name'))) {
@@ -47,10 +45,11 @@ class PersonnelController extends CommonController
         if (I('output') == 1) {
             $data =M('personnel')->where($map)
                                 ->field('id,name,phone,create_time')
+                                ->order('id desc')
                                 ->select();
             $filename = '安装人员列表数据';
             $title = '安装人员列表';
-            $cellName = ['id','昵称','手机','最新添加时间'];
+            $cellName = ['用户id','昵称','手机','最新添加时间'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();

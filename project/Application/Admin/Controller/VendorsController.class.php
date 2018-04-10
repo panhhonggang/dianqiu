@@ -306,11 +306,14 @@ class VendorsController extends CommonController
                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                 ->field('pub_vendors.id,pub_binding.did,pub_devices.device_code,pub_vendors.name,pub_vendors.phone,pub_binding.addtime')
                 ->select();
+            foreach ($data as $key=>$val) {
+                array_unshift($data[$key],$key+1);
+            }
             $arr = ['addtime'=>'Y-m-d H:i:s'];
             replace_value($data,$arr);
             $filename = '设备归属列表数据';
             $title = '设备归属列表';
-            $cellName = ['经销商id','设备id','设备编码','经销商姓名','经销商手机','添加时间'];
+            $cellName = ['绑定编号','经销商id','设备id','设备编码','经销商姓名','经销商手机','添加时间'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();

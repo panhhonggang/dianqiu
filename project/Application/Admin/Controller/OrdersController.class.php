@@ -80,25 +80,44 @@ class OrdersController extends CommonController
                         ->join('pub_vendors v on b.vid = v.id','LEFT')
                         ->order('o.created_at desc')
                         ->field([
-                            'o.order_id','w.nickname','o.total_num','o.total_price','e.name','e.phone','e.addres','o.is_pay',
-                            'o.is_receipt','o.is_ship','o.is_recharge','o.created_at'
+                            'o.order_id','w.nickname','v.name vname','o.total_num','o.total_price','e.name','e.phone','e.addres','o.is_pay',
+                            'o.is_receipt','o.is_ship','o.created_at'
                         ])
                         ->select();
             // 数组中枚举数值替换
             $arr = [
-                'is_pay'=>['0'=>'未付款','1'=>'已付款','2'=>'已取消'],
-                'is_receipt'=>['0'=>'未发货','1'=>'已发货'],
-                'is_ship'=>['0'=>'未收货','1'=>'已收货'],
-                'is_recharge'=>['0'=>'未充值','1'=>'已充值'],
-                'created_at'=>['date','Y-m-d H:i:s'],
-                'total_price'=>['price']
+                'total_price'=>['price'],
+                'created_at'=>['date','Y-m-d H:i:s']
             ];
 
             $data = replace_array_value($data,$arr);
 
+            foreach($data as $key => $val){
+                if($val['is_pay'] == 0){
+                    $data[$key]['status'] = '待付款';
+                } elseif($val['is_pay'] == 2){
+                    $data[$key]['status'] = '订单已取消';
+                } elseif($val['is_pay'] == 1){
+                    if($val['is_receipt'] == 0){
+                        $data[$key]['status'] = '待发货';
+                    } else {
+                        if($val['is_ship'] == 0){
+                            $data[$key]['status'] = '待收货';
+                        } elseif($val['is_ship'] == 1){
+                            $data[$key]['status'] = '已收货';
+                        } else{
+                            $data[$key]['status'] = '订单完成';
+                        }
+                    }                   
+                }                
+                unset($data[$key]['is_pay']);
+                unset($data[$key]['is_receipt']);
+                unset($data[$key]['is_ship']);
+            }
+
             $filename = '订单列表数据';
             $title = '订单列表';
-            $cellName = ['订单编号','下单用户','购买商品数量','购买总额','收货人','收货人电话','收货地址','是否付款','是否发货','是否收获','是否充值','下单时间'];
+            $cellName = ['订单编号','下单用户','经销商名称','购买商品数量','购买总额','收货人','收货人电话','收货地址','下单时间','订单状态'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();

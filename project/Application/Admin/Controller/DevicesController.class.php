@@ -99,8 +99,8 @@ class DevicesController extends CommonController
                 ->join("__BINDING__ bind ON d.id=bind.did", 'LEFT')
                 ->join("__VENDORS__ vendors ON bind.vid=vendors.id", 'LEFT')
                 ->join("__DEVICE_TYPE__ type ON d.type_id=type.id", 'LEFT')
-                ->field("d.device_code,vendors.name vname,statu.iccid,d.name,d.phone,d.address,statu.leasingmode,statu.reday,statu.reflow,statu.devicestause,statu.csq,statu.filtermode,type.typename,statu.updatetime")
-                ->order('d.addtime desc')
+                ->field("d.device_code,vendors.name vname,statu.iccid,d.name,d.phone,d.address,statu.leasingmode,statu.reday,statu.reflow,statu.devicestause,statu.NetStause,statu.filtermode,type.typename,statu.updatetime")
+                ->order('d.id asc')
                 ->select();
             foreach ($data as $key=>$val) {
                 array_unshift($data[$key],$key+1);
@@ -108,14 +108,15 @@ class DevicesController extends CommonController
             $arr = [
                 'leasingmode' => ['零售型','按流量计费','按时间计费','时长和流量套餐'],
                 'devicestause' => ['制水','冲洗','水满','缺水','漏水','检修','欠费停机','关机','开机'],
+                'netstause'=>['断开','连接中'],
                 'filtermode' => ['按时长','按流量','时长和流量'],
-                'updatetime'=>['date','Y-m-d H:i:s']
+                'updatetime'=>['date','Y-m-d H:i:s']               
             ];
             $data = replace_array_value($data,$arr);
             $filename = '设备列表数据';
             $title = '设备列表';
-            $cellName = ['id','设备编号','经销商名称','ICCID','绑定的用户','电话','地址','计费模式','剩余天数','剩余流量','工作状态','网络状态','滤芯模式','设备类型(滤芯)','最近更新时间'];
-
+            $cellName = ['编号','设备编号','经销商名称','ICCID','绑定的用户','电话','地址','计费模式','剩余天数','剩余流量','工作状态','网络状态','滤芯模式','设备类型(滤芯)','最近更新时间'];
+            // dump($data);
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
             return ;
@@ -259,7 +260,7 @@ class DevicesController extends CommonController
             $Devices = D('Devices'); 
             $res = D('Devices')->getCate();
             $info = $Devices->create();
-
+ 
             $code = $Devices->where("device_code='{$_POST['device_code']}'")->find();
             if(!empty($code)) $this->error( '已导入' . $i . '条数据<br>' . $_POST['device_code'] . '已存在');
             
@@ -276,7 +277,8 @@ class DevicesController extends CommonController
                     $bool = true;
                 }
             } else {
-                $this->error('已导入' . $i . '条数据<br>');
+                // $this->error('已导入' . $i . '条数据<br>');
+                $this->error($Devices->getError());
             }   
             $i ++;
         }
@@ -360,6 +362,7 @@ class DevicesController extends CommonController
                 $data[$currentRow][$currentColumn] = $currentSheet->getCell($address)->getValue();
             }
         }
+        // dump($data);die;
         $this->save_import($data);
     }
 
