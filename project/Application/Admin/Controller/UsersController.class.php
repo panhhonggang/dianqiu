@@ -68,14 +68,15 @@ class UsersController extends CommonController
             ->join('__WECHAT__ w ON u.open_id=w.open_id', 'LEFT')
             ->join('__CURRENT_DEVICES__ cd ON u.id=cd.uid', 'LEFT')
             ->join('__DEVICES__ d ON cd.did=d.id', 'LEFT')
-            ->join('__BINDING__ bd ON d.id = bd.did ')
-            ->field('u.id,w.nickname,d.device_code,d.phone,d.address,u.login_time,u.login_ip,u.created_at,d.updatetime')
+            ->join('__BINDING__ bd ON d.id = bd.did ', 'LEFT')
+            ->field('u.id,w.nickname,d.device_code,d.phone,d.address,u.login_time,u.login_ip,d.updatetime')
+            ->order('u.created_at desc')
             ->select();
-            $arr = ['updatetime'=>'Y-m-d H:i:s'];
-            replace_value($data,$arr);
+            $arr = ['updatetime'=>['date','Y-m-d H:i:s'],'login_time'=>['date','Y-m-d H:i:s']];
+            $data = replace_array_value($data,$arr);
             $filename = '用户列表数据';
             $title = '用户列表';
-            $cellName = ['用户id','姓名','当前设备id','手机号','地址','最后登录时间','登录IP','关注日期','更新日期'];
+            $cellName = ['用户id','姓名','当前设备id','手机号','地址','最后登录时间','登录IP','更新日期'];
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
             $myexcel->output();
@@ -292,6 +293,7 @@ class UsersController extends CommonController
 //                ->join('__USERS__ u ON d.uid=u.id', 'LEFT')
                 ->join('__BINDING__ bd ON f.did = bd.did ','LEFT')
                 ->field('f.id,d.name,f.money,f.flow,f.currentflow,f.mode,f.addtime')
+                ->order('f.addtime desc')
                 ->select();
 //            dump($data);exit;
             $arr = [

@@ -63,21 +63,23 @@ class SetmealController extends CommonController
         if (I('output') == 1) {
             $data = $type->where($map)
                     ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
-                    ->field('pub_setmeal.id,remodel,money,flow,describe,pub_device_type.typename,pub_setmeal.addtime')
+                    ->field('pub_setmeal.id,pub_device_type.typename,remodel,money,flow,describe,pub_setmeal.addtime')
+                    ->order('pub_setmeal.addtime desc')
                     ->select();
             $filename = '套餐列表';
             $title = '套餐列表';
-            $cellName = ['id','充值模式','套餐金额','套餐流量/时长','套餐描述','设备','添加时间'];
+            $cellName = ['id','产品类型','充值模式','套餐金额','套餐量(天)','套餐描述','创建时间'];
 
             // 数组中枚举数值替换
             $arr = [
-                'addtime'=>'Y-m-d H:i:s',
+                'addtime'=>['date','Y-m-d H:i:s'],
                 'remodel'=>[
                     '0'=>'流量',
                     '1'=>'时长'
-                ]
+                ],
+                'money'=>['price']
             ];
-            replace_value($data,$arr);
+            $data = replace_array_value($data,$arr);
 
             // dump($data);die;
             $myexcel = new \Org\Util\MYExcel($filename,$title,$cellName,$data);
