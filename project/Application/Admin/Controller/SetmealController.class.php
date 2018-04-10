@@ -23,7 +23,7 @@ class SetmealController extends CommonController
          */
         require_once VENDOR_PATH.'PHPExcel.php';
         $phpExcel = new \PHPExcel();
-        // dump($phpExcel);
+//         dump($_POST);
         // 搜索功能
         $map = array(
             'typename' => trim(I('post.typename')),
@@ -34,21 +34,21 @@ class SetmealController extends CommonController
         if (trim(I('post.describe'))) {
             $map['pub_setmeal.describe'] =  array('like','%'.trim(I('post.describe')).'%');
         }
-        $minmoney = trim(I('post.minmoney'))?:0;
-        $maxmoney = trim(I('post.maxmoney'))?:-1;
+        $minmoney = trim(I('post.minmoney'))?:false;
+        $maxmoney = trim(I('post.maxmoney'))?:false;
         if (is_numeric($maxmoney)) {
-            $map['pub_setmeal.money'] = array(array('egt',$minmoney*100),array('elt',$maxmoney*100));
+            $map['pub_setmeal.money'][] = array('elt',$maxmoney*100);
         }
-        if ($maxmoney < 0) {
-            $map['pub_setmeal.money'] = array(array('egt',$minmoney*100));
+        if (is_numeric($minmoney)) {
+            $map['pub_setmeal.money'][] = array('egt',$minmoney*100);
         }
-         $minaddtime = strtotime(trim(I('post.minaddtime')))?:0;
-         $maxaddtime = strtotime(trim(I('post.maxaddtime')))?:-1;
+         $minaddtime = strtotime(trim(I('post.mintime')))?:false;
+         $maxaddtime = strtotime(trim(I('post.maxtime')))?:false;
          if (is_numeric($maxaddtime)) {
-             $map['pub_setmeal.addtime'] = array(array('egt',$minaddtime),array('elt',$maxaddtime));
+             $map['pub_setmeal.addtime'][] = array('elt',$maxaddtime);
          }
-         if ($maxaddtime < 0) {
-             $map['pub_setmeal.addtime'] = array(array('egt',$minaddtime));
+         if (is_numeric($minaddtime)) {
+             $map['pub_setmeal.addtime'][] = array('egt',$minaddtime);
          }
         // 删除数组中为空的值
         $map = array_filter($map, function ($v) {
@@ -86,8 +86,8 @@ class SetmealController extends CommonController
             $myexcel->output();
             return ;
         }
-
-        $total =$type->where($map)
+//        dump($map);
+     $total =$type->where($map)
                     ->join('pub_device_type ON pub_setmeal.tid = pub_device_type.id')
                     ->field('pub_setmeal.*,pub_device_type.typename')
                     ->count();
