@@ -70,15 +70,15 @@
                             <td>{{$vo.addres}}</td>
                             <td>{{$vo.created_at|date='Y-m-d H:i:s',###}}</td>
                             <td>
-                                <if condition="$vo['is_pay'] eq 0 "> 待付款、{{$vo['is_pay']}}、{{$vo['is_receipt']}}、{{$vo['is_ship']}}
-                                <elseif condition="$vo['is_pay'] eq 2 "/>订单已取消、{{$vo['is_pay']}}、{{$vo['is_receipt']}}、{{$vo['is_ship']}}
+                                <if condition="$vo['is_pay'] eq 0 "> 待付款
+                                <elseif condition="$vo['is_pay'] eq 2 "/>订单已取消
                                 <elseif condition="$vo['is_receipt'] eq 0 "/>
                                     <a href="javascript:void(0)">
-                                        <span style="color:red" class="_send">待发货、{{$vo['is_pay']}}、{{$vo['is_receipt']}}、{{$vo['is_ship']}}</span>
+                                        <span style="color:red" class="_send">待发货</span>
                                     </a>
-                                <elseif condition="$vo['is_ship'] eq 0 "/>待收货、{{$vo['is_pay']}}、{{$vo['is_receipt']}}、{{$vo['is_ship']}}
-                                <elseif condition="$vo['is_ship'] eq 1 "/>已收货、{{$vo['is_pay']}}、{{$vo['is_receipt']}}、{{$vo['is_ship']}}
-                                <else /> 订单完成、{{$vo['is_pay']}}、{{$vo['is_receipt']}}、{{$vo['is_ship']}}
+                                <elseif condition="$vo['is_ship'] eq 0 "/>待收货
+                                <elseif condition="$vo['is_ship'] eq 1 "/>已收货
+                                <else /> 订单完成
                                 </if>
                                 <input type="hidden" name="order_id" value="{{$vo.order_id}}">
                                 <input type="hidden" name="is_receipt" value="1">
