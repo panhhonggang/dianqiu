@@ -58,6 +58,7 @@
                     <th>套餐量（天）</th>
                     <th>套餐名称</th>
                     <th>创建时间</th>
+                    <th>是否首充</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -78,6 +79,13 @@
                         <td>{{$vo.flow}}</td>
                         <td>{{$vo.describe}}</td>
                         <td>{{$vo.addtime|date='Y-m-d H:i:s',###}}</td>
+                        <td>
+                            <switch name="vo.status">
+                                <case value="0">否</case>
+                                <case value="1">是</case>
+                                <default />
+                            </switch>
+                        </td>
                         <td><a class="deletBnt" ruleId="{{$vo['id']}}" href="javascript:;">删除</a></td>
                     </tr>
                     </foreach>
