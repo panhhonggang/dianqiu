@@ -50,7 +50,7 @@ class DevicesController extends CommonController
             $uid = $_SESSION['homeuser']['id'];
             $device_code = I('post.device_code');
             $data['did'] = M('Devices')->where("`device_code`={$device_code}")->field('id')->find()['id'];
-            $data['time'] = time();
+            // $data['time'] = time();
             $res = M('currentDevices')->where("`uid`={$uid}")->save($data);
 
             if($res){
