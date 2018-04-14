@@ -52,15 +52,41 @@ class ShopController extends CommonController
             // ->join('pub_devices ON pub_devices.id =pub_current_devices.did')
             // // 查询一条
             // ->select();
+            $device = M('Devices')->where('uid='.$uid)->select();
+            // dump($device);
+            if ($device['bindtime']) {
+                $bindtime = $device['bindtime'];
+            }else{
+                $bindtime = time();
+            }
 
-            $setmeallist = M('Setmeal')
+            $flow = M('flow')->where('did='.$device[0]['id'])->order('addtime desc')->limit(0,1)->select();
+            
+            $flowtime = $flow[0]['addtime'];
+            // dump(time());die;
+
+            if ($flowtime >= $bindtime) {
+                $where['cd.did'] = $did;
+                $where['s.status'] = 0;
+                $setmeallist = M('Setmeal')
                 ->alias('s')
-                ->where('cd.did='.$did)
+                ->where($where)
                 ->join('__DEVICES__ d ON s.tid=d.type_id','LEFT')
                 ->join('__CURRENT_DEVICES__ cd ON d.id=cd.did','LEFT')
                 ->field('cd.*,d.*,s.*')
                 ->select();
-
+            }else{
+                
+                $where['cd.did'] = $did;
+                $where['status'] = 1;
+                $setmeallist = M('Setmeal')
+                ->alias('s')
+                ->where($where)
+                ->join('__DEVICES__ d ON s.tid=d.type_id','LEFT')
+                ->join('__CURRENT_DEVICES__ cd ON d.id=cd.did','LEFT')
+                ->field('cd.*,d.*,s.*')
+                ->select();
+            }
         
             $Model = M('Filters');
             // 查询用户绑定设备使用的滤芯产品
