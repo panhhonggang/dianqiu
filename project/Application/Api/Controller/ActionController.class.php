@@ -331,37 +331,32 @@ class ActionController extends Controller
         $msg['ReFlow'] = empty($data['reflow'])? 0 : $data['reflow'];
         $msg['Reday']  = empty($data['reday'])? 0 : $data['reday'];
 
-        $msg['SumFlow']     = empty($data['sumflow'])? 0 :$data['sumflow'];
-        $msg['SumDay']      = empty($data['sumday'])? 0 :$data['sumday'];
-
         $filter_life=$this->get_filter_info($data['deviceid']);
         if(empty($filter_life)) return false;
-
+       
         if ($msg['PackNum'] == 5) { //设备更新
-            for ($i=1; $i<9; $i++){
-                if( !empty($data['reflowfilter'.$i]) or !empty($data['redayfilter'.$i])){
-                    $msg['ReFlowFilter'. $i]     = $data['reflowfilter'.$i];
-                    $msg['ReDayFilter'. $i]      = $data['redayfilter'.$i];
-                    $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
-                    $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
-                }
+            for ($i = 1; $i <= count($filter_life); $i++) {
+                $msg['ReFlowFilter'. $i]     = $data['reflowfilter'.$i];
+                $msg['ReDayFilter'. $i]      = $data['redayfilter'.$i];
+                $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
+                $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
             }
         }
 
-        if ($msg['PackNum']==6 && $data['alivestause'] == 0) {//设备激活
+        if ($msg['PackNum']==6) {  //设备激活
             $msg['AliveStause'] = 1;
+            $msg['SumFlow']     = 0;
+            $msg['SumDay']      = 0;
 
-            $filenum=0;
-            for ($i=1; $i<9; $i++){
-                if( !empty($data['reflowfilter'.$i]) or !empty($data['redayfilter'.$i])){
-                    $filenum++;
-                    $msg['ReFlowFilter'. $i]     = $filter_life[$i-1]['flowlife'];
-                    $msg['ReDayFilter'. $i]      = $filter_life[$i-1]['timelife'];
-                    $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
-                    $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
-                }
+            $filenum=count($filter_life);
+            for ($i = 1; $i <= $filenum ; $i++) {
+                $msg['ReFlowFilter'. $i]     = $filter_life[$i-1]['flowlife'];
+                $msg['ReDayFilter'. $i]      = $filter_life[$i-1]['timelife'];
+                $msg['FlowLifeFilter'. $i]   = $filter_life[$i-1]['flowlife'];
+                $msg['DayLifeFiter'. $i]     = $filter_life[$i-1]['timelife'];
             }
             $msg['FilerNum'] = $filenum;
+
         }
         return $msg;
     }
