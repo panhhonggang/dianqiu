@@ -40,7 +40,6 @@ class ShopController extends CommonController
 //        $device = M('devices')->where('id='.$did)->find();
 //        $device = M('devices')->where('device_code='.$did)->find();
 
-
         // 获取用户绑定设备充值套餐
         if($uid){
             // 查询用户绑定设备使用的套餐产品
@@ -52,20 +51,31 @@ class ShopController extends CommonController
             // ->join('pub_devices ON pub_devices.id =pub_current_devices.did')
             // // 查询一条
             // ->select();
-            $device = M('Devices')->where('uid='.$uid)->select();
-            // dump($device);
-            if ($device['bindtime']) {
-                $bindtime = $device['bindtime'];
-            }else{
-                $bindtime = time();
-            }
+//            $device = M('current_devices')->where('uid='.$uid)->select();
+//            if ($device['bindtime']) {
+//                $bindtime = $device['bindtime'];
+//            }else{
+//                $bindtime = time();
+//            }
 
-            $flow = M('flow')->where('did='.$device[0]['id'])->order('addtime desc')->limit(0,1)->select();
-            
-            $flowtime = $flow[0]['addtime'];
+
+
+//            $flow = M('flow')->where('did='.$device[0]['id'])->order('addtime desc')->limit(0,1)->select();
+
+
+//            $flowtime = $flow[0]['addtime'];
             // dump(time());die;
 
-            if ($flowtime >= $bindtime) {
+            $devices_alivestause = M('current_devices')
+                ->alias('c')
+                ->where()
+                ->join('__DEVICES__ d ON c.did=d.id','LEFT')
+                ->join('__DEVICES_STATU__ ds ON d.device_code=ds.DeviceID','LEFT')
+                ->getfield('ds.alivestause');
+
+
+            $devices_alivestause = isset($devices_alivestause)?$devices_alivestause:0;
+            if ( $devices_alivestause!=0) {
                 $where['cd.did'] = $did;
                 $where['s.status'] = 0;
                 $setmeallist = M('Setmeal')
