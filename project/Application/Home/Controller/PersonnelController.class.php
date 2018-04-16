@@ -95,6 +95,13 @@ class PersonnelController extends Controller
         $map['id'] = $id;
         $perSonnel_info = D('Personnel');
         $info = $perSonnel_info->per_detail($map);
+        $work_info = M('work')->where(['id'=>$map['id']])->find();
+        $data = [
+            'address'=>$work_info['province'].'-'.$work_info['city'].'-'.$work_info['district'].'-'.$work_info['address'],
+            'content' => $work_info['content'],
+            'phone'=>$work_info['phone']
+        ];
+
         if (IS_POST) {
             //查询数据
 
@@ -130,6 +137,7 @@ class PersonnelController extends Controller
 
 
             $work_info = M('work')->where(['id'=>$map['id'],'personnel_id'=>$map['personnel_id']])->save(['dcode'=>$map['dcode'],'result'=>2]);
+
             if ($work_info) {
 
                 $add_info = M('install')->add($data);
@@ -214,6 +222,7 @@ class PersonnelController extends Controller
         } else {
 
             $this->assign('info',$info);
+            $this->assign('data',$data);
 
             $this->display();
         }

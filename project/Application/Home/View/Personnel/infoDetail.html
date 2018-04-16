@@ -102,16 +102,17 @@
 
 <body>
 <div id="contain">
-	<!-- 用户信息 -->
-	<!--<div class="userInfo">-->
-	<!--<h1>用户信息</h1>-->
-	<!--<ul>-->
+
+	<div class="userInfo">
+	<h1>用户信息</h1>
+	<ul>
 	<!--<li>姓名：<span>李生</span></li>-->
-	<!--<li>电话：<span>13556482364</span></li>-->
-	<!--<li class="clearfix"><span>地址：</span><span>广东省广州市番禺区，钟村文化广场十七街21号</span></li>-->
-	<!--</ul>-->
-	<!--</div>-->
-	<!-- 参数设置 -->
+	<li>电话：<span>{{$data.phone}}</span></li>
+	<li class="clearfix"><span>地址：</span><span>{{$data.address}}</span></li>
+		<li class="clearfix"><span>内容：</span><span>{{$data.content}}</span></li>
+	</ul>
+	</div>
+	 参数设置
 	<div  class="parameterSet">
 		<h1>参数设置</h1>
 		<form action=""  method="post" class="forms">
