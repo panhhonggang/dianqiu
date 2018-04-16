@@ -68,11 +68,10 @@ class ShopController extends CommonController
 
             $devices_alivestause = M('current_devices')
                 ->alias('c')
-                ->where()
+                ->where(['c.uid'=>$uid])
                 ->join('__DEVICES__ d ON c.did=d.id','LEFT')
                 ->join('__DEVICES_STATU__ ds ON d.device_code=ds.DeviceID','LEFT')
                 ->getfield('ds.alivestause');
-
 
             $devices_alivestause = isset($devices_alivestause)?$devices_alivestause:0;
             if ( $devices_alivestause!=0) {
