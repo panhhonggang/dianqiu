@@ -1,6 +1,5 @@
 <?php
 namespace Api\Controller;
-use Admin\Controller\CommonController;
 use Think\Controller;
 
 /**
@@ -19,65 +18,68 @@ class DevicesController extends Controller
 
         if (IS_POST) {
 
-
-            $devices = M('Devices');
-
-            //接收安卓端数据
-            //设备code码
-            $data['device_code'] = $_POST['device_code'];
-
             //设备产品类型
-            $data['type_id'] = $_POST['type_id'] ? $_POST['type_id']:'';
+            if(empty($_POST['type_id'])){
+                exit(json_encode('2'));
+            }
 
-            //经销商id
+            if(empty($_POST['type_id']) && empty($_POST['vid'])){
+                exit(json_encode('2'));
+            }
+
+            //设备code码
+            $data['device_code'] = trim($_POST['device_code']);
+            $data['type_id'] = $_POST['type_id'];
+            $data['adtime'] = time();
+            //经销商
             $vdata['vid'] = $_POST['uid'] ? $_POST['uid']:'';
-
             $vdata['addtime'] = time();
 
-            
+            // Log::write(json_encode($_POST), '接口设备入库');
+            $devices_model = M('Devices');
+
             //判断库里有没有这个设备编码
-            $did = $devices->where('device_code = '.$data['device_code'])->field('id')->find()['id'];
+            $where['device_code']=$data['device_code'];
+            $devices = $devices_model->where($where)->find();
 
+            //设备添加和更新
+            if(!empty($devices)){
+                $did = $devices['id'];
+                $devices_model->where($where)->save($data);
+            }else{
+                $did = $devices_model->add($data);
+            }
 
+            $vs=false;
+            //绑定 添加和更新
             if ($did) {
-
-                //查找经销商是否存在
-                $vid = M('Binding')->where('did = '.$did)->field('vid')->find()['vid'];
-
-                if ($vid) {
-                    $bool = M('Binding')->where('did = '.$did)->save($vdata);
-                    $bool = $devices->where('device_code = '.$data['device_code'])->save($data);
-
+                $is_bd = M('Binding')->where('did = '.$did)->find();   //经设备是否被绑定
+                if (!empty($is_bd)) {
+                    if(!empty($vdata['vid'])){
+                        $vs=M('Binding')->where('did = '.$did)->save($vdata);
+                    } else {
+                        $vs=M('Binding')->where('did = '.$did)->delete();
+                    }
                 } else {
-                    //数据进行修改
-                    $vdata['did'] = $did;
-                    $bool = M('Binding')->add($vdata);
-                    // echo M('Binding')->getLastSql();
-                    // dump($bool);die;
-                    $bool = $devices->where('device_code = '.$data['device_code'])->save($data);
+                    if(!empty($vdata['vid'])){   //无经销商 不添加
+                        $vdata['did'] = $did;
+                        $vs=M('Binding')->add($vdata);
+                    }
                 }
-                
-            } else {
-
-                // echo 111;die;
-                //数据写入
-                $bool = $devices->add($data);
-                
-                $vdata['did'] = $devices->where('device_code = '.$data['device_code'])->field('id')->find()['id'];
-                
-                $bool = M('Binding')->add($vdata);
-                
             }
 
             //返回个安卓的数据
-            $ndata['device_code'] = $data['device_code'];
-            $ndata['uid'] = $vdata['vid'];
+            $ndata['device_code'] = $did;
+            if($vs){
+                $ndata['uid'] = $vdata['vid'];
+            }
             $ndata['type_id'] = $data['type_id'];
 
             //去除空值
             array_filter($ndata);
+            // Log::write(json_encode($ndata), '接口设备入库');
 
-            if($bool) {
+            if($did) {
                 echo json_encode($ndata);
             } else {
                 echo json_encode('0');
@@ -85,7 +87,7 @@ class DevicesController extends Controller
         } else {
             echo json_encode('2');
         }
-       
+
     }
 
 }
