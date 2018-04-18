@@ -1,6 +1,7 @@
 <?php
 namespace Api\Controller;
 use Think\Controller;
+use Think\Log;
 
 /**
  * Class DevicesController
@@ -28,9 +29,9 @@ class DevicesController extends Controller
             }
 
             //设备code码
-            $data['device_code'] = trim($_POST['device_code']);
+            $data['device_code'] = $_POST['device_code'];
             $data['type_id'] = $_POST['type_id'];
-            $data['adtime'] = time();
+
             //经销商
             $vdata['vid'] = $_POST['uid'] ? $_POST['uid']:'';
             $vdata['addtime'] = time();
@@ -39,13 +40,14 @@ class DevicesController extends Controller
             $devices_model = M('Devices');
 
             //判断库里有没有这个设备编码
-            $where['device_code']=$data['device_code'];
-            $devices = $devices_model->where($where)->find();
+            $devices = $devices_model->where('device_code = '.$data['device_code'])->find();
 
             //设备添加和更新
             if(!empty($devices)){
                 $did = $devices['id'];
-                $devices_model->where($where)->save($data);
+                if ($_POST['type_id'] != $devices['type_id']) {
+                    $devices_model->where('device_code = '.$data['device_code'])->save(['type_id'=>$_POST['type_id']]);
+                }
             }else{
                 $did = $devices_model->add($data);
             }

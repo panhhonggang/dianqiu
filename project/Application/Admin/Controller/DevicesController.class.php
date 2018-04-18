@@ -150,16 +150,28 @@ class DevicesController extends CommonController
     /**
      * 设备添加处理
      */
-    public function add_device( $code=null )
+    public function add_device()
     {
-        $devices = D('Devices');
-        $code = I('post.');
+        $data = I('post.');
+        $device_code = trim($data['device_code']);
 
-        // dump($code);die;
-        if(!$devices->create()){
-            $this->error($devices->getError(), 'show_add_device');
+        $devices_model = M('Devices');
+
+        //判断库里有没有这个设备编码
+        $devices = $devices_model->where('device_code = '.$device_code)->find();
+
+        //设备添加和更新
+        if(!empty($devices)){
+            $did = $devices['id'];
+            if ($_POST['type_id'] != $devices['type_id']) {
+                $bool=$devices_model->where('id = '.$did)->save(['type_id'=>$_POST['type_id'],
+                    'addtime'=>time()]);
+            }
+        }else{
+            $bool = $devices_model->add($data);
         }
-        if(!$devices->add()){
+
+        if(empty($bool)){
             $this->error('添加失败', 'show_add_device');
         } else {
             $this->success('添加成功', 'show_add_device', 3);
