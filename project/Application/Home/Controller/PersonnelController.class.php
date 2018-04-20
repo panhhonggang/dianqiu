@@ -99,7 +99,9 @@ class PersonnelController extends Controller
         $data = [
             'address'=>$work_info['province'].'-'.$work_info['city'].'-'.$work_info['district'].'-'.$work_info['address'],
             'content' => $work_info['content'],
-            'phone'=>$work_info['phone']
+            'phone'=>$work_info['phone'],
+            'kphone'=>$work_info['kphone'],
+            'kname'=>$work_info['kname'],
         ];
 
         if (IS_POST) {

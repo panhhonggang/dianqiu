@@ -6,31 +6,31 @@
     <include file="Public/nav" />
     <!-- from part-->
     <div class="row-fluid fl" id="main">
-    <style type="text/css">
-        .textarea{width: 215px; min-height: 110px; border: 1px solid #ccc;}
-        .textarea p{
-            padding: 0 10px;
-            margin: 5px;
-        } 
-        .control-group{position: relative;}
-        .control-group .elected{position: absolute; top: 0;left: 0;}
-        .control-group .textarea{margin-left: 190px;}
-        .btn-groups .btns{
-            margin: 50px 0 50px 90px;
-            padding: 8px 35px;
-            border-radius: 7px;
-        } 
-    </style>
+        <style type="text/css">
+            .textarea{width: 215px; min-height: 110px; border: 1px solid #ccc;}
+            .textarea p{
+                padding: 0 10px;
+                margin: 5px;
+            }
+            .control-group{position: relative;}
+            .control-group .elected{position: absolute; top: 0;left: 0;}
+            .control-group .textarea{margin-left: 190px;}
+            .btn-groups .btns{
+                margin: 50px 0 50px 90px;
+                padding: 8px 35px;
+                border-radius: 7px;
+            }
+        </style>
         <div class="tableBox">
             <div class="titleBar">工单管理/<span>工单添加</span></div>
             <div class="formBox">
                 <form class="" action="__URL__/add" method="post" id="_formTable">
-                    
+
                     <input type="hidden" name="repair_id" value="{{$repairId}}">
                     <!--<div class="control-group">-->
-                        <!--<span>工单号<sub style="color:red;margin-left: 5px;">*</sub></span>-->
-                        <!--&lt;!&ndash; 需加数字验证 &ndash;&gt;-->
-                        <!--<input type="text" class="control" name="number" placeholder="请输入工单号..." style="width:210px;">-->
+                    <!--<span>工单号<sub style="color:red;margin-left: 5px;">*</sub></span>-->
+                    <!--&lt;!&ndash; 需加数字验证 &ndash;&gt;-->
+                    <!--<input type="text" class="control" name="number" placeholder="请输入工单号..." style="width:210px;">-->
                     <!--</div>-->
                     <div class="control-group">
 
@@ -38,23 +38,23 @@
                         <!-- 需加数字验证 -->
                         <empty name="_GET">
                             <input type="text" class="control" name="dcode" placeholder="请输入设备编码" style="width:210px;">
-                        <else />
+                            <else />
                             <input type="text" readonly="" name="dcode" value="{{$repairData['device_code']}}">
                         </empty>
                     </div>
-                        <div class="control-group install">
-                            <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
-                            <select name="personnel_id" class="personnel_id">
-                                <option value="">--请选择--</option>
-                                <volist name="personnelData" id='v'>
-                                    <option value="{{$v.id}}">{{$v.name}}</option>
-                                </volist>
-                            </select>
-                        </div>
-                        <div class="control-group install">
-                            <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
-                            <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
-                        </div>
+                    <div class="control-group install">
+                        <span>安装人员<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <select name="personnel_id" class="personnel_id">
+                            <option value="">--请选择--</option>
+                            <volist name="personnelData" id='v'>
+                                <option value="{{$v.id}}">{{$v.name}}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="control-group install">
+                        <span>安装人员手机号码<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" id="phone" class="control" disabled="" name="phone" value="请选择处理人员" style="width:210px;">
+                    </div>
                     <div class="control-group">
                         <span>维护类型</span>
                         <empty name="_GET">
@@ -67,7 +67,7 @@
                             <span style='width:auto !important;text-align: center;'>
                                 <input type="radio" class="control" id='control2' name="type" value="2"><label for="control2">维护</label>
                             </span>
-                        <else />
+                            <else />
                             <span style='width:auto !important;text-align: center;'>
                                 <input type="radio" class="control" id='control3' name="type" disabled disabled value="0"><label for="control3">安装</label>
                             </span>
@@ -84,6 +84,15 @@
                         <span>工作内容<sub style="color:red;margin-left: 5px;">*</sub></span>
                         <textarea name="content" cols="30" rows="5" class="_textarea"></textarea>
                     </div>
+                    <div class="control-group">
+                        <span>客户姓名<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" class="control" name="kname" value="">
+                    </div>
+                    <div class="control-group">
+                        <span>客户电话<sub style="color:red;margin-left: 5px;">*</sub></span>
+                        <input type="text" class="control" name="kphone" value="">
+                    </div>
+
                     <empty name="_GET">
                         <div class="control-group">
                             <span>地址<sub style="color:red;margin-left: 5px;">*</sub></span>
@@ -99,7 +108,7 @@
                             <span>详细地址<sub style="color:red;margin-left: 5px;">*</sub></span>
                             <input type="text" class="control" name="add_ress" placeholder="请输入详细地址..." style="width:210px;">
                         </div>
-                    
+
                         <div class="control-group">
                             <span>处理时间</span>
                             <!-- 需要时间插件 -->
@@ -110,7 +119,7 @@
                         <button class="btns reset btn-primary" type="reset">重置</button>
                         <button class="subbtn btns btn-primary submit" type="button">提交</button>
                     </div>
-                    
+
 
                 </form>
             </div>
@@ -121,99 +130,99 @@
 </div>
 <script src="__PUBLIC__/Home/js/public.js"></script>
 <script>
-//表单验证
-function zero(num){
-    return Number(num)<10?'0'+num:num
-}
-//验证特殊字符
-function specail(val){
-    return /[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(val.trim())?1:0
-}
-//验证中文
-function chinese(val){
-    return /[\u4E00-\u9FA5\uF900-\uFA2D]/.test(val.trim())?1:0
-}
-//layuiHint弹框提示封装
-function layuiHint(text){
-    layui.use('layer', function(){
-        var layer = layui.layer;
-        layer.msg(text);
-    });  
-}
-var time = $('input[name=time]')
-var date = new Date()
-var year = date.getFullYear()
-var month = date.getMonth()+1
-var day = date.getDate()
-var str = year+'-'+zero(month)+'-'+zero(day)
-time.val(str)
-time.click(function(){
-    $(this).blur()
-})
-
-$('.submit').click(function(event) {
-    var hasid = location.href.indexOf('id');
-    var numberReg = /[0-9]/;
-    var addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
-    var control = $('.control').val();  // 设备编号
-    var _textarea = $('._textarea').val();
-    // var phoneNumber = $('input[name=phone]').val().trim()
-    var personnel_id = $('.personnel_id>option:selected').val()
-    var address = $("input[name='add_ress']").val();
-    console.log(addressReg.test(address))
-    // if(!numberReg.test(control) && hasid == -1){
-    //     layuiHint('请输入正确的设备编码！');
-    //     return false
-    // }
-    // if(!personnel_id){
-    //     layuiHint('请选择安装人员！');
-    //     return false
-    // }
-
-    // if(!chinese(_textarea)){
-    //     layuiHint('请填写工作内容！')
-    //     return false
-    // }
-
-    // if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
-    //     layuiHint('请把地址填写完整！');
-    //     return false
-
-    // }else{
-    //     $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
-    // } 
-    // if(!addressReg.test(address)  && hasid == -1){
-    //     layuiHint('请输入详细地址！');
-    //     return false
-    // }
-    $('#_formTable').submit();
-});
-$(function(){
-    //处理日期
-    layui.use('laydate', function(){
-        var element =laydate = layui.laydate
-    })
-    //城市三级联动
-    _init_area();
-    var Gid  = document.getElementById ;
-    var showArea = function(){
-        Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + Gid('s_city').value + " - 县/区" + Gid('s_county').value + "</h3>"
+    //表单验证
+    function zero(num){
+        return Number(num)<10?'0'+num:num
     }
+    //验证特殊字符
+    function specail(val){
+        return /[`~!@#$^&*()=|{}':;',\[\].<>/?~！@#￥……&*（）——|{}【】\s‘；：”“'。，、？]/.test(val.trim())?1:0
+    }
+    //验证中文
+    function chinese(val){
+        return /[\u4E00-\u9FA5\uF900-\uFA2D]/.test(val.trim())?1:0
+    }
+    //layuiHint弹框提示封装
+    function layuiHint(text){
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg(text);
+        });
+    }
+    var time = $('input[name=time]')
+    var date = new Date()
+    var year = date.getFullYear()
+    var month = date.getMonth()+1
+    var day = date.getDate()
+    var str = year+'-'+zero(month)+'-'+zero(day)
+    time.val(str)
+    time.click(function(){
+        $(this).blur()
+    })
 
-})
+    $('.submit').click(function(event) {
+        var hasid = location.href.indexOf('id');
+        var numberReg = /[0-9]/;
+        var addressReg = /^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,}/;
+        var control = $('.control').val();  // 设备编号
+        var _textarea = $('._textarea').val();
+        // var phoneNumber = $('input[name=phone]').val().trim()
+        var personnel_id = $('.personnel_id>option:selected').val()
+        var address = $("input[name='add_ress']").val();
+        console.log(addressReg.test(address))
+        // if(!numberReg.test(control) && hasid == -1){
+        //     layuiHint('请输入正确的设备编码！');
+        //     return false
+        // }
+        // if(!personnel_id){
+        //     layuiHint('请选择安装人员！');
+        //     return false
+        // }
 
-// 选择安装人员，自动请求手机号
-$(".personnel_id").change('option',function(e){
-    var id = $(this).val();
-    console.log(id);
-    $.ajax({
-        url:"{{:U('personnel')}}",
-        type:'post',
-        data:{'id':id},
-        success:function(res){
-            $("input[name='phone']").val(res);
-        }
+        // if(!chinese(_textarea)){
+        //     layuiHint('请填写工作内容！')
+        //     return false
+        // }
+
+        // if($('#s_province').val()==""||$('#s_city').val()==""||$('#s_county').val()==""){
+        //     layuiHint('请把地址填写完整！');
+        //     return false
+
+        // }else{
+        //     $(".addressValue").val($('#s_province').val() + " " + $('#s_city').val() + " " + $('#s_county').val());
+        // }
+        // if(!addressReg.test(address)  && hasid == -1){
+        //     layuiHint('请输入详细地址！');
+        //     return false
+        // }
+        $('#_formTable').submit();
     });
-})
+    $(function(){
+        //处理日期
+        layui.use('laydate', function(){
+            var element =laydate = layui.laydate
+        })
+        //城市三级联动
+        _init_area();
+        var Gid  = document.getElementById ;
+        var showArea = function(){
+            Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + Gid('s_city').value + " - 县/区" + Gid('s_county').value + "</h3>"
+        }
+
+    })
+
+    // 选择安装人员，自动请求手机号
+    $(".personnel_id").change('option',function(e){
+        var id = $(this).val();
+        console.log(id);
+        $.ajax({
+            url:"{{:U('personnel')}}",
+            type:'post',
+            data:{'id':id},
+            success:function(res){
+                $("input[name='phone']").val(res);
+            }
+        });
+    })
 
 </script>

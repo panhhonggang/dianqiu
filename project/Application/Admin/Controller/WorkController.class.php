@@ -140,6 +140,8 @@ class WorkController extends CommonController
             I('time') ? $data['time'] = strtotime(I('time')):'';
             $data['create_at'] = time();
 
+            I('kname') ? $data['kname'] = I('kname'):'';
+            I('kphone') ? $data['kphone'] = I('kphone'):'';
 
             // dump(I('post.'));die;
             $device_type = D('work');
