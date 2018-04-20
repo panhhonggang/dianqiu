@@ -75,6 +75,7 @@ class WorkController extends CommonController
                 ->join('pub_personnel ON w.personnel_id = pub_personnel.id ','LEFT')
                 ->join('pub_repair ON w.repair_id = pub_repair.id ','LEFT')
                 ->field('w.number,pub_personnel.name,pub_personnel.phone,w.type,w.content,w.address,w.result,w.create_at,w.time,pub_repair.address raddress,w.province,w.city,w.district')
+                ->order('w.result asc,w.create_at desc')
                 ->getAll();
             $arr = [
                 'time'=>['date','Y-m-d H:i:s'],

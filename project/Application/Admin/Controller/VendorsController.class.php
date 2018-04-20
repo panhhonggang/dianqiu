@@ -305,6 +305,7 @@ class VendorsController extends CommonController
                 ->join('pub_vendors ON pub_binding.vid = pub_vendors.id')
                 ->join('pub_devices ON pub_binding.did = pub_devices.id')
                 ->field('pub_vendors.id,pub_binding.did,pub_devices.device_code,pub_vendors.name,pub_vendors.phone,pub_binding.addtime')
+                ->order('pub_binding.addtime desc')
                 ->select();
             foreach ($data as $key=>$val) {
                 array_unshift($data[$key],$key+1);
