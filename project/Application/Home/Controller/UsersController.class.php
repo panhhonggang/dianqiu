@@ -108,7 +108,7 @@ class UsersController extends CommonController
     {
         if(IS_POST){
             $work = M('work');
-            $map['dcode'] = M('devices')->where('id='.session('homeuser.did'))->getField('device_code');
+            $map['w.device_code']  = M('devices')->where('id='.session('homeuser.did'))->getField('device_code');
             $data = $work
                 ->alias('w')
                 ->where($map)
