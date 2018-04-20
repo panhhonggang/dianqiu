@@ -77,6 +77,15 @@ class DevicesModel extends Model
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
 
+        $arr = [
+//            'leasingmode' => ['零售型','按流量计费','按时间计费','时长和流量套餐'],
+//            'devicestause' => ['制水','冲洗','水满','缺水','漏水','检修','欠费停机','关机','开机'],
+            'netstause'=>['断开','连接中'],
+//            'filtermode' => ['按时长','按流量','时长和流量'],
+//            'updatetime'=>['date','Y-m-d H:i:s']
+        ];
+        $data = replace_array_value($data,$arr);
+
         // echo M()->getLastSql();die;
         // 分配返回数据
         $assign = [
