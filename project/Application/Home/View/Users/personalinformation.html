@@ -62,28 +62,39 @@
 				// 替换当前历史记录为首页， 防止后退再回到这里
 				history.replaceState({},null,'{{:U("Home/Index/index")}}');
 
-				var name = $('#name').val().replace(/^(\s)|(\s*)/g,''),
-					phone = $('#phone').val().replace(/^(\s)|(\s*)/g,''),
-					address = $('#address').val().replace(/^(\s)|(\s*)/g,'');
 				var nameReg, phoneReg, areaReg;
 				nameReg = /^[\u4e00-\u9fa5]{2,10}$/;
 				phoneReg = /^1((((3[0-35-9])|([5|8][0-9])|(4[5|7|9])|66|(7[3|5-8])|(9[8|9]))\d)|(34[0-8]))\d{7}$/;
 				areaReg = /^[\w\-\u4e00-\u9fa5]{8,255}$/;
 
 				var save = document.getElementsByClassName('savediv');
-				save[0].ontouchend = function(){
+				save[0].onclick = function(){
 					saveFn();
 				}
 				// 点击保存
 				var saveFn = function(){
 
+					var name = $('#name').val().replace(/^(\s)|(\s*)/g,''),
+						phone = $('#phone').val().replace(/^(\s)|(\s*)/g,''),
+						address = $('#address').val().replace(/^(\s)|(\s*)/g,'');
 					if(machineNo){		// 第一次绑定设备
+						if(!phone){
+							layuiHint('手机号不能为空！');
+							return
+						}else if(!phoneReg.test(phone)){
+							layuiHint('请输入正确的手机号！');
+							return
+						}
 						// 查询手机号是否有水机订单
 						$.ajax({
 							url: phoneurl + phone,
 							type: 'post',
 							success: function(res){
-								console.log('请求成功！'，res);
+								console.log('请求成功！',res);
+								if(res.returnCode == '-2'){
+									layuiHint('该号码无绑定的订单！');
+									return
+								}
 								if(res.returnCode == 1 && res.orderList.length>0){
 									
 									var pname = res.orderList[0].username;
@@ -135,7 +146,7 @@
 								}
 							},
 							error: function(res){
-								console.log('请求失败！'，res);
+								console.log('请求失败！',res);
 								layuiHint('系统遇到问题，请稍后重试！');
 								return
 
