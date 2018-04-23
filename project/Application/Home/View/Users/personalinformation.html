@@ -52,15 +52,10 @@
 			$(function(){
 				// 扫描的设备编码
 				var machineNo = null;
-				if(location.href.indexOf('?') > -1){
-					$("#addr").hide();
-					$("#nameid").hide();
-					machineNo = location.href.substr(location.href.indexOf('?'));
-				}				
-				var phoneurl = 'http://waterdispenser.houseselected.com/waterDispenser/open/qryWaterOrder?status=1&phoneNumber=';
-				var deviceurl = 'http://waterdispenser.houseselected.com/waterDispenser/open/updateWaterOrder?waterOrderId=';
-				// 替换当前历史记录为首页， 防止后退再回到这里
-				history.replaceState({},null,'{{:U("Home/Index/index")}}');
+				var devicebind = null;
+				if(location.href.indexOf('?machineNo=') > -1){
+					machineNo = location.href.substr(location.href.indexOf('?machineNo=')+11);
+				}
 
 				var nameReg, phoneReg, areaReg;
 				nameReg = /^[\u4e00-\u9fa5]{2,10}$/;
@@ -77,94 +72,99 @@
 					var name = $('#name').val().replace(/^(\s)|(\s*)/g,''),
 						phone = $('#phone').val().replace(/^(\s)|(\s*)/g,''),
 						address = $('#address').val().replace(/^(\s)|(\s*)/g,'');
-					if(machineNo){		// 第一次绑定设备
-						if(!phone){
-							layuiHint('手机号不能为空！');
-							return
-						}else if(!phoneReg.test(phone)){
-							layuiHint('请输入正确的手机号！');
-							return
-						}
-						
-						// 查询设备是否存在
-						$.ajax({
-							url:"{{:U('Home/Devices/bind')}}",
-							type:"post",
-							data:{device_code:machineNo,name:name,phone:phone,Installaddress:address},
-							dataType:'json',
-							success:function(data){
-								if(data==1){
-									
-									layuiHint('绑定成功！');
-									// 提交给后台
-									setTimeout(function(){
-										location.reload();
-									},500)
-								}else if(data == -1){
-									layuiHint('设备不存在！');
-								}else if(data == -2){
-									layuiHint('设备已被绑定！');
-								}else{
-									layuiHint('设备绑定失败！');
-								}
+					
+					if(!$('#name').val().replace(/^(\s)|(\s*)/g,'')){
+						layuiHint('请填写姓名！');
+						return
 
-							},
-							error:function(jqXHR, textStatus, errorThrown){
-								alert("绑定失败" + jqXHR.status + textStatus + errorThrown);
-								//console.log(jqXHR.status);
-							}
-						});
+					}else if(!nameReg.test($('#name').val().replace(/^(\s)|(\s*)/g,''))){
+						layuiHint('姓名只能由中文组成！');
+						return
 
-					}else{		// 编辑个人信息
-
-						if(!$('#name').val().replace(/^(\s)|(\s*)/g,'')){
-							layuiHint('请填写姓名！');
-							return
-
-						}else if(!nameReg.test($('#name').val().replace(/^(\s)|(\s*)/g,''))){
-							layuiHint('姓名只能由中文组成！');
-							return
-
-						}
-						if(!$('#phone').val().replace(/^(\s)|(\s*)/g,'')){
-							layuiHint('请输入手机号！');
-							return
-
-						}else if(!phoneReg.test($('#phone').val().replace(/^(\s)|(\s*)/g,''))){
-							layuiHint('请输入正确的手机号码！');
-							return
-							
-						}
-						if(!$('#address').val().replace(/^(\s)|(\s*)/g,'')){
-							layuiHint('请输入地址！');
-							return
-
-						}else if($('#address').val().replace(/^(\s)|(\s*)/g,'').length <= 10){
-							layuiHint('请输入详细地址,不能少于10个字！');
-							return
-							
-						}else if(!areaReg.test($('#address').val().replace(/^(\s)|(\s*)/g,''))){
-							layuiHint('地址只能由中文、数字、英文组成！');
-							return
-							
-						}
-						if(name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
-
-							layuiHint('你什么都没修改!');
-							setTimeout(function(){
-								location.href = '{{:U("Home/Users/mine")}}';
-							},500);
-							return
-						}
-						layuiHint('保存成功！');
-
-						//提交表单
-						setTimeout(function(){
-							$('#form').submit();
-						},500)
 					}
+					if(!$('#phone').val().replace(/^(\s)|(\s*)/g,'')){
+						layuiHint('请输入手机号！');
+						return
+
+					}else if(!phoneReg.test($('#phone').val().replace(/^(\s)|(\s*)/g,''))){
+						layuiHint('请输入正确的手机号码！');
+						return
+						
+					}
+					if(!$('#address').val().replace(/^(\s)|(\s*)/g,'')){
+						layuiHint('请输入地址！');
+						return
+
+					}else if($('#address').val().replace(/^(\s)|(\s*)/g,'').length <= 10){
+						layuiHint('请输入详细地址,不能少于10个字！');
+						return
+						
+					}else if(!areaReg.test($('#address').val().replace(/^(\s)|(\s*)/g,''))){
+						layuiHint('地址只能由中文、数字、英文组成！');
+						return
+						
+					}
+					if(machineNo){		// 绑定设备
+						console.log(machineNo);
+						bindFn();
+						if(!devicebind){
+							// 绑定出错
+							return
+						}
+					}
+					if(name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
+
+						layuiHint('你什么都没修改!');
+						setTimeout(function(){
+							location.href = '{{:U("Home/Users/mine")}}';
+						},500);
+						return
+					}
+					layuiHint('保存成功！');
+					//提交表单
+					setTimeout(function(){
+						$('#form').submit();
+					},500)
 				}
 
+				function bindFn(){
+
+					// 查询设备是否存在
+					$.ajax({
+						url:"{{:U('Home/Devices/bind')}}",
+						type:"post",
+						data:{device_code:machineNo},
+						dataType:'json',
+						success:function(data){
+							console.log(data);
+							if(data==1){
+								devicebind = true;
+								layuiHint('绑定成功！');
+								
+								// 替换当前历史记录为首页， 防止后退再回到这里
+								history.replaceState({},null,'{{:U("Home/Index/index")}}');
+								setTimeout(function(){
+									location.href = '{{:U("Home/Users/mine")}}';
+								},500);
+							}else if(data == -1){
+								devicebind = null;
+								layuiHint('设备不存在！');
+							}else if(data == -2){
+								devicebind = null;
+								layuiHint('设备已被绑定！');
+							}else{
+								devicebind = null;
+								layuiHint('设备绑定失败！');
+							}
+
+						},
+						error:function(jqXHR, textStatus, errorThrown){
+							devicebind = null;
+							layuiHint("绑定失败");
+							//console.log(jqXHR.status);
+						}
+					});
+				}
 				// 提示框函数
 				function layuiHint(text){
 					layui.use('layer', function(){
