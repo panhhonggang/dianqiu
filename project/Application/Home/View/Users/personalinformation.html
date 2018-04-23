@@ -85,73 +85,35 @@
 							layuiHint('请输入正确的手机号！');
 							return
 						}
-						// 查询手机号是否有水机订单
+						
+						// 查询设备是否存在
 						$.ajax({
-							url: phoneurl + phone,
-							type: 'post',
-							success: function(res){
-								console.log('请求成功！',res);
-								if(res.returnCode == '-2'){
-									layuiHint('该号码无绑定的订单！');
-									return
-								}
-								if(res.returnCode == 1 && res.orderList.length>0){
+							url:"{{:U('Home/Devices/bind')}}",
+							type:"post",
+							data:{device_code:machineNo,name:name,phone:phone,Installaddress:address},
+							dataType:'json',
+							success:function(data){
+								if(data==1){
 									
-									var pname = res.orderList[0].username;
-									var pphone = res.orderList[0].userAddress.phoneNumber;
-									var paddr = res.orderList[0].userAddress.province + res.orderList[0].userAddress.city + res.orderList[0].userAddress.county + res.orderList[0].userAddress.detail;
-									
-									// 查询设备是否存在
-									$.ajax({
-										url:"{{:U('Home/Devices/bind')}}",
-										type:"post",
-										data:{device_code:machineNo,name:pname,phone:pphone,Installaddress:paddr},
-										dataType:'json',
-										success:function(data){
-											if(data==1){
-
-												// 保存数据
-												$.ajax({
-													type: 'post',
-													url: deviceurl + res.orderList[0].purchaseOrderId +'&machineNo='+ machineNo,
-													success: function(res){
-
-														layuiHint('绑定成功！');
-														// 提交给后台
-														setTimeout(function(){
-															location.reload();
-														},500)
-
-													},
-													error: function(res){
-
-														layuiHint('系统遇到问题，请稍后重试！');
-													}
-												})
-											}else if(data == -1){
-												layuiHint('设备不存在！');
-											}else if(data == -2){
-												layuiHint('设备已被绑定！');
-											}else{
-												layuiHint('设备绑定失败！');
-											}
-
-										},
-										error:function(jqXHR, textStatus, errorThrown){
-											alert("绑定失败" + jqXHR.status + textStatus + errorThrown);
-											//console.log(jqXHR.status);
-										}
-									});
-
+									layuiHint('绑定成功！');
+									// 提交给后台
+									setTimeout(function(){
+										location.reload();
+									},500)
+								}else if(data == -1){
+									layuiHint('设备不存在！');
+								}else if(data == -2){
+									layuiHint('设备已被绑定！');
+								}else{
+									layuiHint('设备绑定失败！');
 								}
+
 							},
-							error: function(res){
-								console.log('请求失败！',res);
-								layuiHint('系统遇到问题，请稍后重试！');
-								return
-
+							error:function(jqXHR, textStatus, errorThrown){
+								alert("绑定失败" + jqXHR.status + textStatus + errorThrown);
+								//console.log(jqXHR.status);
 							}
-						})
+						});
 
 					}else{		// 编辑个人信息
 
