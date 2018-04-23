@@ -146,31 +146,8 @@
 		    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
 		    success: function (res) {
 		    	if (res.errMsg === "scanQRCode:ok"){
-			    	// 当needResult 为 1 时，扫码返回的结果
-				    $.ajax({
-				    	url:"{{:U('Home/Devices/bind')}}",
-				    	type:"post",
-				    	data:{device_code:res.resultStr},
-				    	dataType:'json',
-				    	success:function(data){
-				    		if(data==1){
-				    			// 绑定成功，跳转到填写用户安装信息
-				    			window.location.href = "{{:U('Home/Users/personalinformation')}}?"+new Date().getTime();
-				    		}else if(data==-1){
-				    			alert('设备不存在！');
-				    		}else if(data==-2){
-				    			alert('设备已被绑定！');
-				    		}else{
-				    			alert('设备绑定失败！');
-				    		}
-	
-				    	},
-				    	error:function(jqXHR, textStatus, errorThrown){
-		    				alert("绑定失败" + jqXHR.status + textStatus + errorThrown);
-				    		//console.log(jqXHR.status);
-				    	}
-				    });
-				    //alert(res.resultStr);
+		    		// 跳转到个人信息页面(先验证手机号有无水机订单)
+		    		location.href = '{{:U("Home/Users/personalinformation")}}' + '?machineNo=' + res.resultStr;
 			    }
 			}
 		});

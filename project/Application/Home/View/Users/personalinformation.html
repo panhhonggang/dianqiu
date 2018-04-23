@@ -50,23 +50,29 @@
 		<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 		<script>
 			$(function(){
-				// 替换当前历史记录为首页， 防止后退再回到这里
-				history.replaceState({},null,'{{:U("Home/Index/index")}}');
+				// 扫描的设备编码
+				var machineNo = null;
+				var devicebind = null;
+				if(location.href.indexOf('?machineNo=') > -1){
+					machineNo = location.href.substr(location.href.indexOf('?machineNo=')+11);
+				}
 
-				var name = $('#name').val().replace(/^(\s)|(\s*)/g,''),
-					phone = $('#phone').val().replace(/^(\s)|(\s*)/g,''),
-					address = $('#address').val().replace(/^(\s)|(\s*)/g,'');
 				var nameReg, phoneReg, areaReg;
 				nameReg = /^[\u4e00-\u9fa5]{2,10}$/;
 				phoneReg = /^1((((3[0-35-9])|([5|8][0-9])|(4[5|7|9])|66|(7[3|5-8])|(9[8|9]))\d)|(34[0-8]))\d{7}$/;
 				areaReg = /^[\w\-\u4e00-\u9fa5]{8,255}$/;
 
+				var name = $('#name').val().replace(/^(\s)|(\s*)/g,''),
+					phone = $('#phone').val().replace(/^(\s)|(\s*)/g,''),
+					address = $('#address').val().replace(/^(\s)|(\s*)/g,'');
 				var save = document.getElementsByClassName('savediv');
-				save[0].ontouchend = function(){
+				save[0].onclick = function(){
 					saveFn();
 				}
 				// 点击保存
 				var saveFn = function(){
+
+					
 					if(!$('#name').val().replace(/^(\s)|(\s*)/g,'')){
 						layuiHint('请填写姓名！');
 						return
@@ -98,7 +104,16 @@
 						return
 						
 					}
-					if(name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
+					if(machineNo){		// 绑定设备
+						console.log(machineNo);
+						bindFn();
+						if(!devicebind){
+							// 绑定出错
+							return
+						}
+					}
+					console.log(name, address, phone);
+					if(name && phone && address && name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
 
 						layuiHint('你什么都没修改!');
 						setTimeout(function(){
@@ -107,12 +122,53 @@
 						return
 					}
 					layuiHint('保存成功！');
+					// 替换当前历史记录为首页， 防止后退再回到这里
+					history.replaceState({},null,'{{:U("Home/Users/mine")}}');
+					
+					//提交表单
 					setTimeout(function(){
 						$('#form').submit();
 					},500);
-					
 				}
 
+				function bindFn(){
+
+					// 查询设备是否存在
+					$.ajax({
+						url:"{{:U('Home/Devices/bind')}}",
+						type:"post",
+						data:{device_code:machineNo},
+						dataType:'json',
+						success:function(data){
+							console.log(data);
+							if(data==1){
+								devicebind = true;
+								layuiHint('绑定成功！');
+								
+								// 替换当前历史记录为首页， 防止后退再回到这里
+								history.replaceState({},null,'{{:U("Home/Index/index")}}');
+								setTimeout(function(){
+									location.href = '{{:U("Home/Users/mine")}}';
+								},500);
+							}else if(data == -1){
+								devicebind = null;
+								layuiHint('设备不存在！');
+							}else if(data == -2){
+								devicebind = null;
+								layuiHint('设备已被绑定！');
+							}else{
+								devicebind = null;
+								layuiHint('设备绑定失败！');
+							}
+
+						},
+						error:function(jqXHR, textStatus, errorThrown){
+							devicebind = null;
+							layuiHint("绑定失败");
+							//console.log(jqXHR.status);
+						}
+					});
+				}
 				// 提示框函数
 				function layuiHint(text){
 					layui.use('layer', function(){
