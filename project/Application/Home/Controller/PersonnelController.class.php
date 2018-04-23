@@ -114,6 +114,7 @@ class PersonnelController extends Controller
                 $vid = $status['data'];
             }
             $data = I('post.');
+            $data['dcode'] = trim($data['dcode']);
             $data['pid'] = $map['personnel_id'];
             $data['vid'] = $vid;
             $data['wid'] = $id;
@@ -163,8 +164,13 @@ class PersonnelController extends Controller
 //                        M('devices_statu')->where(['DeviceID'=>$data['dcode']])->save($statu);
                     }
 
+                    if(M('devices_statu')->where('DeviceID=.'.$device_status['DeviceID'])->find()) {
+                        M('devices_statu')->where('DeviceID=.'.$device_status['DeviceID'])->save($device_status);
+                    } else {
+                        M('devices_statu')->add($device_status);
+                    }
 
-                    M('devices_statu')->add($device_status);
+
                     M('devices')->where(['device_code'=>$data['dcode']])->save(['device_statu'=>2]);
                     $num = 1;
                     $co  = 1;
