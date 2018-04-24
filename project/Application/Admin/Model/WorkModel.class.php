@@ -16,7 +16,7 @@ class WorkModel extends Model
         array('number','require','工单号不能为空'),
         // array('number','unique','工单号已存在'),
         array('number','/^[\w-]{1,30}$/u','工单号格式不正确',0,'regex'),
-        array('name','require','处理人不能为空'),
+        array('personnel_id','require','处理人不能为空'),
         array('kname','require','客户不能为空'),
         array('phone','/^1[34578]\d{9}$/','电话号码格式不对',0,'regex'),
         array('kphone','/^1[34578]\d{9}$/','客户电话格式不对',0,'regex'),

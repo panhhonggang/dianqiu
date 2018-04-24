@@ -143,7 +143,6 @@ class WorkController extends CommonController
 
             I('kname') ? $data['kname'] = I('kname'):'';
             I('kphone') ? $data['kphone'] = I('kphone'):'';
-
             // dump(I('post.'));die;
             $device_type = D('work');
             
@@ -153,6 +152,10 @@ class WorkController extends CommonController
                 if($data['type'] == 1){
                     $status = ['status'=>2];
                     M('repair')->where('id='.$data['repair_id'])->save($status);
+                } else {
+                    if(empty($data['address']) || empty($data['city']) || empty($data['province']) || empty($data['district'])){
+                        $this->error('工单地址不能为空！');
+                    }
                 }
                 if($data['type'] == 0){
                     if($device_type->where(['device_code'=>$data['device_code']])->find()){
