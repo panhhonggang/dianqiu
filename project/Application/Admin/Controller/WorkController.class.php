@@ -154,6 +154,11 @@ class WorkController extends CommonController
                     $status = ['status'=>2];
                     M('repair')->where('id='.$data['repair_id'])->save($status);
                 }
+                if($data['type'] == 0){
+                    if($device_type->where(['device_code'=>$data['device_code']])->find()){
+                        $this->error('设备已经安装过了！');
+                    }
+                }
                 $res = $device_type->add($data);
                 if ($res) {
                     $this->success('工单添加成功啦！！！',U('work/index'));
