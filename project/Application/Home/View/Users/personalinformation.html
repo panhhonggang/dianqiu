@@ -52,7 +52,6 @@
 			$(function(){
 				// 扫描的设备编码
 				var machineNo = null;
-				var devicebind = null;
 				if(location.href.indexOf('?machineNo=') > -1){
 					machineNo = location.href.substr(location.href.indexOf('?machineNo=')+11);
 				}
@@ -106,32 +105,35 @@
 					}
 					if(machineNo){		// 绑定设备
 						console.log(machineNo);
-						bindFn();
-						if(!devicebind){
-							// 绑定出错
-							return
-						}
-					}
-					console.log(name, address, phone);
-					if(name && phone && address && name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
+						bindFn(function(res){
+							console.log(res.devicebind);
+							if(!res.devicebind){
+								// 绑定出错
+								return
+							}
+							console.log(name, address, phone);
+							if(name && phone && address && name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
 
-						layuiHint('你什么都没修改!');
-						setTimeout(function(){
-							location.href = '{{:U("Home/Users/mine")}}';
-						},500);
-						return
+								layuiHint('你什么都没修改!');
+								setTimeout(function(){
+									location.href = '{{:U("Home/Users/mine")}}';
+								},500);
+								return
+							}
+							layuiHint('保存成功！');
+							// 替换当前历史记录为首页， 防止后退再回到这里
+							history.replaceState({},null,'{{:U("Home/Users/mine")}}');
+							
+							//提交表单
+							setTimeout(function(){
+								$('#form').submit();
+							},500);
+						});
 					}
-					layuiHint('保存成功！');
-					// 替换当前历史记录为首页， 防止后退再回到这里
-					history.replaceState({},null,'{{:U("Home/Users/mine")}}');
 					
-					//提交表单
-					setTimeout(function(){
-						$('#form').submit();
-					},500);
 				}
 
-				function bindFn(){
+				function bindFn(callback){
 
 					// 查询设备是否存在
 					$.ajax({
@@ -142,23 +144,20 @@
 						success:function(data){
 							console.log(data);
 							if(data==1){
-								devicebind = true;
 								layuiHint('绑定成功！');
+								callback({devicebind: true});
 								
-								// 替换当前历史记录为首页， 防止后退再回到这里
-								history.replaceState({},null,'{{:U("Home/Index/index")}}');
-								setTimeout(function(){
-									location.href = '{{:U("Home/Users/mine")}}';
-								},500);
 							}else if(data == -1){
-								devicebind = null;
 								layuiHint('设备不存在！');
+								callback({devicebind: null});
+
 							}else if(data == -2){
-								devicebind = null;
 								layuiHint('设备已被绑定！');
+								callback({devicebind: null});
+								
 							}else{
-								devicebind = null;
 								layuiHint('设备绑定失败！');
+								callback({devicebind: null});
 							}
 
 						},
