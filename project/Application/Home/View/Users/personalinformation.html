@@ -129,6 +129,24 @@
 								$('#form').submit();
 							},500);
 						});
+					}else{
+						console.log(name, address, phone);
+						if(name && phone && address && name == $('#name').val().replace(/^(\s)|(\s*)/g,'') && phone == $('#phone').val().replace(/^(\s)|(\s*)/g,'') && address == $('#address').val().replace(/^(\s)|(\s*)/g,'')){
+
+							layuiHint('你什么都没修改!');
+							setTimeout(function(){
+								location.href = '{{:U("Home/Users/mine")}}';
+							},500);
+							return
+						}
+						layuiHint('保存成功！');
+						// 替换当前历史记录为首页， 防止后退再回到这里
+						history.replaceState({},null,'{{:U("Home/Users/mine")}}');
+						
+						//提交表单
+						setTimeout(function(){
+							$('#form').submit();
+						},500);
 					}
 					
 				}
