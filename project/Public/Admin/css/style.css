@@ -4,6 +4,12 @@
 	margin:0;
 	border: 0;
 }
+/*去除搜狗浏览器密码框自带软键盘*/
+input::-webkit-input-safebox-button{display:none;} 
+/*去除搜狗浏览器密码框自带软键盘*/
+#sogou_secure_inputs_container{
+    display: none;
+}
 html, body {
     font-family:'Open Sans',"微软雅黑","黑体";
     height: 100%;
