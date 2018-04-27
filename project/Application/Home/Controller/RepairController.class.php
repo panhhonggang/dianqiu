@@ -73,7 +73,7 @@ class RepairController extends CommonController
     }
 
     //下载图片
-    public function downloadPic($paths)
+    public function downloadPic($paths='')
     {
 
         $path_info = '/Pic/repair/'.date('Y-m-d',time());
@@ -83,7 +83,7 @@ class RepairController extends CommonController
 
         $dir =rtrim(THINK_PATH,"ThinkPHP/").'/Public'.$path_info;
         if(!is_dir($dir)){
-            mkdir($dir);
+            mkdir($dir,'0777',true);
         }
         $path_info = $path_info.'/'.$file;
 
