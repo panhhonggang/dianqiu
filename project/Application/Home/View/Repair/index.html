@@ -154,20 +154,20 @@
 					<p>联系方式</p>
 					<p>
 						<label for="name">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-						<!-- <input name="name" id="name" class="name" type="text" placeholder="请输入您的姓名"> -->
-                        <input name="name" id="name" class="name" type="text" value="{{$code['name']}}" placeholder="请输入您的姓名">
+						<input name="name" class="name" type="hidden" placeholder="">
+                        <input name="nam" id="name" type="text" value="{{$code['name']}}" placeholder="请输入您的姓名">
 
 					</p>
 					<p>
-						<label for="name">电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
-						<!-- <input name="phone" id="name" class="phone" type="text" placeholder="请输入手机号码"> -->
-                        <input name="phone" id="name" class="phone" type="text" value="{{$code['phone']}}" placeholder="请输入手机号码">
+						<label for="phone">电&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+						<input name="phone" class="phone" type="hidden" placeholder="">
+                        <input name="pho" id="phone" type="text" value="{{$code['phone']}}" placeholder="请输入手机号码">
 
 					</p>
 					<p>
-						<label for="name">维修地址：</label>
-						<!-- <input name="address" id="name" class="address" type="text" placeholder="请输入您的详细地址"> -->
-                    	<input name="address" id="name" class="address" type="text" value="{{$code['address']}}" placeholder="请输入您的详细地址">
+						<label for="address">维修地址：</label>
+						<input name="address" class="address" type="hidden" placeholder="">
+                    	<input name="addr" id="address" type="text" value="{{$code['address']}}" placeholder="请输入您的详细地址">
 
 					</p>
 					<p>	
@@ -281,7 +281,6 @@
 			        layer.msg(text);
 			    });  
 			}
-			var formData = new FormData($("#form")[0]);
 
 			$("#star").val('09:00:00');
 			var nowDate = new Date().getTime();
@@ -376,6 +375,9 @@
 			
 			// 点击‘提交’
 			$("#re-commit").click(function(){
+				$(".name").val($("#name").val());
+				$(".phone").val($("#phone").val());
+				$(".address").val($("#address").val());
 
 				if(!$("#chooseDate").val() || !$("#star").val() || !$("#end").val()){
 					layuiHint("请选择完整的服务时间！");
@@ -406,7 +408,6 @@
 					return
 
 				}
-
 				$("#form").submit();
 
 				// console.log($("#picShow").html())

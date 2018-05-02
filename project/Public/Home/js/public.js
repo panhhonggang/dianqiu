@@ -109,8 +109,9 @@ function fnTab_txt(oTab,oList,aNav,iW,classActive)
     }
 }
 
-
-
+// 去除搜狗浏览器密码框自带软键盘
+window.__sogou_secure_input ={};
+window.__sogou_secure_input.check = function() {};
 //设置软件盘弹出后优化页面布局
 function solveCompatible(obj){
     var oHeight = $(document).height(); //浏览器当前的高度
