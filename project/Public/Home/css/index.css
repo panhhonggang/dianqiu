@@ -111,6 +111,10 @@ html,body {
 	position: relative;
 	color: #004872;
 }
+#rawtdsVal>a,
+#puretdsVal>a {
+	color: #004872;
+}
 .dazi>span{
 	display: inline-block;
 	/*position: absolute;*/
