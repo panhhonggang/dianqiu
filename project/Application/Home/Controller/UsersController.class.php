@@ -113,7 +113,7 @@ class UsersController extends CommonController
                 ->alias('w')
                 ->where($map)
                 ->join('__PERSONNEL__ p ON w.personnel_id=p.id', 'LEFT')
-                ->field('w.*,p.name')
+                ->field('w.*,p.name,p.phone')
                 ->select();
             // dump($data);die;
             $this->ajaxReturn($data);
