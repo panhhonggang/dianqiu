@@ -53,6 +53,10 @@
 				// 扫描的设备编码
 				var machineNo = null;
 				if(location.href.indexOf('?machineNo=') > -1){
+					$('#name').val('');
+					$('#phone').val('');
+					$('#address').val('');
+					$('#address').text('');
 					machineNo = location.href.substr(location.href.indexOf('?machineNo=')+11);
 				}
 
