@@ -421,6 +421,12 @@ class ActionController extends Controller
 //        $status = M('devices_statu')->where("DeviceID='{$dcode}'")->find();
         $type = M('device_type')->where("id={$code['type_id']}")->find();
 
+        foreach ($type as $k=> $v) {
+            if(strstr($k,'filter') and !empty($v) ){
+                $sum[$k] = $v;
+            }
+        }
+        
         unset($type['id'], $type['typename'], $type['addtime']);
         $sum = array_filter($type);
         foreach ($sum as $key => $value) {
