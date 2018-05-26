@@ -16,16 +16,17 @@ class CommonController extends Controller
      * @author 吴智彬 <519002008@qq.com>
      */
     public function _initialize()
-    {	
-        
+    {
+
         // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
             // 实例化微信JSSDK对象
             $weixin      = new WeixinJssdk;
             // 获取用户open_id
             $openId      = $weixin->GetOpenid();
+            $openId   = 'oXwY4tygQ0kK3SCrYoK2pME_1b38';
             $openId_ifno = $weixin->getSignPackage();
-            // $openId   = 'oXwY4t-9clttAFWXjCcNRJrvch3w';
+
             // $openId   = 'oXwY4t_vkTgtlD0CBTZ-vTbIMWHs';
             $weixinInfo = [$openId,$openId_ifno];
             session('weixin',$weixinInfo);
