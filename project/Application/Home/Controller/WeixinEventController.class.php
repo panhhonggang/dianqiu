@@ -40,6 +40,9 @@ class WeixinEventController
                 // 调用填写微信信息的方法
                 $Wechat->add($data['FromUserName']);
                 
+                //回复图文消息，回复用户登录图文消息
+                $this->reactUser($data['FromUserName'],$data['ToUserName']);
+                
                 // file_put_contents('./add.txt', $xml);
                 exit;
             }
@@ -64,6 +67,32 @@ class WeixinEventController
                 exit;
             }
 		}
+	}
+
+    public function reactUser($toUser, $fromUser)
+    {
+        $title = '欢迎您的关注';
+        $description = '欢迎关注,立即体验';
+        $src = '';
+        $url = '';
+        $template = "<xml>
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <ArticleCount>1</ArticleCount>
+                        <Articles>
+                            <item>
+                                <Title><![CDATA[%s]]></Title> 
+                                <Description><![CDATA[%s]]></Description>
+                                <PicUrl><![CDATA[%s]]></PicUrl>
+                                <Url><![CDATA[%s]]></Url>
+                            </item>
+                        </Articles>
+                    </xml> ";
+
+        echo sprintf($template, $toUser, $fromUser, time(), 'news', $title, $description, $src, $url);
+        
 	}
 
     /**
