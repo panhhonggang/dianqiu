@@ -54,7 +54,6 @@ class Events
             $message['soure'] = 'WS';
         }
         $message['client_id'] = $client_id;
-        // var_dump($message);
         self::sendMsg($message);
     }
 
@@ -67,7 +66,7 @@ class Events
         {
             $message['soure'] = 'Close';
             $message['DeviceID'] = $_SESSION['DeviceID'];
-            $message['client_id'] = $client_id;
+
             self::sendMsg($message);
         }
     }
@@ -85,6 +84,7 @@ class Events
         curl_setopt($curlobj,CURLOPT_POST,1);
         curl_setopt($curlobj,CURLOPT_POSTFIELDS,$message);
         $res = curl_exec($curlobj);
+        // var_dump($res);
         // file_put_contents('/www/dianqiu/project/log/res.html',$res,FILE_APPEND);
         // file_put_contents('/www/dianqiu/project/log/message.html',var_export($message),FILE_APPEND);
     }

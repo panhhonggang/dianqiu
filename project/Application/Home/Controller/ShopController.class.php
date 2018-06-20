@@ -74,9 +74,10 @@ class ShopController extends CommonController
                 ->getfield('ds.alivestause');
 
             $devices_alivestause = isset($devices_alivestause)?$devices_alivestause:0;
+
             if ( $devices_alivestause!=0) {
                 $where['cd.did'] = $did;
-                $where['s.status'] = 0;
+                // $where['s.status'] = 0;
                 $setmeallist = M('Setmeal')
                 ->alias('s')
                 ->where($where)
@@ -87,7 +88,7 @@ class ShopController extends CommonController
             }else{
                 
                 $where['cd.did'] = $did;
-                $where['status'] = 1;
+                // $where['status'] = 0;
                 $setmeallist = M('Setmeal')
                 ->alias('s')
                 ->where($where)
@@ -96,6 +97,8 @@ class ShopController extends CommonController
                 ->field('cd.*,d.*,s.*')
                 ->select();
             }
+
+            // dump($where);exit;
         
             $Model = M('Filters');
             // 查询用户绑定设备使用的滤芯产品

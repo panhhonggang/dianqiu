@@ -8,6 +8,12 @@
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
+    <script src="__PUBLIC__/Home/js/vconsole.min.js"></script>
+    <script>
+        // var vconsole = new VConsole();
+		//websoket
+		var websoket = new WebSocket("ws://120.27.12.1:6001");
+    </script>
 	<style type="text/css">
 		.linkBox{
 			display: none !important;
@@ -54,13 +60,6 @@
 	</style>
 </head>
 <body>
-	<input type="hidden" value="{{$_SESSION['weixin'][1]['appId']}}" id="appId">
-	<input type="hidden" value="{{$_SESSION['weixin'][1]['nonceStr']}}" id="nonceStr">
-	<input type="hidden" value="{{$_SESSION['weixin'][1]['signature']}}" id="signature">
-	<input type="hidden" value="{{$_SESSION['weixin'][1]['timestamp']}}" id="timestamp">
-	<input type="hidden" class="status" value={{$status}} name=""><!--滤芯详情页面设置-->
-	<input type="hidden" class="res" value={{$res}} name=""><!--res数据-->
-	<input type="hidden" class="deviceInfo" value={{$deviceInfo}} name=""><!--设备状态数据-->
 	<div class="content">
 		<div class="top">
 			<div class="topcontent">
@@ -152,8 +151,9 @@
 	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
 	<!-- 微信JSSDK -->
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
-	<script src="__PUBLIC__/Home/js/wx_share.js"></script>	
+	<!-- <script src="__PUBLIC__/Home/js/wx_share.js"></script>	 -->
 	<script>
+
 
 	var pumpSpend = 260/60000;	//泵流速
 	// 获取窗口高度
@@ -180,19 +180,19 @@
 	//页面加载时执行
 	$(function(){
 		// 获取微信JSSDK所需的数据
-		var appId = $("#appId").val(),
-			nonceStr = $("#nonceStr").val(),
-			signature = $("#signature").val(),
-			timestamp = $("#timestamp").val();
+		var appId = "{{$_SESSION['weixin'][1]['appId']}}",
+			nonceStr = "{{$_SESSION['weixin'][1]['nonceStr']}}",
+			signature = "{{$_SESSION['weixin'][1]['signature']}}",
+			timestamp = "{{$_SESSION['weixin'][1]['timestamp']}}";
 
 		// 调用微信分享
 		//wxShare(appId,nonceStr,signature,timestamp);
 		// console.log(appId,nonceStr,signature,timestamp)
 		
 		//变量定义
-		var data = JSON.parse($(".status").val());
-		var res = JSON.parse($('.res').val());
-		var deviceInfo = JSON.parse($(".deviceInfo").val());
+		var data = JSON.parse({{$status|json_encode}});
+		var res = JSON.parse({{$res|json_encode}});
+		var deviceInfo = JSON.parse({{$deviceInfo|json_encode}});
 		var deviceId = data.deviceid;//设备id
 		sessionStorage.setItem("deviceId",deviceId);//设备编号设置本地存储
 		// var deviceId=162753445596778;//设备id
@@ -260,13 +260,12 @@
 			$(".textRight").html("<p id='alreadyUsedVal'><span>已用</span><b>"+(usednumberDay?usednumberDay:'0')+"天</b></p>");
 		}
 
-		//websoket
-		var websoket = new WebSocket("ws://120.27.12.1:6001");
 		var PackNum = 0;//包数据
 		var CmdList = [];//命令队列
 		var identify = 0;
 		var numAdd = 0;
 		websoket.onopen = function(){
+			console.log('发送登录包');
 			//包数据
 			ajson = {
 				"DeviceID":deviceId,
@@ -289,6 +288,7 @@
 		//实时接收数据
 		websoket.onmessage = function(data){
 			
+			console.log('登录成功');
 			numAdd = 0;
 			var dataList = JSON.parse(data.data);//读取websoket数据，转换为json对象
 			var leasingmode = dataList.LeasingMode;//租赁模式
@@ -471,6 +471,7 @@
 						// $("body").css({height:'100vh',filter:'grayscale(100%)'});
 
 					}
+					console.log('ajson: ',ajson);
 					//发送数据
 					websoket.send(JSON.stringify(ajson));
 					CmdList.push({

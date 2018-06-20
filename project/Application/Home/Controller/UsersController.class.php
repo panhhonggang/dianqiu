@@ -108,12 +108,16 @@ class UsersController extends CommonController
     {
         if(IS_POST){
             $work = M('work');
-            $map['w.device_code']  = M('devices')->where('id='.session('homeuser.did'))->getField('device_code');
-            $data = $work
+            $devices = M('devices')->where('uid='.session('homeuser.id'))->field('device_code')->select();
+            //print_r($devices);die;
+		foreach($devices as $v){
+			$res[] = $v['device_code'];
+		}
+		$data = $work
                 ->alias('w')
-                ->where($map)
+                ->where(['w.device_code'=>['in',$res]])
                 ->join('__PERSONNEL__ p ON w.personnel_id=p.id', 'LEFT')
-                ->field('w.*,p.name,p.phone')
+                ->field('w.*,p.name')
                 ->select();
             // dump($data);die;
             $this->ajaxReturn($data);

@@ -6,15 +6,13 @@ class IndexController extends CommonController
     public function index()
     {
     	$userInfo = $_SESSION['homeuser'];
-
-
     	if($userInfo){
 	        // 获取用户当前设备
 	        $did = $userInfo['did'];
             //show($did);die;
 	        if(empty($did)){
 	        	// 请先绑定设备
-	        	$this->success('请先绑定设备...', '/Home/Devices/manage');
+	        	$this->success('请先绑定设备...', 'Home/Devices/manage');
                 // exit;
 	        }else{
 	        	// 查询用户设备设备码
@@ -25,10 +23,7 @@ class IndexController extends CommonController
 	        	->find();
                 // 滤芯详情
                 $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
-
                 $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->find();
-
-
                 $type = M('device_type')->where("id={$code['type_id']}")->find();
                 unset($type['id'], $type['typename'], $type['addtime']);
                 $sum = array_filter($type);
@@ -44,6 +39,7 @@ class IndexController extends CommonController
                     'deviceInfo' => json_encode($deviceInfo),
 
                 );
+
                 // 分配数据到模板
                 $this->assign($assign);
             	// 显示模板
