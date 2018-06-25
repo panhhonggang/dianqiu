@@ -2,7 +2,6 @@
 namespace Home\Controller;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
-
 /**
  * 客户报修控制器
  * 
@@ -17,13 +16,14 @@ class RepairController extends CommonController
      */
     public function index()
     {	
+        
         $id = array('id' => $_SESSION['homeuser']['did']);
         $device_code = M('devices')->where($id)->find();
+     
         if (IS_POST) {
-            // 先处理图片
-            //$picpath = $this->upload();
+            // 先处理图片 
             $picpath = $this->downloadPic($_POST['pic']);
-
+            //处理微信图片
             if ($picpath) {
                 // 接收用户输入数据
                 $repair = D('repair');
@@ -41,7 +41,7 @@ class RepairController extends CommonController
                     'uid' => $_SESSION['homeuser']['id'],
                     'address' => I('address'),
                     'addtime' => time(),
-                    'picpath' => $picpath[0],
+                    'picpath' => $picpath,
                     'did' => $_SESSION['homeuser']['did']
                 );
                 // dump(I('post'));die;
@@ -57,25 +57,26 @@ class RepairController extends CommonController
                 $this->error('一不小心服务器偷懒了~');
             }
         }else{
-
+            // 查出该用户昵称和地址等信息显示在页面
             $weixin = new WeixinJssdk;
             $signPackage = $weixin->getSignPackage();
-
-            $this->assign('info',$signPackage);
-
-            // 查出该用户昵称和地址等信息显示在页面
+            
             $vid = M('binding')->where('did='.$_SESSION['homeuser']['did'])->field('vid')->find()['vid'];
             $phone=M('vendors')->where('id='.$vid)->field('phone,csphone')->find();
+        
+            $this->assign('info',$signPackage);
             $this->assign('code',$device_code);
             $this->assign('phone',$phone);
             $this->display();
         }
     }
 
+
+
     //下载图片
     public function downloadPic($paths='')
     {
-
+        // Log::write($paths,'图片上传');
         $path_info = '/Pic/repair/'.date('Y-m-d',time());
 
         $file=md5($paths).".jpg";
@@ -85,14 +86,16 @@ class RepairController extends CommonController
         if(!is_dir($dir)){
             mkdir($dir,0777,true);
         }
-        $path_info = $path_info.'/'.$file;
+        $path_info =  $path_info.'/'.$file;
 
-        $path = './Public'.$path_info;
+        $path = $dir .'/'.$file;
         
         $weixin = new WeixinJssdk;
         $ACCESS_TOKEN = $weixin->getAccessToken();
 
-        $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=$paths";
+        // Log::write($paths,'图片上传',$ACCESS_TOKEN);
+        $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=".$paths;
+
         // $url = "http://img.taopic.com/uploads/allimg/140729/240450-140HZP45790.jpg";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -100,8 +103,10 @@ class RepairController extends CommonController
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         $file = curl_exec($ch);
         curl_close($ch);
+        $resource = fopen($path, 'w');
+        // dump($path);
+        // dump(fwrite($resource, $file));
 
-        $resource = fopen($path, 'a');
         fwrite($resource, $file);
         fclose($resource);
         return $path_info;
@@ -131,6 +136,8 @@ class RepairController extends CommonController
             return $pic;
         }
     }
+
+
 
     
     

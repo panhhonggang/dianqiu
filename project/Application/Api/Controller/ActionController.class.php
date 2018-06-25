@@ -15,7 +15,19 @@ class ActionController extends Controller
 
     public function test()
     {
-        Common::action($_POST);
+
+        // $sdata['ReDay']     = 365;
+        // $this->updateData('5',$sdata);
+//
+//        $message['DeviceID'] = '868575025672249';
+//        $message['PackType'] = "SetData";
+//        $message['Vison']    = 0;
+//        $message['Reday']    = '226';
+////
+////        $this->get_filter_info('868575025659121');
+////
+       // $this->check_info(99);
+//        $this->sendMsg($message);
     }
 
     /**
@@ -30,6 +42,7 @@ class ActionController extends Controller
             $mes  = Gateway::getSession($client_id);
             $message['DeviceID']  = $mes['DeviceID'];
         }
+
         // 判断数据传输的对象
         if( $message['soure']=='Close')
         {
@@ -67,6 +80,8 @@ class ActionController extends Controller
 
             $message['DeviceID'] = $res['DeviceID'];
         }
+        Log::write(json_encode($message), '设备信息包');
+
         
         if($message['PackType'] == 'login'){
             Gateway::bindUid($client_id, $message['DeviceID']);
@@ -217,9 +232,16 @@ class ActionController extends Controller
 
             $DeviceID=trim($message['DeviceID']);
 
-            if ($message['PackNum'] == 6 || $message['PackNum'] == 5) {
+            if ($message['PackNum'] == 6) {
+                $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->save(['data_statu'=>0,'AliveStause'=>1]);
+            }
+
+
+            if ($message['PackNum'] == 5) {
                 $status_id = M('devices_statu')->where("DeviceID=" . $DeviceID)->save(['data_statu'=>0]);
             }
+
+
 
 //            $res = $this->check_msg($message);
 //            $data['data_statu'] = 0;
@@ -291,7 +313,7 @@ class ActionController extends Controller
         $data = M('devices_statu')->find($id);
         if (isset($data['data_statu']) && $data['data_statu'] > 0 ){
             $msg = $this->get_data($data);
-
+            // dump($msg);exit;
             if($msg) $this->sendMsg($msg);
 
             return false;
@@ -410,6 +432,11 @@ class ActionController extends Controller
     public function get_filter_info($dcode)
     {
         $code = M('devices')->where("device_code={$dcode}")->find();
+        if(empty($code['type_id'])){
+            Log::write($dcode, 'ERR : 滤芯信息错误');
+
+            return false;
+        }
 //        $status = M('devices_statu')->where("DeviceID='{$dcode}'")->find();
         $type = M('device_type')->where("id={$code['type_id']}")->find();
 
@@ -418,9 +445,6 @@ class ActionController extends Controller
                 $sum[$k] = $v;
             }
         }
-        
-        unset($type['id'], $type['typename'], $type['addtime']);
-        $sum = array_filter($type);
         foreach ($sum as $key => $value) {
             $str = stripos($value,'-');
             $map['filtername'] = substr($value, 0,$str);
@@ -429,50 +453,6 @@ class ActionController extends Controller
             $res[] = M('filters')->where($map)->field('timelife,flowlife')->find();
         }
         return $res;
-    }
-
-
-    /**
-     * 设备初始化  (待完善)
-     * @param  [type] $dcode [description]
-     * @return [type] [description]
-     *
-     * @Author 李振东 lzdong@foxmail.com 2018-04-02
-     */
-    public function devices_init($dcode,$data)
-    {
-        $message['DeviceID'] = $dcode;
-        $message['PackType'] = "SetData";
-        $message['Vison']    = 0;
-        $message['PackNum']  = 6;
-
-        $filter =  $this->get_filter_info($dcode);
-        foreach ($filter as $key =>$value) {
-            $i =$key+1;
-            $sdata[ 'ReFlowFilter'.$i]      =$value['flowlife'];
-            $sdata[ 'FlowLifeFilter'.$i]    =$value['flowlife'];
-
-            $sdata[ 'ReDayFilter'.$i]       =$value['timelife'];
-            $sdata[ 'DayLifeFiter'.$i]      =$value['timelife'];
-        }
-
-//        $sdata['ReDay']     = '3';
-        $sdata['SumDay']    = 0;
-        $sdata['AliveStause']=1;
-        $sdata['FilterMode']=0;
-        $sdata['LeasingMode']=2;
-        $sdata['data_statu']=2;
-
-        $message = array_merge($message,$sdata);
-
-        $id = M('devicesStatu')->where('DeviceID='.$dcode)->getField('id');
-        if(empty($id)) {
-            $sdata['DeviceID'] = $dcode;
-            M('devicesStatu')->add($sdata);
-        } else {
-            M('devicesStatu')->where('id='.$id)->save($sdata);
-        }
-        $this->sendMsg($message);
     }
 
 //    public function updateNetStase($DeviceID,$NetStause)

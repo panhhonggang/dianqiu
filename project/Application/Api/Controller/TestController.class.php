@@ -6,7 +6,6 @@ class TestController extends Controller
 {
     public function __construct()
     {
-        //原速腾 的项目  测试服务器
         global $redis;
         $redis = new \Redis();
         $redis->connect('127.0.0.1',6379);

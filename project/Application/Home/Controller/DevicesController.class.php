@@ -50,7 +50,6 @@ class DevicesController extends CommonController
             $uid = $_SESSION['homeuser']['id'];
             $device_code = I('post.device_code');
             $data['did'] = M('Devices')->where("`device_code`={$device_code}")->field('id')->find()['id'];
-            // $data['time'] = time();
             $res = M('currentDevices')->where("`uid`={$uid}")->save($data);
 
             if($res){
@@ -63,12 +62,6 @@ class DevicesController extends CommonController
         
     }
 
-    /*
-        设备绑定流程：
-            
-    
-    
-    */
     // 设备绑定
     public function bind()
     {
@@ -92,7 +85,6 @@ class DevicesController extends CommonController
             exit;
         }else{
             $data['updatetime'] = time();
-            $data['bindtime'] = time();
             // 绑定设备
             $res = M('Devices')->where("`device_code`={$device_code}")->save($data);
 
