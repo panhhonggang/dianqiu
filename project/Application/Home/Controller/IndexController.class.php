@@ -1,5 +1,7 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\Common;
+use Common\Tool\GatewayClient;
 use Think\Controller;
 class IndexController extends CommonController 
 {
@@ -78,5 +80,62 @@ class IndexController extends CommonController
         $this->assign($assign);
         // 显示模板
         $this->display();
+    }
+
+
+
+
+    // 新版 页面控制
+    public function bind()
+    {
+        try {
+            $post = I('post.');
+            if (empty($post['client_id']) || empty($post['deviceID']) ) {
+                E('数据不完整', 40001);
+            }
+
+            if(GatewayClient::bind($post['client_id'], $post['deviceID'])){
+                E('成功',200);
+            }else{
+                E('成功',40010);
+            }
+        } catch (\Exception $e) {
+            Common::toJson($e);
+        }
+    }
+
+    /**
+     * @param $post
+     *  参数 mode
+     *   1   //开机
+     *   2   //关机
+     *   3   //冲洗
+     *   4   //取消冲洗
+     *   5   //复位滤芯  "Pram":[1,2] 滤芯级数
+     *   6   //绑定设备
+     *   7   //解绑设备
+     *   8   //充值100天  "Pram":{"mode":2,”val”:100}
+     *   9   //充值100L   "Pram":{"mode":1,”val”:100}}
+     *   10  //租赁模式修改  'Pram' 0 买断模式  1 流量 2 时长 3 时长和流量
+     *   11  //滤芯模式修改  'Pram' 0 时长 1 流量 2 时长和流量
+     *
+     */
+    public static function action($post)
+    {
+        try {
+            $post = I('post.');
+
+
+
+            $res = GatewayClient::action(8, '1231212312312',['mode'=>2,'val'=>0]);
+
+            if($res){
+                E('成功',200);
+            }else{
+                E('成功',40010);
+            }
+        } catch (\Exception $e) {
+            Common::toJson($e);
+        }
     }
 }

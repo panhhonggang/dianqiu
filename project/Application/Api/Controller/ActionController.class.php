@@ -1,5 +1,6 @@
 <?php
 namespace Api\Controller;
+use Common\Tool\Common;
 use Think\Controller;
 use Think\Log;
 use Org\Util\Gateway;
@@ -14,16 +15,7 @@ class ActionController extends Controller
 
     public function test()
     {
-//
-//        $message['DeviceID'] = '868575025672249';
-//        $message['PackType'] = "SetData";
-//        $message['Vison']    = 0;
-//        $message['Reday']    = '226';
-////
-////        $this->get_filter_info('868575025659121');
-////
-//////        $this->check_info(94);
-//        $this->sendMsg($message);
+        Common::action($_POST);
     }
 
     /**
