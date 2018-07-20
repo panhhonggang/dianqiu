@@ -8,11 +8,9 @@
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css">
-    <script src="__PUBLIC__/Home/js/vconsole.min.js"></script>
+    <!-- <script src="__PUBLIC__/Home/js/vconsole.min.js"></script> -->
     <script>
         // var vconsole = new VConsole();
-		//websoket
-		var websoket = new WebSocket("ws://120.27.12.1:6001");
     </script>
 	<style type="text/css">
 		.linkBox{
@@ -264,6 +262,8 @@
 		var CmdList = [];//命令队列
 		var identify = 0;
 		var numAdd = 0;
+		//websoket
+		var websoket = new WebSocket("ws://120.27.12.1:6001");
 		websoket.onopen = function(){
 			console.log('发送登录包');
 			//包数据
